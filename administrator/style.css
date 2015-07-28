@@ -1,5 +1,6 @@
 body{
 	background-color: rgb(228, 228, 228);
+	font-family: Arial;
 
 }
 .container{
@@ -34,6 +35,7 @@ body{
 }
 .content table input{
 	height:30px;
+
 	padding: 3px;
 	border: 0;
 	background-color:rgba(255,255,255,0.5);
@@ -51,21 +53,18 @@ body{
 
 .content_add_cliente{
 	
-	position: relative;
-    top:-30px;
-    left: -10px;
-    width: 101%;
+    padding:20px;
     box-shadow: 0px 0px 10px #aaa;
 }
 
 .content_add_cliente table{
 	/*padding:20px;*/
-	margin: 0 auto;
-	margin-top: 50px;
-	text-align: center;
+	/*margin: 0 auto;*/
+	margin-top: 10px;
+
 }
 .content_add_cliente table td{
-	text-align: center;
+	/*text-align: center;*/
 	padding-top:10px;
 
 }
@@ -87,7 +86,9 @@ body{
 	background-color:rgba(255,255,255,1);
 	transition: all 0.5s;
 }
-
+#myPop{
+	display:none;
+}
 
 .menu{
   	background-color: rgba(0,0,0,0.6);
@@ -170,9 +171,18 @@ body{
   height: 0;
 }
 h2{
-	text-align:center;
+
 	padding-top: 10px;
 	font-size: 30;
 	font-family: times;
 	font-style: black;
+}
+.table_dados_pes{
+	float:left;
+	width:500px;
+
+}
+.content_add_cliente{
+	float: left;
+	margin-top: 20px;
 }

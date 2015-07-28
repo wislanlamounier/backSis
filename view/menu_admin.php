@@ -3,9 +3,9 @@
     <li>
       <a>Cadastrar</a>
        <ul class="sub-menu">
-        <li><a href="#myPop" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all">Cliente</a></li>
-        <li><a href="nada">abrir teste</a></li>
-        <li><a href="teste">Nova Janela de Exemplo</a></li>
+        <li><a href="add_cliente.php" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all">Cliente</a></li>
+        <li><a href="#">abrir teste</a></li>
+        <li><a href="#">Nova Janela de Exemplo</a></li>
         <li><a href="add_turno.php">Turno</a></li>
         <li><a href="add_cbo.php">CBO</a></li>
         <li><a href="add_exames.php">Exames</a></li>
