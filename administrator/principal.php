@@ -14,9 +14,6 @@ include("restrito.php");
  <body> 
  		
  		<?php include_once("../view/topo.php"); ?>
- 		<!-- <div>
- 			<a href="#myPop" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all">Show Popup</a>
- 		</div> -->
  		<div data-role="popup" id="myPop">
       		<?php include_once("add_cliente.php"); ?>
     	</div>

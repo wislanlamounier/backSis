@@ -1,7 +1,7 @@
 
 <div class="topo" class="content_menu">
  				
-	<h2>LOGO +<a href="../administrator/principal.php"> Menu Principal</a></h2>
+	<img src="../images/logo75mm.png">
 	
 	<div class="menu">
          <?php include_once("../view/menu_admin.php"); ?>

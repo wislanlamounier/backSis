@@ -49,8 +49,6 @@ body{
 	cursor: pointer;
 }
 
-
-
 .content_add_cliente{
 	
 	position: relative;
@@ -90,84 +88,11 @@ body{
 	transition: all 0.5s;
 }
 
-/*CSS MENU DE TODAS AS PAGINAS*/
-
-/*.content_menu{
-	background-color: rgba(300,133,102, 0.7);
-    position: relative;
-    top:-30px;
-    left: -10px;
-    width: 101%;
-}
-.content_menu ul {
-	position: relative;
-	left: 0px;
-    border-style: solid;
-
- 	
-}*/
-
-
-/*.content_menu ul li {
-	position: relative;
-	left: -30px;
-	display: inline-block;
-	font-size: 13px;
-	color: black;
-	text-decoration: none;
-	text-transform: uppercase;
-	text-align: center;
-	padding: 10px 30px 9px;
-	border-right: 1px solid;
-	
-    
-	
-}
-
-.content_menu ul li a {
-
-    color:rgb(255,255,255,0.5);
-
-}
-   
-}
-
-.content_menu ul li a:hover {
-	padding: 10px 30px 9px;
-	background-color: rgba(255,255,255,0.5);
-}
-
-.content_menu a {
-
-	color:  black;
- 	text-decoration: none;
-}
-
-.content_menu a:hover{
-
-	padding: 10px 30px 9px;
-    box-shadow: 0px 0px 10px #565656;
-	background-color:rgba(255,255,255,1);
-	transition: all 0.5s;
-	
-}
-
-.sub_menu{
-	list-style: none;
-
-}
-
-.sub_menu li{
-	float: left;
-  	position: relative;
-}
-
-*/
 
 .menu{
-  background-color:rgba(255,255,255,0.5);
-  box-shadow: 0px 0px 10px #aaa;
-	border-radius:3px; 
+  	background-color: rgba(0,0,0,0.6);
+  	box-shadow: 0px 0px 10px #aaa;
+	border-radius:2px; 
 }
 .menu .menu-list{
   list-style: none;
@@ -191,7 +116,7 @@ body{
 }
 /* Configura todos os links do nosso menu */
 .menu a{
-  color: #333;
+  color: #eee;
   text-decoration: none;
   display: block;
   cursor: pointer;
@@ -209,7 +134,7 @@ body{
 
 /* Configura o fundo do menu principal quando com mouse hover */
 .menu > .menu-list > li:hover a {
-  background: #444;
+  background: #222;
   color:#eee;
 }
 /* Mostra o submenu no evento de mouse hover */
