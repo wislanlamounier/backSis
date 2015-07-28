@@ -1,0 +1,253 @@
+body{
+	background-color: rgb(228, 228, 228);
+
+}
+.container{
+	background-color:#FAEBD7;
+	width: 80%;
+	height: 80%;
+	margin: 0 auto;
+}
+.content{
+
+	padding: 10px;
+    background-color: rgba(200,133,102, 0.7);
+    width: 600px;
+    height: 400px; 
+    margin: 0 auto;
+    margin-top: 7%;
+    box-shadow: 0px 0px 10px #565656;
+    border: 5px solid#fff;
+    border-radius:5px;
+    text-transform: uppercase;
+}
+
+.content table{
+	/*padding:20px;*/
+	margin: 0 auto;
+	margin-top: 50px;
+	text-align: center;
+}
+.content table td{
+	text-align: center;
+	padding-top:10px;
+}
+.content table input{
+	height:30px;
+	padding: 3px;
+	border: 0;
+	background-color:rgba(255,255,255,0.5);
+}
+.content table input:hover{
+	box-shadow: 0px 0px 10px #565656;
+	background-color:rgba(255,255,255,1);
+	transition: all 0.5s;
+}
+.botao_submit{
+	width: 50px;
+	border-radius:5px;
+	cursor: pointer;
+}
+
+
+
+.content_add_cliente{
+	
+	position: relative;
+    top:-30px;
+    left: -10px;
+    width: 101%;
+    box-shadow: 0px 0px 10px #aaa;
+}
+
+.content_add_cliente table{
+	/*padding:20px;*/
+	margin: 0 auto;
+	margin-top: 50px;
+	text-align: center;
+}
+.content_add_cliente table td{
+	text-align: center;
+	padding-top:10px;
+
+}
+.content_add_cliente table input{
+	height:30px;
+	padding: 3px;
+	border: 0;
+	background-color:rgba(255,255,255,0.5);
+}
+
+.content_add_cliente table input:hover{
+	box-shadow: 0px 0px 10px #565656;
+	background-color:rgba(255,255,255,1);
+	transition: all 0.5s;
+}
+
+.content_add_cliente textarea:hover{
+	box-shadow: 0px 0px 10px #565656;
+	background-color:rgba(255,255,255,1);
+	transition: all 0.5s;
+}
+
+/*CSS MENU DE TODAS AS PAGINAS*/
+
+/*.content_menu{
+	background-color: rgba(300,133,102, 0.7);
+    position: relative;
+    top:-30px;
+    left: -10px;
+    width: 101%;
+}
+.content_menu ul {
+	position: relative;
+	left: 0px;
+    border-style: solid;
+
+ 	
+}*/
+
+
+/*.content_menu ul li {
+	position: relative;
+	left: -30px;
+	display: inline-block;
+	font-size: 13px;
+	color: black;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-align: center;
+	padding: 10px 30px 9px;
+	border-right: 1px solid;
+	
+    
+	
+}
+
+.content_menu ul li a {
+
+    color:rgb(255,255,255,0.5);
+
+}
+   
+}
+
+.content_menu ul li a:hover {
+	padding: 10px 30px 9px;
+	background-color: rgba(255,255,255,0.5);
+}
+
+.content_menu a {
+
+	color:  black;
+ 	text-decoration: none;
+}
+
+.content_menu a:hover{
+
+	padding: 10px 30px 9px;
+    box-shadow: 0px 0px 10px #565656;
+	background-color:rgba(255,255,255,1);
+	transition: all 0.5s;
+	
+}
+
+.sub_menu{
+	list-style: none;
+
+}
+
+.sub_menu li{
+	float: left;
+  	position: relative;
+}
+
+*/
+
+.menu{
+  background-color:rgba(255,255,255,0.5);
+  box-shadow: 0px 0px 10px #aaa;
+	border-radius:3px; 
+}
+.menu .menu-list{
+  list-style: none;
+}
+
+.menu > .menu-list > li{
+  float: left;
+  position: relative;
+}
+.menu > .menu-list > li > a {
+  padding: 10px;
+  
+}
+.menu > .menu-list > li:hover a {
+  /*background-color:rgba(200,200,200,0.5);*/
+}
+
+/* Remove as bolinhas do lado das listas */
+.menu .menu-list, .menu .sub-menu{
+  list-style: none;
+}
+/* Configura todos os links do nosso menu */
+.menu a{
+  color: #333;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  /*letter-spacing:0.2em;*/
+}
+/* Faz os <li>s ficarem na horizontal */
+.menu > .menu-list > li{
+  float: left;
+  position: relative;
+}
+/* Configura os links do menu principal */
+
+/* Configura o fundo do menu principal quando com mouse hover */
+.menu > .menu-list > li:hover a {
+  background: #444;
+  color:#eee;
+}
+/* Mostra o submenu no evento de mouse hover */
+.menu > .menu-list > li:hover > .sub-menu {
+  display: block;
+
+}
+/* Configura o estilo do submenu */
+.menu > .menu-list > li > .sub-menu {
+  position: absolute;
+  margin-left: -40px;
+  /*background-color:rgba(255,255,255,0.5);*/
+  min-width: 200px;
+  z-index: 1000;
+  display: none;
+}
+/* Configura os links do submenu */
+.menu > .menu-list > li > .sub-menu > li > a {
+	padding: 10px 20px;
+}
+.menu > .menu-list > li > .sub-menu > li > a:hover {
+	background-color: #333;
+	transition: all 0.3s;
+}
+
+/* Clearfix para o menu */
+.menu:after {
+  content: '.';
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+h2{
+	text-align:center;
+	padding-top: 10px;
+	font-size: 30;
+	font-family: times;
+	font-style: black;
+}
