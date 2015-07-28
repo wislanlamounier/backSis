@@ -22,12 +22,6 @@
     </li>
     <li><a href="define_relatorio.php">Relatórios</a></li>
     <li><a href="configuracoes.php">Configurações</a></li>
-    <li><?php
-        echo '<a href="?logout=sim">SAIR</a>';
-        if($_GET["logout"]=="sim"){
-          session_destroy();
-          header("login_form.php");
-        }
-       ?>
+    <li><a href="#">Sair</a></li>
 </ul>
 

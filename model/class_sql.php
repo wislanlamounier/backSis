@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 class Sql{
 	public function conn_bd(){
-		$conn = mysql_connect("localhost","root","j3540771") or print(mysql_error());
+		$conn = mysql_connect("localhost","root","") or print(mysql_error());
 		mysql_select_db("bd_viacampus");
 		mysql_query("SET NAMES 'utf8'");
 		mysql_query('SET character_set_connection=utf8');
