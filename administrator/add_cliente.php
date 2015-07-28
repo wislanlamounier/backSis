@@ -6,13 +6,11 @@ require_once("../model/class_endereco_bd.php");
 require_once("../model/class_estado_bd.php");
 require_once("../model/class_cidade_bd.php");
 
-
  ?>
 
 <html>
 <head>
 	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-	 <link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 

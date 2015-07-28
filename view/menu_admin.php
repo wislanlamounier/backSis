@@ -3,7 +3,7 @@
     <li>
       <a>Cadastrar</a>
        <ul class="sub-menu">
-        <li><a href="#myPop" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all">Cliente</a></li>
+        <li><a href="#myPop" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Cliente</a></li>
         <li><a href="nada">abrir teste</a></li>
         <li><a href="teste">Nova Janela de Exemplo</a></li>
         <li><a href="add_turno.php">Turno</a></li>
