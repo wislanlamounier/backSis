@@ -459,124 +459,124 @@ require_once("../model/class_cidade_bd.php");
 <body>
 	<?php include_once("../view/topo.php"); ?>
 	<div id="content">
-		
-	<div class='content_add_cliente' id="formulario">
-		<form form method="POST" id="add_cliente" action="index.php" onsubmit="return valida(this)">
-					<table id="table_dados_pes" class="table_dados_pes" border="0" >
-					 <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
-					 <tr> <td ><span>Tipo:</span></td> <td> 	
-					 <input type="radio" onclick="tipo_form()" id="pessoa_fisica" name="tipo" value="0">Pessoa Física							
-					 <input type="radio" onclick="tipo_form()" id="pessoa_juridica" name="tipo" checked value="1">Pessoa Juridica
-					 <br><br></td></tr>
-					 <tr> <td ><div id="razao_nome">Razão Social:</div></td><td><input type="text" id="nome" name="nome" ></td></tr>
-			         <tr> <td ><div id="data_fun_data_nasc">Data Fundação:</div></td> <td><input type="date" id="data_nasc" name="data_nasc" ></td></tr>
-			         <tr> <td ><div id="cnpj_cpf">CNPJ:</div></td><td><input type="text" id="cnpj" name="cnpj" ><input type="hidden" id="cpf" name="cpf"  ></td></tr> 
-			         <tr> <td ><span>Celular:</span></td> <td><input type="text" id="cel" name="cel" ></td></tr> 
-			         <tr> <td ><span>Telefone:</span></td> <td><input type="text" id="tel" name="tel" ></td></tr>			                    
-			         <tr> <td ><div id="inscricao_estadual_rg">Inscrição Estadual:</div></td> <td><input type="number" id="inscricao_estadual" name="inscricao_estadual" > <input type="hidden" id="rg" name="rg"  ></td></tr>			                     
-			         <tr> <td ><div id="inscricao_municipal_nulo">Inscrição Municipal:</div></td> <td><input type="number" id="inscricao_municipal" name="inscricao_municipal" ></td></tr></div>        
-	                    <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
-	                    <tr> <td ><span>Bairro:</span></td> <td><input type="text" id="bairro" name="bairro" ></td></tr> 
-	                    <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua" ></td></tr> 
-	                    <tr> <td ><span>Numero:</span></td> <td><input type="number" id="numero" name="numero" ></td></tr>
-	                    <tr> <td ><span>UF:</span></td> 
-	                    	<td>
-	                    		<select id="estado" name="estado" onchange="buscar_cidades()">
-	                    			<option>Selecione o Estado</option>
-	                    			<?php 
-	                    				 $estado = new Estado();
-	                    				 $estado = $estado->get_name_all_uf();
-	                    				 for( $aux = 0; $aux < count($estado) ; $aux++){
-	                    				 	echo '<option value="'.$estado[$aux][0].'">'.$estado[$aux][1].'</option>';
-	                    				 }
+			<div class='formulario' id="formulario">
+				<form form method="POST" id="add_cliente" action="index.php" onsubmit="return valida(this)">
+						<table id="table_dados_pes" class="table_dados_pes" border="0" >
+							 <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
+							 <tr> <td ><span>Tipo:</span></td> <td> 	
+							 <input type="radio" onclick="tipo_form()" id="pessoa_fisica" name="tipo" value="0">Pessoa Física							
+							 <input type="radio" onclick="tipo_form()" id="pessoa_juridica" name="tipo" checked value="1">Pessoa Juridica
+							 <br><br></td></tr>
+							 <tr> <td ><div id="razao_nome">Razão Social:</div></td><td><input type="text" id="nome" name="nome" ></td></tr>
+					         <tr> <td ><div id="data_fun_data_nasc">Data Fundação:</div></td> <td><input type="date" id="data_nasc" name="data_nasc" ></td></tr>
+					         <tr> <td ><div id="cnpj_cpf">CNPJ:</div></td><td><input type="text" id="cnpj" name="cnpj" ><input type="hidden" id="cpf" name="cpf"  ></td></tr> 
+					         <tr> <td ><span>Celular:</span></td> <td><input type="text" id="cel" name="cel" ></td></tr> 
+					         <tr> <td ><span>Telefone:</span></td> <td><input type="text" id="tel" name="tel" ></td></tr>			                    
+					         <tr> <td ><div id="inscricao_estadual_rg">Inscrição Estadual:</div></td> <td><input type="number" id="inscricao_estadual" name="inscricao_estadual" > <input type="hidden" id="rg" name="rg"  ></td></tr>			                     
+					         <tr> <td ><div id="inscricao_municipal_nulo">Inscrição Municipal:</div></td> <td><input type="number" id="inscricao_municipal" name="inscricao_municipal" ></td></tr></div>        
+			                    <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
+			                    <tr> <td ><span>Bairro:</span></td> <td><input type="text" id="bairro" name="bairro" ></td></tr> 
+			                    <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua" ></td></tr> 
+			                    <tr> <td ><span>Numero:</span></td> <td><input type="number" id="numero" name="numero" ></td></tr>
+			                    <tr> <td ><span>UF:</span></td> 
+			                    	<td>
+			                    		<select id="estado" name="estado" onchange="buscar_cidades()">
+			                    			<option>Selecione o Estado</option>
+			                    			<?php 
+			                    				 $estado = new Estado();
+			                    				 $estado = $estado->get_name_all_uf();
+			                    				 for( $aux = 0; $aux < count($estado) ; $aux++){
+			                    				 	echo '<option value="'.$estado[$aux][0].'">'.$estado[$aux][1].'</option>';
+			                    				 }
 
-	                    			?>
-	                    		</select>
-	                    	</td>
-	                    </tr> 
-	                    <tr> 
-	                    	<td><span>Cidade:</span></td>
-	                    	<td>
-	                    		<div id="load_cidades">
-	                            <select name="cidade" id="cidade">
-	                              <option value="">Selecione UF</option>
-	                            </select>
-	                          </div>
-	                    	</td>
-	                    </tr>                     
-	                    <tr> <td ><span>CEP:</span></td> <td><input type="number" id="cep" name="cep" ></td></tr> 
-	                    <tr> <td ><span>Site:</span></td> <td><input type="text" id="site" name="site" ></td></tr>
-	                    <tr><td colspan="2"><span><b>Responsável</b></span></td></tr>
-	                    <tr> <td ><span>Nome:</span></td> <td><input type="text" id="nome_resp" name="nome_resp" ></td></tr> 
-	                    <tr> <td ><span>CPF:</span></td> <td><input type="text" id="cpf_resp" name="cpf_resp" ></td></tr> 
-	                    <tr> <td ><span>Data Nascimento:</span></td> <td><input type="date" id="datanasc_resp" name="datanasc_resp" ></td></tr> 
-	                    <tr> <td ><span>E-mail:</span></td> <td><input type="text" id="email_resp" name="email_resp" ></td></tr>                     
-	                    <tr><td colspan="2"><span><b>Observação</b></span></td></tr>                     
-	                    <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao" ></textarea></div> </td></tr>                     
-	                    <tr><td colspan="2"><input class="botao_submit" type="submit" value="Enviar" ></td></tr> 
+			                    			?>
+			                    		</select>
+			                    	</td>
+			                    </tr> 
+			                    <tr> 
+			                    	<td><span>Cidade:</span></td>
+			                    	<td>
+			                    		<div id="load_cidades">
+			                            <select name="cidade" id="cidade">
+			                              <option value="">Selecione UF</option>
+			                            </select>
+			                          </div>
+			                    	</td>
+			                    </tr>                     
+			                    <tr> <td ><span>CEP:</span></td> <td><input type="number" id="cep" name="cep" ></td></tr> 
+			                    <tr> <td ><span>Site:</span></td> <td><input type="text" id="site" name="site" ></td></tr>
+			                    <tr><td colspan="2"><span><b>Responsável</b></span></td></tr>
+			                    <tr> <td ><span>Nome:</span></td> <td><input type="text" id="nome_resp" name="nome_resp" ></td></tr> 
+			                    <tr> <td ><span>CPF:</span></td> <td><input type="text" id="cpf_resp" name="cpf_resp" ></td></tr> 
+			                    <tr> <td ><span>Data Nascimento:</span></td> <td><input type="date" id="datanasc_resp" name="datanasc_resp" ></td></tr> 
+			                    <tr> <td ><span>E-mail:</span></td> <td><input type="text" id="email_resp" name="email_resp" ></td></tr>                     
+			                    <tr><td colspan="2"><span><b>Observação</b></span></td></tr>                     
+			                    <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao" ></textarea></div> </td></tr>                     
+			                    <tr><td colspan="2"><input class="botao_submit" type="submit" value="Enviar" ></td></tr> 
 
-			</table>
-		</form>
-	
-		
-	<?php
+						</table>
+				</form>
+			
+				
+				<?php
 
-	if(validade())
-	{
+				if(validade())
+				{
 
-		//recebendo cliente
-		//dados com logica
-		if($_POST['cpf'] != ""){
-			$cpf_cnpj = $_POST['cpf'];	
-		}
-		if($_POST['cnpj'] != ""){		
-			$cpf_cnpj = $_POST['cnpj'];
-		}
+					//recebendo cliente
+					//dados com logica
+					if($_POST['cpf'] != ""){
+						$cpf_cnpj = $_POST['cpf'];	
+					}
+					if($_POST['cnpj'] != ""){		
+						$cpf_cnpj = $_POST['cnpj'];
+					}
 
-		//dados sem logica
-		$cliente = new Cliente();
-		$nome_razao_soc = $_POST['nome'];
-		$data_nasc_data_fund = $_POST['data_nasc'];	
-		//$cpf_cnpj = $_POST['cnpj'];	
-		$telefone_cel = $_POST['cel'];
-		$telefone_com = $_POST['tel'];
-		$tipo = $_POST['tipo'];
-		$rg = $_POST['rg'];
-		$inscricao_estadual = $_POST['inscricao_estadual'];
-		$inscricao_municipal = $_POST['inscricao_municipal'];
-		$responsavel = $_POST['nome_resp'];
-		$cpf_responsavel = $_POST['cpf_resp'];
-		$data_nasc_resp = $_POST['datanasc_resp'];
-		$email_resp = $_POST['email_resp'];
-		$site = $_POST['site'];
-		$observacao = $_POST['observacao'];
-
+					//dados sem logica
+					$cliente = new Cliente();
+					$nome_razao_soc = $_POST['nome'];
+					$data_nasc_data_fund = $_POST['data_nasc'];	
+					//$cpf_cnpj = $_POST['cnpj'];	
+					$telefone_cel = $_POST['cel'];
+					$telefone_com = $_POST['tel'];
+					$tipo = $_POST['tipo'];
+					$rg = $_POST['rg'];
+					$inscricao_estadual = $_POST['inscricao_estadual'];
+					$inscricao_municipal = $_POST['inscricao_municipal'];
+					$responsavel = $_POST['nome_resp'];
+					$cpf_responsavel = $_POST['cpf_resp'];
+					$data_nasc_resp = $_POST['datanasc_resp'];
+					$email_resp = $_POST['email_resp'];
+					$site = $_POST['site'];
+					$observacao = $_POST['observacao'];
 
 
-		//recebendo endereco
-		$endereco = new Endereco();
-		$bairro = $_POST['bairro'];
-		$rua = $_POST['rua'];
-		$numero = $_POST['numero'];
-		$cidade_id = $_POST['cidade'];
 
-		$cep = $_POST['cep'];	
-		$endereco->add_Endereco($bairro, $rua, $numero, $cidade_id, $cep);	
-		$id_endereco = $endereco->add_endereco_bd();
+					//recebendo endereco
+					$endereco = new Endereco();
+					$bairro = $_POST['bairro'];
+					$rua = $_POST['rua'];
+					$numero = $_POST['numero'];
+					$cidade_id = $_POST['cidade'];
 
-		
+					$cep = $_POST['cep'];	
+					$endereco->add_Endereco($bairro, $rua, $numero, $cidade_id, $cep);	
+					$id_endereco = $endereco->add_endereco_bd();
+
+					
 
 
-		$cliente->add_cliente($nome_razao_soc, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $id_endereco, $tipo, $rg, $inscricao_estadual, $inscricao_municipal, $responsavel, $cpf_responsavel, $data_nasc_resp, $email_resp, $site, $observacao);
-		
-		if($cliente->add_cliente_bd()){
-			echo "Sucesso";
-		}else{
-			echo "falha";
-		}
-	}
+					$cliente->add_cliente($nome_razao_soc, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $id_endereco, $tipo, $rg, $inscricao_estadual, $inscricao_municipal, $responsavel, $cpf_responsavel, $data_nasc_resp, $email_resp, $site, $observacao);
+					
+					if($cliente->add_cliente_bd()){
+						echo "Sucesso";
+					}else{
+						echo "falha";
+					}
+				}
 
-	?>
+				?>
+			</div>
 	 </div>
 </body>
 </html>

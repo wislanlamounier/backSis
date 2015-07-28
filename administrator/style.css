@@ -51,37 +51,37 @@ body{
 	cursor: pointer;
 }
 
-.content_add_cliente{
+.formulario{
 	
     padding:20px;
     box-shadow: 0px 0px 10px #aaa;
 }
 
-.content_add_cliente table{
+.formulario table{
 	/*padding:20px;*/
 	/*margin: 0 auto;*/
 	margin-top: 10px;
 
 }
-.content_add_cliente table td{
+.formulario table td{
 	/*text-align: center;*/
 	padding-top:10px;
 
 }
-.content_add_cliente table input{
+.formulario table input{
 	height:30px;
 	padding: 3px;
 	border: 0;
 	background-color:rgba(255,255,255,0.5);
 }
 
-.content_add_cliente table input:hover{
+.formulario table input:hover{
 	box-shadow: 0px 0px 10px #565656;
 	background-color:rgba(255,255,255,1);
 	transition: all 0.5s;
 }
 
-.content_add_cliente textarea:hover{
+.formulario textarea:hover{
 	box-shadow: 0px 0px 10px #565656;
 	background-color:rgba(255,255,255,1);
 	transition: all 0.5s;
@@ -182,7 +182,7 @@ h2{
 	width:500px;
 
 }
-.content_add_cliente{
+.formulario{
 	float: left;
 	margin-top: 20px;
 }
