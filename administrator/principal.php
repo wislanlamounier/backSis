@@ -1,5 +1,6 @@
 <?php 
 include("restrito.php");
+
  ?>
  <html>
  <head>
@@ -11,6 +12,7 @@ include("restrito.php");
  	<link rel="stylesheet" type="text/css" href="style.css">
  </head>
  <body> 
+ 		alteração teste
  		<?php include_once("../view/topo.php"); ?>
  		<!-- <div>
  			<a href="#myPop" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all">Show Popup</a>
