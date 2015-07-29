@@ -1,5 +1,16 @@
-<?php 
+<?php
+
 include("restrito.php"); 
+
+
+// 0 = Acesso Total
+// 1 = Acesso ViaCampos
+// 2 = Acesso ControlPonto
+
+
+// if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 1){
+
+// }
 
 require_once("../model/class_cliente.php");
 require_once("../model/class_endereco_bd.php");
