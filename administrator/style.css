@@ -159,6 +159,9 @@ h2{
     padding:20px;
     box-shadow: 0px 0px 10px #aaa;
 }
+.title{
+	font-size:20px;
+}
 
 .formulario table{
 	/*padding:20px;*/

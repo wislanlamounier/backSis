@@ -500,7 +500,7 @@ function formata_salario($salario){
             <?php include_once("../view/topo.php"); ?>
             <div class='formulario'>
               
-               <span><b>CADASTRO DE FUNCIONÁRIOS</b></span>
+               <span class="title"><b>CADASTRO DE FUNCIONÁRIOS</b></span>
                <form method="POST" id="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
                   <table border="0">
                      <tr>
@@ -678,7 +678,7 @@ function formata_salario($salario){
                        $id_cidade = $_POST['cidade'];
                        $bairro = $_POST['bairro'];
                        $cep = $_POST['cep'];
-
+                       $is_admin = 0;
                        $end->add_endereco($rua, $numero, $id_cidade, $bairro, $cep);
                        
                        $id_endereco = $end->add_endereco_bd();
@@ -718,7 +718,7 @@ function formata_salario($salario){
                        $id_supervisor = $_POST['superv'];
 
                        $id_cbo = $_POST['cbo'];
-                       $is_admin = ($_POST['is_admin'])?1:0;
+                       $is_admin = $_POST['is_admin']?1:0;
 
                        $func->add_func($nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor);
                        // echo $func->printFunc();
