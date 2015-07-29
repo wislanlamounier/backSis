@@ -80,6 +80,8 @@ function formata_salario($salario){
    <link rel="stylesheet" type="text/css" href="style.css">
    <script src="../javascript/jquery.maskMoney.js" type="text/javascript"></script>
    <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
+   <link href='http://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet' type='text/css'>
  
 </head>
 
@@ -495,7 +497,7 @@ function formata_salario($salario){
 
 </script>
 <body>
-      <div class="formulario">
+      
             <?php include_once("../view/topo.php"); ?>
             <div class='formulario'>
               
@@ -732,6 +734,6 @@ function formata_salario($salario){
             </div>
          
       
-   </div>
+   
 </body>
 </html>

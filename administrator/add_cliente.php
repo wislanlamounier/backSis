@@ -1,5 +1,4 @@
 <?php
-
 include("restrito.php"); 
 
 
@@ -473,9 +472,9 @@ require_once("../model/class_cidade_bd.php");
 </script>
 <body>
 	
-	<div id="content">
-		<?php include_once("../view/topo.php"); ?>
-			<div class='formulario' id="formulario">
+	
+			<?php include_once("../view/topo.php"); ?>
+			<div class='formulario'>
 				<form form method="POST" id="add_cliente" action="add_cliente.php" onsubmit="return valida(this)">
 						<table id="table_dados_pes" class="table_dados_pes" border="0" >
 							 <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
@@ -594,6 +593,6 @@ require_once("../model/class_cidade_bd.php");
 
 				?>
 			</div>
-	 </div>
+	 
 </body>
 </html>
