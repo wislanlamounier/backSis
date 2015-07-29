@@ -60,7 +60,27 @@ class Cliente {
 		}else{
 			return false;
 		} 
-		
+	}
+	public function get_cli_by_name($name){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$aux=0;
+		$query = "SELECT * FROM clientes WHERE nome_razao_soc LIKE '%%%s%%' && tipo = 0";
+		$query_tra = $g->tratar_query($query, $name);
+
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['nome_razao_soc'];
+			$aux++;
+		}
+		if($aux == 0){
+			$sql->close_conn();
+			echo '<div class="msg">Nenhum cliente encontrado!</div>';
+		}else{
+			$sql->close_conn();
+			return $return;
+		}
 	}
 }
 
