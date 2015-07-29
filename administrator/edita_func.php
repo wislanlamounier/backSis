@@ -796,7 +796,7 @@ function formata_salario($salario){
                             <?php } ?>
 
                           </td> </tr>
-                     <tr> <td></td><td><input type="submit" name="button" id="button" value="Editar"></td> </tr>
+                     <tr> <td></td><td><input type="submit" name="button" id="button" value="Editar"><input type="button" name="button" id="button" value="Cancelar"></td> </tr>
                   </table>
                </form>
 
