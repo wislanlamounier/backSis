@@ -461,8 +461,9 @@ require_once("../model/class_cidade_bd.php");
 
 </script>
 <body>
-	<?php include_once("../view/topo.php"); ?>
+	
 	<div id="content">
+		<?php include_once("../view/topo.php"); ?>
 			<div class='formulario' id="formulario">
 				<form form method="POST" id="add_cliente" action="add_cliente.php" onsubmit="return valida(this)">
 						<table id="table_dados_pes" class="table_dados_pes" border="0" >
