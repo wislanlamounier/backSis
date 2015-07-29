@@ -1,5 +1,4 @@
 <?php 
-
 include_once("class_sql.php");
 require_once(dirname(__FILE__) . "/../global.php");
 
@@ -38,7 +37,7 @@ class Cbo{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-
+		$return = array();
 		$query = "SELECT e.id, e.descricao FROM exames as e INNER JOIN cbo_exames WHERE e.id = cbo_exames.id_exame AND cbo_exames.id_cbo = '%s'";
 
 		$aux=0;
@@ -89,6 +88,7 @@ class Cbo{
 		$g = new Glob();
 		$query = 'SELECT * FROM cbo WHERE  oculto = 0 && codigo LIKE "%%%s%%" OR descricao LIKE "%%%s%%" ORDER BY descricao ASC';
 		$aux=0;
+		$return = array();
 		
 		$query_tra = $g->tratar_query($query, $cod, $cod);
 
