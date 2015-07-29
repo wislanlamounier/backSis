@@ -82,6 +82,44 @@ class Cliente {
 			return $return;
 		}
 	}
+
+
+	public function get_cli_id($id){
+		 $sql = new Sql();
+		 $sql->conn_bd();
+		 $g = new Glob();
+
+		 $query = "SELECT * FROM clientes WHERE id= '%s' && tipo = 0";
+		 $result = $g->tratar_query($query, $id);
+		 
+		 if(@mysql_num_rows($result) == 0){
+     
+            return false;            
+	     }else{
+
+	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	     	$this->id = $row['id'];
+	     	$this->nome = $row['nome_razao_soc'];
+	     	$this->data_nasc = $row['data_nasc_data_fund'];
+	     	$this->cpf = $row['cpf_cnpj'];
+	     	$this->telefone_cel = $row['telefone_cel'];	
+	     	$this->telefone_com = $row['telefone_com'];
+	     	$this->rg = $row['rg'];  
+	     	$this->id_endereco = $row['id_endereco'];
+	     	$this->tipo = $row['tipo'];	 
+	     	$this->responsavel = $row['responsavel'];
+	     	$this->cpf_responsavel = $row['cpf_responsavel'];
+	     	$this->data_nasc_responsavel = $row['data_nasc_responsavel'];
+	     	$this->email_resp= $row['email_responsavel'];
+	     	$this->observacao = $row['observacao'];
+	     	$this->site = $row['site'];
+
+	     	return $this;
+
+	     }
+
+	}
+
 }
 
 
