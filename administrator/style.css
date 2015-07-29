@@ -1,5 +1,6 @@
 body{
-	background-color: rgb(228, 228, 228);
+
+	background: url("../images/shattered.png");
 	font-family: Arial;
 
 }
@@ -26,6 +27,9 @@ body{
 .body-login{
 	background: url("../images/konstruksi.jpg");
 	
+}
+#table_login input{
+	border: 1px solid#ccc;
 }
 
 .content table{
@@ -56,44 +60,7 @@ body{
 	cursor: pointer;
 }
 
-.formulario{
-	
-    padding:20px;
-    box-shadow: 0px 0px 10px #aaa;
-}
 
-.formulario table{
-	/*padding:20px;*/
-	/*margin: 0 auto;*/
-	margin-top: 10px;
-
-}
-.formulario table td{
-	/*text-align: center;*/
-	padding-top:10px;
-
-}
-.formulario table input{
-	height:30px;
-	padding: 3px;
-	border: 0;
-	background-color:rgba(255,255,255,0.5);
-}
-
-.formulario table input:hover{
-	box-shadow: 0px 0px 10px #565656;
-	background-color:rgba(255,255,255,1);
-	transition: all 0.5s;
-}
-
-.formulario textarea:hover{
-	box-shadow: 0px 0px 10px #565656;
-	background-color:rgba(255,255,255,1);
-	transition: all 0.5s;
-}
-#myPop{
-	display:none;
-}
 
 .menu{
   	background-color: rgba(0,0,0,0.6);
@@ -188,6 +155,46 @@ h2{
 
 }
 .formulario{
+	
+    padding:20px;
+    box-shadow: 0px 0px 10px #aaa;
+}
+
+.formulario table{
+	/*padding:20px;*/
+	/*margin: 0 auto;*/
+	margin-top: 10px;
+
+}
+.formulario table td{
+	/*text-align: center;*/
+	padding-top:10px;
+
+}
+.formulario table input{
+	height:30px;
+	padding: 3px;
+	border: 0;
+	background-color:rgba(255,255,255,0.5);
+}
+
+.formulario table input:hover{
+	box-shadow: 0px 0px 2px #565656;
+	background-color:rgba(255,255,255,1);
+	transition: all 0.5s;
+}
+
+.formulario textarea:hover{
+	box-shadow: 0px 0px 10px #565656;
+	background-color:rgba(255,255,255,1);
+	transition: all 0.5s;
+}
+.formulario{
 	float: left;
 	margin-top: 20px;
+}
+.formulario form input, .formulario form select{
+	height: 25px;
+	border: 1px solid#ccc;
+	border-radius: 3px;
 }

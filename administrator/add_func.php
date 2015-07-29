@@ -496,11 +496,11 @@ function formata_salario($salario){
 
 </script>
 <body>
-      <div id="content">
+      <div class="conteudo">
             <?php include_once("../view/topo.php"); ?>
             <div class='formulario'>
               
-               <span><b>Adicionar Funcionário</b></span>
+               <span><b>CADASTRO DE FUNCIONÁRIOS</b></span>
                <form method="POST" id="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
                   <table border="0">
                      <tr>

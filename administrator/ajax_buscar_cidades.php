@@ -1,5 +1,5 @@
 <?php
-include_once("class_sql.php");
+include_once("../model/class_sql.php");
 
 	$sql = new Sql();
 	$sql->conn_bd();
