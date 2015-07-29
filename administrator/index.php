@@ -4,9 +4,10 @@
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
+<body class="body-login">
 	<!-- <div class='container'> -->
 		<div class='content'>
+			<img src="../images/logo75mm.png" style="margin: 0 auto">
 			<form type="submit" method="POST" action="loggar.php"> 
 				<table class="tabelapadrao" id="table_login">
 					<tr>
