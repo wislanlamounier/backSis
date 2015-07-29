@@ -82,6 +82,7 @@ class Funcionario{
 		}
 
 	}
+
 	public function get_func_id($id){
 		 $sql = new Sql();
 		 $sql->conn_bd();
@@ -199,11 +200,32 @@ class Funcionario{
         	return true;
         }
 	}
+	public function get_ultimos_func($qtd){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$return = array();
+		$aux=0;
+		$query = "SELECT * FROM funcionario ORDER BY id DESC LIMIT $qtd";
+		$query_tra = $g->tratar_query($query);
+
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['nome'];
+			$aux++;
+		}
+		if($aux == 0){
+			echo '<div class="msg">Nenhum funcionário encontrado!</div>';
+		}else{
+			return $return;
+		}
+
+	}
 	public function get_func_by_name($name){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$funcionarios = array();
+		$return = array();
 		$aux=0;
 		$query = "SELECT * FROM funcionario WHERE nome LIKE '%%%s%%' && oculto = 0";
 		$query_tra = $g->tratar_query($query, $name);
