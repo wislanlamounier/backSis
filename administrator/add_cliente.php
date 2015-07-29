@@ -38,6 +38,9 @@ require_once("../model/class_cidade_bd.php");
 
 	
 	function tipo_form(){
+
+
+
 		if(document.getElementById("pessoa_fisica").checked == true){
 			document.getElementById("razao_nome").innerHTML = "Nome";
 			document.getElementById("data_fun_data_nasc").innerHTML = "Data de Nascimento";
@@ -54,6 +57,7 @@ require_once("../model/class_cidade_bd.php");
 			document.getElementById("inscricao_municipal_nulo").innerHTML = "";
 
 		}
+
 		if(document.getElementById("pessoa_juridica").checked == true){
 			document.getElementById("razao_nome").innerHTML = "Razao Social";
 			document.getElementById("data_fun_data_nasc").innerHTML = "Data Fundação";
@@ -67,11 +71,11 @@ require_once("../model/class_cidade_bd.php");
 			document.getElementById("rg").type = "hidden";
 			document.getElementById("rg").value = "";
 			document.getElementById("inscricao_municipal").type="number";
-
 			document.getElementById("inscricao_municipal_nulo").innerHTML="Inscrição Municipal";
-			document.getElementById("inscricao_municipal").name="inscricao_municipal";
-			
+			document.getElementById("inscricao_municipal").name="inscricao_municipal";		
 		}
+
+
 	}
 
 		function buscar_cidades(){
@@ -460,12 +464,13 @@ require_once("../model/class_cidade_bd.php");
 	<?php include_once("../view/topo.php"); ?>
 	<div id="content">
 			<div class='formulario' id="formulario">
-				<form form method="POST" id="add_cliente" action="index.php" onsubmit="return valida(this)">
+				<form form method="POST" id="add_cliente" action="add_cliente.php" onsubmit="return valida(this)">
 						<table id="table_dados_pes" class="table_dados_pes" border="0" >
 							 <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
 							 <tr> <td ><span>Tipo:</span></td> <td> 	
 							 <input type="radio" onclick="tipo_form()" id="pessoa_fisica" name="tipo" value="0">Pessoa Física							
 							 <input type="radio" onclick="tipo_form()" id="pessoa_juridica" name="tipo" checked value="1">Pessoa Juridica
+							 <br><input type="checkbox" onclick="tipo_form()" id="fornecedor" name="fornecedor" value="1">Fornecedor							 
 							 <br><br></td></tr>
 							 <tr> <td ><div id="razao_nome">Razão Social:</div></td><td><input type="text" id="nome" name="nome" ></td></tr>
 					         <tr> <td ><div id="data_fun_data_nasc">Data Fundação:</div></td> <td><input type="date" id="data_nasc" name="data_nasc" ></td></tr>
@@ -549,7 +554,7 @@ require_once("../model/class_cidade_bd.php");
 					$email_resp = $_POST['email_resp'];
 					$site = $_POST['site'];
 					$observacao = $_POST['observacao'];
-
+					$fornecedor = $_POST['fornecedor'];
 
 
 					//recebendo endereco
@@ -566,7 +571,7 @@ require_once("../model/class_cidade_bd.php");
 					
 
 
-					$cliente->add_cliente($nome_razao_soc, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $id_endereco, $tipo, $rg, $inscricao_estadual, $inscricao_municipal, $responsavel, $cpf_responsavel, $data_nasc_resp, $email_resp, $site, $observacao);
+					$cliente->add_cliente($nome_razao_soc, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $id_endereco, $tipo, $rg, $inscricao_estadual, $inscricao_municipal, $responsavel, $cpf_responsavel, $data_nasc_resp, $email_resp, $site, $observacao, $fornecedor);
 					
 					if($cliente->add_cliente_bd()){
 						echo "Sucesso";

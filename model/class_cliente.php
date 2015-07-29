@@ -22,8 +22,9 @@ class Cliente {
 	public $email_resp;
 	public $site;
 	public $observacao;
+	public $fornecedor;
 
-	public function add_cliente($nome_razao_soc, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $id_endereco, $tipo, $rg, $inscricao_estadual, $inscricao_municipal, $responsavel, $cpf_responsavel, $data_nasc_resp, $email_resp, $site, $observacao){
+	public function add_cliente($nome_razao_soc, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $id_endereco, $tipo, $rg, $inscricao_estadual, $inscricao_municipal, $responsavel, $cpf_responsavel, $data_nasc_resp, $email_resp, $site, $observacao, $fornecedor){
 
 		$this->nome_razao_soc = $nome_razao_soc;
 		$this->data_nasc_data_fund = $data_nasc_data_fund;
@@ -41,6 +42,7 @@ class Cliente {
 		$this->email_resp = $email_resp;
 		$this->site = $site;
 		$this->observacao = $observacao;
+		$this->fornecedor = $fornecedor;
 
 	}
 
@@ -50,10 +52,10 @@ class Cliente {
 
 		$g = new Glob();
 
-		$query = "INSERT INTO clientes (nome_razao_soc, data_nasc_data_fund, cpf_cnpj, telefone_cel, telefone_com, id_endereco, tipo, rg, inscricao_estadual, inscricao_municipal, responsavel, cpf_responsavel, data_nasc_responsavel, email_responsavel, site, observacao) 
-		                        VALUES (    '%s',           '%s',                '%s',      '%s',         '%s',         '%s',    '%s','%s',       '%s',               '%s',             '%s',           '%s',               '%s',                 '%s',     '%s',    '%s')";
+		$query = "INSERT INTO clientes (nome_razao_soc, data_nasc_data_fund, cpf_cnpj, telefone_cel, telefone_com, id_endereco, tipo, rg, inscricao_estadual, inscricao_municipal, responsavel, cpf_responsavel, data_nasc_responsavel, email_responsavel, site, observacao, fornecedor) 
+		                        VALUES (    '%s',           '%s',                '%s',      '%s',         '%s',         '%s',    '%s','%s',       '%s',               '%s',             '%s',           '%s',               '%s',                 '%s',     '%s',    '%s',    '%s'     )";
 		
-		if($g->tratar_query($query, $this->nome_razao_soc, $this->data_nasc_data_fund, $this->cpf_cnpj, $this->telefone_cel,$this->telefone_com, $this->id_endereco, $this->tipo, $this->rg, $this->inscricao_estadual, $this->inscricao_municipal, $this->responsavel, $this->cpf_responsavel, $this->data_nasc_resp, $this->email_resp, $this->site, $this->observacao)){
+		if($g->tratar_query($query, $this->nome_razao_soc, $this->data_nasc_data_fund, $this->cpf_cnpj, $this->telefone_cel,$this->telefone_com, $this->id_endereco, $this->tipo, $this->rg, $this->inscricao_estadual, $this->inscricao_municipal, $this->responsavel, $this->cpf_responsavel, $this->data_nasc_resp, $this->email_resp, $this->site, $this->observacao, $this->fornecedor)){
 			return true; 
 		}else{
 			return false;
