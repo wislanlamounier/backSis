@@ -63,9 +63,9 @@ body{
 
 
 .menu{
-  	background-color: rgba(0,0,0,0.6);
+  	background: url("../images/footer_lodyas.png");
   	box-shadow: 0px 0px 10px #aaa;
-	border-radius:2px; 
+	border-radius:2px;	
 }
 .menu .menu-list{
   list-style: none;
@@ -77,6 +77,7 @@ body{
 }
 .menu > .menu-list > li > a {
   padding: 10px;
+  padding-top: 20px;
   
 }
 .menu > .menu-list > li:hover a {
@@ -94,8 +95,11 @@ body{
   display: block;
   cursor: pointer;
   text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 500;
+
+  height:25px;
+  padding-top: 30px;
   /*letter-spacing:0.2em;*/
 }
 /* Faz os <li>s ficarem na horizontal */
@@ -149,19 +153,26 @@ h2{
 	font-family: times;
 	font-style: black;
 }
+.ad_func table{
+	width: 100%;
+}
 .table_dados_pes{
 	float:left;
 	width:500px;
 
 }
-.formulario{
-    padding:20px;
-    box-shadow: 0px 0px 10px #aaa;
-}
 .title{
-	font-size:20px;
+	font-size:15px;
 }
-
+.title-box{
+	width: 100%;
+	background: url("../images/footer_lodyas.png");
+	background-size: 200px;
+	color: #ddd;
+	padding: 10px;
+	margin-left: -10px;
+	
+}
 .formulario table{
 	/*padding:20px;*/
 	/*margin: 0 auto;*/
@@ -173,6 +184,7 @@ h2{
 	padding-top:10px;
 
 }
+
 .formulario table input{
 	height:30px;
 	padding: 3px;
@@ -181,22 +193,85 @@ h2{
 }
 
 .formulario table input:hover{
-	box-shadow: 0px 0px 2px #565656;
+	/*box-shadow: 0px 0px 2px #565656;*/
 	background-color:rgba(255,255,255,1);
 	transition: all 0.5s;
 }
 
 .formulario textarea:hover{
-	box-shadow: 0px 0px 10px #565656;
+	/*box-shadow: 0px 0px 10px #565656;*/
 	background-color:rgba(255,255,255,1);
 	transition: all 0.5s;
 }
 .formulario{
+	padding:20px;
+    box-shadow: 0px 0px 10px #aaa;
 	float: left;
 	margin-top: 20px;
+	margin-left: 5px;
+	border: 1px solid#aaa;
+	width: 46%;
+	margin-bottom: 20px;
 }
 .formulario form input, .formulario form select{
 	height: 25px;
 	border: 1px solid#ccc;
 	border-radius: 3px;
+}
+.add{
+	background: url("../images/footer_lodyas.png");
+	width: 100px;
+	height: 40px;
+	color:#ddd;
+	border: 1px solid#bbb;
+	border-radius: 3px;
+	font-size:18px;
+}
+.add:hover{
+	background: url("../images/footer_lodyas.png");
+	width: 100px;
+	height: 40px;
+	color:#888;
+	transition: all 0.5s;
+	border: 1px solid#bbb;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.exc{
+	background: url("../images/footer_lodyas.png");
+	width: 100px;
+	height: 40px;
+	color:#ddd;
+	border: 1px solid#bbb;
+	border-radius: 3px;
+	font-size:18px;
+}
+.exc:hover{
+	background: url("../images/footer_lodyas.png");
+	width: 100px;
+	height: 40px;
+	color:#888;
+	transition: all 0.5s;
+	border: 1px solid#bbb;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.pes{
+	background: url("../images/footer_lodyas.png");
+	width: 100px;
+	height: 40px;
+	color:#ddd;
+	border: 1px solid#bbb;
+	border-radius: 3px;
+	font-size:18px;
+}
+.pes:hover{
+	background: url("../images/footer_lodyas.png");
+	width: 100px;
+	height: 40px;
+	color:#888;
+	transition: all 0.5s;
+	border: 1px solid#bbb;
+	border-radius: 3px;
+	cursor: pointer;
 }
