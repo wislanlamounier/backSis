@@ -497,32 +497,32 @@ function formata_salario($salario){
 
 </script>
 <body>
-      <div class="conteudo">
+
 
             <?php include_once("../view/topo.php"); ?>
             <div class='formulario'>
               
-               <span class="title"><b>CADASTRO DE FUNCIONÁRIOS</b></span>
-               <form method="POST" id="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
+               <div class="title-box"><span class="title">CADASTRO DE FUNCIONÁRIOS</span></div>
+               <form method="POST" class="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
                   <table border="0">
                      <tr>
                         <td>
                           <span>Nome:</span>
                         </td>
                         <td colspan="3">
-                            <input type="text" id="nome" name="nome" style="width:370px;">
+                            <input type="text" id="nome" name="nome" style="width:100%;">
                         </td>
                      </tr> <!-- nome -->
                      <!-- campo input com texto dentro -->
-                     <!-- <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:370px;" type="text" id="cpf" name="cpf" value='Insira seu email aqui' onclick="this.value='';" onblur="javascript:if (this.value=='') {this.value='Insira seu email aqui'};"></td></tr> -->
-                     <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:370px;" type="text" id="cpf" name="cpf"></td></tr> <!-- CPF -->
-                     <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg"></td><td><span>Org.Emissor:</span></td><td><input style="width:100px;" type="text" id="org_em_rg" name="org_em_rg" ></td></tr> <!-- RG -->
+                     <!-- <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="cpf" name="cpf" value='Insira seu email aqui' onclick="this.value='';" onblur="javascript:if (this.value=='') {this.value='Insira seu email aqui'};"></td></tr> -->
+                     <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="cpf" name="cpf"></td></tr> <!-- CPF -->
+                     <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg"></td><td><span>Org.Emissor:</span></td><td><input style="width:100%" type="text" id="org_em_rg" name="org_em_rg" ></td></tr> <!-- RG -->
                      <tr> <td><span>Data Em. RG:</span></td> <td colspan="3"><input type="text" id="data_em_rg" name="data_em_rg"  title="Data de emissão do RG"></td></tr> <!-- data de emissão do rg -->
                      <tr> <td><span>Título Eleitoral:</span></td> <td colspan="3"><input type="text" id="titu_eleitoral" name="titu_eleitoral" ></td></tr> <!-- Numero do titulo eleitoral -->
                      <tr> <td><span>Data Nasc.:</span></td> <td><input type="text" id="data_nasc" name="data_nasc"></td></tr> <!-- data nacimento -->
                      <tr> <td><span>Telefone:</span></td> <td><input type="text" id="telefone" name="telefone" ></td></tr> <!-- telefone -->
-                     <tr> <td><span>Email Pessoal:</span></td> <td colspan="3"><input style="width:370px;" type="text" id="email" name="email"></td></tr> <!-- email -->
-                     <tr> <td><span>Email empresarial:</span></td> <td colspan="3"><input style="width:370px;" type="text" id="email_emp" name="email_emp"></td></tr> <!-- email empresa_filialrial -->
+                     <tr> <td><span>Email Pessoal:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="email" name="email"></td></tr> <!-- email -->
+                     <tr> <td><span>Email empresarial:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="email_emp" name="email_emp"></td></tr> <!-- email empresa_filialrial -->
                      <tr> <td><span>Senha:</span></td> <td><input type="password" id="senha" name="senha" ></td></tr> <!-- senha -->
                      <tr>
                         <td><span>Empresa:</span></td>
@@ -541,7 +541,7 @@ function formata_salario($salario){
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
                         </td>
-                        <td><span>Data Adm.:</span></td><td><input type="text" id="data_admissao" style="width: 100px;" name="data_admissao"  title="Data de admissão do funcionário"></td>
+                        <td><span>Data Adm.:</span></td><td><input type="text" id="data_admissao" style="width: 100%;" name="data_admissao"  title="Data de admissão do funcionário"></td>
                      </tr>
                      <tr>
                         <td><span>Posto de trabalho:</span></td>
@@ -558,7 +558,7 @@ function formata_salario($salario){
                      <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" ></td></tr> <!-- Numero do PIS -->
                      <tr> 
                         <td><span>Nº Cart. Trab.:</span></td>
-                        <td colspan="3"><input type="text" id="num_cart_trab" name="num_cart_trab" style="width:100px;" ><span> Nº Série <span><input type="text" id="num_serie_cart_trab" name="num_serie_cart_trab" style="width:100px">
+                        <td colspan="3"><input type="text" id="num_cart_trab" name="num_cart_trab" style="width:30%;" ><span> Nº Série <span><input type="text" id="num_serie_cart_trab" name="num_serie_cart_trab" style="width:30%">
                         
                            <?php //buscar array estados
                               $estado = new Estado();
@@ -600,7 +600,7 @@ function formata_salario($salario){
                               $cbo = new Cbo();
                               $cbos = $cbo->get_name_all_cbo();
                            ?>
-                           <select name="cbo" id="cbo" style="width:375px">
+                           <select name="cbo" id="cbo" style="width:100%">
                               <option>Selecione um cbo</option>
                               <?php 
                                  foreach($cbos as $key => $cbo){
@@ -612,10 +612,10 @@ function formata_salario($salario){
                         </td>
                      </tr>
                      <tr>
-                        <td> <span>Rua: </span></td><td colspan="3"><input type="text" id="rua" name="rua" style="width:300px"> <span> Nº </span> <input style="width:50px;" type="text" id="num" name="num" > </td>
+                        <td> <span>Rua: </span></td><td colspan="3"><input type="text" id="rua" name="rua" style="width:80%"> <span> Nº </span> <input style="width:50px;" type="text" id="num" name="num" > </td>
                      </tr>
                      <tr>
-                        <td> <span>Bairro: </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" style="width:235px"> <span> CEP </span> <input style="width:100px;" type="text" id="cep" name="cep" > </td>
+                        <td> <span>Bairro: </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" style="width:65%"> <span> CEP </span> <input style="width:100px;" type="text" id="cep" name="cep" > </td>
                      </tr>
                      <tr>
                         <td><span>Estado:</span></td>
@@ -733,6 +733,7 @@ function formata_salario($salario){
                     }
                  ?>
             </div>
+            <?php include_once("informacoes_func.php"); ?>
          
       
    
