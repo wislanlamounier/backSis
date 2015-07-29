@@ -82,7 +82,10 @@ function formata_salario($salario){
    <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
    <link href='http://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
    <link href='http://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet' type='text/css'>
+<<<<<<< HEAD
  
+=======
+>>>>>>> origin/master
 </head>
 
 <script type="text/javascript">
@@ -497,7 +500,11 @@ function formata_salario($salario){
 
 </script>
 <body>
+<<<<<<< HEAD
       
+=======
+      <div class="conteudo">
+>>>>>>> origin/master
             <?php include_once("../view/topo.php"); ?>
             <div class='formulario'>
               
