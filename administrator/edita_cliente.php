@@ -29,9 +29,58 @@ include_once("../model/class_cliente.php");
             });
           }
      }
+     function carregaUf(uf){
+      var combo = document.getElementById("estado");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == uf)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }
+    }
+    function buscar_cid(id_est){
+      var estado = id_est;  //codigo do estado escolhido
+      //se encontrou o estado
+      if(estado){
+        var url = 'ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+        $.get(url, function(dataReturn) {
+          $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
+        });
+      }
+    }
+    function disparaLoadCidade(){
+      setTimeout(function() {
+         carregaCidade();
+         carregaPostosTrabalho();
+        }, 100);
+
+    }
   </script>
+
+<?php 
+
+  function validade(){
+
+    if(isset($_POST['nome'])){return true;}else{return false;}
+    if(isset($_POST['data_nasc'])){return true;}else{return false;}
+    if(isset($_POST['cpf'])){return true;}else{return false;}
+    if(isset($_POST['tel'])){return true;}else{return false;}
+    if(isset($_POST['cel'])){return true;}else{return false;}
+    if(isset($_POST['bairro'])){return true;}else{return false;}
+    if(isset($_POST['rua'])){return true;}else{return false;}
+    if(isset($_POST['numero'])){return true;}else{return false;}
+    if(isset($_POST['cidade'])){return true;}else{return false;}
+    if(isset($_POST['cep'])){return true;}else{return false;}
+
+  }
+ ?>
+
 </head>
-<body onload="disparaLoadCidade()" >
+
+<body onload="disparaLoadCidade()" >  
 	<?php include("../view/topo.php");  ?>
 	<div class="formulario">
 		 <h1>Editar Cliente Pessoa Fisica</h1>
@@ -56,11 +105,13 @@ include_once("../model/class_cliente.php");
                      // echo $func->printFunc();
 
                    ?>
-    <form form method="POST" id="add_cliente" action="add_cliente.php" onsubmit="return valida(this)">
+    <form form method="POST" id="add_cliente" action="edita_cliente.php" onsubmit="return valida(this)">
+                  <input type="hidden" id="id_cli" name="id_cli" value="<?php echo $cli->id; ?>">
+                  <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $cli->id_endereco; ?>">
             <table id="table_dados_pes" class="table_dados_pes" border="0" >
                <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
                <tr> <td ><span>Tipo:</span></td> <td>  
-               <br><input type="checkbox" onclick="tipo_form()" id="fornecedor" name="fornecedor" value="1">Fornecedor               
+               <br><input type="checkbox" id="fornecedor" name="fornecedor" value="1">Fornecedor               
                <br><br></td></tr>
                <tr> <td ><div id="razao_nome">Nome:</div></td><td><input type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
                    <tr> <td ><div id="data_fun_data_nasc">Data Nasc:</div></td> <td><input type="date" id="data_nasc" name="data_nasc" value="<?php echo $cli->data_nasc ?>" ></td></tr>
@@ -85,6 +136,7 @@ include_once("../model/class_cliente.php");
                                 ?>
                               </select>
                             </td>
+                            <?php echo "<script> carregaUf(".$endereco[0][3].");</script>"; ?>
                           </tr> 
                           <tr> 
                             <td><span>Cidade:</span></td>
@@ -95,6 +147,7 @@ include_once("../model/class_cliente.php");
                                   </select>
                                 </div>
                             </td>
+                            <?php echo "<script> buscar_cid('".$endereco[0][3]."'); </script>";  ?>
                           </tr>                     
                           <tr> <td ><span>CEP:</span></td> <td><input type="number" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>"></td></tr> 
                           <tr> <td ><span>Site:</span></td> <td><input type="text" id="site" name="site" value="<?php echo $cli->site ?>" ></td></tr>
@@ -106,6 +159,8 @@ include_once("../model/class_cliente.php");
                           <tr><td colspan="2"><span><b>Observação</b></span></td></tr>                     
                           <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao"><?php echo $cli->observacao ?></textarea></div> </td></tr>                     
                           <tr><td colspan="2"><input class="botao_submit" type="submit" value="Enviar" ></td></tr> 
+
+
 
             </table>
         </form>
@@ -142,14 +197,62 @@ include_once("../model/class_cliente.php");
               if(count($clis) == 0){
                 echo '<div class="msg">Nenhum registro encontrado!</div>';
               }
-                echo '<table class="exibe_func">';
+                echo '<table>';
                 foreach($clis as $key => $cli){
                    echo '<tr>
                             <td><a href="edita_cliente.php?verificador=1&id='.$clis[$key][0].'">'.$clis[$key][0]." ".$clis[$key][1].'</a></td></tr>';
                 }
                 echo '</table>';
            }                     
-        ?>
+        ?>    
+
+             <?php                   // echo '<script> alert("'.substr($_POST['sal_base'], 3, -1).'"); </script>';
+                    if(validade()){
+                       
+                      
+                        $endereco = new Endereco();                        
+                        $cliente = new Cliente();
+                        $id = $_POST['id_cli'];
+                        $nome_razao_soc = $_POST['nome'];
+                        $data_nasc_data_fund = $_POST['data_nasc']; 
+                        $cpf_cnpj = $_POST['cpf']; 
+                        $telefone_cel = $_POST['cel'];
+                        $telefone_com = $_POST['tel'];                        
+                        $rg = $_POST['rg'];
+                        $tipo= 0;
+                        $responsavel = $_POST['nome_resp'];
+                        $cpf_responsavel = $_POST['cpf_resp'];
+                        $data_nasc_resp = $_POST['datanasc_resp'];
+                        $email_resp = $_POST['email_resp'];
+                        $site = $_POST['site'];
+                        $observacao = $_POST['observacao'];
+                        $fornecedor = 0;
+                        
+                        //recebendo endereco
+                        $rua = $_POST['rua'];
+                        $numero = $_POST['numero'];
+                        $id_cidade = $_POST['cidade'];
+                        $bairro = $_POST['bairro'];
+                        $cep = $_POST['cep'];
+                        
+
+                        $existe_endereco = $endereco->verifica_endereco($_POST['id_endereco']);
+
+                       if($existe_endereco){
+                            $endereco->atualiza_endereco($rua, $numero, $id_cidade, $_POST['id_endereco'], $bairro, $cep );
+                            $id_endereco = $_POST['id_endereco'];
+                        }else{
+                            $endereco->add_endereco($rua, $numero, $id_cidade, $bairro, $cep);
+                            $id_endereco = $endereco->add_endereco_bd();
+                        }
+
+                       if($cliente->atualiza_cli($id, $nome_razao_soc, $cpf_cnpj, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $rg, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_resp, $site, $observacao, $fornecedor)){
+                          echo '<div class="msg">Funcionário editado com sucesso</div>';
+                       }else{
+                          echo '<div class="msg">Falha ao editar funcionário</div>';
+                       }
+                    }
+                    ?> 
 	</div>
 
 

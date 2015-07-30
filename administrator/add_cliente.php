@@ -49,7 +49,12 @@ require_once("../model/class_cidade_bd.php");
 	
 	function tipo_form(){
 
-
+		if(document.getElementById("fornecedor").checked){
+			
+			document.getElementById("fornecedor").value=0;
+		}else{
+			document.getElementById("fornecedor").value=1;
+		}
 
 		if(document.getElementById("pessoa_fisica").checked == true){
 			document.getElementById("razao_nome").innerHTML = "Nome";
@@ -95,7 +100,7 @@ require_once("../model/class_cidade_bd.php");
 
 		      if(estado){
 
-		        var url = '../model/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+		        var url = 'ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
 
 		        $.get(url, function(dataReturn) {
 		          $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
@@ -564,10 +569,9 @@ require_once("../model/class_cidade_bd.php");
 					$data_nasc_resp = $_POST['datanasc_resp'];
 					$email_resp = $_POST['email_resp'];
 					$site = $_POST['site'];
-					$observacao = $_POST['observacao'];
+					$observacao = $_POST['observacao'];					
 					$fornecedor = $_POST['fornecedor'];
-
-
+					
 					//recebendo endereco
 					$endereco = new Endereco();
 					$bairro = $_POST['bairro'];
