@@ -1,5 +1,5 @@
 <ul class="menu-list">  
-    <li><a href='../administrator/principal.php'>Início</a></li>
+    <li style="border-left: 1px solid#565656;"><a href='../administrator/principal.php'>Início</a></li>
     <li>
       <!-- color:#000; text-shadow: 0px 0px 5px #000; font-size: 13px; padding-left:3px;padding-right:3px; background-color:rgba(255,255,255,0.5) -->
       <a style=""><span style="float:left">Cadastrar </span><img style="float:left; margin-top:-2px; margin-left:2px;" src="../images/downarrow_1246.png" width="20px;"></a>
