@@ -673,9 +673,10 @@ function formata_salario($salario){
                      </tr>
                      <tr> <td><span>Tornar adiministrador:</span></td><td><input type="checkbox" name="is_admin" id="is_admin"></td> </tr>
                      <tr> <td></td>
-                           <td><input type="submit" name="button" id="button" value="Editar">
-                              <input style="width:80px;" name="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar">
-                           </td></tr>
+                           <td>
+                            <input type="submit" class="button" name="button" id="button" value="Editar"></td>
+                              <td><input class="button" name="button" onclick="window.location.href='add_func.php'" id="button" value="Cancelar"></td>
+                           </tr>
                   </table>
                </form>
               <?php }else{ ?> <!-- CADASTRAR FUNCIONARIO -->
@@ -843,8 +844,8 @@ function formata_salario($salario){
                      </tr>
                      <tr> <td><span>Tornar adiministrador:</span></td><td><input type="checkbox" name="is_admin" id="is_admin"></td> </tr>
                      <tr> <td></td>
-                           <td><input type="submit" name="button" id="button" value="Cadastrar">
-                              <input style="width:80px;" name="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar">
+                           <td><input type="submit" name="button" class="button" id="button" value="Cadastrar"></td>
+                             <td><input class="button" name="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar">
                            </td></tr>
                   </table>
                </form>
