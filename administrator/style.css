@@ -61,6 +61,10 @@ body{
 }
 
 /********************************* BOX LOGIN ***************************************/
+.box-login{
+	border: 1px solid#ddd;border-radius:3px; width: 200px; float:right; background-color:rgba(255,255,255,0.5); padding:5px; box-shadow: 2px 2px 10px #aaa;	
+}
+
 .nome-box-login{
 	float:left;
 }
@@ -72,13 +76,13 @@ body{
 	text-decoration: none;
 }
 
-/*__________________________________________________________________________________*/
+/********************************* MENU ***************************************/
 
 .menu{
   	background: url("../images/footer_lodyas.png");
   	background-size: 200px;
-  	box-shadow: 0px 0px 10px #aaa;
-	border-radius:2px;	
+  	/*box-shadow: 0px 0px 10px #aaa;*/
+	border-radius:1px;	
 }
 .menu .menu-list{
   list-style: none;
@@ -87,6 +91,8 @@ body{
 .menu > .menu-list > li{
   float: left;
   position: relative;
+/*  border-left: 1px solid#eee;*/
+border-right: 1px solid#565656;
 }
 .menu > .menu-list > li > a {
   padding: 10px;
@@ -232,60 +238,23 @@ h2{
 	border: 1px solid#ccc;
 	border-radius: 3px;
 }
-.add{
+
+.button{
 	background: url("../images/footer_lodyas.png");
 	width: 100px;
-	height: 30px;
+	height: 25px;
 	color:#ddd;
 	border: 1px solid#bbb;
 	border-radius: 3px;
-	font-size:18px;
+	text-align: center;
+	font-size:16px;
 }
-.add:hover{
-	background: url("../images/footer_lodyas.png");
+.button:hover{
 	width: 100px;
-	height: 30px;
-	color:#888;
-	transition: all 0.5s;
-	border: 1px solid#bbb;
-	border-radius: 3px;
-	cursor: pointer;
-}
-.exc{
-	background: url("../images/footer_lodyas.png");
-	width: 100px;
-	height: 30px;
+	height: 25px;
 	color:#ddd;
 	border: 1px solid#bbb;
 	border-radius: 3px;
-	font-size:18px;
-}
-.exc:hover{
-	background: url("../images/footer_lodyas.png");
-	width: 100px;
-	height: 30px;
-	color:#888;
-	transition: all 0.5s;
-	border: 1px solid#bbb;
-	border-radius: 3px;
-	cursor: pointer;
-}
-.pes{
-	background: url("../images/footer_lodyas.png");
-	width: 100px;
-	height: 30px;
-	color:#ddd;
-	border: 1px solid#bbb;
-	border-radius: 3px;
-	font-size:18px;
-}
-.pes:hover{
-	background: url("../images/footer_lodyas.png");
-	width: 100px;
-	height: 30px;
-	color:#888;
-	transition: all 0.5s;
-	border: 1px solid#bbb;
-	border-radius: 3px;
-	cursor: pointer;
+	font-size:16px;
+	cursor:pointer;
 }
