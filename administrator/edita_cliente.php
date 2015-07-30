@@ -12,24 +12,6 @@ include_once("../model/class_cliente.php");
 <head>
 	<title>Editar Cliente</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
-  <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-
-  <script type="text/javascript">  
-    function buscar_cidades(){
-          
-          var estado = document.getElementById("estado").value;  //codigo do estado escolhido
-          //se encontrou o estado
-
-          if(estado){
-
-            var url = 'ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
-
-            $.get(url, function(dataReturn) {
-              $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
-            });
-          }
-     }
-  </script>
 </head>
 <body onload="disparaLoadCidade()" >
 	<?php include("../view/topo.php");  ?>
@@ -82,6 +64,7 @@ include_once("../model/class_cliente.php");
                                    for( $aux = 0; $aux < count($estado) ; $aux++){
                                     echo '<option value="'.$estado[$aux][0].'">'.$estado[$aux][1].'</option>';
                                    }
+
                                 ?>
                               </select>
                             </td>
