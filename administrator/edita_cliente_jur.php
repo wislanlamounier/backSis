@@ -520,9 +520,10 @@ include_once("../model/class_cliente.php");
                 echo '<div class="msg">Nenhum registro encontrado!</div>';
               }
                 echo '<table>';
-                foreach($clis as $key => $cli){
+                for($aux = 0 ; $aux < count($clis);$aux++)
+               {
                    echo '<tr>
-                            <td><a href="edita_cliente_jur.php?verificador=1&id='.$clis[$key][0].'">'.$clis[$key][0]." ".$clis[$key][1].'</a></td></tr>';
+                            <td><a href="edita_cliente_jur.php?verificador=1&id='.$clis[$aux][0].'">'.$clis[$aux][0]." ".$clis[$aux][1].'</a></td></tr>';
                 }
                 echo '</table>';
            }                     
