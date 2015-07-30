@@ -1,6 +1,6 @@
 <div style="width:100%; float:left;" >
 	<div class="img" style="float:left"><img src="../images/logo75mm.png"></div>
-	<div style="border: 1px solid#ddd;border-radius:3px; width: 200px; float:right; background-color:rgba(255,255,255,0.7); padding:5px; box-shadow: 2px 2px 10px #aaa">
+	<div class="box-login" style="">
 		<div style="float:left"><img src="../images/user.png" width="40px"></div>
 		<div class="nome-box-login" style=""><span style="">Usuário:<br /></span><?php echo $_SESSION["user"]; ?></div>
 		<div style="float:right;"><a title="Clique para sair" href="logout.php"><img src="../images/fechar.png" width="20px"></a></div>
