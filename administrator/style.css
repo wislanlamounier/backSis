@@ -72,8 +72,6 @@ body{
 	text-decoration: none;
 }
 
-
-
 /*__________________________________________________________________________________*/
 
 .menu{
@@ -92,7 +90,7 @@ body{
 }
 .menu > .menu-list > li > a {
   padding: 10px;
-  padding-top: 20px;
+  padding-top: 15px;
   
 }
 .menu > .menu-list > li:hover a {
@@ -113,8 +111,8 @@ body{
   font-size: 15px;
   font-weight: 500;
 
-  height:25px;
-  padding-top: 30px;
+  height:20px;
+
   /*letter-spacing:0.2em;*/
 }
 /* Faz os <li>s ficarem na horizontal */
@@ -146,6 +144,7 @@ body{
 /* Configura os links do submenu */
 .menu > .menu-list > li > .sub-menu > li > a {
 	padding: 10px 20px;
+	font-size: 12px;
 }
 .menu > .menu-list > li > .sub-menu > li > a:hover {
 	background-color: #333;
