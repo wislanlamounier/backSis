@@ -60,10 +60,25 @@ body{
 	cursor: pointer;
 }
 
+/********************************* BOX LOGIN ***************************************/
+.nome-box-login{
+	float:left;
+}
+.nome-box-login span{
+	color:#aaa;
+	font-size:12px;
+}
+.nome-box-login a{
+	text-decoration: none;
+}
 
+
+
+/*__________________________________________________________________________________*/
 
 .menu{
   	background: url("../images/footer_lodyas.png");
+  	background-size: 200px;
   	box-shadow: 0px 0px 10px #aaa;
 	border-radius:2px;	
 }
@@ -221,7 +236,7 @@ h2{
 .add{
 	background: url("../images/footer_lodyas.png");
 	width: 100px;
-	height: 40px;
+	height: 30px;
 	color:#ddd;
 	border: 1px solid#bbb;
 	border-radius: 3px;
@@ -230,7 +245,7 @@ h2{
 .add:hover{
 	background: url("../images/footer_lodyas.png");
 	width: 100px;
-	height: 40px;
+	height: 30px;
 	color:#888;
 	transition: all 0.5s;
 	border: 1px solid#bbb;
@@ -240,7 +255,7 @@ h2{
 .exc{
 	background: url("../images/footer_lodyas.png");
 	width: 100px;
-	height: 40px;
+	height: 30px;
 	color:#ddd;
 	border: 1px solid#bbb;
 	border-radius: 3px;
@@ -249,7 +264,7 @@ h2{
 .exc:hover{
 	background: url("../images/footer_lodyas.png");
 	width: 100px;
-	height: 40px;
+	height: 30px;
 	color:#888;
 	transition: all 0.5s;
 	border: 1px solid#bbb;
@@ -259,7 +274,7 @@ h2{
 .pes{
 	background: url("../images/footer_lodyas.png");
 	width: 100px;
-	height: 40px;
+	height: 30px;
 	color:#ddd;
 	border: 1px solid#bbb;
 	border-radius: 3px;
@@ -268,7 +283,7 @@ h2{
 .pes:hover{
 	background: url("../images/footer_lodyas.png");
 	width: 100px;
-	height: 40px;
+	height: 30px;
 	color:#888;
 	transition: all 0.5s;
 	border: 1px solid#bbb;
