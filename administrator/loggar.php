@@ -18,10 +18,10 @@ include_once("../global.php");
 
     if(mysql_num_rows($userbusca) == 1 ){
         session_start(); // inicia sessão
-
+        $row = mysql_fetch_array($userbusca);
         $_SESSION["id"] = $_POST['id']; // nomeia id da sessão
         $_SESSION["senha"] = $_POST['pass']; // '''' nome da sessão
-
+        $_SESSION["user"] = $row['nome'];
         header("location:principal.php"); // pagina que sera redirecionada após login
 
     }else{
