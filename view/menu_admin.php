@@ -22,6 +22,5 @@
     </li>
     <li><a href="define_relatorio.php">Relatórios</a></li>
     <li><a href="configuracoes.php">Configurações</a></li>
-    <li><a href="#">Sair</a></li>
 </ul>
 
