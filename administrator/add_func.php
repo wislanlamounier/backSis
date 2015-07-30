@@ -500,9 +500,187 @@ function formata_salario($salario){
 
 
             <?php include_once("../view/topo.php"); ?>
+
             <div class='formulario'>
-              
+              <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?> <!-- EDITAR FUNCIONARIO -->
+
+                  <?php
+                    $funcionario = new Funcionario();
+                    $funcionario = $funcionario->get_func_id($_GET['id']);
+
+                    ?>
+
+                  <div class="title-box"><span class="title">EDITAR DE FUNCIONÁRIO</span></div>
+                  <form method="POST" class="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
+                  <table border="0">
+                     <tr>
+                        <td>
+                          <span>Nome:</span>
+                        </td>
+                        <td colspan="3">
+                            <input type="text" id="nome" name="nome" style="width:100%;" value="<?php echo $funcionario->nome; ?>">
+                        </td>
+                     </tr> <!-- nome -->
+                     <!-- campo input com texto dentro -->
+                     <!-- <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="cpf" name="cpf" value='Insira seu email aqui' onclick="this.value='';" onblur="javascript:if (this.value=='') {this.value='Insira seu email aqui'};"></td></tr> -->
+                     <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="cpf" name="cpf" value="<?php echo $funcionario->cpf; ?>"></td></tr> <!-- CPF -->
+                     <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg" value="<?php echo $funcionario->rg; ?>"></td><td><span>Org.Emissor:</span></td><td><input style="width:100%" type="text" id="org_em_rg" name="org_em_rg" value="<?php echo $funcionario->org_em_rg; ?>"></td></tr> <!-- RG -->
+                     <tr> <td><span>Data Em. RG:</span></td> <td colspan="3"><input type="text" id="data_em_rg" name="data_em_rg"  title="Data de emissão do RG"></td></tr> <!-- data de emissão do rg -->
+                     <tr> <td><span>Título Eleitoral:</span></td> <td colspan="3"><input type="text" id="titu_eleitoral" name="titu_eleitoral" ></td></tr> <!-- Numero do titulo eleitoral -->
+                     <tr> <td><span>Data Nasc.:</span></td> <td><input type="text" id="data_nasc" name="data_nasc"></td></tr> <!-- data nacimento -->
+                     <tr> <td><span>Telefone:</span></td> <td><input type="text" id="telefone" name="telefone" ></td></tr> <!-- telefone -->
+                     <tr> <td><span>Email Pessoal:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="email" name="email"></td></tr> <!-- email -->
+                     <tr> <td><span>Email empresarial:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="email_emp" name="email_emp"></td></tr> <!-- email empresa_filialrial -->
+                     <tr> <td><span>Senha:</span></td> <td><input type="password" id="senha" name="senha" ></td></tr> <!-- senha -->
+                     <tr>
+                        <td><span>Empresa:</span></td>
+                        <td>
+                           <?php //buscar array de CBO
+                              $empresa = new Empresa();
+                              $empresas = $empresa->get_all_empresa();
+                           ?>
+                           <select name="empresa" id="empresa" onchange="carrega_postos()">
+                              <option value="no_sel">Selecione</option>
+                              <?php 
+                                 foreach($empresas as $key => $empresa){
+                                    echo '<option value="'.$empresas[$key][0].'">'.$empresas[$key][2].'</option>';
+                                 } 
+                              ?>
+                           </select>
+                           <!-- <a href="">Pesquisar</a> -->
+                        </td>
+                        <td><span>Data Adm.:</span></td><td><input type="text" id="data_admissao" style="width: 100%;" name="data_admissao"  title="Data de admissão do funcionário"></td>
+                     </tr>
+                     <tr>
+                        <td><span>Posto de trabalho:</span></td>
+                        <td colspan="3">
+                           <div id="load_postos">
+                             <select name="empresa_filial" id="empresa_filial">
+                               <option value="no_sel">Selecione uma empresa</option>
+                             </select>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr> <td><span>Salário Base:</span></td> <td><input type="text" id="sal_base" name="sal_base" ></td></tr> <!-- Salário base -->
+                     <tr> <td><span>Qtd. Horas Semanais:</span></td> <td><input type="text" id="qtd_horas_sem" name="qtd_horas_sem" ></td></tr> <!-- Quantidade de horas semanais -->
+                     <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" ></td></tr> <!-- Numero do PIS -->
+                     <tr> 
+                        <td><span>Nº Cart. Trab.:</span></td>
+                        <td colspan="3"><input type="text" id="num_cart_trab" name="num_cart_trab" style="width:30%;" ><span> Nº Série <span><input type="text" id="num_serie_cart_trab" name="num_serie_cart_trab" style="width:30%">
+                        
+                           <?php //buscar array estados
+                              $estado = new Estado();
+                              $estados = $estado->get_name_all_uf();
+                           ?>
+                           <select name="uf_cart_trab" id="uf_cart_trab">
+                              <option>Selecione UF</option>
+                              <?php 
+                                 foreach($estados as $key => $estado){
+                                    echo '<option value="'.$estados[$key][0].'">'.$estados[$key][1].'</option>';
+                                 } 
+                              ?>
+                           </select>
+                        </td>
+                     </tr> <!-- numero da carteira de trabalho -->
+                     <!-- <tr> <td><span>Num. Série Cart. Trab.:</span></td> <td><input type="text" id="num_serie_cart_trab" name="num_serie_cart_trab"></td></tr>  numero da carteira de trabalho -->
+                     <tr>
+                        <td><span>Turno:</span></td>
+                        <td colspan="3">
+                           <?php //buscar array de CBO
+                              $turno = new Turno();
+                              $turnos = $turno->get_name_all_turno();
+                           ?>
+                           <select name="turno" id="turno">
+                              <option>Selecione um turno</option>
+                              <?php 
+                                 foreach($turnos as $key => $turno){
+                                    echo '<option value="'.$turnos[$key][0].'">'.$turnos[$key][2].' - ' .$turnos[$key][1].'</option>';
+                                 } 
+                              ?>
+                           </select>
+                           <!-- <a href="">Pesquisar</a> -->
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><span>CBO:</span></td>
+                        <td colspan="3">
+                           <?php //buscar array de CBO
+                              $cbo = new Cbo();
+                              $cbos = $cbo->get_name_all_cbo();
+                           ?>
+                           <select name="cbo" id="cbo" style="width:100%">
+                              <option>Selecione um cbo</option>
+                              <?php 
+                                 foreach($cbos as $key => $cbo){
+                                    echo '<option value="'.$cbos[$key][0].'">'.$cbos[$key][1].'</option>';
+                                 } 
+                              ?>
+                           </select>
+                           <!-- <a href="">Pesquisar</a> -->
+                        </td>
+                     </tr>
+                     <tr>
+                        <td> <span>Rua: </span></td><td colspan="3"><input type="text" id="rua" name="rua" style="width:80%"> <span> Nº </span> <input style="width:50px;" type="text" id="num" name="num" > </td>
+                     </tr>
+                     <tr>
+                        <td> <span>Bairro: </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" style="width:65%"> <span> CEP </span> <input style="width:100px;" type="text" id="cep" name="cep" > </td>
+                     </tr>
+                     <tr>
+                        <td><span>Estado:</span></td>
+                        <td>
+                           <?php //buscar array de CBO
+                              $estado = new Estado();
+                              $estados = $estado->get_name_all_uf();
+                           ?>
+                           <select name="estado" id="estado" onchange="buscar_cidades()">
+                              <option>Selecione um estado</option>
+                              <?php 
+                                 foreach($estados as $key => $estado){
+                                    echo '<option value="'.$estados[$key][0].'">'.$estados[$key][1].'</option>';
+                                 } 
+                              ?>
+                           </select>
+                           <!-- <a href="">Pesquisar</a> -->
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><span>Cidades:</span></td>
+                        <td colspan="3">
+                           <div id="load_cidades">
+                             <select name="cidade" id="cidade">
+                               <option value="">Selecione um estado</option>
+                             </select>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><span>Supervisor:</span></td>
+                        <td colspan="3">
+                           <?php //buscar array de CBO
+                              $admin = new Funcionario();
+                              $supervisores = $admin->get_admin();
+                           ?>
+                           <select name="superv" id="superv">
+                              <option>Selecione um supervisor</option>
+                              <?php 
+                                 foreach($supervisores as $key => $admin){
+                                    echo '<option value="'.$supervisores[$key][0].'">'.$supervisores[$key][1].'</option>';
+                                 } 
+                              ?>
+                           </select>
+                           <!-- <a href="">Pesquisar</a> -->
+                        </td>
+                     </tr>
+                     <tr> <td><span>Tornar adiministrador:</span></td><td><input type="checkbox" name="is_admin" id="is_admin"></td> </tr>
+                     <tr> <td></td>
+                           <td><input type="submit" name="button" id="button" value="Editar">
+                              <input style="width:80px;" name="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar">
+                           </td></tr>
+                  </table>
+               </form>
+              <?php }else{ ?> <!-- CADASTRAR FUNCIONARIO -->
                <div class="title-box"><span class="title">CADASTRO DE FUNCIONÁRIOS</span></div>
+               
                <form method="POST" class="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
                   <table border="0">
                      <tr>
@@ -670,6 +848,7 @@ function formata_salario($salario){
                            </td></tr>
                   </table>
                </form>
+               <?php }?>
                <?php
                     if(validate()){
                        $func = new Funcionario();
