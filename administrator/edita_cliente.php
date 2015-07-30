@@ -29,6 +29,7 @@ include_once("../model/class_cliente.php");
             });
           }
      }
+
      function carregaUf(uf){
       var combo = document.getElementById("estado");
       for (var i = 0; i < combo.options.length; i++)
@@ -58,6 +59,373 @@ include_once("../model/class_cliente.php");
         }, 100);
 
     }
+
+    function valida(f){
+        var erros = 0;
+        var msg = "";
+
+          for (var i = 0; i < f.length; i++) {            
+
+              if(f[i].name == "nome" && f[i].value == ""){
+               
+                msg += "Insira um Nome!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+                alert(erros);
+              }
+              if(f[i].name == "nome" && f[i].value != ""){
+                f[i].style.border = "1px solid #898989";
+              }
+              if(f[i].name == "cpf"){
+                  if(f[i].value == ""){
+                    msg += "Insira um CPF!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }else{
+                    if(!validarCPF(f[i].value)){
+                      msg += "Insira um CPF válido!\n";
+                      f[i].style.border = "1px solid #FF0000";
+                      erros++;
+                    }
+                  }
+                  if(f[i].value != "" && validarCPF(f[i].value)){
+                    f[i].style.border = "1px solid #898989";
+                  }
+              }
+              if(f[i].name == "rg"){
+                  if(f[i].value == ""){
+                    msg += "Insira um RG!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }else{
+                    f[i].style.border = "1px solid #898989"; 
+                  }
+              }
+              if(f[i].name == "org_em_rg"){
+                  if(f[i].value == ""){
+                    msg += "Preencha o campo Órgão Emissor!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }else{
+                    f[i].style.border = "1px solid #898989"; 
+                  }
+              }
+              if(f[i].name == "data_em_rg"){
+                  if(f[i].value == ""){
+                    msg += "Preencha o campo Data Emissão!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }else{
+                    f[i].style.border = "1px solid #898989"; 
+                  }
+              }
+              if(f[i].name == "titu_eleitoral"){
+                  if(f[i].value == ""){
+                    msg += "Preencha o campo Título Eleitoral!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }else{
+                    f[i].style.border = "1px solid #898989"; 
+                  }
+              }
+              if(f[i].name == "email_emp"){
+                  if(f[i].value == ""){
+                    msg += "Preencha o campo Email Empresarial!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }else{
+                    f[i].style.border = "1px solid #898989"; 
+                  }
+              }
+              if(f[i].name == "data_admissao"){
+                  if(f[i].value == ""){
+                    msg += "Preencha o campo Data de Admissão!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }else{
+                    f[i].style.border = "1px solid #898989"; 
+                  }
+              }
+              if(f[i].name == "sal_base"){
+                  if(f[i].value == ""){
+                    msg += "Preencha o campo Salário Base!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }else{
+                    f[i].style.border = "1px solid #898989"; 
+                  }
+              }
+              if(f[i].name == "qtd_horas_sem"){
+                  if(f[i].value == ""){
+                    msg += "Preencha o campo Quant. de Horas Semanais!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }else{
+                    f[i].style.border = "1px solid #898989"; 
+                  }
+              }
+              if(f[i].name == "pis"){
+                  if(f[i].value == ""){
+                    msg += "Preencha o campo PIS!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }else{
+                    f[i].style.border = "1px solid #898989"; 
+                  }
+              }
+              if(f[i].name == "num_cart_trab"){
+                  if(f[i].value == ""){
+                    msg += "Preencha o campo Nº Car. Trabalho!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }else{
+                    f[i].style.border = "1px solid #898989"; 
+                  }
+              }
+              if(f[i].name == "uf_cart_trab"){
+                  if(f[i].value == "Selecione UF"){
+                    msg += "Selecione um Estado Para Carteira de Trab.!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }else{
+                    f[i].style.border = "1px solid #898989"; 
+                  }
+              }
+              if(f[i].name == "num_serie_cart_trab"){
+                  if(f[i].value == ""){
+                    msg += "Preencha o campo Nº de. Série!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }else{
+                    f[i].style.border = "1px solid #898989"; 
+                  }
+              }
+              if(f[i].name == "data_nasc" && f[i].value == ""){
+                msg += "Insira uma Data de Nascimento!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "data_nasc" && f[i].value != ""){
+                f[i].style.border = "1px solid #898989";
+              }
+
+              if(f[i].name == "telefone" && f[i].value == ""){
+                msg += "Insíra um Telefone!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "telefone" && f[i].value != ""){
+                f[i].style.border = "1px solid #898989";
+              }
+              if(f[i].name == "email" && f[i].value == ""){
+                msg += "Insira um Email!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "email" && f[i].value != ""){
+                f[i].style.border = "1px solid #898989";
+              }
+
+              if(f[i].name == "empresa"){
+                if(f[i].value == "no_sel"){
+                  msg += "Selecione uma empresa!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989";
+                }
+
+              }
+
+              if(f[i].name == "turno" && f[i].value == "Selecione um turno"){
+                msg += "Selecione um Turno!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "turno" && f[i].value != "Selecione um turno"){
+                f[i].style.border = "1px solid #898989";
+              }
+
+              if(f[i].name == "cbo" && f[i].value == "Selecione um cbo"){
+                msg += "Selecione um CBO!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "cbo" && f[i].value != "Selecione um cbo"){
+                f[i].style.border = "1px solid #898989";
+              }
+
+              if(f[i].name == "rua" && f[i].value == ""){
+                msg += "Preencha o campo Rua\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "rua" && f[i].value != ""){
+                f[i].style.border = "1px solid #898989";
+              }
+
+              if(f[i].name == "num" && f[i].value == ""){
+                msg += "Preencha o campo Número\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "num" && f[i].value != ""){
+                f[i].style.border = "1px solid #898989";
+              }
+
+              if(f[i].name == "estado" && f[i].value == "0"){
+                msg += "Selecione um Estado\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "estado" && f[i].value != "0"){
+                f[i].style.border = "1px solid #898989";
+              }
+              if(f[i].name == "superv"){
+                
+                if(!document.getElementById("is_admin").checked && f[i].value == "Selecione um supervisor"){
+                  msg += "Selecione um Supervisor\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989";  
+                }
+
+              }
+              if(f[i].name == "bairro"){
+                  if(f[i].value == ""){
+                     f[i].style.border = "1px solid #FF0000";
+                     msg += "Selecione um bairro\n";
+                     erros++;
+                  }else{
+                     f[i].style.border = "1px solid #898989";
+                  }
+               }
+               if(f[i].name == "cep"){
+                  if(f[i].value == ""){
+                      msg += "Selecione um cep\n";
+                     f[i].style.border = "1px solid #FF0000";
+                     erros++;
+                  }else{
+                     f[i].style.border = "1px solid #898989";
+                  }
+               }
+              
+          }
+          if( erros > 0 ){
+            alert(msg);
+            return false;
+          }
+      }
+
+      // inicio mascaras
+      // inicio mascaras
+    function mascara(o,f){
+          v_obj=o
+          v_fun=f
+          setTimeout("execmascara()",1)
+      }
+      function execmascara(){
+          v_obj.value=v_fun(v_obj.value)
+      }
+
+   function mtel(v){
+       if(v.length >=15){                                          // alert("mtel")
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+       v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
+       v=v.replace(/^(\d{2})(\d)/g,"($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
+       v=v.replace(/(\d)(\d{4})$/,"$1-$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       
+       return v;
+   }
+    function mcpf(v){
+       if(v.length >=15){  
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+       v=v.replace(/\D/g,""); 
+       v=v.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4");
+       return v;
+    }
+    function dnasc(v){
+       if(v.length >=10){      
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+       v=v.replace(/\D/g,""); 
+       v=v.replace(/^(\d{2})(\d{2})(\d{4})/,"$1/$2/$3");  
+       return v;
+   }
+    function mrg(v){
+       if(v.length >=13){
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+       v=v.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})/,"$1.$2.$3-$4");
+       return v;
+   }
+   function id( el ){
+     // alert("id")
+     return document.getElementById( el );
+   }
+   window.onload = function(){
+     
+      id('cpf').onkeypress = function(){
+           mascara( this, mcpf );
+      }
+      id('cpf_resp').onkeypress = function(){
+          mascara( this, mcpf );
+      }
+      id('tel').onkeypress = function(){
+          mascara( this, mtel );
+      }
+      id('cel').onkeypress = function(){
+          mascara( this, mtel );
+      }      
+     
+   }
+      // fim mascaras
+
+      function validarCPF(cpf) {  
+          cpf = cpf.replace(/[^\d]+/g,'');    
+          if(cpf == '') return false; 
+          // Elimina CPFs invalidos conhecidos    
+          if (cpf.length != 11 || 
+              cpf == "00000000000" || 
+              cpf == "11111111111" || 
+              cpf == "22222222222" || 
+              cpf == "33333333333" || 
+              cpf == "44444444444" || 
+              cpf == "55555555555" || 
+              cpf == "66666666666" || 
+              cpf == "77777777777" || 
+              cpf == "88888888888" || 
+              cpf == "99999999999")
+                  return false;       
+          // Valida 1o digito 
+          add = 0;    
+          for (i=0; i < 9; i ++)       
+              add += parseInt(cpf.charAt(i)) * (10 - i);  
+              rev = 11 - (add % 11);  
+              if (rev == 10 || rev == 11)     
+                  rev = 0;    
+              if (rev != parseInt(cpf.charAt(9)))     
+                  return false;       
+          // Valida 2o digito 
+          add = 0;    
+          for (i = 0; i < 10; i ++)        
+              add += parseInt(cpf.charAt(i)) * (11 - i);  
+          rev = 11 - (add % 11);  
+          if (rev == 10 || rev == 11) 
+              rev = 0;    
+          if (rev != parseInt(cpf.charAt(10)))
+              return false;       
+          return true;   
+      }
+
+
   </script>
 
 <?php 
@@ -90,19 +458,9 @@ include_once("../model/class_cliente.php");
                      $cli = $cli->get_cli_id($_GET['id']);//buscando funcionario no banco
                      $endereco = new Endereco();
                      $endereco = $endereco->get_endereco( $cli->id_endereco );
-                      // $endereco[0][0] Rua
-                      // $endereco[0][1] Numero
-                      // $endereco[0][2] Cidade
-                      // $endereco[0][3] Estado
+                      
                       echo '<input type="hidden" id="id_cidade" value="'.$endereco[0][2].'">';
-                     // echo '<input type="hidden" id="id_posto" value="'.$func->id_empresa_filial.'">';                      
-                     // $data_em_rg = explode("-", $func->data_em_rg);
-                     // $data_em_rg = $data_em_rg[2].'/'.$data_em_rg[1].'/'.$data_em_rg[0];
-                     // $data_nasc = explode("-", $func->data_nasc);
-                     // $data_nasc = $data_nasc[2].'/'.$data_nasc[1].'/'.$data_nasc[0];
-                     // $data_adm = explode("-", $func->data_adm);
-                     // $data_adm = $data_adm[2].'/'.$data_adm[1].'/'.$data_adm[0];                     
-                     // echo $func->printFunc();
+                    
 
                    ?>
     <form form method="POST" id="add_cliente" action="edita_cliente.php" onsubmit="return valida(this)">
