@@ -27,9 +27,9 @@ function validate(){
    if(!isset($_POST['email']) || $_POST['email'] == ""){
        return false;
    }
-   if(!isset($_POST['senha']) || $_POST['senha'] == ""){
-       return false;
-   }
+   // if(!isset($_POST['senha']) || $_POST['senha'] == ""){
+   //     return false;
+   // }
    if(!isset($_POST['empresa_filial']) || $_POST['empresa_filial'] == "Selecione a empresa_filial"){
        return false;
    }
@@ -258,10 +258,12 @@ function formata_salario($salario){
                 f[i].style.border = "1px solid #898989";
               }
 
-              if(f[i].name == "senha" && f[i].value == ""){
-                msg += "Insira uma Senha!\n";
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
+              if(f[i].name == "senha"){
+                  if(f[i].value == "" && document.getElementById('tipo').value == "cadastrar"){
+                    msg += "Insira uma Senha!\n";
+                    f[i].style.border = "1px solid #FF0000";
+                    erros++;
+                  }
               }
               if(f[i].name == "senha" && f[i].value != ""){
                 f[i].style.border = "1px solid #898989";
@@ -493,10 +495,148 @@ function formata_salario($salario){
         return false;       
     return true;   
 }
+// CARREGA SELECTS
+function buscar_cid(id_est){
+      var estado = id_est;  //codigo do estado escolhido
+      //se encontrou o estado
+      if(estado){
+        var url = 'ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+        $.get(url, function(dataReturn) {
+          $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
+        });
+      }
+    }
+    function buscar_postos(id_empresa){
+      
+      if(id_empresa){
+        var url = 'ajax_buscar_postos.php?empresa='+id_empresa;  //caminho do arquivo php que irá buscar as cidades no BD
+        $.get(url, function(dataReturn) {
+          $('#load_postos').html(dataReturn);  //coloco na div o retorno da requisicao
+        });
+      }
+    }
+function carregaUf_CartTrab(uf){
+      var combo = document.getElementById("uf_cart_trab");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == uf)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }
+    }
+  function carregaUf(uf){
+      var combo = document.getElementById("estado");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == uf)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }
+    }
+    function carregaSuperv(sup){
+      var combo = document.getElementById("superv");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == sup)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }
+    }
+  function carregaEmpresa(empresa){
+      
+      var combo = document.getElementById("empresa");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == empresa)
+        {
+          combo.options[i].selected = true;
+          break;
+        }
+      }
+    }
+    function carregaSuperv(sup){
+      var combo = document.getElementById("superv");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == sup)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }
+    }
+  function carregaPostosTrabalho(){
+      var combo = document.getElementById("empresa_filial");
+      var posto = document.getElementById("id_posto").value;
 
+      for (var i = 0; i < combo.length; i++)
+      {
+
+        if (combo.options[i].value == posto)
+        {
+          combo.options[i].selected = true;
+          break;
+        }
+      }
+    }
+    function carregaTurno(turno){
+      var combo = document.getElementById("turno");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == turno)
+        {
+          combo.options[i].selected = true;
+          break;
+        }
+      }
+    }
+    function carregaCBO(cbo){
+      var combo = document.getElementById("cbo");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == cbo)
+        {
+          combo.options[i].selected = true;
+          break;
+        }
+      }
+    }
+  function carregaCidade(){
+      var combo = document.getElementById("cidade");
+      var cidade = document.getElementById("id_cidade").value;
+      
+      for (var i = 0; i < combo.length; i++)
+      {
+         
+        if (combo.options[i].value == cidade)
+        {
+          combo.options[i].selected = true;
+          break;
+        }
+      }
+      
+    }
+  function disparaLoadCidade(){
+      setTimeout(function() {
+         carregaCidade();
+         carregaPostosTrabalho();
+        }, 100);
+
+    }
+// FIM CARREGA SELECTS
 
 </script>
-<body>
+<body onload="disparaLoadCidade()">
 
 
             <?php include_once("../view/topo.php"); ?>
@@ -504,34 +644,45 @@ function formata_salario($salario){
             <div class='formulario'>
               <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?> <!-- EDITAR FUNCIONARIO -->
 
-                  <?php
-                    $funcionario = new Funcionario();
-                    $funcionario = $funcionario->get_func_id($_GET['id']);
+                  <?php 
+                     $func = new Funcionario();
+                     $func = $func->get_func_id($_GET['id']);//buscando funcionario no banco
+                     $endereco = new Endereco();
+                     $endereco = $endereco->get_endereco( $func->id_endereco );
+                      // $endereco[0][0] Rua
+                      // $endereco[0][1] Numero
+                      // $endereco[0][2] Cidade
+                      // $endereco[0][3] Estado
 
-                    ?>
+                     echo '<input type="hidden" id="id_cidade" value="'.$endereco[0][2].'">';
+                     echo '<input type="hidden" id="id_posto" value="'.$func->id_empresa_filial.'">';
+                    
+                     $data_em_rg = explode("-", $func->data_em_rg);
+                     $data_em_rg = $data_em_rg[2].'/'.$data_em_rg[1].'/'.$data_em_rg[0];
+                     $data_nasc = explode("-", $func->data_nasc);
+                     $data_nasc = $data_nasc[2].'/'.$data_nasc[1].'/'.$data_nasc[0];
+                     $data_adm = explode("-", $func->data_adm);
+                     $data_adm = $data_adm[2].'/'.$data_adm[1].'/'.$data_adm[0];
+                     
+                     // echo $func->printFunc();
+                   ?>
 
-                  <div class="title-box"><span class="title">EDITAR DE FUNCIONÁRIO</span></div>
-                  <form method="POST" class="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
-                  <table border="0">
-                     <tr>
-                        <td>
-                          <span>Nome:</span>
-                        </td>
-                        <td colspan="3">
-                            <input type="text" id="nome" name="nome" style="width:100%;" value="<?php echo $funcionario->nome; ?>">
-                        </td>
-                     </tr> <!-- nome -->
-                     <!-- campo input com texto dentro -->
-                     <!-- <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="cpf" name="cpf" value='Insira seu email aqui' onclick="this.value='';" onblur="javascript:if (this.value=='') {this.value='Insira seu email aqui'};"></td></tr> -->
-                     <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="cpf" name="cpf" value="<?php echo $funcionario->cpf; ?>"></td></tr> <!-- CPF -->
-                     <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg" value="<?php echo $funcionario->rg; ?>"></td><td><span>Org.Emissor:</span></td><td><input style="width:100%" type="text" id="org_em_rg" name="org_em_rg" value="<?php echo $funcionario->org_em_rg; ?>"></td></tr> <!-- RG -->
-                     <tr> <td><span>Data Em. RG:</span></td> <td colspan="3"><input type="text" id="data_em_rg" name="data_em_rg"  title="Data de emissão do RG"></td></tr> <!-- data de emissão do rg -->
-                     <tr> <td><span>Título Eleitoral:</span></td> <td colspan="3"><input type="text" id="titu_eleitoral" name="titu_eleitoral" ></td></tr> <!-- Numero do titulo eleitoral -->
-                     <tr> <td><span>Data Nasc.:</span></td> <td><input type="text" id="data_nasc" name="data_nasc"></td></tr> <!-- data nacimento -->
-                     <tr> <td><span>Telefone:</span></td> <td><input type="text" id="telefone" name="telefone" ></td></tr> <!-- telefone -->
-                     <tr> <td><span>Email Pessoal:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="email" name="email"></td></tr> <!-- email -->
-                     <tr> <td><span>Email empresarial:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="email_emp" name="email_emp"></td></tr> <!-- email empresa_filialrial -->
-                     <tr> <td><span>Senha:</span></td> <td><input type="password" id="senha" name="senha" ></td></tr> <!-- senha -->
+                  <form method="POST" id="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
+                  <input type="hidden" id="tipo" name="tipo" value="editar">
+                  <input type="hidden" id="id_func" name="id_func" value="<?php echo $func->id; ?>">
+                  <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $func->id_endereco; ?>">
+                  <table border='0'>
+                    <tr><td colspan="4" style="padding-top:10px; padding-bottom:10px;"><span style="color:#565656">Atenção: Se o campo senha ficar em branco a senha não sera alterada</span></td></tr>
+                     <tr> <td><span>Nome:</span></td> <td colspan="3"><input type="text" id="nome" name="nome" value="<?php echo $func->nome; ?>"></td></tr> <!-- nome -->
+                     <tr> <td><span>CPF:</span></td> <td><input type="text" id="cpf" name="cpf" value="<?php echo $func->cpf; ?>"></td></tr> <!-- CPF -->
+                     <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg" value="<?php echo $func->rg; ?>"></td><td><span>Org.Em:</span></td><td><input style="width:100px;" type="text" id="org_em_rg" name="org_em_rg" value="<?php echo $func->org_em_rg; ?>"></td></tr> <!-- RG -->
+                     <tr> <td><span>Data Em. RG:</span></td> <td colspan="3"><input type="text" id="data_em_rg" name="data_em_rg" value="<?php echo $data_em_rg; ?>" title="Data de emissão do RG"></td></tr> <!-- data de emissão do rg -->
+                     <tr> <td><span>Título Eleitoral:</span></td> <td colspan="3"><input type="text" id="titu_eleitoral" name="titu_eleitoral" value="<?php echo $func->num_tit_eleitor; ?>"></td></tr> <!-- Numero do titulo eleitoral -->
+                     <tr> <td><span>Data Nasc.:</span></td> <td><input type="text" id="data_nasc" name="data_nasc" value="<?php echo $data_nasc; ?>"></td></tr> <!-- data nacimento -->
+                     <tr> <td><span>Telefone:</span></td> <td><input type="text" id="telefone" name="telefone" value="<?php echo $func->telefone; ?>"></td></tr> <!-- telefone -->
+                     <tr> <td><span>Email Pessoal:</span></td> <td><input type="text" id="email" name="email" value="<?php echo $func->email; ?>"></td></tr> <!-- email -->
+                     <tr> <td><span>Email Empresarial:</span></td> <td><input type="text" id="email_emp" name="email_emp" value="<?php echo $func->email_empresa; ?>"></td></tr> <!-- email empresarial -->
+                     <tr> <td><span>Senha:</span></td> <td><input type="text" id="senha" name="senha"></td></tr> <!-- senha -->
                      <tr>
                         <td><span>Empresa:</span></td>
                         <td>
@@ -549,7 +700,8 @@ function formata_salario($salario){
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
                         </td>
-                        <td><span>Data Adm.:</span></td><td><input type="text" id="data_admissao" style="width: 100%;" name="data_admissao"  title="Data de admissão do funcionário"></td>
+                        <td><span>Data Adm.:</span></td><td><input type="text" id="data_admissao" style="width: 100px;" name="data_admissao" value="<?php echo $data_adm ?>" title="Data de admissão do funcionário"></td>
+                        <?php echo "<script> carregaEmpresa('".$func->id_empresa."') </script>";  ?>
                      </tr>
                      <tr>
                         <td><span>Posto de trabalho:</span></td>
@@ -560,14 +712,15 @@ function formata_salario($salario){
                              </select>
                            </div>
                         </td>
+                        <?php echo '<script> buscar_postos('.$func->id_empresa.'); </script>'; ?> 
                      </tr>
-                     <tr> <td><span>Salário Base:</span></td> <td><input type="text" id="sal_base" name="sal_base" ></td></tr> <!-- Salário base -->
-                     <tr> <td><span>Qtd. Horas Semanais:</span></td> <td><input type="text" id="qtd_horas_sem" name="qtd_horas_sem" ></td></tr> <!-- Quantidade de horas semanais -->
-                     <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" ></td></tr> <!-- Numero do PIS -->
+                     <tr> <td><span>Salário Base:</span></td> <td><input type="text" id="sal_base" name="sal_base" value="<?php echo $func->salario_base; ?>"></td></tr> <!-- Salário base -->
+                     <tr> <td><span>Qtd. Horas Semanais:</span></td> <td><input type="text" id="qtd_horas_sem" name="qtd_horas_sem" value="<?php echo $func->qtd_horas_sem; ?>"></td></tr> <!-- Quantidade de horas semanais -->
+                     <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" value="<?php echo $func->num_pis; ?>"></td></tr> <!-- Numero do PIS -->
                      <tr> 
-                        <td><span>Nº Cart. Trab.:</span></td>
-                        <td colspan="3"><input type="text" id="num_cart_trab" name="num_cart_trab" style="width:30%;" ><span> Nº Série <span><input type="text" id="num_serie_cart_trab" name="num_serie_cart_trab" style="width:30%">
-                        
+                        <td><span>Num. Cart. Trab.:</span></td>
+                        <td><input type="text" id="num_cart_trab" name="num_cart_trab" value="<?php echo $func->num_cart_trab; ?>"></td>
+                        <td colspan="2">
                            <?php //buscar array estados
                               $estado = new Estado();
                               $estados = $estado->get_name_all_uf();
@@ -581,8 +734,9 @@ function formata_salario($salario){
                               ?>
                            </select>
                         </td>
+                        <?php echo "<script> carregaUf_CartTrab('".$func->uf_cart_trab."') </script>";  ?>
                      </tr> <!-- numero da carteira de trabalho -->
-                     <!-- <tr> <td><span>Num. Série Cart. Trab.:</span></td> <td><input type="text" id="num_serie_cart_trab" name="num_serie_cart_trab"></td></tr>  numero da carteira de trabalho -->
+                     <tr> <td><span>Num. Série Cart. Trab.:</span></td> <td><input type="text" id="num_serie_cart_trab" name="num_serie_cart_trab" value="<?php echo $func->num_serie_cart_trab; ?>"></td></tr> <!-- numero da carteira de trabalho -->
                      <tr>
                         <td><span>Turno:</span></td>
                         <td colspan="3">
@@ -594,12 +748,14 @@ function formata_salario($salario){
                               <option>Selecione um turno</option>
                               <?php 
                                  foreach($turnos as $key => $turno){
-                                    echo '<option value="'.$turnos[$key][0].'">'.$turnos[$key][2].' - ' .$turnos[$key][1].'</option>';
+                                    echo '<option value="'.$turnos[$key][0].'">'.$turnos[$key][1].'</option>';
                                  } 
                               ?>
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
                         </td>
+                        <?php echo "<script> carregaTurno('".$func->id_turno."') </script>";  ?>
+
                      </tr>
                      <tr>
                         <td><span>CBO:</span></td>
@@ -608,7 +764,7 @@ function formata_salario($salario){
                               $cbo = new Cbo();
                               $cbos = $cbo->get_name_all_cbo();
                            ?>
-                           <select name="cbo" id="cbo" style="width:100%">
+                           <select name="cbo" id="cbo">
                               <option>Selecione um cbo</option>
                               <?php 
                                  foreach($cbos as $key => $cbo){
@@ -618,12 +774,13 @@ function formata_salario($salario){
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
                         </td>
+                        <?php echo "<script> carregaCBO('".$func->id_cbo."') </script>";  ?>
                      </tr>
                      <tr>
-                        <td> <span>Rua: </span></td><td colspan="3"><input type="text" id="rua" name="rua" style="width:80%"> <span> Nº </span> <input style="width:50px;" type="text" id="num" name="num" > </td>
+                        <td> <span>Rua: </span></td><td colspan="3"><input type="text" id="rua" name="rua" value="<?php echo $endereco[0][0]; ?>" > <span>Nº</span> <input style="width:30px;" type="text" id="num" name="num" value="<?php echo $endereco[0][1]; ?>"> </td>
                      </tr>
-                     <tr>
-                        <td> <span>Bairro: </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" style="width:65%"> <span> CEP </span> <input style="width:100px;" type="text" id="cep" name="cep" > </td>
+                      <tr>
+                        <td> <span>Bairro: </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" style="width:200px" value="<?php echo $endereco[0][4]; ?>"> <span> CEP </span> <input style="width:100px;" type="text" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>"> </td>
                      </tr>
                      <tr>
                         <td><span>Estado:</span></td>
@@ -631,31 +788,34 @@ function formata_salario($salario){
                            <?php //buscar array de CBO
                               $estado = new Estado();
                               $estados = $estado->get_name_all_uf();
+                                
                            ?>
                            <select name="estado" id="estado" onchange="buscar_cidades()">
-                              <option>Selecione um estado</option>
+                              <option value="0">Selecione um estado</option>
                               <?php 
                                  foreach($estados as $key => $estado){
                                     echo '<option value="'.$estados[$key][0].'">'.$estados[$key][1].'</option>';
-                                 } 
+                                 }
                               ?>
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
                         </td>
+                        <?php echo "<script> carregaUf('".$endereco[0][3]."') </script>";  ?>
                      </tr>
                      <tr>
                         <td><span>Cidades:</span></td>
                         <td colspan="3">
                            <div id="load_cidades">
                              <select name="cidade" id="cidade">
-                               <option value="">Selecione um estado</option>
+                               <option value="0">Selecione um estado</option>
                              </select>
                            </div>
                         </td>
+                        <?php echo "<script> buscar_cid('".$endereco[0][3]."'); </script>";  ?>
                      </tr>
                      <tr>
                         <td><span>Supervisor:</span></td>
-                        <td colspan="3">
+                        <td>
                            <?php //buscar array de CBO
                               $admin = new Funcionario();
                               $supervisores = $admin->get_admin();
@@ -670,19 +830,28 @@ function formata_salario($salario){
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
                         </td>
+                        <?php echo "<script> carregaSuperv('".$func->id_supervisor."') </script>";  ?>
                      </tr>
-                     <tr> <td><span>Tornar adiministrador:</span></td><td><input type="checkbox" name="is_admin" id="is_admin"></td> </tr>
+                     <tr> <td><span>Tornar adiministrador:</span></td>
+                          <td>
+                            <?php if($func->is_admin == 1){ ?>
+                            <input type="checkbox" name="is_admin" checked id="is_admin">
+                            <?php }else{ ?>
+                            <input type="checkbox" name="is_admin" id="is_admin">
+                            <?php } ?>
+
+                          </td> </tr>
                      <tr> <td></td>
-                           <td>
-                            <input type="submit" class="button" name="button" id="button" value="Editar"></td>
-                              <td><input class="button" name="button" onclick="window.location.href='add_func.php'" id="button" value="Cancelar"></td>
-                           </tr>
+                                 <td><input type="submit" name="button" id="button" value="Editar">
+                                 <input type="button" name="button" id="button" value="Cancelar"></td>
+                      </tr>
                   </table>
                </form>
               <?php }else{ ?> <!-- CADASTRAR FUNCIONARIO -->
                <div class="title-box"><span class="title">CADASTRO DE FUNCIONÁRIOS</span></div>
                
                <form method="POST" class="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
+                <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                   <table border="0">
                      <tr>
                         <td>
@@ -851,66 +1020,137 @@ function formata_salario($salario){
                </form>
                <?php }?>
                <?php
-                    if(validate()){
-                       $func = new Funcionario();
-                       $end = new Endereco();
+                    if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
 
-                       $rua = $_POST['rua'];
-                       $numero = $_POST['num'];
-                       $id_cidade = $_POST['cidade'];
-                       $bairro = $_POST['bairro'];
-                       $cep = $_POST['cep'];
-                       $is_admin = 0;
-                       $end->add_endereco($rua, $numero, $id_cidade, $bairro, $cep);
-                       
-                       $id_endereco = $end->add_endereco_bd();
+                        if(validate()){
+                           $func = new Funcionario();
+                           $end = new Endereco();
 
-                       $nome = $_POST['nome'];
-                       $cpf = $_POST['cpf'];
-                       $rg = $_POST['rg'];
-                       
-                       $data_nasc = explode("/", $_POST['data_nasc']);
-                       $data_nasc = $data_nasc[2].'-'.$data_nasc[1].'-'.$data_nasc[0];
-                       
-                       $telefone = $_POST['telefone'];
-                       $email = $_POST['email'];
-                       $senha = $_POST['senha'];
-                       $id_empresa = $_POST['empresa'];
-                       $id_empresa_filial = $_POST['empresa_filial'];
-                       $id_turno = $_POST['turno'];
-                       
-                       $data_em_rg = explode("/", $_POST['data_em_rg']);
-                       $data_em_rg = $data_em_rg[2].'-'.$data_em_rg[1].'-'.$data_em_rg[0];
+                           $rua = $_POST['rua'];
+                           $numero = $_POST['num'];
+                           $id_cidade = $_POST['cidade'];
+                           $bairro = $_POST['bairro'];
+                           $cep = $_POST['cep'];
+                           $is_admin = 0;
+                           $end->add_endereco($rua, $numero, $id_cidade, $bairro, $cep);
+                           
+                           $id_endereco = $end->add_endereco_bd();
 
-
-                       $org_em_rg = strtoupper($_POST['org_em_rg']);
-                       $num_tit_eleitor = $_POST['titu_eleitoral'];
-                       $email_empresa_filial = $_POST['email_emp'];
-                       
-                       $data_adm = explode("/", $_POST['data_admissao']);
-                       $data_adm = $data_adm[2].'-'.$data_adm[1].'-'.$data_adm[0];
+                           $nome = $_POST['nome'];
+                           $cpf = $_POST['cpf'];
+                           $rg = $_POST['rg'];
+                           
+                           $data_nasc = explode("/", $_POST['data_nasc']);
+                           $data_nasc = $data_nasc[2].'-'.$data_nasc[1].'-'.$data_nasc[0];
+                           
+                           $telefone = $_POST['telefone'];
+                           $email = $_POST['email'];
+                           $senha = $_POST['senha'];
+                           $id_empresa = $_POST['empresa'];
+                           $id_empresa_filial = $_POST['empresa_filial'];
+                           $id_turno = $_POST['turno'];
+                           
+                           $data_em_rg = explode("/", $_POST['data_em_rg']);
+                           $data_em_rg = $data_em_rg[2].'-'.$data_em_rg[1].'-'.$data_em_rg[0];
 
 
-                       $salario_base = formata_salario($_POST['sal_base']);
-                       $qtd_horas_sem = $_POST['qtd_horas_sem'];
-                       $num_cart_trab = $_POST['num_cart_trab'];
-                       $num_serie_cart_trab = $_POST['num_serie_cart_trab'] ;
-                       $uf_cart_trab = $_POST['uf_cart_trab'];
-                       $num_pis = $_POST['pis'];
-                       $id_supervisor = $_POST['superv'];
+                           $org_em_rg = strtoupper($_POST['org_em_rg']);
+                           $num_tit_eleitor = $_POST['titu_eleitoral'];
+                           $email_empresa_filial = $_POST['email_emp'];
+                           
+                           $data_adm = explode("/", $_POST['data_admissao']);
+                           $data_adm = $data_adm[2].'-'.$data_adm[1].'-'.$data_adm[0];
 
-                       $id_cbo = $_POST['cbo'];
-                       $is_admin = $_POST['is_admin']?1:0;
 
-                       $func->add_func($nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor);
-                       // echo $func->printFunc();
-                       if($func->add_func_bd()){
-                           echo '<div class="msg">Funcionário cadastrado com sucesso!</div>';
-                       }else{
-                            echo '<div class="msg">Falha ao cadastrar funcionário!</div>';
-                       }
-                       
+                           $salario_base = formata_salario($_POST['sal_base']);
+                           $qtd_horas_sem = $_POST['qtd_horas_sem'];
+                           $num_cart_trab = $_POST['num_cart_trab'];
+                           $num_serie_cart_trab = $_POST['num_serie_cart_trab'] ;
+                           $uf_cart_trab = $_POST['uf_cart_trab'];
+                           $num_pis = $_POST['pis'];
+                           $id_supervisor = $_POST['superv'];
+
+                           $id_cbo = $_POST['cbo'];
+                           $is_admin = $_POST['is_admin']?1:0;
+
+                           $func->add_func($nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor);
+                           // echo $func->printFunc();
+                           if($func->add_func_bd()){
+                               echo '<div class="msg">Funcionário cadastrado com sucesso!</div>';
+                           }else{
+                                echo '<div class="msg">Falha ao cadastrar funcionário!</div>';
+                           }
+                        }
+                  }
+                  if(isset($_POST['tipo']) && $_POST['tipo'] == 'editar'){
+                    
+                      if(validate()){
+                        
+                           $func = new Funcionario();
+                           $endereco = new Endereco();
+
+                           
+                           $id = $_POST['id_func'];
+                           $nome = $_POST['nome'];
+                           $cpf = $_POST['cpf'];
+
+                           $data_nasc = explode("/", $_POST['data_nasc']);
+                           $data_nasc = $data_nasc[2].'-'.$data_nasc[1].'-'.$data_nasc[0];
+
+                           $telefone = $_POST['telefone'];
+                           $email = $_POST['email'];
+                           $senha = $_POST['senha'];
+                           $id_empresa = $_POST['empresa'];
+                           $id_empresa_filial = $_POST['empresa_filial'];
+                           $id_turno = $_POST['turno'];
+                           $id_cbo = $_POST['cbo'];
+                           $is_admin = ($_POST['is_admin'])?1:0;
+
+                           $rg = $_POST['rg'];
+                           
+                           $data_em_rg = explode("/", $_POST['data_em_rg']);
+                           $data_em_rg = $data_em_rg = $data_em_rg[2].'-'.$data_em_rg[1].'-'.$data_em_rg[0];
+
+                           $org_em_rg = $_POST['org_em_rg'];
+                           $num_tit_eleitor = $_POST['titu_eleitoral'];
+                           $email_empresa = $_POST['email_emp'];
+                           
+                           $data_adm = explode("/", $_POST['data_admissao']);
+                           $data_adm = $data_adm = $data_adm[2].'-'.$data_adm[1].'-'.$data_adm[0];
+                           
+                           $salario_base = formata_salario($_POST['sal_base']);  // retorna salario formatado
+                           
+                           $qtd_horas_sem = $_POST['qtd_horas_sem'];
+                           $num_cart_trab = $_POST['num_cart_trab'];
+                           $num_serie_cart_trab = $_POST['num_serie_cart_trab'] ;
+                           $uf_cart_trab = $_POST['uf_cart_trab'];
+                           $num_pis = $_POST['pis'];
+                           $id_supervisor = $_POST['superv'];
+
+                           
+                           $rua = $_POST['rua'];
+                           $numero = $_POST['num'];
+                           $id_cidade = $_POST['cidade'];
+                           $bairro = $_POST['bairro'];
+                           $cep = $_POST['cep'];
+
+                           $existe_endereco = $endereco->verifica_endereco($_POST['id_endereco']);
+
+                           if($existe_endereco){
+                                $endereco->atualiza_endereco($rua, $numero, $id_cidade, $_POST['id_endereco'], $bairro, $cep );
+                                $id_endereco = $_POST['id_endereco'];
+                            }else{
+                                $endereco->add_endereco($rua, $numero, $id_cidade, $bairro, $cep);
+                                $id_endereco = $endereco->add_endereco_bd();
+                            }
+
+                           if($func->atualiza_func($id, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor)){
+                              echo '<div class="msg">Funcionário editado com sucesso</div>';
+                           }else{
+                              echo '<div class="msg">Falha ao editar funcionário</div>';
+                           }
                     }
+                }
                  ?>
             </div>
             <?php include_once("informacoes_func.php"); ?>
