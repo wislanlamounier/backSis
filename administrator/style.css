@@ -2,7 +2,9 @@ body{
 
 	background: url("../images/shattered.png");
 	font-family: Arial;
-
+}
+body span{
+	font-size: 14px;
 }
 .container{
 	background-color:#FAEBD7;
@@ -41,7 +43,9 @@ body{
 }
 .table-pesquisa td{
 	padding: 0px 3px 0px 5px;
-
+}
+.table-pesquisa{
+	width: 100%;
 }
 .body-login{
 	background: url("../images/konstruksi.jpg");
@@ -111,11 +115,11 @@ body{
   float: left;
   position: relative;
 /*  border-left: 1px solid#eee;*/
-border-right: 1px solid#565656;
+	border-right: 1px solid#565656;
 }
 .menu > .menu-list > li > a {
   padding: 10px;
-  padding-top: 15px;
+  /*padding-top: 15px;*/
   
 }
 .menu > .menu-list > li:hover a {
@@ -125,18 +129,18 @@ border-right: 1px solid#565656;
 /* Remove as bolinhas do lado das listas */
 .menu .menu-list, .menu .sub-menu{
   list-style: none;
+
 }
 /* Configura todos os links do nosso menu */
-.menu a{
+.menu a, .menu a span{
   color: #eee;
   text-decoration: none;
   display: block;
   cursor: pointer;
   text-transform: uppercase;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 500;
-
-  height:20px;
+  height:15px;
 
   /*letter-spacing:0.2em;*/
 }
@@ -169,7 +173,7 @@ border-right: 1px solid#565656;
 /* Configura os links do submenu */
 .menu > .menu-list > li > .sub-menu > li > a {
 	padding: 10px 20px;
-	font-size: 12px;
+	font-size: 10px;
 }
 .menu > .menu-list > li > .sub-menu > li > a:hover {
 	background-color: #333;
@@ -208,13 +212,14 @@ h2{
 	background: url("../images/footer_lodyas.png");
 	background-size: 200px;
 	color: #ddd;
-	padding: 10px;
+	padding: 2px 5px 2px 5px;
 	margin-left: -10px;
 	
 }
 .formulario table{
 	/*padding:20px;*/
 	/*margin: 0 auto;*/
+	/*width:100%;*/
 	margin-top: 10px;
 
 }
@@ -249,8 +254,9 @@ h2{
 	margin-top: 20px;
 	margin-left: 5px;
 	border: 1px solid#aaa;
-	width: 46%;
 	margin-bottom: 20px;
+	width: 500px;
+	text-align: center;
 }
 .formulario form input, .formulario form select{
 	height: 25px;
