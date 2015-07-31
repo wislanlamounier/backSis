@@ -114,6 +114,7 @@ class Cliente {
 	     	$this->email_resp= $row['email_responsavel'];
 	     	$this->observacao = $row['observacao'];
 	     	$this->site = $row['site'];
+	     	$this->fornecedor= $row['fornecedor'];
 
 	     	return $this;
 	     }

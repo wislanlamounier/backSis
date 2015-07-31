@@ -57,8 +57,23 @@ include_once("../model/class_cliente.php");
          carregaCidade();
          carregaPostosTrabalho();
         }, 100);
+      
+      if(document.getElementById('fornecedor').value == 1){       
+        document.getElementById('fornecedor').checked = true;
+      }else{        
+        document.getElementById('fornecedor').checked = false;
+      }
 
     }
+
+    function valorFornecedor(){
+
+    if(document.getElementById("fornecedor").checked){      
+      document.getElementById("fornecedor").value=1;
+    }else{
+      document.getElementById("fornecedor").value=0;
+    }
+   }
 
     function valida(f){
         var erros = 0;
@@ -448,7 +463,7 @@ include_once("../model/class_cliente.php");
 
 </head>
 
-<body onload="disparaLoadCidade()" >  
+<body onload="disparaLoadCidade()" <!-- Tambem faz a funcao de carregar o chekbox de fornecedor --> >  
 	<?php include("../view/topo.php");  ?>
 	<div class="formulario">
 		 <h1>Editar Cliente Pessoa Fisica</h1>
@@ -469,7 +484,7 @@ include_once("../model/class_cliente.php");
             <table id="table_dados_pes" class="table_dados_pes" border="0" >
                <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
                <tr> <td ><span>Tipo:</span></td> <td>  
-               <br><input type="checkbox" id="fornecedor" name="fornecedor" value="1">Fornecedor               
+               <br><input type="checkbox" id="fornecedor" onclick="valorFornecedor()" name="fornecedor" value="<?php echo $cli->fornecedor ?>">Fornecedor               
                <br><br></td></tr>
                <tr> <td ><div id="razao_nome">Nome:</div></td><td><input type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
                    <tr> <td ><div id="data_fun_data_nasc">Data Nasc:</div></td> <td><input type="date" id="data_nasc" name="data_nasc" value="<?php echo $cli->data_nasc ?>" ></td></tr>
@@ -541,13 +556,13 @@ include_once("../model/class_cliente.php");
 
                   
 
-		<form method="POST" action="edita_cliente.php">
-			<table>				
-				<td><span>Cliente: <input type="text" id="name_search" name="name_search"></td> <td><input type="submit" value="Buscar"></td>
-			</table>
-		</form>
+		<form method="POST" action="edita_cliente.php" >
+      <table>       
+        <td><span>Cliente: <input type="text" id="name_search" name="name_search"></td> <td><input type="submit" value="Buscar"></td>
+      </table>
+    </form>
 
-		<?php
+    <?php
            if(isset($_POST['name_search']) && $_POST['name_search'] != ""){
               $cli = new Cliente();
               $clis = $cli->get_cli_by_name($_POST['name_search']);
@@ -556,13 +571,15 @@ include_once("../model/class_cliente.php");
                 echo '<div class="msg">Nenhum registro encontrado!</div>';
               }
                 echo '<table>';
-                foreach($clis as $key => $cli){
+                for($aux = 0 ; $aux < count($clis);$aux++)
+               {
                    echo '<tr>
-                            <td><a href="edita_cliente.php?verificador=1&id='.$clis[$key][0].'">'.$clis[$key][0]." ".$clis[$key][1].'</a></td></tr>';
+                            <td><a href="edita_cliente.php?verificador=1&id='.$clis[$aux][0].'">'.$clis[$aux][0]." ".$clis[$aux][1].'</a></td></tr>';
                 }
                 echo '</table>';
            }                     
         ?>    
+
 
              <?php                   // echo '<script> alert("'.substr($_POST['sal_base'], 3, -1).'"); </script>';
                     if(validade()){
@@ -584,7 +601,11 @@ include_once("../model/class_cliente.php");
                         $email_resp = $_POST['email_resp'];
                         $site = $_POST['site'];
                         $observacao = $_POST['observacao'];
-                        $fornecedor = 0;
+                        if(isset($_POST['fornecedor'])){
+                          $fornecedor = $_POST['fornecedor'];
+                        }else{
+                          $fornecedor = 0;
+                        }
                         
                         //recebendo endereco
                         $rua = $_POST['rua'];

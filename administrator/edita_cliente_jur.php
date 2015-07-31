@@ -65,6 +65,15 @@ include_once("../model/class_cliente.php");
       }
      
     }
+    
+    function valorFornecedor(){
+
+    if(document.getElementById("fornecedor").checked){      
+      document.getElementById("fornecedor").value=1;
+    }else{
+      document.getElementById("fornecedor").value=0;
+    }
+   }
 
     function valida(f){
         var erros = 0;
@@ -384,15 +393,7 @@ include_once("../model/class_cliente.php");
        v=v.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})/,"$1.$2.$3-$4");
        return v;
    }
-
-   function valorFornecedor(){
-
-    if(document.getElementById("fornecedor").checked){      
-      document.getElementById("fornecedor").value=1;
-    }else{
-      document.getElementById("fornecedor").value=0;
-    }
-   }
+   
 
    function id( el ){
      // alert("id")
