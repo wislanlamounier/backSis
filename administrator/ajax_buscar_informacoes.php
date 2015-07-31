@@ -23,7 +23,7 @@ include_once("../model/class_funcionario_bd.php");
 	}
 ?>
 
-<div class="formulario">
+<div class="formulario" style="width:450px">
 	<div class="msg" style="float:left">
 		<div style="float:left; background-color:rgba(50,200,50,0.3); width:100%; height:43px; text-align:left; margin-top:-20px;">
 			<div style="float:left; margin-left:5px;"><img src="../images/search-icon.png" style="width:40px;"></div>
@@ -37,6 +37,7 @@ include_once("../model/class_funcionario_bd.php");
 			      echo "<tr><td style='padding-left:20px;'><a href='add_func.php?tipo=editar&id=".$arrFuncionario[$value][0]."'>".$arrFuncionario[$value][1]."</a></td></tr>";
 			     	$cont++;
 			  	}
+			  	// echo '<tr><td style="padding:0;"><hr style="background-color:#eee;"/></td></tr>';
 			  	echo '<tr><td style="padding-left:20px; font-size: 12px; color:#777;">'.$cont. " registro(s) encontrado(s)</td></tr>";
 		   ?>
 		  
