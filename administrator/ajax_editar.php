@@ -1,4 +1,4 @@
-<div class="formulario" style="width:50%;">
+<div class="formulario" style="width:450px;">
 	<?php if($_GET['tipo'] == 1){ ?>
 		<form method="POST">
 			
