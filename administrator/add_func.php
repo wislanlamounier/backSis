@@ -640,8 +640,8 @@ function carregaUf_CartTrab(uf){
 
 
             <?php include_once("../view/topo.php"); ?>
-
-            <div class='formulario'>
+            
+            <div class='formulario' style="width:500px;">
               <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?> <!-- EDITAR FUNCIONARIO -->
 
                   <?php 
@@ -666,7 +666,7 @@ function carregaUf_CartTrab(uf){
                      
                      // echo $func->printFunc();
                    ?>
-
+                  <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR FUNCIONÁRIO</span></div></div>
                   <form method="POST" id="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
                   <input type="hidden" id="tipo" name="tipo" value="editar">
                   <input type="hidden" id="id_func" name="id_func" value="<?php echo $func->id; ?>">
@@ -848,7 +848,7 @@ function carregaUf_CartTrab(uf){
                   </table>
                </form>
               <?php }else{ ?> <!-- CADASTRAR FUNCIONARIO -->
-               <div class="title-box"><span class="title">CADASTRO DE FUNCIONÁRIOS</span></div>
+               <div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE FUNCIONÁRIOS</span></div></div>
                
                <form method="POST" class="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
                 <input type="hidden" id="tipo" name="tipo" value="cadastrar">
