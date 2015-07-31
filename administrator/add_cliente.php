@@ -475,8 +475,8 @@ require_once("../model/class_cidade_bd.php");
   
 
 </script>
-<body>
-	
+<body>			
+
 	
 			<?php include_once("../view/topo.php"); ?>
 			<div class='formulario'>
@@ -537,8 +537,7 @@ require_once("../model/class_cidade_bd.php");
 
 						</table>
 				</form>
-			
-				
+
 				<?php
 
 				if(validade())
@@ -596,7 +595,17 @@ require_once("../model/class_cidade_bd.php");
 				}
 
 				?>
+
+
+
+
+
 			</div>
+
+
+
+
+			<?php include("informacoes_cliente.php"); ?>
 	 
 </body>
 </html>

@@ -539,22 +539,7 @@ include_once("../model/class_cliente.php");
         </form>
 
                <?php } ?>
-             
-                   <!--  <?php                  
-                  
-
-                       // if($func->atualiza_func($id, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor)){
-                       //    echo '<div class="msg">Funcionário editado com sucesso</div>';
-                       // }else{
-                       //    echo '<div class="msg">Falha ao editar funcionário</div>';
-                       // }
-                    
-                    ?> -->
-
-
-
-
-                  
+                       
 
 		<form method="POST" action="edita_cliente.php" >
       <table>       
