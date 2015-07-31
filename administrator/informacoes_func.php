@@ -9,11 +9,11 @@ include_once("../model/class_funcionario_bd.php");
   	   var nome = document.getElementById('nome_search').value;
       //se encontrou o estado
       if(nome){
-      	alert("entrou");
+      	
         var url = 'ajax_buscar_informacoes.php?nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
 
         $.get(url, function(dataReturn) {
-        	alert("entrou2");
+        	
           $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
         });
       }
