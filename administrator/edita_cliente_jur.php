@@ -58,6 +58,12 @@ include_once("../model/class_cliente.php");
          carregaPostosTrabalho();
         }, 100);
 
+       if(document.getElementById('fornecedor').value == 1){       
+        document.getElementById('fornecedor').checked = true;
+      }else{        
+        document.getElementById('fornecedor').checked = false;
+      }
+     
     }
 
     function valida(f){
@@ -340,15 +346,18 @@ include_once("../model/class_cliente.php");
        
        return v;
    }
-    function mcpf(v){
-       if(v.length >=15){  
-         v = v.substring(0,(v.length - 1));
-         return v;
+    function mcnpj(v){
+           if(v.length >=19){                                          // alert("mtel")
+             v = v.substring(0,(v.length - 1));
+             return v;
+           }
+           v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
+           v=v.replace(/^(\d{2})(\d{3})/g,"$1.$2."); 
+           v=v.replace(/(\d{3})(\d{4})/,"$1/$2"); 
+           v=v.replace(/(\d)(\d{2})$/,"$1-$2"); 
+           
+           return v;
        }
-       v=v.replace(/\D/g,""); 
-       v=v.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4");
-       return v;
-    }
     function dnasc(v){
        if(v.length >=10){      
          v = v.substring(0,(v.length - 1));
@@ -358,6 +367,15 @@ include_once("../model/class_cliente.php");
        v=v.replace(/^(\d{2})(\d{2})(\d{4})/,"$1/$2/$3");  
        return v;
    }
+   function mcpf(v){
+       if(v.length >=15){  
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+       v=v.replace(/\D/g,""); 
+       v=v.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4");
+       return v;
+    }
     function mrg(v){
        if(v.length >=13){
          v = v.substring(0,(v.length - 1));
@@ -366,14 +384,24 @@ include_once("../model/class_cliente.php");
        v=v.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})/,"$1.$2.$3-$4");
        return v;
    }
+
+   function valorFornecedor(){
+
+    if(document.getElementById("fornecedor").checked){      
+      document.getElementById("fornecedor").value=1;
+    }else{
+      document.getElementById("fornecedor").value=0;
+    }
+   }
+
    function id( el ){
      // alert("id")
      return document.getElementById( el );
    }
    window.onload = function(){
      
-      id('cpf').onkeypress = function(){
-           mascara( this, mcpf );
+      id('cnpj').onkeypress = function(){
+           mascara( this, mcnpj );
       }
       id('cpf_resp').onkeypress = function(){
           mascara( this, mcpf );
@@ -411,14 +439,14 @@ include_once("../model/class_cliente.php");
 
 </head>
 
-<body onload="disparaLoadCidade()" >  
+<body onload="disparaLoadCidade()"<!-- Tambem faz a funcao de carregar o chekbox de fornecedor -->>  
 	<?php include("../view/topo.php");  ?>
 	<div class="formulario">
 		 <h1>Editar Cliente Pessoa Juridica</h1>
                   <?php if(isset($_GET['verificador']) && $_GET['verificador'] == 1){ //se verificador estiver setado e for igual a 1 carregara os campos preenchidos?>
                     <?php 
                      $cli = new Cliente();
-                     $cli = $cli->get_cli_id($_GET['id']);//buscando funcionario no banco
+                     $cli = $cli->get_cli_jur_id($_GET['id']);//buscando funcionario no banco
                      $endereco = new Endereco();
                      $endereco = $endereco->get_endereco( $cli->id_endereco );
                       
@@ -428,11 +456,11 @@ include_once("../model/class_cliente.php");
                    ?>
     <form form method="POST" id="edita_cliente_jur" action="edita_cliente_jur.php" onsubmit="return valida(this)">
                   <input type="hidden" id="id_cli" name="id_cli" value="<?php echo $cli->id; ?>">
-                  <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $cli->id_endereco; ?>">
+                  <input type="hidden" id="id_endereco" name="id_endereco"  value="<?php echo $cli->id_endereco; ?>">
             <table id="table_dados_pes" class="table_dados_pes" border="0" >
                <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
                <tr> <td ><span>Tipo:</span></td> <td>  
-               <br><input type="checkbox" id="fornecedor" name="fornecedor" value="1">Fornecedor               
+               <br><input type="checkbox" id="fornecedor" onclick="valorFornecedor()" name="fornecedor" value="<?php echo $cli->fornecedor ?>">Fornecedor               
                <br><br></td></tr>
                <tr> <td ><div id="razao_nome">Razao Social:</div></td><td><input type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
                    <tr> <td ><div id="data_fun_data_nasc">Data Fundação:</div></td> <td><input type="date" id="data_nasc" name="data_nasc" value="<?php echo $cli->data_nasc ?>" ></td></tr>
@@ -505,7 +533,7 @@ include_once("../model/class_cliente.php");
 
                   
 
-		<form method="POST" action="edita_cliente_jur.php">
+		<form method="POST" action="edita_cliente_jur.php" >
 			<table>				
 				<td><span>Cliente: <input type="text" id="name_search" name="name_search"></td> <td><input type="submit" value="Buscar"></td>
 			</table>
@@ -514,7 +542,7 @@ include_once("../model/class_cliente.php");
 		<?php
            if(isset($_POST['name_search']) && $_POST['name_search'] != ""){
               $cli = new Cliente();
-              $clis = $cli->get_cli_by_name($_POST['name_search']);
+              $clis = $cli->get_cli_jur_by_name($_POST['name_search']);
               
               if(count($clis) == 0){
                 echo '<div class="msg">Nenhum registro encontrado!</div>';
@@ -550,7 +578,12 @@ include_once("../model/class_cliente.php");
                         $email_resp = $_POST['email_resp'];
                         $site = $_POST['site'];
                         $observacao = $_POST['observacao'];
-                        $fornecedor = 0;
+                        if(isset($_POST['fornecedor'])){
+                          $fornecedor = $_POST['fornecedor'];
+                        }else{
+                          $fornecedor = 0;
+                        }
+                        
                         
                         //recebendo endereco
                         $rua = $_POST['rua'];
@@ -570,7 +603,7 @@ include_once("../model/class_cliente.php");
                             $id_endereco = $endereco->add_endereco_bd();
                         }
 
-                       if($cliente->atualiza_cli($id, $nome_razao_soc, $cpf_cnpj, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $inscricao_estadual, $inscricao_municipal, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_resp, $site, $observacao, $fornecedor)){
+                       if($cliente->atualiza_cli_jur($id, $nome_razao_soc, $cpf_cnpj, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $inscricao_estadual, $inscricao_municipal, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_resp, $site, $observacao, $fornecedor)){
                           echo '<div class="msg">Funcionário editado com sucesso</div>';
                        }else{
                           echo '<div class="msg">Falha ao editar funcionário</div>';
