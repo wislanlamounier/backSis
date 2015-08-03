@@ -18,7 +18,7 @@ function validate(){
    if(!isset($_POST['descricao']) || $_POST['descricao'] == ""){
          return false;
    }
-   if(!isset($_POST['period']) || $_POST['period'] == "no_sel"){
+   if(!isset($_POST['periodo']) || $_POST['periodo'] == "no_sel"){
          return false;
    }
    return true;
@@ -28,6 +28,19 @@ function validate(){
 <html>
 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
+
+    function carregaPeriodo(per){
+      var combo = document.getElementById("periodo");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == per)
+        {
+          combo.options[i].selected = true;
+          break;
+        }
+      }
+    }
+
    function validate(f){
       var erros=0;
       for(i=0; i < f.length; i++){
@@ -39,7 +52,7 @@ function validate(){
               f[i].style.border = "1px solid #898989";
             }
         }
-        if(f[i].name == "period"){
+        if(f[i].name == "periodo"){
             if(f[i].value == "no_sel"){
                f[i].style.border = "1px solid #f00";
                erros++;
@@ -67,23 +80,46 @@ function validate(){
     <div id="content">
             <?php include_once("../view/topo.php"); ?>
                        
-            
             <div class="formulario">
                <h1>Adicionar exame</h1>
-               <?php 
-                  if(validate()){
-                     $exame = new Exame();
-                     $exame->add_exame($_POST['descricao'], $_POST['period']);
-                     // echo $exame->printExames();
-                     if($exame->add_exame_bd()){
-                        echo '<div class="msg">Cadastrado com sucesso!</div>';
-                     }else{
-                        echo '<div class="msg">Erro ao cadastrar!</div>';
-                     }
-
-                  }
-               ?>
+             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?>
+                    <?php 
+                      $id = $_GET['id'];
+                      $exame = new Exame();
+                      $exame = $exame->get_exame_id($id);
+                      $id = $exame->id;
+                      $descricao = $exame->descricao;
+                      $id_periodicidade = $exame->id_periodicidade;
+                       ?>
+                 <form method="POST" id="add_cbo" action="add_exames.php" onsubmit="return validate(this)">
+                          <input type="hidden" id="tipo" name="tipo" value="editar">
+                          <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
+                          <table border="0" >
+                             <!-- <tr> <td><span>Descrição:</span></td> <td ><input type="text" id="desc" name="desc" style="width:100px;"></td><td><span style="font-size:12px; color:#555;">(Ex. de descrição: Das 8:00 às 12:00 e das 13:00 às 18:00)</span></td></tr> <!- nome -->
+                             <!-- <tr> <td ><span>ID:</span></td> <td> <span> <?php echo $id ?> </span> </td></tr> <!- ini exp -->
+                             <tr> <td ><span>Descrição:</span></td> <td><input type="text" id="descricao" name="descricao" value="<?php echo $descricao; ?>"></td></tr> <!-- ini exp -->
+                             <tr>
+                                <td><span>Periodicidade:</span></td>
+                                <td>
+                                   <select id="periodo" name="periodo">
+                                        <option value="no_sel">Selecione a periodicidade</option>
+                                        <?php
+                                          $periodicidade = new Periodicidade();
+                                          $periodos = $periodicidade->get_name_all_periodo();
+                                          for ($i=0; $i < count($periodos); $i++) { 
+                                            echo '<option value="'.$periodos[$i][0].'">'.$periodos[$i][1].'</option>';
+                                          }
+                                         ?>
+                                  </select> <span> dias</span>
+                                </td>
+                                <?php echo "<script> carregaPeriodo('".$id_periodicidade."') </script>";  ?>
+                             </tr>
+                             <tr><td colspan="3"><input style="width:80px;"type="submit" name="button" id="button" value="Editar"> <input style="width:80px;" name="button" onclick="window.location.href='add_exame.php'" id="button" value="Cancelar"></td> </tr>
+                          </table>
+                       </form>              
+               <?php }else{ ?> 
                <form method="POST" class="ad_exame" id="ad_exame" name="ad_exame" action="add_exames.php" onsubmit="return validate(this)">
+                <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                   <table border="0">
                      <!-- <tr> <td><span>Descrição:</span></td> <td ><input type="text" id="desc" name="desc" style="width:100px;"></td><td><span style="font-size:12px; color:#555;">(Ex. de descrição: Das 8:00 às 12:00 e das 13:00 às 18:00)</span></td></tr> <!- nome -->
                      <tr> <td ><span>Descrição:</span></td> <td><input type="text" id="descricao" name="descricao"></td></tr> <!-- ini exp -->
@@ -94,7 +130,7 @@ function validate(){
                             $periodos = $periodo->get_name_all_periodo();
                          ?>
                         <td>
-                           <select name="period" id="period">
+                           <select name="periodo" id="periodo">
                               <option value="no_sel">Selecione a periodicidade</option>
                               <?php
                                  for($aux=0; $aux < count($periodos); $aux++) {
@@ -107,10 +143,46 @@ function validate(){
                      
                      <tr><td colspan="3"><input style="width:80px;"type="submit" name="button" id="button" value="Cadastrar"></td> </tr>
                   </table>
-               </form>
+               </form>              
+               <?php }?>               
+               <?php 
+                if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
+                  if(validate()){
+                     $exame = new Exame();
+                     $exame->add_exame($_POST['descricao'], $_POST['periodo']);
+                     // echo $exame->printExames();
+                     if($exame->add_exame_bd()){
+                        echo '<div class="msg">Cadastrado com sucesso!</div>';
+                     }else{
+                        echo '<div class="msg">Erro ao cadastrar!</div>';
+                     }
+
+                  }
+                }else{
+                  if(isset($_POST['tipo']) && $_POST['tipo'] == "editar"){                    
+                          if(isset($_POST['id'])){
+
+                            if(validate()){
+
+                              $exame = new Exame();
+                              if($exame->atualiza_exame($_POST['descricao'], $_POST['periodo'], $_POST['id'] ) ){
+                                 echo '<div class="msg">Atualizado com sucesso!</div>';
+                              }else{
+                                 echo '<div class="msg">Falha na atualização!</div>';
+                              }
+                              
+                            }
+                          }                         
+                  }
+                }
+                 ?> 
             </div>
              <?php include("informacoes_exames.php") ?>               
    </div>
 
 </body>
 </html>
+
+
+
+
