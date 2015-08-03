@@ -841,9 +841,10 @@ function carregaUf_CartTrab(uf){
                             <?php } ?>
 
                           </td> </tr>
-                     <tr> <td></td>
-                                 <td><input type="submit" name="button" id="button" value="Editar">
-                                 <input type="button" name="button" id="button" value="Cancelar"></td>
+                     <tr> 
+                           <td colspan="4" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Editar">
+                             <input class="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
+                           </td>
                       </tr>
                   </table>
                </form>
@@ -906,7 +907,7 @@ function carregaUf_CartTrab(uf){
                      <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" ></td></tr> <!-- Numero do PIS -->
                      <tr> 
                         <td><span>Nº Cart. Trab.:</span></td>
-                        <td colspan="3"><input type="text" id="num_cart_trab" name="num_cart_trab" style="width:30%;" ><span> Nº Série <span><input type="text" id="num_serie_cart_trab" name="num_serie_cart_trab" style="width:30%">
+                        <td colspan="3"><input type="text" id="num_cart_trab" name="num_cart_trab" style="width:30%;" ><span> Nº Série <span><input type="text" id="num_serie_cart_trab" name="num_serie_cart_trab" style="width:80px">
                         
                            <?php //buscar array estados
                               $estado = new Estado();
@@ -963,7 +964,7 @@ function carregaUf_CartTrab(uf){
                         <td> <span>Rua: </span></td><td colspan="3"><input type="text" id="rua" name="rua" style="width:80%"> <span> Nº </span> <input style="width:50px;" type="text" id="num" name="num" > </td>
                      </tr>
                      <tr>
-                        <td> <span>Bairro: </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" style="width:65%"> <span> CEP </span> <input style="width:100px;" type="text" id="cep" name="cep" > </td>
+                        <td> <span>Bairro: </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" style="width:65%"> <span> CEP </span> <input style="width:80px;" type="text" id="cep" name="cep" > </td>
                      </tr>
                      <tr>
                         <td><span>Estado:</span></td>
@@ -1011,11 +1012,14 @@ function carregaUf_CartTrab(uf){
                            <!-- <a href="">Pesquisar</a> -->
                         </td>
                      </tr>
-                     <tr> <td><span>Tornar adiministrador:</span></td><td><input type="checkbox" name="is_admin" id="is_admin"></td> </tr>
-                     <tr> <td></td>
-                           <td><input type="submit" name="button" class="button" id="button" value="Cadastrar"></td>
-                             <td><input class="button" name="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar">
-                           </td></tr>
+                     <tr> 
+                          <td>
+                            <span>Tornar adiministrador:</span></td><td><input type="checkbox" name="is_admin" id="is_admin"></td> </tr>
+                     <tr> 
+                           <td colspan="4" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Cadastrar">
+                             <input class="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
+                           </td>
+                      </tr>
                   </table>
                </form>
                <?php }?>
