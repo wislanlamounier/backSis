@@ -8,9 +8,9 @@
 					<div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Pesquisar e Editar</div>
 				</div>
 				<table style="float:left" class="table-pesquisa">
-				  	<tr><td colspan="2"><span>Digite um CBO para editar:</span><br /></td></tr>
+				  	<tr><td colspan="2"><span>Digite um exame para editar:</span><br /></td></tr>
 					<tr>
-						<td><span>CBO: </span></td>
+						<td><span>Exame: </span></td>
 						<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" onclick="buscar_funcionarios()"></td>
 					</tr>
 					
@@ -25,9 +25,9 @@
 					<div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Pesquisar e Excluir</div>
 				</div>
 				<table style="float:left" class="table-pesquisa">
-				  	<tr><td colspan="2"><span>Digite um CBO para excluir:</span><br /></td></tr>
+				  	<tr><td colspan="2"><span>Digite um exame para excluir:</span><br /></td></tr>
 					<tr>
-						<td><span>CBO: </span></td>
+						<td><span>Exame: </span></td>
 						<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" onclick=""></td>
 					</tr>
 					
@@ -42,9 +42,9 @@
 					<div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Pesquisar Funcionário</div>
 				</div>
 				<table style="float:left" class="table-pesquisa">
-				  	<tr><td colspan="2"><span>Digite um CBO para editar:</span><br /></td></tr>
+				  	<tr><td colspan="2"><span>Digite um exame para editar:</span><br /></td></tr>
 					<tr>
-						<td><span>CBO: </span></td>
+						<td><span>Exame: </span></td>
 						<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" onclick=""></td>
 					</tr>
 					

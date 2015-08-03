@@ -109,8 +109,8 @@ function validate(){
                   </table>
                </form>
             </div>
-         
-      
+             <?php include("informacoes_exames.php") ?>               
    </div>
+
 </body>
 </html>

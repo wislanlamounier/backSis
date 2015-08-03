@@ -127,7 +127,7 @@ function validate(){
                ?>
             </div>
          
-  
+            <?php include ("informacoes_cbo.php") ?>
    
 </body>
 </html>

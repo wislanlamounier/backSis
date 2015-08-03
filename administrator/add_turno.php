@@ -219,7 +219,7 @@ function validate(){
                </form>
             </div>
          
-      
+      <?php include("informacoes_turno.php") ?>
    </div>
 </body>
 </html>
