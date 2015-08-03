@@ -202,7 +202,6 @@ h2{
 .table_dados_pes{
 	float:left;
 	width:500px;
-
 }
 .title{
 	font-size:15px;
@@ -225,7 +224,7 @@ h2{
 }
 .formulario table td{
 	/*text-align: center;*/
-	padding-top:10px;
+	padding-top:5px;
 
 }
 
@@ -257,6 +256,7 @@ h2{
 	margin-bottom: 20px;
 	width: 500px;
 	text-align: center;
+	background-color: rgba(100,100,100,0.2);
 }
 .formulario form input, .formulario form select{
 	height: 25px;

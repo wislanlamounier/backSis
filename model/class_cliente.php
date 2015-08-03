@@ -114,7 +114,7 @@ class Cliente {
 	     	$this->email_resp= $row['email_responsavel'];
 	     	$this->observacao = $row['observacao'];
 	     	$this->site = $row['site'];
-	     	$this->fornecedor= $row['fornecedor'];
+	     	$this->fornecedor = $row['fornecedor'];
 
 	     	return $this;
 	     }
@@ -122,7 +122,7 @@ class Cliente {
 	}
 
 
-	public function atualiza_cli($id, $nome, $cpf, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $rg, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_responsavel, $site, $observacao, $fornecedor ){
+	public function atualiza_cli($id, $nome, $cpf, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $rg, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_responsavel, $site, $observacao, $fornecedor){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
@@ -133,9 +133,13 @@ class Cliente {
 		// printf($query, $nome, $cpf, $data_nasc, $telefone, $email, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $id);
 		
 		$query_tra = $g->tratar_query($query, $nome, $cpf, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $rg, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_responsavel, $site, $observacao, $fornecedor, $id);
+		
 		if($query_tra){
-			}
-		return $query_tra;
+			return $query_tra;
+		}else{
+			return false;
+		}
+		
 	}
 
 		public function get_cli_jur_by_name($name){
@@ -196,17 +200,17 @@ class Cliente {
 
 	}
 
-	public function atualiza_cli_jur($id, $nome, $cpf, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $inscricao_estadual, $inscricao_municipal, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_responsavel, $site, $observacao, $fornecedor ){
+	public function atualiza_cli_jur($id, $nome, $cpf, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $inscricao_estadual, $inscricao_municipal, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_responsavel, $site, $observacao, $fornecedor, $email_resp ){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
 		$aux=0;
 		
-		$query = "UPDATE clientes SET nome_razao_soc='%s', cpf_cnpj='%s', data_nasc_data_fund='%s', cpf_cnpj='%s', telefone_cel='%s', telefone_com='%s', tipo='%s', inscricao_estadual='%s', inscricao_municipal='%s', id_endereco='%s', responsavel='%s', cpf_responsavel ='%s', data_nasc_responsavel='%s', site='%s', observacao='%s', fornecedor='%s' WHERE id = '%s'";
+		$query = "UPDATE clientes SET nome_razao_soc='%s', cpf_cnpj='%s', data_nasc_data_fund='%s', cpf_cnpj='%s', telefone_cel='%s', telefone_com='%s', tipo='%s', inscricao_estadual='%s', inscricao_municipal='%s', id_endereco='%s', responsavel='%s', cpf_responsavel ='%s', data_nasc_responsavel='%s', site='%s', observacao='%s', fornecedor='%s', email_responsavel='%s' WHERE id = '%s'";
 		
 		// printf($query, $nome, $cpf, $data_nasc, $telefone, $email, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $id);
 		
-		$query_tra = $g->tratar_query($query, $nome, $cpf, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $inscricao_estadual, $inscricao_municipal, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_responsavel, $site, $observacao, $fornecedor, $id);
+		$query_tra = $g->tratar_query($query, $nome, $cpf, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $inscricao_estadual, $inscricao_municipal, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_responsavel, $site, $observacao, $fornecedor,$email_resp, $id);
 		if($query_tra){
 			}
 		return $query_tra;
