@@ -257,7 +257,11 @@ function validate(){
                                  .$_POST['fim_exp_h'].":".$_POST['fim_exp_m'];
 
                          $turno->cadTurno($nome, $desc, $ini_exp, $ini_alm, $fim_alm, $fim_exp);
-                         $turno->add_turno_bd();
+                         if($turno->add_turno_bd() == true){
+                          echo '<div class="msg">Turno editado com sucesso!</div>';
+                        }else{
+                           echo '<div class="msg">Adicionado com Sucesso!</div>';
+                        }
                       }                 
                     }
                   if(isset($_POST['tipo']) && $_POST['tipo'] == "editar"){                    

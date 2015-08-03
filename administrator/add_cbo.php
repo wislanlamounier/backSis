@@ -197,13 +197,10 @@ function validate(){
 
                      if ($cboXexames->add_cbo_x_exames($id_exames, $id_cbo)){
                         echo '<div class="msg">Atualizado com sucesso!</div>';
-                     }else{
-                        echo '<div class="msg">Falha na atualização!</div>';
                      }
                   }
-                }
-                   if(isset($_POST['tipo']) && $_POST['tipo'] == "editar"){ 
-                           
+                }else{
+                   if(isset($_POST['tipo']) && $_POST['tipo'] == "editar"){
                           if(isset($_POST['id'])){
                             if(validate()){
                               $cbo = new Cbo();
@@ -213,16 +210,16 @@ function validate(){
                                  if(isset($_POST['sel_exames2']))
                                     $array_id_exames = $_POST['sel_exames2'];
 
-                                  if($cbo_x_exames->atualiza_cbo_x_exames($_POST['id'], $array_id_exames)){
+                                 if($cbo_x_exames->atualiza_cbo_x_exames($_POST['id'], $array_id_exames)){
                                     echo '<div class="msg">Atualizado com sucesso!</div>';
                                  }
-
                               }else{
                                  echo '<div class="msg">Falha na atualização!</div>';
                               }
                               
                             }
                           }                       
+                     }
                      }                
                   ?>
 
