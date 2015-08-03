@@ -48,22 +48,21 @@ require_once("../model/class_cidade_bd.php");
 
 	
 	function tipo_form(){
-
-		if(document.getElementById("fornecedor").checked){
-			
-			document.getElementById("fornecedor").value=0;
-		}else{
-			document.getElementById("fornecedor").value=1;
-		}
+		
+		// if(document.getElementById("fornecedor").checked){
+		// 	document.getElementById("fornecedor").value=0;
+		// }else{
+		// 	document.getElementById("fornecedor").value=1;
+		// }
 
 		if(document.getElementById("pessoa_fisica").checked == true){
-			document.getElementById("razao_nome").innerHTML = "Nome";
-			document.getElementById("data_fun_data_nasc").innerHTML = "Data de Nascimento";
-			document.getElementById("cnpj_cpf").innerHTML = "CPF";
+			document.getElementById("razao_nome").innerHTML = "<span>Nome:</span>";
+			document.getElementById("data_fun_data_nasc").innerHTML = "<span>Data de Nascimento:</span>";
+			document.getElementById("cnpj_cpf").innerHTML = "<span>CPF:</span>";
 			document.getElementById("cnpj").type = "hidden";
 			document.getElementById("cnpj").value ="";
 			document.getElementById("cpf").type="text";
-			document.getElementById("inscricao_estadual_rg").innerHTML = "RG";			
+			document.getElementById("inscricao_estadual_rg").innerHTML = "<span>RG:</span>";			
 			document.getElementById("inscricao_estadual").type="hidden";
 			document.getElementById("inscricao_estadual").value="";
 			document.getElementById("rg").type="text";			
@@ -74,19 +73,19 @@ require_once("../model/class_cidade_bd.php");
 		}
 
 		if(document.getElementById("pessoa_juridica").checked == true){
-			document.getElementById("razao_nome").innerHTML = "Razao Social";
-			document.getElementById("data_fun_data_nasc").innerHTML = "Data Fundação";
-			document.getElementById("cnpj_cpf").innerHTML = "CNPJ";	
+			document.getElementById("razao_nome").innerHTML = "<span>Razao Social:</span>";
+			document.getElementById("data_fun_data_nasc").innerHTML = "<span>Data Fundação:</span>";
+			document.getElementById("cnpj_cpf").innerHTML = "<span>CNPJ:</span>";
 			document.getElementById("cnpj").type = "text";
 			document.getElementById("cpf").value ="";
 			document.getElementById("cpf").type="hidden";	
-			document.getElementById("inscricao_estadual_rg").innerHTML = "Inscrição Estadual";
+			document.getElementById("inscricao_estadual_rg").innerHTML = "<span>Inscrição Estadual:</span>";
 			document.getElementById("inscricao_estadual").name= "inscricao_estadual";
 			document.getElementById("inscricao_estadual").type="text";
 			document.getElementById("rg").type = "hidden";
 			document.getElementById("rg").value = "";
 			document.getElementById("inscricao_municipal").type="number";
-			document.getElementById("inscricao_municipal_nulo").innerHTML="Inscrição Municipal";
+			document.getElementById("inscricao_municipal_nulo").innerHTML="<span>Inscrição Municipal:</span>";
 			document.getElementById("inscricao_municipal").name="inscricao_municipal";		
 		}
 
@@ -594,7 +593,12 @@ require_once("../model/class_cidade_bd.php");
 					                <tr> <td ><span>E-mail:</span></td> <td><input type="text" id="email_resp" name="email_resp" value="<?php echo $cli->email_resp ?>"></td></tr>                     
 					                <tr><td colspan="2"><span><b>Observação</b></span></td></tr>                     
 					                <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao"><?php echo $cli->observacao ?></textarea></div> </td></tr>                     
-					                <tr><td colspan="2"><input class="botao_submit" type="submit" value="Enviar" ></td></tr> 
+					                <tr>
+					                    	 <td colspan="2" style="text-align:center">
+					                    	 	<input  class="button" type="submit" value="Cadastrar">
+					                    	 	<input class="button" type="button" value="Cancelar">
+					                    	 </td>
+					                    </tr> 
 					           	 </table>
 					        </form>
 
@@ -622,13 +626,13 @@ require_once("../model/class_cidade_bd.php");
 					                          		<input type="checkbox" id="fornecedor"  name="fornecedor"><span>Fornecedor</span>
 					                   <?php } ?>
 					           	   		</tr>
-						               <tr> <td ><div id="razao_nome">Razao Social:</div></td><td><input type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
-						                   <tr> <td ><div id="data_fun_data_nasc">Data Fundação:</div></td> <td><input type="date" id="data_nasc" name="data_nasc" value="<?php echo $cli->data_nasc ?>" ></td></tr>
-						                   <tr> <td ><div id="cnpj_cpf">CNPJ:</div></td><td><input type="text" id="cnpj" name="cnpj" value="<?php echo $cli->cpf ?>" ></td></tr> 
+						               <tr> <td ><div id="razao_nome"><span>Razao Social:</span></div></td><td><input type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
+						                   <tr> <td ><div id="data_fun_data_nasc"><span>Data Fundação:</span></div></td> <td><input type="date" id="data_nasc" name="data_nasc" value="<?php echo $cli->data_nasc ?>" ></td></tr>
+						                   <tr> <td ><div id="cnpj_cpf"><span>CNPJ:</span></div></td><td><input type="text" id="cnpj" name="cnpj" value="<?php echo $cli->cpf ?>" ></td></tr> 
 						                   <tr> <td ><span>Celular:</span></td> <td><input type="text" id="cel" name="cel" value="<?php echo $cli->telefone_cel ?>"></td></tr> 
 						                   <tr> <td ><span>Telefone:</span></td> <td><input type="text" id="tel" name="tel"value="<?php echo $cli->telefone_com ?>"></td></tr>                         
-						                   <tr> <td ><div id="inscricao_estadual_rg">Inscrição Estadual:</div></td> <td><input type="text" id="inscricao_estadual" name="inscricao_estadual" value="<?php echo $cli->inscricao_estadual ?>" ></td></tr>
-						                    <tr><td><div id="inscricao_municipal_rg">Inscrição Municipal:</div></td><td><input type="text" id="inscricao_municipal" name="inscricao_municipal" value="<?php echo $cli->inscricao_municipal ?>"></td></tr>  
+						                   <tr> <td ><div id="inscricao_estadual_rg"><span>Inscrição Estadual:</span></div></td> <td><input type="text" id="inscricao_estadual" name="inscricao_estadual" value="<?php echo $cli->inscricao_estadual ?>" ></td></tr>
+						                    <tr><td><div id="inscricao_municipal_rg"><span>Inscrição Municipal:</span></div></td><td><input type="text" id="inscricao_municipal" name="inscricao_municipal" value="<?php echo $cli->inscricao_municipal ?>"></td></tr>  
 						                          <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
 						                          <tr> <td ><span>Bairro:</span></td> <td><input type="text" id="bairro" name="bairro"  value="<?php echo $endereco[0][4]; ?>" ></td></tr> 
 						                          <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua" value="<?php echo $endereco[0][0]; ?>"></td></tr> 
@@ -668,7 +672,12 @@ require_once("../model/class_cidade_bd.php");
 						                          <tr> <td ><span>E-mail:</span></td> <td><input type="text" id="email_resp" name="email_resp" value="<?php echo $cli->email_resp ?>"></td></tr>                     
 						                          <tr><td colspan="2"><span><b>Observação</b></span></td></tr>                     
 						                          <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao"><?php echo $cli->observacao ?></textarea></div> </td></tr>                     
-						                          <tr><td colspan="2"><input class="botao_submit" type="submit" value="Enviar" ></td></tr> 
+						                          <tr>
+							                    	 <td colspan="2" style="text-align:center">
+							                    	 	<input  class="button" type="submit" value="Cadastrar">
+							                    	 	<input class="button" type="button" value="Cancelar">
+							                    	 </td>
+							                    </tr> 
 
 
 
@@ -687,18 +696,18 @@ require_once("../model/class_cidade_bd.php");
 									 <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
 									 <tr> <td ><span>Tipo:</span></td>
 									 	  <td> 	
-											 <input type="radio" style="height:12px;" onclick="tipo_form()" id="pessoa_fisica" name="tipo" value="0"><span>Pessoa Física</span>
-											 <input type="radio" style="height:12px;" onclick="tipo_form()" id="pessoa_juridica" name="tipo" checked value="1"><span>Pessoa Juridica</span>
+											 <input type="radio" style="height:12px;" onclick="tipo_form()" id="pessoa_fisica" name="tipo" ><span>Pessoa Física</span>
+											 <input type="radio" style="height:12px;" onclick="tipo_form()" id="pessoa_juridica" name="tipo" checked><span>Pessoa Juridica</span>
 											 <input type="checkbox" style="height:12px;" onclick="tipo_form()" id="fornecedor" name="fornecedor"><span>Fornecedor</span>
 										 </td>
 									 </tr>
-									 <tr> <td > <span>Razão Social:</span> </td><td><input type="text" id="nome" name="nome" ></td></tr>
-							         <tr> <td > <span>Data Fundação:</span> </td> <td><input type="date" id="data_nasc" name="data_nasc" ></td></tr>
-							         <tr> <td > <span>CNPJ:</span> </td><td><input type="text" id="cnpj" name="cnpj" ><input type="hidden" id="cpf" name="cpf"  ></td></tr> 
+									 <tr> <td > <div id="razao_nome"><span>Razão Social:</span></div> </td><td><input type="text" id="nome" name="nome" ></td></tr>
+							         <tr> <td > <div id="data_fun_data_nasc"><span>Data Fundação:</span></div> </td> <td><input type="date" id="data_nasc" name="data_nasc" ></td></tr>
+							         <tr> <td > <div id="cnpj_cpf"><span>CNPJ:</span></div> </td><td><input type="text" id="cnpj" name="cnpj" ><input type="hidden" id="cpf" name="cpf"  ></td></tr> 
 							         <tr> <td > <span>Celular:</span> </td> <td><input type="text" id="cel" name="cel" ></td></tr> 
 							         <tr> <td > <span>Telefone:</span> </td> <td><input type="text" id="tel" name="tel" ></td></tr>			                    
-							         <tr> <td > <span>Inscrição Estadual:</span> </td> <td><input type="number" id="inscricao_estadual" name="inscricao_estadual" > <input type="hidden" id="rg" name="rg"  ></td></tr>			                     
-							         <tr> <td > <span>Inscrição Municipal:</span> </td> <td><input type="number" id="inscricao_municipal" name="inscricao_municipal" ></td></tr></div>        
+							         <tr> <td > <div id="inscricao_estadual_rg"><span>Inscrição Estadual:</span></div> </td> <td><input type="number" id="inscricao_estadual" name="inscricao_estadual" > <input type="hidden" id="rg" name="rg"  ></td></tr>			                     
+							         <tr> <td > <div id="inscricao_municipal_nulo"><span>Inscrição Municipal:</span></div> </td> <td><input type="number" id="inscricao_municipal" name="inscricao_municipal" ></td></tr></div>        
 					                    <tr><td colspan="2"><span><b>Endereço</b></span> </td></tr>
 					                    <tr> <td ><span>Bairro:</span></td> <td><input type="text" id="bairro" name="bairro" ></td></tr> 
 					                    <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua" ></td></tr> 
@@ -736,7 +745,12 @@ require_once("../model/class_cidade_bd.php");
 					                    <tr> <td ><span>E-mail:</span></td> <td><input type="text" id="email_resp" name="email_resp" ></td></tr>                     
 					                    <tr><td colspan="2"><span><b>Observação</b></span></td></tr>                     
 					                    <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao" ></textarea></div> </td></tr>                     
-					                    <tr><td colspan="2"><input class="botao_submit" type="submit" value="Enviar" ></td></tr> 
+					                    <tr>
+					                    	 <td colspan="2" style="text-align:center">
+					                    	 	<input  class="button" type="submit" value="Cadastrar">
+					                    	 	<input class="button" type="button" value="Cancelar">
+					                    	 </td>
+					                    </tr> 
 
 								</table>
 						</form>
