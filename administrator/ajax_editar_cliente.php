@@ -9,9 +9,10 @@
 				</div>
 				<table style="float:left" class="table-pesquisa">
 				  	<tr><td colspan="2"><span>Digite um nome para editar:</span><br /></td></tr>
+				  	<tr><td> <input style="height:12px;" type="radio" id="pessoafisica" name="pessoatipo" checked><span>Pessoa Fisica</span></td><td> <input type="radio" style="height:12px;" id="pessoajuridica" name="pessoatipo"><span>Pessoa Juridica</span></td></tr>
 					<tr>
 						<td><span>Nome: </span></td>
-						<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" onclick="buscar_funcionarios()"></td>
+						<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" onclick="buscar_clientes(document.getElementById('pessoafisica').checked?0:1)"></td>
 					</tr>
 					
 				</table>

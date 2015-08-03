@@ -32,7 +32,7 @@ class Endereco{
 		$sql->conn_bd();
 		$g = new Glob();
 
-		$query = 'SELECT * FROM endereco WHERE id = %d';
+		$query = 'SELECT * FROM endereco WHERE id = "%d"';
 		$result = $g->tratar_query($query, $id);
 
 		if(@mysql_num_rows($result) == 0){

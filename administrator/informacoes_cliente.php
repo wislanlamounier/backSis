@@ -5,12 +5,12 @@ include_once("../model/class_cliente.php");
 ?>
 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
-	function buscar_funcionarios(){    
+	function buscar_clientes(tipopess){    
   	   var nome = document.getElementById('nome_search').value;
       //se encontrou o estado
       if(nome){
       	
-        var url = 'ajax_buscar_informacoes_cliente.php?nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
+        var url = 'ajax_buscar_informacoes_cliente.php?nome='+nome+'&tipo='+tipopess;  //caminho do arquivo php que irá buscar as cidades no BD
 
         $.get(url, function(dataReturn) {
         	

@@ -93,20 +93,7 @@ require_once("../model/class_cidade_bd.php");
 
 	}
 
-		function buscar_cidades(){
-		      
-		      var estado = document.getElementById("estado").value;  //codigo do estado escolhido
-		      //se encontrou o estado
-
-		      if(estado){
-
-		        var url = 'ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
-
-		        $.get(url, function(dataReturn) {
-		          $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
-		        });
-		      }
-	   }
+		
 
 	 	function valida(f){
 	        var erros = 0;
@@ -470,129 +457,447 @@ require_once("../model/class_cidade_bd.php");
       }      
      
    }
+   function buscar_cidades(){
+		      
+		var estado = document.getElementById("estado").value;  //codigo do estado escolhido
+		//se encontrou o estado
 
+		if(estado){
 
-  
+		  var url = 'ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+
+		  $.get(url, function(dataReturn) {
+		    $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
+		  });
+		}
+	}
+	function carregaCidade(){
+      var combo = document.getElementById("cidade");
+      var cidade = document.getElementById("id_cidade").value;
+      
+      for (var i = 0; i < combo.length; i++)
+      {
+         
+        if (combo.options[i].value == cidade)
+        {
+          combo.options[i].selected = true;
+          break;
+        }
+      }
+      
+    }
+    function buscar_cid(id_est){
+      var estado = id_est;  //codigo do estado escolhido
+      //se encontrou o estado
+      if(estado){
+        var url = 'ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+        $.get(url, function(dataReturn) {
+          $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
+        });
+      }
+    }
+
+	function disparaLoadCidade(){
+      setTimeout(function() {
+         carregaCidade();
+         carregaPostosTrabalho();
+        }, 100);
+    }
+
+	function carregaUf(uf){
+      var combo = document.getElementById("estado");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == uf)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }
+    }  
 
 </script>
 <body>			
 
 	
 			<?php include_once("../view/topo.php"); ?>
-			<div class='formulario'>
-				<form form method="POST" id="add_cliente" action="add_cliente.php" onsubmit="return valida(this)">
-						<table id="table_dados_pes" class="table_dados_pes" border="0" >
-							 <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
-							 <tr> <td ><span>Tipo:</span></td> <td> 	
-							 <input type="radio" onclick="tipo_form()" id="pessoa_fisica" name="tipo" value="0">Pessoa Física							
-							 <input type="radio" onclick="tipo_form()" id="pessoa_juridica" name="tipo" checked value="1">Pessoa Juridica
-							 <br><input type="checkbox" onclick="tipo_form()" id="fornecedor" name="fornecedor" value="1">Fornecedor							 
-							 <br><br></td></tr>
-							 <tr> <td ><div id="razao_nome">Razão Social:</div></td><td><input type="text" id="nome" name="nome" ></td></tr>
-					         <tr> <td ><div id="data_fun_data_nasc">Data Fundação:</div></td> <td><input type="date" id="data_nasc" name="data_nasc" ></td></tr>
-					         <tr> <td ><div id="cnpj_cpf">CNPJ:</div></td><td><input type="text" id="cnpj" name="cnpj" ><input type="hidden" id="cpf" name="cpf"  ></td></tr> 
-					         <tr> <td ><span>Celular:</span></td> <td><input type="text" id="cel" name="cel" ></td></tr> 
-					         <tr> <td ><span>Telefone:</span></td> <td><input type="text" id="tel" name="tel" ></td></tr>			                    
-					         <tr> <td ><div id="inscricao_estadual_rg">Inscrição Estadual:</div></td> <td><input type="number" id="inscricao_estadual" name="inscricao_estadual" > <input type="hidden" id="rg" name="rg"  ></td></tr>			                     
-					         <tr> <td ><div id="inscricao_municipal_nulo">Inscrição Municipal:</div></td> <td><input type="number" id="inscricao_municipal" name="inscricao_municipal" ></td></tr></div>        
-			                    <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
-			                    <tr> <td ><span>Bairro:</span></td> <td><input type="text" id="bairro" name="bairro" ></td></tr> 
-			                    <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua" ></td></tr> 
-			                    <tr> <td ><span>Numero:</span></td> <td><input type="number" id="numero" name="numero" ></td></tr>
-			                    <tr> <td ><span>UF:</span></td> 
-			                    	<td>
-			                    		<select id="estado" name="estado" onchange="buscar_cidades()">
-			                    			<option>Selecione o Estado</option>
-			                    			<?php 
-			                    				 $estado = new Estado();
-			                    				 $estado = $estado->get_name_all_uf();
-			                    				 for( $aux = 0; $aux < count($estado) ; $aux++){
-			                    				 	echo '<option value="'.$estado[$aux][0].'">'.$estado[$aux][1].'</option>';
-			                    				 }
+			<div class='formulario' style="width:500px;">
+			<?php if(isset($_GET['tipo']) && $_GET['tipo'] == "editar"){ //editar cliente pessoa fisica?>
+					 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR CLIENTE</span></div></div>
 
-			                    			?>
-			                    		</select>
-			                    	</td>
-			                    </tr> 
-			                    <tr> 
-			                    	<td><span>Cidade:</span></td>
-			                    	<td>
-			                    		<div id="load_cidades">
-			                            <select name="cidade" id="cidade">
-			                              <option value="">Selecione UF</option>
-			                            </select>
-			                          </div>
-			                    	</td>
-			                    </tr>                     
-			                    <tr> <td ><span>CEP:</span></td> <td><input type="number" id="cep" name="cep" ></td></tr> 
-			                    <tr> <td ><span>Site:</span></td> <td><input type="text" id="site" name="site" ></td></tr>
-			                    <tr><td colspan="2"><span><b>Responsável</b></span></td></tr>
-			                    <tr> <td ><span>Nome:</span></td> <td><input type="text" id="nome_resp" name="nome_resp" ></td></tr> 
-			                    <tr> <td ><span>CPF:</span></td> <td><input type="text" id="cpf_resp" name="cpf_resp" ></td></tr> 
-			                    <tr> <td ><span>Data Nascimento:</span></td> <td><input type="date" id="datanasc_resp" name="datanasc_resp" ></td></tr> 
-			                    <tr> <td ><span>E-mail:</span></td> <td><input type="text" id="email_resp" name="email_resp" ></td></tr>                     
-			                    <tr><td colspan="2"><span><b>Observação</b></span></td></tr>                     
-			                    <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao" ></textarea></div> </td></tr>                     
-			                    <tr><td colspan="2"><input class="botao_submit" type="submit" value="Enviar" ></td></tr> 
+                    <?php 
+                     $cli = new Cliente();
+                     $cli = $cli->get_cli_id($_GET['id']);//buscando funcionario no banco
+                     $endereco = new Endereco();
+                     $endereco = $endereco->get_endereco( $cli->id_endereco );
+                      
+                      echo '<input type="hidden" id="id_cidade" value="'.$endereco[0][2].'">';
+                    
 
-						</table>
-				</form>
+                   ?>
+    				<form form method="POST" id="add_cliente" action="add_cliente.php" onsubmit="return valida(this)">
+    					  <input type="hidden" name="tipo_post" value="editar_pessoa_fisica"><?php //input envia o tipo da requisição, se é add cliente,  edita cliente p/fisica ou edita cliente p/juridica ?>
+		                  <input type="hidden" id="id_cli" name="id_cli" value="<?php echo $cli->id; ?>">
+		                  <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $cli->id_endereco; ?>">
+					            <table id="table_dados_pes" class="table_dados_pes" border="0" >
+					               <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
+					               <tr> <td ><span>Tipo:</span></td> <td>  
+						               <?php if($cli->fornecedor){ ?>
+					                          		<input type="checkbox" id="fornecedor" checked name="fornecedor"><span>Fornecedor</span>
+					                   <?php }else{ ?>
+					                          		<input type="checkbox" id="fornecedor"  name="fornecedor"><span>Fornecedor</span>
+					                   <?php } ?>
+					           	   </tr>
+					               <tr> <td ><span>Nome:</span></td><td><input type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
+					                <tr> <td ><span>Data Nasc:</span></td> <td><input type="date" id="data_nasc" name="data_nasc" value="<?php echo $cli->data_nasc ?>" ></td></tr>
+					                <tr> <td ><span>CPF:</span></td><td><input type="text" id="cpf" name="cpf" value="<?php echo $cli->cpf ?>" ></td></tr> 
+					                <tr> <td ><span>Celular:</span></td> <td><input type="text" id="cel" name="cel" value="<?php echo $cli->telefone_cel ?>"></td></tr> 
+					                <tr> <td ><span>Telefone:</span></td> <td><input type="text" id="tel" name="tel"value="<?php echo $cli->telefone_com ?>"></td></tr>                         
+					                <tr> <td ><span>RG:</span></td> <td><input type="text" id="rg" name="rg" value="<?php echo $cli->rg ?>" ></td></tr>  
+					                <tr> <td colspan="2"><span><b>Endereço</b></span></td></tr>
+					                <tr> <td ><span>Bairro:</span></td> <td><input type="text" id="bairro" name="bairro"  value="<?php echo $endereco[0][4]; ?>" ></td></tr> 
+					                <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua" value="<?php echo $endereco[0][0]; ?>"></td></tr> 
+					                <tr> <td ><span>Numero:</span></td> <td><input type="number" id="numero" name="numero" value="<?php echo $endereco[0][1]; ?>" ></td></tr>
+					                <tr> <td ><span>UF:</span></td> 
+					                  <td>
+					                    <select id="estado" name="estado" onchange="buscar_cidades()">
+					                      <option>Selecione o Estado</option>
+					                      <?php 
+					                         $estado = new Estado();
+					                         $estado = $estado->get_name_all_uf();
+					                         for( $aux = 0; $aux < count($estado) ; $aux++){
+					                          echo '<option value="'.$estado[$aux][0].'">'.$estado[$aux][1].'</option>';
+					                         }
+					                      ?>
+					                    </select>
+					                  </td>
+					                  <?php echo "<script> carregaUf(".$endereco[0][3].");</script>"; ?>
+					                </tr> 
+					                <tr> 
+					                  <td><span>Cidade:</span></td>
+					                  <td>
+					                    <div id="load_cidades">
+					                        <select name="cidade" id="cidade">
+					                          <option value="">Selecione UF</option>
+					                        </select>
+					                      </div>
+					                  </td>
+					                  <?php echo "<script> buscar_cid('".$endereco[0][3]."'); </script>";  ?>
+					                </tr>                     
+					                <tr> <td ><span>CEP:</span></td> <td><input type="number" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>"></td></tr> 
+					                <tr> <td ><span>Site:</span></td> <td><input type="text" id="site" name="site" value="<?php echo $cli->site ?>" ></td></tr>
+					                <tr><td colspan="2"><span><b>Responsável</b></span></td></tr>
+					                <tr> <td ><span>Nome:</span></td> <td><input type="text" id="nome_resp" name="nome_resp" value="<?php echo $cli->responsavel ?>" ></td></tr> 
+					                <tr> <td ><span>CPF:</span></td> <td><input type="text" id="cpf_resp" name="cpf_resp" value="<?php echo $cli->cpf_responsavel ?>" ></td></tr> 
+					                <tr> <td ><span>Data Nascimento:</span></td> <td><input type="date" id="datanasc_resp" name="datanasc_resp" value="<?php echo $cli->data_nasc_responsavel ?>" ></td></tr> 
+					                <tr> <td ><span>E-mail:</span></td> <td><input type="text" id="email_resp" name="email_resp" value="<?php echo $cli->email_resp ?>"></td></tr>                     
+					                <tr><td colspan="2"><span><b>Observação</b></span></td></tr>                     
+					                <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao"><?php echo $cli->observacao ?></textarea></div> </td></tr>                     
+					                <tr><td colspan="2"><input class="botao_submit" type="submit" value="Enviar" ></td></tr> 
+					           	 </table>
+					        </form>
+
+
+
+				<?php }else if(isset($_GET['tipo']) && $_GET['tipo'] == "editarj"){ //editar cliente pessoa juridica?>
+							<div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR CLIENTE JURIDICO</span></div></div>
+							<?php 
+			                     $cli = new Cliente();
+			                     $cli = $cli->get_cli_jur_id($_GET['id']);//buscando funcionario no banco
+			                     $endereco = new Endereco();
+			                     $endereco = $endereco->get_endereco( $cli->id_endereco );
+			                     echo '<input type="hidden" id="id_cidade" value="'.$endereco[0][2].'">';
+			                ?>
+						    <form form method="POST" id="edita_cliente_jur" action="add_cliente.php" onsubmit="return valida(this)">
+						    		<input type="hidden" name="tipo_post" value="editar_pessoa_juridica"><?php //input envia o tipo da requisição, se é add cliente,  edita cliente p/fisica ou edita cliente p/juridica ?>
+						            <input type="hidden" id="id_cli" name="id_cli" value="<?php echo $cli->id; ?>">
+						            <input type="hidden" id="id_endereco" name="id_endereco"  value="<?php echo $cli->id_endereco; ?>">
+						            <table id="table_dados_pes" class="table_dados_pes" border="0" >
+						               <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
+						               <tr> <td ><span>Tipo:</span></td> <td>  
+						               <?php if($cli->fornecedor){ ?>
+					                          		<input type="checkbox" id="fornecedor" checked name="fornecedor"><span>Fornecedor</span>
+					                   <?php }else{ ?>
+					                          		<input type="checkbox" id="fornecedor"  name="fornecedor"><span>Fornecedor</span>
+					                   <?php } ?>
+					           	   		</tr>
+						               <tr> <td ><div id="razao_nome">Razao Social:</div></td><td><input type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
+						                   <tr> <td ><div id="data_fun_data_nasc">Data Fundação:</div></td> <td><input type="date" id="data_nasc" name="data_nasc" value="<?php echo $cli->data_nasc ?>" ></td></tr>
+						                   <tr> <td ><div id="cnpj_cpf">CNPJ:</div></td><td><input type="text" id="cnpj" name="cnpj" value="<?php echo $cli->cpf ?>" ></td></tr> 
+						                   <tr> <td ><span>Celular:</span></td> <td><input type="text" id="cel" name="cel" value="<?php echo $cli->telefone_cel ?>"></td></tr> 
+						                   <tr> <td ><span>Telefone:</span></td> <td><input type="text" id="tel" name="tel"value="<?php echo $cli->telefone_com ?>"></td></tr>                         
+						                   <tr> <td ><div id="inscricao_estadual_rg">Inscrição Estadual:</div></td> <td><input type="text" id="inscricao_estadual" name="inscricao_estadual" value="<?php echo $cli->inscricao_estadual ?>" ></td></tr>
+						                    <tr><td><div id="inscricao_municipal_rg">Inscrição Municipal:</div></td><td><input type="text" id="inscricao_municipal" name="inscricao_municipal" value="<?php echo $cli->inscricao_municipal ?>"></td></tr>  
+						                          <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
+						                          <tr> <td ><span>Bairro:</span></td> <td><input type="text" id="bairro" name="bairro"  value="<?php echo $endereco[0][4]; ?>" ></td></tr> 
+						                          <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua" value="<?php echo $endereco[0][0]; ?>"></td></tr> 
+						                          <tr> <td ><span>Numero:</span></td> <td><input type="number" id="numero" name="numero" value="<?php echo $endereco[0][1]; ?>" ></td></tr>
+						                          <tr> <td ><span>UF:</span></td> 
+						                            <td>
+						                              <select id="estado" name="estado" onchange="buscar_cidades()">
+						                                <option>Selecione o Estado</option>
+						                                <?php 
+						                                   $estado = new Estado();
+						                                   $estado = $estado->get_name_all_uf();
+						                                   for( $aux = 0; $aux < count($estado) ; $aux++){
+						                                    echo '<option value="'.$estado[$aux][0].'">'.$estado[$aux][1].'</option>';
+						                                   }
+						                                ?>
+						                              </select>
+						                            </td>
+						                            <?php echo "<script> carregaUf(".$endereco[0][3].");</script>"; ?>
+						                          </tr> 
+						                          <tr> 
+						                            <td><span>Cidade:</span></td>
+						                            <td>
+						                              <div id="load_cidades">
+						                                  <select name="cidade" id="cidade">
+						                                    <option value="">Selecione UF</option>
+						                                  </select>
+						                                </div>
+						                            </td>
+						                            <?php echo "<script> buscar_cid('".$endereco[0][3]."'); </script>";  ?>
+						                          </tr>                     
+						                          <tr> <td ><span>CEP:</span></td> <td><input type="number" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>"></td></tr> 
+						                          <tr> <td ><span>Site:</span></td> <td><input type="text" id="site" name="site" value="<?php echo $cli->site ?>" ></td></tr>
+						                          <tr><td colspan="2"><span><b>Responsável</b></span></td></tr>
+						                          <tr> <td ><span>Nome:</span></td> <td><input type="text" id="nome_resp" name="nome_resp" value="<?php echo $cli->responsavel ?>" ></td></tr> 
+						                          <tr> <td ><span>CPF:</span></td> <td><input type="text" id="cpf_resp" name="cpf_resp" value="<?php echo $cli->cpf_responsavel ?>" ></td></tr> 
+						                          <tr> <td ><span>Data Nascimento:</span></td> <td><input type="date" id="datanasc_resp" name="datanasc_resp" value="<?php echo $cli->data_nasc_responsavel ?>" ></td></tr> 
+						                          <tr> <td ><span>E-mail:</span></td> <td><input type="text" id="email_resp" name="email_resp" value="<?php echo $cli->email_resp ?>"></td></tr>                     
+						                          <tr><td colspan="2"><span><b>Observação</b></span></td></tr>                     
+						                          <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao"><?php echo $cli->observacao ?></textarea></div> </td></tr>                     
+						                          <tr><td colspan="2"><input class="botao_submit" type="submit" value="Enviar" ></td></tr> 
+
+
+
+						            </table>
+						        </form>
+
+               
+
+
+				<?php }else{ //adicionar cliente?>
+
+						<div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR CLIENTE</span></div></div>
+						<form form method="POST" id="add_cliente" action="add_cliente.php" onsubmit="return valida(this)">
+								<input type="hidden" name="tipo_post" value="add_cliente"><?php //input envia o tipo da requisição, se é add cliente,  edita cliente p/fisica ou edita cliente p/juridica ?>
+								<table border="0" >
+									 <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
+									 <tr> <td ><span>Tipo:</span></td>
+									 	  <td> 	
+											 <input type="radio" style="height:12px;" onclick="tipo_form()" id="pessoa_fisica" name="tipo" value="0"><span>Pessoa Física</span>
+											 <input type="radio" style="height:12px;" onclick="tipo_form()" id="pessoa_juridica" name="tipo" checked value="1"><span>Pessoa Juridica</span>
+											 <input type="checkbox" style="height:12px;" onclick="tipo_form()" id="fornecedor" name="fornecedor"><span>Fornecedor</span>
+										 </td>
+									 </tr>
+									 <tr> <td > <span>Razão Social:</span> </td><td><input type="text" id="nome" name="nome" ></td></tr>
+							         <tr> <td > <span>Data Fundação:</span> </td> <td><input type="date" id="data_nasc" name="data_nasc" ></td></tr>
+							         <tr> <td > <span>CNPJ:</span> </td><td><input type="text" id="cnpj" name="cnpj" ><input type="hidden" id="cpf" name="cpf"  ></td></tr> 
+							         <tr> <td > <span>Celular:</span> </td> <td><input type="text" id="cel" name="cel" ></td></tr> 
+							         <tr> <td > <span>Telefone:</span> </td> <td><input type="text" id="tel" name="tel" ></td></tr>			                    
+							         <tr> <td > <span>Inscrição Estadual:</span> </td> <td><input type="number" id="inscricao_estadual" name="inscricao_estadual" > <input type="hidden" id="rg" name="rg"  ></td></tr>			                     
+							         <tr> <td > <span>Inscrição Municipal:</span> </td> <td><input type="number" id="inscricao_municipal" name="inscricao_municipal" ></td></tr></div>        
+					                    <tr><td colspan="2"><span><b>Endereço</b></span> </td></tr>
+					                    <tr> <td ><span>Bairro:</span></td> <td><input type="text" id="bairro" name="bairro" ></td></tr> 
+					                    <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua" ></td></tr> 
+					                    <tr> <td ><span>Numero:</span></td> <td><input type="number" id="numero" name="numero" ></td></tr>
+					                    <tr> <td ><span>UF:</span></td> 
+					                    	<td>
+					                    		<select id="estado" name="estado" onchange="buscar_cidades()">
+					                    			<option>Selecione o Estado</option>
+					                    			<?php 
+					                    				 $estado = new Estado();
+					                    				 $estado = $estado->get_name_all_uf();
+					                    				 for( $aux = 0; $aux < count($estado) ; $aux++){
+					                    				 	echo '<option value="'.$estado[$aux][0].'">'.$estado[$aux][1].'</option>';
+					                    				 }
+					                    			?>
+					                    		</select>
+					                    	</td>
+					                    </tr> 
+					                    <tr> 
+					                    	<td><span>Cidade:</span></td>
+					                    	<td>
+					                    		<div id="load_cidades">
+					                            <select name="cidade" id="cidade">
+					                              <option value="">Selecione UF</option>
+					                            </select>
+					                          </div>
+					                    	</td>
+					                    </tr>                     
+					                    <tr> <td ><span>CEP:</span></td> <td><input type="number" id="cep" name="cep" ></td></tr> 
+					                    <tr> <td ><span>Site:</span></td> <td><input type="text" id="site" name="site" ></td></tr>
+					                    <tr><td colspan="2"><span><b>Responsável</b></span></td></tr>
+					                    <tr> <td ><span>Nome:</span></td> <td><input type="text" id="nome_resp" name="nome_resp" ></td></tr> 
+					                    <tr> <td ><span>CPF:</span></td> <td><input type="text" id="cpf_resp" name="cpf_resp" ></td></tr> 
+					                    <tr> <td ><span>Data Nascimento:</span></td> <td><input type="date" id="datanasc_resp" name="datanasc_resp" ></td></tr> 
+					                    <tr> <td ><span>E-mail:</span></td> <td><input type="text" id="email_resp" name="email_resp" ></td></tr>                     
+					                    <tr><td colspan="2"><span><b>Observação</b></span></td></tr>                     
+					                    <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao" ></textarea></div> </td></tr>                     
+					                    <tr><td colspan="2"><input class="botao_submit" type="submit" value="Enviar" ></td></tr> 
+
+								</table>
+						</form>
+					<?php } //fim else?>
 
 				<?php
-
-				if(validade())
-				{
-
-					//recebendo cliente
-					//dados com logica
-					if($_POST['cpf'] != ""){
-						$cpf_cnpj = $_POST['cpf'];	
-					}
-					if($_POST['cnpj'] != ""){		
-						$cpf_cnpj = $_POST['cnpj'];
-					}
-
-					//dados sem logica
-					$cliente = new Cliente();
-					$nome_razao_soc = $_POST['nome'];
-					$data_nasc_data_fund = $_POST['data_nasc'];	
-					//$cpf_cnpj = $_POST['cnpj'];	
-					$telefone_cel = $_POST['cel'];
-					$telefone_com = $_POST['tel'];
-					$tipo = $_POST['tipo'];
-					$rg = $_POST['rg'];
-					$inscricao_estadual = $_POST['inscricao_estadual'];
-					$inscricao_municipal = $_POST['inscricao_municipal'];
-					$responsavel = $_POST['nome_resp'];
-					$cpf_responsavel = $_POST['cpf_resp'];
-					$data_nasc_resp = $_POST['datanasc_resp'];
-					$email_resp = $_POST['email_resp'];
-					$site = $_POST['site'];
-					$observacao = $_POST['observacao'];					
-					$fornecedor = $_POST['fornecedor'];
+				if(isset($_POST['tipo_post']) && $_POST['tipo_post'] == 'editar_pessoa_fisica'){
 					
-					//recebendo endereco
-					$endereco = new Endereco();
-					$bairro = $_POST['bairro'];
-					$rua = $_POST['rua'];
-					$numero = $_POST['numero'];
-					$cidade_id = $_POST['cidade'];
+					if(validade()){// validate do editar cliente pessoa fisica
+	                    
+	                        $endereco = new Endereco();                        
+	                        $cliente = new Cliente();
+	                        $id = $_POST['id_cli'];
+	                        $nome_razao_soc = $_POST['nome'];
+	                        $data_nasc_data_fund = $_POST['data_nasc']; 
+	                        $cpf_cnpj = $_POST['cpf']; 
+	                        $telefone_cel = $_POST['cel'];
+	                        $telefone_com = $_POST['tel'];                        
+	                        $rg = $_POST['rg'];
+	                        $tipo= 0;
+	                        $responsavel = $_POST['nome_resp'];
+	                        $cpf_responsavel = $_POST['cpf_resp'];
+	                        $data_nasc_resp = $_POST['datanasc_resp'];
+	                        $email_resp = $_POST['email_resp'];
+	                        $site = $_POST['site'];
+	                        $observacao = $_POST['observacao'];
+	                        
+	                        $fornecedor = ($_POST['fornecedor'])?1:0;
+                        
+	                        //recebendo endereco
+	                        $rua = $_POST['rua'];
+	                        $numero = $_POST['numero'];
+	                        $id_cidade = $_POST['cidade'];
+	                        $bairro = $_POST['bairro'];
+	                        $cep = $_POST['cep'];
+	                        
 
-					$cep = $_POST['cep'];	
-					$endereco->add_Endereco($bairro, $rua, $numero, $cidade_id, $cep);	
-					$id_endereco = $endereco->add_endereco_bd();
+	                        $existe_endereco = $endereco->verifica_endereco($_POST['id_endereco']);
 
-					
+	                       if($existe_endereco){
+	                            $endereco->atualiza_endereco($rua, $numero, $id_cidade, $_POST['id_endereco'], $bairro, $cep );
+	                            $id_endereco = $_POST['id_endereco'];
+	                        }else{
+	                            $endereco->add_endereco($rua, $numero, $id_cidade, $bairro, $cep);
+	                            $id_endereco = $endereco->add_endereco_bd();
+	                        }
+
+	                       if($cliente->atualiza_cli($id, $nome_razao_soc, $cpf_cnpj, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $rg, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_resp, $site, $observacao, $fornecedor)){
+	                          echo '<div class="msg">Funcionário editado com sucesso</div>';
+	                       }else{
+	                          echo '<div class="msg">Falha ao editar funcionário</div>';
+	                       }
+	                    }//fim validate
+                 }//fim if isset($_POST['tipo_post']) && $_POST['tipo_post'] == 'editar_pessoa_fisica'
 
 
-					$cliente->add_cliente($nome_razao_soc, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $id_endereco, $tipo, $rg, $inscricao_estadual, $inscricao_municipal, $responsavel, $cpf_responsavel, $data_nasc_resp, $email_resp, $site, $observacao, $fornecedor);
-					
-					if($cliente->add_cliente_bd()){
-						echo "Sucesso";
-					}else{
-						echo "falha";
-					}
-				}
+                 if(isset($_POST['tipo_post']) && $_POST['tipo_post'] == 'editar_pessoa_juridica'){//id editar pessoa juridica
+                 	if(validade()){
+                       
+                      
+                        $endereco = new Endereco();                        
+                        $cliente = new Cliente();
+                        $id = $_POST['id_cli'];
+                        $nome_razao_soc = $_POST['nome'];
+                        $data_nasc_data_fund = $_POST['data_nasc']; 
+                        $cpf_cnpj = $_POST['cnpj']; 
+                        $telefone_cel = $_POST['cel'];
+                        $telefone_com = $_POST['tel'];                        
+                        $inscricao_estadual = $_POST['inscricao_estadual'];
+                        $inscricao_municipal = $_POST['inscricao_municipal'];
+                        $tipo= 1;
+                        $responsavel = $_POST['nome_resp'];
+                        $cpf_responsavel = $_POST['cpf_resp'];
+                        $data_nasc_resp = $_POST['datanasc_resp'];
+                        $email_resp = $_POST['email_resp'];
+                        $site = $_POST['site'];
+                        $observacao = $_POST['observacao'];
+                        $fornecedor = ($_POST['fornecedor'])?1:0;
+                        
+                        
+                        //recebendo endereco
+                        $rua = $_POST['rua'];
+                        $numero = $_POST['numero'];
+                        $id_cidade = $_POST['cidade'];
+                        $bairro = $_POST['bairro'];
+                        $cep = $_POST['cep'];
+                        
+
+                        $existe_endereco = $endereco->verifica_endereco($_POST['id_endereco']);
+
+                       if($existe_endereco){
+                            $endereco->atualiza_endereco($rua, $numero, $id_cidade, $_POST['id_endereco'], $bairro, $cep );
+                            $id_endereco = $_POST['id_endereco'];
+                        }else{
+                            $endereco->add_endereco($rua, $numero, $id_cidade, $bairro, $cep);
+                            $id_endereco = $endereco->add_endereco_bd();
+                        }
+
+                       if($cliente->atualiza_cli_jur($id, $nome_razao_soc, $cpf_cnpj, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $inscricao_estadual, $inscricao_municipal, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_resp, $site, $observacao, $fornecedor, $email_resp)){
+                          echo '<div class="msg">Cliente editado com sucesso</div>';
+                       }else{
+                          echo '<div class="msg">Falha ao editar Cliente</div>';
+                       }
+                    }//fim if validate
+                 }//fim if isset($_POST['tipo_post']) && $_POST['tipo_post'] == 'editar_pessoa_juridica'
+
+                 if(isset($_POST['tipo_post']) && $_POST['tipo_post'] == 'add_cliente'){
+						if(validade())//validate do add cliente
+						{
+
+							//recebendo cliente
+							//dados com logica
+							if($_POST['cpf'] != ""){
+								$cpf_cnpj = $_POST['cpf'];	
+							}
+							if($_POST['cnpj'] != ""){		
+								$cpf_cnpj = $_POST['cnpj'];
+							}
+
+							//dados sem logica
+							$cliente = new Cliente();
+							$nome_razao_soc = $_POST['nome'];
+							$data_nasc_data_fund = $_POST['data_nasc'];	
+							//$cpf_cnpj = $_POST['cnpj'];	
+							$telefone_cel = $_POST['cel'];
+							$telefone_com = $_POST['tel'];
+							$tipo = $_POST['tipo'];
+							$rg = $_POST['rg'];
+							$inscricao_estadual = $_POST['inscricao_estadual'];
+							$inscricao_municipal = $_POST['inscricao_municipal'];
+							$responsavel = $_POST['nome_resp'];
+							$cpf_responsavel = $_POST['cpf_resp'];
+							$data_nasc_resp = $_POST['datanasc_resp'];
+							$email_resp = $_POST['email_resp'];
+							$site = $_POST['site'];
+							$observacao = $_POST['observacao'];					
+							$fornecedor = ($_POST['fornecedor'])?1:0;
+							
+							//recebendo endereco
+							$endereco = new Endereco();
+							$bairro = $_POST['bairro'];
+							$rua = $_POST['rua'];
+							$numero = $_POST['numero'];
+							$cidade_id = $_POST['cidade'];
+
+							$cep = $_POST['cep'];	
+							$endereco->add_Endereco($bairro, $rua, $numero, $cidade_id, $cep);	
+							$id_endereco = $endereco->add_endereco_bd();
+
+							
+
+
+							$cliente->add_cliente($nome_razao_soc, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $id_endereco, $tipo, $rg, $inscricao_estadual, $inscricao_municipal, $responsavel, $cpf_responsavel, $data_nasc_resp, $email_resp, $site, $observacao, $fornecedor);
+							
+							if($cliente->add_cliente_bd()){
+								echo "Sucesso";
+							}else{
+								echo "falha";
+							}
+						}//fim validate
+					}//fim isset($_POST['tipo_post']) && $_POST['tipo_post'] == 'editar_pessoa_fisica'
 
 				?>
 
