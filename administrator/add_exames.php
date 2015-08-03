@@ -80,8 +80,7 @@ function validate(){
     <div id="content">
             <?php include_once("../view/topo.php"); ?>
                        
-            <div class="formulario">
-               <h1>Adicionar exame</h1>
+            <div class="formulario">             
              <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?>
                     <?php 
                       $id = $_GET['id'];
@@ -91,6 +90,7 @@ function validate(){
                       $descricao = $exame->descricao;
                       $id_periodicidade = $exame->id_periodicidade;
                        ?>
+                <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR EXAME</span></div></div>
                  <form method="POST" id="add_cbo" action="add_exames.php" onsubmit="return validate(this)">
                           <input type="hidden" id="tipo" name="tipo" value="editar">
                           <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
@@ -117,8 +117,9 @@ function validate(){
                              <tr><td colspan="3"><input style="width:80px;"type="submit" name="button" id="button" value="Editar"> <input style="width:80px;" name="button" onclick="window.location.href='add_exame.php'" id="button" value="Cancelar"></td> </tr>
                           </table>
                        </form>              
-               <?php }else{ ?> 
+               <?php }else{ ?>                
                <form method="POST" class="ad_exame" id="ad_exame" name="ad_exame" action="add_exames.php" onsubmit="return validate(this)">
+                <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE EXAME</span></div></div>
                 <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                   <table border="0">
                      <!-- <tr> <td><span>Descrição:</span></td> <td ><input type="text" id="desc" name="desc" style="width:100px;"></td><td><span style="font-size:12px; color:#555;">(Ex. de descrição: Das 8:00 às 12:00 e das 13:00 às 18:00)</span></td></tr> <!- nome -->
