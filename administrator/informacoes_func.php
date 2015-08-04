@@ -10,7 +10,7 @@ include_once("../model/class_funcionario_bd.php");
       //se encontrou o estado
       if(nome){
       	
-        var url = 'ajax_buscar_informacoes.php?nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
+        var url = '../ajax/ajax_buscar_informacoes.php?nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
 
         $.get(url, function(dataReturn) {
         	
@@ -19,13 +19,13 @@ include_once("../model/class_funcionario_bd.php");
       }
     }
     function buscar_editar(tipo){
-        var url = 'ajax_editar.php?tipo='+tipo;  //caminho do arquivo php que irá buscar as cidades no BD
+        var url = '../ajax/ajax_editar.php?tipo='+tipo;  //caminho do arquivo php que irá buscar as cidades no BD
 
         $.get(url, function(dataReturn) {
         	$('#result').html(dataReturn);  //coloco na div o retorno da requisicao
         });
-      
     }
+
 </script>
 
 <div class="formulario">
