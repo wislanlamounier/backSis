@@ -32,6 +32,7 @@ body span{
 	background-color: rgba(255,255,255,0.5);
 	box-shadow: 0px 0px 5px #aaa;
 	padding: 20px 0px 20px 0px;
+	margin-top: 10px;
 }
 .msg a{
 	text-decoration: none;
@@ -85,11 +86,14 @@ body span{
 
 /********************************* BOX LOGIN ***************************************/
 .box-login{
-	border: 1px solid#ddd;border-radius:3px; width: 200px; float:right; background-color:rgba(255,255,255,0.5); padding:5px; box-shadow: 2px 2px 10px #aaa;	
+	border: 1px solid#ddd;border-radius:3px; width: 250px; float:right; background-color:rgba(255,255,255,0.5); padding:5px; box-shadow: 2px 2px 10px #aaa;	
 }
 
 .nome-box-login{
 	float:left;
+}
+.nome-box-login{
+	font-size:12px;
 }
 .nome-box-login span{
 	color:#aaa;
@@ -173,7 +177,7 @@ body span{
 /* Configura os links do submenu */
 .menu > .menu-list > li > .sub-menu > li > a {
 	padding: 10px 20px;
-	font-size: 10px;
+	font-size: 11px;
 }
 .menu > .menu-list > li > .sub-menu > li > a:hover {
 	background-color: #333;
@@ -283,3 +287,33 @@ h2{
 	font-size:16px;
 	cursor:pointer;
 }
+/*********************** BOX-ANIVERSARIANTES && BOX-ATRASOS*********************/
+
+.box-aniversariantes, .box-atrasos{
+	float:left;
+	width: 260px;
+	padding:10px; font-size:12px;
+	box-shadow: 1.5px 1.5px 10px #888;
+	background-color:rgba(255,255,255,0.6);
+	border-radius:2px;
+}
+.box-aniversariantes{
+	margin-top: 30px;
+}
+.table-aniversariantes{
+	box-shadow: 1.5px 1.5px 10px #888;
+	background-color:rgba(255,255,255,0.2);
+	text-align:center;
+	width:90%;
+	margin: 0 auto;
+	border-radius: 3px;
+	padding: 10px;
+	margin-top: 10px;
+
+}
+.table-aniversariantes a{
+	text-decoration: none;
+	color: #22f;
+}
+
+/*******************************************************************************/

@@ -1,6 +1,6 @@
 <?php 
 include("restrito.php");
-
+include_once("../model/class_horarios_bd.php");
  ?>
  <html>
  <head>
@@ -15,6 +15,9 @@ include("restrito.php");
  <body> 
  		
  		<?php include_once("../view/topo.php"); ?>
+ 		<?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 2){
+ 			include_once("../view/box-atrasos.php");
+ 		} ?>
  		
  </body>
  </html>
