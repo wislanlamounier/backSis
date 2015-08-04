@@ -64,7 +64,7 @@ class Exame{
 		$sql->conn_bd();
 		$g = new Glob();
 		$return = array();
-		$q = "SELECT * FROM exames WHERE descricao LIKE '%%%s%%' && oculto = 0 ORDER BY descricao";
+		$q = "SELECT * FROM exames WHERE descricao LIKE '%%%s%%' && oculto = 0 && id_empresa = '".$_SESSION['id_empresa']."' ORDER BY descricao";
 		$query = $g->tratar_query($q, $desc);
 		$aux = 0;
 		while($result = mysql_fetch_array($query)){
