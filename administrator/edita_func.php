@@ -435,7 +435,7 @@ function formata_salario($salario){
       
       if(empresa){
 
-          var url = 'ajax_buscar_postos.php?empresa='+empresa;
+          var url = '../ajax/ajax_buscar_postos.php?empresa='+empresa;
           $.get(url, function(dateReturn){
             $('#load_postos').html(dateReturn);
           });
@@ -451,7 +451,7 @@ function formata_salario($salario){
       //se encontrou o estado
       if(estado){
 
-        var url = 'ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+        var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
 
         $.get(url, function(dataReturn) {
           $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
@@ -462,7 +462,7 @@ function formata_salario($salario){
       var estado = id_est;  //codigo do estado escolhido
       //se encontrou o estado
       if(estado){
-        var url = 'ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+        var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
         $.get(url, function(dataReturn) {
           $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
         });
@@ -507,7 +507,7 @@ function formata_salario($salario){
     function buscar_postos(id_empresa){
       
       if(id_empresa){
-        var url = 'ajax_buscar_postos.php?empresa='+id_empresa;  //caminho do arquivo php que irá buscar as cidades no BD
+        var url = '../ajax/ajax_buscar_postos.php?empresa='+id_empresa;  //caminho do arquivo php que irá buscar as cidades no BD
         $.get(url, function(dataReturn) {
           $('#load_postos').html(dataReturn);  //coloco na div o retorno da requisicao
         });

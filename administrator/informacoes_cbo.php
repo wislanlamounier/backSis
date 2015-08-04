@@ -10,7 +10,7 @@ include_once("../model/class_cbo_bd.php");
       //se encontrou o estado
       if(descricao){
       	
-        var url = 'ajax_buscar_informacoes_cbo.php?descricao='+descricao;  //caminho do arquivo php que irá buscar as cidades no BD
+        var url = '../ajax/ajax_buscar_informacoes_cbo.php?descricao='+descricao;  //caminho do arquivo php que irá buscar as cidades no BD
 
         $.get(url, function(dataReturn) {
         	
@@ -19,7 +19,7 @@ include_once("../model/class_cbo_bd.php");
       }
     }
     function buscar_editar(tipo){
-        var url = 'ajax_editar_cliente_cbo.php?tipo='+tipo;  //caminho do arquivo php que irá buscar as cidades no BD
+        var url = '../ajax/ajax_editar_cliente_cbo.php?tipo='+tipo;  //caminho do arquivo php que irá buscar as cidades no BD
 
         $.get(url, function(dataReturn) {
         	$('#result').html(dataReturn);  //coloco na div o retorno da requisicao

@@ -463,7 +463,7 @@ require_once("../model/class_cidade_bd.php");
 
 		if(estado){
 
-		  var url = 'ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+		  var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
 
 		  $.get(url, function(dataReturn) {
 		    $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
@@ -489,7 +489,7 @@ require_once("../model/class_cidade_bd.php");
       var estado = id_est;  //codigo do estado escolhido
       //se encontrou o estado
       if(estado){
-        var url = 'ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+        var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
         $.get(url, function(dataReturn) {
           $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
         });
