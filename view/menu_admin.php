@@ -5,7 +5,9 @@
       <a style=""><span style="float:left">Cadastrar </span><img style="float:left; margin-top:-2px; margin-left:2px;" src="../images/downarrow_1246.png" width="15px;"></a>
        <ul class="sub-menu">
         <li><a href="add_func.php">Funcionário</a></li>
-        <li><a href="add_cliente.php" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all">Cliente</a></li>
+        <?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 1){ ?>
+                  <li><a href="add_cliente.php">Cliente</a></li>
+        <?php } ?>
         <li><a href="add_turno.php">Turno</a></li>
         <li><a href="add_cbo.php">CBO</a></li>
         <li><a href="add_exames.php">Exames</a></li>
