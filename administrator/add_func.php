@@ -86,6 +86,17 @@ function formata_salario($salario){
 </head>
 
 <script type="text/javascript">
+
+    function confirma(id,nome){
+       if(confirm("Excluir funcionario "+nome+" , tem certeza?")){
+          var url = '../ajax/ajax_excluir_funcionario.php?id='+id+'&nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
+          $.get(url, function(dataReturn) {
+            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+          });
+       }
+       
+
+    }
     $(function(){
           
            $("#sal_base").maskMoney({symbol:'R$ ', 
@@ -1156,6 +1167,7 @@ function carregaUf_CartTrab(uf){
                     }
                 }
                  ?>
+              
             </div>
             <?php include_once("informacoes_func.php"); ?>
          
