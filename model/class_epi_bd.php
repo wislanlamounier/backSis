@@ -33,7 +33,7 @@ class Epi {
 		} 
 	}
 
-		public function atualiza_epi($id, $nome_epi, $descricao, $id_empresa){
+		public function atualiza_epi($nome_epi, $descricao, $id_empresa, $id){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
@@ -97,6 +97,7 @@ class Epi {
 	     }
 
 	}
+	
 }
 ?>
 
@@ -162,24 +163,6 @@ class Epi {
 // 	     }
 
 // 	}
-
-// 	public function atualiza_cli_jur($id, $nome, $cpf, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $inscricao_estadual, $inscricao_municipal, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_responsavel, $site, $observacao, $fornecedor, $email_resp ){
-// 		$sql = new Sql();
-// 		$sql->conn_bd();
-// 		$g = new Glob();
-// 		$aux=0;
-		
-// 		$query = "UPDATE clientes SET nome_razao_soc='%s', cpf_cnpj='%s', data_nasc_data_fund='%s', cpf_cnpj='%s', telefone_cel='%s', telefone_com='%s', tipo='%s', inscricao_estadual='%s', inscricao_municipal='%s', id_endereco='%s', responsavel='%s', cpf_responsavel ='%s', data_nasc_responsavel='%s', site='%s', observacao='%s', fornecedor='%s', email_responsavel='%s' WHERE id = '%s'";
-		
-// 		// printf($query, $nome, $cpf, $data_nasc, $telefone, $email, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $id);
-		
-// 		$query_tra = $g->tratar_query($query, $nome, $cpf, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $inscricao_estadual, $inscricao_municipal, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_responsavel, $site, $observacao, $fornecedor,$email_resp, $id);
-// 		if($query_tra){
-// 			}
-// 		return $query_tra;
-// 	}
-
-
 
 // }
 

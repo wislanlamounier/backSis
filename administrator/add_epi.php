@@ -48,11 +48,12 @@ function validate(){
                 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR EPI</span></div></div>
                  <form method="POST" id="add_epi" action="add_epi.php" onsubmit="return validate(this)">
                           <input type="hidden" id="tipo" name="tipo" value="editar">
-                          <input type="hidden" id="id" name="id" value="">
+                          <input type="hidden" id="id" name="id" value="<?php echo $id ?>">
                           <table border="0" >
-                           <tr><td><span>EPI(nome):</span> <input type="text" name="epi" id="epi" value="<?php echo $nome_epi ?>"</td></tr>
-                           <tr><td><span>Descricão:</span> <input type="text" name="desc" id="desc" value="<?php echo $descricao ?>" ></td></tr>
-                          <!--  <tr><td><span>Empresa:</span> <input type="numeric" name="empresa" id="empresa" value="<?php echo $id_empresa ?>" ></td></tr>-->
+                           <tr><td><span>EPI(nome):</span></td><td><input type="text" name="epi" id="epi" value="<?php echo $nome_epi ?>" </td></tr>
+                           <tr><td><span>Descricão:</span></td><td><input type="text" name="desc" id="desc" value="<?php echo $descricao ?>" ></td></tr>
+                           <tr><td><span>Empresa:</span></td><td><input type="numeric" name="empresa" id="empresa" value="<?php echo $id_empresa ?>" ></td></tr>
+                           <tr><td colspan="3"><input style="width:80px;"type="submit" name="button" id="button" value="Editar"> <input style="width:80px;" name="button" onclick="window.location.href='edita_epi.php'" id="button" value="Cancelar"></td> </tr>
                            </table> 
                        </form>              
                <?php }else{ ?>                
@@ -99,11 +100,10 @@ function validate(){
                 }else{
                   if(isset($_POST['tipo']) && $_POST['tipo'] == "editar"){                    
                           if(isset($_POST['id'])){
-
                             if(validate()){
 
                               $epi = new Epi();
-                              if($epi->atualiza_epi($_POST['desc'], $_POST['epi'], $_POST['id'])){
+                              if($epi->atualiza_epi($_POST['epi'], $_POST['desc'],  $_POST['id'], $_POST['empresa'])){
                                  echo '<div class="msg">Atualizado com sucesso!</div>';
                               }else{
                                  echo '<div class="msg">Falha na atualização!</div>';
