@@ -280,6 +280,7 @@ class Horarios{
 		$func = new Funcionario();
 		$aux=0;
 		$query = "SELECT * FROM horarios WHERE data = '".$data."' && situacao LIKE '%+%' ORDER BY hora ASC";
+		$return = array();
 		 // echo '<script> alert("'.$query.'") </script>';
 
 		// $query_tra = $g->tratar_query($query, $data);
