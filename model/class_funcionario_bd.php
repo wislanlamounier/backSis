@@ -1,5 +1,4 @@
-<?php 
-         
+<?php
 include_once("class_sql.php");
 include_once("class_turno_bd.php");
 include_once("class_filial_bd.php");
@@ -227,7 +226,7 @@ class Funcionario{
 		$g = new Glob();
 		$return = array();
 		$aux=0;
-		$query = "SELECT * FROM funcionario WHERE nome LIKE '%%%s%%' && oculto = 0";
+		$query = "SELECT * FROM funcionario WHERE nome LIKE '%%%s%%' && oculto = 0 && id_empresa = '".$_SESSION['id_empresa']."'";
 		$query_tra = $g->tratar_query($query, $name);
 
 		while($result =  mysql_fetch_array($query_tra)){
