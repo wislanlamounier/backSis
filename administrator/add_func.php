@@ -78,8 +78,8 @@ function formata_salario($salario){
    <meta charset="UTF-8">
    
    <link rel="stylesheet" type="text/css" href="style.css">
-   <script src="../javascript/jquery.maskMoney.js" type="text/javascript"></script>
    <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
+   <script src="../javascript/jquery.maskMoney.js" type="text/javascript"></script>
    <link href='http://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
    <link href='http://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet' type='text/css'>
 
@@ -98,10 +98,9 @@ function formata_salario($salario){
 
     }
     $(function(){
-          
            $("#sal_base").maskMoney({symbol:'R$ ', 
           showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
-        })
+    })
 
       function valida(f){
         var erros = 0;
