@@ -252,6 +252,17 @@ class Funcionario{
 		}
 	}
 
+	public function ocultar_by_id($id){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$query = "UPDATE funcionario SET oculto = 1 WHERE id = %s";
+		$result = $g->tratar_query($query, $id);
+		if($result){
+			echo '<div class="msg">Funcionário excluido com sucesso!</div>';
+		}
+	}
+
 // $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis
 
 
