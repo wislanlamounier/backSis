@@ -1,22 +1,23 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.7deb7
+-- version 4.4.12
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tempo de Geração: Jul 28, 2015 as 11:33 AM
--- Versão do Servidor: 5.1.49
--- Versão do PHP: 5.3.3-7+squeeze14
+-- Host: 127.0.0.1
+-- Generation Time: 04-Ago-2015 às 19:36
+-- Versão do servidor: 5.6.25
+-- PHP Version: 5.6.11
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de Dados: `bd_viacampus`
+-- Database: `bd_viacampus`
 --
 
 -- --------------------------------------------------------
@@ -26,60 +27,60 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `cbo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `codigo` varchar(11) NOT NULL,
   `descricao` varchar(255) NOT NULL,
   `oculto` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
+  `id_empresa` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `cbo`
 --
 
-INSERT INTO `cbo` (`id`, `codigo`, `descricao`, `oculto`) VALUES
-(1, '3171-10', 'Programador de Sistemas de Informação', 0),
-(2, '2015-20', 'Programador', 0),
-(3, '1052-15', 'Auxiliar Administrativo', 0),
-(4, '20-1542', 'Teste teteste', 0),
-(5, '8485-05', 'Abatedor', 1),
-(6, '7643-05', 'Acabador de calçados', 1),
-(7, '7663-05', 'Acabador de embalagens (flexíveis e cartotécnicas)', 0),
-(8, '7161-05', 'Acabador de superfícies de concreto', 0),
-(9, '8485-10', 'Açougueiro', 0),
-(10, '3762-05', 'Acrobata', 0),
-(11, '6230-05', 'Adestrador de animais', 0),
-(12, '2521-05', 'Administrador', 0),
-(13, '2123-05', 'Administrador de banco de dados', 0),
-(14, '5101-10', 'Administrador de edifícios', 0),
-(15, '2525-05', 'Administrador de fundos e carteiras de investimento', 0),
-(16, '2123-10', 'Administrador de redes', 0),
-(17, '2123-15', 'Administrador de sistemas operacionais', 0),
-(18, '2123-20', 'Administrador em segurança da informação', 0),
-(19, '2410-05', 'Advogado', 0),
-(20, '2410-30', 'Advogado (áreas especiais)', 0),
-(21, '2410-15', 'Advogado (direito civil)', 0),
-(22, '2410-25', 'Advogado (direito penal)', 0),
-(23, '2410-20', 'Advogado (direito público)', 0),
-(24, '2412-05', 'Advogado da união', 0),
-(25, '2410-10', 'Advogado de empresa', 0),
-(26, '7213-05', 'Afiador de cardas', 0),
-(27, '7213-10', 'Afiador de cutelaria', 0),
-(28, '7213-15', 'Afiador de ferramentas', 0),
-(29, '0101-15', 'Oficial general da marinha', 0),
-(30, '7213-20', 'Afiador de serras', 0),
-(31, '7421-05', 'Afinador de instrumentos musicais', 0),
-(32, '3421-20', 'Afretador', 0),
-(33, '2531-40', 'Agenciador de propaganda', 0),
-(34, '5151-05', 'Agente comunitário de saúde', 0),
-(35, '5153-10', 'Agente de ação social', 0),
-(36, '3522-05', 'Agente de defesa ambiental', 0),
-(37, '3524-05', 'Agente de direitos autorais', 0),
-(38, '3424-05', 'Agente de estação (ferrovia e metrô)', 0),
-(39, '2543-10', 'Agente de higiene e segurança', 0),
-(40, '3519-05', 'Agente de inteligência', 0),
-(41, '2151-05', 'Agente de manobra e docagem', 0),
-(63, '3171-19', 'CBO teste', 0);
+INSERT INTO `cbo` (`id`, `codigo`, `descricao`, `oculto`, `id_empresa`) VALUES
+(1, '3171-10', 'Programador de Sistemas de Informação', 0, 5),
+(2, '2015-20', 'Programador', 0, 5),
+(3, '1052-15', 'Auxiliar Administrativo', 0, 5),
+(4, '20-1542', 'Teste teteste', 0, 5),
+(5, '8485-05', 'Abatedor', 1, 6),
+(6, '7643-05', 'Acabador de calçados', 1, 5),
+(7, '7663-05', 'Acabador de embalagens (flexíveis e cartotécnicas)', 0, 5),
+(8, '7161-05', 'Acabador de superfícies de concreto', 0, 5),
+(9, '8485-10', 'Açougueiro', 0, 5),
+(10, '3762-05', 'Acrobata', 0, 5),
+(11, '6230-05', 'Adestrador de animais', 0, 5),
+(12, '2521-05', 'Administrador', 0, 5),
+(13, '2123-05', 'Administrador de banco de dados', 0, 5),
+(14, '5101-10', 'Administrador de edifícios', 0, 5),
+(15, '2525-05', 'Administrador de fundos e carteiras de investimento', 0, 5),
+(16, '2123-10', 'Administrador de redes', 0, 5),
+(17, '2123-15', 'Administrador de sistemas operacionais', 0, 5),
+(18, '2123-20', 'Administrador em segurança da informação', 0, 5),
+(19, '2410-05', 'Advogado', 0, 5),
+(20, '2410-30', 'Advogado (áreas especiais)', 0, 5),
+(21, '2410-15', 'Advogado (direito civil)', 0, 5),
+(22, '2410-25', 'Advogado (direito penal)', 0, 5),
+(23, '2410-20', 'Advogado (direito público)', 0, 5),
+(24, '2412-05', 'Advogado da união', 0, 5),
+(25, '2410-10', 'Advogado de empresa', 0, 5),
+(26, '7213-05', 'Afiador de cardas', 0, 5),
+(27, '7213-10', 'Afiador de cutelaria', 0, 5),
+(28, '7213-15', 'Afiador de ferramentas', 0, 5),
+(29, '0101-15', 'Oficial general da marinha', 0, 5),
+(30, '7213-20', 'Afiador de serras', 0, 5),
+(31, '7421-05', 'Afinador de instrumentos musicais', 0, 5),
+(32, '3421-20', 'Afretador', 0, 5),
+(33, '2531-40', 'Agenciador de propaganda', 0, 5),
+(34, '5151-05', 'Agente comunitário de saúde', 0, 5),
+(35, '5153-10', 'Agente de ação social', 0, 5),
+(36, '3522-05', 'Agente de defesa ambiental', 0, 5),
+(37, '3524-05', 'Agente de direitos autorais', 0, 5),
+(38, '3424-05', 'Agente de estação (ferrovia e metrô)', 0, 5),
+(39, '2543-10', 'Agente de higiene e segurança', 0, 5),
+(40, '3519-05', 'Agente de inteligência', 0, 5),
+(41, '2151-05', 'Agente de manobra e docagem', 0, 5),
+(63, '3171-19', 'CBO teste', 0, 5);
 
 -- --------------------------------------------------------
 
@@ -88,13 +89,10 @@ INSERT INTO `cbo` (`id`, `codigo`, `descricao`, `oculto`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `cbo_exames` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `id_cbo` int(11) NOT NULL,
-  `id_exame` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_ID_CBO` (`id_cbo`),
-  KEY `FK_ID_EXAME` (`id_exame`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=107 ;
+  `id_exame` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=108 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `cbo_exames`
@@ -105,7 +103,8 @@ INSERT INTO `cbo_exames` (`id`, `id_cbo`, `id_exame`) VALUES
 (101, 1, 4),
 (102, 7, 3),
 (103, 7, 2),
-(106, 63, 4);
+(106, 63, 4),
+(107, 33, 2);
 
 -- --------------------------------------------------------
 
@@ -114,12 +113,10 @@ INSERT INTO `cbo_exames` (`id`, `id_cbo`, `id_exame`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `cidade` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `nome` varchar(120) DEFAULT NULL,
-  `estado` int(5) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_Cidade_estado` (`estado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5565 ;
+  `estado` int(5) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5565 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `cidade`
@@ -2151,8 +2148,7 @@ INSERT INTO `cidade` (`id`, `nome`, `estado`) VALUES
 (2023, 'Maria da Fé', 11),
 (2024, 'Mariana', 11),
 (2025, 'Marilac', 11),
-(2026, 'Mário Campos', 11);
-INSERT INTO `cidade` (`id`, `nome`, `estado`) VALUES
+(2026, 'Mário Campos', 11),
 (2027, 'Maripá de Minas', 11),
 (2028, 'Marliéria', 11),
 (2029, 'Marmelópolis', 11),
@@ -2193,7 +2189,8 @@ INSERT INTO `cidade` (`id`, `nome`, `estado`) VALUES
 (2064, 'Monte Sião', 11),
 (2065, 'Montes Claros', 11),
 (2066, 'Montezuma', 11),
-(2067, 'Morada Nova de Minas', 11),
+(2067, 'Morada Nova de Minas', 11);
+INSERT INTO `cidade` (`id`, `nome`, `estado`) VALUES
 (2068, 'Morro da Garça', 11),
 (2069, 'Morro do Pilar', 11),
 (2070, 'Munhoz', 11),
@@ -4019,8 +4016,7 @@ INSERT INTO `cidade` (`id`, `nome`, `estado`) VALUES
 (3890, 'Barros Cassal', 23),
 (3891, 'Benjamin Constant do Sul', 23),
 (3892, 'Bento Gonçalves', 23),
-(3893, 'Boa Vista das Missões', 23);
-INSERT INTO `cidade` (`id`, `nome`, `estado`) VALUES
+(3893, 'Boa Vista das Missões', 23),
 (3894, 'Boa Vista do Buricá', 23),
 (3895, 'Boa Vista do Cadeado', 23),
 (3896, 'Boa Vista do Incra', 23),
@@ -4103,7 +4099,8 @@ INSERT INTO `cidade` (`id`, `nome`, `estado`) VALUES
 (3973, 'Cristal do Sul', 23),
 (3974, 'Cruz Alta', 23),
 (3975, 'Cruzaltense', 23),
-(3976, 'Cruzeiro do Sul', 23),
+(3976, 'Cruzeiro do Sul', 23);
+INSERT INTO `cidade` (`id`, `nome`, `estado`) VALUES
 (3977, 'David Canabarro', 23),
 (3978, 'Derrubadas', 23),
 (3979, 'Dezesseis de Novembro', 23),
@@ -5700,7 +5697,7 @@ INSERT INTO `cidade` (`id`, `nome`, `estado`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `clientes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `nome_razao_soc` varchar(255) NOT NULL,
   `data_nasc_data_fund` date NOT NULL,
   `cpf_cnpj` varchar(25) NOT NULL,
@@ -5717,66 +5714,18 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `email_responsavel` varchar(255) NOT NULL,
   `site` varchar(255) NOT NULL,
   `observacao` text NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_ID_ENDERECO` (`id_endereco`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=54 ;
+  `fornecedor` int(11) NOT NULL,
+  `id_empresa` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `nome_razao_soc`, `data_nasc_data_fund`, `cpf_cnpj`, `telefone_cel`, `telefone_com`, `id_endereco`, `tipo`, `rg`, `inscricao_estadual`, `inscricao_municipal`, `responsavel`, `cpf_responsavel`, `data_nasc_responsavel`, `email_responsavel`, `site`, `observacao`) VALUES
-(7, 'Lucas', '1999-12-01', '123', '123', '2165', 0, 0, '', '', '', '', '', '0000-00-00', '', '', ''),
-(3, 'Lucas', '0000-00-00', '', '', '', 0, 0, '', '', '', '', '', '0000-00-00', '', '', ''),
-(4, 'kujm', '0000-00-00', '', '', '', 0, 0, '', '', '', '', '', '0000-00-00', '', '', ''),
-(5, 'Lucas', '0000-00-00', '', '', '', 0, 0, '', '', '', '', '', '0000-00-00', '', '', ''),
-(6, 'Lucas', '2001-01-02', '', '', '', 32, 0, '', '', '', '', '', '0000-00-00', '', '', ''),
-(8, 'Lucas', '1999-02-01', '123', '132', '13', 0, 0, '', '', '', '', '', '0000-00-00', '', '', ''),
-(9, 'Lucas teste ', '1999-02-02', '123', '123', '123', 0, 0, '', '', '', '', '', '0000-00-00', '', '', ''),
-(10, 'Lucas s', '1999-12-01', '121651', '651651', '161', 1, 0, '', '', '', '', '', '0000-00-00', '', '', ''),
-(11, 'Jose', '1994-12-25', '0779798', '13165', '564544', 0, 0, '', '', '', '', '', '0000-00-00', '', '', ''),
-(12, 'Lucas s', '1997-02-01', '123464', '5466', '65464', 84, 0, '', '', '', '', '', '0000-00-00', '', '', ''),
-(13, '', '0000-00-00', '', '', '', 85, 0, '', '', '', '', '', '0000-00-00', '', '', ''),
-(14, '12', '0000-00-00', '12', '12', '12', 11, 1, '11', '1', '1', '1', '1', '0000-00-00', '1', '1', '3'),
-(15, 'Lucas', '2015-07-17', '4324', '4324', '4324', 95, 1, '00001', '111110', '0000111', 'jose', '123546', '2015-07-17', '', 'exemplo.com', 'site.com'),
-(16, 'jose', '2015-07-16', '43214', '43214', '4321', 96, 1, '00001', '111110', '0000111', 'jose', '123546', '2015-07-16', 'exemplo.com', 'site.com', 'nhweu hweuh, wheuhasd'),
-(17, 'fdsafda', '2015-07-15', '123123', '32432', '4324', 97, 1, '00001', '111110', '0000111', 'jose', '123546', '2015-07-15', 'exemplo.com', 'site.com', 'nhweu hweuh, wheuhasd'),
-(18, 'alfredo', '2015-07-07', '123456', '1233456', '3214654', 98, 1, '00001', '111110', '0000111', 'jose', '123546', '2015-07-07', 'exemplo.com', 'site.com', 'nhweu hweuh, wheuhasd'),
-(19, 'Lucas', '2015-07-14', '7', '3', '234', 99, 1, '00001', '111110', '0000111', 'jose', '123546', '2015-07-14', 'exemplo.com', 'site.com', 'nhweu hweuh, wheuhasd'),
-(20, 'Lucas s', '2015-07-15', '453546', '4545', '4545', 100, 1, '', '465456', '456456', 'lfredo', '123', '2015-07-15', '', '', ''),
-(21, 'xx', '2015-07-16', '123456', '123456', '1321654', 101, 1, '', '1234', '1234', 'jose', '12341234', '2015-07-22', '', '', ''),
-(22, 'Empresa', '2015-07-02', '123456789', '987654321', '1245', 102, 1, '', '2548', '1356465', '', '', '0000-00-00', 'lucas@controlsystem', 'www.controlsystem.com', ''),
-(23, 'Cliente', '2015-07-17', '123456798', '987987', '987987', 103, 1, '987987', '', '', 'responsavel', '123456', '0000-00-00', 'www.2', '132654', ''),
-(24, '', '0000-00-00', '', '', '', 104, 0, '', '', '', '', '', '0000-00-00', '', '', ''),
-(25, 'TESTE', '2015-07-01', '123456', '987', '97987', 105, 0, '132465', '', '123', 'responsavel', '12346', '2015-07-08', 'exemplo@exemplo.com', 'www', 'asdfasdf'),
-(26, 'dsfs', '0234-04-23', '234234', '234', '4234', 106, 0, '234', '', '', '23424', '2424', '0042-02-04', '424324', '234234', '324324'),
-(27, '345345', '0345-05-04', '34534', '34534', '34534', 107, 1, '', '34534', '', '3453', '3453', '0345-05-31', '345345', '345345', '345345'),
-(28, '234', '0023-04-23', '234234', '2342', '2342', 108, 0, '234', '', '', '23424', '234', '2342-03-24', '234', '234', '234'),
-(29, '2342', '0234-04-23', '234', '234', '234', 109, 0, '2342', '', '', '23424', '234', '0024-04-23', '234', '234', '234'),
-(30, '2342', '0234-04-23', '234', '234', '234', 110, 0, '2342', '', '', '23424', '234', '0024-04-23', '234', '234', '234'),
-(31, '2342', '0234-04-23', '234', '234', '234', 111, 0, '2342', '', '', '23424', '234', '0024-04-23', '234', '234', '234'),
-(32, '2342', '0234-04-23', '234', '234', '234', 112, 0, '2342', '', '', '23424', '234', '0024-04-23', '234', '234', '234'),
-(33, '2342', '0234-04-23', '234', '234', '234', 113, 0, '2342', '', '', '23424', '234', '0024-04-23', '234', '234', '234'),
-(34, '2342', '0234-04-23', '234', '234', '234', 114, 0, '2342', '', '', '23424', '234', '0024-04-23', '234', '234', '234'),
-(35, '2342', '0234-04-23', '234', '234', '234', 115, 0, '2342', '', '', '23424', '234', '0024-04-23', '234', '234', '234'),
-(36, '56456', '2015-07-03', '465.456.464-65', '(46) 5464-6546', '(46) 5464-5646', 116, 0, '456456', '', '', '456456', '4564', '2015-07-01', '456456', '45646', '456456'),
-(37, 'emres', '0044-06-04', '', '(44) 6446-5464', '(64) 6465-4646', 117, 1, '', '46465467', '64646464', '64646', '6464', '0064-04-06', '4646', '6464', ''),
-(38, 'razao', '2015-07-08', '12312313', '(16) 5498-4146', '(46) 5465-4654', 118, 1, '', '464654654', '465456454', 'jose', '123.456.789-54', '2015-07-20', 'exemplo@exemplo.com', 'www.controlsystem.com', 'blabla'),
-(39, 'razao', '2015-07-08', '12312313', '(16) 5498-4146', '(46) 5465-4654', 119, 1, '', '464654654', '465456454', 'jose', '123.456.789-54', '2015-07-20', 'exemplo@exemplo.com', 'www.controlsystem.com', 'blabla'),
-(40, 'razao', '2015-07-08', '12312313', '(16) 5498-4146', '(46) 5465-4654', 120, 1, '', '464654654', '465456454', 'jose', '123.456.789-54', '2015-07-20', 'exemplo@exemplo.com', 'www.controlsystem.com', 'blabla'),
-(41, '321321321', '2015-07-16', '', '(32) 1321-3123', '(21) 3123-2131', 121, 1, '', '3123123', '123123', '123', '213213213', '2015-07-15', '123123', '3123123', '3213123'),
-(42, 'rza', '2015-07-04', '', '(33) 5343-4646', '(34) 3464-6464', 122, 1, '', '64646446', '464654654654', 'lfredo', '123456', '2015-07-24', 'www.2', 'www.controlsystem.com', 'fgsfsa'),
-(43, 'rza', '2015-07-14', '13.165.464/6546-54', '(13) 2131-3132', '(21) 3132-1321', 123, 1, '', '1321321313', '32131321231', 'lucas', '123.465.798-79', '2015-07-21', 'www.2', 'www.controlsystem.com', '56786'),
-(44, 'rzaa', '2015-07-11', '46.546.465/464-64', '(13) 246-5798', '(21) 6547-8987', 124, 1, '', '6546565987', '465498897', 'blabla', '116', '1888-11-11', '@email', 'www.controlsystem.com', ''),
-(45, 'testecpf', '2015-07-10', '', '(46) 5465-4654', '(46) 5465-4654', 125, 0, '4646464654', '', '', 'lucas', '545.446.546-54', '2015-07-18', '@exemplo', 'www.controlsystem.com', ''),
-(46, 'razauoo', '2015-07-08', '13.213.213/1123-21', '(32) 1332-1321', '(31) 3131-3131', 126, 1, '', '32132132121', '32132132132132', '654654', '646.464.646-54', '6454-04-05', '64654465654654', '654654', ''),
-(47, 'Lucas s', '2015-07-08', '', '(65) 456-4564', '(65) 4654-6546', 127, 0, '646546564', '', '', '65465465', '654.654.654-65', '5454-04-06', '654564654564', '65465654', ''),
-(48, 'razao', '2015-07-17', '13.213.212/3131-33', '(13) 1313-1313', '(32) 1312-3231', 128, 1, '', '1321321313', '31131322', 'nome', '123.254.654-56', '2015-07-10', 'www.2', '321321321321', ''),
-(49, 'Pessoa fisica', '2015-07-16', '412.394.651-54', '(12) 3131-3213', '(13) 2132-1321', 129, 0, '12313132132', '', '', 'teste', '123.132.132-13', '2013-11-29', 'fdsafdsaf', 'www.teste.com', 'fdgsfgd'),
-(50, 'Lucas Soares Nogueira', '1994-01-15', '077.765.229-37', '(41) 9889-0957', '(41) 9889-0957', 130, 0, '111113092', '', '456456456456456', 'Lucas Soares', '077.765.229-37', '1994-01-15', '_lucasoares@outlook.com', 'www.controlsystem.com', 'OBS'),
-(51, 'Empresa Ficticia', '1990-01-15', '12.345.678/9987-79', '(41) 9889-0957', '(41) 3265-9798', 131, 1, '', '465464654', '646464321', 'responsavel', '465.464.654-65', '1970-11-25', 'responsavel@exemplo.com', 'www.empresa.com', ''),
-(52, '4654654', '2015-07-16', '', '(46) 4654-6464', '(64) 6464-6464', 132, 1, '', '646464646464', '6464644', '64654654', '654.654.654-65', '2015-07-10', '5646546546', '65465456456', '654654654'),
-(53, '54564564', '0000-00-00', '', '', '', 133, 0, '', '', '', '', '', '0000-00-00', '', '', '');
+INSERT INTO `clientes` (`id`, `nome_razao_soc`, `data_nasc_data_fund`, `cpf_cnpj`, `telefone_cel`, `telefone_com`, `id_endereco`, `tipo`, `rg`, `inscricao_estadual`, `inscricao_municipal`, `responsavel`, `cpf_responsavel`, `data_nasc_responsavel`, `email_responsavel`, `site`, `observacao`, `fornecedor`, `id_empresa`) VALUES
+(50, 'Lucas Soares Nogueiraa', '1994-01-15', '077.765.229-37', '(41) 9889-0957', '(41) 9889-0957', 129, 0, '111113092', '', '456456456456456', 'Lucas Soares', '077.765.229-37', '1994-01-15', '_lucasoares@outlook.com', 'www.controlsystem.com', 'OBservação', 1, 5),
+(51, 'Empresa Ficticia1', '1993-01-15', '48.993.251/56-51', '(41) 9889-0951', '(41) 3265-9791', 131, 1, '', '465464651', '6464643211', 'responsavel1', '41239469845', '1993-11-25', 'responsavel@exemplo.com.br', 'www.empresa.com.br', '', 1, 5),
+(53, '54564564', '0000-00-00', '', '', '', 133, 0, '', '', '', '', '', '0000-00-00', '', '', '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -5785,11 +5734,10 @@ INSERT INTO `clientes` (`id`, `nome_razao_soc`, `data_nasc_data_fund`, `cpf_cnpj
 --
 
 CREATE TABLE IF NOT EXISTS `config` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `descricao` varchar(255) NOT NULL,
-  `valor` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `valor` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `config`
@@ -5805,7 +5753,7 @@ INSERT INTO `config` (`id`, `descricao`, `valor`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `empresa` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `razao_social` varchar(255) NOT NULL,
   `nome_fantasia` varchar(255) NOT NULL,
   `cnpj` varchar(255) NOT NULL,
@@ -5815,20 +5763,18 @@ CREATE TABLE IF NOT EXISTS `empresa` (
   `telefone` varchar(55) NOT NULL,
   `id_responsavel` int(11) NOT NULL,
   `oculto` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_ID_ENDERECO` (`id_endereco`),
-  KEY `FK_ID_RESPONSAVEL` (`id_responsavel`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  `nivel_acesso` int(11) NOT NULL COMMENT '0 = acesso total; 1 = acesso viacampos; 2 = acesso controlponto'
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `empresa`
 --
 
-INSERT INTO `empresa` (`id`, `razao_social`, `nome_fantasia`, `cnpj`, `ins_estadual`, `ins_municipal`, `id_endereco`, `telefone`, `id_responsavel`, `oculto`) VALUES
-(5, 'LUCIA H. V. SANTOS BALDIM ME', 'NEW AGES', '12.345.678/0001-23', '4521451252X', '215646548Y', 70, '(15) 3531-2999', 25, 0),
-(6, 'fis fast internet service ltda', 'control system', '07.824.826/0001-14', 'isento', 'isento', 71, '(41) 3319-2646', 40, 0),
-(7, 'Corte & Costuras LTDA', 'Corte e Costuras', '48.512.135/6481-12', '15451251521', '152325546', 76, '(35) 3162-5484', 18, 0),
-(8, 'RAZÃO SOCIAL', 'NOME FANTASIA', '45.365.126/0001-20', '1514561', '125315', 79, '(35) 1155-4565', 40, 0);
+INSERT INTO `empresa` (`id`, `razao_social`, `nome_fantasia`, `cnpj`, `ins_estadual`, `ins_municipal`, `id_endereco`, `telefone`, `id_responsavel`, `oculto`, `nivel_acesso`) VALUES
+(5, 'LUCIA H. V. SANTOS BALDIM ME', 'NEW AGES', '12.345.678/0001-23', '4521451252X', '215646548Y', 70, '(15) 3531-2999', 25, 0, 0),
+(6, 'fis fast internet service ltda', 'control system', '07.824.826/0001-14', 'isento', 'isento', 71, '(41) 3319-2646', 40, 0, 0),
+(7, 'Corte & Costuras LTDA', 'Corte e Costuras', '48.512.135/6481-12', '15451251521', '152325546', 76, '(35) 3162-5484', 18, 0, 0),
+(8, 'RAZÃO SOCIAL', 'NOME FANTASIA', '45.365.126/0001-20', '1514561', '125315', 79, '(35) 1155-4565', 40, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -5837,26 +5783,25 @@ INSERT INTO `empresa` (`id`, `razao_social`, `nome_fantasia`, `cnpj`, `ins_estad
 --
 
 CREATE TABLE IF NOT EXISTS `endereco` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `rua` varchar(255) NOT NULL,
   `numero` int(11) NOT NULL,
   `id_cidade` int(11) NOT NULL,
   `bairro` varchar(255) NOT NULL,
-  `cep` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=134 ;
+  `cep` varchar(255) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=143 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `endereco`
 --
 
 INSERT INTO `endereco` (`id`, `rua`, `numero`, `id_cidade`, `bairro`, `cep`) VALUES
-(1, 'Deputado Wanderley Junior', 457, 4973, 'centro', '18460000'),
+(1, 'Deputado Wanderley Junior', 457, 4706, 'centro', '18460000'),
 (9, 'Waldemiro Ry', 193, 2878, '', ''),
-(8, 'Waldemiro Ry', 193, 2878, 'Novo Mundo', '18460-000'),
+(8, 'Waldemiro Ry', 193, 2784, 'Novo Mundo', '18460-020'),
 (10, 'Teste de endereço', 65, 100, '', ''),
 (11, 'Teste', 15, 2878, '', ''),
-(12, 'Angelo dos Santos', 370, 4973, '', ''),
+(12, 'Angelo dos Santos', 370, 4706, 'Jd Paulicéia', '18460000'),
 (13, 'Francisco Alves Negrão', 20, 4973, 'Santa Terezinha', '18460-000'),
 (14, 'Santos Drummon', 235, 2854, '', ''),
 (15, 'Paulicéia', 10, 4973, '', ''),
@@ -5960,11 +5905,33 @@ INSERT INTO `endereco` (`id`, `rua`, `numero`, `id_cidade`, `bairro`, `cep`) VAL
 (126, 'rua1', 123, 2784, 'bairro6', '646546'),
 (127, '65465464', 654654654, 3591, '464654654', '654654'),
 (128, 'rua', 12346, 2784, 'bairro', '21321321'),
-(129, 'rua', 123, 105, 'bairro', '184600000'),
-(130, 'Neusa Gusso', 275, 2878, 'Campo de Santana', '81490460'),
-(131, 'ruadocentro', 123, 2878, 'centro', '81890862'),
+(129, 'rua', 123, 219, 'bairro', '184600000'),
+(130, 'Neusa Gusso', 275, 0, 'Campo de Santana', '81490460'),
+(131, 'ruadocentro1', 1231, 2784, 'centro1', '818908621'),
 (132, '564654654654', 2147483647, 2800, '1416545', '54654654654'),
-(133, '', 0, 0, '', '');
+(133, '', 0, 0, '', ''),
+(134, '111', 2878, 0, 'Teste de rua nova', '11111-111'),
+(135, '111', 2878, 0, 'Teste de rua nova', '11111-111'),
+(136, '111', 2878, 0, 'Teste de rua nova', '11111-111'),
+(137, '111', 2878, 0, 'Teste de rua nova', '11111-111'),
+(138, '111', 2878, 0, 'Teste de rua nova', '11111-111'),
+(139, '111', 2878, 0, 'Teste de rua nova', '11111-111'),
+(140, '111', 2561, 0, 'Teste de rua nova', '11111-111'),
+(141, '111', 3183, 0, 'Teste de rua nova', '11111-111'),
+(142, 'bair', 0, 123, '', '184600000');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `epi`
+--
+
+CREATE TABLE IF NOT EXISTS `epi` (
+  `id` int(11) NOT NULL,
+  `nome_epi` varchar(255) NOT NULL,
+  `descricao` varchar(500) NOT NULL,
+  `id_empresa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -5973,13 +5940,11 @@ INSERT INTO `endereco` (`id`, `rua`, `numero`, `id_cidade`, `bairro`, `cep`) VAL
 --
 
 CREATE TABLE IF NOT EXISTS `estado` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `nome` varchar(75) DEFAULT NULL,
   `uf` varchar(5) DEFAULT NULL,
-  `pais` int(7) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_Estado_pais` (`pais`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+  `pais` int(7) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `estado`
@@ -6021,24 +5986,23 @@ INSERT INTO `estado` (`id`, `nome`, `uf`, `pais`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `exames` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `descricao` varchar(255) NOT NULL,
   `id_periodicidade` int(11) NOT NULL,
   `oculto` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_TB_PERIODICIDADE` (`id_periodicidade`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  `id_empresa` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `exames`
 --
 
-INSERT INTO `exames` (`id`, `descricao`, `id_periodicidade`, `oculto`) VALUES
-(1, 'Exame 1', 4, 0),
-(2, 'Exame 3', 2, 0),
-(3, 'Exame 2', 4, 0),
-(4, 'Exame de rotina', 4, 0),
-(5, 'Exame 4', 2, 0);
+INSERT INTO `exames` (`id`, `descricao`, `id_periodicidade`, `oculto`, `id_empresa`) VALUES
+(1, 'Exame 1', 4, 0, 5),
+(2, 'Exame 3', 4, 0, 0),
+(3, 'Exame 2', 4, 0, 5),
+(4, 'Exame de rotina', 4, 0, 5),
+(5, 'Exame 44', 2, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -6047,19 +6011,15 @@ INSERT INTO `exames` (`id`, `descricao`, `id_periodicidade`, `oculto`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `filiais` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `cod_posto` varchar(55) NOT NULL,
   `telefone` varchar(55) NOT NULL,
   `id_endereco` int(11) NOT NULL,
   `id_responsavel` int(11) NOT NULL,
   `id_empresa` int(11) NOT NULL,
-  `oculto` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_ID_ENDERECO` (`id_endereco`),
-  KEY `FK_ID_RESPONSAVEL` (`id_responsavel`),
-  KEY `FK_ID_EMPRESA` (`id_empresa`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `oculto` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `filiais`
@@ -6079,7 +6039,7 @@ INSERT INTO `filiais` (`id`, `nome`, `cod_posto`, `telefone`, `id_endereco`, `id
 --
 
 CREATE TABLE IF NOT EXISTS `funcionario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `cpf` varchar(14) NOT NULL,
   `rg` varchar(12) NOT NULL,
@@ -6106,31 +6066,40 @@ CREATE TABLE IF NOT EXISTS `funcionario` (
   `num_serie_cart_trab` varchar(50) NOT NULL,
   `id_uf_cart_trab` int(11) NOT NULL COMMENT 'id do estado',
   `num_pis` varchar(20) NOT NULL,
-  `oculto` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
-  KEY `id_endereco` (`id_endereco`),
-  KEY `id_cbo` (`id_cbo`),
-  KEY `id_turno` (`id_turno`),
-  KEY `id_empresa` (`id_empresa_filial`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
+  `oculto` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `funcionario`
 --
 
 INSERT INTO `funcionario` (`id`, `nome`, `cpf`, `rg`, `org_em_rg`, `data_em_rg`, `num_tit_eleitor`, `data_nasc`, `telefone`, `email`, `email_empresa`, `senha`, `is_admin`, `id_cbo`, `id_endereco`, `id_turno`, `id_empresa`, `id_empresa_filial`, `id_supervisor`, `data_adm`, `data_dem`, `salario_base`, `qtd_horas_sem`, `num_cart_trab`, `num_serie_cart_trab`, `id_uf_cart_trab`, `num_pis`, `oculto`) VALUES
-(18, 'Andre Matos', '412.394.698.45', '48.993.307-5', 'SSP-SP', '1993-01-08', '1320545136', '1993-07-08', '35312999', 'andre_matos13@hotmail.com', 'andre_matos13@hotmail.com', '321', 1, 1, 8, 17, 5, 5, 0, '1993-01-08', '0000-00-00', 2000, 44, '69485132', '32154124', 26, '13254615', 0),
-(2, 'Renato Franco', '412.394.698-45', '484515615115', '02315', '2014-01-08', '34243214', '1992-07-20', '23393834', 'renato@hotmail.com', 'renato@empresa.com.br', '321', 0, 1, 1, 16, 7, 1, 18, '2000-01-20', '0000-00-00', 1500, 44, '324324', '324', 15, '4324324', 0),
+(18, 'Andre Matos', '412.394.698.45', '48.993.307-5', 'SSP-SP', '1993-01-08', '1320545136', '1993-07-08', '35312999', 'andre_matos13@hotmail.com', 'andre_matos13@hotmail.com', '321', 1, 1, 8, 17, 5, 2, 0, '1993-01-08', '0000-00-00', 2000, 35, '69485132', '32154124', 26, '13254615', 0),
+(2, 'Renato Francos', '412.394.698-45', '484515615115', '02315', '2014-01-08', '34243214', '1992-07-20', '23393834', 'renato@hotmail.com', 'renato@empresa.com.br', '321', 0, 1, 1, 16, 7, 1, 18, '2000-01-20', '0000-00-00', 1500, 44, '324324', '324', 15, '4324324', 0),
 (22, 'Felipe Smockovitz', '412.394.698-45', '48654515121', 'SSP-SP', '2000-05-20', '43213243', '1884-06-02', '(15) 3531-2884', 'felipe@hotmail.com', 'felipe@controlsystem.com.br', '222', 0, 10, 13, 10, 6, 4, 18, '2014-06-01', '0000-00-00', 2500, 44, '2548451445', '321545654', 26, '1256155215', 0),
-(21, 'Pedro Matos', '412.394.648-45', '', '', '0000-00-00', '', '1948-06-05', '1532316521', 'pedro@hotmail.com', '', '111', 1, 12, 12, 16, 0, 1, 0, '0000-00-00', '0000-00-00', 0, 0, '', '', 0, '', 0),
+(21, 'Pedro Matos', '412.394.698-45', '489933075', 'ssp-sp', '1993-01-08', '1525151', '1948-06-05', '1532316521', 'pedro@hotmail.com', 'teste@empresa.com.br', '111', 1, 12, 12, 16, 5, 2, 0, '1111-11-01', '0000-00-00', 50000, 44, '54325432', '543254325324', 26, '4343', 0),
 (23, 'Camila', '412.156.658-48', '', '', '0000-00-00', '', '1995-02-01', '35312645', 'camila@hormail.com', '', '321', 0, 33, 14, 17, 0, 1, 0, '0000-00-00', '0000-00-00', 0, 0, '', '', 0, '', 1),
 (25, 'Patricia Cristina', '412.394.698-45', '4869484984', 'SSP-SP', '2005-05-08', '1234561561', '2015-07-01', '(41) 3115-1515', 'patricia@gmail.com', 'patricia@controlsystem.com.br', '123', 1, 34, 17, 19, 6, 3, 18, '2015-02-21', '0000-00-00', 1800, 44, '1253156165', '1564654651', 13, '354894651', 0),
 (38, 'Teste', '412.394.698-45', '48.993.307-5', 'ssp-sp', '2005-01-05', '123456', '1992-01-08', '(41) 3531-2999', 'klçlkkjl', 'email@empresa.com.br', '123', 0, 20, 35, 16, 0, 1, 0, '2015-02-05', '0000-00-00', 1500, 44, '123123123', '321321321', 13, '3451 pis', 0),
 (39, 'Carmilina', '412.394.698-45', '489933075', 'SSP-SP', '1992-02-02', '154651521', '1993-01-08', '(35) 3122-6484', 'carmelina@hotmail.com', 'carmem@empresa.com', '123', 0, 12, 37, 16, 0, 1, 21, '2005-05-05', '0000-00-00', 2500, 44, '158116215', '0215615', 26, '4515621562', 0),
 (40, 'Patricia Watanabe dos Santos', '876.480.169-15', '59443356', 'SSP-PR', '2000-04-08', '123', '1973-12-22', '(41) 3319-2646', 'patricia_watanabe@hotmail.com', 'patricia@controlsystem.com.br', '123321', 1, 12, 38, 10, 6, 3, 25, '2015-07-08', '0000-00-00', 2500, 220, '12313', '121', 18, '123456', 0),
 (41, '132132', '412.394.698-45', '0000-00-00', '1321', '0000-00-00', '321', '0000-00-00', '(32) 1', '321', '0000-00-00', '321', 2147483647, 0, 74, 21, 4, 10, 0, '0000-00-00', '0000-00-00', 321, 321, '321', '10', 321, '25', 0),
-(42, 'teste', '412.394.698-45', '2005-10-10', '1561561', '9993-01-08', 'empresa@hotmail.com', '1993-01-08', '(32) 5615-5151', 'teste@hotmail.com', '1999-05-08', '321', 0, 21, 75, 10, 6, 4, 18, '2000-01-01', '0000-00-00', 44, 32434, '432432', '16', 11, '18', 0);
+(42, 'teste', '412.394.698-45', '2005-10-10', '1561561', '9993-01-08', 'empresa@hotmail.com', '1993-01-08', '(32) 5615-5151', 'teste@hotmail.com', '1999-05-08', '321', 0, 21, 75, 10, 6, 4, 18, '2000-01-01', '0000-00-00', 44, 32434, '432432', '16', 11, '18', 0),
+(48, 'Funcionario novo', '412.394.698-45', '48.993.307-5', 'SSP-SP', '1999-01-08', '122051451', '1993-01-08', '(41) 3531-2999', 'teste@control.com.br', 'testeempresa.com.br', '123', 1, 8, 141, 16, 5, 2, 18, '2009-01-08', '0000-00-00', 1500, 40, '151516165', '13215161', 18, '3215215051', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `funcionario_epi`
+--
+
+CREATE TABLE IF NOT EXISTS `funcionario_epi` (
+  `id` int(11) NOT NULL,
+  `id_func` int(11) NOT NULL,
+  `id_epi` int(11) NOT NULL,
+  `data_entrega` date NOT NULL,
+  `quantidade` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -6139,17 +6108,15 @@ INSERT INTO `funcionario` (`id`, `nome`, `cpf`, `rg`, `org_em_rg`, `data_em_rg`,
 --
 
 CREATE TABLE IF NOT EXISTS `horarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `hora` time NOT NULL,
   `data` date NOT NULL,
   `tipo` int(11) NOT NULL COMMENT '1 = iniciando expediente; 2 = saindo pro almoço  3 = encerrou o almoco; 0 = encerrou o expediente',
   `id_funcionario` int(11) NOT NULL,
   `id_obs_supervisor` int(11) NOT NULL,
   `observacao_funcionario` varchar(255) NOT NULL,
-  `situacao` varchar(10) NOT NULL COMMENT '+5 ou -5 (+tempo ou -tempo)   ( - ) quer dizer que chegou antes do horario ( + ) quer dizer que chegou depois',
-  PRIMARY KEY (`id`),
-  KEY `id_funcionario` (`id_funcionario`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1410 ;
+  `situacao` varchar(10) NOT NULL COMMENT '+5 ou -5 (+tempo ou -tempo)   ( - ) quer dizer que chegou antes do horario ( + ) quer dizer que chegou depois'
+) ENGINE=MyISAM AUTO_INCREMENT=1410 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `horarios`
@@ -6254,12 +6221,10 @@ INSERT INTO `horarios` (`id`, `hora`, `data`, `tipo`, `id_funcionario`, `id_obs_
 --
 
 CREATE TABLE IF NOT EXISTS `obs_supervisor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `id_supervisor` int(11) NOT NULL,
-  `observacao` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_ID_SUPERVISOR` (`id_supervisor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+  `observacao` varchar(255) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `obs_supervisor`
@@ -6278,11 +6243,10 @@ INSERT INTO `obs_supervisor` (`id`, `id_supervisor`, `observacao`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `pais` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `nome` varchar(60) DEFAULT NULL,
-  `sigla` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `sigla` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `pais`
@@ -6298,10 +6262,9 @@ INSERT INTO `pais` (`id`, `nome`, `sigla`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `periodicidade` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `periodo` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `id` int(11) NOT NULL,
+  `periodo` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `periodicidade`
@@ -6320,16 +6283,15 @@ INSERT INTO `periodicidade` (`id`, `periodo`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `turno` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `descricao` varchar(255) NOT NULL,
   `ini_exp` time NOT NULL COMMENT 'Inicio expediente',
   `ini_alm` time NOT NULL COMMENT 'Inicio almoço',
   `fim_alm` time NOT NULL COMMENT 'Fim almoço',
   `fim_exp` time NOT NULL COMMENT 'Fim expediente',
-  `oculto` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+  `oculto` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `turno`
@@ -6351,15 +6313,251 @@ INSERT INTO `turno` (`id`, `nome`, `descricao`, `ini_exp`, `ini_alm`, `fim_alm`,
 --
 
 CREATE TABLE IF NOT EXISTS `turno_func_historico` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `data_inicio` date NOT NULL,
   `data_fim` date NOT NULL,
-  `id_turno` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_turno` (`id_turno`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `id_turno` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `turno_func_historico`
+-- Indexes for dumped tables
 --
 
+--
+-- Indexes for table `cbo`
+--
+ALTER TABLE `cbo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_ID_EMPRESA` (`id_empresa`);
+
+--
+-- Indexes for table `cbo_exames`
+--
+ALTER TABLE `cbo_exames`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_ID_CBO` (`id_cbo`),
+  ADD KEY `FK_ID_EXAME` (`id_exame`);
+
+--
+-- Indexes for table `cidade`
+--
+ALTER TABLE `cidade`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_Cidade_estado` (`estado`);
+
+--
+-- Indexes for table `clientes`
+--
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_ID_ENDERECO` (`id_endereco`),
+  ADD KEY `FK_ID_EMPRESA` (`id_empresa`);
+
+--
+-- Indexes for table `config`
+--
+ALTER TABLE `config`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `empresa`
+--
+ALTER TABLE `empresa`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_ID_ENDERECO` (`id_endereco`),
+  ADD KEY `FK_ID_RESPONSAVEL` (`id_responsavel`);
+
+--
+-- Indexes for table `endereco`
+--
+ALTER TABLE `endereco`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `epi`
+--
+ALTER TABLE `epi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `estado`
+--
+ALTER TABLE `estado`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_Estado_pais` (`pais`);
+
+--
+-- Indexes for table `exames`
+--
+ALTER TABLE `exames`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_TB_PERIODICIDADE` (`id_periodicidade`),
+  ADD KEY `FK_ID_EMPRESA` (`id_empresa`);
+
+--
+-- Indexes for table `filiais`
+--
+ALTER TABLE `filiais`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_ID_ENDERECO` (`id_endereco`),
+  ADD KEY `FK_ID_RESPONSAVEL` (`id_responsavel`),
+  ADD KEY `FK_ID_EMPRESA` (`id_empresa`);
+
+--
+-- Indexes for table `funcionario`
+--
+ALTER TABLE `funcionario`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `id_endereco` (`id_endereco`),
+  ADD KEY `id_cbo` (`id_cbo`),
+  ADD KEY `id_turno` (`id_turno`),
+  ADD KEY `id_empresa` (`id_empresa_filial`);
+
+--
+-- Indexes for table `funcionario_epi`
+--
+ALTER TABLE `funcionario_epi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `horarios`
+--
+ALTER TABLE `horarios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_funcionario` (`id_funcionario`);
+
+--
+-- Indexes for table `obs_supervisor`
+--
+ALTER TABLE `obs_supervisor`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_ID_SUPERVISOR` (`id_supervisor`);
+
+--
+-- Indexes for table `pais`
+--
+ALTER TABLE `pais`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `periodicidade`
+--
+ALTER TABLE `periodicidade`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `turno`
+--
+ALTER TABLE `turno`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `turno_func_historico`
+--
+ALTER TABLE `turno_func_historico`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_turno` (`id_turno`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `cbo`
+--
+ALTER TABLE `cbo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
+--
+-- AUTO_INCREMENT for table `cbo_exames`
+--
+ALTER TABLE `cbo_exames`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=108;
+--
+-- AUTO_INCREMENT for table `cidade`
+--
+ALTER TABLE `cidade`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5565;
+--
+-- AUTO_INCREMENT for table `clientes`
+--
+ALTER TABLE `clientes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=55;
+--
+-- AUTO_INCREMENT for table `config`
+--
+ALTER TABLE `config`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `empresa`
+--
+ALTER TABLE `empresa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `endereco`
+--
+ALTER TABLE `endereco`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=143;
+--
+-- AUTO_INCREMENT for table `epi`
+--
+ALTER TABLE `epi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `estado`
+--
+ALTER TABLE `estado`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT for table `exames`
+--
+ALTER TABLE `exames`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `filiais`
+--
+ALTER TABLE `filiais`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `funcionario`
+--
+ALTER TABLE `funcionario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
+--
+-- AUTO_INCREMENT for table `funcionario_epi`
+--
+ALTER TABLE `funcionario_epi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `horarios`
+--
+ALTER TABLE `horarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1410;
+--
+-- AUTO_INCREMENT for table `obs_supervisor`
+--
+ALTER TABLE `obs_supervisor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `pais`
+--
+ALTER TABLE `pais`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `periodicidade`
+--
+ALTER TABLE `periodicidade`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `turno`
+--
+ALTER TABLE `turno`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `turno_func_historico`
+--
+ALTER TABLE `turno_func_historico`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
