@@ -1,25 +1,22 @@
 <?php
-
-include_once("../model/class_sql.php");
+session_start();
 include_once("../model/class_cbo_bd.php");
 
-	$sql = new Sql();
-	$sql->conn_bd();
 
 	$descricao = $_GET['descricao'];  //codigo do estado passado por parametro
 	
-	$sql = "SELECT * FROM cbo WHERE descricao LIKE '%$descricao%' && oculto = 0 ORDER BY id";  //consulta todas as cidades que possuem o codigo do estado
-	$res = mysql_query($sql);
-	$num = mysql_num_rows($res);
+
+	$cbo = new Cbo();
+	$cbo = $cbo->get_cbo_by_codigo_and_desc($descricao);
+
 	//monto um array de cidades
-	if($num == 0){
-		echo "<div class='msg' style='margin-top: 20px;'>Nenhum Registro encontrado!</div>";
+	if(count($cbo) == 0){
 		return;
 	}
-	for ($i = 0; $i < $num; $i++) {
-	  $dados = mysql_fetch_array($res);
-	  $arrCbo[$i][0] = $dados['id'];
-	  $arrCbo[$i][1] = $dados['descricao'];
+
+	for ($i = 0; $i < count($cbo); $i++) {
+	  $arrCbo[$i][0] = $cbo[$i][0];
+	  $arrCbo[$i][1] = $cbo[$i][2];
 	}
 ?>
 
@@ -32,7 +29,7 @@ include_once("../model/class_cbo_bd.php");
 		<table style="float:left" class="table-pesquisa">
 		  <?php
 		  	$cont=0;
-		  	if($dados) 
+		  	if($cbo) 
 			    foreach($arrCbo as $value => $nome){
 			      echo "<tr><td style='padding-left:20px;'><a href='add_cbo.php?tipo=editar&id=".$arrCbo[$value][0]."'>".$arrCbo[$value][1]."</a></td></tr>";
 			     	$cont++;

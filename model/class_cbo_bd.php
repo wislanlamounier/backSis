@@ -86,7 +86,7 @@ class Cbo{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = 'SELECT * FROM cbo WHERE  oculto = 0 && codigo LIKE "%%%s%%" OR descricao LIKE "%%%s%%" ORDER BY descricao ASC';
+		$query = 'SELECT * FROM cbo WHERE  oculto = 0 && codigo LIKE "%%%s%%" OR descricao LIKE "%%%s%%" && id_empresa = "'.$_SESSION['id_empresa'].'" ORDER BY descricao ASC';
 		$aux=0;
 		$return = array();
 		
@@ -99,8 +99,12 @@ class Cbo{
 			$return[$aux][2] = $result['descricao'];
 			$aux++;
 		}
-
-		return $return;
+		if($aux == 0){
+			echo '<div class="msg">Nenhum cbo encontrado!</div>';
+		}else{
+			return $return;
+		}
+		
 
 	}
 
