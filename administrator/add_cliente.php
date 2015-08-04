@@ -543,9 +543,9 @@ require_once("../model/class_cidade_bd.php");
 					               <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
 					               <tr> <td ><span>Tipo:</span></td> <td>  
 						               <?php if($cli->fornecedor){ ?>
-					                          		<input type="checkbox" id="fornecedor" checked name="fornecedor"><span>Fornecedor</span>
+					                          		<input type="checkbox" id="fornecedor" checked name="fornecedor" style="height:12px;"><span>Fornecedor</span>
 					                   <?php }else{ ?>
-					                          		<input type="checkbox" id="fornecedor"  name="fornecedor"><span>Fornecedor</span>
+					                          		<input type="checkbox" id="fornecedor"  name="fornecedor" style="height:12px;"><span>Fornecedor</span>
 					                   <?php } ?>
 					           	   </tr>
 					               <tr> <td ><span>Nome:</span></td><td><input type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
@@ -621,9 +621,9 @@ require_once("../model/class_cidade_bd.php");
 						               <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
 						               <tr> <td ><span>Tipo:</span></td> <td>  
 						               <?php if($cli->fornecedor){ ?>
-					                          		<input type="checkbox" id="fornecedor" checked name="fornecedor"><span>Fornecedor</span>
+					                          		<input type="checkbox" style="height:12px;" id="fornecedor" checked name="fornecedor"><span>Fornecedor</span>
 					                   <?php }else{ ?>
-					                          		<input type="checkbox" id="fornecedor"  name="fornecedor"><span>Fornecedor</span>
+					                          		<input type="checkbox" style="height:12px;" id="fornecedor"  name="fornecedor"><span>Fornecedor</span>
 					                   <?php } ?>
 					           	   		</tr>
 						               <tr> <td ><div id="razao_nome"><span>Razao Social:</span></div></td><td><input type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
@@ -678,15 +678,8 @@ require_once("../model/class_cidade_bd.php");
 							                    	 	<input class="button" type="button" value="Cancelar">
 							                    	 </td>
 							                    </tr> 
-
-
-
 						            </table>
 						        </form>
-
-               
-
-
 				<?php }else{ //adicionar cliente?>
 
 						<div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR CLIENTE</span></div></div>

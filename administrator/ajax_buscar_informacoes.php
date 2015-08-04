@@ -1,25 +1,18 @@
 <?php
-
-include_once("../model/class_sql.php");
+session_start();
 include_once("../model/class_funcionario_bd.php");
 
-	$sql = new Sql();
-	$sql->conn_bd();
-
 	$nome = $_GET['nome'];  //codigo do estado passado por parametro
-	
-	$sql = "SELECT * FROM funcionario WHERE nome LIKE '%$nome%' && oculto = 0 ORDER BY id";  //consulta todas as cidades que possuem o codigo do estado
-	$res = mysql_query($sql);
-	$num = mysql_num_rows($res);
-	//monto um array de cidades
-	if($num == 0){
-		echo "<div class='msg' style='margin-top: 20px;'>Nenhum Registro encontrado!</div>";
+
+	$funcionario = new Funcionario();
+	$funcionario = $funcionario->get_func_by_name($nome);
+
+	if(count($funcionario) == 0){
 		return;
 	}
-	for ($i = 0; $i < $num; $i++) {
-	  $dados = mysql_fetch_array($res);
-	  $arrFuncionario[$i][0] = $dados['id'];
-	  $arrFuncionario[$i][1] = $dados['nome'];
+	for ($i = 0; $i < count($funcionario); $i++) {
+	  $arrFuncionario[$i][0] = $funcionario[$i][0];
+	  $arrFuncionario[$i][1] = $funcionario[$i][1];
 	}
 ?>
 
@@ -32,12 +25,11 @@ include_once("../model/class_funcionario_bd.php");
 		<table style="float:left" class="table-pesquisa">
 		  <?php
 		  	$cont=0;
-		  	if($dados) 
+		  	if($funcionario) 
 			    foreach($arrFuncionario as $value => $nome){
 			      echo "<tr><td style='padding-left:20px;'><a href='add_func.php?tipo=editar&id=".$arrFuncionario[$value][0]."'>".$arrFuncionario[$value][1]."</a></td></tr>";
 			     	$cont++;
 			  	}
-			  	// echo '<tr><td style="padding:0;"><hr style="background-color:#eee;"/></td></tr>';
 			  	echo '<tr><td style="padding-left:20px; font-size: 12px; color:#777;">'.$cont. " registro(s) encontrado(s)</td></tr>";
 		   ?>
 		  
