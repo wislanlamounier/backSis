@@ -218,7 +218,7 @@ function validate(){
 
                </form>    
                 <?php }else{ ?> 
-                  <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR TURNO</span></div></div>
+                  <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE TURNO</span></div></div>
                   <div class="title">
                   <span style="font-size:14px; color:#555;"><br>Atenção: use o formato de 24 horas para o preenchimento de um novo turno, de 0 à 24 horas e de 0 aos 59 minutos</br></span>
                </div>

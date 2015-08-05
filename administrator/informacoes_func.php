@@ -9,7 +9,7 @@ include_once("../model/class_funcionario_bd.php");
 	function buscar_funcionarios(param){
       if(param == 0){   
             var nome = document.getElementById('nome_search').value;
-            //se encontrou o estado
+
             if(nome){
             	
               var url = '../ajax/ajax_buscar_informacoes.php?nome='+nome+'&param='+param;  //caminho do arquivo php que irá buscar as cidades no BD
@@ -22,7 +22,7 @@ include_once("../model/class_funcionario_bd.php");
       }
       if(param == 1){
             var nome = document.getElementById('nome_search').value;
-            //se encontrou o estado
+
             if(nome){
               
               var url = '../ajax/ajax_buscar_informacoes.php?nome='+nome+'&param='+param;  //caminho do arquivo php que irá buscar as cidades no BD

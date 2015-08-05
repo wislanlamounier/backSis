@@ -10,7 +10,7 @@ include_once("../model/class_turno_bd.php");
 	if(count($turno) == 0){
 		return;
 	}
-	for ($i = 0; $i < $num; $i++) {
+	for ($i = 0; $i < count($turno); $i++) {
 	  $arrTurno[$i][0] = $turno[$i][0];
 	  $arrTurno[$i][1] = $turno[$i][1];
 	}

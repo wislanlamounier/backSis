@@ -67,7 +67,7 @@ class Cliente {
 		$sql->conn_bd();
 		$g = new Glob();
 		$aux=0;
-		$query = "SELECT * FROM clientes WHERE nome_razao_soc LIKE '%%%s%%' && tipo = '%s' && id_empresa='%s'";
+		$query = "SELECT * FROM clientes WHERE nome_razao_soc LIKE '%%%s%%' && tipo = '%s' && id_empresa='%s' && oculto = 0";
 		$query_tra = $g->tratar_query($query, $name, $tipo, $_SESSION['id_empresa']);
 
 		while($result =  mysql_fetch_array($query_tra)){
@@ -90,7 +90,7 @@ class Cliente {
 		 $sql->conn_bd();
 		 $g = new Glob();
 
-		 $query = "SELECT * FROM clientes WHERE id= '%s' && tipo = 0";
+		 $query = "SELECT * FROM clientes WHERE id= '%s' && tipo = 0 && oculto = 0";
 		 $result = $g->tratar_query($query, $id);
 		 
 		 if(@mysql_num_rows($result) == 0){
@@ -142,12 +142,12 @@ class Cliente {
 		
 	}
 
-		public function get_cli_jur_by_name($name){
+	public function get_cli_jur_by_name($name){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
 		$aux=0;
-		$query = "SELECT * FROM clientes WHERE nome_razao_soc LIKE '%%%s%%' && tipo = 1";
+		$query = "SELECT * FROM clientes WHERE nome_razao_soc LIKE '%%%s%%' && tipo = 1 && oculto = 0";
 		$query_tra = $g->tratar_query($query, $name);
 
 		while($result =  mysql_fetch_array($query_tra)){
@@ -163,13 +163,24 @@ class Cliente {
 			return $return;
 		}
 	}
+	
+	public function ocultar_by_id($id){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$query = "UPDATE clientes SET oculto = 1 WHERE id = %s";
+		$result = $g->tratar_query($query, $id);
+		if($result){
+			echo '<div class="msg">Cliente excluido com sucesso!</div>';
+		}
+	}
 
 	public function get_cli_jur_id($id){
 		 $sql = new Sql();
 		 $sql->conn_bd();
 		 $g = new Glob();
 
-		 $query = "SELECT * FROM clientes WHERE id= '%s' && tipo != 0";
+		 $query = "SELECT * FROM clientes WHERE id= '%s' && tipo != 0 && oculto = 0";
 		 $result = $g->tratar_query($query, $id);
 		 
 		 if(@mysql_num_rows($result) == 0){
