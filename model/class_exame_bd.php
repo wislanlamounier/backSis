@@ -59,6 +59,16 @@ class Exame{
 
 		return $g->tratar_query($query, $this->id);
 	}
+	public function ocultar_by_id($id){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$query = "UPDATE exames SET oculto = 1 WHERE id = %s";
+		$result = $g->tratar_query($query, $id);
+		if($result){
+			echo '<div class="msg">Exame excluido com sucesso!</div>';
+		}
+	}
 	public function get_exame_by_desc($desc){
 		$sql = new Sql();
 		$sql->conn_bd();
