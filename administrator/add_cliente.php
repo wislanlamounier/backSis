@@ -46,6 +46,16 @@ require_once("../model/class_cidade_bd.php");
 
 <script type="text/javascript">
 
+	function confirma(id,nome, tipopess){
+       if(confirm("Excluir cliente "+nome+" , tem certeza?") ){
+          var url = '../ajax/ajax_excluir_cliente.php?id='+id+'&nome='+nome+'&tipopess='+tipopess;  //caminho do arquivo php que irá buscar as cidades no BD
+          
+          $.get(url, function(dataReturn) {
+          	
+            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+          });
+       }
+    }
 	
 	function tipo_form(){
 		
@@ -682,7 +692,7 @@ require_once("../model/class_cidade_bd.php");
 						        </form>
 				<?php }else{ //adicionar cliente?>
 
-						<div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR CLIENTE</span></div></div>
+						<div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE CLIENTE</span></div></div>
 						<form form method="POST" id="add_cliente" action="add_cliente.php" onsubmit="return valida(this)">
 								<input type="hidden" name="tipo_post" value="add_cliente"><?php //input envia o tipo da requisição, se é add cliente,  edita cliente p/fisica ou edita cliente p/juridica ?>
 								<table border="0" >

@@ -31,30 +31,58 @@ include_once("../model/class_cliente.php");
 	  $arrClientes[$i][1] = $cliente[$i][1];
 	}
 ?>
-
-<div class="formulario" style="width:450px">
-	<div class="msg" style="float:left">
-		<div style="float:left; background-color:rgba(50,200,50,0.3); width:100%; height:43px; text-align:left; margin-top:-20px;">
-			<div style="float:left; margin-left:5px;"><img src="../images/search-icon.png" style="width:40px;"></div>
-			<div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Clientes</div>
+<?php if(isset($_GET['param']) && $_GET['param'] == 0){ // EDITAR CLIENTE?>
+		<div class="formulario" style="width:450px">
+			<div class="msg" style="float:left">
+				<div style="float:left; background-color:rgba(50,200,50,0.3); width:100%; height:43px; text-align:left; margin-top:-20px;">
+					<div style="float:left; margin-left:5px;"><img src="../images/search-icon.png" style="width:40px;"></div>
+					<div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Editar Cliente</div>
+				</div>
+				<table style="float:left" class="table-pesquisa">
+				  <?php
+				  	$cont=0;
+				  	if($cliente) 
+					    foreach($arrClientes as $value => $nome){
+					    	//verifica se é pessoa fisica ou juridica
+					      if(isset($_GET['tipo']) && $_GET['tipo'] == 0){
+					      		echo "<tr><td style='padding-left:20px;'><a href='add_cliente.php?tipo=editar&id=".$arrClientes[$value][0]."'>".$arrClientes[$value][1]."</a></td></tr>";
+					      }else{
+					      		echo "<tr><td style='padding-left:20px;'><a href='add_cliente.php?tipo=editarj&id=".$arrClientes[$value][0]."'>".$arrClientes[$value][1]."</a></td></tr>";
+					      }
+					      $cont++;
+					  	}
+					  	// echo '<tr><td style="padding:0;"><hr style="background-color:#eee;"/></td></tr>';
+					  	echo '<tr><td style="padding-left:20px; font-size: 12px; color:#777;">'.$cont. " registro(s) encontrado(s)</td></tr>";
+				   ?>
+				  
+				</table>
+			</div>
 		</div>
-		<table style="float:left" class="table-pesquisa">
-		  <?php
-		  	$cont=0;
-		  	if($cliente) 
-			    foreach($arrClientes as $value => $nome){
-			    	//verifica se é pessoa fisica ou juridica
-			      if(isset($_GET['tipo']) && $_GET['tipo'] == 0){
-			      		echo "<tr><td style='padding-left:20px;'><a href='add_cliente.php?tipo=editar&id=".$arrClientes[$value][0]."'>".$arrClientes[$value][1]."</a></td></tr>";
-			      }else{
-			      		echo "<tr><td style='padding-left:20px;'><a href='add_cliente.php?tipo=editarj&id=".$arrClientes[$value][0]."'>".$arrClientes[$value][1]."</a></td></tr>";
-			      }
-			      $cont++;
-			  	}
-			  	// echo '<tr><td style="padding:0;"><hr style="background-color:#eee;"/></td></tr>';
-			  	echo '<tr><td style="padding-left:20px; font-size: 12px; color:#777;">'.$cont. " registro(s) encontrado(s)</td></tr>";
-		   ?>
-		  
-		</table>
-	</div>
-</div>
+<?php } else if (isset($_GET['param']) && $_GET['param'] == 1){ // EXCLUIR CLIENTE?>
+		<div class="formulario" style="width:450px">
+			<div class="msg" style="float:left">
+				<div style="float:left; background-color:rgba(200,50,50,0.3); width:100%; height:43px; text-align:left; margin-top:-20px;">
+			<div style="float:left; margin-left:5px;"><img src="../images/delete.png" style="width:35px; margin-top:3px;"></div>
+					<div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Excluir Clientes <span>(Clique em um registro para excluir)</span></div>
+				</div>
+				<table style="float:left" class="table-pesquisa">
+				  <?php
+				  	$cont=0;
+				  	if($cliente) 
+					    foreach($arrClientes as $value => $nome){
+					    	//verifica se é pessoa fisica ou juridica
+					      if(isset($_GET['tipo']) && $_GET['tipo'] == 0){
+					      		echo "<tr><td style='padding-left:20px;'><a class='icon_excluir' onclick='confirma(".'"'.$arrClientes[$value][0].'"'.",".'"'.$arrClientes[$value][1].'"'.',"'."0".'"'.")'>".$arrClientes[$value][1]."</a></td></tr>";
+					      }else{
+					      		echo "<tr><td style='padding-left:20px;'><a class='icon_excluir' onclick='confirma(".'"'.$arrClientes[$value][0].'"'.",".'"'.$arrClientes[$value][1].'"'.',"'."1".'"'.")'>".$arrClientes[$value][1]."</a></td></tr>";
+					      }
+					      $cont++;
+					  	}
+					  	// echo '<tr><td style="padding:0;"><hr style="background-color:#eee;"/></td></tr>';
+					  	echo '<tr><td style="padding-left:20px; font-size: 12px; color:#777;">'.$cont. " registro(s) encontrado(s)</td></tr>";
+				   ?>
+				  
+				</table>
+			</div>
+		</div>
+<?php } ?>
