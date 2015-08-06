@@ -101,6 +101,31 @@ class Endereco{
 	public function printEndereco(){
 		return "Rua: ".$this->rua."<br /> Numero: ".$this->numero."<br />Id_cidade: ".$this->id_cidade;
 	}
+	public function get_endereco_id($id){
+		 $sql = new Sql();
+		 $sql->conn_bd();
+		 $g = new Glob();
+
+		 $query = "SELECT * FROM endereco WHERE id= '%s'";
+		 $result = $g->tratar_query($query, $id);
+		 
+		 if(@mysql_num_rows($result) == 0){
+     
+            return false;            
+	     }else{
+
+	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	     	$this->id = $row['id'];
+	     	$this->rua = $row['rua'];
+	     	$this->numero = $row['numero'];
+	     	$this->cep = $row['cep'];
+	     	$this->bairro = $row['bairro'];
+	     	$this->id_cidade = $row['id_cidade'];	     	
+
+	     	return $this;
+	     }
+
+	}
 
 	
 }

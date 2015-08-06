@@ -1,8 +1,9 @@
 <?php
-
+include_once("class_endereco_bd.php");
+include_once("class_empresa_bd.php");
 include_once("class_sql.php");
 include_once("../global.php");
-
+include_once("class_cidade_bd.php");
 
 class Cliente { 
 
@@ -73,6 +74,7 @@ class Cliente {
 		while($result =  mysql_fetch_array($query_tra)){
 			$return[$aux][0] = $result['id'];
 			$return[$aux][1] = $result['nome_razao_soc'];
+
 			$aux++;
 		}
 		if($aux == 0){
@@ -90,7 +92,7 @@ class Cliente {
 		 $sql->conn_bd();
 		 $g = new Glob();
 
-		 $query = "SELECT * FROM clientes WHERE id= '%s' && tipo = 0 && oculto = 0";
+		 $query = "SELECT * FROM clientes WHERE id= '%s' && tipo = 0";
 		 $result = $g->tratar_query($query, $id);
 		 
 		 if(@mysql_num_rows($result) == 0){
@@ -115,6 +117,7 @@ class Cliente {
 	     	$this->observacao = $row['observacao'];
 	     	$this->site = $row['site'];
 	     	$this->fornecedor = $row['fornecedor'];
+	     	$this->id_empresa = $row['id_empresa'];
 
 	     	return $this;
 	     }
@@ -180,7 +183,7 @@ class Cliente {
 		 $sql->conn_bd();
 		 $g = new Glob();
 
-		 $query = "SELECT * FROM clientes WHERE id= '%s' && tipo != 0 && oculto = 0";
+		 $query = "SELECT * FROM clientes WHERE id= '%s' && tipo =1 ";
 		 $result = $g->tratar_query($query, $id);
 		 
 		 if(@mysql_num_rows($result) == 0){
@@ -205,7 +208,8 @@ class Cliente {
 	     	$this->email_resp= $row['email_responsavel'];
 	     	$this->observacao = $row['observacao'];
 	     	$this->site = $row['site'];
-	     	$this->fornecedor= $row['fornecedor'];
+	     	$this->fornecedor = $row['fornecedor'];
+	     	$this->id_empresa = $row['id_empresa'];
 	     	return $this;
 	     }
 
@@ -227,9 +231,183 @@ class Cliente {
 		return $query_tra;
 	}
 
+	public function pesquisa_cli_by_name($name_razao_soc ,$tipo ,$id_empresa){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$aux=0;
+		$query = "SELECT * FROM clientes WHERE nome_razao_soc LIKE '%%%s%%' && tipo = '%s' && id_empresa='%s'";
+		$query_tra = $g->tratar_query($query, $name_razao_soc, $tipo, $id_empresa);
 
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['nome_razao_soc'];
+			$aux++;
+		}
+		if($aux == 0){
+			$sql->close_conn();
+			echo '<div class="msg">Nenhum cliente encontrado!</div>';
+		}else{
+			$sql->close_conn();
+			return $return;
+		}
+	}
 
+	public function printCli_Jur(){	
+	 	
+
+		$endereco = new Endereco();
+		$endereco = $endereco->get_endereco_id($this->id_endereco);
+        $empresa = new Empresa();
+        $empresa = $empresa->get_empresa_by_id($this->id_empresa);
+        $cidade = new Cidade();
+        $cidade = $cidade->get_city_by_id($endereco->id_cidade);
+	
+		$texto ="";
+		$texto .= "<table class='formulario'><tr>";
+		$texto .= "<td><b>ID: </b></td><td>".$this->id."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Nome: </b></td><td>".$this->nome."</td>";
+		$texto .= "</tr>";		
+		$texto .= "<tr>";
+		$texto .= "<td><b>Telefone Celular: </b></td><td>".$this->telefone_cel."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Telefone Comercial: </b></td><td>".$this->telefone_com."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>CNPJ: </b></td><td>".$this->cpf."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Inscricão Estadual: </b></td><td>".$this->inscricao_estadual."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Inscricao Municipal: </b></td><td>".$this->inscricao_municipal."</td>";		
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Site: </b></td><td>".$this->site."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Data de Fundação: </b></td><td>".$this->data_nasc."</td>";
+		$texto .= "</tr>";		
+		$texto .= "<tr>";
+		$texto .= "<td><b>Rua: </b></td><td>".$endereco->rua."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>CEP: </b></td><td>".$endereco->cep."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Bairro: </b></td><td>".$endereco->bairro."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Numero </b></td><td>".$endereco->numero."</td>";
+		$texto .= "</tr>";		
+		$texto .= "<tr>";
+		$texto .= "<td><b>Cidade: </b></td><td>".$cidade->nome."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Responsavel: </b></td><td>".$this->responsavel."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>CPF: </b></td><td>".$this->cpf_responsavel."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Email: </b></td><td>".$this->email_resp."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Observações: </b></td><td>".$this->observacao."</td>";
+		$texto .= "</tr>";		
+		if($this->fornecedor == 0){
+			echo "";
+		}elseif ($this->fornecedor==1){
+			$texto .= "<tr>";
+		$texto .= "<td><b>Forncedor: </b></td><td>".$this->fornecedor."</td>";	
+		$texto .= "</tr>";	
+		}									
+		$texto .= "</table>";
+	
+ 		return $texto;
+	 }
+
+	public function printCli(){
+		
+
+		$endereco = new Endereco();
+		$endereco = $endereco->get_endereco_id($this->id_endereco);
+        $empresa = new Empresa();
+        $empresa = $empresa->get_empresa_by_id($this->id_empresa);
+        $cidade = new Cidade();
+        $cidade = $cidade->get_city_by_id($endereco->id_cidade);
+
+		$texto ="";
+		$texto .= "<table class='formulario'><tr>";
+		$texto .= "<td><b>ID: </b></td><td>".$this->id."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Empresa: </b></td><td>".$empresa->nome_fantasia."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Nome: </b></td><td>".$this->nome."</td>";
+		$texto .= "</tr>";		
+		$texto .= "<tr>";
+		$texto .= "<td><b>Telefone: </b></td><td>".$this->telefone_cel."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Telefone: </b></td><td>".$this->telefone_com."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>CPF: </b></td><td>".$this->cpf."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Site: </b></td><td>".$this->site."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Data Nasc: </b></td><td>".$this->data_nasc."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Data Nasc: </b></td><td>".$this->rg."</td>";		
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Rua: </b></td><td>".$endereco->rua."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>CEP: </b></td><td>".$endereco->cep."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Bairro: </b></td><td>".$endereco->bairro."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Numero </b></td><td>".$endereco->numero."</td>";
+		$texto .= "</tr>";		
+		$texto .= "<tr>";
+		$texto .= "<td><b>Cidade: </b></td><td>".$cidade->nome."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Responsavel: </b></td><td>".$this->responsavel."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>CPF: </b></td><td>".$this->cpf_responsavel."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Email: </b></td><td>".$this->email_resp."</td>";
+		$texto .= "<tr>";		
+		$texto .= "<td><b>Observações: </b></td><td>".$this->observacao."</td>";
+		$texto .= "</tr>";		
+		if($this->fornecedor == 0){
+			echo "";
+		}elseif ($this->fornecedor==1){
+			$texto .= "<tr>";
+		$texto .= "<td><b>Forncedor: </b></td><td>".$this->fornecedor."</td>";	
+		$texto .= "</tr>";	
+		}
+									
+		$texto .= "</table>";
+	
+ 		return $texto;
+	 }
 }
+	
 
 
 ?>
