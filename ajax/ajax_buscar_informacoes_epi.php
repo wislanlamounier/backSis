@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include_once("../model/class_sql.php");
 include_once("../model/class_epi_bd.php");
 
@@ -8,18 +8,21 @@ include_once("../model/class_epi_bd.php");
 
 	$nome_epi = $_GET['nome_epi'];  //codigo do estado passado por parametro
 	
-	$sql = "SELECT * FROM epi WHERE nome_epi LIKE '%$nome_epi%' ORDER BY id";  //consulta todas as cidades que possuem o codigo do estado
-	$res = mysql_query($sql);
-	$num = mysql_num_rows($res);
+	// $sql = "SELECT * FROM equipamentos_func WHERE nome_epi LIKE '%$nome_epi%' ORDER BY id";  //consulta todas as cidades que possuem o codigo do estado
+	// $res = mysql_query($sql);
+	// $num = mysql_num_rows($res);
 	//monto um array de cidades
-	if($num == 0){
+
+	$epi = new Epi();
+	$epi = $epi->get_epi_by_name($nome_epi);
+
+	if(count($epi) == 0){
 		echo "<div class='msg' style='margin-top: 20px;'>Nenhum Registro encontrado!</div>";
 		return;
 	}
-	for ($i = 0; $i < $num; $i++) {
-	  $dados = mysql_fetch_array($res);
-	  $arrEpi[$i][0] = $dados['id'];
-	  $arrEpi[$i][1] = $dados['nome_epi'];
+	for ($i = 0; $i < count($epi); $i++) {
+	  $arrEpi[$i][0] = $epi[$i][0];
+	  $arrEpi[$i][1] = $epi[$i][1];
 	}
 ?>
 
@@ -32,8 +35,8 @@ include_once("../model/class_epi_bd.php");
 		<table style="float:left" class="table-pesquisa">
 		  <?php
 		  	$cont=0;
-		  	if($dados) 
-			    foreach($arrEpi as $value => $nome){
+		  	if($epi) 
+			    foreach($arrEpi as $value => $epi){
 			      echo "<tr><td style='padding-left:20px;'><a href='add_epi.php?tipo=editar&id=".$arrEpi[$value][0]."'>".$arrEpi[$value][1]."</a></td></tr>";
 			     	$cont++;
 			  	}

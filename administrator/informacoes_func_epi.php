@@ -44,6 +44,4 @@ include_once("../model/class_cbo_bd.php");
 	<input type="button" class="button2" value="Pesquisar Funcionario" onclick="buscar_editar('1')">
   <?php //Classe result recebe os dados vindos do ajax ?>  
 	<div id="result">
-  
-
-</div>
+  </div>
