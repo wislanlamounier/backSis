@@ -28,8 +28,8 @@ include("../model/class_cliente.php");
                                     <form method="POST" class="pesquisa-campos" id="pesquisa-campos" name="pesquisa-campos" action="pesquisa_cli.php">
                                          <table>
                                            <tr>
-                                            <select name="tipo" class="select">
-                                            <option   value="2">Selecione o tipo de Cliente</option>
+                                            <select name="tipo">
+                                            <option   value="2">Selecione o tipo de cliete</option>
                                             <option   value="0">Cliente Pessoa Fisica</option>
                                             <option   value="1">Cliente Pessoa Juridica</option>  
                                             </select>

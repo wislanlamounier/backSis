@@ -21,6 +21,7 @@
         <li><a href="pesquisa_empresa.php">Empresa</a></li>
         <li><a href="pesquisa_turno.php">Turno</a></li>
         <li><a href="pesquisa_cbo.php">CBO</a></li>
+        <li><a href="pesquisa_cli.php">Cliente</a></li>
       </ul>
     </li>
     <li><a href="define_relatorio.php">Relatórios</a></li>
