@@ -7,6 +7,7 @@
         <li><a href="add_func.php">Funcionário</a></li>
         <?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 1){ ?>
                   <li><a href="add_cliente.php">Cliente</a></li>
+                  <li><a href="add_epi.php">Equipamentos</a></li>
         <?php } ?>
         <li><a href="add_turno.php">Turno</a></li>
         <li><a href="add_cbo.php">CBO</a></li>
