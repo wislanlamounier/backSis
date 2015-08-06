@@ -137,7 +137,7 @@ class Cbo{
 	public function printCbo(){
 		$result = $this->get_exames_cbo($this->id);
 
-		$texto = "<table class='pesquisa-exibe' border='0'>
+		$texto = "<table class='table_pesquisa' border='0'>
 			<tr>
 				<td><b>ID: </b></td> <td>".$this->id."</td>
 			</tr>

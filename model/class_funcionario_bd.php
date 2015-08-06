@@ -3,6 +3,7 @@ include_once("class_sql.php");
 include_once("class_turno_bd.php");
 include_once("class_filial_bd.php");
 include_once("class_empresa_bd.php");
+include_once("class_cbo_bd.php");
 require_once(dirname(__FILE__) . "/../global.php");
 
 class Funcionario{
@@ -319,8 +320,8 @@ class Funcionario{
         $cbo = $cbo->get_cbo_by_id($this->id_cbo);
         $turno = new Turno();
         $turno = $turno->getTurnoById($this->id_turno);
-
-		$texto .= "<table class='pesquisa-exibe'><tr>";
+        $texto = "";
+		$texto .= "<table class='table_pesquisa'><tr>";
 		$texto .= "<td><b>ID: </b></td><td>".$this->id."</td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
@@ -333,7 +334,7 @@ class Funcionario{
 		$texto .= "<td><b>CPF: </b></td><td>".$this->cpf."</td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td><b>Data Nasc: </b></td><td>".$this->data_nasc."</td>";
+		$texto .= "<td><b>Data de Nascimento: </b></td><td>".$this->data_nasc."</td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
 		$texto .= "<td><b>Email: </b></td><td>".$this->email."</td>";

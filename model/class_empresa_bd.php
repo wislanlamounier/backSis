@@ -161,7 +161,8 @@ class Empresa{
       $string_endereco = "Rua ".$endereco[0][0].", Nº ".$endereco[0][1]." - ".$city->nome;
       $responsavel = new Funcionario();
       $responsavel = $responsavel->get_func_id($this->id_responsavel);
-      $texto .= "<table class='pesquisa-exibe'>
+      $texto ='';
+      $texto .= "<table class='table_pesquisa'>
         <tr>
           <td><b>ID</b></td>
           <td>$this->id</td>
@@ -214,16 +215,7 @@ class Empresa{
 
         $texto .= "</table>";
 
-     
-        // $texto .= $this->id. '<br />';
-        // $texto .= "CNPJ: ". $this->cnpj. '<br />';
-        // $texto .= "Razão Social: ". $this->razao_social. '<br />';
-        // $texto .= "Nome Fantasia: ". $this->nome_fantasia. '<br />';
-        // $texto .= "Ins. Estadual: ". $this->ins_estadual. '<br />';
-        // $texto .= "Ins. Municipal: ". $this->ins_municipal. '<br />';
-        // $texto .= "ID Endereço: ". $this->id_endereco. '<br />';
-        // $texto .= "telefone: ". $this->telefone. '<br />';
-        // $texto .= "ID Responsável: ". $this->id_responsavel. '<br />';
+    
       return $texto;
     }
 }

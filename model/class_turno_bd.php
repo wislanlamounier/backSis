@@ -122,6 +122,7 @@ class Turno{
 			$return[$aux][6] = $row['fim_exp'];
 			$aux++;
 		}
+
 		return $return;
 
 	}
@@ -186,7 +187,7 @@ class Turno{
 	public function printTurno(){
 
 		
-		$texto = "<table class='pesquisa-exibe'>
+		$texto = "<table class='table_pesquisa'>
 			<tr>
 				<td><b>ID: </b></td><td>".$this->id."</td>
 			</tr>

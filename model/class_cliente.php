@@ -92,7 +92,7 @@ class Cliente {
 		 $sql->conn_bd();
 		 $g = new Glob();
 
-		 $query = "SELECT * FROM clientes WHERE id= '%s' && tipo = 0";
+		 $query = "SELECT * FROM clientes WHERE id= '%s' && tipo = 0 && oculto=0" ;
 		 $result = $g->tratar_query($query, $id);
 		 
 		 if(@mysql_num_rows($result) == 0){
@@ -183,7 +183,7 @@ class Cliente {
 		 $sql->conn_bd();
 		 $g = new Glob();
 
-		 $query = "SELECT * FROM clientes WHERE id= '%s' && tipo =1 ";
+		 $query = "SELECT * FROM clientes WHERE id= '%s' && tipo =1";
 		 $result = $g->tratar_query($query, $id);
 		 
 		 if(@mysql_num_rows($result) == 0){
@@ -236,7 +236,7 @@ class Cliente {
 		$sql->conn_bd();
 		$g = new Glob();
 		$aux=0;
-		$query = "SELECT * FROM clientes WHERE nome_razao_soc LIKE '%%%s%%' && tipo = '%s' && id_empresa='%s'";
+		$query = "SELECT * FROM clientes WHERE nome_razao_soc LIKE '%%%s%%' && tipo = '%s' && id_empresa='%s' && oculto=0";
 		$query_tra = $g->tratar_query($query, $name_razao_soc, $tipo, $id_empresa);
 
 		while($result =  mysql_fetch_array($query_tra)){
@@ -264,7 +264,7 @@ class Cliente {
         $cidade = $cidade->get_city_by_id($endereco->id_cidade);
 	
 		$texto ="";
-		$texto .= "<table class='formulario'><tr>";
+		$texto .= "<table class='table_pesquisa'><tr>";
 		$texto .= "<td><b>ID: </b></td><td>".$this->id."</td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
@@ -341,7 +341,7 @@ class Cliente {
         $cidade = $cidade->get_city_by_id($endereco->id_cidade);
 
 		$texto ="";
-		$texto .= "<table class='formulario'><tr>";
+		$texto .= "<table class='table_pesquisa'><tr>";
 		$texto .= "<td><b>ID: </b></td><td>".$this->id."</td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
