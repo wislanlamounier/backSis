@@ -97,6 +97,42 @@ class Epi {
 	     }
 
 	}
+	public function get_name_all_epi(){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$aux=0;
+		$query = mysql_query("SELECT * FROM epi");
+
+		while($result = mysql_fetch_array($query)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['nome_epi'];
+			$aux++;
+		}
+		return $return;
+	}
+
+	public function get_epi_by_id_nome($id){
+		 $sql = new Sql();
+		 $sql->conn_bd();
+		 $g = new Glob();
+
+		 $query = "SELECT * FROM epi WHERE id= '%s'";
+		 $result = $g->tratar_query($query, $id);
+		 
+		 if(@mysql_num_rows($result) == 0){
+     
+            return false;            
+	     }else{
+
+	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	     	
+	     	$this->nome_epi = $row['nome_epi'];	     	
+	     	    	
+
+	     	return $this;
+	     }
+
+}
 	
 }
 ?>

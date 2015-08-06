@@ -88,7 +88,7 @@ function validate(){
                 if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
                   if(validate()){
                      $epi = new Epi();
-                     $epi->add_epi($_POST['desc'], $_POST['epi'], $_POST['empresa']);
+                     $epi->add_epi($_POST['epi'], $_POST['desc'],  $_POST['empresa']);
                      // echo $exame->printExames();
                      if($epi->add_epi_bd()){
                         echo '<div class="msg">Cadastrado com sucesso!</div>';

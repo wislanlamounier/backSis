@@ -159,7 +159,7 @@ static function showDoubleDropDown(array $lista1,array $lista2, $campoid, $campo
 				 <td class="f-tabela-lista" style="width:45%">
 				 <span><?= $titleSelected ?></span><br>
 				 <!-- <select id="<?= $nomeCombo2 ?>" name="exames" size="5" style="width: 100%; height: <?= $height ?>;" multiple onDblClick="moveSelectedOptions(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)" > -->
-	<select name="sel_exames2[]" id="<?= $nomeCombo2 ?>" multiple style="width: 100%; height: <?= $height ?>;" onDblClick="moveSelectedOptions(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
+	<select name="selecionados[]" id="<?= $nomeCombo2 ?>" multiple style="width: 100%; height: <?= $height ?>;" onDblClick="moveSelectedOptions(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
                   <?php
 			        $arr =  $lista2;
 					

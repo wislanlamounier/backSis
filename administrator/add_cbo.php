@@ -31,7 +31,7 @@ function validate(){
 <script type="text/javascript">
      
    function selectAll(){
-      var select = document.getElementById("sel_exames2");
+      var select = document.getElementById("selecionados");
       for(i=0; i<select.length; i++){
          select[i].selected = true;
       }
@@ -137,7 +137,7 @@ function validate(){
                                        }
                                        $data = $temp;
                                        RendDoubleSelect::showDoubleDropDown($data, $data_selected, "id", "name", "", 
-                                              "sel_exames1", "sel_exames2", "hd_exames", "130px", 
+                                              "sel_exames1", "selecionados", "hd_exames", "130px", 
                                              "Exames", "Selecionados");
                                      ?>
                                  <!-- </select> -->
@@ -171,7 +171,7 @@ function validate(){
                                  $data_selected = array();  
 
                                  RendDoubleSelect::showDoubleDropDown($data, $data_selected, "id", "name", "", 
-                                        "sel_exames1", "sel_exames2", "hd_exames", "130px", 
+                                        "sel_exames1", "selecionados", "hd_exames", "130px", 
                                        "Exames", "Selecionados");
                                ?>
                            <!-- </select> -->
@@ -193,7 +193,7 @@ function validate(){
                      $cbo = new Cbo();
                      $cbo->add_cbo($_POST['codigo'], $_POST['descricao']);
                      $id_cbo = $cbo->add_cbo_bd();// id do registro cadastrado
-                     $id_exames = $_POST['sel_exames2'];
+                     $id_exames = $_POST['selecionados'];
 
                      if ($cboXexames->add_cbo_x_exames($id_exames, $id_cbo)){
                         echo '<div class="msg">Atualizado com sucesso!</div>';
@@ -207,8 +207,8 @@ function validate(){
                               $cbo_x_exames = new CboXexames();
                               $array_id_exames =  array();
                               if($cbo->atualiza_cbo($_POST['id'], $_POST['codigo'], $_POST['descricao'])){
-                                 if(isset($_POST['sel_exames2']))
-                                    $array_id_exames = $_POST['sel_exames2'];
+                                 if(isset($_POST['selecionados']))
+                                    $array_id_exames = $_POST['selecionados'];
 
                                  if($cbo_x_exames->atualiza_cbo_x_exames($_POST['id'], $array_id_exames)){
                                     echo '<div class="msg">Atualizado com sucesso!</div>';

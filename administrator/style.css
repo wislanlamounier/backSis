@@ -323,5 +323,14 @@ h2{
 	text-decoration: none;
 	color: #22f;
 }
-
+.button2{
+	background: url("../images/footer_lodyas.png");
+	width: 500px;
+	height: 35px;
+	color:#ddd;
+	border: 1px solid#bbb;
+	border-radius: 3px;
+	text-align: center;
+	font-size:16px;
+}
 /*******************************************************************************/
