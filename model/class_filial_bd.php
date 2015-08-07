@@ -2,6 +2,8 @@
          
 include_once("class_sql.php");
 include_once("class_turno_bd.php");
+include_once("class_endereco_bd.php");
+include_once("class_cidade_bd.php");
 require_once(dirname(__FILE__) . "/../global.php");
 
 class Filial{
@@ -127,8 +129,18 @@ class Filial{
 		return $return;
 	}
 	public function printFilial(){
-		echo "Nome: ".$this->nome."<br />";
-
+		$endereco = new Endereco();
+		$endereco = $endereco->get_endereco_id($this->id_endereco);
+		$cidade = new Cidade();
+        $cidade = $cidade->get_city_by_id($endereco->id_cidade);
+		echo "<table class='table_pesquisa'>";
+		echo "<tr><td>Nome: </td><td>".$this->nome."</td></tr>";
+		echo "<tr><td>Telefone: </td><td>".$this->telefone."</td></tr>";
+		echo "<tr><td>Codigo do posto: </td><td>".$this->cod_posto."</td></tr>";
+		echo "<tr><td>Rua: </td><td>".$endereco->rua."</td></tr>";
+		echo "<tr><td>Bairro: </td><td>".$endereco->bairro."</td></tr>";
+		echo "<tr><td>Cidade: </td><td>".$cidade->nome."</td></tr>";
+		echo "</table>";
 	}
 	
 	

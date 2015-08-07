@@ -7,11 +7,12 @@
         <li><a href="add_func.php">Funcionário</a></li>
         <?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 1){ ?>
                   <li><a href="add_cliente.php">Cliente</a></li>
-                  <li><a href="add_epi.php">Equipamentos</a></li>
+                  <li><a href="add_epi.php">Equipamentos</a></li>                  
         <?php } ?>
         <li><a href="add_turno.php">Turno</a></li>
         <li><a href="add_cbo.php">CBO</a></li>
         <li><a href="add_exames.php">Exames</a></li>
+        <li><a href="add_filial.php">Filial</a></li>        
       </ul>
     </li>
     <li>
@@ -22,6 +23,7 @@
         <li><a href="pesquisa_turno.php">Turno</a></li>
         <li><a href="pesquisa_cbo.php">CBO</a></li>
         <li><a href="pesquisa_cli.php">Cliente</a></li>
+        <li><a href="pesquisa_filial.php">Filial</a></li>
       </ul>
     </li>
     <li><a href="define_relatorio.php">Relatórios</a></li>

@@ -621,27 +621,27 @@ function carregaUf_CartTrab(uf){
         }
       }
     }
-  function carregaCidade(){
-      var combo = document.getElementById("cidade");
-      var cidade = document.getElementById("id_cidade").value;
-      
-      for (var i = 0; i < combo.length; i++)
-      {
-         
-        if (combo.options[i].value == cidade)
-        {
-          combo.options[i].selected = true;
-          break;
-        }
+         function carregaCidade(){
+          var combo = document.getElementById("cidade");
+          var cidade = document.getElementById("id_cidade").value;
+
+          for (var i = 0; i < 1000; i++)
+          {
+            if (combo.options[i].value == cidade)
+            {
+              combo.options[i].selected = true;
+              break;
+            }
+          }
+        
       }
       
-    }
+    
   function disparaLoadCidade(){
       setTimeout(function() {
          carregaCidade();
-         carregaPostosTrabalho();
         }, 100);
-
+      }
     }
 // FIM CARREGA SELECTS
 

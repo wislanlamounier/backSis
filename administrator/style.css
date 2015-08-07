@@ -373,8 +373,8 @@ h2{
 	
 }
 .table_pesquisa tr:hover{
-	text-transform: uppercase;
-	font-size: 18px;
+	transform: scale(1.1);
+	transition: all 0.3s;		
 	box-shadow: 2.8px 2.8px 12px #888;
 	background-color:rgba(155,155,255,0.2);	
 	width:90%;

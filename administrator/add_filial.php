@@ -23,6 +23,7 @@ function validate(){
  ?>
 
 <script type="text/javascript">
+
    function validate(f){
     var erros=0;
       for(i=0; i < f.length; i++){
@@ -212,52 +213,141 @@ function validate(){
          select[i].selected = true;
       }
    }
+       function carregaCidade(){
+          var combo = document.getElementById("cidade");
+          var cidade = document.getElementById("id_cidade").value;
 
-   function buscar_cidades(){
-         
-      var estado = document.getElementById("estado").value;  //codigo do estado escolhido
-
+          for (var i = 0; i < 1000; i++)
+          {
+            if (combo.options[i].value == cidade)
+            {
+              combo.options[i].selected = true;
+              break;
+            }
+          }
+        
+      }
+      function buscar_cid(id_est){
+      var estado = id_est;  //codigo do estado escolhido
       //se encontrou o estado
       if(estado){
-
-        var url = 'ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
-
+        var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
         $.get(url, function(dataReturn) {
           $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
         });
       }
     }
+   function carregaEmpresa(id_emp){
+          var combo = document.getElementById("empresa");
+          for (var i = 0; i < combo.options.length; i++)
+          {
+            if (combo.options[i].value == id_emp)
+            {
+              combo.options[i].selected = true;
+              
+              break;
+            }
+          }
+      }
+      
+   
+    function buscar_cid(id_est){
+      var estado = id_est;  //codigo do estado escolhido
+      //se encontrou o estado
+      if(estado){
+        var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+        $.get(url, function(dataReturn) {
+          $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
+        });
+      }
+    }
+   
+      function buscar_cidades(){         
+          var estado = document.getElementById("estado").value;  //codigo do estado escolhido
+
+          //se encontrou o estado
+          if(estado){
+
+            var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+
+            $.get(url, function(dataReturn) {
+              $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
+            });
+          }
+        }
+          function disparaLoadCidade(){
+      setTimeout(function() {
+         carregaCidade();
+        }, 100);
+      }
+    
+    function carregaUF(uf){
+        var combo = document.getElementById("estado");
+
+        for(i = 0; i < combo.options.length ;  i++){
+            if(combo.options[i].value == uf){ 
+              combo.options[i].selected = true;
+              break;
+            }
+        }
+        buscar_cidades();
+      }
+      function carregaUf(uf){
+        var combo = document.getElementById("estado");
+
+        for(i = 0; i < combo.options.length ;  i++){
+            if(combo.options[i].value == uf){ 
+              combo.options[i].selected = true;
+              break;
+            }
+        }
+        buscar_cidades();
+      }
+       function carregaResponsavel(id_resp){
+        var combo = document.getElementById("responsavel");
+        for (var i = 0; i < combo.options.length; i++)
+        {
+          if (combo.options[i].value == id_resp)
+          {
+            combo.options[i].selected = true;
+            
+            break;
+          }
+        }
+      }
 </script>
 
 <head>
-	<script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-    <script src="../javascript/selectbox.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="../javascript/selectbox.js" type="text/javascript"></script>
+	
+   <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
+   <script src="../javascript/selectbox.js" type="text/javascript"></script>
+   <link rel="stylesheet" type="text/css" href="style.css">
+   
 </head>
 
-<body>	
+<body onload="disparaLoadCidade()">	
 <?php include_once("../view/topo.php"); ?>		
 	<div class="formulario">
 			
 
 			<?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?>
-					<?php 
-                     $filial = new Filial();
-                     $filial = $filial->get_filial_id($_GET['id']);//buscando funcionario no banco
-                     $endereco = new Endereco();
-                     $endereco = $endereco->get_endereco($filial->id_endereco);                     
-
-                      echo '<input type="hidden" id="id_cidade" value="'.$endereco[0][2].'">';
-                    
-
-                   ?>
+				      <?php 
+                        $id = $_GET['id'];
+                        $filial = new Filial();
+                        $filial = $filial->get_filial_id($id);
+                        $endereco = new Endereco();
+                        $endereco = $endereco->get_endereco($filial->id_endereco);
+                        
+                         echo '<input type="hidden" id="id_cidade" value="'.$endereco[0][2].'">';
+                      ?>
 			
 				<div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Adicionar Posto de trabalho</span></div></div>
 				<form method="POST" id="add_cbo" action="add_filial.php" onsubmit="return validate(this)">
                   <table border="0" >
-                     <input type="hidden" id="tipo" name="tipo" value="editar">
-                     <input type="hidden" id="id_filial" name="id_filial" value="<?php echo $filial->id; ?>">
+                    <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
+                    <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $filial->id_endereco; ?>">
+                    <input type="hidden" id="tipo" name="tipo" value="editar">
+                 
                      <!-- <tr> <td ><span>CNPJ:</span></td> <td colspan="2"><input type="text" id="cnpj" name="cnpj" style="width:100%"></td></tr> <!- cnpj --> 
                      <tr> <td ><span>Código Posto:</span></td> <td colspan="2"><input type="text" id="cod_posto" name="cod_posto" style="width:100%" value="<?php echo $filial->cod_posto; ?>"></td></tr> <!-- cod_posto -->
                      <tr> <td ><span>Nome:</span></td> <td colspan="2"><input type="text" id="nome" name="nome" style="width:100%"value="<?php echo $filial->nome; ?>"></td></tr> <!-- nome -->
@@ -265,35 +355,36 @@ function validate(){
                      <tr> <td ><span>Rua:</span></td> <td><input value="<?php echo $endereco[0][0]; ?>" type="text" id="rua" name="rua"><span> Nº: </span></td> <td><input value="<?php echo $endereco[0][1]; ?>" style="width:60px" type="text" id="num" name="num"></td></tr> <!-- rua -->
                      <tr> <td ><span>Bairro:</span></td> <td colspan="2"><input value="<?php echo $endereco[0][4]; ?>" type="text" id="bairro" name="bairro" style="width:100%"></td></tr> <!-- bairro -->
                      <tr> 
-                        <td ><span>UF:</span></td>
-                        <td colspan="2">
+                        <tr>
+                        <td><span>Estado:</span></td>
+                        <td>
                            <?php //buscar array de CBO
                               $estado = new Estado();
                               $estados = $estado->get_name_all_uf();
+                                
                            ?>
-                           <select name="estado" id="estado" onchange="buscar_cidades()" style="width:100%">
-                              <option value="no_sel">Selecione um estado</option>
+                           <select name="estado" id="estado" onchange="buscar_cidades()">
+                              <option value="0">Selecione um estado</option>
                               <?php 
-					            $estado = new Estado();
-					            $estado = $estado->get_name_all_uf();
-					            for( $aux = 0; $aux < count($estado) ; $aux++){
-					             echo '<option value="'.$estado[$aux][0].'">'.$estado[$aux][1].'</option>';
-					                         }
-					             ?>
-                           </select>
-                       </td>
-                        <?php echo "<script> carregaUf(".$endereco[0][3].");</script>"; ?>
+                                 foreach($estados as $key => $estado){
+                                    echo '<option value="'.$estados[$key][0].'">'.$estados[$key][1].'</option>';
+                                 }
+                              ?>
+                           </select>                           <!-- <a href="">Pesquisar</a> -->
+                        </td>
+                        <?php echo "<script> carregaUf('".$endereco[0][3]."') </script>";  ?>
                      </tr>
                      <tr>
-                        <td><span> Cidade: </span></td>
-                        <td colspan="2">
+                        <td><span>Cidades:</span></td>
+                        <td colspan="3">
                            <div id="load_cidades">
-                             <select name="cidade" id="cidade" style="width:100%">
-                               <option value="no_sel">Selecione um estado</option>
+                             <select name="cidade" id="cidade">
+                               <option value="0">Selecione um estado</option>
                              </select>
                            </div>
                         </td>
-                     </tr>
+                        <?php echo "<script> buscar_cid('".$endereco[0][3]."'); </script>";  ?>
+                      </tr>
 
                      <tr> <td ><span>CEP:</span></td> <td colspan="2"><input type="text" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>" style="width:100%"></td></tr> <!-- cep -->
                      
@@ -311,6 +402,7 @@ function validate(){
                                ?>
                            </select>
                         </td>
+                        <?php echo '<script> carregaEmpresa("'.$filial->id_empresa.'"); </script>'; ?>
                      </tr>
                      
                      <tr> 
@@ -327,6 +419,7 @@ function validate(){
                                ?>
                            </select>
                         </td>
+                        <?php echo '<script> carregaResponsavel("'.$filial->id_responsavel.'"); </script>'; ?>
                      </tr>
                      
                      <!-- <tr><td colspan="2"><span style="color:#898989">Segure Ctrl para múltiplas seleções</span></td></tr>   -->
@@ -449,7 +542,40 @@ function validate(){
                       }
                 }else{
                 	 if(isset($_POST['tipo']) && $_POST['tipo'] == "editar"){
+                            if(validate()){
+                                $filial = new Filial();
+                                $endereco = new Endereco();
 
+                                $id = $_POST['id'];
+                                $nome = $_POST['nome'];
+                                // $cnpj = $_POST['cnpj'];
+                                $cod_posto = $_POST['cod_posto'];
+                                $telefone = $_POST['telefone'];
+                                $id_responsavel = $_POST['responsavel'];
+                                $id_empresa = $_POST['empresa'];
+            
+                                $rua = $_POST['rua'];
+                                $num = $_POST['num'];
+                                $id_cidade = $_POST['cidade'];
+                                $bairro = $_POST['bairro'];
+                                $cep = $_POST['cep'];
+                                $existe_endereco = $endereco->verifica_endereco($_POST['id_endereco']);
+                                
+                                if($existe_endereco){
+                                    $endereco->atualiza_endereco($rua, $num, $id_cidade, $_POST['id_endereco'], $bairro, $cep );
+                                    $id_endereco = $_POST['id_endereco'];
+                                }else{
+                                    $endereco->add_endereco($rua, $num, $id_cidade, $bairro, $cep);
+                                    $id_endereco = $endereco->add_endereco_bd();
+                                }
+                                
+                                if($filial->atualiza_filial($id, $nome, $cod_posto, $telefone, $id_endereco, $id_responsavel, $id_empresa)){
+                                      echo '<div class="msg">Atualizado com sucesso!</div>';
+                                }else{
+                                   echo '<div class="msg">Falha na atualização!</div>';
+                                }
+                              
+                            }                          
 
                 	 }
                   }
