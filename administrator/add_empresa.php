@@ -5,6 +5,15 @@ require_once("../model/class_endereco_bd.php");
 require_once("../model/class_estado_bd.php");
 require_once("../model/class_cidade_bd.php");
 
+	function validade(){
+   if(!isset($_POST['nome_fantasia']) || $_POST['nome_fantasia'] == ""){
+         return false;
+   }
+   if(!isset($_POST['razao_social']) || $_POST['razao_social'] == ""){
+         return false;
+   }
+   return true;
+	}
 
  ?>
  <html>
@@ -14,22 +23,10 @@ require_once("../model/class_cidade_bd.php");
  	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 	 <link rel="stylesheet" type="text/css" href="style.css"> 	
  </head>
- <?php 
+ 
 
-	function validate(){
-   if(!isset($_POST['nome_fantasia']) || $_POST['nome_fantasia'] == ""){
-         return false;
-   }
-   if(!isset($_POST['razao_social']) || $_POST['razao_social'] == ""){
-         return false;
-   }
-   return true;
-	}
- ?>
+ 
  <script type="text/javascript"> 
-
-
-
 
 function valida(f){
 	        var erros = 0;
@@ -371,9 +368,9 @@ function buscar_cidades(){
 
  <body onload="disparaLoadCidade()">  		
  		<?php include_once("../view/topo.php"); ?>
- 		
+ 		<div class="formulario">
               		<?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?> 
-              			<?php 
+              		 	<?php  
                         $id = $_GET['id'];
                         $empresa = new Empresa();
                         $empresa = $empresa->get_empresa_by_id($id);
@@ -382,10 +379,11 @@ function buscar_cidades(){
 
                         echo '<input type="hidden" id="id_cidade" value="'.$endereco[0][2].'">';                        
                      	?>
-                     <div class='formulario' style="width:500px;">
-                     <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Editar Empresa</span></div></div>
                      <form method="POST" id="ad_emp" name="add_empresa" action="add_empresa.php" onsubmit="return valida(this)">
-					 <input type="hidden" name="tipo" value="editar">	                 
+					 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Editar Empresa</span></div></div>
+					 <input type="hidden" name="tipo" value="editar">
+					 <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
+					 <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $empresa->id_endereco; ?>"> 	                 
 	                 <table border='0'>                  
                      <tr> <td><span>Razão Social:</span></td> <td colspan="3"><input type="text" id="razao_social" name="razao_social" value="<?php echo $empresa->razao_social; ?>" ></td></tr> <!-- nome -->
                      <tr> <td><span>Nome Fantasia:</span></td> <td><input type="text" id="nome_fantasia" name="nome_fantasia"  value="<?php echo $empresa->nome_fantasia; ?>"></td></tr> <!-- CPF -->
@@ -442,11 +440,10 @@ function buscar_cidades(){
                      </tr>
 					 <tr><td colspan="2" style="text-align:center"><input  class="button" type="submit" value="editar"><input class="button" type="button" value="Cancelar"></td></tr> 
                 	 </form>
-                	 </div>					
-					<?php }else{ ?> <!-- CADASTRAR Empresa -->
-					<div class="formulario">
-					<div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Adicionar Empresa</span></div></div>
-				<form method="POST" id="ad_emp" name="add_empresa" action="add_empresa.php" onsubmit="return valida(this)">
+                	 </table>			
+					<?php }else{ ?> <!-- CADASTRAR Empresa -->					
+					<form method="POST" id="ad_emp" name="add_empresa" action="add_empresa.php" onsubmit="return valida(this)">
+					 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Adicionar Empresa</span></div></div>
 					 <input type="hidden" name="tipo" value="cadastrar">	                 
 	                 <table border='0'>                  
                      <tr> <td><span>Razão Social:</span></td> <td colspan="3"><input type="text" id="razao_social" name="razao_social"  ></td></tr> <!-- nome -->
@@ -500,11 +497,11 @@ function buscar_cidades(){
                        </td>
                      </tr>
 					 <tr><td colspan="2" style="text-align:center"><input  class="button" type="submit" value="Cadastrar"><input class="button" type="button" value="Cancelar"></td></tr> 					 	
+                	 </table>
                 	 </form>               	
-                	 </div>               	 	
+                	 </div>              	 	
 			 		<?php }?>
-			 		<!-- Fim dos formularios -->
-			 		<!-- inicio da logica de cadastro -->		 		
+			 				 		
 			 		
             		<?php
                     if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
@@ -547,14 +544,13 @@ function buscar_cidades(){
                                  $ins_estadual = $_POST['inscricao_estadual'];
                                  $ins_municipal = $_POST['inscricao_municipal'];
                                  $telefone = $_POST['tel'];
-                                 $id_responsavel = $_POST['responsavel'];
-
-                                 $id_endereco = $_POST['id_endereco'];
+                                 $id_responsavel = $_POST['responsavel'];                                 
                                  $rua = $_POST['rua'];
-                                 $num = $_POST['num'];
+                                 $num = $_POST['numero'];
                                  $id_cidade = $_POST['cidade'];
                                  $bairro = $_POST['bairro'];
                                  $cep = $_POST['cep'];
+                                 
 
                                  $existe_endereco = $endereco->verifica_endereco($_POST['id_endereco']);
                                  if($existe_endereco){
@@ -579,10 +575,9 @@ function buscar_cidades(){
                    	}
                    	?>
                
- 		
-<?php include("informacoes_empresa.php");?> 
- 					
+
+  
  													
- 						
+ 						<?php include("informacoes_empresa.php");?> 
  </body>
  </html>
