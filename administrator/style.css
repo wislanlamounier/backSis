@@ -374,7 +374,8 @@ h2{
 }
 .table_pesquisa tr:hover{
 	transform: scale(1.1);
-	transition: all 0.3s;		
+	transition: all 0.3s;
+	font-weight: bolder;	
 	box-shadow: 2.8px 2.8px 12px #888;
 	background-color:rgba(155,155,255,0.2);	
 	width:90%;
