@@ -36,7 +36,7 @@ class Epi{
 			return false;
 		} 
 	}
-
+	
 	public function atualiza_epi($is_epi, $codigo, $nome_epi, $descricao, $id_empresa, $id){
 		$sql = new Sql();
 		$sql->conn_bd();
@@ -106,7 +106,7 @@ class Epi{
 		$sql->conn_bd();
 		$aux=0;
 		$return = array();
-		$query = mysql_query("SELECT * FROM epi");
+		$query = mysql_query("SELECT * FROM equipamentos_func");
 
 		while($result = mysql_fetch_array($query)){
 			$return[$aux][0] = $result['id'];
@@ -137,7 +137,8 @@ class Epi{
 	     	return $this;
 	     }
 
-}
+	}
+	
 	
 }
 ?>

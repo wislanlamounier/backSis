@@ -202,7 +202,143 @@ function temOptGroup(sel, nome)
 	  return null;
 	
 }
+function moveSelectedOptionsAlert(from,to) {
+	// Unselect matching options, if required
+	//alert("to aqui");
+	if ((from.selectedIndex==-1) && to.selectedIndex==-1)
+		alert('Selecione pelo menos um item!');
+	     
 	
+    var optgroups = from.getElementsByTagName("optgroup");
+  // loop through the optgroup array
+  
+	if (arguments.length>3) {
+		var regex = arguments[3];
+		if (regex != "") {
+			unSelectMatchingOptions(from,regex);
+			}
+		}
+  
+  // Move them over
+	if (!hasOptions(from)) { return; }
+  
+  var contagrupo = 1;	
+  var tem_group = false;
+  if ( optgroups != null && optgroups.length > 0  )
+  {
+       contagrupo = optgroups.length;
+       tem_group = true;
+  }
+  	
+  for(var z = 0; z < contagrupo; z++)
+  {	 
+  
+       var options = new Array();
+        var optgroup = "";
+        
+       if (  optgroups != null && optgroups[z] != undefined){
+            optgroup = optgroups[z];
+	        options =     optgroup.getElementsByTagName("option"); 
+	   
+	   }else{
+	       options =   from.getElementsByTagName("option");
+	   }
+   
+	for (var i=0; i<options.length; i++) {
+		var o = options[i];
+		//alert( o.selected + " - " + o.text);
+		if (o.selected) { 
+			if (!hasOptions(to)) { var index = 0; } else { var index=to.options.length; }
+		
+		        //optiondestino = new Option( o.text, o.value, false, false);
+			
+				optiondestino=document.createElement("option");
+				texto='';
+				if(from.name == 'sel_epis1'){
+					do{
+						quantidade = prompt("Digite a quantidade");
+						texto = '['+quantidade+']';
+						if(isNaN(quantidade) || quantidade > 99){
+							alert("Digite um numero até 99");
+						}
+					}while(quantidade == null || isNaN(quantidade) || quantidade > 99);
+					optiondestino.value = texto+o.value;
+					optiondestino.innerHTML = texto+o.text;
+				}else{
+					optiondestino.innerHTML = o.text.slice(o.text.indexOf("]")+1);
+					optiondestino.value = o.value.slice(o.text.indexOf("]")+1);
+				}
+				
+			
+			    
+			    if ( tem_group ){
+			        var optdestino = temOptGroup(to, optgroup.label);
+			        var naotem = false;
+
+  // alert( tem_group + " - " + contagrupo+" " +  options.length);
+			        if ( optdestino == null ) 
+			        {
+				        naotem = true;
+			           optdestino = document.createElement('optgroup');
+	                   optdestino.label = optgroup.label;
+			        }
+			        optdestino.appendChild(optiondestino);
+        			
+			        if ( naotem ) 
+			        {
+				        //sortSelect(to); 
+				        to.selectedIndex = -1;
+			           to.appendChild(optdestino);
+        			
+			        }
+			    }else{
+			    
+			    
+				       to.selectedIndex = -1;
+			           to.appendChild(optiondestino);
+			    
+			    }    
+			//to.options[index]
+			}
+		}
+
+  }
+  
+// Delete them from original
+for (var i=(from.options.length-1); i>=0; i--) {
+	var o = from.options[i];
+	if (o.selected) {
+		from.options[i] = null;
+		}
+	}
+	
+// Delete option groups	
+if ( optgroups != null ){
+
+                    var totopt =  optgroups.length;
+                     for(var z = totopt - 1; z >= 0; z--)
+                      {	 
+                           var optgroup = optgroups[z];
+	                       var options =     optgroup.getElementsByTagName("option"); 
+  	                       if ( options.length == 0 )
+	                        {
+                               // alert( optgroups );
+								try{
+		   	                    optgroup.removeNode(true); }
+								catch(exp){
+								 from.removeChild( optgroup ); //chrome
+								}
+		                    }
+                      }
+	}
+	
+	if ((arguments.length<3) || (arguments[2]==true)) {
+		//sortSelect(from);
+		//sortSelect(to);
+		}
+	from.selectedIndex = -1;
+	to.selectedIndex = -1;
+	}
 	
 // -------------------------------------------------------------------
 // moveSelectedOptions(select_object,select_object[,autosort(true/false)[,regex]])
@@ -273,6 +409,7 @@ function moveSelectedOptions(from,to) {
 		        //optiondestino = new Option( o.text, o.value, false, false);
 			
 				optiondestino=document.createElement("option");
+				
 				optiondestino.innerHTML = o.text;
 				optiondestino.value = o.value;
 			
@@ -300,7 +437,7 @@ function moveSelectedOptions(from,to) {
 			    }else{
 			    
 			    
-				        to.selectedIndex = -1;
+				       to.selectedIndex = -1;
 			           to.appendChild(optiondestino);
 			    
 			    }    

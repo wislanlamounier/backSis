@@ -130,7 +130,7 @@ static function showDoubleDropDown(array $lista1,array $lista2, $campoid, $campo
 				 <select name="<?= $nomeCombo1 ?>" id="<?= $nomeCombo1 ?>"
 	multiple="multiple" style="width: 100%; height: <?= $height ?>;" 
 					onClick="return false"
-					onDblClick="moveSelectedOptions(this.form['<?= $nomeCombo1 ?>'],this.form['<?= $nomeCombo2 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
+					onDblClick="moveSelectedOptionsAlert(this.form['<?= $nomeCombo1 ?>'],this.form['<?= $nomeCombo2 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
                  <?php
 			        $arr = 	$lista1;
 	                if ( $campoGrupo != "" ){
@@ -146,11 +146,11 @@ static function showDoubleDropDown(array $lista1,array $lista2, $campoid, $campo
 			  <input type="hidden" name="<?= $hdTemp ?>" value="">	
 				
 	<INPUT TYPE="button" style="width:48px" class="botao" NAME="right" VALUE=" &gt; "
-			    title="Select Item" ONCLICK="moveSelectedOptions(this.form['<?= $nomeCombo1 ?>'],this.form['<?= $nomeCombo2 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
+			    title="Select Item" ONCLICK="moveSelectedOptionsAlert(this.form['<?= $nomeCombo1 ?>'],this.form['<?= $nomeCombo2 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
               <br>
 	<INPUT TYPE="button" style="width:48px" class="botao" NAME="right" VALUE="&gt;&gt;" title="Select All" ONCLICK="moveAllOptions(this.form['<?= $nomeCombo1 ?>'],this.form['<?= $nomeCombo2 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
               <BR>
-	<INPUT TYPE="button" style="width:48px" class="botao" NAME="left" VALUE=" &lt; " title="Remove Item" ONCLICK="moveSelectedOptions(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
+	<INPUT TYPE="button" style="width:48px" class="botao" NAME="left" VALUE=" &lt; " title="Remove Item" ONCLICK="moveSelectedOptionsAlert(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
               <br>
 	<INPUT TYPE="button" style="width:48px" class="botao" NAME="left" VALUE="&lt;&lt;" title="Remove All" ONCLICK="moveAllOptions(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">	
 			  
@@ -158,8 +158,68 @@ static function showDoubleDropDown(array $lista1,array $lista2, $campoid, $campo
 				 </td>
 				 <td class="f-tabela-lista" style="width:45%">
 				 <span><?= $titleSelected ?></span><br>
-				 <!-- <select id="<?= $nomeCombo2 ?>" name="exames" size="5" style="width: 100%; height: <?= $height ?>;" multiple onDblClick="moveSelectedOptions(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)" > -->
-	<select name="selecionados[]" id="<?= $nomeCombo2 ?>" multiple style="width: 100%; height: <?= $height ?>;" onDblClick="moveSelectedOptions(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
+				 <!-- <select id="<?= $nomeCombo2 ?>" name="exames" size="5" style="width: 100%; height: <?= $height ?>;" multiple onDblClick="moveSelectedOptionsAlert(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)" > -->
+	<select name="selecionados[]" id="<?= $nomeCombo2 ?>" multiple style="width: 100%; height: <?= $height ?>;" onDblClick="moveSelectedOptionsAlert(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
+                  <?php
+			        $arr =  $lista2;
+					
+					
+				if ( $campoGrupo != "" ){
+					RendDoubleSelect::loadDropDownOptGroup($arr,$campoid,$campoTexto,$campoGrupo, "");
+				}else{
+					RendDoubleSelect::loadDropDownArray($arr, $campoid, $campoTexto, "");
+				}
+				?>
+				
+				
+				</select>
+	     
+               
+				 </td>
+			  </tr>
+	</table><?php
+	}
+
+	static function showDoubleDropDownAlert(array $lista1,array $lista2, $campoid, $campoTexto, $campoGrupo, 
+       $nomeCombo1, $nomeCombo2, $hdTemp, $height = "220px", $titleAvaliable = "Disponível(is)", $titleSelected = "Selecionado(s)"){
+
+?>
+<table style="text-align:left ;width:96%">
+	  <tr>
+	    <td  class="f-tabela-lista" style="width:45%"><span> <?= $titleAvaliable ?></span><br>
+				 <select name="<?= $nomeCombo1 ?>" id="<?= $nomeCombo1 ?>"
+	multiple="multiple" style="width: 100%; height: <?= $height ?>;" 
+					onClick="return false"
+					onDblClick="moveSelectedOptionsAlert(this.form['<?= $nomeCombo1 ?>'],this.form['<?= $nomeCombo2 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
+                 <?php
+			        $arr = 	$lista1;
+	                if ( $campoGrupo != "" ){
+		                  RendDoubleSelect::loadDropDownOptGroup($arr,$campoid,$campoTexto,$campoGrupo, "");
+						}else{
+							RendDoubleSelect::loadDropDownArray($arr, $campoid, $campoTexto, "");
+						}
+				?>
+				 </select> 
+				 </td>
+				 <td style="width:10%" align="center">
+				
+			  <input type="hidden" name="<?= $hdTemp ?>" value="">	
+				
+	<INPUT TYPE="button" style="width:48px" class="botao" NAME="right" VALUE=" &gt; "
+			    title="Select Item" ONCLICK="moveSelectedOptionsAlert(this.form['<?= $nomeCombo1 ?>'],this.form['<?= $nomeCombo2 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
+              <br>
+	<INPUT TYPE="button" style="width:48px" class="botao" NAME="right" VALUE="&gt;&gt;" title="Select All" ONCLICK="moveAllOptions(this.form['<?= $nomeCombo1 ?>'],this.form['<?= $nomeCombo2 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
+              <BR>
+	<INPUT TYPE="button" style="width:48px" class="botao" NAME="left" VALUE=" &lt; " title="Remove Item" ONCLICK="moveSelectedOptionsAlert(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
+              <br>
+	<INPUT TYPE="button" style="width:48px" class="botao" NAME="left" VALUE="&lt;&lt;" title="Remove All" ONCLICK="moveAllOptions(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">	
+			  
+			           
+				 </td>
+				 <td class="f-tabela-lista" style="width:45%">
+				 <span><?= $titleSelected ?></span><br>
+				 <!-- <select id="<?= $nomeCombo2 ?>" name="exames" size="5" style="width: 100%; height: <?= $height ?>;" multiple onDblClick="moveSelectedOptionsAlert(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)" > -->
+	<select name="selecionados[]" id="<?= $nomeCombo2 ?>" multiple style="width: 100%; height: <?= $height ?>;" onDblClick="moveSelectedOptionsAlert(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
                   <?php
 			        $arr =  $lista2;
 					
@@ -179,6 +239,8 @@ static function showDoubleDropDown(array $lista1,array $lista2, $campoid, $campo
 			  </tr>
 	</table><?php
 	} 
+}
 	
-	}
+	
+
 	?>
