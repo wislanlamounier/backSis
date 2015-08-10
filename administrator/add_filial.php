@@ -343,7 +343,7 @@ function validate(){
 			
 				<div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Adicionar Posto de trabalho</span></div></div>
 				<form method="POST" id="add_cbo" action="add_filial.php" onsubmit="return validate(this)">
-                  <table border="0" >
+                  <table border="0" style="width:100%">
                     <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
                     <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $filial->id_endereco; ?>">
                     <input type="hidden" id="tipo" name="tipo" value="editar">
@@ -423,14 +423,14 @@ function validate(){
                      </tr>
                      
                      <!-- <tr><td colspan="2"><span style="color:#898989">Segure Ctrl para múltiplas seleções</span></td></tr>   -->
-                     <tr><td colspan="3"><input style="width:80px;"type="submit" onclick="selectAll()" name="button" id="button" value="Cadastrar">
-                        <input style="width:80px;" name="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar"></td> </tr>
+                     <tr><td colspan="3" style="text-align:center"><input class="button" type="submit" onclick="selectAll()" name="button" id="button" value="Cadastrar">
+                        <input class="button" name="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar"></td> </tr>
                   </table>
                </form>
                <?php }else{ ?>
                		<div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Adicionar Posto de trabalho</span></div></div>
 				<form method="POST" id="add_cbo" action="add_filial.php" onsubmit="return validate(this)">
-                  <table border="0" >
+                  <table border="0" style="width:100%" >
                      <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                      <!-- <tr> <td ><span>CNPJ:</span></td> <td colspan="2"><input type="text" id="cnpj" name="cnpj" style="width:100%"></td></tr> <!- cnpj --> 
                      <tr> <td ><span>Código Posto:</span></td> <td colspan="2"><input type="text" id="cod_posto" name="cod_posto" style="width:100%"></td></tr> <!-- cod_posto -->
@@ -502,8 +502,8 @@ function validate(){
                      </tr>
                      
                      <!-- <tr><td colspan="2"><span style="color:#898989">Segure Ctrl para múltiplas seleções</span></td></tr>   -->
-                     <tr><td colspan="3"><input style="width:80px;"type="submit" onclick="selectAll()" name="button" id="button" value="Cadastrar">
-                        <input style="width:80px;" name="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar"></td> </tr>
+                     <tr><td colspan="3" style="text-align:center"><input class="button" type="submit" onclick="selectAll()" name="button" id="button" value="Cadastrar">
+                        <input class="button" name="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar"></td> </tr>
                   </table>
                </form>
                <?php }?>

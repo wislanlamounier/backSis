@@ -207,13 +207,19 @@ function validate(){
                   <input type="hidden" name="confirm_ed" id="confirm_ed" value="1">
                   <input type="hidden" name="id_turno" id="id_turno" value="<?php echo $_GET['id']; ?>">
                   <table border="0">
-                     <tr> <td><span>Nomea:</span></td> <td ><input type="text" id="nome" name="nome" style="width:100px;" title="Digite um nome para esse turno" value="<?php echo $nome; ?>"></td></tr> <!-- nome-->
+                     <tr> <td><span>Nome:</span></td> <td ><input type="text" id="nome" name="nome" style="width:100px;" title="Digite um nome para esse turno" value="<?php echo $nome; ?>"></td></tr> <!-- nome-->
                      <tr> <td ><span>Início expediente:</span></td> <td><input type="text" id="ini_exp_h" name="ini_exp_h" value="<?php echo $ini_exp_h; ?>"><span>h</span><input type="text" id="ini_exp_m" name="ini_exp_m" value="<?php echo $ini_exp_m; ?>"><span>m</span></td></tr> <!-- ini exp -->
                      <tr> <td ><span>Início almoço:</span></td> <td><input type="text" id="ini_alm_h" name="ini_alm_h" value="<?php echo $ini_alm_h; ?>"><span>h</span><input type="text" id="ini_alm_m" name="ini_alm_m" value="<?php echo $ini_alm_m; ?>"><span>m</span></td></tr> <!-- ini alm -->
                      <tr> <td ><span>Fim almoço</span></td> <td><input type="text" id="fim_alm_h" name="fim_alm_h" value="<?php echo $fim_alm_h; ?>"><span>h</span><input type="text" id="fim_alm_m" name="fim_alm_m" value="<?php echo $fim_alm_m; ?>"><span>m</span></td></tr> <!-- fim alm -->
                      <tr> <td ><span>Fim expediente:</span></td> <td><input type="text" id="fim_exp_h" name="fim_exp_h" value="<?php echo $fim_exp_h; ?>"><span>h</span><input type="text" id="fim_exp_m" name="fim_exp_m" value="<?php echo $fim_exp_m; ?>"><span>m</span></td></tr> <!-- fim exp -->
                      
-                     <tr><td colspan="3"><input style="width:80px;"type="submit" name="button" id="button" value="Editar"></td> </tr>
+                     <tr>
+                        <td colspan="3" style="text-align:center">
+                            <input class="button" type="submit" name="button" id="button" value="Editar">
+                            <input class="button" type="button" name="button" id="button" value="Cancelar">
+                        </td>
+
+                     </tr>
                   </table>
 
                </form>    
@@ -232,9 +238,9 @@ function validate(){
                      <tr> <td ><span>Fim expediente:</span></td> <td><input type="text" id="fim_exp_h" name="fim_exp_h"><span>h</span><input type="text" id="fim_exp_m" name="fim_exp_m"><span>m</span></td></tr> <!-- fim exp -->
                      
                      <tr>
-                        <td colspan="3">
-                           <input style="width:80px;"type="submit" name="button" id="button" value="Cadastrar">
-                           <input style="width:80px;" name="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar">
+                        <td colspan="3" style="text-align:center">
+                           <input class="button" type="submit" name="button" id="button" value="Cadastrar">
+                           <input class="button" name="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar">
                         </td>
                      </tr>
                   </table>

@@ -8,7 +8,10 @@ include_once("../model/class_sql.php");
 
 	$sql = "SELECT * FROM filiais WHERE id_empresa = $empresa ORDER BY id";  //consulta todos as filiais da empresa
 	$res = mysql_query($sql);
-	$num = mysql_num_rows($res);
+	if($res)
+		$num = mysql_num_rows($res);
+	else
+		$num =0;
 	//monto um array de cidades
 	for ($i = 0; $i < $num; $i++) {
 	  $dados = mysql_fetch_array($res);

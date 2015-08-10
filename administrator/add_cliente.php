@@ -605,7 +605,7 @@ require_once("../model/class_cidade_bd.php");
 					                <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao"><?php echo $cli->observacao ?></textarea></div> </td></tr>                     
 					                <tr>
 					                    	 <td colspan="2" style="text-align:center">
-					                    	 	<input  class="button" type="submit" value="Cadastrar">
+					                    	 	<input  class="button" type="submit" value="Editar">
 					                    	 	<input class="button" type="button" value="Cancelar">
 					                    	 </td>
 					                    </tr> 
@@ -684,7 +684,7 @@ require_once("../model/class_cidade_bd.php");
 						                          <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao"><?php echo $cli->observacao ?></textarea></div> </td></tr>                     
 						                          <tr>
 							                    	 <td colspan="2" style="text-align:center">
-							                    	 	<input  class="button" type="submit" value="Cadastrar">
+							                    	 	<input  class="button" type="submit" value="Editar">
 							                    	 	<input class="button" type="button" value="Cancelar">
 							                    	 </td>
 							                    </tr> 
@@ -802,7 +802,7 @@ require_once("../model/class_cidade_bd.php");
 	                        }
 
 	                       if($cliente->atualiza_cli($id, $nome_razao_soc, $cpf_cnpj, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $rg, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_resp, $site, $observacao, $fornecedor)){
-	                          echo '<div class="msg">Funcionário editado com sucesso</div>';
+	                          echo '<div class="msg">Cliente editado com sucesso</div>';
 	                       }else{
 	                          echo '<div class="msg">Falha ao editar funcionário</div>';
 	                       }

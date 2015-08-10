@@ -18,7 +18,7 @@ include_once("../model/class_funcionario_bd.php");
 
 <?php if(isset($_GET['param']) && $_GET['param'] == 0){ // EDITAR FUNCIONARIO?>
 
-<div class="formulario" style="width:450px">
+<div class="formulario" style="width:430px">
 	<div class="msg" style="float:left">
 		<div style="float:left; background-color:rgba(50,200,50,0.3); width:100%; height:43px; text-align:left; margin-top:-20px;">
 			<div style="float:left; margin-left:5px;"><img src="../images/search-icon.png" style="width:40px;"></div>
@@ -39,7 +39,7 @@ include_once("../model/class_funcionario_bd.php");
 	</div>
 </div>
 <?php } else if (isset($_GET['param']) && $_GET['param'] == 1){ // EXCLUIR FUNCIONARIO?>
-<div class="formulario" style="width:450px">
+<div class="formulario" style="width:430px">
 	<div class="msg" style="float:left">
 		<div style="float:left; background-color:rgba(200,50,50,0.3); width:100%; height:43px; text-align:left; margin-top:-20px;">
 			<div style="float:left; margin-left:5px;"><img src="../images/delete.png" style="width:35px; margin-top:3px;"></div>

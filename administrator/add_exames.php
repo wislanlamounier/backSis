@@ -104,7 +104,7 @@ function validate(){
                  <form method="POST" id="add_cbo" action="add_exames.php" onsubmit="return validate(this)">
                           <input type="hidden" id="tipo" name="tipo" value="editar">
                           <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
-                          <table border="0" >
+                          <table border="0" style="width:100%">
                              <!-- <tr> <td><span>Descrição:</span></td> <td ><input type="text" id="desc" name="desc" style="width:100px;"></td><td><span style="font-size:12px; color:#555;">(Ex. de descrição: Das 8:00 às 12:00 e das 13:00 às 18:00)</span></td></tr> <!- nome -->
                              <!-- <tr> <td ><span>ID:</span></td> <td> <span> <?php echo $id ?> </span> </td></tr> <!- ini exp -->
                              <tr> <td ><span>Descrição:</span></td> <td><input type="text" id="descricao" name="descricao" value="<?php echo $descricao; ?>"></td></tr> <!-- ini exp -->
@@ -124,14 +124,19 @@ function validate(){
                                 </td>
                                 <?php echo "<script> carregaPeriodo('".$id_periodicidade."') </script>";  ?>
                              </tr>
-                             <tr><td colspan="3"><input style="width:80px;"type="submit" name="button" id="button" value="Editar"> <input style="width:80px;" name="button" onclick="window.location.href='add_exame.php'" id="button" value="Cancelar"></td> </tr>
+                             <tr>
+                                <td colspan="3" style="text-align:center">
+                                    <input class="button" type="submit" name="button" id="button" value="Editar">
+                                    <input class="button" name="button" onclick="window.location.href='add_exame.php'" id="button" value="Cancelar">
+                                </td>
+                              </tr>
                           </table>
                        </form>              
                <?php }else{ ?>                
                <form method="POST" class="ad_exame" id="ad_exame" name="ad_exame" action="add_exames.php" onsubmit="return validate(this)">
                 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE EXAME</span></div></div>
                 <input type="hidden" id="tipo" name="tipo" value="cadastrar">
-                  <table border="0">
+                  <table border="0" style="width:100%">
                      <!-- <tr> <td><span>Descrição:</span></td> <td ><input type="text" id="desc" name="desc" style="width:100px;"></td><td><span style="font-size:12px; color:#555;">(Ex. de descrição: Das 8:00 às 12:00 e das 13:00 às 18:00)</span></td></tr> <!- nome -->
                      <tr> <td ><span>Descrição:</span></td> <td><input type="text" id="descricao" name="descricao"></td></tr> <!-- ini exp -->
                      <tr>
@@ -152,7 +157,12 @@ function validate(){
                         </td>
                      </tr>
                      
-                     <tr><td colspan="3"><input style="width:80px;"type="submit" name="button" id="button" value="Cadastrar"></td> </tr>
+                     <tr>
+                        <td colspan="3" style="text-align:center">
+                           <input class="button" type="submit" name="button" id="button" value="Cadastrar">
+                           <input class="button" type="button" name="button" id="button" value="Cancelar">
+                         </td>
+                      </tr>
                   </table>
                </form>              
                <?php }?>               

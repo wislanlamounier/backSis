@@ -16,7 +16,19 @@ function validate(){
 <html>
 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
-   
+        
+    function carregaEmpresa(empresa){
+      
+      var combo = document.getElementById("empresa");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == empresa)
+        {
+          combo.options[i].selected = true;
+          break;
+        }
+      }
+    }
 </script>
 <head>
    <title>Adicionar</title>
@@ -28,7 +40,7 @@ function validate(){
     <div id="content">
             <?php include_once("../view/topo.php"); ?>                                   
             <div class="formulario">             
-             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?>
+             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ // Edita EPI?>
                     <?php 
                         $id = $_GET['id'];
                         $Epi = new Epi();
@@ -56,7 +68,28 @@ function validate(){
                                  <tr><td><span>Codigo:</span></td><td><input type="text" name="codigo" id="codigo" value="<?php echo $codigo ?>" style="width:100%"> </td></tr>
                                  <tr><td><span>Nome:</span></td><td><input type="text" name="epi" id="epi" value="<?php echo $nome_epi ?>" style="width:100%"> </td></tr>
                                  <tr><td><span>Descricão:</span></td><td><input type="text" name="desc" id="desc" value="<?php echo $descricao ?>" style="width:100%"></td></tr>
-                                 <tr><td><span>Empresa:</span></td><td><input type="numeric" name="empresa" id="empresa" value="<?php echo $id_empresa ?>" style="width:100%"></td></tr>
+                                 <tr>
+                                      <td><span>Empresa:</span></td>
+                                      <!-- <td>
+                                          <input type="numeric" name="empresa" id="empresa" value="<?php //echo $id_empresa ?>" style="width:100%">
+                                      </td> -->
+                                      <td>
+                                         <?php //buscar array de Epi
+                                            $empresa = new Empresa();
+                                            $empresas = $empresa->get_all_empresa();
+                                         ?>
+                                         <select name="empresa" id="empresa">
+                                            <option value="no_sel">Selecione</option>
+                                            <?php 
+                                               foreach($empresas as $key => $empresa){
+                                                  echo '<option value="'.$empresas[$key][0].'">'.$empresas[$key][2].'</option>';
+                                               } 
+                                            ?>
+                                         </select>
+                                         <!-- <a href="">Pesquisar</a> -->
+                                      </td>
+                                      <?php echo '<script>carregaEmpresa("'.$id_empresa.'")</script>'; ?>
+                                  </tr>
                                  <tr><td colspan="3" style="text-align:center"><input type="submit" class="button" name="button" id="button" value="Editar"> <input  class="button" name="button" type="button" onclick="window.location.href='add_epi.php'" id="button" value="Cancelar"></td> </tr>
                              </table> 
                        </form>              
@@ -69,7 +102,8 @@ function validate(){
                               <tr><td><span>Código:</span></td> <td><input type="text" name="codigo" id="epi" style="width:80%"></td></tr>
                               <tr><td><span>Nome:</span></td> <td><input type="text" name="nome" id="epi" style="width:100%"></td></tr>
                               <tr><td><span>Descricão:</span></td><td><input type="text" name="desc" id="desc" style="width:100%"></td></tr>
-                              <tr><td><span>Empresa:</span></td></td>
+                              <tr>
+                                <td><span>Empresa:</span></td></td>
                                 <td>
                                    <?php //buscar array de Epi
                                       $empresa = new Empresa();

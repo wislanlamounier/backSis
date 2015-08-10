@@ -8,6 +8,7 @@
         <?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 1){ ?>
                   <li><a href="add_cliente.php">Cliente</a></li>
                   <li><a href="add_epi.php">Equipamentos</a></li>                  
+                  <li><a href="add_epiXfunc.php">Equipamentos por funcionario</a></li>
         <?php } ?>
         <li><a href="add_turno.php">Turno</a></li>
         <li><a href="add_cbo.php">CBO</a></li>

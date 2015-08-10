@@ -1,7 +1,7 @@
-
 <?php
 session_start();
 include("restrito.php");
+
 
 include_once("../model/class_funcionario_bd.php");
 include_once("../model/class_horarios_bd.php");
@@ -388,11 +388,10 @@ function formata_salario($salario){
       }
     }
     function carrega_postos(){
-      // alert('chamou')
+      
       var empresa = document.getElementById("empresa").value;
       
       if(empresa){
-
           var url = '../ajax/ajax_buscar_postos.php?empresa='+empresa;
           $.get(url, function(dateReturn){
             $('#load_postos').html(dateReturn);
@@ -642,7 +641,7 @@ function carregaUf_CartTrab(uf){
          carregaCidade();
         }, 100);
       }
-    }
+    
 // FIM CARREGA SELECTS
 
 </script>

@@ -8,15 +8,10 @@
 
 <?php 
 function validate(){
-   // if(!isset($_POST['quantidade']) || $_POST['quantidade'] == ""){
-   //       return false;
-   // }
-   // if(!isset($_POST['funcionario']) || $_POST['funcionario'] == ""){
-   //       return false;
-   // }
-   // if(!isset($_POST['selecionados']) || $_POST['selecionados'] == ""){
-   //       return false;
-   // }
+   
+   if(!isset($_POST['selecionados']) || $_POST['selecionados'] == ""){
+         return false;
+   }
    return true;
 }
 
@@ -34,8 +29,9 @@ function validate(){
                     f[i].style.border = "1px solid #898989";
                   }
                }
-               if(f[i].name == "selecionados"){
-                  if(f[i].value == ""){
+
+               if(f[i].name == "selecionados[]"){
+                  if(f[i].selectedIndex == -1){
                      f[i].style.border = "1px solid #f00";
                      erros++;
                   }else{
@@ -103,7 +99,7 @@ function validate(){
                       <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                       <input type="hidden" id="id_func" name="id_func" value="<?php echo $func->id; ?>">
                       
-                      <tr><td><span>Funcionario</td><td><input type="text" id="funcionario" name="funcionario" value="<?php echo $func->nome; ?>">                       
+                      <tr><td><span>Funcionario:</td><td><input type="text" id="funcionario" disabled name="funcionario" value="<?php echo $func->nome; ?>">                       
                       <tr> <td ><span>Data de entrega:</span></td> <td><input type="date" id="data" name="data" value='<?php echo date("Y-m-d"); ?>'></td></tr>
                       <!-- <tr> <td ><span>Quantidade:</span></td> <td><input type="number" id="quantidade" name="quantidade"></td></tr>   -->
                       <tr><td colspan="2"><span>Escolha os equipamentos e clique em avançar para definir a quantidade:</span></td></tr>
