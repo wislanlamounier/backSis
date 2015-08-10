@@ -1,6 +1,6 @@
 <?php
 
-include_once("../model/class_funcionario_bd.php");
+include_once("../model/class_filial_bd.php");
 
 ?>
 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
@@ -25,7 +25,7 @@ include_once("../model/class_funcionario_bd.php");
 
             if(nome){
               
-              var url = '../ajax/ajax_buscar_informacoes.php?nome='+nome+'&param='+param;  //caminho do arquivo php que irá buscar as cidades no BD
+              var url = '../ajax/ajax_buscar_informacoes_filial.php?nome='+nome+'&param='+param;  //caminho do arquivo php que irá buscar as cidades no BD
 
               $.get(url, function(dataReturn) {
                 

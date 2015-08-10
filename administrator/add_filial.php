@@ -24,6 +24,17 @@ function validate(){
 
 <script type="text/javascript">
 
+    function confirma(id,nome){
+       if(confirm("Excluir Filial "+nome+" , tem certeza?")){
+          var url = '../ajax/ajax_excluir_filial.php?id='+id+'&nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
+          $.get(url, function(dataReturn) {
+            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+          });
+       }
+       
+
+    }
+
    function validate(f){
     var erros=0;
       for(i=0; i < f.length; i++){

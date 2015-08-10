@@ -128,6 +128,18 @@ class Filial{
 		}
 		return $return;
 	}
+
+	public function ocultar_by_id($id){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$query = "UPDATE filiais SET oculto = 1 WHERE id = %s";
+		$result = $g->tratar_query($query, $id);
+		if($result){
+			echo '<div class="msg">Filial excluida com sucesso!</div>';
+		}
+	}
+
 	public function printFilial(){
 		$endereco = new Endereco();
 		$endereco = $endereco->get_endereco_id($this->id_endereco);
