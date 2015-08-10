@@ -45,6 +45,7 @@ class Empresa{
         $sql->conn_bd();
         $g = new Glob();
         $aux=0;
+      
         $query = $g->tratar_query("SELECT * FROM empresa WHERE oculto = 0");
 
         while($result = mysql_fetch_array($query)){
@@ -54,12 +55,14 @@ class Empresa{
           $aux++;
         }
         return $return;
+        
     }
     public function get_empresa_by_nome_fantasia($nome){
         $sql = new Sql();
         $sql->conn_bd();
         $g = new Glob();
         $aux=0;
+        $return =false;
         $query = $g->tratar_query("SELECT * FROM empresa WHERE oculto = 0 && nome_fantasia LIKE '%%%s%%'", $nome);
 
         while($result = mysql_fetch_array($query)){
