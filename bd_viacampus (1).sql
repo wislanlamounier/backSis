@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 04-Ago-2015 às 19:36
+-- Generation Time: 10-Ago-2015 às 22:26
 -- Versão do servidor: 5.6.25
 -- PHP Version: 5.6.11
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `cbo_exames` (
   `id` int(11) NOT NULL,
   `id_cbo` int(11) NOT NULL,
   `id_exame` int(11) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=108 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=110 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `cbo_exames`
@@ -104,7 +104,9 @@ INSERT INTO `cbo_exames` (`id`, `id_cbo`, `id_exame`) VALUES
 (102, 7, 3),
 (103, 7, 2),
 (106, 63, 4),
-(107, 33, 2);
+(107, 33, 2),
+(108, 6, 1),
+(109, 6, 3);
 
 -- --------------------------------------------------------
 
@@ -5715,17 +5717,18 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `site` varchar(255) NOT NULL,
   `observacao` text NOT NULL,
   `fornecedor` int(11) NOT NULL,
-  `id_empresa` int(11) NOT NULL
+  `id_empresa` int(11) NOT NULL,
+  `oculto` int(11) NOT NULL
 ) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `nome_razao_soc`, `data_nasc_data_fund`, `cpf_cnpj`, `telefone_cel`, `telefone_com`, `id_endereco`, `tipo`, `rg`, `inscricao_estadual`, `inscricao_municipal`, `responsavel`, `cpf_responsavel`, `data_nasc_responsavel`, `email_responsavel`, `site`, `observacao`, `fornecedor`, `id_empresa`) VALUES
-(50, 'Lucas Soares Nogueiraa', '1994-01-15', '077.765.229-37', '(41) 9889-0957', '(41) 9889-0957', 129, 0, '111113092', '', '456456456456456', 'Lucas Soares', '077.765.229-37', '1994-01-15', '_lucasoares@outlook.com', 'www.controlsystem.com', 'OBservação', 1, 5),
-(51, 'Empresa Ficticia1', '1993-01-15', '48.993.251/56-51', '(41) 9889-0951', '(41) 3265-9791', 131, 1, '', '465464651', '6464643211', 'responsavel1', '41239469845', '1993-11-25', 'responsavel@exemplo.com.br', 'www.empresa.com.br', '', 1, 5),
-(53, '54564564', '0000-00-00', '', '', '', 133, 0, '', '', '', '', '', '0000-00-00', '', '', '', 0, 0);
+INSERT INTO `clientes` (`id`, `nome_razao_soc`, `data_nasc_data_fund`, `cpf_cnpj`, `telefone_cel`, `telefone_com`, `id_endereco`, `tipo`, `rg`, `inscricao_estadual`, `inscricao_municipal`, `responsavel`, `cpf_responsavel`, `data_nasc_responsavel`, `email_responsavel`, `site`, `observacao`, `fornecedor`, `id_empresa`, `oculto`) VALUES
+(50, 'Lucas Soares Nogueiraa', '1994-01-15', '077.765.229-37', '(41) 9889-0957', '(41) 9889-0957', 129, 0, '111113092', '', '456456456456456', 'Lucas Soares', '077.765.229-37', '1994-01-15', '_lucasoares@outlook.com', 'www.controlsystem.com', 'Observação', 1, 5, 0),
+(51, 'Empresa Ficticia1', '1993-01-15', '48.993.251/56-51', '(41) 9889-0951', '(41) 3265-9791', 131, 1, '', '465464651', '6464643211', 'responsavel1', '41239469845', '1993-11-25', 'responsavel@exemplo.com.br', 'www.empresa.com.br', 'Observção ', 1, 5, 0),
+(53, 'Testa Cliente', '0000-00-00', '', '', '', 133, 0, '', '', '', '', '', '0000-00-00', '', '', '', 0, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -5771,7 +5774,7 @@ CREATE TABLE IF NOT EXISTS `empresa` (
 --
 
 INSERT INTO `empresa` (`id`, `razao_social`, `nome_fantasia`, `cnpj`, `ins_estadual`, `ins_municipal`, `id_endereco`, `telefone`, `id_responsavel`, `oculto`, `nivel_acesso`) VALUES
-(5, 'LUCIA H. V. SANTOS BALDIM ME', 'NEW AGES', '12.345.678/0001-23', '4521451252X', '215646548Y', 70, '(15) 3531-2999', 25, 0, 0),
+(5, 'LUCIA H. V. SANTOS BALDIM ME', 'NEW AGES', '12.345.678/0001-23', '4521451252X', '215646548Y', 70, '(15) 3531-2999', 25, 0, 1),
 (6, 'fis fast internet service ltda', 'control system', '07.824.826/0001-14', 'isento', 'isento', 71, '(41) 3319-2646', 40, 0, 0),
 (7, 'Corte & Costuras LTDA', 'Corte e Costuras', '48.512.135/6481-12', '15451251521', '152325546', 76, '(35) 3162-5484', 18, 0, 0),
 (8, 'RAZÃO SOCIAL', 'NOME FANTASIA', '45.365.126/0001-20', '1514561', '125315', 79, '(35) 1155-4565', 40, 0, 0);
@@ -5848,7 +5851,7 @@ INSERT INTO `endereco` (`id`, `rua`, `numero`, `id_cidade`, `bairro`, `cep`) VAL
 (68, 'São Pedro', 233, 2878, 'Centro', '02046-020'),
 (69, 'São Pedro', 2333, 2784, 'Centro', '02046-020'),
 (71, 'xv de novembro', 311, 2878, 'centro', '80000-000'),
-(72, 'mariano martins', 45, 2878, 'centro', '82200-130'),
+(72, 'mariano martins', 45, 2784, 'centro', '82200-130'),
 (73, 'cdcd', 12, 2878, 'centro', '81000-000'),
 (74, '321', 32132, 3368, '1', '1321'),
 (75, 'teste de rua', 1123, 2878, 'Centro', '18460-000'),
@@ -5923,15 +5926,28 @@ INSERT INTO `endereco` (`id`, `rua`, `numero`, `id_cidade`, `bairro`, `cep`) VAL
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `epi`
+-- Estrutura da tabela `equipamentos_func`
 --
 
-CREATE TABLE IF NOT EXISTS `epi` (
+CREATE TABLE IF NOT EXISTS `equipamentos_func` (
   `id` int(11) NOT NULL,
+  `codigo` varchar(50) NOT NULL,
   `nome_epi` varchar(255) NOT NULL,
   `descricao` varchar(500) NOT NULL,
-  `id_empresa` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_empresa` int(11) NOT NULL,
+  `epi` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `equipamentos_func`
+--
+
+INSERT INTO `equipamentos_func` (`id`, `codigo`, `nome_epi`, `descricao`, `id_empresa`, `epi`) VALUES
+(1, '12', 'Bota', 'Bota', 5, 1),
+(2, '12', 'Capacete', 'Capacete', 5, 1),
+(5, '123', 'Óculos', 'Óculos de solda', 5, 1),
+(6, '124', 'Camisa', 'Camisa da empresa', 5, 0),
+(7, '123', 'Óculos2', 'Óculos de solda2', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -6000,8 +6016,8 @@ CREATE TABLE IF NOT EXISTS `exames` (
 INSERT INTO `exames` (`id`, `descricao`, `id_periodicidade`, `oculto`, `id_empresa`) VALUES
 (1, 'Exame 1', 4, 0, 5),
 (2, 'Exame 3', 4, 0, 0),
-(3, 'Exame 2', 4, 0, 5),
-(4, 'Exame de rotina', 4, 0, 5),
+(3, 'Exame 2', 4, 1, 5),
+(4, 'Exame de rotina', 4, 1, 5),
 (5, 'Exame 44', 2, 0, 0);
 
 -- --------------------------------------------------------
@@ -6026,9 +6042,9 @@ CREATE TABLE IF NOT EXISTS `filiais` (
 --
 
 INSERT INTO `filiais` (`id`, `nome`, `cod_posto`, `telefone`, `id_endereco`, `id_responsavel`, `id_empresa`, `oculto`) VALUES
-(1, 'Laboran Clinic', '004', '(15) 3531-5154', 69, 25, 7, 0),
+(1, 'Laboran Clinic', '004', '(15) 3531-5154', 69, 25, 5, 0),
 (2, 'Teste de posto de trabalho', '002', '(41) 3531-2999', 63, 18, 5, 0),
-(3, 'matriz', '01', '(41) 3319-2646', 72, 40, 6, 0),
+(3, 'matriz', '01', '(41) 3319-2646', 72, 40, 5, 0),
 (4, 'posto 1', 'posto 1', '(41) 3319-2667', 73, 40, 6, 0),
 (5, 'Matriz', '005', '(12) 3132-1321', 78, 21, 5, 0);
 
@@ -6075,9 +6091,9 @@ CREATE TABLE IF NOT EXISTS `funcionario` (
 
 INSERT INTO `funcionario` (`id`, `nome`, `cpf`, `rg`, `org_em_rg`, `data_em_rg`, `num_tit_eleitor`, `data_nasc`, `telefone`, `email`, `email_empresa`, `senha`, `is_admin`, `id_cbo`, `id_endereco`, `id_turno`, `id_empresa`, `id_empresa_filial`, `id_supervisor`, `data_adm`, `data_dem`, `salario_base`, `qtd_horas_sem`, `num_cart_trab`, `num_serie_cart_trab`, `id_uf_cart_trab`, `num_pis`, `oculto`) VALUES
 (18, 'Andre Matos', '412.394.698.45', '48.993.307-5', 'SSP-SP', '1993-01-08', '1320545136', '1993-07-08', '35312999', 'andre_matos13@hotmail.com', 'andre_matos13@hotmail.com', '321', 1, 1, 8, 17, 5, 2, 0, '1993-01-08', '0000-00-00', 2000, 35, '69485132', '32154124', 26, '13254615', 0),
-(2, 'Renato Francos', '412.394.698-45', '484515615115', '02315', '2014-01-08', '34243214', '1992-07-20', '23393834', 'renato@hotmail.com', 'renato@empresa.com.br', '321', 0, 1, 1, 16, 7, 1, 18, '2000-01-20', '0000-00-00', 1500, 44, '324324', '324', 15, '4324324', 0),
-(22, 'Felipe Smockovitz', '412.394.698-45', '48654515121', 'SSP-SP', '2000-05-20', '43213243', '1884-06-02', '(15) 3531-2884', 'felipe@hotmail.com', 'felipe@controlsystem.com.br', '222', 0, 10, 13, 10, 6, 4, 18, '2014-06-01', '0000-00-00', 2500, 44, '2548451445', '321545654', 26, '1256155215', 0),
-(21, 'Pedro Matos', '412.394.698-45', '489933075', 'ssp-sp', '1993-01-08', '1525151', '1948-06-05', '1532316521', 'pedro@hotmail.com', 'teste@empresa.com.br', '111', 1, 12, 12, 16, 5, 2, 0, '1111-11-01', '0000-00-00', 50000, 44, '54325432', '543254325324', 26, '4343', 0),
+(2, 'Renato Francos', '412.394.698-45', '484515615115', '02315', '2014-01-08', '34243214', '1992-07-20', '23393834', 'renato@hotmail.com', 'renato@empresa.com.br', '321', 0, 1, 1, 16, 5, 1, 18, '2000-01-20', '0000-00-00', 1500, 44, '324324', '324', 15, '4324324', 1),
+(22, 'Felipe Smockovitz', '412.394.698-45', '48654515121', 'SSP-SP', '2000-05-20', '43213243', '1884-06-02', '(15) 3531-2884', 'felipe@hotmail.com', 'felipe@controlsystem.com.br', '222', 0, 10, 13, 10, 5, 4, 18, '2014-06-01', '0000-00-00', 2500, 44, '2548451445', '321545654', 26, '1256155215', 0),
+(21, 'Pedro Matos', '412.394.698-45', '489933075', 'ssp-sp', '1993-01-08', '1525151', '1948-06-05', '1532316521', 'pedro@hotmail.com', 'teste@empresa.com.br', '111', 1, 12, 12, 16, 5, 2, 0, '1111-11-01', '0000-00-00', 50000, 44, '54325432', '543254325324', 26, '4343', 1),
 (23, 'Camila', '412.156.658-48', '', '', '0000-00-00', '', '1995-02-01', '35312645', 'camila@hormail.com', '', '321', 0, 33, 14, 17, 0, 1, 0, '0000-00-00', '0000-00-00', 0, 0, '', '', 0, '', 1),
 (25, 'Patricia Cristina', '412.394.698-45', '4869484984', 'SSP-SP', '2005-05-08', '1234561561', '2015-07-01', '(41) 3115-1515', 'patricia@gmail.com', 'patricia@controlsystem.com.br', '123', 1, 34, 17, 19, 6, 3, 18, '2015-02-21', '0000-00-00', 1800, 44, '1253156165', '1564654651', 13, '354894651', 0),
 (38, 'Teste', '412.394.698-45', '48.993.307-5', 'ssp-sp', '2005-01-05', '123456', '1992-01-08', '(41) 3531-2999', 'klçlkkjl', 'email@empresa.com.br', '123', 0, 20, 35, 16, 0, 1, 0, '2015-02-05', '0000-00-00', 1500, 44, '123123123', '321321321', 13, '3451 pis', 0),
@@ -6099,7 +6115,17 @@ CREATE TABLE IF NOT EXISTS `funcionario_epi` (
   `id_epi` int(11) NOT NULL,
   `data_entrega` date NOT NULL,
   `quantidade` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `funcionario_epi`
+--
+
+INSERT INTO `funcionario_epi` (`id`, `id_func`, `id_epi`, `data_entrega`, `quantidade`) VALUES
+(12, 18, 2, '2015-08-07', 3),
+(13, 18, 6, '2015-08-07', 3),
+(14, 18, 2, '2015-08-10', 1),
+(15, 18, 5, '2015-08-10', 1);
 
 -- --------------------------------------------------------
 
@@ -6374,9 +6400,9 @@ ALTER TABLE `endereco`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `epi`
+-- Indexes for table `equipamentos_func`
 --
-ALTER TABLE `epi`
+ALTER TABLE `equipamentos_func`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -6472,7 +6498,7 @@ ALTER TABLE `cbo`
 -- AUTO_INCREMENT for table `cbo_exames`
 --
 ALTER TABLE `cbo_exames`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=110;
 --
 -- AUTO_INCREMENT for table `cidade`
 --
@@ -6499,10 +6525,10 @@ ALTER TABLE `empresa`
 ALTER TABLE `endereco`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=143;
 --
--- AUTO_INCREMENT for table `epi`
+-- AUTO_INCREMENT for table `equipamentos_func`
 --
-ALTER TABLE `epi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `equipamentos_func`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `estado`
 --
@@ -6527,7 +6553,7 @@ ALTER TABLE `funcionario`
 -- AUTO_INCREMENT for table `funcionario_epi`
 --
 ALTER TABLE `funcionario_epi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `horarios`
 --
