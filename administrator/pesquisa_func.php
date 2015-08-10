@@ -31,7 +31,7 @@ include("../model/class_cliente.php");
                                             </select>
                                               <td><span>Funcionario Nome: </span></td>
                                               <td><input type="text" id="name_search" name="name_search"></td>
-                                              <td><input type="submit" value="Buscar"></td>
+                                              <td><input type="submit" class="button" value="Buscar"></td>
                                            </tr>
                                           </table>
                                     </form>

@@ -1,9 +1,17 @@
 <div class="formulario" style="width:430px;">
 	<?php if($_GET['tipo'] == 1){ ?>
 		<form method="POST">
-			
-			<td><span>Funcionario: </span></td>
-			<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" onclick="buscar_funcionarios(0)"></td>
+			<table style="width:100%">
+				<tr>
+					<td><span>Funcionario: </span></td>
+					<td>
+						<input type="text" id="nome_search" name="nome_search">
+					</td>
+					<td>
+						<input type="button" class="button" value="Buscar" onclick="buscar_funcionarios(0)">
+				    </td>
+			    </tr>
+			</table>
 					
 					
 		</form>
