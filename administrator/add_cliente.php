@@ -558,7 +558,7 @@ require_once("../model/class_cidade_bd.php");
 					                          		<input type="checkbox" id="fornecedor"  name="fornecedor" style="height:12px;"><span>Fornecedor</span>
 					                   <?php } ?>
 					           	   </tr>
-					               <tr> <td ><span>Nome:</span></td><td><input type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
+					               <tr> <td ><span>Nome:</span></td><td colspan="3"><input style="width:100%" type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
 					                <tr> <td ><span>Data Nasc:</span></td> <td><input type="date" id="data_nasc" name="data_nasc" value="<?php echo $cli->data_nasc ?>" ></td></tr>
 					                <tr> <td ><span>CPF:</span></td><td><input type="text" id="cpf" name="cpf" value="<?php echo $cli->cpf ?>" ></td></tr> 
 					                <tr> <td ><span>Celular:</span></td> <td><input type="text" id="cel" name="cel" value="<?php echo $cli->telefone_cel ?>"></td></tr> 

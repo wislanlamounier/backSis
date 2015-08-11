@@ -5,7 +5,7 @@ include_once("../model/class_turno_bd.php");
 ?>
 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
-	function buscar_funcionarios(){    
+	function buscar_turno(){    
   	   var nome = document.getElementById('nome_search').value;
       //se encontrou o estado
       if(nome){

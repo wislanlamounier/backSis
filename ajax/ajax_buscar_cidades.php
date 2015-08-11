@@ -8,7 +8,10 @@ include_once("../model/class_sql.php");
 
 	$sql = "SELECT * FROM cidade WHERE estado = $estado ORDER BY id";  //consulta todas as cidades que possuem o codigo do estado
 	$res = mysql_query($sql);
-	$num = mysql_num_rows($res);
+	if($res)
+		$num = mysql_num_rows($res);
+	else
+		$num = 0;
 	//monto um array de cidades
 	for ($i = 0; $i < $num; $i++) {
 	  $dados = mysql_fetch_array($res);

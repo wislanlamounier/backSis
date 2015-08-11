@@ -7,7 +7,9 @@ include_once("../model/class_sql.php");
 
 	$sql = "SELECT * FROM cidade WHERE estado = $estado ORDER BY id";  //consulta todas as cidades que possuem o codigo do estado
 	$res = mysql_query($sql);
-	$num = mysql_num_rows($res);
+	if(count($res)>0)
+		$num = mysql_num_rows($res);
+	else return;
 	//monto um array de cidades
 	for ($i = 0; $i < $num; $i++) {
 	  $dados = mysql_fetch_array($res);
@@ -16,7 +18,7 @@ include_once("../model/class_sql.php");
 ?>
 
 
-<select name="cidade" id="cidade">
+<select name="cidade" id="cidade" style="width:100%">
   <?php
   	if($dados) 
 	    foreach($arrCidades as $value => $nome){

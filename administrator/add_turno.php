@@ -207,7 +207,7 @@ function validate(){
                   <input type="hidden" name="confirm_ed" id="confirm_ed" value="1">
                   <input type="hidden" name="id_turno" id="id_turno" value="<?php echo $_GET['id']; ?>">
                   <table border="0">
-                     <tr> <td><span>Nome:</span></td> <td ><input type="text" id="nome" name="nome" style="width:100px;" title="Digite um nome para esse turno" value="<?php echo $nome; ?>"></td></tr> <!-- nome-->
+                     <tr> <td><span>Nome:</span></td> <td ><input style="width:100%" type="text" id="nome" name="nome" style="width:100px;" title="Digite um nome para esse turno" value="<?php echo $nome; ?>"></td></tr> <!-- nome-->
                      <tr> <td ><span>Início expediente:</span></td> <td><input type="text" id="ini_exp_h" name="ini_exp_h" value="<?php echo $ini_exp_h; ?>"><span>h</span><input type="text" id="ini_exp_m" name="ini_exp_m" value="<?php echo $ini_exp_m; ?>"><span>m</span></td></tr> <!-- ini exp -->
                      <tr> <td ><span>Início almoço:</span></td> <td><input type="text" id="ini_alm_h" name="ini_alm_h" value="<?php echo $ini_alm_h; ?>"><span>h</span><input type="text" id="ini_alm_m" name="ini_alm_m" value="<?php echo $ini_alm_m; ?>"><span>m</span></td></tr> <!-- ini alm -->
                      <tr> <td ><span>Fim almoço</span></td> <td><input type="text" id="fim_alm_h" name="fim_alm_h" value="<?php echo $fim_alm_h; ?>"><span>h</span><input type="text" id="fim_alm_m" name="fim_alm_m" value="<?php echo $fim_alm_m; ?>"><span>m</span></td></tr> <!-- fim alm -->
@@ -231,7 +231,7 @@ function validate(){
                  <form method="POST" class="ad_turno" id="ad_turno" name="ad_turno" action="add_turno.php" onsubmit="return validate(this)">
                 <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                   <table border="0">
-                     <tr> <td><span>Nome:</span></td> <td ><input type="text" id="nome" name="nome" style="width:100px;" title="Digite um nome para esse turno"></td></tr> <!-- nome-->
+                     <tr> <td><span>Nome:</span></td> <td ><input style="width:100%" type="text" id="nome" name="nome" style="width:100px;" title="Digite um nome para esse turno"></td></tr> <!-- nome-->
                      <tr> <td ><span>Início expediente:</span></td> <td><input type="text" id="ini_exp_h" name="ini_exp_h"><span>h</span><input type="text" id="ini_exp_m" name="ini_exp_m"><span>m</span></td></tr> <!-- ini exp -->
                      <tr> <td ><span>Início almoço:</span></td> <td><input type="text" id="ini_alm_h" name="ini_alm_h"><span>h</span><input type="text" id="ini_alm_m" name="ini_alm_m"><span>m</span></td></tr> <!-- ini alm -->
                      <tr> <td ><span>Fim almoço</span></td> <td><input type="text" id="fim_alm_h" name="fim_alm_h"><span>h</span><input type="text" id="fim_alm_m" name="fim_alm_m"><span>m</span></td></tr> <!-- fim alm -->

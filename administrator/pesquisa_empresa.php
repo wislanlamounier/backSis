@@ -35,11 +35,11 @@ include_once("../model/class_empresa_bd.php");
                           <div class="formulario">
                           <div class="title-box" style="float:left"><div style="float:left"><img src="../images/search-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Pesquisar Empresa</span></div></div>                                                                
                                     <form method="POST" class="pesquisa-campos" id="pesquisa-campos" name="pesquisa-campos" action="pesquisa_empresa.php">
-                         <table>
+                         <table id="table-search">
                            <tr>
                               <td><span >Nome Fantasia: </span></td>
                               <td><input type="text" id="name_search" name="name_search" title="Digite o código ou a descrição para pesquisar"></td>
-                              <td><input type="submit" value="Buscar"></td>
+                              <td><input type="submit" class="button" value="Buscar"></td>
                            </tr>
                         </table>
                       </form>

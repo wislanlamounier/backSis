@@ -73,7 +73,7 @@ class Turno{
 		$sql->conn_bd();
 		$g = new Glob();
 		$return = array();
-		$query = "SELECT * FROM turno WHERE nome LIKE '%%%s%%' && oculto = 0";
+		$query = "SELECT * FROM turno WHERE nome LIKE '%%%s%%' && oculto = 0 && NOT EXISTS (SELECT id FROM funcionario WHERE id_turno = turno.id)";
 
 		$aux=0;
 		$result = $g->tratar_query($query, $name);

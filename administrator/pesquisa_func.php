@@ -26,13 +26,12 @@ include("../model/class_cliente.php");
                     <div class="formulario">
                           <div class="title-box" style="float:left"><div style="float:left"><img src="../images/search-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Pesquisar Funcionario</span></div></div>                                                                
                                     <form method="POST" class="pesquisa-campos" id="pesquisa-campos" name="pesquisa-campos" action="pesquisa_func.php">
-                                         <table>
-                                           <tr>                                             
-                                            </select>
-                                              <td><span>Funcionario Nome: </span></td>
-                                              <td><input type="text" id="name_search" name="name_search"></td>
-                                              <td><input type="submit" class="button" value="Buscar"></td>
-                                           </tr>
+                                         <table id="table-search">
+                                             <tr>                                             
+                                                <td><span>Funcionario Nome: </span></td>
+                                                <td><input style="width:100%" type="text" id="name_search" name="name_search"></td>
+                                                <td><input type="submit" class="button" value="Buscar"></td>
+                                             </tr>
                                           </table>
                                     </form>
                          <?php
@@ -41,7 +40,7 @@ include("../model/class_cliente.php");
                             
                                 $func = new Funcionario();                                
                                 $funcs = $func->get_func_by_name($_POST['name_search'], $_SESSION['id_empresa']);
-                               echo '<table>';
+                               echo '<table class="exibe-pesquisa">';
                                 if(count($funcs)>0)
                                 foreach($funcs as $key => $func){
                                    echo '<tr>

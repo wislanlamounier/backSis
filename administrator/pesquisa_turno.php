@@ -31,30 +31,30 @@ include_once("../model/class_endereco_bd.php");
 <body>   
 <?php include_once("../view/topo.php"); ?>
 
-                          <div class="formulario">
-                          <div class="title-box" style="float:left"><div style="float:left"><img src="../images/search-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Pesquisar Funcionario</span></div></div>                                                                
-                         <form method="POST" class="pesquisa-campos" id="pesquisa-campos" name="pesquisa-campos" action="pesquisa_turno.php">
-                         <table border="0" style="width:130%">
-                          <tr>
-                            <td>
-                              <span style="font-size:14px">Pesquisar por:</span>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="3" style="">
-                              <input type="radio" name="rdo" value="0" checked><span>Nome</span>
-                              <input type="radio" name="rdo" value="1"><span>Ini. Expediente</span>
-                              <input type="radio" name="rdo" value="2"><span>Ini. Almoço</span>
-                              <input type="radio" name="rdo" value="3"><span>Fim Almoço</span>
-                              <input type="radio" name="rdo" value="4"><span>Fim Expediente</span>
-                            </td>
-                          </tr>
-                           <tr >
-                              <td style="padding-top: 20px;"><span >Código ou Descrição: </span>
-                              <input type="text" id="name_search" name="name_search" title="Digite o código ou a descrição para pesquisar">
-                              <input type="submit" value="Buscar">
-                            </td>
-                           </tr>
+           <div class="formulario">
+                    <div class="title-box" style="float:left"><div style="float:left"><img src="../images/search-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Pesquisar Turno</span></div></div>
+                    <form method="POST" class="pesquisa-campos" id="pesquisa-campos" name="pesquisa-campos" action="pesquisa_turno.php">
+                        <table border="0" style="width:100%; background-color:rgba(150,150,150,0.5); padding: 10 5 10 5">
+                            <tr>
+                              <td>
+                                <span style="font-size:14px">Pesquisar por:</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="3" style="">
+                                <input style="height:12px; width:12px;" type="radio" name="rdo" value="0" checked><span>Nome</span>
+                                <input style="height:12px; width:12px;" type="radio" name="rdo" value="1"><span>Ini. Expediente</span>
+                                <input style="height:12px; width:12px;" type="radio" name="rdo" value="2"><span>Ini. Almoço</span>
+                                <input style="height:12px; width:12px;" type="radio" name="rdo" value="3"><span>Fim Almoço</span>
+                                <input style="height:12px; width:12px;" type="radio" name="rdo" value="4"><span>Fim Expediente</span>
+                              </td>
+                            </tr>
+                             <tr>
+                                <td style="padding-top: 20px;"><span >Código ou Descrição: </span>
+                                  <input type="text"  id="name_search" name="name_search" title="Digite o código ou a descrição para pesquisar">
+                                  <input type="submit" class="button" value="Buscar">
+                                </td>
+                             </tr>
                         </table>
                       </form>
                <?php

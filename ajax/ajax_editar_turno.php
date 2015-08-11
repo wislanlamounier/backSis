@@ -11,7 +11,7 @@
 				  	<tr><td colspan="2"><span>Digite um turno para editar:</span><br /></td></tr>
 					<tr>
 						<td><span>Turno: </span></td>
-						<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" onclick="buscar_funcionarios()"></td>
+						<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" onclick="buscar_turno()"></td>
 					</tr>
 					
 				</table>

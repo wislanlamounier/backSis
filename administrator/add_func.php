@@ -666,12 +666,6 @@ function carregaUf_CartTrab(uf){
                      echo '<input type="hidden" id="id_cidade" value="'.$endereco[0][2].'">';
                      echo '<input type="hidden" id="id_posto" value="'.$func->id_empresa_filial.'">';
                     
-                     $data_em_rg = explode("-", $func->data_em_rg);
-                     $data_em_rg = $data_em_rg[2].'/'.$data_em_rg[1].'/'.$data_em_rg[0];
-                     $data_nasc = explode("-", $func->data_nasc);
-                     $data_nasc = $data_nasc[2].'/'.$data_nasc[1].'/'.$data_nasc[0];
-                     $data_adm = explode("-", $func->data_adm);
-                     $data_adm = $data_adm[2].'/'.$data_adm[1].'/'.$data_adm[0];
                      
                      // echo $func->printFunc();
                    ?>
@@ -682,19 +676,19 @@ function carregaUf_CartTrab(uf){
                   <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $func->id_endereco; ?>">
                   <table border='0'>
                     <tr><td colspan="4" style="padding-top:10px; padding-bottom:10px;"><span style="color:#565656">Atenção: Se o campo senha ficar em branco a senha não sera alterada</span></td></tr>
-                     <tr> <td><span>Nome:</span></td> <td colspan="3"><input type="text" id="nome" name="nome" value="<?php echo $func->nome; ?>"></td></tr> <!-- nome -->
-                     <tr> <td><span>CPF:</span></td> <td><input type="text" id="cpf" name="cpf" value="<?php echo $func->cpf; ?>"></td></tr> <!-- CPF -->
+                     <tr> <td><span>Nome:</span></td> <td colspan="3"><input style="width:100%" type="text" id="nome" name="nome" value="<?php echo $func->nome; ?>"></td></tr> <!-- nome -->
+                     <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%" type="text" id="cpf" name="cpf" value="<?php echo $func->cpf; ?>"></td></tr> <!-- CPF -->
                      <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg" value="<?php echo $func->rg; ?>"></td><td><span>Org.Em:</span></td><td><input style="width:100px;" type="text" id="org_em_rg" name="org_em_rg" value="<?php echo $func->org_em_rg; ?>"></td></tr> <!-- RG -->
-                     <tr> <td><span>Data Em. RG:</span></td> <td colspan="3"><input type="text" id="data_em_rg" name="data_em_rg" value="<?php echo $data_em_rg; ?>" title="Data de emissão do RG"></td></tr> <!-- data de emissão do rg -->
+                     <tr> <td><span>Data Em. RG:</span></td> <td colspan="3"><input type="date" id="data_em_rg" name="data_em_rg" value="<?php echo $func->data_em_rg; ?>" title="Data de emissão do RG"></td></tr> <!-- data de emissão do rg -->
                      <tr> <td><span>Título Eleitoral:</span></td> <td colspan="3"><input type="text" id="titu_eleitoral" name="titu_eleitoral" value="<?php echo $func->num_tit_eleitor; ?>"></td></tr> <!-- Numero do titulo eleitoral -->
-                     <tr> <td><span>Data Nasc.:</span></td> <td><input type="text" id="data_nasc" name="data_nasc" value="<?php echo $data_nasc; ?>"></td></tr> <!-- data nacimento -->
+                     <tr> <td><span>Data Nasc.:</span></td> <td><input type="date" id="data_nasc" name="data_nasc" value="<?php echo $func->data_nasc; ?>"></td></tr> <!-- data nacimento -->
                      <tr> <td><span>Telefone:</span></td> <td><input type="text" id="telefone" name="telefone" value="<?php echo $func->telefone; ?>"></td></tr> <!-- telefone -->
-                     <tr> <td><span>Email Pessoal:</span></td> <td><input type="text" id="email" name="email" value="<?php echo $func->email; ?>"></td></tr> <!-- email -->
-                     <tr> <td><span>Email Empresarial:</span></td> <td><input type="text" id="email_emp" name="email_emp" value="<?php echo $func->email_empresa; ?>"></td></tr> <!-- email empresarial -->
+                     <tr> <td><span>Email Pessoal:</span></td> <td colspan="3"><input style="width:100%" type="text" id="email" name="email" value="<?php echo $func->email; ?>"></td></tr> <!-- email -->
+                     <tr> <td><span>Email Empresarial:</span></td> <td colspan="3"><input style="width:100%" type="text" id="email_emp" name="email_emp" value="<?php echo $func->email_empresa; ?>"></td></tr> <!-- email empresarial -->
                      <tr> <td><span>Senha:</span></td> <td><input type="text" id="senha" name="senha"></td></tr> <!-- senha -->
                      <tr>
                         <td><span>Empresa:</span></td>
-                        <td>
+                        <td colspan="3">
                            <?php //buscar array de CBO
                               $empresa = new Empresa();
                               $empresas = $empresa->get_all_empresa();
@@ -708,8 +702,7 @@ function carregaUf_CartTrab(uf){
                               ?>
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
-                        </td>
-                        <td><span>Data Adm.:</span></td><td><input type="text" id="data_admissao" style="width: 100px;" name="data_admissao" value="<?php echo $data_adm ?>" title="Data de admissão do funcionário"></td>
+                        <span>Data Adm.:</span><input type="date" id="data_admissao" style="width: 140px;" name="data_admissao" value="<?php echo $func->data_adm; ?>" title="Data de admissão do funcionário"></td>
                         <?php echo "<script> carregaEmpresa('".$func->id_empresa."') </script>";  ?>
                      </tr>
                      <tr>
@@ -724,7 +717,7 @@ function carregaUf_CartTrab(uf){
                         <?php echo '<script> buscar_postos('.$func->id_empresa.'); </script>'; ?> 
                      </tr>
                      <tr> <td><span>Salário Base:</span></td> <td><input type="text" id="sal_base" name="sal_base" value="<?php echo $func->salario_base; ?>"></td></tr> <!-- Salário base -->
-                     <tr> <td><span>Qtd. Horas Semanais:</span></td> <td><input type="text" id="qtd_horas_sem" name="qtd_horas_sem" value="<?php echo $func->qtd_horas_sem; ?>"></td></tr> <!-- Quantidade de horas semanais -->
+                     <tr> <td><span>Qtd. Horas Semanais:</span></td> <td><input type="number" id="qtd_horas_sem" name="qtd_horas_sem" value="<?php echo $func->qtd_horas_sem; ?>"></td></tr> <!-- Quantidade de horas semanais -->
                      <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" value="<?php echo $func->num_pis; ?>"></td></tr> <!-- Numero do PIS -->
                      <tr> 
                         <td><span>Num. Cart. Trab.:</span></td>
@@ -753,7 +746,7 @@ function carregaUf_CartTrab(uf){
                               $turno = new Turno();
                               $turnos = $turno->get_name_all_turno();
                            ?>
-                           <select name="turno" id="turno">
+                           <select name="turno" id="turno" style="width:100%">
                               <option>Selecione um turno</option>
                               <?php 
                                  foreach($turnos as $key => $turno){
@@ -773,7 +766,7 @@ function carregaUf_CartTrab(uf){
                               $cbo = new Cbo();
                               $cbos = $cbo->get_name_all_cbo();
                            ?>
-                           <select name="cbo" id="cbo">
+                           <select name="cbo" id="cbo" style="width:100%" >
                               <option>Selecione um cbo</option>
                               <?php 
                                  foreach($cbos as $key => $cbo){
@@ -786,10 +779,10 @@ function carregaUf_CartTrab(uf){
                         <?php echo "<script> carregaCBO('".$func->id_cbo."') </script>";  ?>
                      </tr>
                      <tr>
-                        <td> <span>Rua: </span></td><td colspan="3"><input type="text" id="rua" name="rua" value="<?php echo $endereco[0][0]; ?>" > <span>Nº</span> <input style="width:30px;" type="text" id="num" name="num" value="<?php echo $endereco[0][1]; ?>"> </td>
+                        <td> <span>Rua: </span></td><td colspan="3"><input style="width:275px" type="text" id="rua" name="rua" value="<?php echo $endereco[0][0]; ?>" > <span>Nº</span> <input style="width:60px;" type="number" id="num" name="num" value="<?php echo $endereco[0][1]; ?>"> </td>
                      </tr>
                       <tr>
-                        <td> <span>Bairro: </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" style="width:200px" value="<?php echo $endereco[0][4]; ?>"> <span> CEP </span> <input style="width:100px;" type="text" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>"> </td>
+                        <td> <span>Bairro: </span></td><td colspan="3"><input style="width:225px" type="text" id="bairro" name="bairro" style="width:200px" value="<?php echo $endereco[0][4]; ?>"> <span> CEP </span> <input style="width:100px;" type="text" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>"> </td>
                      </tr>
                      <tr>
                         <td><span>Estado:</span></td>
@@ -875,16 +868,16 @@ function carregaUf_CartTrab(uf){
                      <!-- <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="cpf" name="cpf" value='Insira seu email aqui' onclick="this.value='';" onblur="javascript:if (this.value=='') {this.value='Insira seu email aqui'};"></td></tr> -->
                      <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="cpf" name="cpf"></td></tr> <!-- CPF -->
                      <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg"></td><td><span>Org.Emissor:</span></td><td><input style="width:100%" type="text" id="org_em_rg" name="org_em_rg" ></td></tr> <!-- RG -->
-                     <tr> <td><span>Data Em. RG:</span></td> <td colspan="3"><input type="text" id="data_em_rg" name="data_em_rg"  title="Data de emissão do RG"></td></tr> <!-- data de emissão do rg -->
+                     <tr> <td><span>Data Em. RG:</span></td> <td colspan="3"><input type="date" id="data_em_rg" name="data_em_rg"  title="Data de emissão do RG"></td></tr> <!-- data de emissão do rg -->
                      <tr> <td><span>Título Eleitoral:</span></td> <td colspan="3"><input type="text" id="titu_eleitoral" name="titu_eleitoral" ></td></tr> <!-- Numero do titulo eleitoral -->
-                     <tr> <td><span>Data Nasc.:</span></td> <td><input type="text" id="data_nasc" name="data_nasc"></td></tr> <!-- data nacimento -->
+                     <tr> <td><span>Data Nasc.:</span></td> <td><input type="date" id="data_nasc" name="data_nasc"></td></tr> <!-- data nacimento -->
                      <tr> <td><span>Telefone:</span></td> <td><input type="text" id="telefone" name="telefone" ></td></tr> <!-- telefone -->
                      <tr> <td><span>Email Pessoal:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="email" name="email"></td></tr> <!-- email -->
                      <tr> <td><span>Email empresarial:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="email_emp" name="email_emp"></td></tr> <!-- email empresa_filialrial -->
-                     <tr> <td><span>Senha:</span></td> <td><input type="password" id="senha" name="senha" ></td></tr> <!-- senha -->
+                     <tr> <td><span>Senha:</span></td> <td colspan="3"><input type="password" id="senha" name="senha" ></td></tr> <!-- senha -->
                      <tr>
                         <td><span>Empresa:</span></td>
-                        <td>
+                        <td colspan="3">
                            <?php //buscar array de CBO
                               $empresa = new Empresa();
                               $empresas = $empresa->get_all_empresa();
@@ -898,8 +891,8 @@ function carregaUf_CartTrab(uf){
                               ?>
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
-                        </td>
-                        <td><span>Data Adm.:</span></td><td><input type="text" id="data_admissao" style="width: 100%;" name="data_admissao"  title="Data de admissão do funcionário"></td>
+                        
+                        <span>Data Adm.:</span><input type="date" id="data_admissao" style="width: 140px;" name="data_admissao"  title="Data de admissão do funcionário"></td>
                      </tr>
                      <tr>
                         <td><span>Posto de trabalho:</span></td>
@@ -912,7 +905,7 @@ function carregaUf_CartTrab(uf){
                         </td>
                      </tr>
                      <tr> <td><span>Salário Base:</span></td> <td><input type="text" id="sal_base" name="sal_base" ></td></tr> <!-- Salário base -->
-                     <tr> <td><span>Qtd. Horas Semanais:</span></td> <td><input type="text" id="qtd_horas_sem" name="qtd_horas_sem" ></td></tr> <!-- Quantidade de horas semanais -->
+                     <tr> <td><span>Qtd. Horas Semanais:</span></td> <td><input type="number" id="qtd_horas_sem" name="qtd_horas_sem" ></td></tr> <!-- Quantidade de horas semanais -->
                      <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" ></td></tr> <!-- Numero do PIS -->
                      <tr> 
                         <td><span>Nº Cart. Trab.:</span></td>
@@ -970,7 +963,7 @@ function carregaUf_CartTrab(uf){
                         </td>
                      </tr>
                      <tr>
-                        <td> <span>Rua: </span></td><td colspan="3"><input type="text" id="rua" name="rua" style="width:80%"> <span> Nº </span> <input style="width:50px;" type="text" id="num" name="num" > </td>
+                        <td> <span>Rua: </span></td><td colspan="3"><input type="text" id="rua" name="rua" style="width:80%"> <span> Nº </span> <input style="width:50px;" type="number" id="num" name="num" > </td>
                      </tr>
                      <tr>
                         <td> <span>Bairro: </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" style="width:65%"> <span> CEP </span> <input style="width:80px;" type="text" id="cep" name="cep" > </td>
@@ -1053,8 +1046,7 @@ function carregaUf_CartTrab(uf){
                            $cpf = $_POST['cpf'];
                            $rg = $_POST['rg'];
                            
-                           $data_nasc = explode("/", $_POST['data_nasc']);
-                           $data_nasc = $data_nasc[2].'-'.$data_nasc[1].'-'.$data_nasc[0];
+                           $data_nasc = $_POST['data_nasc'];
                            
                            $telefone = $_POST['telefone'];
                            $email = $_POST['email'];
@@ -1063,16 +1055,14 @@ function carregaUf_CartTrab(uf){
                            $id_empresa_filial = $_POST['empresa_filial'];
                            $id_turno = $_POST['turno'];
                            
-                           $data_em_rg = explode("/", $_POST['data_em_rg']);
-                           $data_em_rg = $data_em_rg[2].'-'.$data_em_rg[1].'-'.$data_em_rg[0];
+                           $data_em_rg = $_POST['data_em_rg'];
 
 
                            $org_em_rg = strtoupper($_POST['org_em_rg']);
                            $num_tit_eleitor = $_POST['titu_eleitoral'];
                            $email_empresa_filial = $_POST['email_emp'];
                            
-                           $data_adm = explode("/", $_POST['data_admissao']);
-                           $data_adm = $data_adm[2].'-'.$data_adm[1].'-'.$data_adm[0];
+                           $data_adm = $_POST['data_admissao'];
 
 
                            $salario_base = formata_salario($_POST['sal_base']);
@@ -1084,7 +1074,7 @@ function carregaUf_CartTrab(uf){
                            $id_supervisor = $_POST['superv'];
 
                            $id_cbo = $_POST['cbo'];
-                           $is_admin = $_POST['is_admin']?1:0;
+                           $is_admin = (isset($_POST['is_admin']))?(($_POST['is_admin'])?1:0):0;
 
                            $func->add_func($nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor);
                            // echo $func->printFunc();
@@ -1107,8 +1097,7 @@ function carregaUf_CartTrab(uf){
                            $nome = $_POST['nome'];
                            $cpf = $_POST['cpf'];
 
-                           $data_nasc = explode("/", $_POST['data_nasc']);
-                           $data_nasc = $data_nasc[2].'-'.$data_nasc[1].'-'.$data_nasc[0];
+                           $data_nasc = $_POST['data_nasc'];
 
                            $telefone = $_POST['telefone'];
                            $email = $_POST['email'];
@@ -1117,19 +1106,17 @@ function carregaUf_CartTrab(uf){
                            $id_empresa_filial = $_POST['empresa_filial'];
                            $id_turno = $_POST['turno'];
                            $id_cbo = $_POST['cbo'];
-                           $is_admin = ($_POST['is_admin'])?1:0;
+                           $is_admin = (isset($_POST['is_admin']))?(($_POST['is_admin'])?1:0):0;
 
                            $rg = $_POST['rg'];
                            
-                           $data_em_rg = explode("/", $_POST['data_em_rg']);
-                           $data_em_rg = $data_em_rg = $data_em_rg[2].'-'.$data_em_rg[1].'-'.$data_em_rg[0];
+                           $data_em_rg = $_POST['data_em_rg'];
 
-                           $org_em_rg = $_POST['org_em_rg'];
+                           $org_em_rg = strtoupper($_POST['org_em_rg']);
                            $num_tit_eleitor = $_POST['titu_eleitoral'];
                            $email_empresa = $_POST['email_emp'];
                            
-                           $data_adm = explode("/", $_POST['data_admissao']);
-                           $data_adm = $data_adm = $data_adm[2].'-'.$data_adm[1].'-'.$data_adm[0];
+                           $data_adm = $_POST['data_admissao'];
                            
                            $salario_base = formata_salario($_POST['sal_base']);  // retorna salario formatado
                            

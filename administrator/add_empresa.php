@@ -394,25 +394,25 @@ function buscar_cidades(){
 					 <input type="hidden" name="tipo" value="editar">
 					 <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
 					 <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $empresa->id_endereco; ?>"> 	                 
-	                 <table border='0'>                  
-                     <tr> <td><span>Razão Social:</span></td> <td colspan="3"><input type="text" id="razao_social" name="razao_social" value="<?php echo $empresa->razao_social; ?>" ></td></tr> <!-- nome -->
-                     <tr> <td><span>Nome Fantasia:</span></td> <td><input type="text" id="nome_fantasia" name="nome_fantasia"  value="<?php echo $empresa->nome_fantasia; ?>"></td></tr> <!-- CPF -->
-                     <tr> <td><span>CNPJ:</span></td> <td><input type="text" id="cnpj" name="cnpj"value="<?php echo $empresa->cnpj; ?>"></td><td></tr> <!-- RG -->
-                     <tr> <td><span>Inscrição Estadual:</span></td> <td colspan="3"><input type="text" id="inscricao_estadual" name="inscricao_estadual" value="<?php echo $empresa->ins_estadual; ?>" > </td></tr> <!-- data de emissão do rg -->
-                     <tr> <td><span>Inscricao Municipal:</span></td> <td colspan="3"><input type="text" id="inscricao_municipal" name="inscricao_municipal" value="<?php echo $empresa->ins_municipal; ?>"> </td></tr> <!-- Numero do titulo eleitoral -->
-                     <tr> <td><span>Telefone:</span></td> <td><input type="text" id="tel" name="tel" value="<?php echo $empresa->telefone; ?>"></td></tr>
+	                 <table border='1' style="width:100%">                  
+                     <tr> <td><span>Razão Social:</span></td> <td colspan="3"><input style="width:100%" type="text" id="razao_social" name="razao_social" value="<?php echo $empresa->razao_social; ?>" ></td></tr> <!-- nome -->
+                     <tr> <td><span>Nome Fantasia:</span></td> <td><input style="width:100%" type="text" id="nome_fantasia" name="nome_fantasia"  value="<?php echo $empresa->nome_fantasia; ?>"></td></tr> <!-- CPF -->
+                     <tr> <td><span>CNPJ:</span></td> <td><input style="width:100%" type="text" id="cnpj" name="cnpj"value="<?php echo $empresa->cnpj; ?>"></td></tr> <!-- RG -->
+                     <tr> <td><span>Inscrição Estadual:</span></td> <td colspan="3"><input style="width:100%" type="text" id="inscricao_estadual" name="inscricao_estadual" value="<?php echo $empresa->ins_estadual; ?>" > </td></tr> <!-- data de emissão do rg -->
+                     <tr> <td><span>Inscricao Municipal:</span></td> <td colspan="3"><input style="width:100%" type="text" id="inscricao_municipal" name="inscricao_municipal" value="<?php echo $empresa->ins_municipal; ?>"> </td></tr> <!-- Numero do titulo eleitoral -->
+                     <tr> <td><span>Telefone:</span></td> <td><input style="width:100%" type="text" id="tel" name="tel" value="<?php echo $empresa->telefone; ?>"></td></tr>
                      <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
-                     <tr><td> <span>Rua: </span></td><td colspan="3"><input value="<?php echo $endereco[0][0]; ?>" type="text" id="rua" name="rua" > <td></tr>
-                     <tr><td> <span>Numero: </span></td><td colspan="3"><input value="<?php echo $endereco[0][1]; ?>" type="number" id="numero" name="numero" > <td></tr>
-                     <tr><td> <span>Bairro: </span></td><td colspan="3"><input value="<?php echo $endereco[0][4]; ?>" type="text" id="bairro" name="bairro" > <td></tr>
-                     <tr><td> <span> CEP </span></td><td><input type="text" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>"> </td></tr>                     
+                     <tr><td> <span>Rua: </span></td><td colspan="3"><input style="width:100%" value="<?php echo $endereco[0][0]; ?>" type="text" id="rua" name="rua" > </td></tr>
+                     <tr><td> <span>Numero: </span></td><td colspan="3"><input  style="width:100%" value="<?php echo $endereco[0][1]; ?>" type="number" id="numero" name="numero" > </td></tr>
+                     <tr><td> <span>Bairro: </span></td><td colspan="3"><input style="width:100%" value="<?php echo $endereco[0][4]; ?>" type="text" id="bairro" name="bairro" > </td></tr>
+                     <tr><td> <span> CEP </span></td><td><input type="text" style="width:100%" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>"> </td></tr>                     
                      <tr><td><span>Estado:</span></td>
                         <td>
                            <?php //buscar array de CBO
                               $estado = new Estado();
                               $estados = $estado->get_name_all_uf();
                            ?>
-                           <select name="estado" id="estado" onchange="buscar_cidades()">
+                           <select name="estado" id="estado" onchange="buscar_cidades()" style="width:100%">
                               <option>Selecione um estado</option>
                               <?php 
                                  foreach($estados as $key => $estado){
@@ -426,8 +426,8 @@ function buscar_cidades(){
                      </tr>
                      <tr><td><span>Cidades:</span></td>                       
                         <td colspan="3">
-                           <div id="load_cidades">
-                             <select name="cidade" id="cidade">
+                           <div id="load_cidades" style="width:100%">
+                             <select name="cidade" id="cidade" style="width:100%">
                                <option value="">Selecione um estado</option>
                              </select>
                            </div>
@@ -435,7 +435,7 @@ function buscar_cidades(){
                          <?php echo "<script> carregaCidade('".$endereco[0][2]."'); </script>" ?>
                      </tr>
                      <tr><td><span><b>Responsável</b></span></td>
-					 <td><select id="responsavel" name="responsavel">
+					 <td><select id="responsavel" name="responsavel" style="width:100%">
                               <option value="no_res">Selecione o Responsável</option>
                               <?php 
                                  $func = new Funcionario();
@@ -451,30 +451,30 @@ function buscar_cidades(){
 					 <tr><td colspan="2" style="text-align:center"><input  class="button" type="submit" value="editar"><input class="button" type="button" value="Cancelar"></td></tr> 
                 	 </table>
                 	 </form>
-                	 </div>                				
+                	 
 					<?php }else{ ?> <!-- CADASTRAR Empresa -->					
 					<form method="POST" id="ad_emp" name="add_empresa" action="add_empresa.php" onsubmit="return valida(this)">
 					 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Adicionar Empresa</span></div></div>
 					 <input type="hidden" name="tipo" value="cadastrar">	                 
-	                 <table border='0'>                  
-                     <tr> <td><span>Razão Social:</span></td> <td colspan="3"><input type="text" id="razao_social" name="razao_social"  ></td></tr> <!-- nome -->
-                     <tr> <td><span>Nome Fantasia:</span></td> <td><input type="text" id="nome_fantasia" name="nome_fantasia"></td></tr> <!-- CPF -->
-                     <tr> <td><span>CNPJ:</span></td> <td><input type="text" id="cnpj" name="cnpj"></td></tr> <!-- RG -->
-                     <tr> <td><span>Inscrição Estadual:</span></td> <td colspan="3"><input type="text" id="inscricao_estadual" name="inscricao_estadual"> </td></tr> <!-- data de emissão do rg -->
-                     <tr> <td><span>Inscricao Municipal:</span></td> <td colspan="3"><input type="text" id="inscricao_municipal" name="inscricao_municipal" ></td></tr> <!-- Numero do titulo eleitoral -->
-                     <tr> <td><span>Telefone:</span></td> <td><input type="text" id="tel" name="tel"></td></tr>
+	                 <table border='0' style="width:100%">                  
+                     <tr> <td><span>Razão Social:</span></td> <td colspan="3"><input style="width:100%" type="text" id="razao_social" name="razao_social"  ></td></tr> <!-- nome -->
+                     <tr> <td><span>Nome Fantasia:</span></td> <td><input style="width:100%" type="text" id="nome_fantasia" name="nome_fantasia"></td></tr> <!-- CPF -->
+                     <tr> <td><span>CNPJ:</span></td> <td><input style="width:100%" type="text" id="cnpj" name="cnpj"></td></tr> <!-- RG -->
+                     <tr> <td><span>Inscrição Estadual:</span></td> <td colspan="3"><input style="width:100%" type="text" id="inscricao_estadual" name="inscricao_estadual"> </td></tr> <!-- data de emissão do rg -->
+                     <tr> <td><span>Inscricao Municipal:</span></td> <td colspan="3"><input style="width:100%" type="text" id="inscricao_municipal" name="inscricao_municipal" ></td></tr> <!-- Numero do titulo eleitoral -->
+                     <tr> <td><span>Telefone:</span></td> <td><input style="width:100%" type="text" id="tel" name="tel"></td></tr>
                      <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
-                     <tr><td> <span>Rua: </span></td><td colspan="3"><input type="text" id="rua" name="rua" ></td></tr>
-                     <tr><td> <span>Numero: </span></td><td colspan="3"><input type="number" id="numero" name="numero"   ></td></tr>
-                     <tr><td> <span>Bairro: </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" > </td></tr>
-                     <tr><td> <span> CEP </span></td><td><input type="text" id="cep" name="cep"> </td></tr>                     
+                     <tr><td> <span>Rua: </span></td><td colspan="3"><input style="width:100%" type="text" id="rua" name="rua" ></td></tr>
+                     <tr><td> <span>Numero: </span></td><td colspan="3"><input style="width:100%" type="number" id="numero" name="numero"   ></td></tr>
+                     <tr><td> <span>Bairro: </span></td><td colspan="3"><input style="width:100%" type="text" id="bairro" name="bairro" > </td></tr>
+                     <tr><td> <span> CEP </span></td><td><input style="width:100%" type="text" id="cep" name="cep"> </td></tr>                     
                      <tr><td><span>Estado:</span></td>
                         <td>
                            <?php //buscar array de CBO
                               $estado = new Estado();
                               $estados = $estado->get_name_all_uf();
                            ?>
-                           <select name="estado" id="estado" onchange="buscar_cidades()">
+                           <select name="estado" id="estado" onchange="buscar_cidades()" style="width:100%">
                               <option>Selecione um estado</option>
                               <?php 
                                  foreach($estados as $key => $estado){
@@ -488,14 +488,14 @@ function buscar_cidades(){
                      <tr><td><span>Cidades:</span></td>                       
                         <td colspan="3">
                            <div id="load_cidades">
-                             <select name="cidade" id="cidade">
+                             <select name="cidade" id="cidade" style="width:100%">
                                <option value="">Selecione um estado</option>
                              </select>
                            </div>
                         </td>
                      </tr>
                      <tr><td><span><b>Responsável</b></span></td>
-					 <td><select id="responsavel" name="responsavel">
+					 <td><select id="responsavel" name="responsavel" style="width:100%">
                               <option value="no_res">Selecione o Responsável</option>
                               <?php 
                                  $func = new Funcionario();
