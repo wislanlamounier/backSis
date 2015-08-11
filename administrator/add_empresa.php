@@ -27,6 +27,16 @@ require_once("../model/class_cidade_bd.php");
 
  
  <script type="text/javascript"> 
+ function confirma(id,nome){
+
+       if(confirm("Excluir Empresa "+nome+" , tem certeza?")){
+          var url = '../ajax/ajax_excluir_Empresa.php?id='+id+'&nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
+          $.get(url, function(dataReturn) {
+            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+          });
+       }
+    }
+
 
 function valida(f){
 	        var erros = 0;
@@ -439,8 +449,9 @@ function buscar_cidades(){
                        <?php echo "<script> carregaResponsavel('".$empresa->id_responsavel."'); </script>" ?>
                      </tr>
 					 <tr><td colspan="2" style="text-align:center"><input  class="button" type="submit" value="editar"><input class="button" type="button" value="Cancelar"></td></tr> 
+                	 </table>
                 	 </form>
-                	 </table>			
+                	 </div>                				
 					<?php }else{ ?> <!-- CADASTRAR Empresa -->					
 					<form method="POST" id="ad_emp" name="add_empresa" action="add_empresa.php" onsubmit="return valida(this)">
 					 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Adicionar Empresa</span></div></div>
@@ -448,14 +459,14 @@ function buscar_cidades(){
 	                 <table border='0'>                  
                      <tr> <td><span>Razão Social:</span></td> <td colspan="3"><input type="text" id="razao_social" name="razao_social"  ></td></tr> <!-- nome -->
                      <tr> <td><span>Nome Fantasia:</span></td> <td><input type="text" id="nome_fantasia" name="nome_fantasia"></td></tr> <!-- CPF -->
-                     <tr> <td><span>CNPJ:</span></td> <td><input type="text" id="cnpj" name="cnpj"></td><td></tr> <!-- RG -->
+                     <tr> <td><span>CNPJ:</span></td> <td><input type="text" id="cnpj" name="cnpj"></td></tr> <!-- RG -->
                      <tr> <td><span>Inscrição Estadual:</span></td> <td colspan="3"><input type="text" id="inscricao_estadual" name="inscricao_estadual"> </td></tr> <!-- data de emissão do rg -->
                      <tr> <td><span>Inscricao Municipal:</span></td> <td colspan="3"><input type="text" id="inscricao_municipal" name="inscricao_municipal" ></td></tr> <!-- Numero do titulo eleitoral -->
                      <tr> <td><span>Telefone:</span></td> <td><input type="text" id="tel" name="tel"></td></tr>
                      <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
-                     <tr><td> <span>Rua: </span></td><td colspan="3"><input type="text" id="rua" name="rua" ><td></tr>
-                     <tr><td> <span>Numero: </span></td><td colspan="3"><input type="number" id="numero" name="numero"   ><td></tr>
-                     <tr><td> <span>Bairro: </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" > <td></tr>
+                     <tr><td> <span>Rua: </span></td><td colspan="3"><input type="text" id="rua" name="rua" ></td></tr>
+                     <tr><td> <span>Numero: </span></td><td colspan="3"><input type="number" id="numero" name="numero"   ></td></tr>
+                     <tr><td> <span>Bairro: </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" > </td></tr>
                      <tr><td> <span> CEP </span></td><td><input type="text" id="cep" name="cep"> </td></tr>                     
                      <tr><td><span>Estado:</span></td>
                         <td>
@@ -499,7 +510,8 @@ function buscar_cidades(){
 					 <tr><td colspan="2" style="text-align:center"><input  class="button" type="submit" value="Cadastrar"><input class="button" type="button" value="Cancelar"></td></tr> 					 	
                 	 </table>
                 	 </form>               	
-                	 </div>              	 	
+                	 </div>
+
 			 		<?php }?>
 			 				 		
 			 		
@@ -577,7 +589,7 @@ function buscar_cidades(){
                
 
   
- 													
+ 												
  						<?php include("informacoes_empresa.php");?> 
  </body>
  </html>

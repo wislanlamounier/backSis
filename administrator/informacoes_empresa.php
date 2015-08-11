@@ -1,17 +1,17 @@
 <?php
 
-include_once("../model/class_cbo_bd.php");
+include_once("../model/class_empresa_bd.php");
 
 ?>
 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 	function buscar_funcionarios(param){
         if(param == 0){//EDITAR
-           var nome_razao_social = document.getElementById('nome_search').value;
+           var nome = document.getElementById('nome_search').value;
             //se encontrou o estado
-            if(nome_razao_social){
+            if(nome){
               
-              var url = '../ajax/ajax_buscar_informacoes_empresa.php?nome_razao_social='+nome_razao_social+'&param='+param;  //caminho do arquivo php que irá buscar as cidades no BD
+              var url = '../ajax/ajax_buscar_informacoes_empresa.php?nome='+nome+'&param='+param;  //caminho do arquivo php que irá buscar as cidades no BD
 
               $.get(url, function(dataReturn) {
                 
@@ -20,11 +20,11 @@ include_once("../model/class_cbo_bd.php");
             }
         }
         if(param == 1){//EXCLUIR
-          var descricao = document.getElementById('nome_search').value;
+          var nome = document.getElementById('nome_search').value;
             //se encontrou o estado
-            if(descricao){
+            if(nome){
               
-              var url = '../ajax/ajax_buscar_informacoes_exames.php?descricao='+descricao+'&param='+param;  //caminho do arquivo php que irá buscar as cidades no BD
+              var url = '../ajax/ajax_buscar_informacoes_empresa.php?nome='+nome+'&param='+param;  //caminho do arquivo php que irá buscar as cidades no BD
 
               $.get(url, function(dataReturn) {
                 

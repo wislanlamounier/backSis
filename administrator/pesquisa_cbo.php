@@ -41,7 +41,9 @@ include("../model/class_exame_bd.php");
                         $cbo = new Cbo();
                         $cbos = $cbo->get_cbo_by_codigo_and_desc($_POST['name_search']);
                           echo '<table class="">';
+                          if(count($cbos)>0)
                           foreach($cbos as $key => $cbo){
+
                              echo '<tr>
                                       <td><a href="pesquisa_cbo.php?verificador=1&id='.$cbos[$key][0].'">'.$cbos[$key][1]." ".$cbos[$key][2].'</a></td></tr>';
                           }

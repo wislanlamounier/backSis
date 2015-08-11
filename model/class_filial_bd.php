@@ -81,6 +81,7 @@ class Filial{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
+		$return = array();
 		$aux=0;
 		$query = $g->tratar_query("SELECT * FROM filiais WHERE oculto = 0 && nome LIKE '%%%s%%'", $nome);
 
@@ -90,8 +91,13 @@ class Filial{
 		    $return[$aux][2] = $result['cod_posto'];
 		 	$aux++;
 		 }
-		 
-		 return $return;
+		 if ($aux ==0){		 	
+			echo '<div class="msg">Posto não encontrado !</div>';		
+		 }
+		else{
+			 return $return;
+			
+		}
 	}
 	public function get_name_all_filial(){
 		 $sql = new Sql();

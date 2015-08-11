@@ -32,7 +32,7 @@ class Empresa{
           $sql = new Sql();
           $sql->conn_bd();
           $g = new Glob();
-
+          $return = array();
           $query = "INSERT INTO empresa (cnpj, razao_social, nome_fantasia, ins_estadual, ins_municipal, telefone, id_responsavel, id_endereco) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')";
           if($g->tratar_query($query, $this->cnpj, $this->razao_social, $this->nome_fantasia, $this->ins_estadual, $this->ins_municipal,  $this->telefone, $this->id_responsavel, $this->id_endereco)){
             return true;
@@ -71,7 +71,11 @@ class Empresa{
           $return[$aux][2] = $result['nome_fantasia'];
           $aux++;
         }
+        if($aux == 0){
+          echo "<div class='msg'>Empresa não encontrada !</div>";
+        }else{
         return $return;
+        }
     }
 
     public function atualiza_empresa($id, $cnpj, $razao_social, $nome_fantasia, $ins_estadual, $ins_municipal, $telefone, $id_responsavel, $id_endereco){
@@ -151,7 +155,16 @@ class Empresa{
         }
     }
 
-
+    public function ocultar_by_id($id){
+    $sql = new Sql();
+    $sql->conn_bd();
+    $g = new Glob();
+    $query = "UPDATE empresa SET oculto = 1 WHERE id = %s";
+    $result = $g->tratar_query($query, $id);
+    if($result){
+      echo '<div class="msg">Cliente excluido com sucesso!</div>';
+    }
+  }
 
     public function printEmpresa(){
       

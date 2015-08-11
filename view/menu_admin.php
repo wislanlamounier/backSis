@@ -13,7 +13,8 @@
         <li><a href="add_turno.php">Turno</a></li>
         <li><a href="add_cbo.php">CBO</a></li>
         <li><a href="add_exames.php">Exames</a></li>
-        <li><a href="add_filial.php">Filial</a></li>        
+        <li><a href="add_filial.php">Filial</a></li>
+        <li><a href="add_empresa.php">Empresa</a></li>        
       </ul>
     </li>
     <li>

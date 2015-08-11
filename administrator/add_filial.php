@@ -31,8 +31,6 @@ function validate(){
             $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
           });
        }
-       
-
     }
 
    function validate(f){

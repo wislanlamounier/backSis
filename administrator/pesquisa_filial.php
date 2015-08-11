@@ -41,6 +41,7 @@ include("../model/class_filial_bd.php");
                         $filial = new Filial();
                         $filiais = $filial->get_filial_by_cnpj_and_nome($_POST['name_search']);
                           echo '<table class="">';
+                          if(count($filiais)>0)
                           foreach($filiais as $key => $filial){
                              echo '<tr>
                                       <td><a href="pesquisa_filial.php?verificador=1&id='.$filiais[$key][0].'">'.$filiais[$key][1]." ".$filiais[$key][2].'</a></td></tr>';

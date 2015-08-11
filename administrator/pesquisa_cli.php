@@ -45,8 +45,10 @@ include("../model/class_cliente.php");
                             if($_POST['tipo']==0){
                                 $cli = new Cliente();
                                 $tipo = $_POST['tipo'];
+
                                 $clis = $cli->pesquisa_cli_by_name($_POST['name_search'], $tipo, $_SESSION['id_empresa']);
                                         echo '<table>';
+                                        if(count($clis)>0)
                                 foreach($clis as $key => $cli){
                                    echo '<tr>
                                             <td><a href="pesquisa_cli.php?verificador=1&id='.$clis[$key][0].'">'.$clis[$key][0]." ".$clis[$key][1].'</a></td></tr>';
@@ -59,6 +61,7 @@ include("../model/class_cliente.php");
                                 $clis = $cli->pesquisa_cli_by_name($_POST['name_search'], $tipo, $_SESSION['id_empresa']);
                                 if($clis != ""){
                                         echo '<table>';
+                                if(count($clis)>0)
                                 foreach($clis as $key => $cli){
                                    echo '<tr>
                                             <td><a href="pesquisa_cli.php?verificador=2&id='.$clis[$key][0].'">'.$clis[$key][0]." ".$clis[$key][1].'</a></td></tr>';
