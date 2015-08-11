@@ -510,7 +510,7 @@ function buscar_cidades(){
 					 <tr><td colspan="2" style="text-align:center"><input  class="button" type="submit" value="Cadastrar"><input class="button" type="button" value="Cancelar"></td></tr> 					 	
                 	 </table>
                 	 </form>               	
-                	 </div>
+                	 
 
 			 		<?php }?>
 			 				 		
@@ -586,10 +586,7 @@ function buscar_cidades(){
                           }
                    	}
                    	?>
-               
-
-  
- 												
- 						<?php include("informacoes_empresa.php");?> 
+            </div>   
+ 			<?php include("informacoes_empresa.php");?> 
  </body>
  </html>
