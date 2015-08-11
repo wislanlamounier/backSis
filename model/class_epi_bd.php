@@ -116,6 +116,51 @@ class Epi{
 		return $return;
 	}
 
+	public function get_epi_name($name){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$aux=0;
+		$query = "SELECT * FROM equipamentos_func WHERE nome_epi LIKE '%%%s%%'";
+		$query_tra = $g->tratar_query($query, $name);
+
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id'];
+ 			$return[$aux][1] = $result['nome_epi'];
+			$return[$aux][2] = $result['descricao'];
+			
+			$aux++;
+		}
+		if($aux == 0){
+			$sql->close_conn();
+			echo '<div class="msg">Nenhum EPI encontrado!</div>';
+		}else{
+			$sql->close_conn();
+			return $return;
+		}
+	}
+	public function printEpi(){
+		
+		echo "<table class='table_pesquisa'>";
+		echo "<tr><td>ID: </td><td>".$this->id."</td></tr>";
+		echo "<tr><td>Nome: </td><td>".$this->nome_epi."</td></tr>";
+		echo "<tr><td>Descricao: </td><td>".$this->descricao."</td></tr>";
+		if($this->is_epi == 1){
+			echo"<tr><td>Equipamento de proteção</td><td><input type='checkbox' disabled checked>";
+		}
+		if($this->is_epi == 0){
+			echo"<tr><td>Equipamento de proteção</td><td><input type='checkbox' disabled>";
+		}
+		// if($this->is_epi == 1 ){
+		// echo "<tr><td>Equipamento de proteção</td><td><input type='checkbox' checked='true'></td></tr>";
+		// }elseif ($this->is_epi ==0) {
+		// echo "<tr><td>Equipamento de proteção</td><td><input type='checkbox' checked='false'></td></tr>";
+		
+		echo "</table>";		
+		}
+
+
+
 	public function get_epi_by_id_nome($id){
 		 $sql = new Sql();
 		 $sql->conn_bd();
@@ -138,9 +183,9 @@ class Epi{
 	     }
 
 	}
-	
-	
+
 }
+
 ?>
 
 

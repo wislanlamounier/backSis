@@ -26,6 +26,7 @@
         <li><a href="pesquisa_cbo.php">CBO</a></li>
         <li><a href="pesquisa_cli.php">Cliente</a></li>
         <li><a href="pesquisa_filial.php">Filial</a></li>
+        <li><a href="pesquisa_epi.php">EPI</a></li>
       </ul>
     </li>
     <li><a href="define_relatorio.php">Relatórios</a></li>
