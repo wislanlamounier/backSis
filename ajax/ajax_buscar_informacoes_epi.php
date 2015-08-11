@@ -7,12 +7,7 @@ include_once("../model/class_epi_bd.php");
 	$sql->conn_bd();
 
 	$nome_epi = $_GET['nome_epi'];  //codigo do estado passado por parametro
-	
-	// $sql = "SELECT * FROM equipamentos_func WHERE nome_epi LIKE '%$nome_epi%' ORDER BY id";  //consulta todas as cidades que possuem o codigo do estado
-	// $res = mysql_query($sql);
-	// $num = mysql_num_rows($res);
-	//monto um array de cidades
-
+		
 	$epi = new Epi();
 	$epi = $epi->get_epi_by_name($nome_epi);
 
@@ -39,8 +34,7 @@ include_once("../model/class_epi_bd.php");
 			    foreach($arrEpi as $value => $epi){
 			      echo "<tr><td style='padding-left:20px;'><a href='add_epi.php?tipo=editar&id=".$arrEpi[$value][0]."'>".$arrEpi[$value][1]."</a></td></tr>";
 			     	$cont++;
-			  	}
-			  	// echo '<tr><td style="padding:0;"><hr style="background-color:#eee;"/></td></tr>';
+			  	}			  	
 			  	echo '<tr><td style="padding-left:20px; font-size: 12px; color:#777;">'.$cont. " registro(s) encontrado(s)</td></tr>";
 		   ?>
 		  
