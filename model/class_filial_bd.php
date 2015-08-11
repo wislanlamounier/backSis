@@ -115,6 +115,7 @@ class Filial{
 		$sql->conn_bd();
 		$g = new Glob();
 		$aux = 0;
+		$return = array();
 		$query = "SELECT * FROM filiais WHERE id_empresa = %s";
 		$query = $g->tratar_query($query, $id_empresa);
 

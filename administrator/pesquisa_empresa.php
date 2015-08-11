@@ -48,9 +48,10 @@ include_once("../model/class_empresa_bd.php");
                         $empresa = new Empresa();
                         $empresas = $empresa->get_empresa_by_nome_fantasia($_POST['name_search']);
                         if(count($empresas) == 0){
-                          echo '<div class="msg_pesq">Nenhum registro encontrado!</div>';
+                          echo '<div class="msg">Nenhum registro encontrado!</div>';
                         } 
                           echo '<table class="exibe-pesquisa">';
+                        if(count($empresas) > 0)
                           foreach($empresas as $key => $empresa){
                              echo '<tr>
                                       <td><a href="pesquisa_empresa.php?verificador=1&cnpj='.$empresas[$key][1].'"><b>Empresa: </b>'.$empresas[$key][2]." - <b>CNPJ: </b>".$empresas[$key][1].'</a></td></tr>';

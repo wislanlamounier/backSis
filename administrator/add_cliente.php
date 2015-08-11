@@ -781,7 +781,7 @@ require_once("../model/class_cidade_bd.php");
 	                        $site = $_POST['site'];
 	                        $observacao = $_POST['observacao'];
 	                        
-	                        $fornecedor = ($_POST['fornecedor'])?1:0;
+	                        $fornecedor = (isset($_POST['fornecedor']))?(($_POST['fornecedor'])?1:0):0;
                         
 	                        //recebendo endereco
 	                        $rua = $_POST['rua'];
@@ -831,7 +831,7 @@ require_once("../model/class_cidade_bd.php");
                         $email_resp = $_POST['email_resp'];
                         $site = $_POST['site'];
                         $observacao = $_POST['observacao'];
-                        $fornecedor = ($_POST['fornecedor'])?1:0;
+                        $fornecedor = (isset($_POST['fornecedor']))?(($_POST['fornecedor'])?1:0):0;
                         
                         
                         //recebendo endereco
@@ -890,7 +890,7 @@ require_once("../model/class_cidade_bd.php");
 							$email_resp = $_POST['email_resp'];
 							$site = $_POST['site'];
 							$observacao = $_POST['observacao'];					
-							$fornecedor = ($_POST['fornecedor'])?1:0;
+							$fornecedor = (isset($_POST['fornecedor']))?(($_POST['fornecedor'])?1:0):0;
 							
 							//recebendo endereco
 							$endereco = new Endereco();

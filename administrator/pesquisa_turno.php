@@ -83,11 +83,13 @@ include_once("../model/class_endereco_bd.php");
                                 echo '<table class="exibe-pesquisa">';
                                 //ARRUMAR AQUI
                                 for($aux=0; $aux < count($turno); $aux++){
-                                  echo '<tr>';
-                                  echo '<td><a href="pesquisa_turno.php?verificador=1&id='.$turno[$aux][0].'">'.$turno[$aux][0].' - <b>'.$turno[$aux][1].'</b></td>';
-                                  echo '</tr>';
+                                    echo '<tr>';
+                                    echo '<td><a href="pesquisa_turno.php?verificador=1&id='.$turno[$aux][0].'">'.$turno[$aux][0].' - <b>'.$turno[$aux][1].'</b></td>';
+                                    echo '</tr>';
                                 }
                                 echo '</table>';
+                                if(count($turno) == 0)
+                                    echo '<div class="msg">Nenhum turno encontrado</div>';
                                 break;
                           case 1:
                                 echo '<table class="exibe-pesquisa">';
@@ -98,6 +100,8 @@ include_once("../model/class_endereco_bd.php");
                                   echo '</tr>';
                                 }
                                 echo '</table>';
+                                if(count($turno) == 0)
+                                    echo '<div class="msg">Nenhum turno encontrado</div>';
                                 break;
                           case 2:
                                 echo '<table class="exibe-pesquisa">';
@@ -108,6 +112,8 @@ include_once("../model/class_endereco_bd.php");
                                   echo '</tr>';
                                 }
                                 echo '</table>';
+                                if(count($turno) == 0)
+                                    echo '<div class="msg">Nenhum turno encontrado</div>';
                                 break;
                           case 3:
                                 echo '<table class="exibe-pesquisa">';
@@ -118,6 +124,8 @@ include_once("../model/class_endereco_bd.php");
                                   echo '</tr>';
                                 }
                                 echo '</table>';
+                                if(count($turno) == 0)
+                                    echo '<div class="msg">Nenhum turno encontrado</div>';
                                 break;
                           case 4:
                                 echo '<table class="exibe-pesquisa">';
@@ -128,14 +136,19 @@ include_once("../model/class_endereco_bd.php");
                                   echo '</tr>';
                                 }
                                 echo '</table>';
+                                if(count($turno) == 0)
+                                    echo '<div class="msg">Nenhum turno encontrado</div>';
                                 break;
                         }
                      }
 
                      if(isset($_GET['verificador']) && $_GET['verificador'] == 1){
-                       $turno = new Turno();
-                       $turno = $turno->getTurnoById($_GET['id']);
-                       echo $turno->printTurno();
+                         $turno = new Turno();
+                         $turno = $turno->getTurnoById($_GET['id']);
+                         if(count($turno) > 0)
+                            echo $turno->printTurno();
+                         else
+                            echo '<div class="msg">Nenhum turno encontrado</div>';
 
                      }
                   ?>

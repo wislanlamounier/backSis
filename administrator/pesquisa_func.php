@@ -41,7 +41,8 @@ include("../model/class_cliente.php");
                             
                                 $func = new Funcionario();                                
                                 $funcs = $func->get_func_by_name($_POST['name_search'], $_SESSION['id_empresa']);
-                                        echo '<table>';
+                               echo '<table>';
+                                if(count($funcs)>0)
                                 foreach($funcs as $key => $func){
                                    echo '<tr>
                                             <td><a href="pesquisa_func.php?verificador=1&id='.$funcs[$key][0].'">'.$funcs[$key][0]." ".$funcs[$key][1].'</a></td></tr>';

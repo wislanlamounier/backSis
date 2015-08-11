@@ -25,6 +25,7 @@ class Turno{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
+		
 
 		$query = "INSERT INTO turno (nome, descricao, ini_exp, ini_alm, fim_alm, fim_exp) VALUES ('%s','%s', '%s', '%s', '%s', '%s')";
 
@@ -49,6 +50,7 @@ class Turno{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
+		$return = array();
 
 		$query = "SELECT * FROM turno WHERE id='%s' && oculto = 0";
 		
@@ -70,7 +72,7 @@ class Turno{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-
+		$return = array();
 		$query = "SELECT * FROM turno WHERE nome LIKE '%%%s%%' && oculto = 0";
 
 		$aux=0;
@@ -97,7 +99,7 @@ class Turno{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-
+		$return = array();
 		if($param == 1){//ini expediente
 			$query = "SELECT * FROM turno WHERE ini_exp LIKE '%%%s%%' && oculto = 0";
 		}else if($param == 2){//inicio almoco
@@ -140,7 +142,7 @@ class Turno{
 	public function get_name_all_turno_disponiveis(){
 		 $sql = new Sql();
 		 $sql->conn_bd();
-		 $return = array(array());
+		 $return = array();
 		 $aux=0;
 
 		 //"SELECT * FROM turno as turno WHERE nome LIKE '%%%s%%' && oculto = 0 && NOT EXISTS (SELECT id FROM funcionario WHERE id_turno = turno.id)";
@@ -163,7 +165,7 @@ class Turno{
 	public function get_name_all_turno(){
 		 $sql = new Sql();
 		 $sql->conn_bd();
-		 $return = array(array());
+		 $return = array();
 		 $aux=0;
 
 		 //"SELECT * FROM turno as turno WHERE nome LIKE '%%%s%%' && oculto = 0 && NOT EXISTS (SELECT id FROM funcionario WHERE id_turno = turno.id";

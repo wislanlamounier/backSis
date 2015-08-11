@@ -62,7 +62,7 @@ class Empresa{
         $sql->conn_bd();
         $g = new Glob();
         $aux=0;
-        $return =false;
+        $return = array();
         $query = $g->tratar_query("SELECT * FROM empresa WHERE oculto = 0 && nome_fantasia LIKE '%%%s%%'", $nome);
 
         while($result = mysql_fetch_array($query)){
@@ -207,14 +207,14 @@ class Empresa{
             $texto .=  "<tr>
                       <td><b>Filiais</b></td>
                     <tr>";
+            foreach ($filiais as $key => $filial) {
+                $texto .= '<tr>';
+                $texto .= "<td colspan='2' style='padding-left:20px;'>".$filiais[$key][1]." - ".$filiais[$key][2]."</td>";
+                $texto .= '</tr>';
+        }
         }
         
-        foreach ($filiais as $key => $filial) {
-
-          $texto .= '<tr>';
-          $texto .= "<td colspan='2' style='padding-left:20px;'>".$filiais[$key][1]." - ".$filiais[$key][2]."</td>";
-          $texto .= '</tr>';
-        }
+        
 
         $texto .= "</table>";
 
