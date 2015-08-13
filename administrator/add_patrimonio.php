@@ -24,24 +24,25 @@ function validate(){
 
 <script type="text/javascript">
 function valida(f){
-          var erros = 0;
-          var msg = "";
-            for (var i = 0; i < f.length; i++) {
+//           var erros = 0;
+//           var msg = "";
+//             for (var i = 0; i < f.length; i++) {
 
-if(f[i].name == "nome"){
-                if(f[i].value == ""){
-                   f[i].style.border = "1px solid #FF0000";
-                   erros++;
-                }else{
-                   f[i].style.border = "1px solid #898989";
-                }
-            }
-      }
-      if(erros>0){
-        return false;
-      }else{
-        return true;
-      }
+// if(f[i].name == "nome"){
+//                 if(f[i].value == ""){
+//                    f[i].style.border = "1px solid #FF0000";
+//                    erros++;
+//                 }else{
+//                    f[i].style.border = "1px solid #898989";
+//                 }
+//             }
+//       }
+//       if(erros>0){
+//         return false;
+//       }else{
+//         return true;
+//       }
+return true;
    }
 
 function carregaEmpresa(empresa){
@@ -112,7 +113,7 @@ function buscar_responsavel(){
       setTimeout(function() {
         carregaResp();
 
-        }, 250);
+        }, 100);
       }
 
 </script>
@@ -309,7 +310,7 @@ function buscar_responsavel(){
                       }                      
                 			
                       }
-                   
+                   }
 
                 if(isset($_POST['tipo']) && $_POST['tipo'] == 'editar'){
                   echo"teste!";
@@ -338,7 +339,7 @@ function buscar_responsavel(){
                               }                              
                          }                
                   }
-                }
+                
             ?>   
 	</div>
 	
