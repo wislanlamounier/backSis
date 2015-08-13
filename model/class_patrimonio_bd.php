@@ -2,6 +2,11 @@
 
 include_once("../model/class_sql.php");
 require_once("../global.php");
+include_once("../model/class_empresa_bd.php");
+include_once("../model/class_cliente.php");
+include_once("../model/class_grupo_bd.php");
+include_once("../model/class_custo_bd.php");
+include_once("../model/class_funcionario_bd.php");
 
 class Patrimonio{
 	public $id;
@@ -52,6 +57,7 @@ class Patrimonio{
           $return[$aux][0] = $result['id'];
           $return[$aux][1] = $result['nome'];
           $return[$aux][2] = $result['valor_compra'];
+
           $aux++;
         }
         if($aux == 0){
@@ -60,6 +66,28 @@ class Patrimonio{
         return $return;
         }
     }
+    public function get_patrimonio_nome($name){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$aux=0;
+		$query = "SELECT * FROM patrimonio WHERE nome LIKE '%%%s%%' &&  oculto = 0";
+		$query_tra = $g->tratar_query($query, $name);
+
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['nome'];
+			$return[$aux][2] = $result['id_fornecedor'];
+			$aux++;
+		}
+		if($aux == 0){
+			$sql->close_conn();
+			echo '<div class="msg">Nenhum patrimonio encontrado!</div>';
+		}else{
+			$sql->close_conn();
+			return $return;
+		}
+	}
     public function get_patrimonio_id($id){
 		 $sql = new Sql();
 		 $sql->conn_bd();
@@ -112,6 +140,70 @@ class Patrimonio{
 			echo '<div class="msg">Patrimonio excluido com sucesso!</div>';
 		}
 	}
+	public function printPatrimonio(){
+		
+
+		
+		  $empresa = new Empresa();
+		  $empresa = $empresa->get_empresa_by_id($this->id_empresa);	  
+		  $cliente = new Cliente();
+		  $cliente = $cliente->get_cli_by_id($this->id_fornecedor);
+		  $funcionario = new Funcionario();
+		  $funcionario = $funcionario->get_func_id($this->id_responsavel);
+
+		  $grupo   = new Grupo();
+		  $grupo   = $grupo->get_grupo_id($this->id_grupo);
+		  $custo   = new Custo();
+		  $custo   = $custo->get_valor_id($this->id_custo);		  
+		  
+
+		$texto ="";
+		$texto .= "<table class='table_pesquisa'><tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>ID: </b></td><td>".$this->id."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Grupo: </b></td><td>".$grupo->nome."</td>";
+		$texto .= "</tr>";		
+		$texto .= "<tr>";
+		$texto .= "<td><b>Empresa: </b></td><td>".$empresa->nome_fantasia."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Nome: </b></td><td>".$this->nome."</td>";
+		$texto .= "</tr>";		
+		$texto .= "<tr>";
+		$texto .= "<td><b>Descricao: </b></td><td>".$this->descricao."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Valor Compra: </b></td><td>".$this->valor_compra."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Valor Hora: </b></td><td>".$custo->valor_hora."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Forncedor: </b></td><td>".$cliente->nome_fornecedor."</td>";
+		$texto .= "</tr>";
+		$texto .= "<tr>";
+		$texto .= "<td><b>Responsável: </b></td><td>".$funcionario->nome."</td>";
+		$texto .= "</tr>";
+		// $texto .= "<tr>";
+		// $texto .= "<td><b>Email: </b></td><td>".$this->email_resp."</td>";
+		// $texto .= "<tr>";		
+		// $texto .= "<td><b>Observações: </b></td><td>".$this->observacao."</td>";
+		// $texto .= "</tr>";		
+		// if($this->fornecedor == 0){
+		// 	echo "";
+		// }elseif ($this->fornecedor==1){
+		// 	$texto .= "<tr>";
+		// $texto .= "<td><b>Forncedor: </b></td><td>".$this->fornecedor."</td>";	
+		// $texto .= "</tr>";	
+		// }
+									
+		$texto .= "</table>";
+	
+ 		return $texto;
+	 }
+
 }
 
 	

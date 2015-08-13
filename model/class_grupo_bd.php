@@ -70,7 +70,7 @@ class Grupo{
 		 $sql->conn_bd();
 		 $g = new Glob();
 
-		 $query = "SELECT * FROM grupo WHERE id = '%s'";
+		 $query = "SELECT * FROM grupo WHERE id = '%s' && oculto=0";
 		 $result = $g->tratar_query($query, $id);
 		 
 		 if(@mysql_num_rows($result) == 0){

@@ -268,6 +268,26 @@ class Cliente {
         return $return;
         
     }
+    public function get_cli_by_id($id){
+		 $sql = new Sql();
+		 $sql->conn_bd();
+		 $g = new Glob();
+
+		 $query = "SELECT * FROM clientes WHERE id= '%s' && fornecedor = 1 && oculto=0" ;
+		 $result = $g->tratar_query($query, $id);
+		 
+		 if(@mysql_num_rows($result) == 0){
+     
+            return false;            
+	     }else{
+
+	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	     	$this->id = $row['id'];
+	     	$this->nome_fornecedor = $row['nome_razao_soc'];	     	
+	     	return $this;
+	     }
+
+	}
 
 	public function printCli_Jur(){	
 	 	

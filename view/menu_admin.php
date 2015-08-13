@@ -9,6 +9,7 @@
                   <li><a href="add_cliente.php">Cliente</a></li>
                   <li><a href="add_epi.php">Equipamentos</a></li>                  
                   <li><a href="add_epiXfunc.php">Equipamentos por funcionario</a></li>
+                  <li><a href="add_patrimonio.php">Patrimonio</a></li>
         <?php } ?>
         <li><a href="add_turno.php">Turno</a></li>
         <li><a href="add_cbo.php">CBO</a></li>

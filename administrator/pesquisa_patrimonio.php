@@ -1,7 +1,7 @@
 
 <?php
 include("restrito.php");
-include("../model/class_filial_bd.php");
+include("../model/class_patrimonio_bd.php");
 
 
 
@@ -14,7 +14,7 @@ include("../model/class_filial_bd.php");
 </script>
 
 <head>
-   <title>Pesquisar Filial</title>
+   <title>Pesquisar Patrimonio</title>
    <meta charset="UTF-8">
    <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
    <script src="../javascript/selectbox.js" type="text/javascript"></script>
@@ -26,33 +26,33 @@ include("../model/class_filial_bd.php");
 
 
      <div class="formulario">
-           <div class="title-box" style="float:left"><div style="float:left"><img src="../images/search-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Pesquisar Filial</span></div></div>                                                                
-                 <form method="POST" class="pesquisa-campos" id="pesquisa-campos" name="pesquisa-campos" action="pesquisa_filial.php">
+           <div class="title-box" style="float:left"><div style="float:left"><img src="../images/search-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Pesquisar Patrimonio</span></div></div>                                                                
+                 <form method="POST" class="pesquisa-campos" id="pesquisa-campos" name="pesquisa-campos" action="pesquisa_patrimonio.php">
                     <table id="table-search">
                       <tr>
-                         <td><span >Filial: </span></td>
-                         <td><input type="text" id="name_search" name="name_search" title="Digite nome ou CNPJ da filial que deseja pesquisar"></td>
+                         <td><span >Patrimonio: </span></td>
+                         <td><input type="text" id="name_search" name="name_search" title="Digite qual patrimobio deseja procurar..."></td>
                          <td><input type="submit" value="Buscar" class="button"></td>
                       </tr>
                    </table>
                  </form>
           <?php
                 if(isset($_POST['name_search']) && $_POST['name_search'] != ""){
-                   $filial = new Filial();
-                   $filiais = $filial->get_filial_by_cnpj_and_nome($_POST['name_search']);
+                   $patrimonio = new Patrimonio();
+                   $patrimonios = $patrimonio->get_patrimonio_nome($_POST['name_search']);
                      echo '<table class="exibe-pesquisa">';
-                     if(count($filiais)>0)
-                     foreach($filiais as $key => $filial){
+                     if(count($patrimonios)>0)
+                     foreach($patrimonios as $key => $patrimonio){
                         echo '<tr>
-                                 <td><a href="pesquisa_filial.php?verificador=1&id='.$filiais[$key][0].'">'.$filiais[$key][1]." ".$filiais[$key][2].'</a></td></tr>';
+                                 <td><a href="pesquisa_patrimonio.php?verificador=1&id='.$patrimonios[$key][0].'">'.$patrimonio[$key][0]." ".$patrimonios[$key][1].'</a></td></tr>';
                      }
                      echo '</table>';
                 }
 
                 if(isset($_GET['verificador']) && $_GET['verificador'] == 1){
-                  $filial = new Filial();
-                  $filial = $filial->get_filial_id($_GET['id']);
-                  echo $filial->printFilial();
+                  $patrimonio = new Patrimonio();
+                  $patrimonio = $patrimonio->get_patrimonio_id($_GET['id']);
+                  echo $patrimonio->printPatrimonio();
 
                 }
              ?>
