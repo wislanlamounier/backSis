@@ -7,7 +7,7 @@
 <body class="body-login">
 	<!-- <div class='container'> -->
 		<div class='content'>
-			<img src="../images/logo75mm.png" style="margin: 0 auto">
+			<img src="../images/logo75mm.png" style="margin: 0 auto; width:350px;">
 			<form type="submit" method="POST" action="loggar.php"> 
 				<table class="tabelapadrao" id="table_login">
 					<tr>
@@ -22,7 +22,9 @@
 				</table>
 			</form>
 			<?php 
-				//if(isset($_POST['nome'])){return true;}else{return false;}
+				if(isset($_GET['falha'])){
+					echo "<div style='width:100%; height:100px; font-size:14px; color:#b00'>Usuário ou senha inválidos!</div>";
+				}
 			 ?>
 			
 		</div>

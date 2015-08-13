@@ -1,5 +1,4 @@
 body{
-
 	background: url("../images/shattered.png");
 	font-family: Arial;
 }
@@ -12,20 +11,7 @@ body span, body table tr td span{
 	height: 80%;
 	margin: 0 auto;
 }
-.content{
-	padding: 30px;
-    background-color: rgba(255,255,255, 0.7);
-    width: 500px;
-    height: 300px; 
-    margin: 0 auto;
-    margin-top: 7%;
-    box-shadow: 0px 0px 10px #565656;
-    border: 5px solid#fff;
-    border-radius:5px;
-    text-transform: uppercase;
-    text-align: center;
 
-}
 .msg{
 	width:100%;
 	text-align: center;
@@ -62,10 +48,27 @@ body span, body table tr td span{
 
 .body-login{
 	background: url("../images/konstruksi.jpg");
-	
+	background-size: 100%;
 }
 #table_login input{
 	border: 1px solid#ccc;
+}
+#table_login{
+	margin-top: 20px;
+}
+.content{
+	padding: 30px;
+    background-color: rgba(230,230,230, 0.8);
+    width: 500px;
+    height: 300px; 
+    margin: 0 auto;
+    margin-top: 7%;
+    box-shadow: 0px 0px 10px #565656;
+    border: 5px solid#fff;
+    border-radius:5px;
+    text-transform: uppercase;
+    text-align: center;
+
 }
 
 .content table{
@@ -86,7 +89,7 @@ body span, body table tr td span{
 	transition: all 0.5s;
 }
 .content table input:hover{
-	box-shadow: 0px 0px 10px #565656;
+	box-shadow: 0px 0px 10px #aaa;
 	background-color:rgba(255,255,255,1);
 	
 }

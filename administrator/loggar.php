@@ -25,7 +25,6 @@ include_once("../global.php");
     if(mysql_num_rows($userbusca) == 1 ){
         session_start(); // inicia sessão
        
-
         $row = mysql_fetch_array($userbusca);
 
         $query = "SELECT * FROM empresa WHERE  id='%s'";
@@ -45,6 +44,6 @@ include_once("../global.php");
         header("location:principal.php"); // pagina que sera redirecionada após login
 
     }else{
-      header("location:index.php"."?falho");
+      header("location:index.php?falha=yes");
     }
  ?>
