@@ -294,6 +294,21 @@ class Funcionario{
 
 		return $query_tra;
 	}
+
+	public function get_all_func_emp($id_empresa){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$aux=0;
+		$query = mysql_query("SELECT * FROM funcionario WHERE oculto = 0 $$ id_empresa='%s'");
+
+		while($result = mysql_fetch_array($query)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['nome'];
+			$aux++;
+		}
+		return $return;
+	}
+
 	public function get_nome_by_id($id){
 		$sql = new Sql();
 		$sql->conn_bd();

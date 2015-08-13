@@ -252,6 +252,22 @@ class Cliente {
 			return $return;
 		}
 	}
+	    public function get_all_cliente(){
+        $sql = new Sql();
+        $sql->conn_bd();
+        $g = new Glob();
+        $aux=0;
+      
+        $query = $g->tratar_query("SELECT * FROM clientes WHERE oculto = 0 && fornecedor = 1");
+
+        while($result = mysql_fetch_array($query)){
+          $return[$aux][0] = $result['id'];
+          $return[$aux][1] = $result['nome_razao_soc'];          
+          $aux++;
+        }
+        return $return;
+        
+    }
 
 	public function printCli_Jur(){	
 	 	

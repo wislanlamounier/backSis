@@ -527,7 +527,7 @@ require_once("../model/class_cidade_bd.php");
     }  
 
 </script>
-<body>			
+<body onload="disparaLoadCidade()">			
 
 	
 			<?php include_once("../view/topo.php"); ?>
