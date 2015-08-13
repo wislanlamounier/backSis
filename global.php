@@ -2,6 +2,7 @@
 /**
  * @param string $query
  * @param mixed $arg1, $arg2...$argN
+ *
  */
 class Glob{
     
