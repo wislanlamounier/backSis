@@ -311,10 +311,9 @@ function buscar_responsavel(){
                       }
                    
 
-                if(isset($_POST['tipo']) && $_POST['tipo'] == "editar"){
-                  
+                if(isset($_POST['tipo']) && $_POST['tipo'] == 'editar'){
+                  echo"teste!";
                             if(validate()){
-                              echo"teste!";
                                $custo = new Custo();
                                $patrimonio = new Patrimonio();
                                $id = $_POST['id'];
