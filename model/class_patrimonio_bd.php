@@ -102,6 +102,16 @@ class Patrimonio{
 		}
 		
 	}
+	public function ocultar_by_id($id){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$query = "UPDATE patrimonio SET oculto = 1 WHERE id = %s";
+		$result = $g->tratar_query($query, $id);
+		if($result){
+			echo '<div class="msg">Patrimonio excluido com sucesso!</div>';
+		}
+	}
 }
 
 	

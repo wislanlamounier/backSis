@@ -43,14 +43,14 @@ include_once("../model/class_patrimonio_bd.php");
 	<div class="msg" style="float:left">
 		<div style="float:left; background-color:rgba(200,50,50,0.3); width:100%; height:43px; text-align:left; margin-top:-20px;">
 			<div style="float:left; margin-left:5px;"><img src="../images/delete.png" style="width:35px; margin-top:3px;"></div>
-			<div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Excluir Funcionários <span>(Clique em um registro para excluir)</span></div>
+			<div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Excluir Patrimonio <span>(Clique em um registro para excluir)</span></div>
 		</div>
 		<table style="float:left" class="table-pesquisa">
 		  <?php
 		  	$cont=0;
 		  	if($patrimonio) 
 			    foreach($arrPatrimonio as $value => $nome){
-			      echo "<tr><td style='padding-left:20px;'><a class='icon_excluir' title='Clique para excluir' onclick='confirma(".'"'.$arrPatrimonio[$value][0].'"'.",".'"'.$arrPatrimonio[$value][1].'"'.")'>".$arrFuncionario[$value][1]."</a></td></tr>";
+			      echo "<tr><td style='padding-left:20px;'><a class='icon_excluir' title='Clique para excluir' onclick='confirma(".'"'.$arrPatrimonio[$value][0].'"'.",".'"'.$arrPatrimonio[$value][1].'"'.")'>".$arrPatrimonio[$value][1]."</a></td></tr>";
 			     	$cont++;
 			  	}
 			  	echo '<tr><td style="padding-left:20px; font-size: 12px; color:#777;">'.$cont. " registro(s) encontrado(s)</td></tr>";

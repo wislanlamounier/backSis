@@ -5,7 +5,6 @@ include_once("../model/class_patrimonio_bd.php");
 include_once("../model/class_grupo_bd.php");
 include_once("../model/class_cliente.php");
 include_once("../model/class_custo_bd.php");
-error_reporting(E_ALL);
 function validate(){
    if(!isset($_POST['nome']) || $_POST['nome'] == ""){
          return false;
@@ -23,26 +22,36 @@ function validate(){
 </head>
 
 <script type="text/javascript">
-function valida(f){
-//           var erros = 0;
-//           var msg = "";
-//             for (var i = 0; i < f.length; i++) {
+function confirma(id,nome, tipopess){
+       if(confirm("Excluir cliente "+nome+" , tem certeza?") ){
+          var url = '../ajax/ajax_excluir_patrimonio.php?id='+id+'&nome='+nome+'&tipopess='+tipopess;  //caminho do arquivo php que irá buscar as cidades no BD
+          
+          $.get(url, function(dataReturn) {
+            
+            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+          });
+       }
+    }
 
-// if(f[i].name == "nome"){
-//                 if(f[i].value == ""){
-//                    f[i].style.border = "1px solid #FF0000";
-//                    erros++;
-//                 }else{
-//                    f[i].style.border = "1px solid #898989";
-//                 }
-//             }
-//       }
-//       if(erros>0){
-//         return false;
-//       }else{
-//         return true;
-//       }
-return true;
+function valida(f){
+          var erros = 0;
+          var msg = "";
+            for (var i = 0; i < f.length; i++) {
+
+if(f[i].name == "nome"){
+                if(f[i].value == ""){
+                   f[i].style.border = "1px solid #FF0000";
+                   erros++;
+                }else{
+                   f[i].style.border = "1px solid #898989";
+                }
+            }
+      }
+      if(erros>0){
+        return false;
+      }else{
+        return true;
+      }
    }
 
 function carregaEmpresa(empresa){
@@ -313,7 +322,7 @@ function buscar_responsavel(){
                    }
 
                 if(isset($_POST['tipo']) && $_POST['tipo'] == 'editar'){
-                  echo"teste!";
+                  
                             if(validate()){
                                $custo = new Custo();
                                $patrimonio = new Patrimonio();
