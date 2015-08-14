@@ -28,6 +28,6 @@ include_once("../model/class_sql.php");
 	     // echo "<option>teste</option>";
 	  	}
 	else
-		echo "<option>Selecione um Estado</option>";
+		echo "<option value='no_sel'>Selecione um Responsável</option>";
 ?>
 </select>
