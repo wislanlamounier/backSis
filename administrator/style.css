@@ -24,19 +24,12 @@ body span, body table tr td span{
 	text-decoration: none;
 	color: #333;
 }
-.table-pesquisa td a:hover{
-	color:#000;
-	text-shadow: 0px 0px 1px #000;
-}
+
 .icon_excluir{
 	cursor:url(../images/delete_cursor.png),10px;
 }
-.table-pesquisa td{
-	padding: 0px 3px 0px 5px;
-}
-.table-pesquisa{
-	width: 100%;
-}
+
+
 #table-search{
 	padding: 10 5 10 5;
 	
@@ -376,7 +369,7 @@ h2{
 .table_pesquisa{	
 	box-shadow: 1.8px 1.8px 12px #888;
 	background-color:rgba(255,255,255,0.2);	
-	width:90%;
+	width:100%;
 	margin: 0 auto;
 	border-radius: 3px;
 	padding: 10px;
@@ -395,9 +388,16 @@ h2{
 	padding: 10px;
 	
 }
+.table-pesquisa td a:hover{
+	color:#000;
+	text-shadow: 0px 0px 1px #000;
+}
+.table-pesquisa td{
+	padding: 0px 3px 0px 5px;
+}
 .table_pesquisa tr:hover{
 
-	transform: scale(1.08);
+	transform: scale(1.05);
 	/*transition: all 0.3s;	*/	
 
 	box-shadow: 2.8px 2.8px 12px #888;
