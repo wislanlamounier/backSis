@@ -51,20 +51,22 @@ class Patrimonio{
         $g = new Glob();
         $aux=0;
         $return = array();
-        $query = $g->tratar_query("SELECT * FROM patrimonio WHERE oculto = 0 && nome LIKE '%%%s%%'",$nome);
+        $query = $g->tratar_query("SELECT * FROM patrimonio WHERE oculto = 0 && id_empresa = '".$_SESSION['id_empresa']."' && nome LIKE '%%%s%%'", $nome);
+        if(!$query){
+        	echo "<div class='msg'>Patrimonio não encontrado !</div>";
+        	return;
+        }
 
         while($result = mysql_fetch_array($query)){
-          $return[$aux][0] = $result['id'];
-          $return[$aux][1] = $result['nome'];
-          $return[$aux][2] = $result['valor_compra'];
+	          $return[$aux][0] = $result['id'];
+	          $return[$aux][1] = $result['nome'];
+	          $return[$aux][2] = $result['valor_compra'];
 
-          $aux++;
+	          $aux++;
         }
-        if($aux == 0){
-          echo "<div class='msg'>Patrimonio não encontrado !</div>";
-        }else{
+       
         return $return;
-        }
+        
     }
     public function get_patrimonio_nome($name){
 		$sql = new Sql();
