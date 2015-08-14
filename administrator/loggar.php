@@ -24,25 +24,17 @@ include_once("../global.php");
   // $userbusca vai receber a qt de linhas que tem essa busca 
     if(mysql_num_rows($userbusca) == 1 ){
         session_start(); // inicia sessão
-       
         $row = mysql_fetch_array($userbusca);
-
         $query = "SELECT * FROM empresa WHERE  id='%s'";
-
         $result = $g->tratar_query($query, $row['id_empresa']);
-
         $empresa = mysql_fetch_array($result);
-
-
         $_SESSION["id"] = $_POST['id']; // nomeia id da sessão
         $_SESSION["senha"] = $_POST['pass']; // '''' nome da sessão
         $_SESSION["user"] = $row['nome'];
         $_SESSION['id_empresa'] = $empresa['id'];
         $_SESSION['empresa'] = $empresa['nome_fantasia'];
-
         $_SESSION['nivel_acesso'] = $empresa['nivel_acesso'];
         header("location:principal.php"); // pagina que sera redirecionada após login
-
     }else{
       header("location:index.php?falha=yes");
     }
