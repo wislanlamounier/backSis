@@ -5,8 +5,15 @@ include_once("../model/class_sql.php");
 include_once("../model/class_epi_bd.php");
 include_once("../model/class_empresa_bd.php");
 
-function validate(){
-   if(!isset($_POST['desc']) || $_POST['desc'] == ""){
+function validade(){
+  
+   if(!isset($_POST['codigo']) || $_POST['codigo'] == ""){
+         return false;
+   }
+   if(!isset($_POST['nome']) || $_POST['nome'] == ""){
+         return false;
+   }
+   if(!isset($_POST['empresa']) || $_POST['empresa'] == ""){
          return false;
    }
    return true;
@@ -29,6 +36,48 @@ function validate(){
         }
       }
     }
+     function validate(f){
+        var erros = 0;
+        var msg = "";
+
+              for (var i = 0; i < f.length; i++) {
+               
+                  if(f[i].name == "codigo"){
+                  if(f[i].value == ""){
+                      msg += "Digite um codigo para o equipamento\n";
+                     f[i].style.border = "1px solid #FF0000";
+                     erros++;
+                  }else{
+                     f[i].style.border = "1px solid #898989";
+                  }
+               }
+               if(f[i].name == "nome" && f[i].value == ""){
+                msg += "Insira um Nome!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "nome" && f[i].value != ""){
+                f[i].style.border = "1px solid #898989";
+              }
+                if(f[i].name == "empresa"){
+                if(f[i].value == "no_sel"){
+                  msg += "Selecione uma empresa!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989";
+                }
+
+              }
+              
+             if(erros>0){
+                    
+                      alert(msg);
+                    
+                    return false;
+                  }
+                 }
+               }
 </script>
 <head>
    <title>Adicionar</title>
@@ -126,7 +175,7 @@ function validate(){
                <?php }?>               
                <?php 
                 if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
-                  if(validate()){
+                  if(validade()){
                      $epi = new Epi();
                      $is_epi = (isset($_POST['is_epi']))?(($_POST['is_epi'])?1:0):0;//Ternário do if(isset($_POST['is_epi'])){if($_POST['is_epi']){$is_epi = 1;}else{$is_epi = 0;}}else{$is_epi = 0;}
 
@@ -141,7 +190,7 @@ function validate(){
                 }else{
                   if(isset($_POST['tipo']) && $_POST['tipo'] == "editar"){                    
                           if(isset($_POST['id'])){
-                            if(validate()){
+                            if(validade()){
 
                               $epi = new Epi();
                               $is_epi = (isset($_POST['is_epi']))?(($_POST['is_epi'])?1:0):0;//Ternário do if(isset($_POST['is_epi'])){if($_POST['is_epi']){$is_epi = 1;}else{$is_epi = 0;}}else{$is_epi = 0;}

@@ -12,6 +12,40 @@ require_once("../model/class_cidade_bd.php");
    if(!isset($_POST['razao_social']) || $_POST['razao_social'] == ""){
          return false;
    }
+   if(!isset($_POST['cnpj']) || $_POST['cnpj'] == ""){
+         return false;
+   }
+   if(!isset($_POST['inscricao_estadual']) || $_POST['inscricao_estadual'] == ""){
+         return false;
+   }
+   if(!isset($_POST['inscricao_municipal']) || $_POST['inscricao_municipal'] == ""){
+         return false;
+   }
+   if(!isset($_POST['tel']) || $_POST['tel'] == ""){
+         return false;
+   }
+   if(!isset($_POST['rua']) || $_POST['rua'] == ""){
+         return false;
+   }
+   if(!isset($_POST['numero']) || $_POST['numero'] == ""){
+         return false;
+   }
+   if(!isset($_POST['bairro']) || $_POST['bairro'] == ""){
+         return false;
+   }
+   if(!isset($_POST['cep']) || $_POST['cep'] == ""){
+         return false;
+   }
+   if(!isset($_POST['estado']) || $_POST['estado'] == ""){
+         return false;
+   }
+   if(!isset($_POST['cidade']) || $_POST['cidade'] == ""){
+         return false;
+   }
+   if(!isset($_POST['responsavel']) || $_POST['responsavel'] == ""){
+         return false;
+   }
+
    return true;
 	}
 
@@ -38,191 +72,145 @@ require_once("../model/class_cidade_bd.php");
     }
 
 
-function valida(f){
-	        var erros = 0;
-	        var msg = "";
-	          for (var i = 0; i < f.length; i++) {
-	          	if(f[i].name == "razao_social"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	if(f[i].name == "nome_fantasia"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	if(f[i].name == "tel"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	if(f[i].name == "cnpj"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	if(f[i].name == "inscricao_estadual"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	if(f[i].name == "inscricao_municipal"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	if(f[i].name == "rua"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	if(f[i].name == "bairro"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	if(f[i].name == "cep"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	          }
-	          if(f[i].name == "numero"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         if(f[i].name == "nome_resp"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	if(f[i].name == "email_resp"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	if(f[i].name == "datanasc_resp"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-		        if(f[i].name == "cpf_resp"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	if(f[i].name == "estado"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	if(f[i].name == "cidade"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	if(f[i].name == "tel_resp"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-	         	}
-			if(erros>0){
-				return false;
-			}else{
-				return true;
-			}
-		}
-		function validarCPF(cpf) {
-   
-		    cpf = cpf.replace(/[^\d]+/g,'');    
-		    if(cpf == '') return false; 
-		    // Elimina CPFs invalidos conhecidos    
-		    if (cpf.length != 11 || 
-		        cpf == "00000000000" || 
-		        cpf == "11111111111" || 
-		        cpf == "22222222222" || 
-		        cpf == "33333333333" || 
-		        cpf == "44444444444" || 
-		        cpf == "55555555555" || 
-		        cpf == "66666666666" || 
-		        cpf == "77777777777" || 
-		        cpf == "88888888888" || 
-		        cpf == "99999999999")
-		            return false;       
-		    // Valida 1o digito 
-		    add = 0;    
-		    for (i=0; i < 9; i ++)       
-		        add += parseInt(cpf.charAt(i)) * (10 - i);  
-		        rev = 11 - (add % 11);  
-		        if (rev == 10 || rev == 11)     
-		            rev = 0;    
-		        if (rev != parseInt(cpf.charAt(9)))     
-		            return false;       
-		    // Valida 2o digito 
-		    add = 0;    
-		    for (i = 0; i < 10; i ++)        
-		        add += parseInt(cpf.charAt(i)) * (11 - i);  
-		    rev = 11 - (add % 11);  
-		    if (rev == 10 || rev == 11) 
-		        rev = 0;    
-		    if (rev != parseInt(cpf.charAt(10)))
-		        return false;       
-		    return true;   
-		}
+    function valida(f){
+        var erros = 0;
+        var msg = "";
+          for (var i = 0; i < f.length; i++) {
+              if(f[i].name == "nome_fantasia" && f[i].value == ""){
+                msg += "Insira um Nome Fantasia para add_empresa_bd!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "nome Fantasia" && f[i].value != ""){
+                f[i].style.border = "1px solid #898989";
+              }
 
+             
+              if(f[i].name == "inscricao_municipal"){
+                if(f[i].value == ""){
+                  msg += "Preencha o campo da inscrição municipal!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+              if(f[i].name == "inscricao_estadual"){
+                if(f[i].value == ""){
+                  msg += "Preencha o campo inscricao_estadual!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+              if(f[i].name == "tel"){
+                if(f[i].value == ""){
+                  msg += "Preencha o campo de telefone!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+              if(f[i].name == "cnpj"){
+                if(f[i].value == ""){
+                  msg += "Preencha o do cnpj!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+              if(f[i].name == "numero"){
+                if(f[i].value == ""){
+                  msg += "Preencha o campo de telefone!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+              if(f[i].name == "razao_social"){
+                if(f[i].value == ""){
+                  msg += "Preencha o campo de Razão Social!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+              if(f[i].name == "responsavel"){
+                if(f[i].value == ""){
+                  msg += "Escolha uma opção no campo de responsavel!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+               if(f[i].name == "estado" && f[i].value == "Selecione um estado"){
+                msg += "Selecione um Estado\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "estado" && f[i].value != "Selecione um estado"){
+                f[i].style.border = "1px solid #898989";
+              }
+
+              if(f[i].name == "cidade"){
+                if(f[i].value == ""){
+                  msg += "Escolha uma cidade!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+              if(f[i].name == "telefone" && f[i].value == ""){
+                msg += "Insíra um Telefone!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "telefone" && f[i].value != ""){
+                f[i].style.border = "1px solid #898989";
+              }
+
+              if(f[i].name == "rua" && f[i].value == ""){
+                msg += "Preencha o campo Rua\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "rua" && f[i].value != ""){
+                f[i].style.border = "1px solid #898989";
+              }
+
+              if(f[i].name == "bairro"){
+                  if(f[i].value == ""){
+                     f[i].style.border = "1px solid #FF0000";
+                     msg += "Selecione um bairro\n";
+                     erros++;
+                  }else{
+                     f[i].style.border = "1px solid #898989";
+                  }
+               }
+               if(f[i].name == "cep"){
+                  if(f[i].value == ""){
+                      msg += "Selecione um cep\n";
+                     f[i].style.border = "1px solid #FF0000";
+                     erros++;
+                  }else{
+                     f[i].style.border = "1px solid #898989";
+                  }
+               }
+          }
+          if(erros>0){
+            
+              alert(msg);
+            
+            return false;
+          }
+      }
 	// mascaras
       function mascara(o,f){
           v_obj=o

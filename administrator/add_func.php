@@ -286,7 +286,6 @@ function formata_salario($salario){
                 }else{
                   f[i].style.border = "1px solid #898989";
                 }
-
               }
               
 

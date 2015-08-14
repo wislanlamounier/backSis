@@ -185,19 +185,7 @@ class Patrimonio{
 		$texto .= "</tr>";
 		$texto .= "<tr>";
 		$texto .= "<td><b>Responsável: </b></td><td>".$funcionario->nome."</td>";
-		$texto .= "</tr>";
-		// $texto .= "<tr>";
-		// $texto .= "<td><b>Email: </b></td><td>".$this->email_resp."</td>";
-		// $texto .= "<tr>";		
-		// $texto .= "<td><b>Observações: </b></td><td>".$this->observacao."</td>";
-		// $texto .= "</tr>";		
-		// if($this->fornecedor == 0){
-		// 	echo "";
-		// }elseif ($this->fornecedor==1){
-		// 	$texto .= "<tr>";
-		// $texto .= "<td><b>Forncedor: </b></td><td>".$this->fornecedor."</td>";	
-		// $texto .= "</tr>";	
-		// }
+		$texto .= "</tr>";		
 									
 		$texto .= "</table>";
 	
