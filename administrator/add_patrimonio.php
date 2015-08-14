@@ -12,16 +12,81 @@ function validate(){
    return true;
 }
 
+// formata o valor antes de enviar para o banco de dados
+function formataMoney($valor){
+    $replace = array(".","R$ ");
+    $string = str_replace($replace, "", $valor);
+
+    $replace = array(",");
+    $string = str_replace($replace, ".", $string);
+    
+    $return = $string;
+    return $return;
+}
+//verifica o valor antes de carregar no text de edição
+function verificaValor($valor){
+    //pega quantidade de caracteres - posisão do .
+    if(strlen($valor) - strpos($valor, '.') < 3){
+       $valor.='0';
+    }else if(strpos($valor, '.') == 0){
+      $valor.='.00';
+    }
+    return $valor;
+}
+
  ?>
 
 <html>
 <head>
 	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-	 <link rel="stylesheet" type="text/css" href="style.css">
+	 <script src="../javascript/jquery.maskMoney.js" type="text/javascript"></script>
+   <link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 
 <script type="text/javascript">
+
+function mascara(o,f){
+          v_obj=o
+          v_fun=f
+          setTimeout("execmascara()",1)
+      }
+      function execmascara(){
+          v_obj.value=v_fun(v_obj.value)
+      }
+
+   
+    function mmoney(v){
+       if(v.length >=18){                                          // alert("mtel")
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+       v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
+       v=v.replace(/(\d)(\d{11})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       v=v.replace(/(\d)(\d{8})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       v=v.replace(/(\d)(\d{5})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       v=v.replace(/(\d)(\d{2})$/,"$1,$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       
+       return 'R$ '+v;
+    }
+    
+    
+   function id( el ){
+     // alert("id")
+     return document.getElementById( el );
+   }
+   window.onload = function(){
+      id('valor_compra').onkeypress = function(){ 
+          mascara( this, mmoney );
+      }
+      id('valor_hora').onkeypress = function(){ 
+          mascara( this, mmoney );
+      }
+   }
+   // fim mascaras
+
+
+
 function confirma(id,nome, tipopess){
        if(confirm("Excluir cliente "+nome+" , tem certeza?") ){
           var url = '../ajax/ajax_excluir_patrimonio.php?id='+id+'&nome='+nome+'&tipopess='+tipopess;  //caminho do arquivo php que irá buscar as cidades no BD
@@ -33,25 +98,82 @@ function confirma(id,nome, tipopess){
        }
     }
 
+
 function valida(f){
+   
           var erros = 0;
           var msg = "";
-            for (var i = 0; i < f.length; i++) {
-
-if(f[i].name == "nome"){
-                if(f[i].value == ""){
-                   f[i].style.border = "1px solid #FF0000";
-                   erros++;
-                }else{
-                   f[i].style.border = "1px solid #898989";
+          for (var i = 0; i < f.length; i++) {
+                if(f[i].name == "grupo"){
+                    if(f[i].value == "no_sel"){
+                       f[i].style.border = "1px solid #FF0000";
+                       erros++;
+                    }else{
+                       f[i].style.border = "1px solid #898989";
+                    }
                 }
-            }
-      }
-      if(erros>0){
-        return false;
-      }else{
-        return true;
-      }
+                if(f[i].name == "nome"){
+                    if(f[i].value == ""){
+                       f[i].style.border = "1px solid #FF0000";
+                       erros++;
+                    }else{
+                       f[i].style.border = "1px solid #898989";
+                    }
+                }
+                if(f[i].name == "desc"){
+                    if(f[i].value == ""){
+                       f[i].style.border = "1px solid #FF0000";
+                       erros++;
+                    }else{
+                       f[i].style.border = "1px solid #898989";
+                    }
+                }
+                if(f[i].name == "valor_compra"){
+                    if(f[i].value == ""){
+                       f[i].style.border = "1px solid #FF0000";
+                       erros++;
+                    }else{
+                       f[i].style.border = "1px solid #898989";
+                    }
+                }
+                if(f[i].name == "valor_hora"){
+                    if(f[i].value == ""){
+                       f[i].style.border = "1px solid #FF0000";
+                       erros++;
+                    }else{
+                       f[i].style.border = "1px solid #898989";
+                    }
+                }
+                if(f[i].name == "fornecedor"){
+                    if(f[i].value == "no_sel"){
+                       f[i].style.border = "1px solid #FF0000";
+                       erros++;
+                    }else{
+                       f[i].style.border = "1px solid #898989";
+                    }
+                }
+                if(f[i].name == "empresa"){
+                    if(f[i].value == "no_sel"){
+                       f[i].style.border = "1px solid #FF0000";
+                       erros++;
+                    }else{
+                       f[i].style.border = "1px solid #898989";
+                    }
+                }
+                if(f[i].name == "responsavel"){
+                    if(f[i].value == "no_sel"){
+                       f[i].style.border = "1px solid #FF0000";
+                       erros++;
+                    }else{
+                       f[i].style.border = "1px solid #898989";
+                    }
+                }
+          }
+          if(erros>0){
+            return false;
+          }else{
+            return true;
+          }
    }
 
 function carregaEmpresa(empresa){
@@ -119,11 +241,16 @@ function buscar_responsavel(){
           }
         }
   function disparaLoadCidade(){
+      // mascara( document.getElementById('valor_hora'), mmoney );
+     
       setTimeout(function() {
-        carregaResp();
-
+          carregaResp();
+          setTimeout(function() {mascara( document.getElementById('valor_compra'), mmoney )},250);
+          setTimeout(function() {mascara( document.getElementById('valor_hora'), mmoney )},200);
         }, 100);
-      }
+
+       
+  }
 
 </script>
 
@@ -141,10 +268,14 @@ function buscar_responsavel(){
                 	   $id = $patrimonio->id;
                      $nome = $patrimonio->nome;
                      $descricao = $patrimonio->descricao;
-                     $valor_compra = $patrimonio->valor_compra;                     
+                     $valor_compra = verificaValor($patrimonio->valor_compra);
                      $id_custo = $patrimonio->id_custo;                                          
                      $custo = $custo->get_valor_id($id_custo);
-                     $valor_hora = $custo->valor_hora;
+                     $valor_hora = verificaValor($custo->valor_hora);
+                     //  echo strpos($valor_compra, '.');
+                     // if(strlen($valor_compra) - strpos($valor_compra, '.') < 3){
+                     //    $valor_compra.='0';
+                     // }
 
 
                      $id_grupo = $patrimonio->id_grupo;
@@ -215,7 +346,7 @@ function buscar_responsavel(){
                               <td colspan="2">
                                  <div id="load_responsavel">
                                    <select name="responsavel" id="responsavel" style="width:100%">
-                                     <option value="no_sel">Selecione um funcionario responsavel</option>
+                                     <option value="no_sel">Selecione um Eesponsável</option>
                                    </select>
                                    <?php echo "<script> buscar_responsavel() </script>";  ?>
                                  </div>
@@ -226,7 +357,7 @@ function buscar_responsavel(){
                             </table>                            
                        </form>              
             <?php }else{ ?>              
-                       <form method="POST" class="add_patrimonio" id="add_patrimonio" name="add_patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
+                       <form method="POST" class="add_patrimonio" id="add_patrimonio" name="add_patrimonio" action="add_patrimonio.php" onsubmit="return valida(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">ADICIONAR PATRIMONIO</span></div></div>
                         <input type="hidden" id="tipo" name="tipo" value="cadastrar">                        
                           <table border="0">
@@ -295,7 +426,8 @@ function buscar_responsavel(){
             <?php 
 
                 if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
-                		if(validate()){
+                		echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';
+                    if(validate()){
                       $custo = new Custo();
                       $nome = $_POST['nome'];
                       $descricao = $_POST['desc'];                    
@@ -303,8 +435,8 @@ function buscar_responsavel(){
                       $id_fornecedor = $_POST['fornecedor'];
                       $id_responsavel = $_POST['responsavel'];
                       $id_empresa = $_POST['empresa'];                     
-                      $valor_compra = $_POST['valor_compra'];
-                      $valor_hora = $_POST['valor_hora'];
+                      $valor_compra = formataMoney($_POST['valor_compra']);
+                      $valor_hora = formataMoney($_POST['valor_hora']);
 
                       $custo->add_custo($valor_hora);
                       $id_custo = $custo->add_custo_bd();                      
@@ -333,9 +465,9 @@ function buscar_responsavel(){
                                $id_fornecedor = $_POST['fornecedor'];
                                $id_responsavel = $_POST['id_responsavel'];
                                $id_empresa = $_POST['empresa'];                     
-                               $valor_compra = $_POST['valor_compra'];                               
+                               $valor_compra = formataMoney($_POST['valor_compra']);                               
                                $id_custo = $_POST['id_custo'];
-                               $valor_hora = $_POST['valor_hora'];
+                               $valor_hora = formataMoney($_POST['valor_hora']);
                                $custo->atualiza_valor($valor_hora, $id_custo);                             
 
                                
