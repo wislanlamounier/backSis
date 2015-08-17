@@ -135,7 +135,54 @@ function validate(){
                      </tr>
                   </table>
                </form>
-   <?php }else{ ?>
+   <?php }elseif(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?>
+                 <?php 
+                     $func = new Funcionario();
+                     $func = $func->get_func_id($_GET['id']);
+                     $func_epi = $func_epi->get_func_epis($_GET['id']);
+                                          
+                  ?>
+            <form method="POST" id="add_epiXfunc" action="add_epiXfunc.php" onsubmit="return validate(this)">
+                  <table border="0" >
+                      <input type="hidden" id="tipo" name="tipo" value="cadastrar">
+                      <input type="hidden" id="id_func" name="id_func" value="<?php echo $func->id; ?>">
+                      
+                      <tr><td><span>Funcionario:</td><td><input type="text" id="funcionario" disabled name="funcionario" value="<?php echo $func->nome; ?>">                       
+                      <tr> <td ><span>Data de entrega:</span></td> <td><input type="date" id="data" name="data" value='<?php echo date("Y-m-d"); ?>'></td></tr>
+                      <!-- <tr> <td ><span>Quantidade:</span></td> <td><input type="number" id="quantidade" name="quantidade"></td></tr>   -->
+                      <tr><td colspan="2"><span>Escolha os equipamentos e clique em avançar para definir a quantidade:</span></td></tr>
+                      <tr>
+                          
+                              <td colspan="2">
+                                  <div id="equipamentos">
+                                   <!-- <select id="exames" name="exames[]" size="5" multiple style="width:270px"> -->
+                                      <?php
+                                         $epi = new Epi();
+                                         $epis = $epi->get_name_all_epi();
+                                         $data = array();
+                                         $data_selected = array();
+
+                                         for ($i=0; $i < count($epis); $i++) { 
+                                            $data[$i] = array("id"=>$epis[$i][0], "nome_epi"=>$epis[$i][1]);
+                                         }
+
+                                         RendDoubleSelect::showDoubleDropDownAlert($data, $data_selected, "id", "nome_epi", "", 
+                                                "sel_epis1", "selecionados", "hd_Epis", "130px", 
+                                               "Epis", "Selecionados");
+                                       ?>
+                                   <!-- </select> -->
+                                </div>
+                              </td>
+                          
+                     </tr>
+                     <tr>
+                        <td colspan="3" style="text-align:center">
+                          <input style="width:80px;" type="submit" name="button" class="button" id="buttonAvancar" onclick="selectAll()" value="Cadastrar">
+                          <input style="width:80px;" name="button" class="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar">
+                        </td>
+                     </tr>
+                  </table>
+               </form>
    <?php }?>  
 
        <?php 
@@ -165,22 +212,37 @@ function validate(){
                           echo '<div class="msg">Equipamentos cadastrados com sucesso!</div>';
                        }else{
                           echo '<div class="msg">Erro ou cadastrar equipamentos!</div>';
-                       }
-                       //   $cont=0;
-                       // if($idepi) 
-                       //      foreach($arridepi as $value => $quantidade){
-                       //        // echo '<td>'.$arridepi[$value][0].'</td><br>';
-                       //        $cont++;
-                       // }
-                                                  
-
-                       // if ($epixfunc->add_epi_x_func($idepi, $idfunc, $data_entrega, $quantidade)){
-                          
-                       // }else{
-                        
-                       // }                 
+                       }                      
                   }
-              }
+              }              
+              // if(isset($_POST['tipo']) && $_POST['tipo'] == "editar"){
+              //     if(validate()){
+              //          $epixfunc = new EpiXFunc();
+              //          $class_epi_bd = new Epi();
+              //          $nome_epi = $class_epi_bd;
+              //          $id_func = $_POST['id_func'];
+              //          $data_entrega = $_POST['data'];                                 
+              //          $idepi = $_POST['selecionados'];
+              //          $cont=0;
+              //          //echo '<script>alert("'.$arridepi[$i][0].'");</script>';                       
+
+              //          for ($i = 0; $i < count($idepi); $i++) {
+              //               $quantidade = substr($idepi[$i], 1, strpos($idepi[$i],']')-1);//pega aquandidade que vem via post
+              //               $id_epi = substr($idepi[$i], strpos($idepi[$i],']')+1);//pega o id
+                            
+              //               if($epixfunc->add_epi_x_func($id_epi, $id_func, $data_entrega, $quantidade)){
+              //                 $cont++;
+              //               }
+              //               // echo '<td>quantidade: '.$quantidade." id: ".$id.'</td><br>';
+              //               // $arridepi[$i][0] = $idepi[$i][0];
+              //          }
+              //          if($cont == count($idepi)){
+              //             echo '<div class="msg">Equipamentos cadastrados com sucesso!</div>';
+              //          }else{
+              //             echo '<div class="msg">Erro ou cadastrar equipamentos!</div>';
+              //          }                      
+              //     }
+              // }
         ?>
      
        

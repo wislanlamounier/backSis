@@ -33,8 +33,19 @@ class EpiXFunc{
 	
 		// $this->add_funcionario_epi($array_id_epi, $id_cbo, $data_entrega, $quantidade);
 	}
+	public function get_func_epi($id_func){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
 
-	
+		$query = "SELECT * FROM funcionario_epi WHERE id='%s'";
+		if($g->tratar_query($query, $id)){
+			return true;
+		}else{
+				return false;
+		}	
+	}
+		
 }
 
 
