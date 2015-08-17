@@ -382,7 +382,7 @@ function buscar_cidades(){
 					 <input type="hidden" name="tipo" value="editar">
 					 <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
 					 <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $empresa->id_endereco; ?>"> 	                 
-	                 <table border='1' style="width:100%">                  
+	                 <table border='0' style="width:100%">                  
                      <tr> <td><span>Razão Social:</span></td> <td colspan="3"><input style="width:100%" type="text" id="razao_social" name="razao_social" value="<?php echo $empresa->razao_social; ?>" ></td></tr> <!-- nome -->
                      <tr> <td><span>Nome Fantasia:</span></td> <td><input style="width:100%" type="text" id="nome_fantasia" name="nome_fantasia"  value="<?php echo $empresa->nome_fantasia; ?>"></td></tr> <!-- CPF -->
                      <tr> <td><span>CNPJ:</span></td> <td><input style="width:100%" type="text" id="cnpj" name="cnpj"value="<?php echo $empresa->cnpj; ?>"></td></tr> <!-- RG -->
@@ -436,7 +436,12 @@ function buscar_cidades(){
                        </td>
                        <?php echo "<script> carregaResponsavel('".$empresa->id_responsavel."'); </script>" ?>
                      </tr>
-					 <tr><td colspan="2" style="text-align:center"><input  class="button" type="submit" value="editar"><input class="button" type="button" value="Cancelar"></td></tr> 
+              		   <tr>
+                          <td colspan="2" style="text-align:center">
+                              <input  class="button" type="submit" value="editar">
+                              <input class="button" name="button" onclick="window.location.href='add_empresa.php'" id="button" value="Cancelar">
+                          </td>
+                      </tr> 
                 	 </table>
                 	 </form>
                 	 
@@ -495,7 +500,12 @@ function buscar_cidades(){
                            </select>
                        </td>
                      </tr>
-					 <tr><td colspan="2" style="text-align:center"><input  class="button" type="submit" value="Cadastrar"><input class="button" type="button" value="Cancelar"></td></tr> 					 	
+					            <tr>
+                        <td colspan="2" style="text-align:center">
+                          <input  class="button" type="submit" value="Cadastrar">
+                          <input class="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
+                        </td>
+                      </tr> 					 	
                 	 </table>
                 	 </form>               	
                 	 

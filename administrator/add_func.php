@@ -79,7 +79,6 @@ function formata_salario($salario){
    
    <link rel="stylesheet" type="text/css" href="style.css">
    <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-   <script src="../javascript/jquery.maskMoney.js" type="text/javascript"></script>
    <link href='http://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
    <link href='http://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet' type='text/css'>
 
@@ -97,10 +96,7 @@ function formata_salario($salario){
        
 
     }
-    $(function(){
-           $("#sal_base").maskMoney({symbol:'R$ ', 
-          showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
-    })
+
 
       function valida(f){
         var erros = 0;
@@ -675,6 +671,7 @@ function carregaUf_CartTrab(uf){
                   <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $func->id_endereco; ?>">
                   <table border='0'>
                     <tr><td colspan="4" style="padding-top:10px; padding-bottom:10px;"><span style="color:#565656">Atenção: Se o campo senha ficar em branco a senha não sera alterada</span></td></tr>
+                    <div><video id="video" width="640" height="480" autoplay></video></div>
                      <tr> <td><span>Nome:</span></td> <td colspan="3"><input style="width:100%" type="text" id="nome" name="nome" value="<?php echo $func->nome; ?>"></td></tr> <!-- nome -->
                      <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%" type="text" id="cpf" name="cpf" value="<?php echo $func->cpf; ?>"></td></tr> <!-- CPF -->
                      <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg" value="<?php echo $func->rg; ?>"></td><td><span>Org.Em:</span></td><td><input style="width:100px;" type="text" id="org_em_rg" name="org_em_rg" value="<?php echo $func->org_em_rg; ?>"></td></tr> <!-- RG -->
@@ -844,7 +841,7 @@ function carregaUf_CartTrab(uf){
                           </td> </tr>
                      <tr> 
                            <td colspan="4" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Editar">
-                             <input class="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
+                             <input class="button" name="button" onclick="window.location.href='add_func.php'" id="button" value="Cancelar">
                            </td>
                       </tr>
                   </table>

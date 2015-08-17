@@ -144,7 +144,12 @@ function validate(){
                               </td>
                            </tr>
 
-                           <tr><td colspan="3" style="text-align:center"><input type="submit" onclick="selectAll()" name="button" class="button" id="button" value="Editar"> <input class="button" name="button" onclick="window.location.href='edita_cbo.php'" id="button" value="Cancelar"></td> </tr>
+                           <tr>
+                              <td colspan="3" style="text-align:center">
+                                <input type="submit" onclick="selectAll()" name="button" class="button" id="button" value="Editar">
+                                <input class="button" name="button" onclick="window.location.href='add_cbo.php'" id="button" value="Cancelar">
+                              </td>
+                            </tr>
                         </table>
                      </form>
                   <?php }else{ ?>
@@ -178,8 +183,12 @@ function validate(){
                         </td>
                      </tr>
                      <!-- <tr><td colspan="2"><span style="color:#898989">Segure Ctrl para múltiplas seleções</span></td></tr>   -->
-                     <tr><td colspan="3" style="text-align:center"><input class="button" type="submit" onclick="selectAll()" name="button" id="button" value="Cadastrar">
-                        <input class="button" name="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar"></td> </tr>
+                     <tr>
+                        <td colspan="3" style="text-align:center">
+                          <input class="button" type="submit" onclick="selectAll()" name="button" id="button" value="Cadastrar">
+                          <input class="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
+                        </td>
+                     </tr>
                   </table>
                </form>
                <?php }?> 

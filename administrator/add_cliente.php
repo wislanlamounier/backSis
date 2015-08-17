@@ -606,7 +606,7 @@ require_once("../model/class_cidade_bd.php");
 					                <tr>
 					                    	 <td colspan="2" style="text-align:center">
 					                    	 	<input  class="button" type="submit" value="Editar">
-					                    	 	<input class="button" type="button" value="Cancelar">
+					                    	 	<input class="button" name="button" onclick="window.location.href='add_cliente.php'" id="button" value="Cancelar">
 					                    	 </td>
 					                    </tr> 
 					           	 </table>
@@ -685,7 +685,7 @@ require_once("../model/class_cidade_bd.php");
 						                          <tr>
 							                    	 <td colspan="2" style="text-align:center">
 							                    	 	<input  class="button" type="submit" value="Editar">
-							                    	 	<input class="button" type="button" value="Cancelar">
+							                    	 	<input class="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
 							                    	 </td>
 							                    </tr> 
 						            </table>
@@ -751,7 +751,7 @@ require_once("../model/class_cidade_bd.php");
 					                    <tr>
 					                    	 <td colspan="2" style="text-align:center">
 					                    	 	<input  class="button" type="submit" value="Cadastrar">
-					                    	 	<input class="button" type="button" value="Cancelar">
+					                    	 	<input class="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
 					                    	 </td>
 					                    </tr> 
 

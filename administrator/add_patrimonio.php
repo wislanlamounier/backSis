@@ -290,7 +290,7 @@ function buscar_responsavel(){
                             <input type="hidden" id="id" name="id" value="<?php echo $id ?>">
                             <input type="hidden" id="id_custo" name="id_custo" value="<?php echo $id_custo ?>"> 
                             <input type="hidden" id="id_responsavel" name="id_responsavel" value="<?php echo $id_responsavel ?>">                          
-                            <table border="0">
+                            <table border="0" style="width:100%">
                               <tr> <td ><span>Grupo:</span></td>
                               <td colspan="2">
                                  <select id="grupo" name="grupo"  style="width:100%">
@@ -307,10 +307,10 @@ function buscar_responsavel(){
                                   <?php echo "<script> carregaGrupo('".$patrimonio->id_grupo."') </script>";  ?>                              
                               </td>                            
                               </tr>                          
-                           		<tr><td><span>Nome: </span></td> <td><input type="text" name="nome" id="nome" value="<?php echo $nome ?>" ></td></tr>
-                          		<tr><td><span>Descricão: </span></td><td><input type="text" name="desc" id="desc" value="<?php echo $descricao ?>"></td></tr>
-                          		<tr><td><span>Valor Compra: </span></td><td><input type="text" name="valor_compra" id="valor_compra" value="<?php echo $valor_compra ?>" ></td></tr>
-                          		<tr><td><span>Valor hora: </span></td><td><input type="text" name="valor_hora" id="valor_hora" value="<?php echo $valor_hora ?>"  ></td></tr>
+                           		<tr><td><span>Nome: </span></td> <td><input style="width:100%" type="text" name="nome" id="nome" value="<?php echo $nome ?>" ></td></tr>
+                          		<tr><td><span>Descricão: </span></td><td><input style="width:100%" type="text" name="desc" id="desc" value="<?php echo $descricao ?>"></td></tr>
+                          		<tr><td><span>Valor Compra: </span></td><td><input style="width:100%" type="text" name="valor_compra" id="valor_compra" value="<?php echo $valor_compra ?>" ></td></tr>
+                          		<tr><td><span>Valor hora: </span></td><td><input style="width:100%" type="text" name="valor_hora" id="valor_hora" value="<?php echo $valor_hora ?>"  ></td></tr>
                               <tr> <td ><span>Fornecedor: </span></td>
                               <td colspan="2">
                                  <select id="fornecedor" name="fornecedor"  style="width:100%">
@@ -353,14 +353,19 @@ function buscar_responsavel(){
                               </td>
                               <?php echo "<script> carregaResp() </script>";  ?>
                               </tr>                                           
-                           <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Salvar"> <input type="button" name="button" class="button" onclick="window.location.href='add_grupo.php'" id="button" value="Cancelar"></td></tr>  
+                           <tr>
+                              <td colspan="3" style="text-align:center">
+                                  <input type="submit" name="button" class="button" id="button" value="Salvar">
+                                  <input type="button" name="button" class="button" onclick="window.location.href='add_patrimonio.php'" id="button" value="Cancelar">
+                              </td>
+                           </tr>  
                             </table>                            
                        </form>              
             <?php }else{ ?>              
                        <form method="POST" class="add_patrimonio" id="add_patrimonio" name="add_patrimonio" action="add_patrimonio.php" onsubmit="return valida(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">ADICIONAR PATRIMONIO</span></div></div>
                         <input type="hidden" id="tipo" name="tipo" value="cadastrar">                        
-                          <table border="0">
+                          <table border="0" style="width:100%">
                          	    <tr> <td ><span>Grupo:</span></td>
 			                        <td colspan="2">
 			                           <select id="grupo" name="grupo"  style="width:100%" onchange="carrega_postos()">
@@ -375,10 +380,10 @@ function buscar_responsavel(){
 			                           </select>                                 
 			                        </td>		                         
 			                        </tr>                                                        
-                          		<tr><td><span>Nome: </span></td> <td><input type="text" name="nome" id="nome"></td></tr>
-                          		<tr><td><span>Descricão: </span></td><td><input type="text" name="desc" id="desc"></td></tr>
-                          		<tr><td><span>Valor Compra: </span></td><td><input type="text" name="valor_compra" id="valor_compra"></td></tr>
-                          		<tr><td><span>Valor hora: </span></td><td><input type="text" name="valor_hora" id="valor_hora"></td></tr>
+                          		<tr><td><span>Nome: </span></td> <td><input style="width:100%" type="text" name="nome" id="nome"></td></tr>
+                          		<tr><td><span>Descricão: </span></td><td><input style="width:100%" type="text" name="desc" id="desc"></td></tr>
+                          		<tr><td><span>Valor Compra: </span></td><td><input style="width:100%" type="text" name="valor_compra" id="valor_compra"></td></tr>
+                          		<tr><td><span>Valor hora: </span></td><td><input style="width:100%" type="text" name="valor_hora" id="valor_hora"></td></tr>
                           		<tr> <td ><span>Fornecedor: </span></td>
 			                        <td colspan="2">
 			                           <select id="fornecedor" name="fornecedor"  style="width:100%">
@@ -419,7 +424,12 @@ function buscar_responsavel(){
 		                        </td>
 		                        </tr>
                               	
-                          		<tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_patrimonio.php'" id="button" value="Cancelar"></td></tr>
+                          		<tr>
+                                  <td colspan="3" style="text-align:center">
+                                    <input type="submit" name="button" class="button" id="button" value="cadastrar">
+                                    <input type="button" name="button" class="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
+                                  </td>
+                              </tr>
                           </table>                          
                        </form>
             <?php }?>         

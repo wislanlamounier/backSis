@@ -160,7 +160,7 @@ function validate(){
                      <tr>
                         <td colspan="3" style="text-align:center">
                            <input class="button" type="submit" name="button" id="button" value="Cadastrar">
-                           <input class="button" type="button" name="button" id="button" value="Cancelar">
+                           <input class="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
                          </td>
                       </tr>
                   </table>
