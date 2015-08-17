@@ -19,10 +19,9 @@
 		<form method="POST">
 			<div  style="float:left;">				
 				<table style="float:left" class="table-pesquisa">
-				  	<tr><td colspan="2"><span></span><br /></td></tr>
 					<tr>
-						<td><span>Funcionario: </span></td>
-						<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" class="button"value="Buscar" onclick="buscar_funcionarios(2)"></td>
+						<td><span>Funcionário: </span></td>
+						<td><input type="text" id="nome_search_editar" name="nome_search"></td><td><input type="button" class="button"value="Buscar" onclick="buscar_funcionarios(2)"></td>
 					</tr>
 					
 				</table>
