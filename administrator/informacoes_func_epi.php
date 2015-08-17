@@ -32,8 +32,8 @@ include_once("../model/class_cbo_bd.php");
               });
             }
       }
-         if(param == 2){
-            var funcionario = document.getElementById('nome_search').value;
+      if(param == 2){
+            var funcionario = document.getElementById('nome_search_editar').value;
             //se encontrou o estado
             if(funcionario){
               
@@ -49,13 +49,18 @@ include_once("../model/class_cbo_bd.php");
     function buscar_editar(tipo){
         var url = '../ajax/ajax_editar_func_epi.php?tipo='+tipo;  //caminho do arquivo php que irá buscar as cidades no BD
         $.get(url, function(dataReturn) {
-          $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+          if(tipo == 1){
+             $('#result1').html(dataReturn);  //coloca resultado em baixo do botão pesquisar
+          }else{
+             $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+          }
         });
     }
 </script>
-  <div class="">
-  <input type="button" class="button2" value="Editar" onclick="buscar_editar('2')">
-	<input type="button" class="button2" value="Adicionar" onclick="buscar_editar('1')">
+  <div class="formulario">
+  <input type="button" class="button" value="Editar" onclick="buscar_editar('2')">
+  <input type="button" class="button" value="Excluir" onclick="buscar_editar('2')">
+	
   <?php //Classe result recebe os dados vindos do ajax ?>  
 	<div id="result">
   </div>
