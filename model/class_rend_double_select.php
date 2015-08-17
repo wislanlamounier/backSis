@@ -180,7 +180,7 @@ static function showDoubleDropDown(array $lista1,array $lista2, $campoid, $campo
 	</table><?php
 	}
 
-	static function showDoubleDropDownAlert(array $lista1,array $lista2, $campoid, $campoTexto, $campoGrupo, 
+static function showDoubleDropDownAlert(array $lista1,array $lista2, $campoid, $campoTexto, $campoGrupo, 
        $nomeCombo1, $nomeCombo2, $hdTemp, $height = "220px", $titleAvaliable = "Disponível(is)", $titleSelected = "Selecionado(s)"){
 
 ?>

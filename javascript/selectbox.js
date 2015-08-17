@@ -247,7 +247,9 @@ function moveSelectedOptionsAlert(from,to) {
 	for (var i=0; i<options.length; i++) {
 		var o = options[i];
 		//alert( o.selected + " - " + o.text);
+		
 		if (o.selected) { 
+			
 			if (!hasOptions(to)) { var index = 0; } else { var index=to.options.length; }
 		
 		        //optiondestino = new Option( o.text, o.value, false, false);
@@ -255,15 +257,19 @@ function moveSelectedOptionsAlert(from,to) {
 				optiondestino=document.createElement("option");
 				texto='';
 				if(from.name == 'sel_epis1'){
-					do{
 						quantidade = prompt("Digite a quantidade");
 						texto = '['+quantidade+']';
-						if(isNaN(quantidade) || quantidade > 99){
+						if(isNaN(quantidade) || quantidade <= 0 || quantidade > 99){
 							alert("Digite um numero até 99");
 						}
-					}while(quantidade == null || isNaN(quantidade) || quantidade > 99);
-					optiondestino.value = texto+o.value;
-					optiondestino.innerHTML = texto+o.text;
+					// }while(quantidade == null || isNaN(quantidade) || quantidade > 99);
+					
+					if(isNaN(quantidade) || quantidade == null  || quantidade <= 0 || quantidade > 99){
+						
+						return;
+					}
+						optiondestino.value = texto+o.value;
+						optiondestino.innerHTML = texto+o.text;
 				}else{
 					optiondestino.innerHTML = o.text.slice(o.text.indexOf("]")+1);
 					optiondestino.value = o.value.slice(o.text.indexOf("]")+1);
