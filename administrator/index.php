@@ -1,4 +1,8 @@
-
+<?php
+session_start();
+if(isset($_SESSION["id"])){
+	header("location:principal.php");
+}?>
 <html>
 <head>
 	<title></title>
