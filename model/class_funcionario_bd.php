@@ -4,6 +4,7 @@ include_once("class_turno_bd.php");
 include_once("class_filial_bd.php");
 include_once("class_empresa_bd.php");
 include_once("class_cbo_bd.php");
+include_once("class_epi_bd.php");
 require_once(dirname(__FILE__) . "/../global.php");
 
 class Funcionario{
@@ -221,6 +222,75 @@ class Funcionario{
 		}
 
 	}
+
+	// array(21) {
+	// 	[0]=> string(1) "5" 
+	// 	["id"]=> string(2) "15"
+	// 	[1]=> string(3) "123"
+	// 	["codigo"]=> string(3) "123" 
+	// 	[2]=> string(7) "Óculos" 
+	// 	["nome_epi"]=> string(7) "Óculos" 
+	// 	[3]=> string(16) "Óculos de solda" 
+	// 	["descricao"]=> string(16) "Óculos de solda" 
+	// 	[4]=> string(1) "5" 
+	// 	["id_empresa"]=> string(1) "5" 
+	// 	[5]=> string(1) "1" 
+	// 	["epi"]=> string(1) "1" 
+	// 	[6]=> string(2) "15" 
+	// 	[7]=> string(2) "18" 
+	// 	["id_func"]=> string(2) "18" 
+	// 	[8]=> string(1) "5" 
+	// 	["id_epi"]=> string(1) "5" 
+	// 	[9]=> string(10) "2015-08-10" 
+	// 	["data_entrega"]=> string(10) "2015-08-10" 
+	// 	[10]=> string(1) "1" 
+	// 	["quantidade"]=> string(1) "1" 
+	// } array(21) { 
+	// 	[0]=> string(1) "5" 
+	// 	["id"]=> string(2) "20" 
+	// 	[1]=> string(3) "123" 
+	// 	["codigo"]=> string(3) "123" 
+	// 	[2]=> string(7) "Óculos" 
+	// 	["nome_epi"]=> string(7) "Óculos" 
+	// 	[3]=> string(16) "Óculos de solda" 
+	// 	["descricao"]=> string(16) "Óculos de solda" 
+	// 	[4]=> string(1) "5" 
+	// 	["id_empresa"]=> string(1) "5" 
+	// 	[5]=> string(1) "1" 
+	// 	["epi"]=> string(1) "1" 
+	// 	[6]=> string(2) "20" 
+	// 	[7]=> string(2) "18" 
+	// 	["id_func"]=> string(2) "18" 
+	// 	[8]=> string(1) "5" 
+	// 	["id_epi"]=> string(1) "5" 
+	// 	[9]=> string(10) "2015-08-14" 
+	// 	["data_entrega"]=> string(10) "2015-08-14" 
+	// 	[10]=> string(2) "12" 
+	// 	["quantidade"]=> string(2) "12" 
+	// } array(21) { 
+	// 	[0]=> string(1) "6" 
+	// 	["id"]=> string(2) "13" 
+	// 	[1]=> string(3) "124" 
+	// 	["codigo"]=> string(3) "124" 
+	// 	[2]=> string(6) "Camisa" 
+	// 	["nome_epi"]=> string(6) "Camisa" 
+	// 	[3]=> string(17) "Camisa da empresa" 
+	// 	["descricao"]=> string(17) "Camisa da empresa" 
+	// 	[4]=> string(1) "5" 
+	// 	["id_empresa"]=> string(1) "5" 
+	// 	[5]=> string(1) "0" 
+	// 	["epi"]=> string(1) "0" 
+	// 	[6]=> string(2) "13" 
+	// 	[7]=> string(2) "18" 
+	// 	["id_func"]=> string(2) "18" 
+	// 	[8]=> string(1) "6" 
+	// 	["id_epi"]=> string(1) "6" 
+	// 	[9]=> string(10) "2015-08-07" 
+	// 	["data_entrega"]=> string(10) "2015-08-07" 
+	// 	[10]=> string(1) "3" 
+	// 	["quantidade"]=> string(1) "3" 
+	// }
+	
 	public function get_func_by_name($name){
 		$sql = new Sql();
 		$sql->conn_bd();
@@ -335,39 +405,49 @@ class Funcionario{
         $cbo = $cbo->get_cbo_by_id($this->id_cbo);
         $turno = new Turno();
         $turno = $turno->getTurnoById($this->id_turno);
+        $u = new Epi();
+		$epi_func = $u->get_epi_func($this->id);
+
         $texto = "";
 		$texto .= "<table class='table_pesquisa'><tr>";
-		$texto .= "<td><b>ID: </b></td><td>".$this->id."</td>";
+		$texto .= "<td colspan='2'><b><span>ID: <span></b></td><td colspan='2'><span><span>".$this->id."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td><b>Nome: </b></td><td>".$this->nome."</td>";
+		$texto .= "<td colspan='2'><b><span>Nome: <span></b></td><td colspan='2'><span>".$this->nome."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td><b>Telefone: </b></td><td>".$this->telefone."</td>";
+		$texto .= "<td colspan='2'><b><span>Telefone: <span></b></td><td colspan='2'><span>".$this->telefone."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td><b>CPF: </b></td><td>".$this->cpf."</td>";
+		$texto .= "<td colspan='2'><b><span>CPF: <span></b></td><td colspan='2'><span>".$this->cpf."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td><b>Data de Nascimento: </b></td><td>".$this->data_nasc."</td>";
+		$texto .= "<td colspan='2'><b><span>Data de Nascimento: <span></b></td><td colspan='2'><span>".$this->data_nasc."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td><b>Email: </b></td><td>".$this->email."</td>";
+		$texto .= "<td colspan='2'><b><span>Email:<span> </b></td><td colspan='2'><span>".$this->email."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td><b>Empresa: </b></td><td>".$empresa->nome_fantasia."</td>";
+		$texto .= "<td colspan='2'><b><span>Empresa: <span></b></td><td colspan='2'><span>".$empresa->nome_fantasia."</span></td>";
 		$texto .= "</tr>";
 		if($filial->id){
 			$texto .= "<tr>";
-			$texto .= "<td><b>Filial: </b></td><td>".$filial->nome."</td>";
+			$texto .= "<td colspan='2'><b><span>Filial: <span></b></td><td colspan='2'><span>".$filial->nome."</span></td>";
 			$texto .= "</tr>";
 		}
 		$texto .= "<tr>";
-		$texto .= "<td><b>CBO: </b></td><td>".$cbo->descricao."</td>";
+		$texto .= "<td colspan='2'><b><span>CBO: <span></b></td><td colspan='2'><span>".$cbo->descricao."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td><b>Turno: </b></td><td>".$turno->nome." - ". $turno->desc."</td>";
+		$texto .= "<td colspan='2'><b><span>Turno: <span></b></td><td colspan='2'><span>".$turno->nome." - ". $turno->desc."</span></td>";
 		$texto .= "</tr>";
+		if(count($epi_func)>0){
+			$texto .= '<tr> <td colspan="4"><span><b>Equipamentos do funcionário:</b></span></td></tr>';
+			$texto .= '<tr> <td><span>ID</span></td> <td><span>Nome</span></td> <td><span>Data da entrega</span></td><td><span>Quantidade</span></td></tr>';
+                      foreach ($epi_func as $key => $value) {
+                       $texto .= '<tr><td><span>'.$epi_func[$key]->id.'</span></td><td><span>'.$epi_func[$key]->nome_epi.'</span></td><td><span>'.$epi_func[$key]->data_entrega.'</span></td><td><span>'.$epi_func[$key]->quantidade.'</span></td></tr>';
+                      } 
+		}
 		$texto .= "</table>";
 		return $texto;
 	}

@@ -111,8 +111,8 @@ class Exame{
 		$periodiciade = $periodiciade->get_periodiciade_id($this->id_periodicidade);
 		
 		echo "<table class='table_pesquisa'>";
-		echo "<tr><td>Descrição: </td><td>".$this->descricao."</td></tr>";
-		echo "<tr><td>Periodiciade: </td><td>".$periodiciade->periodo."</td></tr>";
+		echo "<tr><td><span>Descrição: </span></td><td><span>".$this->descricao."</span></td></tr>";
+		echo "<tr><td><span>Periodiciade: </span></td><td><span>".$periodiciade->periodo."</span></td></tr>";
 		echo "</table>";
 
 	}

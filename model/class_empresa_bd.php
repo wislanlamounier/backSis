@@ -180,49 +180,49 @@ class Empresa{
       $texto ='';
       $texto .= "<table class='table_pesquisa'>
         <tr>
-          <td><b>ID</b></td>
-          <td>$this->id</td>
+          <td><span><b>ID</b></span></td>
+          <td><span>$this->id</span></td>
         </tr>
         <tr>
-          <td><b>CNPJ</b></td>
-          <td>$this->cnpj</td>
+          <td><span><b>CNPJ</b></span></td>
+          <td><span>$this->cnpj</span></td>
         </tr>
         <tr>
-          <td><b>Razão Social</b></td>
-          <td>$this->razao_social</td>
+          <td><span><b>Razão Social</b></span></td>
+          <td><span>$this->razao_social</span></td>
         </tr>
         <tr>
-          <td><b>Nome Fantasia</b></td>
-          <td>$this->nome_fantasia</td>
+          <td><span><b>Nome Fantasia</b></span></td>
+          <td><span>$this->nome_fantasia</span></td>
         </tr>
         <tr>
-          <td><b>Ins. Estadual</b></td>
-          <td>$this->ins_estadual</td>
+          <td><span><b>Ins. Estadual</b></span></td>
+          <td><span>$this->ins_estadual</span></td>
         </tr>
         <tr>
-          <td><b>Ins. Municipal</b></td>
-          <td>$this->ins_municipal</td>
+          <td><span><b>Ins. Municipal</b></span></td>
+          <td><span>$this->ins_municipal</span></td>
         </tr>
         <tr>
-          <td><b>Endereço</b></td>
-          <td>$string_endereco</td>
+          <td><span><b>Endereço</b></span></td>
+          <td><span>$string_endereco</span></td>
         </tr>
         <tr>
-          <td><b>Telefone</b></td>
-          <td>$this->telefone</td>
+          <td><span><b>Telefone</b></span></td>
+          <td><span>$this->telefone</span></td>
         </tr>
         <tr>
-          <td><b>Responsável</b></td>
-          <td>$responsavel->nome</td>
+          <td><span><b>Responsável</b></span></td>
+          <td><span>$responsavel->nome</span></td>
         </tr>";
 
         if(count($filiais) > 0){
             $texto .=  "<tr>
-                      <td><b>Filiais</b></td>
+                      <td colspan='2'><span><b>Filiais</b></span></td>
                     <tr>";
             foreach ($filiais as $key => $filial) {
                 $texto .= '<tr>';
-                $texto .= "<td colspan='2' style='padding-left:20px;'>".$filiais[$key][1]." - ".$filiais[$key][2]."</td>";
+                $texto .= "<td colspan='2' style='padding-left:20px;'><span>".$filiais[$key][1]." - ".$filiais[$key][2]."</span></td>";
                 $texto .= '</tr>';
         }
         }

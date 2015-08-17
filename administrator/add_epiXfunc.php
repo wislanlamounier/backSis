@@ -149,45 +149,25 @@ function validate(){
                  <?php 
                      $func = new Funcionario();
                      $func = $func->get_func_id($_GET['id']);
-                                          
+                     $u = new Epi();
+                     $epi_func = $u->get_epi_func($func->id);
                   ?>
             <form method="POST" id="add_epiXfunc" action="add_epiXfunc.php" onsubmit="return validate(this)">
-                  <table border="0" >
+                  <table border="0" style="width:100%; text-align:center">
                       <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                       <input type="hidden" id="id_func" name="id_func" value="<?php echo $func->id; ?>">
                       
-                      <tr><td><span>Funcionario:</td><td><input type="text" id="funcionario" disabled name="funcionario" value="<?php echo $func->nome; ?>">                       
-                      <tr> <td ><span>Data de entrega:</span></td> <td><input type="date" id="data" name="data" value='<?php echo date("Y-m-d"); ?>'></td></tr>
+                      <tr><td style="width:100px;"><span>Funcionario:</td><td colspan="4"><input style="width:100%" type="text" id="funcionario" disabled name="funcionario" value="<?php echo $func->nome; ?>">                       
+                      <!-- <tr> <td ><span>Data de entrega:</span></td> <td><input type="date" id="data" name="data" value='<?php echo date("Y-m-d"); ?>'></td></tr> -->
                       <!-- <tr> <td ><span>Quantidade:</span></td> <td><input type="number" id="quantidade" name="quantidade"></td></tr>   -->
-                      <tr><td colspan="2"><span>Escolha os equipamentos e clique em avançar para definir a quantidade:</span></td></tr>
-                      <tr>
-                          
-                              <td colspan="2">
-                                  <div id="equipamentos">
-                                   <!-- <select id="exames" name="exames[]" size="5" multiple style="width:270px"> -->
-                                      <?php
-                                         $epi = new Epi();
-                                         $epis = $epi->get_name_all_epi();
-                                         $data = array();
-                                         $data_selected = array();
-
-                                         for ($i=0; $i < count($epis); $i++) { 
-                                            $data[$i] = array("id"=>$epis[$i][0], "nome_epi"=>$epis[$i][1]);
-                                         }
-
-                                         RendDoubleSelect::showDoubleDropDownAlert($data, $data_selected, "id", "nome_epi", "", 
-                                                "sel_epis1", "selecionados", "hd_Epis", "130px", 
-                                               "Epis", "Selecionados");
-                                       ?>
-                                   <!-- </select> -->
-                                </div>
-                              </td>
-                          
-                     </tr>
+                      <tr> <td ><span>ID</span></td> <td><span>Nome</span></td> <td><span>Quantidade</span></td><td><span>Data</span></td></tr>
+                      <?php foreach ($epi_func as $key => $value) {
+                        echo '<tr><td><span>'.$epi_func[$key]->id.'</span></td><td><span>'.$epi_func[$key]->nome_epi.'</span></td><td><span>'.$epi_func[$key]->quantidade.'</span></td><td><span>'.$epi_func[$key]->data_entrega.'</span></td></tr>';
+                      } ?>
                      <tr>
-                        <td colspan="3" style="text-align:center">
-                          <input style="width:80px;" type="submit" name="button" class="button" id="buttonAvancar" onclick="selectAll()" value="Cadastrar">
-                          <input style="width:80px;" name="button" class="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar">
+                        <td colspan="4" style="text-align:center">
+                          <input style="width:80px;" type="button" name="button" class="button" id="buttonAvancar" onclick="selectAll()" value="Editar">
+                          <input style="width:80px;" type="button" name="button" class="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar">
                         </td>
                      </tr>
                   </table>

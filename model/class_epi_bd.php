@@ -53,8 +53,28 @@ class Epi{
 			return true;
 		}else{
 			return false;
-	}
+		}	
 		
+	}
+	public function get_epi_func($id_func){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$lista = array();
+		$query = "SELECT * FROM `equipamentos_func` inner JOIN funcionario_epi WHERE equipamentos_func.id = funcionario_epi.id_epi and funcionario_epi.id_func = %s";
+
+		$query_tra = $g->tratar_query($query, $id_func);
+		while($row = mysql_fetch_array($query_tra)){
+		    $u = new Epi();
+			 // var_dump($row);
+			foreach($row as $k => $v)
+				$u->$k = $v;
+			
+			$lista[] = $u;
+
+		}
+		
+		return $lista;
 	}
 	public function get_epi_by_name($nome_epi){
 		$sql = new Sql();
@@ -139,45 +159,46 @@ class Epi{
 			return $return;
 		}
 	}
+	
 	public function printEpi(){
 		
 		echo "<table class='table_pesquisa'>";
-		echo "<tr><td>ID: </td><td>".$this->id."</td></tr>";
-		echo "<tr><td>Nome: </td><td>".$this->nome_epi."</td></tr>";
-		echo "<tr><td>Descricao: </td><td>".$this->descricao."</td></tr>";
+		echo "<tr><td><span>ID: </span></td><td><span>".$this->id."</span></td></tr>";
+		echo "<tr><td><span>Nome: </span></td><td><span>".$this->nome_epi."</span></td></tr>";
+		echo "<tr><td><span>Descricao: </span></td><td><span>".$this->descricao."</span></td></tr>";
 		if($this->is_epi == 1){
-			echo"<tr><td>Equipamento de Proteção</td><td><input type='checkbox' disabled checked>";
+			echo"<tr><td><span>Equipamento de Proteção</span></td><td><span><input type='checkbox' disabled checked>";
 		}
 		if($this->is_epi == 0){
-			echo"<tr><td>Equipamento de Proteção</td><td><input type='checkbox' disabled>";
+			echo"<tr><td><span>Equipamento de Proteção</span></td><td><span><input type='checkbox' disabled>";
 		}		
 		echo "</table>";		
 		}
 
 
 
-	public function get_epi_by_id_nome($id){
-		 $sql = new Sql();
-		 $sql->conn_bd();
-		 $g = new Glob();
+	// public function get_epi_by_id_nome($id){
+	// 	 $sql = new Sql();
+	// 	 $sql->conn_bd();
+	// 	 $g = new Glob();
 
-		 $query = "SELECT * FROM equipamentos_func WHERE id= '%s'";
-		 $result = $g->tratar_query($query, $id);
+	// 	 $query = "SELECT * FROM equipamentos_func WHERE id= '%s'";
+	// 	 $result = $g->tratar_query($query, $id);
 		 
-		 if(@mysql_num_rows($result) == 0){
+	// 	 if(@mysql_num_rows($result) == 0){
      
-            return false;            
-	     }else{
+ //            return false;            
+	//      }else{
 
-	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	//      	$row = mysql_fetch_array($result, MYSQL_ASSOC);
 	     	
-	     	$this->nome_epi = $row['nome_epi'];	     	
+	//      	$this->nome_epi = $row['nome_epi'];	     	
 	     	    	
 
-	     	return $this;
-	     }
+	//      	return $this;
+	//      }
 
-	}
+	// }
 
 }
 

@@ -139,22 +139,22 @@ class Cbo{
 
 		$texto = "<table class='table_pesquisa' border='0'>
 			<tr>
-				<td><b>ID: </b></td> <td>".$this->id."</td>
+				<td><span><b>ID: </b></span></td> <td><span>".$this->id."</span></td>
 			</tr>
 			<tr>
-				<td><b>Código: </b></td> <td>".$this->codigo."</td>
+				<td><span><b>Código: </b></span></td> <td><span>".$this->codigo."</span></td>
 			</tr>
 			<tr>
-				<td><b>Descrição: </b></td> <td>".$this->descricao."</td>
+				<td><span><b>Descrição: </b></span></td> <td><span>".$this->descricao."</span></td>
 			</tr>";
 			if(count($result)>0){
 				$texto .= '<tr>
-						<td colspan="2"><b>Exames necessários:</b></td>
+						<td colspan="2"><span><b>Exames necessários:</b></span></td>
 					</tr>';
 			}
 			for ($i=0; $i < count($result) ; $i++) { 
 				$texto .= "<tr>";
-				$texto .= "<td colspan='2' style='padding-left:20px;'>".$result[$i][1]."</td>";
+				$texto .= "<td colspan='2' style='padding-left:20px;'><span>".$result[$i][1]."</span></td>";
 				$texto .= "</tr>";
 			}
 

@@ -44,7 +44,7 @@ include("../model/class_patrimonio_bd.php");
                      if(count($patrimonios)>0)
                      foreach($patrimonios as $key => $patrimonio){
                         echo '<tr>
-                                 <td><a href="pesquisa_patrimonio.php?verificador=1&id='.$patrimonios[$key][0].'">'.$patrimonio[$key][0]." ".$patrimonios[$key][1].'</a></td></tr>';
+                                 <td><a href="pesquisa_patrimonio.php?verificador=1&id='.$patrimonios[$key][0].'">'.$patrimonios[$key][0]." ".$patrimonios[$key][1].'</a></td></tr>';
                      }
                      echo '</table>';
                 }

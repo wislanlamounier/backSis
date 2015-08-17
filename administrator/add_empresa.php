@@ -515,34 +515,34 @@ function buscar_cidades(){
 			 		
             		<?php
                     if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
-                    if(validade()){                     
-                     $empresa = new Empresa();
-                     $cnpj = $_POST['cnpj'];
-                     $razao_social = $_POST['razao_social'];
-                     $nome_fantasia = $_POST['nome_fantasia'];
-                     $ins_estadual = $_POST['inscricao_estadual'];
-                     $ins_municipal = $_POST['inscricao_municipal'];
-                     $telefone = $_POST['tel'];
-                     $id_responsavel = $_POST['responsavel'];
-                     $endereco = new Endereco();
-					 $bairro = $_POST['bairro'];
-					 $rua = $_POST['rua'];
-					 $numero = $_POST['numero'];
-					 $cidade_id = $_POST['cidade']; 
-					 $cep = $_POST['cep'];	
-					 $endereco->add_Endereco($bairro, $rua, $numero, $cidade_id, $cep);	
-					 $id_endereco = $endereco->add_endereco_bd();                     
-                     $empresa->add_empresa($cnpj, $razao_social, $nome_fantasia, $ins_estadual, $ins_municipal,  $telefone, $id_responsavel, $id_endereco);
-                     if($empresa->add_empresa_bd()){
-                        echo '<div class="msg">Empresa cadastrada com sucesso!</div>';
-                     }else{
-                        echo '<div class="msg">Erro ao cadastrar empresa!</div>';
-                     }
-                     }
+                        if(validade()){                     
+                             $empresa = new Empresa();
+                             $cnpj = $_POST['cnpj'];
+                             $razao_social = $_POST['razao_social'];
+                             $nome_fantasia = $_POST['nome_fantasia'];
+                             $ins_estadual = $_POST['inscricao_estadual'];
+                             $ins_municipal = $_POST['inscricao_municipal'];
+                             $telefone = $_POST['tel'];
+                             $id_responsavel = $_POST['responsavel'];
+                             $endereco = new Endereco();
+                  					 $bairro = $_POST['bairro'];
+                  					 $rua = $_POST['rua'];
+                  					 $numero = $_POST['numero'];
+                  					 $cidade_id = $_POST['cidade']; 
+                  					 $cep = $_POST['cep'];	
+                  					 $endereco->add_Endereco($bairro, $rua, $numero, $cidade_id, $cep);	
+                  					 $id_endereco = $endereco->add_endereco_bd();                     
+                             $empresa->add_empresa($cnpj, $razao_social, $nome_fantasia, $ins_estadual, $ins_municipal,  $telefone, $id_responsavel, $id_endereco);
+                             if($empresa->add_empresa_bd()){
+                                echo '<div class="msg">Empresa cadastrada com sucesso!</div>';
+                             }else{
+                                echo '<div class="msg">Erro ao cadastrar empresa!</div>';
+                             }
+                         }
                      }
                   	
                    	if(isset($_POST["tipo"]) && $_POST['tipo'] == "editar"){
-                   		if(isset($_POST['id'])){
+                   		   if(isset($_POST['id'])){
                             if(validade()){
                                  $empresa = new Empresa();
                                  $endereco = new Endereco();

@@ -191,25 +191,25 @@ class Turno{
 		
 		$texto = "<table class='table_pesquisa'>
 			<tr>
-				<td><b>ID: </b></td><td>".$this->id."</td>
+				<td><span><b>ID: </b></span></td><td><span>".$this->id."</span></td>
 			</tr>
 			<tr>
-				<td><b>Nome: </b></td><td>".$this->nome."</td>
+				<td><span><b>Nome: </b></span></td><td><span>".$this->nome."</span></td>
 			</tr>
 			<tr>
-			    <td><b>Inicio expediente: </b></td><td>".$this->ini_exp."</td>
+			    <td><span><b>Inicio expediente: </b></span></td><td><span>".$this->ini_exp."</span></td>
 			</tr>
 			<tr>
-			    <td><b>Início almoço: </b></td><td>".$this->ini_alm."</td>
+			    <td><span><b>Início almoço: </b></span></td><td><span>".$this->ini_alm."</span></td>
 			</tr>
 			<tr>
-			    <td><b>Fim almoço: </b></td><td>".$this->fim_alm."</td>
+			    <td><span><b>Fim almoço: </b></span></td><td><span>".$this->fim_alm."</span></td>
 			</tr>
 			<tr>
-			    <td><b>Fim expediente: </b></td><td>".$this->fim_exp."</td>
+			    <td><span><b>Fim expediente: </b></span></td><td><span>".$this->fim_exp."</span></td>
 			</tr>
 			<tr>
-			    <td><b>Descrição: </b></td><td>".$this->desc."</td>
+			    <td><span><b>Descrição: </b></span></td><td><span>".$this->desc."</span></td>
 			</tr>
 		</table>";
 		return $texto;

@@ -153,12 +153,12 @@ class Filial{
 		$cidade = new Cidade();
         $cidade = $cidade->get_city_by_id($endereco->id_cidade);
 		echo "<table class='table_pesquisa'>";
-		echo "<tr><td>Nome: </td><td>".$this->nome."</td></tr>";
-		echo "<tr><td>Telefone: </td><td>".$this->telefone."</td></tr>";
-		echo "<tr><td>Codigo do posto: </td><td>".$this->cod_posto."</td></tr>";
-		echo "<tr><td>Rua: </td><td>".$endereco->rua."</td></tr>";
-		echo "<tr><td>Bairro: </td><td>".$endereco->bairro."</td></tr>";
-		echo "<tr><td>Cidade: </td><td>".$cidade->nome."</td></tr>";
+		echo "<tr><td><span>Nome: </span></td><td><span>".$this->nome."</span></td></tr>";
+		echo "<tr><td><span>Telefone: </span></td><td><span>".$this->telefone."</span></td></tr>";
+		echo "<tr><td><span>Codigo do posto: </span></td><td><span>".$this->cod_posto."</span></td></tr>";
+		echo "<tr><td><span>Rua: </span></td><td><span>".$endereco->rua."</span></td></tr>";
+		echo "<tr><td><span>Bairro: </span></td><td><span>".$endereco->bairro."</span></td></tr>";
+		echo "<tr><td><span>Cidade: </span></td><td><span>".$cidade->nome."</span></td></tr>";
 		echo "</table>";
 	}
 	
