@@ -1046,7 +1046,7 @@ function carregaUf_CartTrab(uf){
                            
                            $telefone = $_POST['telefone'];
                            $email = $_POST['email'];
-                           $senha = $_POST['senha'];
+                           $senha = md5($_POST['senha']);
                            $id_empresa = $_POST['empresa'];
                            $id_empresa_filial = $_POST['empresa_filial'];
                            $id_turno = $_POST['turno'];
@@ -1097,7 +1097,7 @@ function carregaUf_CartTrab(uf){
 
                            $telefone = $_POST['telefone'];
                            $email = $_POST['email'];
-                           $senha = $_POST['senha'];
+                           $senha = md5($_POST['senha']);
                            $id_empresa = $_POST['empresa'];
                            $id_empresa_filial = $_POST['empresa_filial'];
                            $id_turno = $_POST['turno'];
