@@ -87,19 +87,28 @@ function validate(){
    <?php include_once("../view/topo.php"); ?>
 
    <div class="formulario">
-   <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Adicionar EPI para funcionario</span></div></div><br><br><br><br>    
-   <?php include("informacoes_func_epi.php") ?>
-   <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar'){ ?>
+          <?php if(!isset($_GET['tipo'])){ //ESSE BOTÃO PESQUISAR, SÓ DEVE APARECER NA HORA DE ADICIONAR?>
+                    <input type="button" class="button2" value="Pesquisar" onclick="buscar_editar('1')">
+                    <div id="result1">
+                    </div>
+          <?php } ?>
+   <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar'){ //CADASTRAR EPI POR FUNCIONARIO?>
+           <div class="title-box" style="float:left"><div style="float:left"><img src="../images/icon-add-epi.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Adicionar EPI para funcionario</span></div></div><br><br><br><br>    
+           <?php // botão pesquisa funcionario para adicionar equipamento (funcção buscar_editar() esta no arquivo informacoes_func_epi.php ?>
+           
            <?php 
                      $func = new Funcionario();
                      $func = $func->get_func_id($_GET['id']);
             ?>
             <form method="POST" id="add_epiXfunc" action="add_epiXfunc.php" onsubmit="return validate(this)">
-                  <table border="0" >
+                  <table border="0" style="width:100%">
                       <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                       <input type="hidden" id="id_func" name="id_func" value="<?php echo $func->id; ?>">
                       
-                      <tr><td><span>Funcionario:</td><td><input type="text" id="funcionario" disabled name="funcionario" value="<?php echo $func->nome; ?>">                       
+                      <tr>
+                           <td><span>Funcionario:</td>
+                           <td><input style="width:100%" type="text" id="funcionario" disabled name="funcionario" value="<?php echo $func->nome; ?>"></td>
+                      </tr>
                       <tr> <td ><span>Data de entrega:</span></td> <td><input type="date" id="data" name="data" value='<?php echo date("Y-m-d"); ?>'></td></tr>
                       <!-- <tr> <td ><span>Quantidade:</span></td> <td><input type="number" id="quantidade" name="quantidade"></td></tr>   -->
                       <tr><td colspan="2"><span>Escolha os equipamentos e clique em avançar para definir a quantidade:</span></td></tr>
@@ -135,11 +144,11 @@ function validate(){
                      </tr>
                   </table>
                </form>
-   <?php }elseif(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?>
+   <?php }else if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ // EDITAR EPI POR FUNCIONARIO?>
+            <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Editar EPI para funcionario</span></div></div><br><br><br><br>    
                  <?php 
                      $func = new Funcionario();
                      $func = $func->get_func_id($_GET['id']);
-                     $func_epi = $func_epi->get_func_epis($_GET['id']);
                                           
                   ?>
             <form method="POST" id="add_epiXfunc" action="add_epiXfunc.php" onsubmit="return validate(this)">
@@ -244,7 +253,8 @@ function validate(){
               //     }
               // }
         ?>
-     
+        
        
     </div>
+    <?php include("informacoes_func_epi.php") ?>
 </body>
