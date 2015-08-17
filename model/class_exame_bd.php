@@ -2,6 +2,8 @@
          
 include_once("class_sql.php");
 include_once("class_turno_bd.php");
+include_once("class_periodicidade_bd.php");
+
 require_once(dirname(__FILE__) . "/../global.php");
 
 class Exame{
@@ -80,6 +82,8 @@ class Exame{
 		while($result = mysql_fetch_array($query)){
 			$return[$aux][0] = $result['id'];
 			$return[$aux][1] = $result['descricao'];
+			$return[$aux][2] = $result['id_periodicidade'];
+
 			$aux++;
 		}
 		if($aux == 0){
@@ -103,12 +107,15 @@ class Exame{
 	}
 	
 	public function printExames(){
-		$texto .= "Descricao: ".$this->descricao."<br />";
-		$texto .= "id_periodicidade: ".$this->id_periodicidade."<br />";
+		$periodiciade = new Periodicidade();
+		$periodiciade = $periodiciade->get_periodiciade_id($this->id_periodicidade);
 		
-		return $texto;
+		echo "<table class='table_pesquisa'>";
+		echo "<tr><td>Descrição: </td><td>".$this->descricao."</td></tr>";
+		echo "<tr><td>Periodiciade: </td><td>".$periodiciade->periodo."</td></tr>";
+		echo "</table>";
+
 	}
-	
 
 }
 
