@@ -838,7 +838,7 @@ function carregaUf_CartTrab(uf){
                      <tr> <td><span>Telefone:</span></td> <td><input type="text" id="telefone" name="telefone" ></td></tr> <!-- telefone -->
                      <tr> <td><span>Email Pessoal:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="email" name="email"></td></tr> <!-- email -->
                      <tr> <td><span>Email empresarial:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="email_emp" name="email_emp"></td></tr> <!-- email empresa_filialrial -->
-                     <tr> <td><span>Senha:</span></td> <td colspan="3"><input type="password" id="senha" name="senha" ></td></tr> <!-- senha -->
+                     <tr> <td><span>Senha:</span></td> <td colspan="3"><input type="password" id="senha" name="senha"></td></tr> <!-- senha -->
                      <tr>
                         <td><span>Empresa:</span></td>
                         <td colspan="3">
@@ -1065,7 +1065,10 @@ function carregaUf_CartTrab(uf){
 
                            $telefone = $_POST['telefone'];
                            $email = $_POST['email'];
-                           $senha = md5($_POST['senha']);
+                           if(isset($_POST['senha']) && $_POST['senha'] != '')
+                                $senha = md5($_POST['senha']);
+                           else
+                                $senha ='';
                            $id_empresa = $_POST['empresa'];
                            $id_empresa_filial = $_POST['empresa_filial'];
                            $id_turno = $_POST['turno'];
