@@ -6,7 +6,7 @@
        <ul class="sub-menu">
         <li><a href="add_func.php">Funcionário</a></li>
         <?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 1){ ?>
-                  <li><a href="add_cliente.php">Cliente</a></li>
+                  <li><a href="add_cliente.php">Cliente / Administrador</a></li>
                   <li><a href="add_epi.php">Equipamentos</a></li>                  
                   <li><a href="add_epiXfunc.php">Equipamentos por funcionario</a></li>
                   <li><a href="add_patrimonio.php">Patrimonio</a></li>

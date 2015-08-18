@@ -23,6 +23,7 @@ require_once("../model/class_cidade_bd.php");
 <head>
 	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 	 <link rel="stylesheet" type="text/css" href="style.css">
+	 <link href="../css/landing-page.css" rel="stylesheet">
 
 </head>
 
