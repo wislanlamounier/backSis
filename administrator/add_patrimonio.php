@@ -247,7 +247,7 @@ function buscar_responsavel(){
           carregaResp();
           setTimeout(function() {mascara( document.getElementById('valor_compra'), mmoney )},250);
           setTimeout(function() {mascara( document.getElementById('valor_hora'), mmoney )},200);
-        }, 100);
+        }, 500);
 
        
   }

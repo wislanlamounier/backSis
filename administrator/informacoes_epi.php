@@ -32,7 +32,7 @@ include_once("../model/class_epi_bd.php");
 		
 	<input type="button" class="button" value="Editar" onclick="buscar_editar('1')">
   <input type="button" class="button" value="Excluir" onclick="buscar_editar('2')">
-  <input type="button" class="button" value="Pesquisar" onclick="buscar_editar('3')">
+  <!-- <input type="button" class="button" value="Pesquisar" onclick="buscar_editar('3')"> -->
 	<div id="result">
 	</div>
 </div>

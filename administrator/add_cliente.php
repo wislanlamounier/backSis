@@ -510,7 +510,7 @@ require_once("../model/class_cidade_bd.php");
       setTimeout(function() {
          carregaCidade();
          carregaPostosTrabalho();
-        }, 100);
+        }, 500);
     }
 
 	function carregaUf(uf){

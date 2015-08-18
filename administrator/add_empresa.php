@@ -359,7 +359,7 @@ function buscar_cidades(){
     function disparaLoadCidade(){
       setTimeout(function() {
          carregaCidade();
-        }, 100);
+        }, 500);
 
     }
  </script>

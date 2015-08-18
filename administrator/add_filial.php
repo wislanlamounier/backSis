@@ -287,7 +287,7 @@ function validate(){
           function disparaLoadCidade(){
       setTimeout(function() {
          carregaCidade();
-        }, 100);
+        }, 500);
       }
     
     function carregaUF(uf){

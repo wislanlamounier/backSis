@@ -88,16 +88,12 @@ function formata_salario($salario){
 
     function confirma(id,nome){
        if(confirm("Excluir funcionario "+nome+" , tem certeza?")){
-          var url = '../ajax/ajax_excluir_funcionario.php?id='+id+'&nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
+          var url = '../ajax/ajax_excluir_funcionario.php?id='+id+'&nome='+nome;
           $.get(url, function(dataReturn) {
-            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+            $('#result').html(dataReturn);
           });
        }
-       
-
     }
-
-
       function valida(f){
         var erros = 0;
         var msg = "";
@@ -359,42 +355,30 @@ function formata_salario($salario){
                   }
                }
           }
-          if(erros>0){
-            
+          if(erros>0){            
               alert(msg);
-            
             return false;
           }
       }
-
-
-    function buscar_cidades(){
-         
-      var estado = document.getElementById("estado").value;  //codigo do estado escolhido
-
-      //se encontrou o estado
+    function buscar_cidades(){    
+      var estado = document.getElementById("estado").value;
       if(estado){
-
-        var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
-
+        var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;
         $.get(url, function(dataReturn) {
-          $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
+          $('#load_cidades').html(dataReturn);
         });
       }
     }
     function carrega_postos(){
-      
       var empresa = document.getElementById("empresa").value;
-      
       if(empresa){
           var url = '../ajax/ajax_buscar_postos.php?empresa='+empresa;
           $.get(url, function(dateReturn){
             $('#load_postos').html(dateReturn);
           });
       }
-
     }
-    // inicio mascaras
+    // Mask
     function mascara(o,f){
           v_obj=o
           v_fun=f
@@ -405,14 +389,13 @@ function formata_salario($salario){
       }
 
    function mtel(v){
-       if(v.length >=15){                                          // alert("mtel")
+       if(v.length >=15){
          v = v.substring(0,(v.length - 1));
          return v;
        }
-       v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
-       v=v.replace(/^(\d{2})(\d)/g,"($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
-       v=v.replace(/(\d)(\d{4})$/,"$1-$2");    //Coloca hífen entre o quarto e o quinto dígitos
-       
+       v=v.replace(/\D/g,"");
+       v=v.replace(/^(\d{2})(\d)/g,"($1) $2");
+       v=v.replace(/(\d)(\d{4})$/,"$1-$2");
        return v;
    }
     function mcpf(v){
@@ -442,7 +425,6 @@ function formata_salario($salario){
        return v;
    }
    function id( el ){
-     // alert("id")
      return document.getElementById( el );
    }
    window.onload = function(){
@@ -462,11 +444,10 @@ function formata_salario($salario){
           mascara( this, dnasc );
       }
    }
-   // fim mascaras
+   // fim Mask
    function validarCPF(cpf) {  
     cpf = cpf.replace(/[^\d]+/g,'');    
     if(cpf == '') return false; 
-    // Elimina CPFs invalidos conhecidos    
     if (cpf.length != 11 || 
         cpf == "00000000000" || 
         cpf == "11111111111" || 
@@ -479,7 +460,6 @@ function formata_salario($salario){
         cpf == "88888888888" || 
         cpf == "99999999999")
             return false;       
-    // Valida 1o digito 
     add = 0;    
     for (i=0; i < 9; i ++)       
         add += parseInt(cpf.charAt(i)) * (10 - i);  
@@ -488,7 +468,6 @@ function formata_salario($salario){
             rev = 0;    
         if (rev != parseInt(cpf.charAt(9)))     
             return false;       
-    // Valida 2o digito 
     add = 0;    
     for (i = 0; i < 10; i ++)        
         add += parseInt(cpf.charAt(i)) * (11 - i);  
@@ -499,23 +478,21 @@ function formata_salario($salario){
         return false;       
     return true;   
 }
-// CARREGA SELECTS
 function buscar_cid(id_est){
-      var estado = id_est;  //codigo do estado escolhido
-      //se encontrou o estado
+      var estado = id_est;
       if(estado){
-        var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+        var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;
         $.get(url, function(dataReturn) {
-          $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
+          $('#load_cidades').html(dataReturn);
         });
       }
     }
     function buscar_postos(id_empresa){
       
       if(id_empresa){
-        var url = '../ajax/ajax_buscar_postos.php?empresa='+id_empresa;  //caminho do arquivo php que irá buscar as cidades no BD
+        var url = '../ajax/ajax_buscar_postos.php?empresa='+id_empresa;
         $.get(url, function(dataReturn) {
-          $('#load_postos').html(dataReturn);  //coloco na div o retorno da requisicao
+          $('#load_postos').html(dataReturn);
         });
       }
     }
@@ -526,7 +503,6 @@ function carregaUf_CartTrab(uf){
         if (combo.options[i].value == uf)
         {
           combo.options[i].selected = true;
-          
           break;
         }
       }
@@ -538,7 +514,6 @@ function carregaUf_CartTrab(uf){
         if (combo.options[i].value == uf)
         {
           combo.options[i].selected = true;
-          
           break;
         }
       }
@@ -550,7 +525,6 @@ function carregaUf_CartTrab(uf){
         if (combo.options[i].value == sup)
         {
           combo.options[i].selected = true;
-          
           break;
         }
       }
@@ -574,7 +548,6 @@ function carregaUf_CartTrab(uf){
         if (combo.options[i].value == sup)
         {
           combo.options[i].selected = true;
-          
           break;
         }
       }
@@ -615,29 +588,24 @@ function carregaUf_CartTrab(uf){
         }
       }
     }
-         function carregaCidade(){
-          var combo = document.getElementById("cidade");
-          var cidade = document.getElementById("id_cidade").value;
-
-          for (var i = 0; i < 1000; i++)
-          {
-            if (combo.options[i].value == cidade)
-            {
-              combo.options[i].selected = true;
-              break;
-            }
-          }
-        
+     function carregaCidade(){
+        var combo = document.getElementById("cidade");
+        var cidade = document.getElementById("id_cidade").value;
+  
+        for (var i = 0; i < 1000; i++)
+         {
+           if (combo.options[i].value == cidade)
+               {
+               combo.options[i].selected = true;
+               break;
+             }
+           } 
       }
-      
-    
   function disparaLoadCidade(){
       setTimeout(function() {
          carregaCidade();
-        }, 100);
+        }, 500);
       }
-    
-// FIM CARREGA SELECTS
 
 </script>
 <body onload="disparaLoadCidade()">
