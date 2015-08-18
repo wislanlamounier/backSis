@@ -40,7 +40,7 @@ body span, body table tr td span{
 }
 
 .body-login{
-	background: url("../images/konstruksi.jpg");
+	background: url("../img/intro-bg.jpg");
 	background-size: 100%;
 }
 #table_login input{
