@@ -7,19 +7,19 @@
                             <a href="#">Home</a>
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
-                        <li>
+                        <!-- <li>
                             <a href="#about">About</a>
+                        </li> -->
+                        <!-- <li class="footer-menu-divider">&sdot;</li> -->
+                        <li>
+                            <a href="#services">Serviços</a>
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="#services">Services</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#contact">Contact</a>
+                            <a href="#contact">Contato</a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted small">Copyright &copy; Your Company 2014. All Rights Reserved</p>
+                    <p class="copyright text-muted small">Copyright &copy; ControlSystem. Todos os direitos reservados</p>
                 </div>
             </div>
         </div>
