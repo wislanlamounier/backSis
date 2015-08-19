@@ -6,7 +6,7 @@
                 <div class="col-lg-5 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Cadastro Fácil.</h2>
+                    <h2 class="section-heading">Cadastramento Fácil.</h2>
                     <p class="lead">Mantenha a lista de funcionários, clientes e fornecedores sempre atualizadas e tenha os dados sempre a um clique de distância, aumentando a eficiencia e a organização da sua empresa.</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
@@ -50,8 +50,8 @@
                 <div class="col-lg-5 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Google Web Fonts and<br>Font Awesome Icons</h2>
-                    <p class="lead">This template features the 'Lato' font, part of the <a target="_blank" href="http://www.google.com/fonts">Google Web Font library</a>, as well as <a target="_blank" href="http://fontawesome.io">icons from Font Awesome</a>.</p>
+                    <h2 class="section-heading">Multiplataforma<br>e economia de hardware</h2>
+                    <p class="lead">Acesse de qualquer lugar a qualquer hora, e economise hardware sem ter que instalar programas em seu computador.</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <img class="img-responsive" src="img/phones.png" alt="">
