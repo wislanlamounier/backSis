@@ -8,19 +8,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#">Viacampos</a>
+                <a class="navbar-brand topnav" href="#">SGO - Sistema de Gerenciamento de Obras</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#about">About</a>
+                        <a href="#about">Home</a>
                     </li>
                     <li>
-                        <a href="#services">Services</a>
+                        <a href="#services">Serviços</a>
                     </li>
                     <li>
-                        <a href="#contact">Contact</a>
+                        <a href="#contact">Contato</a>
                     </li>
                     <li>
                         <a href="administrator/">Acesse</a>
