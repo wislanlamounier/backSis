@@ -16,7 +16,9 @@ include_once("../model/class_horarios_bd.php");
  		
  		<?php include_once("../view/topo.php"); ?>
  		<?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 2){
+ 			echo '<div class="formulario" style="width:93%">';
  			include_once("../view/box-atrasos.php");
+ 			echo '</div>';
  		} ?>
  		
  </body>
