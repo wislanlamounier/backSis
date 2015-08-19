@@ -43,12 +43,10 @@ body span, body table tr td span{
 	background: url("../img/intro-bg.jpg");
 	background-size: 100%;
 }
-#table_login input{
+/*#table_login input{
 	border: 1px solid#ccc;
-}
-#table_login{
-	margin-top: 20px;
-}
+}*/
+
 .content{
 	padding: 30px;
     background-color: rgba(230,230,230, 0.8);
@@ -415,3 +413,7 @@ h2{
 }
 
 /*******************************************************************************/
+#table_login{
+	text-align: center;
+	margin-top: 20px;
+}
