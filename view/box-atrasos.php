@@ -87,8 +87,9 @@
       }
 
            
-           echo '<tr><td colspan="4"><img src="../images/rel.png"></td></tr>';
+                     
            echo '<tr><td colspan="4">'.date("d/m/Y").'</td></tr>';
+           echo '<tr><td colspan="4"><input type="text" readonly="true" id="txtRelogio"></td></tr>';
            echo '<tr><td colspan="4"><b>Atrasos</b></td></tr>';
            echo '<tr><td>Funcionário</td><td>Tipo</td><td>Hora</td><td>Tempo de atraso</td></tr>';
            $title = 'Clique para justificar o atraso';
