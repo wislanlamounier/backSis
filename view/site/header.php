@@ -6,7 +6,7 @@
                 <div class="col-lg-12">
                     <div class="intro-message">
                         <h1>ControlSystem</h1>
-                        <!-- <h3>Acesse Agora</h3> -->
+                        <h3>Ponto eletrônico e Engenharia de fundações</h3>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li>

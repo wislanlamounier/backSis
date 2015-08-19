@@ -17,7 +17,8 @@
 </div>
 <div style="float:left; width:100%">
  	<div class="menu">
-	<div class="menu">
-         <?php include_once("../view/menu_admin.php"); ?>
-    </div>
+		<div class="menu">
+	         <?php include_once("../view/menu_admin.php"); ?>
+	    </div>
+	</div>
 </div>

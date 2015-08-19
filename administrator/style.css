@@ -91,7 +91,9 @@ body span, body table tr td span{
 	border-radius:5px;
 	cursor: pointer;
 }
-
+.define-relatorio tr td a{
+	text-decoration: none;
+}
 /********************************* BOX LOGIN ***************************************/
 .box-login{
 	border: 1px solid#ddd;
