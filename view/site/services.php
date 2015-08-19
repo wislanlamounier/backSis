@@ -6,8 +6,8 @@
                 <div class="col-lg-5 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Cadastros Fácil ! <br>Cadastre facilmente e gere imporantes relatórios.</h2>
-                    <p class="lead">Seus dados com poucos clicks, tenha rapidez e organização em sua empresa.</p>
+                    <h2 class="section-heading">Cadastro Fácil.</h2>
+                    <p class="lead">Mantenha a lista de funcionários, clientes e fornecedores sempre atualizadas e tenha os dados sempre a um clique de distância, aumentando a eficiencia e a organização da sua empresa.</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <img class="img-responsive" src="img/ipad.png" alt="">
@@ -28,8 +28,8 @@
                 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Relatórios em<br>PDF</h2>
-                    <p class="lead">Temos uma ferramenta que gera relatório em PDF, você podera visualizar e imprimir dados para estar sempre um passo a frente com seus dados em mão.</p>
+                    <h2 class="section-heading">Relatórios</h2>
+                    <p class="lead">Gerar relatórios de qualquer lugar e a quaquer hora nunca foi tão fácil! Visualize, imprima e fique sempre um passo a frente com os dados em mãos.</p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
                     <img class="img-responsive" src="img/dog.png" alt="">
