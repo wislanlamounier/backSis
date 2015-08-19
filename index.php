@@ -44,7 +44,7 @@
     
     <!-- /.content-section-a -->
 
-	<!-- <?php include_once("viwe/site/contact.php") ?> -->
+	<?php include_once("view/site/contact.php") ?>
 
     <!-- Footer -->
     <?php include_once("view/site/footer.php"); ?>
