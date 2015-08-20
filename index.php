@@ -38,6 +38,8 @@
     <!-- Header -->
     <?php include_once("view/site/header.php") ?>    
     
+    <!-- Cadastro -->
+     <?php include_once("view/site/cadastro.php") ?>    
 
     <!-- Page Content -->
 	<?php include_once("view/site/services.php") ?>    

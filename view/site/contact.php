@@ -4,9 +4,9 @@
         <div class="container" style="text-align:center">
 
             <div >
-                <div >
-                    <h2>Contato</h2>
-                </div>
+            
+                <h2>Contato</h2>
+                
                 <div style="text-align:center">
                     <table border='0' class="table-footer" style="height:150px; width:500px;">
                         <tr><td><input placeholder="Nome" class="form-control" type="text"></td><td rowspan='3'> <textarea style="height:145px;" placeholder="Mensagem *"class="form-control"></textarea></td></tr>
