@@ -425,3 +425,24 @@ h2{
 	text-align: center;
 	margin-top: 20px;
 }
+/******************************************************************************/
+.add_veiculo select{
+	border: 1px solid:black;
+	margin-top: 10px;
+	margin-bottom: 10px;	
+	float:left;
+	width: 100%;
+	height: 35px;
+	font-size:16px;
+	background-color:rgba(250,250,275,0.2);
+}
+
+.add_veiculo table input{
+	background-color: #cecece;	
+	text-align: left;
+	width: 159px;
+	padding-right: 3px;
+	border: 0;
+	
+	transition: all 0.5s;
+}

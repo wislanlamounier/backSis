@@ -1,0 +1,119 @@
+<?php
+include("restrito.php"); 
+include_once("../model/class_empresa_bd.php");
+include_once("../model/class_cliente.php");
+ ?>
+
+<html>
+<head>
+	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
+	 <link rel="stylesheet" type="text/css" href="style.css">
+	 <script type="text/javascript">
+	 function carregaEmpresa(empresa){
+      
+      var combo = document.getElementById("empresa");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == empresa)
+        {
+          combo.options[i].selected = true;
+          break;
+        }
+      }
+    }
+
+    function carregaForncedor(fornecedor){
+      
+      var combo = document.getElementById("fornecedor");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == fornecedor)
+        {
+          combo.options[i].selected = true;
+          break;
+        }
+      }
+    }
+
+    function buscar_responsavel(){         
+          var empresa = document.getElementById("empresa").value;  //codigo do estado escolhido
+
+          //se encontrou o estado
+          if(empresa){
+
+            var url = '../ajax/ajax_buscar_responsavel.php?empresa='+empresa;  //caminho do arquivo php que irá buscar as cidades no BD
+
+            $.get(url, function(dataReturn) {
+              $('#load_responsavel').html(dataReturn);  //coloco na div o retorno da requisicao
+            });
+          }
+        }
+   
+	 </script>
+</head>
+
+<body>	
+			<?php include_once("../view/topo.php"); ?>
+
+			<div id="content">                                               
+            <div class="formulario">
+            <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){?>           	
+
+                <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR GRUPO GRUPO</span></div></div>
+                       <form method="POST" id="add_grupo" action="add_grupo.php" onsubmit="return validate(this)">
+                            <input type="hidden" id="tipo" name="tipo" value="editar">
+                            <input type="hidden" id="id" name="id" value="<?php echo $id ?>"> 
+                       </form>              
+            <?php }else{ ?>              
+                       <form method="POST" class="add_veiculo" id="add_veiculo" name="add_veiculo" action="add_veiculo.php" onsubmit="return validate(this)">
+                        <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">ADICIONAR VEíCULO</span></div></div>
+                        <input type="hidden" id="tipo" name="tipo" value="cadastrar">
+                          <table border="0">                          
+                          		<tr><td><span>Matricula:</span></td> <td><input type="numeric" name="matricula" id="matricula"></td></tr>                             	
+                             	<tr><td><span>Placa:</span></td><td><input type="text" name="placa" id="placa"><td><span> Chassi:</span></td><td><input type="text" name="chassi" id="chassi"></td></td></tr>
+                             	<tr><td><span>Marca:</span></td><td><input type="text" name="marca" id="marca"> <td><span> Modelo:</span></td><td><input type="text" name="modelo" id="modelo"></td></td></tr>                                <tr></tr>
+                             	<tr><td><span>Cor:</span></td><td><input type="text" name="cor" id="cor"><td><span> Ano:</span></td><td><input type="date" name="ano" id="ano"></td></td></tr>
+                             	<tr><td><span>Combustível:</span></td><td>	<select name="combustivel" id="combustivel">
+                             												<option>Gasolina</option>
+                             												<option>Flex</option>
+                             												<option>Álcool</option>
+                             												</select>
+                              	</td></tr>	
+                             	<tr><td><span>Assegurado:</span></td><td><input type="selectbox" name="assegurado" id="assegurado"></td></tr>                             	
+                             	<tr><td><span>Quilometragem Inicial:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial"></td></tr>
+                             	<tr><td><span>Forncedor:</span></td><td>
+                             			<select id="fornecedor" name="fornecedor"  style="width:100%">
+			                              <option value="no_sel">Selecione</option>
+			                              <?php 
+			                                 $fornecedor = new Cliente();
+			                                 $fornecedor = $fornecedor->get_all_cliente();
+			                                 for ($i=0; $i < count($fornecedor) ; $i++) { 
+			                                    echo '<option value="'.$fornecedor[$i][0].'">'.$fornecedor[$i][1].'</option>';
+			                                 }
+			                               ?>
+			                           </select></td></tr>
+								
+								<div class="msg"><td colspan="2" style="text-align:center"><span><b>Informações do veículo ligados a empresa</b></span></td></tr></div>
+                             	<tr><td><span>Empresa:</span></td><td>
+                             			<select id="empresa" name="empresa"  style="width:100%" onchange="buscar_responsavel()">
+			                              <option value="no_sel">Selecione</option>
+			                              <?php 
+			                                 $empresa = new Empresa();
+			                                 $empresa = $empresa->get_all_empresa();
+			                                 for ($i=0; $i < count($empresa) ; $i++) { 
+			                                    echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
+			                                 }
+			                               ?>
+			                           </select><td><span> Responsável:</span></td><td><input type="select" name="id_funcionario" id="id_funcionario"></td></td></tr>
+
+                             	
+                             	
+                          </table>
+                          <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_veiculo.php'" id="button" value="Cancelar"></td></tr>
+                       </form>          
+                       
+            <?php }?> 
+	 	    </div> 
+	 
+</body>
+</html>
