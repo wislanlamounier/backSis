@@ -146,7 +146,7 @@ function validate(){
                              												</select>
                               	</td></tr>	
                              	<tr><td><span>Seguro:</span></td><td><input class="seguro" type="checkbox"  name="seguro" value="1"></td></tr>                             	
-                             	<tr><td><span>Quilometragem Inicial:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial"></td></tr>
+                             	<tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Quilometragem Inicial:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial"></td></tr>
                              	<tr><td><span>Forncedor:</span></td><td>
                              			<select id="fornecedor" name="fornecedor"  style="width:100%">
 			                              <option value="no_sel">Selecione</option>

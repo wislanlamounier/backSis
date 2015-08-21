@@ -14,6 +14,7 @@ class Veiculo{
 	public $modelo;
 	public $ano;
 	public $cor;
+	public $valor;
 	public $data_compra;
 	public $seguro;
 	public $quilometragem;
@@ -24,9 +25,8 @@ class Veiculo{
 	public $id_responsavel;
 	public $oculto;
 
-	public function add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $data_compra, $seguro, $quilometragem, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel){
+	public function add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $quilometragem, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel){
 			
-
 			$this->matricula = $matricula;
 			$this->chassi = $chassi;
 			$this->renavam = $renavam;
@@ -35,6 +35,7 @@ class Veiculo{
 			$this->modelo = $modelo;
 			$this->ano = $ano;
 			$this->cor = $cor;
+			$this->valor = $valor;
 			$this->data_compra = $data_compra;
 			$this->seguro = $seguro;
 			$this->quilometragem = $quilometragem;
@@ -49,9 +50,9 @@ class Veiculo{
 			$sql = new Sql();
 			$sql->conn_bd();
 			$g = new Glob();
-			$query = "INSERT INTO veiculo(matricula, chassi, renavam, placa, marca, modelo, ano, cor, data_compra, seguro, quilometragem, km_inicial, tipo_combustivel, id_empresa, id_fornecedor, id_responsavel)
-									VALUES ('%s',	  '%s',	  '%s',   '%s',	'%s',	'%s',  '%s','%s',	'%s,         %s',      '%s',		'%s',		'%s',			'%s',		'%s',			'%s'	)";
-			return $g->tratar_query($query, $this->matricula, $this->chassi, $this->renavam, $this->placa, $this->marca, $this->modelo, $this->ano, $this->cor, $this->data_compra, $this->seguro, $this->quilometragem, $this->km_inicial, $this->tipo_combustivel,$this->id_empresa, $this->id_fornecedor, $this->id_responsavel);
+			$query = "INSERT INTO veiculo(matricula, chassi, renavam, placa, marca, modelo, ano, cor, valor, data_compra, seguro, quilometragem, km_inicial, tipo_combustivel, id_empresa, id_fornecedor, id_responsavel)
+									VALUES ('%s',	  '%s',	  '%s',   '%s',	'%s',	'%s',  '%s','%s',  '%s',  	'%s,         %s',      '%s',		'%s',		'%s',			'%s',		'%s',			'%s'	)";
+			return $g->tratar_query($query, $this->matricula, $this->chassi, $this->renavam, $this->placa, $this->marca, $this->modelo, $this->ano, $this->cor, $this->valor, $this->data_compra, $this->seguro, $this->quilometragem, $this->km_inicial, $this->tipo_combustivel, $this->id_empresa, $this->id_fornecedor, $this->id_responsavel);
 	}
 	
 	public function get_veiculo_chassi($chassi){

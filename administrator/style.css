@@ -224,6 +224,7 @@ h2{
 	font-size:15px;
 }
 .title-box{
+	box-shadow: 2.8px 2.8px 12px #888;
 	width: 98%;
 	background: url("../images/footer_lodyas.png");
 	background-size: 200px;
@@ -298,6 +299,7 @@ h2{
 	border-radius: 3px;
 	text-align: center;
 	font-size:16px;
+	box-shadow: 0px 0px 10px #aaa;
 }
 .button:hover{
 	width: 100px;
@@ -446,6 +448,15 @@ h2{
 	
 	transition: all 0.5s;
 }
+.add_patrimonio table input{
+	background-color: #cecece;	
+	text-align: left;
+	width: 159px;
+	padding-right: 3px;
+	border: 0;
+	
+	transition: all 0.5s;
+}
 .add_patrimonio input.uppercase{
   text-transform: uppercase;
 }
@@ -455,6 +466,28 @@ h2{
 	width: 18px;
 	padding-right: 3px;
 	border: 0;
+}
+.add_patrimonio input.submit{
+	background: url("../images/footer_lodyas.png");
+	width: 100px;
+	height: 25px;
+	color:#ddd;
+	border: 1px solid#bbb;
+	border-radius: 3px;
+	text-align: center;
+	font-size:16px;
+	box-shadow: 0px 0px 10px #aaa;
+
+}
+.add_patrimonio input.submit:hover{
+	width: 100px;
+	height: 25px;
+	color:#ddd;
+	border: 1px solid#bbb;
+	border-radius: 3px;
+	font-size:16px;
+	cursor:pointer;
+
 }
 #txtRelogio{
 	height: 50px;
@@ -477,3 +510,28 @@ h2{
 	
 	padding: 0px;
 }
+
+.menu_patrimonio form{
+	float: left;
+    margin: 20 10px 0px 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
