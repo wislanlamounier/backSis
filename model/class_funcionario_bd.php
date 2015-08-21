@@ -36,7 +36,6 @@ class Funcionario{
 	public $id_supervisor;
 	
 	public function add_func($nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor){
-		
 		$this->nome = $nome;
 		$this->cpf = $cpf;
 		$this->data_nasc = $data_nasc;
@@ -69,6 +68,8 @@ class Funcionario{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
+
+
 
 		$query = "INSERT INTO funcionario (nome, cpf, rg, data_nasc, telefone, email, senha, id_turno, id_cbo, id_empresa, id_empresa_filial, is_admin, id_endereco, data_em_rg, org_em_rg, num_tit_eleitor, email_empresa, data_adm, salario_base, qtd_horas_sem, num_cart_trab, num_serie_cart_trab, id_uf_cart_trab, num_pis, id_supervisor) 
 		                           VALUES ('%s','%s', '%s', '%s',      '%s',     '%s', '%s',    %d,       %d,      %d,             %d,        %d,        %d,        '%s',        '%s',         '%s',         '%s',         '%s',      '%s',          %d,          '%s',            '%s',                %d,           '%s',     '%s')";
@@ -343,26 +344,54 @@ class Funcionario{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$aux=0;
 		
-		$query = "UPDATE funcionario SET nome='%s', cpf='%s', data_nasc='%s', id_endereco = '%s', telefone = '%s', email = '%s', id_empresa = '%s', id_empresa_filial = '%s', id_turno = '%s', id_cbo = '%s', is_admin = '%s', rg = '%s', data_em_rg = '%s' , org_em_rg = '%s', num_tit_eleitor = '%s', email_empresa = '%s', data_adm = '%s', salario_base = '%s', qtd_horas_sem = '%s', num_cart_trab = '%s', num_serie_cart_trab = '%s', id_uf_cart_trab = '%s', num_pis = '%s', id_supervisor = '%s'";
-										     // $nome,    $cpf,       $data_nasc,       $telefone,      $email,       $id_empresa_filial,        $id_turno,    $id_cbo,        $is_admin,        $data_em_rg ,     $org_em_rg,          $num_tit_eleitor,    $email_empresa,       $data_adm,        $salario_base,     $qtd_horas_sem,       $num_cart_trab,       $num_serie_cart_trab,        $uf_cart_trab,   $num_pis, $id
 		
-
-		if($senha != ""){
-			$query .= ", senha = '%s' ";
-			$aux++;
+		$temp = Funcionario::get_func_id($id);
+		$cont = 0; //conta se algum dado importante foi alterado
+		foreach ($temp as $key => $value) {
+			if($key == 'data_nasc' && $temp->$key != $data_nasc){// verifica se data_nascimento foi alterado
+				$cont++;
+			}else if($key == 'id_empresa' && $temp->$key != $id_empresa){// verifica se empresa foi alterada
+				$cont++;
+			}else if($key == 'id_turno' && $temp->$key != $id_turno){// verifica se turno foi alterado
+				$cont++;
+			}else if($key == 'id_cbo' && $temp->$key != $id_cbo){// verifica se turno foi alterado
+				$cont++;
+			}else if($key == 'is_admin' && $temp->$key != $is_admin){// verifica se turno foi alterado
+				$cont++;
+			}else if($key == 'salario_base' && $temp->$key != $salario_base){// verifica se turno foi alterado
+				$cont++;
+			}else if($key == 'qtd_horas_sem' && $temp->$key != $qtd_horas_sem){// verifica se turno foi alterado
+				$cont++;
+			}
 		}
+		if($cont > 0){//se cont > 0 um dos dados importantes foi alterado e necessita gerar histórico
+			
+			//se foi alterado algo importante tem que adicionar um novo registro com as alterações e manter o outro
+			// Funcionario::add_func($id, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor);
 
-		$query .= "WHERE id = '%s'";
-		// printf($query, $nome, $cpf, $data_nasc, $telefone, $email, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $id);
-		if($aux == 0){
-			$query_tra = $g->tratar_query($query, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,          $id);
 		}else{
-			$query_tra = $g->tratar_query($query, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,         $senha, $id);
-		}
 
-		return $query_tra;
+			$aux=0;
+			
+			$query = "UPDATE funcionario SET nome='%s', cpf='%s', data_nasc='%s', id_endereco = '%s', telefone = '%s', email = '%s', id_empresa = '%s', id_empresa_filial = '%s', id_turno = '%s', id_cbo = '%s', is_admin = '%s', rg = '%s', data_em_rg = '%s' , org_em_rg = '%s', num_tit_eleitor = '%s', email_empresa = '%s', data_adm = '%s', salario_base = '%s', qtd_horas_sem = '%s', num_cart_trab = '%s', num_serie_cart_trab = '%s', id_uf_cart_trab = '%s', num_pis = '%s', id_supervisor = '%s'";
+											     // $nome,    $cpf,       $data_nasc,       $telefone,      $email,       $id_empresa_filial,        $id_turno,    $id_cbo,        $is_admin,        $data_em_rg ,     $org_em_rg,          $num_tit_eleitor,    $email_empresa,       $data_adm,        $salario_base,     $qtd_horas_sem,       $num_cart_trab,       $num_serie_cart_trab,        $uf_cart_trab,   $num_pis, $id
+
+			if($senha != ""){
+				$query .= ", senha = '%s' ";
+				$aux++;
+			}
+
+			$query .= "WHERE id = '%s' and oculto = 0";
+			// printf($query, $nome, $cpf, $data_nasc, $telefone, $email, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $id);
+			if($aux == 0){
+				$query_tra = $g->tratar_query($query, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,          $id);
+			}else{
+				$query_tra = $g->tratar_query($query, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,         $senha, $id);
+			}
+
+			return $query_tra;
+		}
 	}
 
 	public function get_all_func_emp($id_empresa){
