@@ -9,6 +9,7 @@ require_once(dirname(__FILE__) . "/../global.php");
 
 class Funcionario{
 	public $id;
+	public $id_tabela; //id do registro no banco
 	public $nome;
 	public $cpf;
 	public $rg;
@@ -99,6 +100,7 @@ class Funcionario{
 	     }else{
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
 	     	$this->id = $row['id'];
+	     	$this->id_tabela = $row['id_tabela'];
 	     	$this->nome = $row['nome'];
 	     	$this->cpf = $row['cpf'];
 	     	$this->email = $row['email'];
@@ -340,7 +342,7 @@ class Funcionario{
 
 
 
-	public function atualiza_func($id, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor){
+	public function atualiza_func($id, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
@@ -366,7 +368,28 @@ class Funcionario{
 			}
 		}
 		if($cont > 0){//se cont > 0 um dos dados importantes foi alterado e necessita gerar histórico
+			$sql = new Sql();
+			$sql->conn_bd();
+			$g = new Glob();
+			$query = "UPDATE funcionario SET oculto = 1 WHERE id_tabela = %s";
+			$result = $g->tratar_query($query, $id_tabela);
+			$aux = 0;
+			$query_tra = false;
+			if($senha == ""){
+					$query = "INSERT INTO funcionario (id,  nome, cpf, rg, data_nasc, telefone, email,  senha, id_turno, id_cbo, id_empresa, id_empresa_filial, is_admin, id_endereco, data_em_rg, org_em_rg, num_tit_eleitor, email_empresa, data_adm, salario_base, qtd_horas_sem, num_cart_trab, num_serie_cart_trab, id_uf_cart_trab, num_pis, id_supervisor) 
+				                               VALUES ('%s','%s', '%s', '%s', '%s',      '%s',     '%s', '%s'  ,  %d,       %d,      %d,             %d,        %d,        %d,        '%s',        '%s',         '%s',         '%s',         '%s',      '%s',          %d,          '%s',            '%s',                %d,           '%s',     '%s')";
+
+				    $query_tra = $g->tratar_query($query, $id, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $temp->senha, $id_turno, $id_cbo, $id_empresa, $id_empresa_filial, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor);
 			
+			}else{
+					$query = "INSERT INTO funcionario (id,  nome, cpf, rg, data_nasc, telefone, email,  senha, id_turno, id_cbo, id_empresa, id_empresa_filial, is_admin, id_endereco, data_em_rg, org_em_rg, num_tit_eleitor, email_empresa, data_adm, salario_base, qtd_horas_sem, num_cart_trab, num_serie_cart_trab, id_uf_cart_trab, num_pis, id_supervisor) 
+				                               VALUES ('%s','%s', '%s', '%s', '%s',      '%s',     '%s', '%s'  ,  %d,       %d,      %d,             %d,        %d,        %d,        '%s',        '%s',         '%s',         '%s',         '%s',      '%s',          %d,          '%s',            '%s',                %d,           '%s',     '%s')";
+
+				    $query_tra = $g->tratar_query($query, $id, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_turno, $id_cbo, $id_empresa, $id_empresa_filial, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor);
+			}
+
+		    return $query_tra;
+		    
 			//se foi alterado algo importante tem que adicionar um novo registro com as alterações e manter o outro
 			// Funcionario::add_func($id, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor);
 
@@ -382,12 +405,12 @@ class Funcionario{
 				$aux++;
 			}
 
-			$query .= "WHERE id = '%s' and oculto = 0";
+			$query .= "WHERE id_tabela = '%s' and oculto = 0";
 			// printf($query, $nome, $cpf, $data_nasc, $telefone, $email, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $id);
 			if($aux == 0){
-				$query_tra = $g->tratar_query($query, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,          $id);
+				$query_tra = $g->tratar_query($query, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,          $id_tabela);
 			}else{
-				$query_tra = $g->tratar_query($query, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,         $senha, $id);
+				$query_tra = $g->tratar_query($query, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,         $senha, $id_tabela);
 			}
 
 			return $query_tra;

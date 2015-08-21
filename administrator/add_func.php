@@ -635,6 +635,7 @@ function carregaUf_CartTrab(uf){
                   <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR FUNCIONÁRIO</span></div></div>
                   <form method="POST" id="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
                   <input type="hidden" id="tipo" name="tipo" value="editar">
+                  <input type="hidden" id="id_func" name="id_tabela" value="<?php echo $func->id_tabela; ?>">
                   <input type="hidden" id="id_func" name="id_func" value="<?php echo $func->id; ?>">
                   <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $func->id_endereco; ?>">
                   <table border='0'>
@@ -1058,6 +1059,7 @@ function carregaUf_CartTrab(uf){
 
                            
                            $id = $_POST['id_func'];
+                           $id_tabela = $_POST['id_tabela'];
                            $nome = $_POST['nome'];
                            $cpf = $_POST['cpf'];
 
@@ -1111,7 +1113,7 @@ function carregaUf_CartTrab(uf){
                                 $id_endereco = $endereco->add_endereco_bd();
                             }
 
-                           if($func->atualiza_func($id, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor)){
+                           if($func->atualiza_func($id, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor)){
                               echo '<div class="msg">Funcionário editado com sucesso</div>';
                            }else{
                               echo '<div class="msg">Falha ao editar funcionário</div>';
