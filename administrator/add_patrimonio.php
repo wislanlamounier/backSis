@@ -295,7 +295,7 @@ function validate(){
                         echo  "<br>". $valor = $_POST['valor'];
                         echo  "<br>". $data_compra = $_POST['data_compra'];
                         echo  "<br>". $seguro = $_POST['seguro'];
-                        echo  "<br>". $quilometragem = 0;
+                        
                         echo  "<br>". $km_inicial = $_POST['km_inicial'];
                         echo  "<br>". $tipo_combustivel = $_POST['combustivel'];							
                         echo  "<br>". $id_empresa = $_POST['empresa'];
@@ -304,7 +304,7 @@ function validate(){
                         
 						          
                       $veiculo = new Veiculo();
-                      $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $quilometragem, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
+                      $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
                       
                       if($veiculo->add_veiculo_bd()){
                         echo '<div class="msg">Veiculo adicionado com sucesso !</div>';
