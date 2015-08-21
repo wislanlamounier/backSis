@@ -1,9 +1,10 @@
-<?php
+// <?php
 include("restrito.php"); 
 include_once("../model/class_empresa_bd.php");
 include_once("../model/class_cliente.php");
 include_once("../model/class_veiculo_bd.php");
 include_once("../model/class_funcionario_bd.php");
+include_once("../model/class_maquinario_bd.php");
 function validate(){
    if(!isset($_POST['cor']) || $_POST['cor'] == ""){
          return false;
@@ -87,9 +88,9 @@ function validate(){
                 <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Maquinário"></td></tr>
               </form>
               <form>
-                <input type="hidden" id="tipo" name="tipo" value="cadastrar_ferramenta">
+                <input type="hidden" id="tipo" name="tipo" value="cadastrar_geral">
                 <input type="hidden" id="tipo" name="menu" value="0">
-                <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Ferramenta"></td></tr>
+                <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Geral"></td></tr>
               </form>              
               <form>
                 <input type="hidden" id="tipo" name="tipo" value="cadastrar_veiculo">
@@ -98,8 +99,7 @@ function validate(){
               </form>
               </div>
             <?php }?>
-            <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_maquinario'){?>  
-                
+            <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_maquinario'){?>                  
                       <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR MAQUINÁRIO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
                         <input type="hidden" id="maquinario" name="maquinario" value="cadastrar_maquinario">
@@ -223,11 +223,11 @@ function validate(){
                        </form>
             <?php }?>
 
-             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_ferramenta'){?> 
+             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_geral'){?> 
              
              <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
-              <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR FERRAMENTA</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
-               <input type="hidden" id="ferramenta" name="ferramenta" value="cdastrar_ferramenta"> 
+              <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR PATRIMONIO EM GERAL</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
+               <input type="hidden" id="geral" name="geral" value="cdastrar_geral"> 
               <table border="0">
                   <tr><td><span>Matricula: </span></td><td><input type="text" nome="matricula" id="matricula"></td></tr>
                   <tr><td><span>Nome: </span></td><td><input type="text" nome="nome" id="nome"></td></tr>
@@ -245,6 +245,7 @@ function validate(){
                  if(isset($_POST['maquinario']) && $_POST['maquinario'] == "cadastrar_maquinario"){
                     // echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';                    
                     if(validate()){
+
                       echo  "<br>".  $matricula = $_POST['matricula'];           
                       echo  "<br>".  $chassi_nserie = $_POST['chassi_nserie'];
                       echo  "<br>".  $fabricante = $_POST['fabricante'];
@@ -256,20 +257,22 @@ function validate(){
                       echo  "<br>".  $data_compra = $_POST['data_compra'];
                       echo  "<br>".  $seguro = $_POST['seguro'];
                       echo  "<br>".  $valor = $_POST['valor'];
-                      echo  "<br>".  $horimetro = $_POST['hr_inicial'];
+                      echo  "<br>".  $horimetro_inicial = $_POST['hr_inicial'];
                       echo  "<br>".  $id_empresa = $_POST['empresa'];
                       echo  "<br>".  $id_fornecedor = $_POST['fornecedor'];
                       echo  "<br>".  $id_responsavel = $_POST['responsavel'];                        
                       echo  "<br>".  $observacao = $_POST['observacao'];
+                      echo  "<br>".  $horimetro_final = 0;
 
-                      // $veiculo = new Veiculo();
-                      // $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $quilometragem, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
+
+                      $maquinario = new Maquinario();
+                      $maquinario->add_maquinario($matricula, $chassi_nserie, $modelo, $tipo, $tipo_consumo, $ano, $cor, $fabricante, $data_compra, $seguro, $horimetro_inicial, $horimetro_final, $id_empresa, $id_fornecedor, $id_responsavel, $observacao, $valor);
     
-                      // if($veiculo->add_veiculo_bd()){
-                      //   echo '<div class="msg">Veiculo adicionado com sucesso !</div>';
-                      // }else{
-                      //   echo '<div class="msg">Falha ao adicionar Veiculo!</div>';
-                      // }                      
+                      if($maquinario->add_maquinario_bd()){
+                        echo '<div class="msg">Maquinario adicionado com sucesso !</div>';
+                      }else{
+                        echo '<div class="msg">Falha ao adicionar Maquinario!</div>';
+                      }                      
                       
                       }
                    }
