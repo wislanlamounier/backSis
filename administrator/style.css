@@ -425,7 +425,6 @@ h2{
 	text-align: center;
 	margin-top: 20px;
 }
-<<<<<<< HEAD
 /******************************************************************************/
 .add_patrimonio select{
 	border: 1px solid:black;
@@ -456,7 +455,7 @@ h2{
 	width: 18px;
 	padding-right: 3px;
 	border: 0;
-=======
+}
 #txtRelogio{
 	height: 50px;
 	border: 1px solid#bbb;
@@ -464,9 +463,8 @@ h2{
 	font-size: 30px;
 	text-align:center;
 
+
 }
 #txtRelogio:hover{
 	background-color:rgba(255,255,255,0);
-
->>>>>>> faa8a43997ff305adac183a3cd8477f345203b3f
 }
