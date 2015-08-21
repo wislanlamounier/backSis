@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 13-Ago-2015 às 19:51
+-- Generation Time: 21-Ago-2015 às 19:55
 -- Versão do servidor: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -5766,7 +5766,7 @@ INSERT INTO `config` (`id`, `descricao`, `valor`) VALUES
 CREATE TABLE IF NOT EXISTS `custo` (
   `id` int(11) NOT NULL,
   `valor_hora` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `custo`
@@ -5780,8 +5780,10 @@ INSERT INTO `custo` (`id`, `valor_hora`) VALUES
 (5, 1),
 (6, 1),
 (7, 1),
-(8, 20),
-(9, 35000);
+(8, 51),
+(9, 35000),
+(10, 150),
+(11, 125);
 
 -- --------------------------------------------------------
 
@@ -5808,7 +5810,7 @@ CREATE TABLE IF NOT EXISTS `empresa` (
 --
 
 INSERT INTO `empresa` (`id`, `razao_social`, `nome_fantasia`, `cnpj`, `ins_estadual`, `ins_municipal`, `id_endereco`, `telefone`, `id_responsavel`, `oculto`, `nivel_acesso`) VALUES
-(5, 'LUCIA H. V. SANTOS BALDIM ME', 'NEW AGE', '12.345.678/0001-23', '4521451252X', '215646548Y', 70, '(15) 3531-2999', 25, 0, 1),
+(5, 'LUCIA H. V. SANTOS BALDIM ME', 'NEW AGE', '12.345.678/0001-23', '4521451252X', '215646548Y', 70, '(15) 3531-2999', 25, 0, 0),
 (6, 'fis fast internet service ltda', 'control system', '07.824.826/0001-14', 'isento', 'isento', 71, '(41) 3319-2646', 40, 0, 0),
 (7, 'Corte & Costuras LTDE', 'Corte e Costuras', '48.512.135/6481-12', '15451251521', '152325546', 76, '(35) 3162-5484', 18, 0, 0),
 (8, 'RAZÃO SOCIAL', 'NOME FANTASIA', '45.365.126/0001-20', '1514561', '125315', 79, '(35) 1155-4565', 40, 0, 0),
@@ -5827,7 +5829,7 @@ CREATE TABLE IF NOT EXISTS `endereco` (
   `id_cidade` int(11) NOT NULL,
   `bairro` varchar(255) NOT NULL,
   `cep` varchar(255) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=152 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=153 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `endereco`
@@ -5965,7 +5967,8 @@ INSERT INTO `endereco` (`id`, `rua`, `numero`, `id_cidade`, `bairro`, `cep`) VAL
 (148, 'xxx', 0, 1, '2878', '13245-687'),
 (149, 'campo de santana', 0, 1, '2784', '81818181'),
 (150, '465465', 46, 4654, '3080', '121'),
-(151, '4234234', 23423423, 423423423, '3387', '234234234');
+(151, '4234234', 23423423, 423423423, '3387', '234234234'),
+(152, 'neusa gusso', 275, 2784, 'campo de santana', '81818181');
 
 -- --------------------------------------------------------
 
@@ -6059,8 +6062,8 @@ CREATE TABLE IF NOT EXISTS `exames` (
 INSERT INTO `exames` (`id`, `descricao`, `id_periodicidade`, `oculto`, `id_empresa`) VALUES
 (1, 'Exame 1', 2, 0, 5),
 (2, 'Exame 3', 4, 0, 0),
-(3, 'Exame 2', 4, 1, 5),
-(4, 'Exame de rotina', 4, 1, 5),
+(3, 'Exame 2', 4, 0, 5),
+(4, 'Exame de rotina', 4, 0, 5),
 (5, 'Exame 44', 2, 0, 0),
 (6, 'Narinas boas', 2, 0, 0);
 
@@ -6128,14 +6131,14 @@ CREATE TABLE IF NOT EXISTS `funcionario` (
   `id_uf_cart_trab` int(11) NOT NULL COMMENT 'id do estado',
   `num_pis` varchar(20) NOT NULL,
   `oculto` int(11) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `funcionario`
 --
 
 INSERT INTO `funcionario` (`id`, `nome`, `cpf`, `rg`, `org_em_rg`, `data_em_rg`, `num_tit_eleitor`, `data_nasc`, `telefone`, `email`, `email_empresa`, `senha`, `is_admin`, `id_cbo`, `id_endereco`, `id_turno`, `id_empresa`, `id_empresa_filial`, `id_supervisor`, `data_adm`, `data_dem`, `salario_base`, `qtd_horas_sem`, `num_cart_trab`, `num_serie_cart_trab`, `id_uf_cart_trab`, `num_pis`, `oculto`) VALUES
-(18, 'Andre Matos', '412.394.698.45', '48.993.307-5', 'SSP-SP', '1993-01-08', '1320545136', '1993-07-08', '35312999', 'andre_matos13@hotmail.com', 'andre_matos13@hotmail.com', '321', 1, 1, 8, 17, 5, 2, 0, '1993-01-08', '0000-00-00', 2000, 35, '69485132', '32154124', 26, '13254615', 0),
+(18, 'Andre Matos', '412.394.698.45', '48.993.307-5', 'SSP-SP', '1993-01-08', '123216549', '1993-07-08', '35312999', 'andre_matos13@hotmail.com', 'andre_matos13@hotmail.com', '321', 1, 1, 8, 17, 5, 1, 0, '1993-01-08', '0000-00-00', 2000, 35, '69485132', '32154124', 26, '13254615', 0),
 (2, 'Renato Francos', '412.394.698-45', '484515615115', '02315', '2014-01-08', '34243214', '1992-07-20', '23393834', 'renato@hotmail.com', 'renato@empresa.com.br', '321', 0, 1, 1, 16, 5, 1, 18, '2000-01-20', '0000-00-00', 1500, 44, '324324', '324', 15, '4324324', 1),
 (22, 'Felipe Smockovitz', '412.394.698-45', '48654515121', 'SSP-SP', '2000-05-20', '43213243', '1884-06-02', '(15) 3531-2884', 'felipe@hotmail.com', 'felipe@controlsystem.com.br', '222', 0, 10, 13, 10, 5, 4, 18, '2014-06-01', '0000-00-00', 2500, 44, '2548451445', '321545654', 26, '1256155215', 0),
 (21, 'Pedro Matos', '412.394.698-45', '489933075', 'ssp-sp', '1993-01-08', '1525151', '1948-06-05', '1532316521', 'pedro@hotmail.com', 'teste@empresa.com.br', '111', 1, 12, 12, 16, 5, 2, 0, '1111-11-01', '0000-00-00', 50000, 44, '54325432', '543254325324', 26, '4343', 1),
@@ -6147,7 +6150,8 @@ INSERT INTO `funcionario` (`id`, `nome`, `cpf`, `rg`, `org_em_rg`, `data_em_rg`,
 (41, '132132', '412.394.698-45', '0000-00-00', '1321', '0000-00-00', '321', '0000-00-00', '(32) 1', '321', '0000-00-00', '321', 2147483647, 0, 74, 21, 4, 10, 0, '0000-00-00', '0000-00-00', 321, 321, '321', '10', 321, '25', 0),
 (42, 'teste', '412.394.698-45', '2005-10-10', '1561561', '9993-01-08', 'empresa@hotmail.com', '1993-01-08', '(32) 5615-5151', 'teste@hotmail.com', '1999-05-08', '321', 0, 21, 75, 10, 6, 4, 18, '2000-01-01', '0000-00-00', 44, 32434, '432432', '16', 11, '18', 0),
 (48, 'Funcionario novo', '412.394.698-45', '48.993.307-5', 'SSP-SP', '1999-01-08', '122051451', '1993-01-08', '(41) 3531-2999', 'teste@control.com.br', 'testeempresa.com.br', '123', 1, 8, 141, 16, 5, 2, 18, '2009-01-08', '0000-00-00', 1500, 40, '151516165', '13215161', 18, '3215215051', 0),
-(49, 'Lucas Soares Nogueira', '077.765.229-37', '1111130902', 'SESC', '2000-01-15', '1111', '1994-01-15', '(41) 9889-8998', '_lucasoares@outlook.com', 'empresa@empresa.com', '321', 1, 29, 143, 10, 5, 1, 18, '2015-08-10', '0000-00-00', 1000, 40, '2222', '01', 18, '11111', 0);
+(49, 'Lucas Soares Nogueira', '077.765.229-37', '1111130902', 'SESC', '2000-01-15', '1111', '1994-01-15', '(41) 9889-8998', '_lucasoares@outlook.com', 'empresa@empresa.com', 'caf1a3dfb505ffed0d024130f58c5cfa', 1, 29, 143, 10, 5, 1, 18, '2015-08-10', '0000-00-00', 1000, 40, '2222', '01', 18, '11111', 0),
+(50, 'Joao', '077.765.229-37', '3232323232', 'PR', '2015-08-10', '1231113', '2015-08-07', '(35) 3535-3535', 'email@email', 'empresa@empresa', '123', 1, 24, 152, 16, 5, 1, 18, '2015-08-31', '0000-00-00', 1000, 40, '2222', '01', 17, '11111', 0);
 
 -- --------------------------------------------------------
 
@@ -6370,16 +6374,18 @@ CREATE TABLE IF NOT EXISTS `patrimonio` (
   `nome` varchar(255) NOT NULL,
   `descricao` varchar(255) NOT NULL,
   `oculto` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `patrimonio`
 --
 
 INSERT INTO `patrimonio` (`id`, `id_custo`, `id_grupo`, `id_responsavel`, `id_empresa`, `id_fornecedor`, `valor_compra`, `nome`, `descricao`, `oculto`) VALUES
-(4, 2, 2, 3, 2, 3, 323, 'lucas', '234', 0),
+(4, 7, 17, 49, 5, 59, 2500, 'Computador do ponto', 'Computador usado para fazer o ponto dos funcionario', 0),
 (5, 8, 18, 22, 5, 51, 5000, 'Empilhadeira', 'Empilhadeira de palate de 8 m2', 0),
-(6, 9, 21, 49, 5, 51, 20000, 'Terreno 320 m²', 'Terreno localizado na rua tal, ponto de referencia tal', 0);
+(6, 9, 21, 49, 5, 51, 20000, 'Terreno 320 m²', 'Terreno localizado na rua tal, ponto de referencia tal', 0),
+(7, 10, 18, 22, 5, 51, 2000, 'BMW', 'Carro Particular', 0),
+(8, 11, 21, 40, 6, 50, 10000, 'apartamento', 'apartamento para escritório', 0);
 
 -- --------------------------------------------------------
 
@@ -6445,6 +6451,34 @@ CREATE TABLE IF NOT EXISTS `turno_func_historico` (
   `data_fim` date NOT NULL,
   `id_turno` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `veiculo`
+--
+
+CREATE TABLE IF NOT EXISTS `veiculo` (
+  `id` int(11) NOT NULL,
+  `matricula` varchar(56) NOT NULL,
+  `chassi` varchar(56) NOT NULL,
+  `renavam` int(11) NOT NULL,
+  `placa` varchar(8) NOT NULL,
+  `marca` varchar(56) NOT NULL,
+  `modelo` varchar(56) NOT NULL,
+  `ano` int(11) NOT NULL,
+  `cor` varchar(56) NOT NULL,
+  `valor` int(11) NOT NULL,
+  `data_compra` date NOT NULL,
+  `seguro` int(11) NOT NULL,
+  `quilometragem` int(11) NOT NULL,
+  `km_inicial` int(20) NOT NULL,
+  `tipo_combustivel` varchar(56) NOT NULL,
+  `id_empresa` int(11) NOT NULL,
+  `id_fornecedor` int(11) NOT NULL,
+  `id_responsavel` int(11) NOT NULL,
+  `oculto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -6583,6 +6617,12 @@ ALTER TABLE `turno_func_historico`
   ADD PRIMARY KEY (`id`), ADD KEY `id_turno` (`id_turno`);
 
 --
+-- Indexes for table `veiculo`
+--
+ALTER TABLE `veiculo`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -6615,7 +6655,7 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT for table `custo`
 --
 ALTER TABLE `custo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `empresa`
 --
@@ -6625,7 +6665,7 @@ ALTER TABLE `empresa`
 -- AUTO_INCREMENT for table `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=152;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=153;
 --
 -- AUTO_INCREMENT for table `equipamentos_func`
 --
@@ -6650,7 +6690,7 @@ ALTER TABLE `filiais`
 -- AUTO_INCREMENT for table `funcionario`
 --
 ALTER TABLE `funcionario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
 --
 -- AUTO_INCREMENT for table `funcionario_epi`
 --
@@ -6680,7 +6720,7 @@ ALTER TABLE `pais`
 -- AUTO_INCREMENT for table `patrimonio`
 --
 ALTER TABLE `patrimonio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `periodicidade`
 --
@@ -6695,6 +6735,11 @@ ALTER TABLE `turno`
 -- AUTO_INCREMENT for table `turno_func_historico`
 --
 ALTER TABLE `turno_func_historico`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `veiculo`
+--
+ALTER TABLE `veiculo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
