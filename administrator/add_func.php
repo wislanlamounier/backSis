@@ -834,6 +834,7 @@ function carregaUf_CartTrab(uf){
                          else
                             echo '<tr style="background-color:#ccc"><td><span>'.$epi_func[$key]->id.'</span></td><td><span>'.$epi_func[$key]->nome_epi.'</span></td><td><span>'.$epi_func[$key]->data_entrega.'</span></td><td><span>'.$epi_func[$key]->quantidade.'</span></td></tr>';
                           $aux++;
+                          if($aux>=10)break;
                       }
                       if(count($epi_func) == 0){//nenhum equipamento cadastrado
                           echo '<tr><td colspan="4"><div class="msg">Nenhum equipamento cadastrado</div></td></tr>';
