@@ -50,8 +50,8 @@
                 <div class="col-lg-5 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Multiplataforma<br>e economia de hardware</h2>
-                    <p class="lead">Acesse de qualquer lugar a qualquer hora, e economise hardware sem ter que instalar programas em seu computador.</p>
+                    <h2 class="section-heading">Multiplataforma</h2>
+                    <p class="lead">Acesse de qualquer lugar e a qualquer hora, mantenha as informações inportantes sempre a um clique de você.</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <img class="img-responsive" src="img/phones.png" alt="">

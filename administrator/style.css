@@ -248,13 +248,13 @@ h2{
 
 .formulario table input{
 	background-color: #cecece;
-	margin-top: 5px;
-	margin-bottom: 10px;	
-	text-align: center;
-	padding: 10px;
+	/*margin-top: 5px;*/
+	/*margin-bottom: 10px;	*/
+	/*text-align: center;*/
+	/*padding: 10px;*/
 	border: 1px solid #bcbcbc;
 	height:30px;
-	padding: 3px;
+	/*padding: 3px;*/
 	border: 0;
 	
 	transition: all 0.5s;
@@ -425,6 +425,7 @@ h2{
 	text-align: center;
 	margin-top: 20px;
 }
+<<<<<<< HEAD
 /******************************************************************************/
 .add_patrimonio select{
 	border: 1px solid:black;
@@ -455,4 +456,17 @@ h2{
 	width: 18px;
 	padding-right: 3px;
 	border: 0;
+=======
+#txtRelogio{
+	height: 50px;
+	border: 1px solid#bbb;
+	width:200px;
+	font-size: 30px;
+	text-align:center;
+
+}
+#txtRelogio:hover{
+	background-color:rgba(255,255,255,0);
+
+>>>>>>> faa8a43997ff305adac183a3cd8477f345203b3f
 }
