@@ -425,6 +425,38 @@ h2{
 	text-align: center;
 	margin-top: 20px;
 }
+<<<<<<< HEAD
+/******************************************************************************/
+.add_patrimonio select{
+	border: 1px solid:black;
+	margin-top: 10px;
+	margin-bottom: 10px;	
+	float:left;
+	width: 100%;
+	height: 35px;
+	font-size:16px;
+	background-color:rgba(250,250,275,0.2);
+}
+
+.add_patrimonio table input{
+	background-color: #cecece;	
+	text-align: left;
+	width: 159px;
+	padding-right: 3px;
+	border: 0;
+	
+	transition: all 0.5s;
+}
+.add_patrimonio input.uppercase{
+  text-transform: uppercase;
+}
+.add_patrimonio input.seguro{
+	background-color: #cecece;	
+	text-align: left;
+	width: 18px;
+	padding-right: 3px;
+	border: 0;
+=======
 #txtRelogio{
 	height: 50px;
 	border: 1px solid#bbb;
@@ -436,4 +468,5 @@ h2{
 #txtRelogio:hover{
 	background-color:rgba(255,255,255,0);
 
+>>>>>>> faa8a43997ff305adac183a3cd8477f345203b3f
 }

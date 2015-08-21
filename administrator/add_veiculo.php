@@ -16,16 +16,6 @@ function validate(){
 	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 	 <link rel="stylesheet" type="text/css" href="style.css">
 	 <script type="text/javascript">
-
-
-   function tipo_form(){
-    if(document.getElementById("seguro").checked == true){
-      document.getElementById("seguro").value = 1;
-     }else{
-      document.getElementById("seguro").value = 0;
-     }
-   }
-
 	 function carregaEmpresa(empresa){
       
       var combo = document.getElementById("empresa");
@@ -74,35 +64,36 @@ function validate(){
 
 			<div id="content">   
 
-            <div class="formulario">
+            <div class="formulario" method="POST" action="add_patrimonio.php">
 
-             <?php if(!isset($_GET['tipo'])){?>
+             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == ""){?>
               <form>
                 <input type="hidden" id="tipo" name="tipo" value="cadastrar_maquinario">
-                <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Maquinario"></td></tr>
+                <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Maquinario"> <input type="button" name="button" class="button" onclick="window.location.href='add_veiculo.php'" id="button" value="Cancelar"></td></tr>
               </form>
-              
+              <div class="formulario" method="POST" action="add_patrimonio.php">
               <form>
                 <input type="hidden" id="tipo" name="tipo" value="cadastrar_veiculo">
-                <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Veiculo"></td></tr>
+                <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Veiculo"> <input type="button" name="button" class="button" onclick="window.location.href='add_veiculo.php'" id="button" value="Cancelar"></td></tr>
               </form>
             <?php }?>
             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_maquinario'){?>  
-                
+                <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR GRUPO GRUPO</span></div></div>
                       <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR MAQUINARIO</span></div></div>
                         <input type="hidden" id="tipo" name="tipo" value="cadastrar_maquinario">
                           <table border="0">                          
-                              <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula"></td></tr>
-                              <tr><td><span>Fabricante:</span></td><td><input type="text" name="marca" id="marca"> <td><span> Modelo:</span></td><td><input type="text" name="modelo" id="modelo"></td></td></tr>            
+                              <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula"></td><td><span>Renavam:</span></td> <td><input type="text" name="renavam" id="renavam"></td></tr>                               
+                              <tr><td><span>Placa:</span></td><td><input class="uppercase" type="text" name="placa" id="placa"><td><span> Chassi:</span></td><td><input type="text" name="chassi" id="chassi" class="uppercase"></td></td></tr>
+                              <tr><td><span>Marca:</span></td><td><input type="text" name="marca" id="marca"> <td><span> Modelo:</span></td><td><input type="text" name="modelo" id="modelo"></td></td></tr>            
                               <tr><td><span>Cor:</span></td><td><input type="text" name="cor" id="cor"><td><span> Ano:</span></td><td><input type="date" name="ano" id="ano"></td></td></tr>
-                              <tr><td><span>Tipo de consumo:</span></td><td>  <select name="combustivel" id="combustivel">
+                              <tr><td><span>Combustível:</span></td><td>  <select name="combustivel" id="combustivel">
                                                     <option value="gasolina">Gasolina</option>
                                                     <option value="flex">Flex</option>
                                                     <option value="alcool">Álcool</option>
                                                     </select>
                                 </td></tr>  
-                              <tr><td><span>Seguro</span></td><td><input type="checkbox" class="seguro" onclick="tipo_form()" id="seguro" name="seguro"></td></tr>                     
+                              <tr><td><span>Seguro:</span></td><td><input class="seguro" type="checkbox"  name="seguro" value="1"></td></tr>                              
                               <tr><td><span>Horimetro Inicial:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial"></td></tr>
                               <tr><td><span>Forncedor:</span></td><td>
                                   <select id="fornecedor" name="fornecedor"  style="width:100%">
@@ -136,7 +127,7 @@ function validate(){
                                </div>
                             </td></tr>                              
                           </table>
-                          <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_patrimonio.php'" id="button" value="Cancelar"></td></tr>
+                          <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_veiculo.php'" id="button" value="Cancelar"></td></tr>
                        </form>         
             <?php }?>
             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_veiculo'){?>              
@@ -154,7 +145,7 @@ function validate(){
                              												<option value="alcool">Álcool</option>
                              												</select>
                               	</td></tr>	
-                             	<tr><td><span> Data de Compra:</span></td><td><input type="date" name="data_compra" id="data_compra"></td><td><span>Seguro</span></td><td><input type="checkbox" class="seguro" onclick="tipo_form()" id="seguro" name="seguro"></td></tr>
+                             	<tr><td><span>Seguro:</span></td><td><input class="seguro" type="checkbox"  name="seguro" value="1"></td></tr>                             	
                              	<tr><td><span>Quilometragem Inicial:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial"></td></tr>
                              	<tr><td><span>Forncedor:</span></td><td>
                              			<select id="fornecedor" name="fornecedor"  style="width:100%">
@@ -168,7 +159,7 @@ function validate(){
 			                               ?>
 			                           </select></td></tr>
 								
-								<div><td colspan="3" style="text-align:center"><span><b>Informações do veículo ligado a empresa</b></span></td></tr></div>
+								<div class="msg"><td colspan="3" style="text-align:center"><span><b>Informações do veículo ligado a empresa</b></span></td></tr></div>
                              	<tr><td><span>Empresa:</span></td><td>
                              			<select id="empresa" name="empresa"  style="width:100%" onchange="buscar_responsavel()">
 			                              <option value="no_sel">Selecione</option>
@@ -188,7 +179,7 @@ function validate(){
 		                           </div>
 		                        </td></tr>                             	
                           </table>
-                          <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_patrimonio.php'" id="button" value="Cancelar"></td></tr>
+                          <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_veiculo.php'" id="button" value="Cancelar"></td></tr>
                        </form>
             <?php }?> 
 	 	    
@@ -197,27 +188,25 @@ function validate(){
                 if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar_veiculo"){
                 		// echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';
                     if(validate()){
-                                                                                      		
-                        echo "<br>". $matricula = $_POST['matricula'];
-                        echo  "<br>". $chassi = $_POST['chassi'];
-                        echo  "<br>". $renavam = $_POST['renavam'];
-                        echo  "<br>". $placa = $_POST['placa'];
-                        echo  "<br>". $marca = $_POST['marca'];
-                        echo  "<br>". $modelo = $_POST['modelo'];
-                        echo  "<br>". $ano = $_POST['ano'];
-                        echo  "<br>". $cor = $_POST['cor'];
-                        echo  "<br>". $data_compra = $_POST['data_compra'];
-                        echo  "<br>". $seguro = $_POST['seguro'];
-                        echo  "<br>". $quilometragem = 0;
-                        echo  "<br>". $km_inicial = $_POST['km_inicial'];
-                        echo  "<br>". $tipo_combustivel = $_POST['combustivel'];							
-                        echo  "<br>". $id_empresa = $_POST['empresa'];
-                        echo  "<br>". $id_fornecedor = $_POST['fornecedor'];
-                        echo  "<br>". $id_responsavel = $_POST['responsavel'];
-                        
-						          
+                    		
+						            $matricula = $_POST['matricula'];
+						            $chassi = $_POST['chassi'];
+						            $placa = $_POST['placa'];
+						            $marca = $_POST['marca'];
+						            $modelo = $_POST['modelo'];
+						            $ano = $_POST['ano'];
+						            $cor = $_POST['cor'];
+						            $seguro = $_POST['seguro'];
+						            $quilometragem = 0;
+						            $km_inicial = $_POST['km_inicial'];
+						            $tipo_combustivel = $_POST['combustivel'];							
+						            $id_empresa = $_POST['empresa'];
+						            $id_fornecedor = $_POST['fornecedor'];
+						            $id_responsavel = $_POST['responsavel'];
+                        $renavam - $_POST['renavam'];
+						
                       $veiculo = new Veiculo();
-                      $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $data_compra, $seguro, $quilometragem, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
+                      $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $seguro, $quilometragem, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
     
                       if($veiculo->add_veiculo_bd()){
                         echo '<div class="msg">Veiculo adicionado com sucesso !</div>';
