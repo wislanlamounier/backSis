@@ -93,7 +93,7 @@ function validate(){
                     </div>
           <?php } ?>
    <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar'){ //CADASTRAR EPI POR FUNCIONARIO?>
-           <div class="title-box" style="float:left"><div style="float:left"><img src="../images/icon-add-epi.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Adicionar EPI para funcionario</span></div></div><br><br><br><br>    
+           <div class="title-box" style="float:left"><div style="float:left"><img src="../images/icon-add-epi.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Adicionar EPI para funcionario</span></div></div>
            <?php // botão pesquisa funcionario para adicionar equipamento (funcção buscar_editar() esta no arquivo informacoes_func_epi.php ?>
            
            <?php 
@@ -110,10 +110,35 @@ function validate(){
                            <td><input style="width:100%" type="text" id="funcionario" disabled name="funcionario" value="<?php echo $func->nome; ?>"></td>
                       </tr>
                       <tr> <td ><span>Data de entrega:</span></td> <td><input type="date" id="data" name="data" value='<?php echo date("Y-m-d"); ?>'></td></tr>
-                      <!-- <tr> <td ><span>Quantidade:</span></td> <td><input type="number" id="quantidade" name="quantidade"></td></tr>   -->
-                      <tr><td colspan="2"><span>Escolha os equipamentos e clique em avançar para definir a quantidade:</span></td></tr>
+                      <tr> <td colspan="2"><span>Equipamentos cadastrados</span></td></tr>
                       <tr>
-                          
+                          <td colspan="2">
+                              <?php 
+                                   $u = new Epi();
+                                    $epi_func = $u->get_epi_func($func->id);
+                                    $aux=0;
+                                    
+                                    echo '<table class="exibe_equipamentos" border="0">';
+                                    echo '<tr><td colspan="4" style="padding:10px;"><span><b>ÚLTIMOS EQUIPAMENTOS CADASTRADOS PARA '.strtoupper($func->nome).'</b></span></td></tr>';
+                                    echo '<tr> <td><span><b>ID</b></span></td> <td><span><b>Nome</b></span></td> <td><span><b>Data da entrega</b></span></td><td><span><b>Quantidade</b></span></td></tr>';
+                                    foreach ($epi_func as $key => $value) {
+                                       if($aux%2 == 0)//verifica se o numero é par ou impar, para imprimir a tabela zebrada
+                                          echo '<tr style="background-color:#aaa"><td><span>'.$epi_func[$key]->id.'</span></td><td><span>'.$epi_func[$key]->nome_epi.'</span></td><td><span>'.$epi_func[$key]->data_entrega.'</span></td><td><span>'.$epi_func[$key]->quantidade.'</span></td></tr>';
+                                       else
+                                          echo '<tr style="background-color:#ccc"><td><span>'.$epi_func[$key]->id.'</span></td><td><span>'.$epi_func[$key]->nome_epi.'</span></td><td><span>'.$epi_func[$key]->data_entrega.'</span></td><td><span>'.$epi_func[$key]->quantidade.'</span></td></tr>';
+                                        $aux++;
+                                        if($aux >= 5)break;
+                                    }
+                                    if(count($epi_func) == 0){//nenhum equipamento cadastrado
+                                        echo '<tr><td colspan="4"><div class="msg">Nenhum equipamento cadastrado</div></td></tr>';
+                                    }
+                                    echo '</table>';
+                               ?>
+
+                          </td>
+                      </tr>  
+                      <!-- <tr><td colspan="2"><span>Escolha os equipamentos e clique em avançar para definir a quantidade:</span></td></tr> -->
+                      <tr>
                               <td colspan="2">
                                   <div id="equipamentos">
                                    <!-- <select id="exames" name="exames[]" size="5" multiple style="width:270px"> -->
@@ -134,7 +159,6 @@ function validate(){
                                    <!-- </select> -->
                                 </div>
                               </td>
-                          
                      </tr>
                      <tr>
                         <td colspan="3" style="text-align:center">

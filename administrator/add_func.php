@@ -823,11 +823,17 @@ function carregaUf_CartTrab(uf){
                       
                       $u = new Epi();
                       $epi_func = $u->get_epi_func($func->id);
+                      $aux=0;
+                      echo '<div style="float:right; margin-top:-10px;"><a href="add_epiXfunc.php?tipo=cadastrar&id='.$func->id.'"> <div style="float:left"><img style="height:20px;" src="../images/icon-edita.png" ></div><div style="padding-botton:10px; float:left;padding-top:5px;"><span>Editar</span></div></a></div>';
                       echo '<table class="exibe_equipamentos" border="0">';
-                      echo '<tr><td colspan="4"><span><b>Equipamentos cadastrados para '.$func->nome.'</b></span></td></tr>';
-                      echo '<tr> <td><span>ID</span></td> <td><span>Nome</span></td> <td><span>Data da entrega</span></td><td><span>Quantidade</span></td></tr>';
+                      echo '<tr><td colspan="4" style="padding:10px;"><span><b><a title="Clique para adicionar ou alterar equipamentos desse funcionário" href="add_epiXfunc.php?tipo=cadastrar&id='.$func->id.'">EQUIPAMENTOS CADASTRADOS PARA '.strtoupper($func->nome).'</a></b></span></td></tr>';
+                      echo '<tr> <td><span><b>ID</b></span></td> <td><span><b>Nome</b></span></td> <td><span><b>Data da entrega</b></span></td><td><span><b>Quantidade</b></span></td></tr>';
                       foreach ($epi_func as $key => $value) {
-                          echo '<tr><td><span>'.$epi_func[$key]->id.'</span></td><td><span>'.$epi_func[$key]->nome_epi.'</span></td><td><span>'.$epi_func[$key]->data_entrega.'</span></td><td><span>'.$epi_func[$key]->quantidade.'</span></td></tr>';
+                         if($aux%2 == 0)//verifica se o numero é par ou impar, para imprimir a tabela zebrada
+                            echo '<tr style="background-color:#aaa"><td><span>'.$epi_func[$key]->id.'</span></td><td><span>'.$epi_func[$key]->nome_epi.'</span></td><td><span>'.$epi_func[$key]->data_entrega.'</span></td><td><span>'.$epi_func[$key]->quantidade.'</span></td></tr>';
+                         else
+                            echo '<tr style="background-color:#ccc"><td><span>'.$epi_func[$key]->id.'</span></td><td><span>'.$epi_func[$key]->nome_epi.'</span></td><td><span>'.$epi_func[$key]->data_entrega.'</span></td><td><span>'.$epi_func[$key]->quantidade.'</span></td></tr>';
+                          $aux++;
                       }
                       if(count($epi_func) == 0){//nenhum equipamento cadastrado
                           echo '<tr><td colspan="4"><div class="msg">Nenhum equipamento cadastrado</div></td></tr>';

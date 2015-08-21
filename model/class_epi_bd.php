@@ -61,7 +61,7 @@ class Epi{
 		$sql->conn_bd();
 		$g = new Glob();
 		$lista = array();
-		$query = "SELECT * FROM `equipamentos_func` inner JOIN funcionario_epi WHERE equipamentos_func.id = funcionario_epi.id_epi and funcionario_epi.id_func = %s";
+		$query = "SELECT * FROM `equipamentos_func` inner JOIN funcionario_epi WHERE equipamentos_func.id = funcionario_epi.id_epi and funcionario_epi.id_func = %s ORDER BY data_entrega DESC";
 
 		$query_tra = $g->tratar_query($query, $id_func);
 		while($row = mysql_fetch_array($query_tra)){
