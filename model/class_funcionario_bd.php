@@ -214,7 +214,7 @@ class Funcionario{
 		$g = new Glob();
 		$return = array();
 		$aux=0;
-		$query = "SELECT * FROM funcionario ORDER BY id DESC LIMIT $qtd";
+		$query = "SELECT * FROM funcionario WHERE oculto = 0 && id_empresa = '".$_SESSION['id_empresa']."' ORDER BY id_tabela DESC LIMIT $qtd";
 		$query_tra = $g->tratar_query($query);
 
 		while($result =  mysql_fetch_array($query_tra)){

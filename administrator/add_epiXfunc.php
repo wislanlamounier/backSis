@@ -90,6 +90,31 @@ function validate(){
           <?php if(!isset($_GET['tipo'])){ //ESSE BOTÃO PESQUISAR, SÓ DEVE APARECER NA HORA DE ADICIONAR?>
                     <input type="button" class="button2" value="Pesquisar" onclick="buscar_editar('1')">
                     <div id="result1">
+                          <?php 
+                            $funcionario = new Funcionario();
+                            $funcionario = $funcionario->get_ultimos_func(10);
+
+                           ?>
+                          <div class="formulario" style="width:430px; style='float:left'">
+                              <div class="msg" style="float:left">
+                                <div style="float:left; background-color:rgba(50,200,50,0.3); width:100%; height:43px; text-align:left; margin-top:-20px;">
+                                  <div style="float:left; margin-left:5px;"><img src="../images/search-icon.png" style="width:40px;"></div>
+                                  <div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Adicionar <span>(Equipamentos para o funcionário escolhido)</span></div>
+                                </div>
+                                <table style="float:left" class="table-pesquisa">
+                                  <?php
+                                    $cont=0;
+                                    if($funcionario) 
+                                      foreach($funcionario as $key => $value){
+                                        echo "<tr><td style='padding-left:20px;'><a href='add_epiXfunc.php?tipo=cadastrar&id=".$funcionario[$key][0]."'>".$funcionario[$key][1]."</a></td></tr>";
+                                        $cont++;
+                                      }
+                                      echo '<tr><td style="padding-left:20px; font-size: 12px; color:#777;">'.$cont. " registro(s) encontrado(s)</td></tr>";
+                                   ?>
+                                  
+                                </table>
+                              </div>
+                            </div>
                     </div>
           <?php } ?>
    <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar'){ //CADASTRAR EPI POR FUNCIONARIO?>
@@ -169,7 +194,7 @@ function validate(){
                   </table>
                </form>
    <?php }else if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ // EDITAR EPI POR FUNCIONARIO?>
-            <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Editar EPI para funcionario</span></div></div><br><br><br><br>    
+            <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Editar EPI para funcionario</span></div></div>
                  <?php 
                      $func = new Funcionario();
                      $func = $func->get_func_id($_GET['id']);
@@ -232,9 +257,9 @@ function validate(){
                             // $arridepi[$i][0] = $idepi[$i][0];
                        }
                        if($cont == count($idepi)){
-                          echo '<div class="msg">Equipamentos cadastrados com sucesso!</div>';
+                          echo '<div class="msg" style="float:left">Equipamentos cadastrados com sucesso!</div>';
                        }else{
-                          echo '<div class="msg">Erro ou cadastrar equipamentos!</div>';
+                          echo '<div class="msg" style="float:left">Erro ou cadastrar equipamentos!</div>';
                        }                      
                   }
               }              
