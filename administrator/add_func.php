@@ -810,7 +810,7 @@ function carregaUf_CartTrab(uf){
                           </td> </tr>
                      <tr> 
                            <td colspan="4" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Editar">
-                             <input class="button" name="button" onclick="window.location.href='add_func.php'" id="button" value="Cancelar">
+                             <input class="button" type="button" name="button" onclick="window.location.href='add_func.php'" id="button" value="Cancelar">
                            </td>
                       </tr>
                   </table>
@@ -984,7 +984,7 @@ function carregaUf_CartTrab(uf){
                             <span>Tornar adiministrador:</span></td><td><input type="checkbox" name="is_admin" id="is_admin"></td> </tr>
                      <tr> 
                            <td colspan="4" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Cadastrar">
-                             <input class="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
+                             <input class="button" type="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
                            </td>
                       </tr>
                   </table>
