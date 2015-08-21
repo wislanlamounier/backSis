@@ -256,7 +256,9 @@ function moveSelectedOptionsAlert(from,to) {
 			
 				optiondestino=document.createElement("option");
 				texto='';
+				
 				if(from.name == 'sel_epis1'){
+						
 						quantidade = prompt("Digite a quantidade");
 						texto = '['+quantidade+']';
 						if(isNaN(quantidade) || quantidade <= 0 || quantidade > 99){

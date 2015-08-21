@@ -5,6 +5,8 @@
 
 //Description: RendDoubleSelect, show 2 select tags. Enabling selection of multiple values. 
 //Descrição: RendDoubleSelect, mostra dos selects na página, permitindo que você selecione vários valores.
+include_once("class_epi_bd.php");
+
 class RendDoubleSelect{
 
   
@@ -60,7 +62,7 @@ public static function  loadDropDownOptGroup(&$RCset, $Campo1, $Campo2, $campoGr
 			          {
 					     $temp = "  selected";
 					  } 	 
-							  echo '<option value="'. $ar[$Campo1].'" '. $temp . ">\n";  
+							  echo '<option  value="'. $ar[$Campo1].'" '. $temp . ">\n";  
 				             for ( $z=0 ; $z < count($arrayTexto); $z++)
 							  {
 								if ( count($arrayTexto) > 1)
@@ -74,7 +76,7 @@ public static function  loadDropDownOptGroup(&$RCset, $Campo1, $Campo2, $campoGr
 					          }
 							  echo  "</option>";
 					 $temp = ""	;	  
-		  } 
+	} 
 			
 			if ($cont > 0 ) {
 			   echo "\n</optgroup>";
@@ -82,7 +84,7 @@ public static function  loadDropDownOptGroup(&$RCset, $Campo1, $Campo2, $campoGr
 			
     }
   
-  }
+}
 
 	 
 	 
@@ -92,8 +94,13 @@ public static function  loadDropDownOptGroup(&$RCset, $Campo1, $Campo2, $campoGr
        public static function populateCombo($value, $texto, $sel=""){
 	   
 	      $selec = $value == $sel  ?" selected " : "";
-	   
-         echo "<option $selec value=\"$value\">" . $texto . "</option>";
+	   	  $epi = new Epi();
+	   	  //verifica a quantidade no estoque
+	   	  if($epi->getQuantidade($value) <= 10 )
+           		echo "<option style='background-color:#f33;'  $selec value=\"$value\">" . $texto . "</option>";
+          else
+          		echo "<option  $selec value=\"$value\">" . $texto . "</option>";	
+
        }
 	   
 	   
@@ -180,13 +187,13 @@ static function showDoubleDropDown(array $lista1,array $lista2, $campoid, $campo
 	</table><?php
 	}
 
-static function showDoubleDropDownAlert(array $lista1,array $lista2, $campoid, $campoTexto, $campoGrupo, 
+static function showDoubleDropDownAlert(array $lista1, array $lista2, $campoid, $campoTexto, $campoGrupo, 
        $nomeCombo1, $nomeCombo2, $hdTemp, $height = "220px", $titleAvaliable = "Disponível(is)", $titleSelected = "Selecionado(s)"){
 
 ?>
 <table style="text-align:left ;width:96%">
 	  <tr>
-	    <td  class="f-tabela-lista" style="width:45%"><span> <?= $titleAvaliable ?></span><br>
+	    <td  class="f-tabela-lista" style="width:45%"><span style="float:left"><b> <?= $titleAvaliable ?> </b></span> <div style="margin-top:2px;float:left; margin-left:10px; height:10px; width:10px; background-color:#f33"></div> <div style="float:left; margin-left:5px;"><span style="font-size:12px; color:#565656;">(Estoque baixo)</span></div><br>
 				 <select name="<?= $nomeCombo1 ?>" id="<?= $nomeCombo1 ?>"
 	multiple="multiple" style="width: 100%; height: <?= $height ?>;" 
 					onClick="return false"
@@ -217,7 +224,7 @@ static function showDoubleDropDownAlert(array $lista1,array $lista2, $campoid, $
 			           
 				 </td>
 				 <td class="f-tabela-lista" style="width:45%">
-				 <span><?= $titleSelected ?></span><br>
+				 <span><b><?= $titleSelected ?></b></span><br>
 				 <!-- <select id="<?= $nomeCombo2 ?>" name="exames" size="5" style="width: 100%; height: <?= $height ?>;" multiple onDblClick="moveSelectedOptionsAlert(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)" > -->
 	<select name="selecionados[]" id="<?= $nomeCombo2 ?>" multiple style="width: 100%; height: <?= $height ?>;" onDblClick="moveSelectedOptionsAlert(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
                   <?php

@@ -11,15 +11,17 @@ class Epi{
 	public $descricao;
 	public $id_empresa;
 	public $is_epi;
+	public $quantidade;
 
 	//$is_epi, $_POST['codigo'], $_POST['nome'], $_POST['desc'],  $_POST['empresa'])
 
-	public function add_epi($is_epi, $codigo, $nome_epi, $descricao, $id_empresa){
+	public function add_epi($is_epi, $codigo, $nome_epi, $descricao, $id_empresa, $quantidade){
 		$this->codigo = $codigo;
 		$this->nome_epi = $nome_epi;
 		$this->descricao = $descricao;
 		$this->id_empresa = $id_empresa;
 		$this->is_epi = $is_epi;
+		$this->quantidade = $quantidade;
 	}
 	public function add_epi_bd(){
 		$sql= new Sql();
@@ -27,27 +29,27 @@ class Epi{
 
 		$g = new Glob();
 
-		$query = "INSERT INTO equipamentos_func (epi, codigo, nome_epi, descricao, id_empresa)
-		                        VALUES ( %d, '%s' ,'%s', '%s', '%s')";
+		$query = "INSERT INTO equipamentos_func (epi, codigo, nome_epi, descricao, id_empresa, quantidade)
+		                        VALUES ( %d, '%s' ,'%s', '%s', '%s', %d)";
 		
-		if($g->tratar_query($query, $this->is_epi, $this->codigo, $this->nome_epi, $this->descricao, $this->id_empresa)){
+		if($g->tratar_query($query, $this->is_epi, $this->codigo, $this->nome_epi, $this->descricao, $this->id_empresa, $this->quantidade)){
 			return true; 
 		}else{
 			return false;
 		} 
 	}
 	
-	public function atualiza_epi($is_epi, $codigo, $nome_epi, $descricao, $id_empresa, $id){
+	public function atualiza_epi($is_epi, $codigo, $nome_epi, $descricao, $id_empresa, $quantidade, $id){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
 		$aux=0;
 		
-		$query = "UPDATE equipamentos_func SET epi = '%s', codigo = '%s', nome_epi='%s', descricao='%s', id_empresa='%s' WHERE id = '%s'";
+		$query = "UPDATE equipamentos_func SET epi = '%s', codigo = '%s', nome_epi='%s', descricao='%s', id_empresa='%s', quantidade = %d WHERE id = '%s'";
 		
 		// printf($query, $nome, $cpf, $data_nasc, $telefone, $email, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $id);
 		
-		$query_tra = $g->tratar_query($query, $is_epi, $codigo, $nome_epi, $descricao, $id_empresa, $id);
+		$query_tra = $g->tratar_query($query, $is_epi, $codigo, $nome_epi, $descricao, $id_empresa, $quantidade, $id);
 		
 		if($query_tra){
 			return true;
@@ -117,9 +119,35 @@ class Epi{
 	     	$this->descricao = $row['descricao'];
 	     	$this->id_empresa = $row['id_empresa'];     	
 	     	$this->is_epi = $row['epi'];
+	     	$this->quantidade = $row['quantidade'];
 	     	return $this;
 	}
 
+	}
+	public function atualizaEstoque($id_epi, $quantidade){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		
+		$query = "UPDATE equipamentos_func set quantidade = '%s' WHERE id= '%s'";
+		$result = $g->tratar_query($query, $quantidade, $id_epi);
+	}
+
+	public function getQuantidade($id){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		
+		$query = "SELECT * FROM equipamentos_func WHERE id= '%s'";
+		$result = $g->tratar_query($query, $id);
+
+		if(@mysql_num_rows($result) == 0){
+     
+            return false;            
+	    }else{
+	    	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	    	return $row['quantidade'];
+	    }
 	}
 	public function get_name_all_epi(){
 		$sql = new Sql();
@@ -131,6 +159,7 @@ class Epi{
 		while($result = mysql_fetch_array($query)){
 			$return[$aux][0] = $result['id'];
 			$return[$aux][1] = $result['nome_epi'];
+			$return[$aux][2] = $result['quantidade'];
 			$aux++;
 		}
 		return $return;
@@ -160,12 +189,28 @@ class Epi{
 		}
 	}
 	
+	public function getNome($id){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		
+		$query = "SELECT * FROM equipamentos_func WHERE id= '%s'";
+		$result = $g->tratar_query($query, $id);
+
+		if(@mysql_num_rows($result) == 0){
+            return false;            
+	    }else{
+	    	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	    	return $row['nome_epi'];
+	    }
+	}
 	public function printEpi(){
 		
 		echo "<table class='table_pesquisa'>";
 		echo "<tr><td><span>ID: </span></td><td><span>".$this->id."</span></td></tr>";
 		echo "<tr><td><span>Nome: </span></td><td><span>".$this->nome_epi."</span></td></tr>";
 		echo "<tr><td><span>Descricao: </span></td><td><span>".$this->descricao."</span></td></tr>";
+		echo "<tr><td><span>Quantidade: </span></td><td><span>".$this->quantidade."</span></td></tr>";
 		if($this->is_epi == 1){
 			echo"<tr><td><span>Equipamento de Proteção</span></td><td><span><input type='checkbox' disabled checked>";
 		}

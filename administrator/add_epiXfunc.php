@@ -110,7 +110,7 @@ function validate(){
                            <td><input style="width:100%" type="text" id="funcionario" disabled name="funcionario" value="<?php echo $func->nome; ?>"></td>
                       </tr>
                       <tr> <td ><span>Data de entrega:</span></td> <td><input type="date" id="data" name="data" value='<?php echo date("Y-m-d"); ?>'></td></tr>
-                      <tr> <td colspan="2"><span>Equipamentos cadastrados</span></td></tr>
+                      
                       <tr>
                           <td colspan="2">
                               <?php 
@@ -154,7 +154,7 @@ function validate(){
 
                                          RendDoubleSelect::showDoubleDropDownAlert($data, $data_selected, "id", "nome_epi", "", 
                                                 "sel_epis1", "selecionados", "hd_Epis", "130px", 
-                                               "Epis", "Selecionados");
+                                               "Equipamentos", "Selecionados");
                                        ?>
                                    <!-- </select> -->
                                 </div>
@@ -163,7 +163,7 @@ function validate(){
                      <tr>
                         <td colspan="3" style="text-align:center">
                           <input style="width:80px;" type="submit" name="button" class="button" id="buttonAvancar" onclick="selectAll()" value="Cadastrar">
-                          <input style="width:80px;" name="button" class="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar">
+                          <input style="width:80px;" name="button" class="button" onclick="window.location.href='add_epiXfunc.php'" id="button" value="Cancelar">
                         </td>
                      </tr>
                   </table>
@@ -191,7 +191,7 @@ function validate(){
                      <tr>
                         <td colspan="4" style="text-align:center">
                           <input style="width:80px;" type="button" name="button" class="button" id="buttonAvancar" onclick="selectAll()" value="Editar">
-                          <input style="width:80px;" type="button" name="button" class="button" onclick="window.location.href='logado.php'" id="button" value="Cancelar">
+                          <input style="width:80px;" type="button" name="button" class="button" onclick="window.location.href='add_epiXfunc.php'" id="button" value="Cancelar">
                         </td>
                      </tr>
                   </table>
@@ -214,9 +214,19 @@ function validate(){
                        for ($i = 0; $i < count($idepi); $i++) {
                             $quantidade = substr($idepi[$i], 1, strpos($idepi[$i],']')-1);//pega aquandidade que vem via post
                             $id_epi = substr($idepi[$i], strpos($idepi[$i],']')+1);//pega o id
-                            
+                            $quantidade_bd = $class_epi_bd->getQuantidade($id_epi);//quantidade de epi no banco
+
+                            if($quantidade_bd - $quantidade < 0){
+                              echo '<div class="msg">Não existe '.$class_epi_bd->getNome($id_epi).' suficiente em estoque<br /><a href="javascript:history.back()">Voltar</a></div>';
+                              return;
+                            }
+
                             if($epixfunc->add_epi_x_func($id_epi, $id_func, $data_entrega, $quantidade)){
-                              $cont++;
+                                //envia o id do epi e a quantidade para retirar do banco
+                                $quantidade = $quantidade_bd-$quantidade;
+
+                                $class_epi_bd->atualizaEstoque($id_epi, $quantidade);
+                                $cont++;
                             }
                             // echo '<td>quantidade: '.$quantidade." id: ".$id.'</td><br>';
                             // $arridepi[$i][0] = $idepi[$i][0];
