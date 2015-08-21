@@ -613,9 +613,9 @@ function carregaUf_CartTrab(uf){
 
             <?php include_once("../view/topo.php"); ?>
             
-            <div class='formulario' style="width:500px;">
+            
               <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?> <!-- EDITAR FUNCIONARIO -->
-
+                <div class='formulario' style="width:500px;">
                   <?php 
                      $func = new Funcionario();
                      $func = $func->get_func_id($_GET['id']);//buscando funcionario no banco
@@ -815,7 +815,29 @@ function carregaUf_CartTrab(uf){
                       </tr>
                   </table>
                </form>
+             </div>
+             <?php 
+                  include_once("informacoes_func.php"); 
+                  //exibe uma tabela com dados do funcionario
+                  echo '<div class="formulario dir">';
+                      
+                      $u = new Epi();
+                      $epi_func = $u->get_epi_func($func->id);
+                      echo '<table class="exibe_equipamentos" border="0">';
+                      echo '<tr><td colspan="4"><span><b>Equipamentos cadastrados para '.$func->nome.'</b></span></td></tr>';
+                      echo '<tr> <td><span>ID</span></td> <td><span>Nome</span></td> <td><span>Data da entrega</span></td><td><span>Quantidade</span></td></tr>';
+                      foreach ($epi_func as $key => $value) {
+                          echo '<tr><td><span>'.$epi_func[$key]->id.'</span></td><td><span>'.$epi_func[$key]->nome_epi.'</span></td><td><span>'.$epi_func[$key]->data_entrega.'</span></td><td><span>'.$epi_func[$key]->quantidade.'</span></td></tr>';
+                      }
+                      if(count($epi_func) == 0){//nenhum equipamento cadastrado
+                          echo '<tr><td colspan="4"><div class="msg">Nenhum equipamento cadastrado</div></td></tr>';
+                      }
+                      echo '</table>';
+                  echo '</div>';
+             ?>
+
               <?php }else{ ?> <!-- CADASTRAR FUNCIONARIO -->
+              <div class='formulario' style="width:500px;">
                <div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE FUNCIONÁRIOS</span></div></div>
                
                <form method="POST" class="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
@@ -989,9 +1011,10 @@ function carregaUf_CartTrab(uf){
                       </tr>
                   </table>
                </form>
-               <?php }?>
-               <?php
-                    if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
+
+               <?php //fica dentro do cadastrar porque depois que altera o funcionario entra nesse if
+
+                if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
 
                         if(validate()){
                            $func = new Funcionario();
@@ -1050,6 +1073,7 @@ function carregaUf_CartTrab(uf){
                            }
                         }
                   }
+
                   if(isset($_POST['tipo']) && $_POST['tipo'] == 'editar'){
                     
                       if(validate()){
@@ -1120,10 +1144,20 @@ function carregaUf_CartTrab(uf){
                            }
                     }
                 }
+
+
+                ?>
+
+             </div>
+             <?php include_once("informacoes_func.php"); ?>
+               <?php }?>
+               <?php
+                    
+                  
                  ?>
               
-            </div>
-            <?php include_once("informacoes_func.php"); ?>
+            
+            
          
       
    

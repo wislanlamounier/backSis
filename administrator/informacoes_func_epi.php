@@ -15,7 +15,7 @@ include_once("../model/class_cbo_bd.php");
 
               $.get(url, function(dataReturn) {
                 
-                $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+                $('#result1').html(dataReturn);  //coloco na div o retorno da requisicao
               });
             }
       }
