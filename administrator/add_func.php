@@ -74,14 +74,6 @@ function formata_salario($salario){
 ?>
 <html>
 
-<style type="text/css">
-
-.popup{
-  display:block; clear:both; padding: 10px; position:fixed; width:320px; height:240px; margin: 40%; margin-top:-200%; float:left;  background-color:#eee; box-shadow: 0px 0px 10px #333; border-radius:10px;
-  transition: all 1s;
-}
-
-</style>
 
 <head>
    <title>Adicionar</title>
@@ -97,11 +89,12 @@ function formata_salario($salario){
 <script type="text/javascript">
 
     function exibe(){
-        document.getElementById("popup").style.display = "block";
-        document.getElementById("popup").style.marginTop = "15%";
+        // document.getElementById("popup").style.display = "block";
+        document.getElementById("popup").style.marginLeft = "20%";
     }
     function fechar(){
-        document.getElementById("popup").style.marginTop = "-200%";
+
+        document.getElementById("popup").style.marginLeft = "-400px";
     }
     function confirma(id,nome){
        if(confirm("Excluir funcionario "+nome+" , tem certeza?")){
@@ -876,6 +869,18 @@ function carregaUf_CartTrab(uf){
                <div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE FUNCIONÁRIOS</span></div></div>
                
                <form method="POST" class="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
+                <div id="popup" class="popup" style="float:left">
+                      <div class="formulario" style="width:250px;">
+                        <table style="width:100%; text-align:center" border="0">
+                           <tr><td colspan='2'><b>Dados Bancarios</b></td></tr>
+                           <tr><td><label>Banco:</label></td><td><input type="text" name="banco"></td></tr>
+                           <tr><td><label>Ag:</label></td><td><input type="text" name="agencia"></td></tr>
+                            <tr><td> <label>Op:</label></td><td><input type="text" name="operacao"></td></tr>
+                           <tr><td><label>Conta:</label></td><td><input type="text" name="conta"></td></tr>
+                           <tr><td colspan='2'><input onclick="fechar()" type="button" class="button" value="Concluir"></td></tr>
+                         </table>
+                      </div>
+                 </div>
                 <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                   <table border="0">
                     <tr> <td><span>Código:</span></td> <td colspan="3"><input style="width:100%" type="text" id="codigo" name="codigo"></td></tr> <!-- cod_serie -->
@@ -927,7 +932,7 @@ function carregaUf_CartTrab(uf){
                            </div>
                         </td>
                      </tr>
-                     <tr> <td colspan="4"><span><a onclick="exibe()" style="cursor:pointer">Cadastrar dados bancários</a></span></td> </tr>
+                     <tr> <td colspan="4"><span><a onclick="exibe()" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/add.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Cadastrar dados bancários</div></a></span></td> </tr>
                      <tr> <td><span>Salário Base:</span></td> <td><input type="text" id="sal_base" name="sal_base" ></td></tr> <!-- Salário base -->
                      <tr> <td><span>Qtd. Horas Semanais:</span></td> <td><input type="number" id="qtd_horas_sem" name="qtd_horas_sem" ></td></tr> <!-- Quantidade de horas semanais -->
                      <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" ></td></tr> <!-- Numero do PIS -->
@@ -1048,6 +1053,7 @@ function carregaUf_CartTrab(uf){
                            </td>
                       </tr>
                   </table>
+                  
                </form>
 
                <?php //fica dentro do cadastrar porque depois que altera o funcionario entra nesse if
@@ -1189,16 +1195,7 @@ function carregaUf_CartTrab(uf){
              </div>
              <?php include_once("informacoes_func.php"); ?>
                <?php }?>
-             <div id="popup" class="popup">
-                <div class="formulario" style="width:250px">
-                     <p><b>Dados Bancarios</b></p>
-                     <label>Banco:</label><input type="text" name="banco"><br />
-                      <label>Ag:</label><input type="text" name="agencia"><br />
-                      <label>Op:</label><input type="text" name="operacao"><br />
-                      <label>Conta:</label><input type="text" name="conta"><br />
-                     <input onclick="fechar()" type="button" value="Concluir">
-                  </div>
-             </div>
+             
               
             
             
