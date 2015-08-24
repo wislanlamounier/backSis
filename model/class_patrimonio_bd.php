@@ -45,22 +45,26 @@ class Patrimonio{
 		return false;
 		} 
 	}
-	public function get_patrimonio_by_nome($nome){
+	public function get_all_patrimonio($modelo){
         $sql = new Sql();
         $sql->conn_bd();
         $g = new Glob();
         $aux=0;
         $return = array();
-        $query = $g->tratar_query("SELECT * FROM patrimonio WHERE oculto = 0 && id_empresa = '".$_SESSION['id_empresa']."' && nome LIKE '%%%s%%'", $nome);
+        $query = "SELECT id, modelo, fabricante FROM maquinario as e where 'e.modelo' like '%%%s%%' union SELECT id, modelo, marca FROM veiculo as f where 'f.modelo' like '%%%s%%'";
+        $query = $g->tratar_query($query, $modelo, $modelo);
+        $result = mysql_fetch_array($query);
+        echo $result['id'];
         if(!$query){
         	echo "<div class='msg'>Patrimonio não encontrado !</div>";
         	return;
         }
 
         while($result = mysql_fetch_array($query)){
+        		echo $result['id'];
 	          $return[$aux][0] = $result['id'];
-	          $return[$aux][1] = $result['nome'];
-	          $return[$aux][2] = $result['valor_compra'];
+	          $return[$aux][1] = $result['modelo'];
+	          $return[$aux][2] = $result['marca'];
 
 	          $aux++;
         }

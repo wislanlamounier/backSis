@@ -10,9 +10,57 @@ include_once("../model/class_patrimonio_geral_bd.php");
 function validate(){
    if(!isset($_POST['matricula']) || $_POST['matricula'] == ""){
          return false;
-   }
+    }
          return true;
+
+   // if(!isset($_POST['nome']) || $_POST['nome'] == ""){
+   //       return false;
+   // }
+   // if(!isset($_POST['chassi_nserie']) || $_POST['chassi_nserie'] == ""){
+   //     return false;
+   // }
+   // if(!isset($_POST['chassi']) || $_POST['chassi'] == ""){
+   //     return false;
+   // }
+   // if(!isset($_POST['modelo']) || $_POST['modelo'] == ""){
+   //     return false;
+   //  }
+   //  if(!isset($_POST['descricao']) || $_POST['descricao'] == ""){
+   //     return false;
+   //  }
+   //  if(!isset($_POST['data_compra']) || $_POST['data_compra'] == ""){
+   //     return false;
+   //  }
+   //  if(!isset($_POST['valor']) || $_POST['valor'] == ""){
+   //     return false;
+   //  }
+   //  if(!isset($_POST['renavam']) || $_POST['renavam'] == ""){
+   //     return false;
+   //  }
+         
+function formataMoney($valor){
+    $replace = array(".","R$ ");
+    $string = str_replace($replace, "", $valor);
+
+    $replace = array(",");
+    $string = str_replace($replace, ".", $string);
+    
+    $return = $string;
+    return $return;
 }
+//verifica o valor antes de carregar no text de edição
+function verificaValor($valor){
+    //pega quantidade de caracteres - posisão do .
+    if(strlen($valor) - strpos($valor, '.') < 3){
+       $valor.='0';
+    }else if(strpos($valor, '.') == 0){
+      $valor.='.00';
+    }
+    return $valor;
+}
+
+    }
+
  ?>
 
 <html>
@@ -21,6 +69,189 @@ function validate(){
 	 <link rel="stylesheet" type="text/css" href="style.css">
 	 <script type="text/javascript">
 
+   function mascara(o,f){
+          v_obj=o
+          v_fun=f
+          setTimeout("execmascara()",1)
+      }
+      function execmascara(){
+          v_obj.value=v_fun(v_obj.value)
+      }
+
+   
+    function mmoney(v){
+       if(v.length >=18){                                          // alert("mtel")
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+       v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
+       v=v.replace(/(\d)(\d{11})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       v=v.replace(/(\d)(\d{8})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       v=v.replace(/(\d)(\d{5})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       v=v.replace(/(\d)(\d{2})$/,"$1,$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       
+       return 'R$ '+v;
+    }
+    
+    
+   function id( el ){
+     // alert("id")
+     return document.getElementById( el );
+   }
+   window.onload = function(){
+      id('valor').onkeypress = function(){ 
+          mascara( this, mmoney );
+      }
+    }
+
+      function validate(f){
+        var erros = 0;
+        var msg = "";
+          for (var i = 0; i < f.length; i++) {
+              if(f[i].name == "matricula"){
+                  if(f[i].value == ""){
+                     msg += "Insira codigo no campo matricula!\n";
+                     f[i].style.border = "1px solid #FF0000";
+                     erros++;
+                  }else{
+                      f[i].style.border = "1px solid #898989";
+                  }
+              }
+              if(f[i].name == "chassi_nserie" && f[i].value == ""){
+                msg += "Insira um código no campo chassi Nº Serie!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "modelo"){
+                if(f[i].value == ""){
+                  msg += "Preencha o campo modelo!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+              if(f[i].name == "fabricante"){
+                if(f[i].value == ""){
+                  msg += "Preencha o campo fabricante!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+              
+              if(f[i].name == "data_compra"){
+                if(f[i].value == ""){
+                  msg += "Preencha o campo Data de Compra!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+              if(f[i].name == "responsavel"){
+                if(f[i].value == "no_sel"){
+                  msg += "Selecione uma Forncedor!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989";
+                }
+              }
+               if(f[i].name == "fornecedor"){
+                if(f[i].value == "no_sel"){
+                  msg += "Selecione uma Forncedor!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989";
+                }
+              }
+              if(f[i].name == "hr_inicial"){
+                if(f[i].value ==""){
+                  msg += "Preencha o campo Horimetro!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+              if(f[i].name == "valor"){
+                if(f[i].value == ""){
+                  msg += "Preencha o campo de Valor!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+            
+              if(f[i].name == "nome"){
+                if(f[i].value == ""){
+                  msg += "Preencha o campo de Nome!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+              if(f[i].name == "descricao"){
+                if(f[i].value == ""){
+                  msg += "Preencha o campo de descricao!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+
+              if(f[i].name == "marca"){
+                if(f[i].value == ""){
+                  msg += "Preencha o campo Marca!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989"; 
+                }
+              }
+
+              if(f[i].name == "placa" && f[i].value == ""){
+                msg += "Preencha o campo de Placa!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+           
+
+              if(f[i].name == "renavam" && f[i].value == ""){
+                msg += "Preencha o campo renavam\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+             
+
+              if(f[i].name == "chassi" && f[i].value == ""){
+                msg += "Preencha o campo de Chassi!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "empresa"){
+                if(f[i].value == "no_sel"){
+                  msg += "Selecione uma empresa!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                  f[i].style.border = "1px solid #898989";
+                }
+              }
+              
+
+         }
+          if(erros>0){            
+              alert(msg);
+            return false;
+          }
+      }
 
    function tipo_form(){
     if(document.getElementById("seguro").checked == true){
@@ -73,7 +304,7 @@ function validate(){
 	 </script>
 </head>
 
-<body>	
+<body onload="disparaLoadCidade()" >	
 			<?php include_once("../view/topo.php"); ?>
 
 			<div id="content">   
@@ -116,15 +347,16 @@ function validate(){
                                                     </select>
                                 </td></tr>  
                               <tr><td><span>Tipo:</span></td><td><input type="text" name="tipo" id="tipo"> <td><span>Ano:</span></td><td>
-                                                    <select name="ano" id="ano">
-                                                    <option >Selecione</option>
+                                                       <select name="ano" id="ano">
+                                                      <?php $ano_atual=date("Y"); ?>
+                                                    <option><?php echo $ano_atual ?></option>
                                                         <?php 
-                                                           $ano_atual=date("Y");
-                                                           for ($ano = 1950; $ano < $ano_atual ; $ano++) { 
+                                                           
+                                                           for ($ano = $ano_atual; $ano >1950 ; $ano--) { 
                                                               echo '<option value="'.$ano.'">'.$ano.'</option>';
                                                            }
                                                          ?>
-                                                     </select></td></td></tr>
+                                                     </select></td></tr>
                               <tr><td><span>Data de Compra:</span></td><td><input type="date" name="data_compra" id="data_compra"></td><td><span>Seguro</span></td><td><input type="checkbox" class="seguro" onclick="tipo_form()" id="seguro" name="seguro" value="0"></td></tr>
                               <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Horimetro:</span></td><td><input type="numeric" name="hr_inicial" id="hr_inicial"></td></tr>
                               <tr><td><span>Forncedor:</span></td><td>
@@ -174,10 +406,11 @@ function validate(){
                              	<tr><td><span>Marca:</span></td><td><input type="text" name="marca" id="marca"> <td><span> Modelo:</span></td><td><input type="text" name="modelo" id="modelo"></td></td></tr>            
                              	<tr><td><span>Cor:</span></td><td><input type="text" name="cor" id="cor"><td><span>Ano:</span></td><td>
                                                     <select name="ano" id="ano">
-                                                    <option >Selecione</option>
+                                                      <?php $ano_atual=date("Y"); ?>
+                                                    <option><?php echo $ano_atual ?></option>
                                                         <?php 
-                                                           $ano_atual=date("Y");
-                                                           for ($ano = 1950; $ano < $ano_atual ; $ano++) { 
+                                                           
+                                                           for ($ano = $ano_atual; $ano >1950 ; $ano--) { 
                                                               echo '<option value="'.$ano.'">'.$ano.'</option>';
                                                            }
                                                          ?>
@@ -235,6 +468,7 @@ function validate(){
                   <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula"></td></tr>                               
                   <tr><td><span>Nome:</span></td><td><input type="text" name="nome" id="nome"><td><span> Marca:</span></td><td><input type="text" name="marca" id="marca"></td></td></tr>
                   <tr><td><span>Quantidade:</span></td><td><input type="text" name="quantidade" id="quantidade"> <td><span> Descricao:</span></td><td><input type="text" name="descricao" id="descricao"></td></td></tr>
+                  <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor"></td><td></tr>
                   <tr><td><span>Empresa:</span></td><td>
                                   <select id="empresa" name="empresa"  style="width:100%" onchange="buscar_responsavel()">
                                     <option value="no_sel">Selecione</option>
@@ -328,7 +562,7 @@ function validate(){
                    }
 
                    if(isset($_POST['cadastrar_patrimonio_geral']) && $_POST['cadastrar_patrimonio_geral'] == "cadastrar_patrimonio_geral"){
-                    // echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';  
+                   // echo '<script>alert("'.formataMoney($_POST['valor']).'")</script>';  
                                 
                     if(validate()){
 
@@ -338,12 +572,13 @@ function validate(){
                         echo  "<br>".  $marca = $_POST['marca'];
                         echo  "<br>".  $descricao = $_POST['descricao'];
                         echo  "<br>".  $quantidade = $_POST['quantidade'];
+                        echo  "<br>".  $valor = $_POST['valor'];
                         echo  "<br>".  $id_empresa = $_POST['empresa'];
                         
 
 
                       $patrimonio = new Patrimonio_geral();
-                      $patrimonio->add_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $id_empresa);
+                      $patrimonio->add_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa);
     
                       if($patrimonio->add_patrimonio_geral_bd()){
                         echo '<div class="msg">Patrimonio adicionado com sucesso !</div>';
