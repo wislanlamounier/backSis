@@ -12,13 +12,11 @@
 include_once("../model/class_sql.php");
 include_once("../global.php");
 
-
-
   $sql = new Sql();
   $sql->conn_bd();
   $g = new Glob();
 
-  $query = "SELECT * FROM funcionario WHERE  id='%s' AND is_admin ='1' AND senha =md5('%s')";
+  $query = "SELECT * FROM funcionario WHERE  id='%s' AND is_admin ='1' AND senha = md5('%s') AND oculto = 0";
 
   $userbusca = $g->tratar_query($query,$_POST["id"], $_POST["pass"]);
   // $userbusca vai receber a qt de linhas que tem essa busca 
@@ -28,7 +26,7 @@ include_once("../global.php");
         $query = "SELECT * FROM empresa WHERE  id='%s'";
         $result = $g->tratar_query($query, $row['id_empresa']);
         $empresa = mysql_fetch_array($result);
-        $_SESSION["id"] = $_POST['id']; // nomeia id da sessão
+        $_SESSION["id"] = $row['id']; // nomeia id da sessão
         $_SESSION["user"] = $row['nome'];
         $_SESSION['id_empresa'] = $empresa['id'];
         $_SESSION['empresa'] = $empresa['nome_fantasia'];

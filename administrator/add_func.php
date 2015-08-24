@@ -15,6 +15,9 @@ include_once("../model/class_endereco_bd.php");
 include_once("../model/class_empresa_bd.php");
 
 function validate(){
+  if(!isset($_POST['codigo']) || $_POST['codigo'] == ""){
+         return false;
+   }
    if(!isset($_POST['nome']) || $_POST['nome'] == ""){
          return false;
    }
@@ -71,7 +74,14 @@ function formata_salario($salario){
 ?>
 <html>
 
+<style type="text/css">
 
+.popup{
+  display:block; clear:both; padding: 10px; position:fixed; width:320px; height:240px; margin: 40%; margin-top:-200%; float:left;  background-color:#eee; box-shadow: 0px 0px 10px #333; border-radius:10px;
+  transition: all 1s;
+}
+
+</style>
 
 <head>
    <title>Adicionar</title>
@@ -86,6 +96,13 @@ function formata_salario($salario){
 
 <script type="text/javascript">
 
+    function exibe(){
+        document.getElementById("popup").style.display = "block";
+        document.getElementById("popup").style.marginTop = "15%";
+    }
+    function fechar(){
+        document.getElementById("popup").style.marginTop = "-200%";
+    }
     function confirma(id,nome){
        if(confirm("Excluir funcionario "+nome+" , tem certeza?")){
           var url = '../ajax/ajax_excluir_funcionario.php?id='+id+'&nome='+nome;
@@ -98,6 +115,15 @@ function formata_salario($salario){
         var erros = 0;
         var msg = "";
           for (var i = 0; i < f.length; i++) {
+              if(f[i].name == "codigo"){
+                  if(f[i].value == ""){
+                     msg += "Insira um Codigo!\n";
+                     f[i].style.border = "1px solid #FF0000";
+                     erros++;
+                  }else{
+                      f[i].style.border = "1px solid #898989";
+                  }
+              }
               if(f[i].name == "nome" && f[i].value == ""){
                 msg += "Insira um Nome!\n";
                 f[i].style.border = "1px solid #FF0000";
@@ -640,7 +666,7 @@ function carregaUf_CartTrab(uf){
                   <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $func->id_endereco; ?>">
                   <table border='0'>
                     <tr><td colspan="4" style="padding-top:10px; padding-bottom:10px;"><span style="color:#565656">Atenção: Se o campo senha ficar em branco a senha não sera alterada</span></td></tr>
-                    
+                     <tr> <td><span>Código:</span></td> <td colspan="3"><input style="width:100%" type="text" id="codigo" name="codigo" value="<?php echo $func->cod_serie; ?>"></td></tr> <!-- cod_serie -->
                      <tr> <td><span>Nome:</span></td> <td colspan="3"><input style="width:100%" type="text" id="nome" name="nome" value="<?php echo $func->nome; ?>"></td></tr> <!-- nome -->
                      <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%" type="text" id="cpf" name="cpf" value="<?php echo $func->cpf; ?>"></td></tr> <!-- CPF -->
                      <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg" value="<?php echo $func->rg; ?>"></td><td><span>Org.Em:</span></td><td><input style="width:100px;" type="text" id="org_em_rg" name="org_em_rg" value="<?php echo $func->org_em_rg; ?>"></td></tr> <!-- RG -->
@@ -809,7 +835,7 @@ function carregaUf_CartTrab(uf){
 
                           </td> </tr>
                      <tr> 
-                           <td colspan="4" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Editar">
+                           <td colspan="4" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Salvar">
                              <input class="button" type="button" name="button" onclick="window.location.href='add_func.php'" id="button" value="Cancelar">
                            </td>
                       </tr>
@@ -824,7 +850,7 @@ function carregaUf_CartTrab(uf){
                       $u = new Epi();
                       $epi_func = $u->get_epi_func($func->id);
                       $aux=0;
-                      echo '<div style="float:right; margin-top:-10px;"><a href="add_epiXfunc.php?tipo=cadastrar&id='.$func->id.'"> <div style="float:left"><img style="height:20px;" src="../images/icon-edita.png" ></div><div style="padding-botton:10px; float:left;padding-top:5px;"><span>Editar</span></div></a></div>';
+                      echo '<div style="float:right; margin-top:-10px;"><a title="Clique para adicionar ou alterar equipamentos desse funcionário" href="add_epiXfunc.php?tipo=cadastrar&id='.$func->id.'"> <div style="float:left"><img style="height:20px;" src="../images/icon-edita.png" ></div><div style="padding-botton:10px; float:left;padding-top:5px;"><span>Editar</span></div></a></div>';
                       echo '<table class="exibe_equipamentos" border="0">';
                       echo '<tr><td colspan="4" style="padding:10px;"><span><b><a title="Clique para adicionar ou alterar equipamentos desse funcionário" href="add_epiXfunc.php?tipo=cadastrar&id='.$func->id.'">EQUIPAMENTOS CADASTRADOS PARA '.strtoupper($func->nome).'</a></b></span></td></tr>';
                       echo '<tr> <td><span><b>ID</b></span></td> <td><span><b>Nome</b></span></td> <td><span><b>Data da entrega</b></span></td><td><span><b>Quantidade</b></span></td></tr>';
@@ -844,12 +870,15 @@ function carregaUf_CartTrab(uf){
              ?>
 
               <?php }else{ ?> <!-- CADASTRAR FUNCIONARIO -->
+              
               <div class='formulario' style="width:500px;">
+                
                <div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE FUNCIONÁRIOS</span></div></div>
                
                <form method="POST" class="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
                 <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                   <table border="0">
+                    <tr> <td><span>Código:</span></td> <td colspan="3"><input style="width:100%" type="text" id="codigo" name="codigo"></td></tr> <!-- cod_serie -->
                      <tr>
                         <td>
                           <span>Nome:</span>
@@ -898,6 +927,7 @@ function carregaUf_CartTrab(uf){
                            </div>
                         </td>
                      </tr>
+                     <tr> <td colspan="4"><span><a onclick="exibe()" style="cursor:pointer">Cadastrar dados bancários</a></span></td> </tr>
                      <tr> <td><span>Salário Base:</span></td> <td><input type="text" id="sal_base" name="sal_base" ></td></tr> <!-- Salário base -->
                      <tr> <td><span>Qtd. Horas Semanais:</span></td> <td><input type="number" id="qtd_horas_sem" name="qtd_horas_sem" ></td></tr> <!-- Quantidade de horas semanais -->
                      <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" ></td></tr> <!-- Numero do PIS -->
@@ -956,6 +986,7 @@ function carregaUf_CartTrab(uf){
                            <!-- <a href="">Pesquisar</a> -->
                         </td>
                      </tr>
+                   
                      <tr>
                         <td> <span>Rua: </span></td><td colspan="3"><input type="text" id="rua" name="rua" style="width:80%"> <span> Nº </span> <input style="width:50px;" type="number" id="num" name="num" > </td>
                      </tr>
@@ -1026,7 +1057,7 @@ function carregaUf_CartTrab(uf){
                         if(validate()){
                            $func = new Funcionario();
                            $end = new Endereco();
-
+                           $cod_serie = $_POST['codigo'];
                            $rua = $_POST['rua'];
                            $numero = $_POST['num'];
                            $id_cidade = $_POST['cidade'];
@@ -1071,7 +1102,7 @@ function carregaUf_CartTrab(uf){
                            $id_cbo = $_POST['cbo'];
                            $is_admin = (isset($_POST['is_admin']))?(($_POST['is_admin'])?1:0):0;
 
-                           $func->add_func($nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor);
+                           $func->add_func($cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor);
                            // echo $func->printFunc();
                            if($func->add_func_bd()){
                                echo '<div class="msg">Funcionário cadastrado com sucesso!</div>';
@@ -1088,7 +1119,7 @@ function carregaUf_CartTrab(uf){
                            $func = new Funcionario();
                            $endereco = new Endereco();
 
-                           
+                           $cod_serie = $_POST['codigo'];
                            $id = $_POST['id_func'];
                            $id_tabela = $_POST['id_tabela'];
                            $nome = $_POST['nome'];
@@ -1144,7 +1175,7 @@ function carregaUf_CartTrab(uf){
                                 $id_endereco = $endereco->add_endereco_bd();
                             }
 
-                           if($func->atualiza_func($id, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor)){
+                           if($func->atualiza_func($id,$cod_serie, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor)){
                               echo '<div class="msg">Funcionário editado com sucesso</div>';
                            }else{
                               echo '<div class="msg">Falha ao editar funcionário</div>';
@@ -1158,10 +1189,16 @@ function carregaUf_CartTrab(uf){
              </div>
              <?php include_once("informacoes_func.php"); ?>
                <?php }?>
-               <?php
-                    
-                  
-                 ?>
+             <div id="popup" class="popup">
+                <div class="formulario" style="width:250px">
+                     <p><b>Dados Bancarios</b></p>
+                     <label>Banco:</label><input type="text" name="banco"><br />
+                      <label>Ag:</label><input type="text" name="agencia"><br />
+                      <label>Op:</label><input type="text" name="operacao"><br />
+                      <label>Conta:</label><input type="text" name="conta"><br />
+                     <input onclick="fechar()" type="button" value="Concluir">
+                  </div>
+             </div>
               
             
             
