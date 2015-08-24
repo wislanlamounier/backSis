@@ -1,15 +1,17 @@
-// <?php
+<?php
 include("restrito.php"); 
 include_once("../model/class_empresa_bd.php");
 include_once("../model/class_cliente.php");
 include_once("../model/class_veiculo_bd.php");
 include_once("../model/class_funcionario_bd.php");
 include_once("../model/class_maquinario_bd.php");
+include_once("../model/class_patrimonio_geral_bd.php");
+
 function validate(){
-   if(!isset($_POST['cor']) || $_POST['cor'] == ""){
+   if(!isset($_POST['matricula']) || $_POST['matricula'] == ""){
          return false;
    }
-   return true;
+         return true;
 }
  ?>
 
@@ -88,7 +90,7 @@ function validate(){
                 <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Maquinário"></td></tr>
               </form>
               <form>
-                <input type="hidden" id="tipo" name="tipo" value="cadastrar_geral">
+                <input type="hidden" id="tipo" name="tipo" value="cadastrar_patrimonio_geral">
                 <input type="hidden" id="tipo" name="menu" value="0">
                 <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Geral"></td></tr>
               </form>              
@@ -99,6 +101,7 @@ function validate(){
               </form>
               </div>
             <?php }?>
+
             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_maquinario'){?>                  
                       <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR MAQUINÁRIO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
@@ -108,8 +111,8 @@ function validate(){
                               <tr><td><span>Fabricante:</span></td><td><input type="text" name="fabricante" id="fabricante"> <td><span> Modelo:</span></td><td><input type="text" name="modelo" id="modelo"></td></td></tr>            
                               <tr><td><span>Cor:</span></td><td><input type="text" name="cor" id="cor"><td></td></tr>
                               <tr><td><span>Tipo de consumo:</span></td><td>  <select name="tipo_consumo" id="tipo_consumo">
-                                                    <option value="gasolina">Combustível</option>
-                                                    <option value="flex">Elétrico</option>                                                    
+                                                    <option value="combustivel">Combustível</option>
+                                                    <option value="eletrico">Elétrico</option>                                                    
                                                     </select>
                                 </td></tr>  
                               <tr><td><span>Tipo:</span></td><td><input type="text" name="tipo" id="tipo"> <td><span>Ano:</span></td><td>
@@ -164,7 +167,7 @@ function validate(){
             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_veiculo'){?>              
                        <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR VEÍCULO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
-                        <input type="hidden" id="tipo" name="tipo" value="cadastrar_veiculo">
+                        <input type="hidden" id="veiculo" name="veiculo" value="cadastrar_veiculo">
                           <table border="0">                          
                           		<tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula"></td><td><span>Renavam:</span></td> <td><input type="text" name="renavam" id="renavam"></td></tr>                             	
                              	<tr><td><span>Placa:</span></td><td><input class="uppercase" type="text" name="placa" id="placa"><td><span> Chassi:</span></td><td><input type="text" name="chassi" id="chassi" class="uppercase"></td></td></tr>
@@ -223,17 +226,27 @@ function validate(){
                        </form>
             <?php }?>
 
-             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_geral'){?> 
+              <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_patrimonio_geral'){?>    
              
              <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
               <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR PATRIMONIO EM GERAL</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
-               <input type="hidden" id="geral" name="geral" value="cdastrar_geral"> 
+               <input type="hidden" id="cadastrar_patrimonio_geral" name="cadastrar_patrimonio_geral" value="cadastrar_patrimonio_geral"> 
               <table border="0">
-                  <tr><td><span>Matricula: </span></td><td><input type="text" nome="matricula" id="matricula"></td></tr>
-                  <tr><td><span>Nome: </span></td><td><input type="text" nome="nome" id="nome"></td></tr>
-                  <tr><td><span>Marca: </span></td><td><input type="text" nome="marca" id="marca"></td></tr>
-                  <tr><td><span>Descricao: </span></td><td><input type="text" nome="descricao" id="descricao"></td></tr>
-                  <tr><td><span>Quantidade: </span></td><td><input type="numeric" nome="quantidade" id="quantidade"></td></tr>
+                  <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula"></td></tr>                               
+                  <tr><td><span>Nome:</span></td><td><input type="text" name="nome" id="nome"><td><span> Marca:</span></td><td><input type="text" name="marca" id="marca"></td></td></tr>
+                  <tr><td><span>Quantidade:</span></td><td><input type="text" name="quantidade" id="quantidade"> <td><span> Descricao:</span></td><td><input type="text" name="descricao" id="descricao"></td></td></tr>
+                  <tr><td><span>Empresa:</span></td><td>
+                                  <select id="empresa" name="empresa"  style="width:100%" onchange="buscar_responsavel()">
+                                    <option value="no_sel">Selecione</option>
+                                    <?php 
+                                       $empresa = new Empresa();
+                                       $empresa = $empresa->get_all_empresa();
+                                       for ($i=0; $i < count($empresa) ; $i++) { 
+                                          echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
+                                       }
+                                     ?>
+                                 </select><td></tr>
+                  
                   <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="submit" id="button" value="Cadastrar"> <input type="button" name="button" class="submit" onclick="window.location.href='add_patrimonio.php'" id="button" value="Cancelar"></td></tr>
               </table>
              </form>             
@@ -242,7 +255,7 @@ function validate(){
 	 	    
 	 	     <?php 
 
-                 if(isset($_POST['maquinario']) && $_POST['maquinario'] == "cadastrar_maquinario"){
+                    if(isset($_POST['maquinario']) && $_POST['maquinario'] == "cadastrar_maquinario"){
                     // echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';                    
                     if(validate()){
 
@@ -277,9 +290,9 @@ function validate(){
                       }
                    }
 
+                    
 
-
-                if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar_veiculo"){
+                  if(isset($_POST['veiculo']) && $_POST['veiculo'] == "cadastrar_veiculo"){
                 		// echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';
                  
                     if(validate()){
@@ -294,8 +307,7 @@ function validate(){
                         echo  "<br>". $cor = $_POST['cor'];
                         echo  "<br>". $valor = $_POST['valor'];
                         echo  "<br>". $data_compra = $_POST['data_compra'];
-                        echo  "<br>". $seguro = $_POST['seguro'];
-                        
+                        echo  "<br>". $seguro = $_POST['seguro'];                        
                         echo  "<br>". $km_inicial = $_POST['km_inicial'];
                         echo  "<br>". $tipo_combustivel = $_POST['combustivel'];							
                         echo  "<br>". $id_empresa = $_POST['empresa'];
@@ -315,7 +327,34 @@ function validate(){
                       }
                    }
 
-                ?>
+                   if(isset($_POST['cadastrar_patrimonio_geral']) && $_POST['cadastrar_patrimonio_geral'] == "cadastrar_patrimonio_geral"){
+                    // echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';  
+                                
+                    if(validate()){
+
+               
+                        echo  "<br>".  $matricula = $_POST['matricula'];           
+                        echo  "<br>".  $nome = $_POST['nome'];
+                        echo  "<br>".  $marca = $_POST['marca'];
+                        echo  "<br>".  $descricao = $_POST['descricao'];
+                        echo  "<br>".  $quantidade = $_POST['quantidade'];
+                        echo  "<br>".  $id_empresa = $_POST['empresa'];
+                        
+
+
+                      $patrimonio = new Patrimonio_geral();
+                      $patrimonio->add_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $id_empresa);
+    
+                      if($patrimonio->add_patrimonio_geral_bd()){
+                        echo '<div class="msg">Patrimonio adicionado com sucesso !</div>';
+                      }else{
+                        echo '<div class="msg">Falha ao adicionar Patrimonio!</div>';
+                      }                      
+                      
+                      }
+                   }
+ 
+         ?>
                 </div> 
 	 	</div>
 </body>
