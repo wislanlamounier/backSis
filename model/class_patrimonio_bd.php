@@ -51,20 +51,20 @@ class Patrimonio{
         $g = new Glob();
         $aux=0;
         $return = array();
-        $query = "SELECT id, modelo, fabricante FROM maquinario as e where 'e.modelo' like '%%%s%%' union SELECT id, modelo, marca FROM veiculo as f where 'f.modelo' like '%%%s%%'";
+        $query = "SELECT id, modelo, fabricante FROM maquinario as e where e.modelo like '%%%s%%' union SELECT id, modelo, marca FROM veiculo as f where f.modelo like '%%%s%%'";
         $query = $g->tratar_query($query, $modelo, $modelo);
         $result = mysql_fetch_array($query);
-        echo $result['id'];
+        
         if(!$query){
         	echo "<div class='msg'>Patrimonio não encontrado !</div>";
         	return;
         }
 
         while($result = mysql_fetch_array($query)){
-        		echo $result['id'];
+        		
 	          $return[$aux][0] = $result['id'];
 	          $return[$aux][1] = $result['modelo'];
-	          $return[$aux][2] = $result['marca'];
+	          $return[$aux][2] = $result['fabricante'];
 
 	          $aux++;
         }

@@ -39,7 +39,7 @@ include("../model/class_patrimonio_bd.php");
           <?php
                 if(isset($_POST['name_search']) && $_POST['name_search'] != ""){
                    $patrimonio = new Patrimonio();
-                   $patrimonios = $patrimonio->get_all_patrimonio();
+                   $patrimonios = $patrimonio->get_all_patrimonio($_POST['name_search']);
                      echo '<table class="exibe-pesquisa">';
                      if(count($patrimonios)>0)
                      foreach($patrimonios as $key => $patrimonio){
