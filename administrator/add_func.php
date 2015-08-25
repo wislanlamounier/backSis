@@ -13,6 +13,7 @@ include_once("../model/class_cidade_bd.php");
 include_once("../model/class_estado_bd.php");
 include_once("../model/class_endereco_bd.php");
 include_once("../model/class_empresa_bd.php");
+include_once("../model/class_banco.php");
 
 function validate(){
   if(!isset($_POST['codigo']) || $_POST['codigo'] == ""){
@@ -87,14 +88,29 @@ function formata_salario($salario){
 </head>
 
 <script type="text/javascript">
+    
 
     function exibe(){
         // document.getElementById("popup").style.display = "block";
-        document.getElementById("popup").style.marginLeft = "20%";
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+      
+        var screenWidth = screen.width;
+        var screenHeight = screen.height;
+        // alert(windowWidth+" x "+windowHeight)
+        if(windowWidth > 1200){
+          document.getElementById("popup").style.marginLeft = "35%";
+        }else if(windowWidth > 1000){
+          document.getElementById("popup").style.marginLeft = "30%";
+        }else if(windowWidth > 500){
+          document.getElementById("popup").style.marginLeft = "20%";
+        }else{
+          document.getElementById("popup").style.marginLeft = "0%";
+        }
     }
     function fechar(){
 
-        document.getElementById("popup").style.marginLeft = "-400px";
+        document.getElementById("popup").style.marginLeft = "-450px";
     }
     function confirma(id,nome){
        if(confirm("Excluir funcionario "+nome+" , tem certeza?")){
@@ -632,7 +648,6 @@ function carregaUf_CartTrab(uf){
 
             <?php include_once("../view/topo.php"); ?>
             
-            
               <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?> <!-- EDITAR FUNCIONARIO -->
                 <div class='formulario' style="width:500px;">
                   <?php 
@@ -640,6 +655,7 @@ function carregaUf_CartTrab(uf){
                      $func = $func->get_func_id($_GET['id']);//buscando funcionario no banco
                      $endereco = new Endereco();
                      $endereco = $endereco->get_endereco( $func->id_endereco );
+                     $banco = Banco::get_banco_by_id($func->id_dados_bancarios);
                       // $endereco[0][0] Rua
                       // $endereco[0][1] Numero
                       // $endereco[0][2] Cidade
@@ -653,6 +669,19 @@ function carregaUf_CartTrab(uf){
                    ?>
                   <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR FUNCIONÁRIO</span></div></div>
                   <form method="POST" id="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
+                    <div id="popup" class="popup" style="float:left">
+                      <div class="formulario" style="width:300px;">
+                        <table style="width:100%; text-align:center;" border="0">
+                            <input type="hidden" id="id_banco" name="id_banco" value="<?php echo $banco->id ?>">
+                           <tr><td colspan='2'><b>Dados Bancarios</b></td></tr>
+                           <tr><td><label>Banco:</label></td><td><input type="text" style="width:100%" name="banco" value="<?php  ($banco)?print $banco->banco:'' ?>"></td></tr>
+                           <tr><td><label>Ag:</label></td><td><input type="text" style="width:100%" name="agencia" value="<?php ($banco)?print $banco->agencia:'' ?>"></td></tr>
+                            <tr><td> <label>Op:</label></td><td><input type="text" style="width:100%" name="operacao" value="<?php ($banco)?print $banco->operacao:'' ?>"></td></tr>
+                           <tr><td><label>Conta:</label></td><td><input type="text" style="width:100%" name="conta" value="<?php ($banco)?print $banco->conta:'' ?>"></td></tr>
+                           <tr><td colspan='2'><input onclick="fechar()" type="button"  class="button" value="Concluir" ></td></tr>
+                         </table>
+                      </div>
+                </div>
                   <input type="hidden" id="tipo" name="tipo" value="editar">
                   <input type="hidden" id="id_func" name="id_tabela" value="<?php echo $func->id_tabela; ?>">
                   <input type="hidden" id="id_func" name="id_func" value="<?php echo $func->id; ?>">
@@ -700,6 +729,7 @@ function carregaUf_CartTrab(uf){
                         </td>
                         <?php echo '<script> buscar_postos('.$func->id_empresa.'); </script>'; ?> 
                      </tr>
+                     <tr> <td colspan="4"><span><a onclick="exibe()" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/icon-edita.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Editar dados bancários</div></a></span></td> </tr>
                      <tr> <td><span>Salário Base:</span></td> <td><input type="text" id="sal_base" name="sal_base" value="<?php echo $func->salario_base; ?>"></td></tr> <!-- Salário base -->
                      <tr> <td><span>Qtd. Horas Semanais:</span></td> <td><input type="number" id="qtd_horas_sem" name="qtd_horas_sem" value="<?php echo $func->qtd_horas_sem; ?>"></td></tr> <!-- Quantidade de horas semanais -->
                      <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" value="<?php echo $func->num_pis; ?>"></td></tr> <!-- Numero do PIS -->
@@ -870,7 +900,7 @@ function carregaUf_CartTrab(uf){
                
                <form method="POST" class="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
                 <div id="popup" class="popup" style="float:left">
-                      <div class="formulario" style="width:250px;">
+                      <div class="formulario" style="width:300px;">
                         <table style="width:100%; text-align:center" border="0">
                            <tr><td colspan='2'><b>Dados Bancarios</b></td></tr>
                            <tr><td><label>Banco:</label></td><td><input type="text" name="banco"></td></tr>
@@ -880,7 +910,7 @@ function carregaUf_CartTrab(uf){
                            <tr><td colspan='2'><input onclick="fechar()" type="button" class="button" value="Concluir"></td></tr>
                          </table>
                       </div>
-                 </div>
+                </div>
                 <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                   <table border="0">
                     <tr> <td><span>Código:</span></td> <td colspan="3"><input style="width:100%" type="text" id="codigo" name="codigo"></td></tr> <!-- cod_serie -->
@@ -1124,7 +1154,7 @@ function carregaUf_CartTrab(uf){
                         
                            $func = new Funcionario();
                            $endereco = new Endereco();
-
+                           
                            $cod_serie = $_POST['codigo'];
                            $id = $_POST['id_func'];
                            $id_tabela = $_POST['id_tabela'];
@@ -1164,7 +1194,7 @@ function carregaUf_CartTrab(uf){
                            $num_pis = $_POST['pis'];
                            $id_supervisor = $_POST['superv'];
 
-                           
+                           //************** ATUALIZA ENDERECO ******************
                            $rua = $_POST['rua'];
                            $numero = $_POST['num'];
                            $id_cidade = $_POST['cidade'];
@@ -1173,15 +1203,36 @@ function carregaUf_CartTrab(uf){
 
                            $existe_endereco = $endereco->verifica_endereco($_POST['id_endereco']);
 
-                           if($existe_endereco){
+                           if($existe_endereco){//Se já existe um endereço  cadastrado (ATUALIZA)
                                 $endereco->atualiza_endereco($rua, $numero, $id_cidade, $_POST['id_endereco'], $bairro, $cep );
                                 $id_endereco = $_POST['id_endereco'];
-                            }else{
+                           }else{//Se NÃO existe um endereço  cadastrado (ADICIONA)
                                 $endereco->add_endereco($rua, $numero, $id_cidade, $bairro, $cep);
                                 $id_endereco = $endereco->add_endereco_bd();
-                            }
+                           }
+                           //************** FIM ATUALIZA ENDERECO ******************
+                           
+                           //************** ATUALIZA DADOS BANCARIOS ******************
+                           $id_banco = $_POST['id_banco'];
+                           $banco = strtoupper($_POST['banco']);
+                           $agencia = $_POST['agencia'];
+                           $operacao = $_POST['operacao'];
+                           $conta = $_POST['conta'];
 
-                           if($func->atualiza_func($id,$cod_serie, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor)){
+                           if(Banco::verifica_banco($id_banco)){
+                              Banco::atualiza_banco($id_banco, $banco, $agencia, $operacao, $conta);//atualizando banco
+                              $id_dados_bancarios = $id_banco;
+                              // echo 'Banco: '.$id_dados_bancarios.' atualizado com sucesso';
+                           }else{
+                              $id_dados_bancarios = Banco::add_banco($banco, $agencia, $operacao, $conta);//adicionando banco
+                              // echo 'Banco: '.$id_dados_bancarios.' adicionado com sucesso';
+                           }
+                           
+
+
+                           //************** FIM ATUALIZA DADOS BANCARIOS ******************
+
+                           if($func->atualiza_func($id, $id_dados_bancarios, $cod_serie, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor)){
                               echo '<div class="msg">Funcionário editado com sucesso</div>';
                            }else{
                               echo '<div class="msg">Falha ao editar funcionário</div>';
