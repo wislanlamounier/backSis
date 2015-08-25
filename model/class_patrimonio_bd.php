@@ -51,7 +51,7 @@ class Patrimonio{
         $g = new Glob();
         $aux=0;
         $return = array();
-        $query = "SELECT id, modelo, fabricante FROM maquinario as e where e.modelo like '%%%s%%' union SELECT id, modelo, marca FROM veiculo as f where f.modelo like '%%%s%%'";
+        $query = "SELECT id, modelo, fabricante,  FROM maquinario as e where e.modelo like '%%%s%%' union SELECT id, modelo, marca FROM veiculo as f where f.modelo like '%%%s%%'";
         $query = $g->tratar_query($query, $modelo, $modelo);
         $result = mysql_fetch_array($query);
         
@@ -150,17 +150,9 @@ class Patrimonio{
 		
 
 		
-		  $empresa = new Empresa();
-		  $empresa = $empresa->get_empresa_by_id($this->id_empresa);	  
-		  $cliente = new Cliente();
-		  $cliente = $cliente->get_cli_by_id($this->id_fornecedor);
-		  $funcionario = new Funcionario();
-		  $funcionario = $funcionario->get_func_id($this->id_responsavel);
-
-		  $grupo   = new Grupo();
-		  $grupo   = $grupo->get_grupo_id($this->id_grupo);
-		  $custo   = new Custo();
-		  $custo   = $custo->get_valor_id($this->id_custo);		  
+		  $veiculo = new Veiculo();
+		  $veiculo = $veiculo->get_empresa_by_id($this->id_empresa);	  
+		  
 		  
 
 		$texto ="";

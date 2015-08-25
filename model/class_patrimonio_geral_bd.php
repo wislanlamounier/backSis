@@ -44,7 +44,29 @@ class Patrimonio_geral{
 
 	}
 	
+	public function get_patrimonio_geral_nome($name){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$aux=0;
+		$query = "SELECT * FROM patrimonio_geral WHERE nome LIKE '%%%s%%' &&  oculto = 0";
+		$query_tra = $g->tratar_query($query, $name);
 
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['matricula'];
+			$return[$aux][2] = $result['nome'];
+			$return[$aux][3] = $result['descricao'];
+			$aux++;
+		}
+		if($aux == 0){
+			$sql->close_conn();
+			echo '<div class="msg">Nenhum patrimonio encontrado!</div>';
+		}else{
+			$sql->close_conn();
+			return $return;
+		}
+	}
 
 }
 	

@@ -307,11 +307,10 @@ function verificaValor($valor){
 <body onload="disparaLoadCidade()" >	
 			<?php include_once("../view/topo.php"); ?>
 
-			<div id="content">   
-
-            <div class="formulario">
-
-             <?php if(!isset($_GET['menu'])){?>
+			 
+             <?php if(!isset($_GET['menu']) && !isset($_GET['controle']))/*MENU PARA ESCOLHA DE CADASTRO*/{?>
+            <div id="content">   
+            <div class="formulario" id="menu">
              <div class="menu_patrimonio">
                 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">PATRIMONIO</span></div></div>
 
@@ -330,10 +329,15 @@ function verificaValor($valor){
                 <input type="hidden" id="tipo" name="menu" value="0">
                 <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Veículo"></td></tr>
               </form>
-              </div>
-            <?php }?>
-
-            <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_maquinario'){?>                  
+              </div>            
+            </div>
+          </div>
+              <?php }?>
+              
+          
+            <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_maquinario') /*TABELA DE CADASTRO MAQUINARIO*/{?>
+            <div id="content">   
+            <div class="formulario">                  
                       <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR MAQUINÁRIO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
                         <input type="hidden" id="maquinario" name="maquinario" value="cadastrar_maquinario">
@@ -394,9 +398,16 @@ function verificaValor($valor){
                               <tr><td colspan="4"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao" ></textarea></div> </td></tr>                              
                           </table>
                           <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_patrimonio.php'" id="button" value="Cancelar"></td></tr>
-                       </form>         
-            <?php }?>
-            <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_veiculo'){?>              
+                       </form>
+                         </div>
+                     </div>  
+                       <?php include_once("informacoes_maquinario.php") ?>
+
+            <?php /* FIM TABELA MAQUINARIO !!!*/  }?>
+
+            <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_veiculo')/*TABELA CADASTRO VEICULO*/{?>
+            <div id="content">   
+            <div class="formulario">              
                        <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR VEÍCULO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
                         <input type="hidden" id="veiculo" name="veiculo" value="cadastrar_veiculo">
@@ -457,10 +468,15 @@ function verificaValor($valor){
                           </table>
                           <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_patrimonio.php'" id="button" value="Cancelar"></td></tr>
                        </form>
-            <?php }?>
+                       </div>
+                      </div>
+                    <?php include_once("informacoes_veiculo.php") ?>
 
-              <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_patrimonio_geral'){?>    
-             
+            <?php /* FIM TABELA VEICULO*/ }?>
+
+              <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_patrimonio_geral'){/*TABELA DE CADASTRO PATRIMONIOS EM GERAL*/?>    
+             <div id="content">   
+            <div class="formulario">
              <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
               <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR PATRIMONIO EM GERAL</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
                <input type="hidden" id="cadastrar_patrimonio_geral" name="cadastrar_patrimonio_geral" value="cadastrar_patrimonio_geral"> 
@@ -484,32 +500,17 @@ function verificaValor($valor){
                   <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="submit" id="button" value="Cadastrar"> <input type="button" name="button" class="submit" onclick="window.location.href='add_patrimonio.php'" id="button" value="Cancelar"></td></tr>
               </table>
              </form>             
-                  
-            <?php }?>  
-	 	    
-	 	     <?php 
+            </div>
+          </div>
+        <?php include_once("informacoes_patrimonio_geral.php") ?>
+            <?php /*FIM CADASTRO DE PATRIMONIO GERAL*/}?>  
+	 	     
 
+	 	     <?php /*ADIÇÕES DE DADOS NO BANCO */
                     if(isset($_POST['maquinario']) && $_POST['maquinario'] == "cadastrar_maquinario"){
                     // echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';                    
                     if(validate()){
-
-                      echo  "<br>".  $matricula = $_POST['matricula'];           
-                      echo  "<br>".  $chassi_nserie = $_POST['chassi_nserie'];
-                      echo  "<br>".  $fabricante = $_POST['fabricante'];
-                      echo  "<br>".  $modelo = $_POST['modelo'];
-                      echo  "<br>".  $cor = $_POST['cor'];
-                      echo  "<br>".  $tipo_consumo = $_POST['tipo_consumo'];
-                      echo  "<br>".  $tipo = $_POST['tipo'];
-                      echo  "<br>".  $ano = $_POST['ano'];
-                      echo  "<br>".  $data_compra = $_POST['data_compra'];
-                      echo  "<br>".  $seguro = $_POST['seguro'];
-                      echo  "<br>".  $valor = $_POST['valor'];
-                      echo  "<br>".  $horimetro_inicial = $_POST['hr_inicial'];
-                      echo  "<br>".  $id_empresa = $_POST['empresa'];
-                      echo  "<br>".  $id_fornecedor = $_POST['fornecedor'];
-                      echo  "<br>".  $id_responsavel = $_POST['responsavel'];                        
-                      echo  "<br>".  $observacao = $_POST['observacao'];
-                      echo  "<br>".  $horimetro_final = 0;
+                      echo  "<br>".  $matricula = $_POST['matricula'];      echo  "<br>".  $chassi_nserie = $_POST['chassi_nserie'];echo  "<br>".  $fabricante = $_POST['fabricante'];echo  "<br>".  $modelo = $_POST['modelo'];echo  "<br>".  $cor = $_POST['cor'];echo  "<br>".  $tipo_consumo = $_POST['tipo_consumo'];echo  "<br>".  $tipo = $_POST['tipo'];echo  "<br>".  $ano = $_POST['ano'];echo  "<br>".  $data_compra = $_POST['data_compra'];echo  "<br>".  $seguro = $_POST['seguro'];echo  "<br>".  $valor = $_POST['valor'];echo  "<br>".  $horimetro_inicial = $_POST['hr_inicial'];echo  "<br>".  $id_empresa = $_POST['empresa'];echo  "<br>".  $id_fornecedor = $_POST['fornecedor'];echo  "<br>".  $id_responsavel = $_POST['responsavel'];                        echo  "<br>".  $observacao = $_POST['observacao'];echo  "<br>".  $horimetro_final = 0;
 
 
                       $maquinario = new Maquinario();
@@ -523,9 +524,6 @@ function verificaValor($valor){
                       
                       }
                    }
-
-                    
-
                   if(isset($_POST['veiculo']) && $_POST['veiculo'] == "cadastrar_veiculo"){
                 		// echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';
                  
@@ -589,8 +587,102 @@ function verificaValor($valor){
                       }
                    }
  
-         ?>
-                </div> 
-	 	</div>
+       /*FIM ADIÇÕES DE DADOS NO BANCO */  ?>
+
+                 <?php if(isset($_GET['tipo']) =='editar' && isset($_GET['controle']) == "1"/*CONTROLE 1 CONTROLE DE MAQUINARIO*/){?>
+                      <?php 
+                          echo $teste = $_GET['id'];
+                          $maquinario = new Maquinario();
+                          $maquinario = $maquinario->get_maquinario_id($_GET['id']);
+                       ?>
+                    <div class="formulario">
+                      <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
+                        <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR MAQUINÁRIO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
+                        <input type="hidden" id="maquinario" name="maquinario" value="cadastrar_maquinario">
+                          <table border="0">                          
+                              <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula" value="<?php echo $maquinario->matricula ?>" ></td><td><span> N° Série / Chassi:</span></td> <td><input class="uppercase" type="text" name="chassi_nserie" id="chassi_nserie" value="<?php echo $maquinario->chassi_nserie ?>" ></td></tr>
+                              <tr><td><span>Fabricante:</span></td><td><input type="text" name="fabricante" id="fabricante" value="<?php echo $maquinario->fabricante ?>" > <td><span> Modelo:</span></td><td><input type="text" name="modelo" id="modelo" value="<?php echo $maquinario->modelo ?>"></td></td></tr>            
+                              <tr><td><span>Cor:</span></td><td><input type="text" name="cor" id="cor" value="<?php echo $maquinario->cor ?>"><td></td></tr>
+                              <tr><td><span>Tipo de consumo:</span></td><td>  <select name="tipo_consumo" id="tipo_consumo">
+                                                    <option><?php echo $maquinario->tipo_consumo ?></option>
+                                                    <option value="combustivel">Combustível</option>
+                                                    <option value="eletrico">Elétrico</option>                                                    
+                                                    </select>
+                                </td></tr>  
+                              <tr><td><span>Tipo:</span></td><td><input type="text" name="tipo" id="tipo" value="<?php echo $maquinario->tipo ?>"> <td><span>Ano:</span></td><td>
+                                                       <select name="ano" id="ano">
+                                                      <?php $ano_atual=$maquinario->ano; ?>
+                                                    <option><?php echo $ano_atual ?></option>
+                                                        <?php 
+                                                           
+                                                           for ($ano = $ano_atual; $ano >1950 ; $ano--) { 
+                                                              echo '<option value="'.$ano.'">'.$ano.'</option>';
+                                                           }
+                                                         ?>
+                                                     </select></td></tr>
+                              <tr><td><span>Data de Compra:</span></td><td><input type="date" name="data_compra" id="data_compra" value="<?php echo $maquinario->data_compra ?>"></td><td><span>Seguro</span></td> <tr> <td ><span>Tipo:</span></td> <td>  
+                             <?php if($maquinario->seguro == 1){ ?>
+                                        <input type="checkbox" style="height:12px;" id="seguro" checked name="seguro"><span>Seguro</span>
+                             <?php }else{ ?>
+                                        <input type="checkbox" style="height:12px;" id="seguro"  name="seguro"><span>Seguro</span>
+                             <?php } ?></tr>
+                              <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor" value="<?php echo $maquinario->valor ?>"></td><td><span>Horimetro:</span></td><td><input type="numeric" name="hr_inicial" id="hr_inicial" value="<?php echo $maquinario->horimetro_inicial ?>"></td></tr>
+                              <tr><td><span>Forncedor:</span></td><td>
+                                  <select id="fornecedor" name="fornecedor"  style="width:100%">
+                                    <option value="no_sel">Selecione</option>
+                                    <?php 
+                                       $fornecedor = new Cliente();
+                                       $fornecedor = $fornecedor->get_all_cliente();
+                                       for ($i=0; $i < count($fornecedor) ; $i++) { 
+                                          echo '<option value="'.$fornecedor[$i][0].'">'.$fornecedor[$i][1].'</option>';
+                                       }
+                                     ?>
+                                 </select></td></tr>
+                
+                <div class="msg"><td colspan="3" style="text-align:center"><span><b>Informações do veículo ligado a empresa</b></span></td></tr></div>
+                              <tr><td><span>Empresa:</span></td><td>
+                                  <select id="empresa" name="empresa"  style="width:100%" onchange="buscar_responsavel()">
+                                    <option value="no_sel">Selecione</option>
+                                    <?php 
+                                       $empresa = new Empresa();
+                                       $empresa = $empresa->get_all_empresa();
+                                       for ($i=0; $i < count($empresa) ; $i++) { 
+                                          echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
+                                       }
+                                     ?>
+                                 </select><td><span> Funcionario Responsável: </span></td>
+                            <td colspan="2">
+                               <div id="load_responsavel">
+                                 <select name="responsavel" id="responsavel" style="width:100%">
+                                   <option value="no_sel">Selecione </option>
+                                 </select>
+                               </div>
+                            </td></tr>
+                            <tr><td><span><b>Observação</b></span></td></tr>                     
+                              <tr><td colspan="4"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao" ></textarea></div> </td></tr>                              
+                          </table>
+                          <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_patrimonio.php'" id="button" value="Cancelar"></td></tr>
+                       </form>
+                         
+                    </div>
+                  <?php }?>
+
+
+
+<!-- 
+          <?php if(isset($_GET['tipo']) && isset($_GET['controle'])){?>
+                 <?php 
+                  if(isset($_GET['tipo']) && $_GET['controle'] == "1"/*CONTROLE 1 CONTROLE DE MAQUINARIO*/){
+                    
+                  }
+                  if(isset($_GET['tipo']) && $_GET['controle'] == "0"){
+                    echo "geral";
+                  }
+                  if(isset($_GET['tipo']) && $_GET['controle'] == "2"){
+                    echo "veiculo";
+                  }
+                  ?>
+
+          <?php }?> -->
 </body>
 </html>

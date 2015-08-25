@@ -56,6 +56,30 @@ class Veiculo{
 			return false;
 		} 
 	}
+	public function get_veiculo_nome($name){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$aux=0;
+		$query = "SELECT * FROM veiculo WHERE modelo LIKE '%%%s%%' &&  oculto = 0";
+		$query_tra = $g->tratar_query($query, $name);
+
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['matricula'];
+			$return[$aux][2] = $result['modelo'];
+			$return[$aux][3] = $result['marca'];
+			$aux++;
+		}
+		if($aux == 0){
+			$sql->close_conn();
+			echo '<div class="msg">Nenhum veículo encontrado!</div>';
+		}else{
+			$sql->close_conn();
+			return $return;
+		}
+	}
+
 	
 	
 	// public function get_veiculo_chassi($chassi){

@@ -68,6 +68,65 @@ class Maquinario{
 
 	}
 
+	 public function get_maquinario_nome($name){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$aux=0;
+		$query = "SELECT * FROM maquinario WHERE modelo LIKE '%%%s%%' &&  oculto = 0";
+		$query_tra = $g->tratar_query($query, $name);
+
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['matricula'];
+			$return[$aux][2] = $result['modelo'];
+			$return[$aux][3] = $result['fabricante'];
+			$aux++;
+		}
+		if($aux == 0){
+			$sql->close_conn();
+			echo '<div class="msg">Nenhum maquinario encontrado!</div>';
+		}else{
+			$sql->close_conn();
+			return $return;
+		}
+	}
+
+	public function get_maquinario_id($id){
+		 $sql = new Sql();
+		 $sql->conn_bd();
+		 $g = new Glob();
+
+		 $query = "SELECT * FROM maquinario WHERE id = '%s' && oculto =0";
+		 $result = $g->tratar_query($query, $id);
+		 
+		 if(@mysql_num_rows($result) == 0){
+            echo 'Nenhum maquinario encontrado';
+            return false;
+	     }else{
+	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+
+	     	$this->matricula = $row['matricula'];
+			$this->chassi_nserie = $row['chassi_nserie'];
+			$this->modelo = $row['modelo'];
+			$this->tipo = $row['tipo'];
+			$this->tipo_consumo = $row['tipo_consumo'];
+			$this->ano = $row['ano'];	
+			$this->cor = $row['cor'];
+			$this->fabricante = $row['fabricante'];
+			$this->data_compra = $row['data_compra'];
+			$this->seguro = $row['seguro'];	
+			$this->horimetro_inicial = $row['horimetro_inicial'];
+			$this->horimetro_final = $row['horimetro_final'];
+			$this->id_empresa = $row['id_empresa'];
+			$this->id_fornecedor = $row['id_fornecedor'];
+			$this->id_responsavel = $row['id_responsavel'];
+			$this->observacao = $row['observacao'];		
+			$this->valor = $row['valor'];
+	     	
+	     	return $this;
+	     }
+	}	
 
 }
 	
