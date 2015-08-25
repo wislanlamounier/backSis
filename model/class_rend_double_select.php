@@ -215,11 +215,11 @@ static function showDoubleDropDownAlert(array $lista1, array $lista2, $campoid, 
 	<INPUT TYPE="button" style="width:48px" class="botao" NAME="right" VALUE=" &gt; "
 			    title="Select Item" ONCLICK="moveSelectedOptionsAlert(this.form['<?= $nomeCombo1 ?>'],this.form['<?= $nomeCombo2 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
               <br>
-	<INPUT TYPE="button" style="width:48px" class="botao" NAME="right" VALUE="&gt;&gt;" title="Select All" ONCLICK="moveAllOptions(this.form['<?= $nomeCombo1 ?>'],this.form['<?= $nomeCombo2 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
+	<!-- <INPUT TYPE="button" style="width:48px" class="botao" NAME="right" VALUE="&gt;&gt;" title="Select All" ONCLICK="moveAllOptions(this.form['<?= $nomeCombo1 ?>'],this.form['<?= $nomeCombo2 ?>'],true,this.form['<?= $hdTemp ?>'].value)"> -->
               <BR>
 	<INPUT TYPE="button" style="width:48px" class="botao" NAME="left" VALUE=" &lt; " title="Remove Item" ONCLICK="moveSelectedOptionsAlert(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">
               <br>
-	<INPUT TYPE="button" style="width:48px" class="botao" NAME="left" VALUE="&lt;&lt;" title="Remove All" ONCLICK="moveAllOptions(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">	
+	<!-- <INPUT TYPE="button" style="width:48px" class="botao" NAME="left" VALUE="&lt;&lt;" title="Remove All" ONCLICK="moveAllOptions(this.form['<?= $nomeCombo2 ?>'],this.form['<?= $nomeCombo1 ?>'],true,this.form['<?= $hdTemp ?>'].value)">	 -->
 			  
 			           
 				 </td>

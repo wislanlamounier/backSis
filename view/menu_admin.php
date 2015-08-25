@@ -25,13 +25,23 @@
         <li><a href="/viacampos/administrator/pesquisa_empresa.php">Empresa</a></li>
         <li><a href="/viacampos/administrator/pesquisa_turno.php">Turno</a></li>
         <li><a href="/viacampos/administrator/pesquisa_cbo.php">CBO</a></li>
-        <li><a href="/viacampos/administrator/pesquisa_cli.php">Cliente</a></li>
+         <?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 1){ ?>
+          <li><a href="/viacampos/administrator/pesquisa_cli.php">Cliente</a></li>
+          <li><a href="/viacampos/administrator/pesquisa_patrimonio.php">Patrimonio</a></li>
+        <?php } ?>
         <li><a href="/viacampos/administrator/pesquisa_filial.php">Filial</a></li>
         <li><a href="/viacampos/administrator/pesquisa_epi.php">EPI</a></li>
-        <li><a href="/viacampos/administrator/pesquisa_patrimonio.php">Patrimonio</a></li>
         <li><a href="/viacampos/administrator/pesquisa_exames.php">Exames</a></li>
       </ul>
     </li>
+    <?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 1){ ?>
+      <li>
+        <a style=""><span style="float:left">Obras </span><img style="float:left; margin-left:2px; margin-top:-2px;" src="../images/downarrow_1246.png" width="15px;"></a>
+         <ul class="sub-menu">
+          <li><a href="#">Nova</a></li>
+        </ul>
+      </li>
+    <?php } ?>
     <li><a href="/viacampos/administrator/define_relatorio.php">Relatórios</a></li>
     <li><a href="/viacampos/administrator/configuracoes.php">Configurações</a></li>
 </ul>
