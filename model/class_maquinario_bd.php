@@ -105,7 +105,7 @@ class Maquinario{
             return false;
 	     }else{
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-
+	     	$this->id= $row['id'];
 	     	$this->matricula = $row['matricula'];
 			$this->chassi_nserie = $row['chassi_nserie'];
 			$this->modelo = $row['modelo'];

@@ -68,6 +68,33 @@ class Patrimonio_geral{
 		}
 	}
 
+	public function get_patrimonio_geral_id($id){
+		 $sql = new Sql();
+		 $sql->conn_bd();
+		 $g = new Glob();
+
+		 $query = "SELECT * FROM patrimonio_geral WHERE id = '%s' && oculto =0";
+		 $result = $g->tratar_query($query, $id);
+		 
+		 if(@mysql_num_rows($result) == 0){
+            echo 'Nenhum patrimonio encontrado';
+            return false;
+	     }else{
+	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	     	$this->id= $row['id'];
+	     	$this->nome= $row['nome'];
+			$this->matricula= $row['matricula'];
+			$this->marca= $row['marca'];
+			$this->descricao= $row['descricao'];
+			$this->quantidade= $row['quantidade'];
+			$this->valor= $row['valor'];
+			$this->id_empresa= $row['id_empresa'];
+	     	
+	     	
+	     	return $this;
+	     }
+	}	
+
 }
 	
  ?>
