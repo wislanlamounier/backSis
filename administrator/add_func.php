@@ -1089,7 +1089,7 @@ function carregaUf_CartTrab(uf){
                <?php //fica dentro do cadastrar porque depois que altera o funcionario entra nesse if
 
                 if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
-
+                        echo '<script> alert("entrou aqui")</script>';
                         if(validate()){
                            $func = new Funcionario();
                            $end = new Endereco();
@@ -1103,6 +1103,12 @@ function carregaUf_CartTrab(uf){
                            $end->add_endereco($rua, $numero, $id_cidade, $bairro, $cep);
                            
                            $id_endereco = $end->add_endereco_bd();
+
+                           $banco = strtoupper($_POST['banco']);
+                           $agencia = $_POST['agencia'];
+                           $operacao = $_POST['operacao'];
+                           $conta = $_POST['conta'];
+                           $id_banco = Banco::add_banco($banco, $agencia, $operacao, $conta);
 
                            $nome = $_POST['nome'];
                            $cpf = $_POST['cpf'];
@@ -1137,8 +1143,10 @@ function carregaUf_CartTrab(uf){
 
                            $id_cbo = $_POST['cbo'];
                            $is_admin = (isset($_POST['is_admin']))?(($_POST['is_admin'])?1:0):0;
+                           $data_ini = date("Y-m-d");
+                           $data_fim = "0000-00-00";
 
-                           $func->add_func($cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor);
+                           $func->add_func($id_banco, $cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $data_ini, $data_fim);
                            // echo $func->printFunc();
                            if($func->add_func_bd()){
                                echo '<div class="msg">Funcionário cadastrado com sucesso!</div>';

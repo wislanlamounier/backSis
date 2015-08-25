@@ -40,37 +40,37 @@ class Funcionario{
 	public $data_ini;
 	public $data_fim;
 	
-	public function add_func($cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_dados_bancarios, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $data_ini, $data_fim){
-		$this->cod_serie = $cod_serie;
-		$this->nome = $nome;
-		$this->cpf = $cpf;
-		$this->data_nasc = $data_nasc;
-		$this->telefone = $telefone;
-		$this->email = $email;
-		$this->senha = $senha;
-	    $this->id_cbo = $id_cbo;
-		$this->id_endereco = $id_endereco;
-		$this->id_empresa = $id_empresa;
-		$this->id_empresa_filial = $id_empresa_filial;
-		$this->id_turno = $id_turno;
-		$this->is_admin = $is_admin;
-		$this->id_dados_bancarios = $id_dados_bancarios;
+	public function add_func($id_dados_bancarios, $cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $data_ini, $data_fim){
+			$this->id_dados_bancarios = $id_dados_bancarios;
+			$this->cod_serie = $cod_serie;
+			$this->nome = $nome;
+			$this->cpf = $cpf;
+			$this->data_nasc = $data_nasc;
+			$this->telefone = $telefone;
+			$this->email = $email;
+			$this->senha = $senha;
+		    $this->id_cbo = $id_cbo;
+			$this->id_endereco = $id_endereco;
+			$this->id_empresa = $id_empresa;
+			$this->id_empresa_filial = $id_empresa_filial;
+			$this->id_turno = $id_turno;
+			$this->is_admin = $is_admin;
 
-		$this->rg = $rg;
-		$this->data_em_rg = $data_em_rg;
-		$this->org_em_rg = $org_em_rg;
-		$this->num_tit_eleitor = $num_tit_eleitor;
-		$this->email_empresa = $email_empresa;
-		$this->data_adm = $data_adm;
-		$this->salario_base = $salario_base;
-		$this->qtd_horas_sem = $qtd_horas_sem;
-		$this->num_cart_trab = $num_cart_trab;
-		$this->num_serie_cart_trab = $num_serie_cart_trab;
-		$this->uf_cart_trab = $uf_cart_trab;
-		$this->num_pis = $num_pis;
-		$this->id_supervisor = $id_supervisor;
-		$this->data_ini = $data_ini;
-		$this->data_fim = $data_fim;
+			$this->rg = $rg;
+			$this->data_em_rg = $data_em_rg;
+			$this->org_em_rg = $org_em_rg;
+			$this->num_tit_eleitor = $num_tit_eleitor;
+			$this->email_empresa = $email_empresa;
+			$this->data_adm = $data_adm;
+			$this->salario_base = $salario_base;
+			$this->qtd_horas_sem = $qtd_horas_sem;
+			$this->num_cart_trab = $num_cart_trab;
+			$this->num_serie_cart_trab = $num_serie_cart_trab;
+			$this->uf_cart_trab = $uf_cart_trab;
+			$this->num_pis = $num_pis;
+			$this->id_supervisor = $id_supervisor;
+			$this->data_ini = $data_ini;
+			$this->data_fim = $data_fim;
 	}
 
 	public function add_func_bd(){
@@ -78,12 +78,17 @@ class Funcionario{
 		$sql->conn_bd();
 		$g = new Glob();
 
+		$query = "SELECT * FROM funcionario ORDER BY id DESC";
+		$result = $g->tratar_query($query);
 
+		$row = mysql_fetch_array($result);//pega o ultimo funcionario cadastrado
 
-		$query = "INSERT INTO funcionario (id_dados_bancarios, cod_serie, nome, cpf, rg, data_nasc, telefone, email, senha, id_turno, id_cbo, id_empresa, id_empresa_filial, is_admin, id_endereco, data_em_rg, org_em_rg, num_tit_eleitor, email_empresa, data_adm, salario_base, qtd_horas_sem, num_cart_trab, num_serie_cart_trab, id_uf_cart_trab, num_pis, id_supervisor, data_ini) 
-		                           VALUES ('%d','%s', '%s','%s', '%s', '%s',      '%s',     '%s', '%s',    %d,       %d,      %d,             %d,        %d,        %d,        '%s',        '%s',         '%s',         '%s',         '%s',      '%s',          %d,          '%s',            '%s',                %d,           '%s',     '%s')";
+		$novo_id = $row['id']+1;//pega o id do ultimo e incrementa 1 para saber o id do proximo
 
-		$result = $g->tratar_query($query, $this->id_dados_bancarios, $this->cod_serie,
+		$query = "INSERT INTO funcionario (id, id_dados_bancarios, cod_serie, nome, cpf,   rg, data_nasc, telefone, email, senha, id_turno, id_cbo, id_empresa, id_empresa_filial, is_admin, id_endereco, data_em_rg, org_em_rg, num_tit_eleitor, email_empresa, data_adm, salario_base, qtd_horas_sem, num_cart_trab, num_serie_cart_trab, id_uf_cart_trab, num_pis, id_supervisor, data_ini) 
+		                           VALUES (%d,       %d,            '%s',   '%s', '%s', '%s',  '%s',      '%s',    '%s',  '%s',    %d,       %d,      %d,             %d,           %d,        %d,        '%s',        '%s',         '%s',         '%s',         '%s',      '%s',          %d,          '%s',            '%s',                %d,           '%s',     '%s',         '%s')";
+
+		$result = $g->tratar_query($query,$novo_id, $this->id_dados_bancarios, $this->cod_serie,
 			                       $this->nome, $this->cpf, $this->rg, $this->data_nasc, $this->telefone, $this->email, $this->senha, $this->id_turno, $this->id_cbo, $this->id_empresa,
 			                       $this->id_empresa_filial, $this->is_admin, $this->id_endereco, $this->data_em_rg, $this->org_em_rg, $this->num_tit_eleitor, $this->email_empresa, $this->data_adm, $this->salario_base, $this->qtd_horas_sem, $this->num_cart_trab, $this->num_serie_cart_trab, $this->uf_cart_trab, $this->num_pis, $this->id_supervisor, $this->data_ini);
 		if($result){
