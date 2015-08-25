@@ -80,6 +80,40 @@ class Veiculo{
 		}
 	}
 
+	public function get_veiculo_id($id){
+		 $sql = new Sql();
+		 $sql->conn_bd();
+		 $g = new Glob();
+
+		 $query = "SELECT * FROM veiculo WHERE id = '%s' && oculto =0";
+		 $result = $g->tratar_query($query, $id);
+		 
+		 if(@mysql_num_rows($result) == 0){
+            echo 'Nenhum veículo encontrado';
+            return false;
+	     }else{
+	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	     	$this->id= $row['id'];
+	     	$this->matricula= $row['matricula'];
+			$this->renavam= $row['renavam'];
+			$this->placa= $row['placa'];
+			$this->chassi= $row['chassi'];
+			$this->marca = $row['marca'];
+			$this->modelo=  $row['modelo'];
+			$this->cor= $row['cor'];
+			$this->ano= $row['ano'];
+			$this->tipo_combustivel= $row['tipo_combustivel'];
+			$this->data_compra = $row['data_compra'];
+			$this->valor = $row['valor'];
+			$this->seguro= $row['seguro'];
+			$this->km_inicial= $row['km_inicial'];
+			$this->id_fornecedor= $row['id_fornecedor'];
+			$this->id_empresa= $row['id_empresa'];
+			$this->id_responsavel= $row['id_responsavel'];
+	     	
+	     	return $this;
+	     }
+	}	
 	
 	
 	// public function get_veiculo_chassi($chassi){

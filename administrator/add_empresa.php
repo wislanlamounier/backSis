@@ -423,7 +423,7 @@ function buscar_cidades(){
                          <?php echo "<script> carregaCidade('".$endereco[0][2]."'); </script>" ?>
                      </tr>
                      <tr><td><span><b>Responsável</b></span></td>
-					 <td><select id="responsavel" name="responsavel" style="width:100%">
+					               <td><select id="responsavel" name="responsavel" style="width:100%">
                               <option value="no_res">Selecione o Responsável</option>
                               <?php 
                                  $func = new Funcionario();
