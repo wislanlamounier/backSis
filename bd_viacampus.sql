@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 21-Ago-2015 às 20:19
+-- Generation Time: 25-Ago-2015 às 22:19
 -- Versão do servidor: 5.6.25
 -- PHP Version: 5.6.11
 
@@ -5796,6 +5796,36 @@ INSERT INTO `custo` (`id`, `valor_hora`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `dados_bancarios`
+--
+
+CREATE TABLE IF NOT EXISTS `dados_bancarios` (
+  `id` int(11) NOT NULL,
+  `banco` varchar(55) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `agencia` varchar(25) NOT NULL,
+  `operacao` varchar(15) NOT NULL,
+  `conta` varchar(55) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `dados_bancarios`
+--
+
+INSERT INTO `dados_bancarios` (`id`, `banco`, `agencia`, `operacao`, `conta`) VALUES
+(1, 'CEF - CAIXA ECONÔMICA FEDERAL', '155', '010', '51214-6'),
+(2, 'SANTANDER', '1250', '003', '21542-5'),
+(4, 'BRADESCO', '1520', '001', '1542-6'),
+(5, 'SANTANDER', '1250', '003', '21542-5'),
+(6, 'SANTANDER', '1250', '003', '21542-5'),
+(7, 'SANTANDER', '1250', '003', '21542-5'),
+(8, 'SANTANDER', '1250', '003', '21542-5'),
+(9, 'SANTANDER', '1250', '003', '21542-5'),
+(10, 'ITAÚ', '123', '007', '2151-1'),
+(11, 'ITAÚ', '2101', '007', '15124-3');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `empresa`
 --
 
@@ -5838,7 +5868,7 @@ CREATE TABLE IF NOT EXISTS `endereco` (
   `id_cidade` int(11) NOT NULL,
   `bairro` varchar(255) NOT NULL,
   `cep` varchar(255) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=152 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `endereco`
@@ -5976,7 +6006,14 @@ INSERT INTO `endereco` (`id`, `rua`, `numero`, `id_cidade`, `bairro`, `cep`) VAL
 (148, 'xxx', 0, 1, '2878', '13245-687'),
 (149, 'campo de santana', 0, 1, '2784', '81818181'),
 (150, '465465', 46, 4654, '3080', '121'),
-(151, '4234234', 23423423, 423423423, '3387', '234234234');
+(151, '4234234', 23423423, 423423423, '3387', '234234234'),
+(152, '111', 3183, 4973, 'Teste de rua nova', '11111-111'),
+(153, '111', 3183, 4973, 'Teste de rua nova', '11111-111'),
+(154, '111', 3183, 4973, 'Teste de rua nova', '11111-111'),
+(155, '111', 3183, 4973, 'Teste de rua nova', '11111-111'),
+(156, '111', 3183, 4973, 'Teste de rua nova', '11111-111'),
+(157, '111', 3183, 4973, 'Teste de rua nova', '11111-111'),
+(158, 'Waldemiro Ry', 193, 2878, 'Novo Mundo', '18460-020');
 
 -- --------------------------------------------------------
 
@@ -5990,18 +6027,20 @@ CREATE TABLE IF NOT EXISTS `equipamentos_func` (
   `nome_epi` varchar(255) NOT NULL,
   `descricao` varchar(500) NOT NULL,
   `id_empresa` int(11) NOT NULL,
+  `quantidade` int(11) NOT NULL,
   `epi` int(11) NOT NULL COMMENT 'Se é ou não um equipamento de proteção individual'
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `equipamentos_func`
 --
 
-INSERT INTO `equipamentos_func` (`id`, `codigo`, `nome_epi`, `descricao`, `id_empresa`, `epi`) VALUES
-(5, '123', 'Óculos', 'Óculos de solda', 5, 1),
-(6, '124', 'Camisa', 'Camisa da empresa', 5, 0),
-(9, '01', 'Luva', 'Luva para aparecer', 8, 1),
-(10, '015', 'Camisa', 'Camisa de proteção contra encendio ', 5, 1);
+INSERT INTO `equipamentos_func` (`id`, `codigo`, `nome_epi`, `descricao`, `id_empresa`, `quantidade`, `epi`) VALUES
+(5, '123', 'Óculos', 'Óculos de solda', 5, 8, 1),
+(6, '124', 'Camisa', 'Camisa da empresa', 5, 12, 0),
+(9, '01', 'Luva', 'Luva para aparecer', 8, 11, 1),
+(10, '015', 'Camisa', 'Camisa de proteção contra encendio ', 5, 12, 1),
+(11, 'CGV', 'Camisa Gola V', 'Camisa de gola V', 5, 10, 0);
 
 -- --------------------------------------------------------
 
@@ -6112,6 +6151,7 @@ INSERT INTO `filiais` (`id`, `nome`, `cod_posto`, `telefone`, `id_endereco`, `id
 
 CREATE TABLE IF NOT EXISTS `funcionario` (
   `id_tabela` int(11) NOT NULL,
+  `cod_serie` varchar(255) NOT NULL,
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `cpf` varchar(14) NOT NULL,
@@ -6131,6 +6171,7 @@ CREATE TABLE IF NOT EXISTS `funcionario` (
   `id_empresa` int(11) NOT NULL,
   `id_empresa_filial` int(11) NOT NULL,
   `id_supervisor` int(11) NOT NULL,
+  `id_dados_bancarios` int(11) NOT NULL,
   `data_adm` date NOT NULL COMMENT 'Data de admissão',
   `data_dem` date NOT NULL COMMENT 'Data de demissão',
   `salario_base` double NOT NULL,
@@ -6142,28 +6183,29 @@ CREATE TABLE IF NOT EXISTS `funcionario` (
   `data_ini` date NOT NULL COMMENT 'data inicio da validade do registro',
   `data_fim` date NOT NULL COMMENT 'data fim da validade do registro',
   `oculto` int(11) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `funcionario`
 --
 
-INSERT INTO `funcionario` (`id_tabela`, `id`, `nome`, `cpf`, `rg`, `org_em_rg`, `data_em_rg`, `num_tit_eleitor`, `data_nasc`, `telefone`, `email`, `email_empresa`, `senha`, `is_admin`, `id_cbo`, `id_endereco`, `id_turno`, `id_empresa`, `id_empresa_filial`, `id_supervisor`, `data_adm`, `data_dem`, `salario_base`, `qtd_horas_sem`, `num_cart_trab`, `num_serie_cart_trab`, `id_uf_cart_trab`, `num_pis`, `data_ini`, `data_fim`, `oculto`) VALUES
-(1, 18, 'Andre Matos', '412.394.698.45', '48.993.307-5', 'SSP-SP', '2005-06-15', '1320545136', '1993-07-08', '35312999', 'andre_matos13@hotmail.com.br', 'andre_matos13@hotmail.com', 'caf1a3dfb505ffed0d024130f58c5cfa', 1, 1, 8, 17, 5, 1, 0, '1993-01-08', '0000-00-00', 2000, 35, '69485132', '321541245', 26, '13254615', '0000-00-00', '2015-08-21', 1),
-(54, 18, 'Andre Matos', '412.394.698.45', '48.993.307-5', 'SSP-SP', '2005-06-15', '1320545136', '1993-07-08', '35312999', 'andre_matos13@hotmail.com.br', 'andre_matos13@hotmail.com', 'caf1a3dfb505ffed0d024130f58c5cfa', 1, 1, 8, 17, 5, 1, 0, '1993-01-08', '0000-00-00', 3000, 35, '69485132', '321541245', 26, '13254615', '2015-08-21', '2015-08-21', 1),
-(2, 22, 'Felipe Smockovitz', '412.394.698-44', '48654515121', 'SSP-SP', '2000-05-20', '43213243', '1884-06-02', '(15) 3531-2884', '', 'felipe@controlsystem.com.br', '222', 0, 10, 13, 10, 5, 4, 18, '2014-06-01', '0000-00-00', 2500, 44, '2548451445', '321545654', 26, '1256155215', '0000-00-00', '0000-00-00', 0),
-(4, 21, 'Pedro Matos', '412.394.698-45', '489933075', 'ssp-sp', '1993-01-08', '1525151', '1948-06-05', '1532316521', '', 'teste@empresa.com.br', '111', 1, 12, 12, 16, 5, 2, 0, '1111-11-01', '0000-00-00', 50000, 44, '54325432', '543254325324', 26, '4343', '0000-00-00', '0000-00-00', 1),
-(5, 23, 'Camila', '402.156.658-48', '', '', '0000-00-00', '', '1995-02-01', '35312645', '', '', '321', 0, 33, 14, 17, 0, 1, 0, '0000-00-00', '0000-00-00', 0, 0, '', '', 0, '', '0000-00-00', '0000-00-00', 1),
-(6, 25, 'Patricia Cristina', '412.314.698-45', '4869484984', 'SSP-SP', '2005-05-08', '1234561561', '2015-07-01', '(41) 3115-1515', '', 'patricia@controlsystem.com.br', '123', 1, 34, 17, 19, 6, 3, 18, '2015-02-21', '0000-00-00', 1800, 44, '1253156165', '1564654651', 13, '354894651', '0000-00-00', '0000-00-00', 0),
-(7, 38, 'Teste', '412.394.693-45', '48.993.307-5', 'ssp-sp', '2005-01-05', '123456', '1992-01-08', '(41) 3531-2999', '', 'email@empresa.com.br', '123', 0, 20, 35, 16, 0, 1, 0, '2015-02-05', '0000-00-00', 1500, 44, '123123123', '321321321', 13, '3451 pis', '0000-00-00', '0000-00-00', 0),
-(8, 39, 'Carmilina', '482.394.698-45', '489933075', 'SSP-SP', '1992-02-02', '154651521', '1993-01-08', '(35) 3122-6484', '', 'carmem@empresa.com', '123', 0, 12, 37, 16, 0, 1, 21, '2005-05-05', '0000-00-00', 2500, 44, '158116215', '0215615', 26, '4515621562', '0000-00-00', '0000-00-00', 0),
-(9, 40, 'Patricia Watanabe dos Santos', '876.480.169-15', '59443356', 'SSP-PR', '2000-04-08', '123', '1973-12-22', '(41) 3319-2646', '', 'patricia@controlsystem.com.br', '123321', 1, 12, 38, 10, 6, 3, 25, '2015-07-08', '0000-00-00', 2500, 220, '12313', '121', 18, '123456', '0000-00-00', '0000-00-00', 0),
-(10, 41, '132132', '412.394.698-47', '0000-00-00', '1321', '0000-00-00', '321', '0000-00-00', '(32) 1', '', '0000-00-00', '321', 2147483647, 0, 74, 21, 4, 10, 0, '0000-00-00', '0000-00-00', 321, 321, '321', '10', 321, '25', '0000-00-00', '0000-00-00', 0),
-(11, 42, 'teste', '412.304.698-45', '2005-10-10', '1561561', '9993-01-08', 'empresa@hotmail.com', '1993-01-08', '(32) 5615-5151', '', '1999-05-08', '321', 0, 21, 75, 10, 6, 4, 18, '2000-01-01', '0000-00-00', 44, 32434, '432432', '16', 11, '18', '0000-00-00', '0000-00-00', 0),
-(12, 48, 'Funcionario novo', '112.394.698-45', '48.993.307-5', 'SSP-SP', '1999-01-08', '122051451', '1993-01-08', '(41) 3531-2999', '', 'testeempresa.com.br', '202cb962ac59075b964b07152d234b70', 1, 8, 141, 16, 5, 1, 18, '2009-01-08', '0000-00-00', 1500, 40, '151516165', '13215161', 18, '3215215051', '0000-00-00', '0000-00-00', 0),
-(13, 49, 'Lucas Soares Nogueira', '077.765.229-37', '1111130902', 'SESC', '2000-01-15', '1111', '1994-01-15', '(41) 9889-8998', '', 'empresa@empresa.com', '321', 1, 29, 143, 10, 5, 1, 18, '2015-08-10', '0000-00-00', 1000, 40, '2222', '01', 18, '11111', '0000-00-00', '0000-00-00', 0),
-(55, 18, 'Andre Matos', '412.394.698.45', '48.993.307-5', 'SSP-SP', '2005-06-15', '1320545136', '1993-07-08', '35312999', 'andre_matos13@hotmail.com.br', 'andre_matos13@hotmail.com', 'caf1a3dfb505ffed0d024130f58c5cfa', 1, 1, 8, 17, 5, 1, 0, '1993-01-08', '0000-00-00', 5000, 35, '69485132', '321541245', 26, '13254615', '2015-08-21', '2015-08-21', 1),
-(56, 18, 'Andre Matos', '412.394.698.45', '48.993.307-5', 'SSP-SP', '2005-06-15', '1320545136', '1993-07-08', '35312999', 'andre_matos13@hotmail.com.br', 'andre_matos13@hotmail.com', 'caf1a3dfb505ffed0d024130f58c5cfa', 1, 1, 8, 17, 5, 1, 0, '1993-01-08', '0000-00-00', 7000, 35, '69485132', '321541245', 26, '13254615', '2015-08-21', '0000-00-00', 0);
+INSERT INTO `funcionario` (`id_tabela`, `cod_serie`, `id`, `nome`, `cpf`, `rg`, `org_em_rg`, `data_em_rg`, `num_tit_eleitor`, `data_nasc`, `telefone`, `email`, `email_empresa`, `senha`, `is_admin`, `id_cbo`, `id_endereco`, `id_turno`, `id_empresa`, `id_empresa_filial`, `id_supervisor`, `id_dados_bancarios`, `data_adm`, `data_dem`, `salario_base`, `qtd_horas_sem`, `num_cart_trab`, `num_serie_cart_trab`, `id_uf_cart_trab`, `num_pis`, `data_ini`, `data_fim`, `oculto`) VALUES
+(1, 'and18', 18, 'Andre Matos', '412.394.698.45', '48.993.307-5', 'SSP-SP', '2005-06-15', '1320545136', '1993-07-08', '35312999', 'andre_matos13@hotmail.com.br', 'andre_matos13@hotmail.com', 'caf1a3dfb505ffed0d024130f58c5cfa', 1, 1, 8, 17, 5, 1, 0, 0, '1993-01-08', '0000-00-00', 2000, 35, '69485132', '321541245', 26, '13254615', '0000-00-00', '2015-08-21', 1),
+(54, 'and18', 18, 'Andre Matos', '412.394.698.45', '48.993.307-5', 'SSP-SP', '2005-06-15', '1320545136', '1993-07-08', '35312999', 'andre_matos13@hotmail.com.br', 'andre_matos13@hotmail.com', 'caf1a3dfb505ffed0d024130f58c5cfa', 1, 1, 8, 17, 5, 1, 0, 0, '1993-01-08', '0000-00-00', 3000, 35, '69485132', '321541245', 26, '13254615', '2015-08-21', '2015-08-21', 1),
+(2, '', 22, 'Felipe Smockovitz', '412.394.698-44', '48654515121', 'SSP-SP', '2000-05-20', '43213243', '1884-06-02', '(15) 3531-2884', '', 'felipe@controlsystem.com.br', '222', 0, 10, 13, 10, 5, 4, 18, 0, '2014-06-01', '0000-00-00', 2500, 44, '2548451445', '321545654', 26, '1256155215', '0000-00-00', '0000-00-00', 0),
+(4, '', 21, 'Pedro Matos', '412.394.698-45', '489933075', 'ssp-sp', '1993-01-08', '1525151', '1948-06-05', '1532316521', '', 'teste@empresa.com.br', '111', 1, 12, 12, 16, 5, 2, 0, 0, '1111-11-01', '0000-00-00', 50000, 44, '54325432', '543254325324', 26, '4343', '0000-00-00', '0000-00-00', 1),
+(5, '', 23, 'Camila', '402.156.658-48', '', '', '0000-00-00', '', '1995-02-01', '35312645', '', '', '321', 0, 33, 14, 17, 0, 1, 0, 0, '0000-00-00', '0000-00-00', 0, 0, '', '', 0, '', '0000-00-00', '0000-00-00', 1),
+(6, '', 25, 'Patricia Cristina', '412.314.698-45', '4869484984', 'SSP-SP', '2005-05-08', '1234561561', '2015-07-01', '(41) 3115-1515', '', 'patricia@controlsystem.com.br', '123', 1, 34, 17, 19, 6, 3, 18, 0, '2015-02-21', '0000-00-00', 1800, 44, '1253156165', '1564654651', 13, '354894651', '0000-00-00', '0000-00-00', 0),
+(7, '', 38, 'Teste', '412.394.693-45', '48.993.307-5', 'ssp-sp', '2005-01-05', '123456', '1992-01-08', '(41) 3531-2999', '', 'email@empresa.com.br', '123', 0, 20, 35, 16, 0, 1, 0, 0, '2015-02-05', '0000-00-00', 1500, 44, '123123123', '321321321', 13, '3451 pis', '0000-00-00', '0000-00-00', 0),
+(8, '', 39, 'Carmilina', '482.394.698-45', '489933075', 'SSP-SP', '1992-02-02', '154651521', '1993-01-08', '(35) 3122-6484', '', 'carmem@empresa.com', '123', 0, 12, 37, 16, 0, 1, 21, 0, '2005-05-05', '0000-00-00', 2500, 44, '158116215', '0215615', 26, '4515621562', '0000-00-00', '0000-00-00', 0),
+(9, '', 40, 'Patricia Watanabe dos Santos', '876.480.169-15', '59443356', 'SSP-PR', '2000-04-08', '123', '1973-12-22', '(41) 3319-2646', '', 'patricia@controlsystem.com.br', '123321', 1, 12, 38, 10, 6, 3, 25, 0, '2015-07-08', '0000-00-00', 2500, 220, '12313', '121', 18, '123456', '0000-00-00', '0000-00-00', 0),
+(10, '', 41, '132132', '412.394.698-47', '0000-00-00', '1321', '0000-00-00', '321', '0000-00-00', '(32) 1', '', '0000-00-00', '321', 2147483647, 0, 74, 21, 4, 10, 0, 0, '0000-00-00', '0000-00-00', 321, 321, '321', '10', 321, '25', '0000-00-00', '0000-00-00', 0),
+(11, '', 42, 'teste', '412.304.698-45', '2005-10-10', '1561561', '9993-01-08', 'empresa@hotmail.com', '1993-01-08', '(32) 5615-5151', '', '1999-05-08', '321', 0, 21, 75, 10, 6, 4, 18, 0, '2000-01-01', '0000-00-00', 44, 32434, '432432', '16', 11, '18', '0000-00-00', '0000-00-00', 0),
+(12, 'func01', 48, 'Funcionario novo', '412.394.698-45', '48.993.307-5', 'SSP-SP', '1999-01-08', '122051451', '1993-01-08', '(41) 3531-2999', 'teste', 'testeempresa.com.br', '202cb962ac59075b964b07152d234b70', 1, 8, 141, 16, 5, 1, 18, 2, '2009-01-08', '0000-00-00', 1500, 40, '151516165', '13215161', 18, '3215215051', '0000-00-00', '0000-00-00', 0),
+(13, 'luc49', 49, 'Lucas Soares Nogueira', '077.765.229-37', '1111130902', 'SESC', '2000-01-15', '1111', '1994-01-15', '(41) 9889-8998', '_lucas@hotmail.com', 'empresa@empresa.com', '321', 1, 29, 143, 10, 5, 1, 18, 4, '2015-08-10', '0000-00-00', 1000, 40, '2222', '01', 18, '11111', '0000-00-00', '0000-00-00', 0),
+(55, 'and18', 18, 'Andre Matos', '412.394.698.45', '48.993.307-5', 'SSP-SP', '2005-06-15', '1320545136', '1993-07-08', '35312999', 'andre_matos13@hotmail.com.br', 'andre_matos13@hotmail.com', 'caf1a3dfb505ffed0d024130f58c5cfa', 1, 1, 8, 17, 5, 1, 0, 0, '1993-01-08', '0000-00-00', 5000, 35, '69485132', '321541245', 26, '13254615', '2015-08-21', '2015-08-21', 1),
+(56, 'and18', 18, 'Andre Matos', '412.394.698.45', '48.993.307-5', 'SSP-SP', '2005-06-15', '1320545136', '1993-07-08', '35312999', 'andre_matos13@hotmail.com.br', 'andre_matos13@hotmail.com', 'caf1a3dfb505ffed0d024130f58c5cfa', 1, 1, 8, 17, 5, 1, 0, 1, '1993-01-08', '0000-00-00', 7000, 35, '69485132', '321541245', 26, '13254615', '2015-08-21', '0000-00-00', 0),
+(59, 'FT-1', 50, 'Funcionario teste 1', '412.394.698.45', '48.993.307-5', 'SSP-SP', '2005-06-15', '1320545136', '1993-07-08', '35312999', 'andre_matos13@hotmail.com.br', 'andre_matos13@hotmail.com', '202cb962ac59075b964b07152d234b70', 1, 1, 158, 17, 5, 1, 0, 11, '1993-01-08', '0000-00-00', 7000, 35, '69485132', '321541245', 26, '13254615', '2015-08-25', '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
@@ -6177,7 +6219,7 @@ CREATE TABLE IF NOT EXISTS `funcionario_epi` (
   `id_epi` int(11) NOT NULL,
   `data_entrega` date NOT NULL,
   `quantidade` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `funcionario_epi`
@@ -6198,7 +6240,24 @@ INSERT INTO `funcionario_epi` (`id`, `id_func`, `id_epi`, `data_entrega`, `quant
 (23, 18, 5, '2015-08-17', 15),
 (25, 18, 9, '2015-08-12', 17),
 (26, 18, 9, '2015-08-21', 4),
-(27, 18, 6, '2015-08-21', 3);
+(27, 18, 6, '2015-08-21', 3),
+(28, 18, 5, '2015-08-21', 1),
+(29, 18, 5, '2015-08-21', 2),
+(30, 18, 5, '2015-08-21', 1),
+(31, 18, 10, '2015-08-21', 10),
+(32, 18, 10, '2015-08-21', 1),
+(33, 48, 10, '2015-08-21', 1),
+(34, 49, 11, '2015-08-21', 2),
+(35, 22, 5, '2015-08-21', 2),
+(36, 22, 10, '2015-08-21', 1),
+(37, 18, 5, '2015-08-21', 1),
+(38, 48, 6, '2015-08-21', 1),
+(39, 48, 6, '2015-08-21', 1),
+(40, 48, 6, '2015-08-21', 1),
+(41, 48, 6, '2015-08-21', 1),
+(42, 18, 6, '2015-08-21', 1),
+(43, 49, 11, '2015-08-24', 1),
+(44, 50, 6, '2015-08-25', 1);
 
 -- --------------------------------------------------------
 
@@ -6338,6 +6397,44 @@ INSERT INTO `horarios` (`id`, `hora`, `data`, `tipo`, `id_funcionario`, `id_obs_
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `maquinario`
+--
+
+CREATE TABLE IF NOT EXISTS `maquinario` (
+  `id` int(11) NOT NULL,
+  `matricula` varchar(255) NOT NULL,
+  `chassi_nserie` varchar(255) NOT NULL,
+  `fabricante` varchar(255) NOT NULL,
+  `modelo` varchar(255) NOT NULL,
+  `cor` varchar(255) NOT NULL,
+  `tipo_consumo` varchar(255) NOT NULL,
+  `tipo` varchar(255) NOT NULL,
+  `ano` int(11) NOT NULL,
+  `data_compra` date NOT NULL,
+  `seguro` int(11) NOT NULL,
+  `valor` double NOT NULL,
+  `horimetro_inicial` int(11) NOT NULL,
+  `observacao` varchar(255) NOT NULL,
+  `id_fornecedor` int(11) NOT NULL,
+  `id_empresa` int(11) NOT NULL,
+  `id_responsavel` int(11) NOT NULL,
+  `horimetro_final` int(11) NOT NULL,
+  `oculto` int(11) NOT NULL,
+  `controle` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `maquinario`
+--
+
+INSERT INTO `maquinario` (`id`, `matricula`, `chassi_nserie`, `fabricante`, `modelo`, `cor`, `tipo_consumo`, `tipo`, `ano`, `data_compra`, `seguro`, `valor`, `horimetro_inicial`, `observacao`, `id_fornecedor`, `id_empresa`, `id_responsavel`, `horimetro_final`, `oculto`, `controle`) VALUES
+(10, 'F_001', '41s65df15', 'New Holand', 'Escavadeira', 'Amarela', 'eletrico', 'escavadeira de pedra', 2015, '2015-08-25', 1, 25000, 465, 'observacao', 51, 5, 18, 0, 0, 0),
+(11, 'F_001', '41s65df15', 'New Holand', 'Escavadeira', 'Amarela', 'eletrico', 'escavadeira de pedra', 2015, '2015-08-26', 1, 0, 465, 'observacao', 50, 5, 21, 0, 0, 0),
+(12, '3453', '345', 'volvo', 'trator', '345', 'combustivel', '35', 2015, '2015-08-06', 1, 0, 345, '345', 58, 5, 18, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `obs_supervisor`
 --
 
@@ -6405,6 +6502,34 @@ INSERT INTO `patrimonio` (`id`, `id_custo`, `id_grupo`, `id_responsavel`, `id_em
 (7, 10, 18, 18, 5, 51, 100500.3, 'Gol 1.0 2014', 'Gol 1.0, Branco, Ano 2014, Placa EHB9421', 0),
 (10, 13, 21, 18, 5, 58, 1500.25, 'Apartamento', 'Apartamento na praia', 0),
 (11, 19, 18, 18, 5, 50, 1560.2, 'Carro', 'Teste', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `patrimonio_geral`
+--
+
+CREATE TABLE IF NOT EXISTS `patrimonio_geral` (
+  `id` int(11) NOT NULL,
+  `id_empresa` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `matricula` varchar(255) NOT NULL,
+  `quantidade` int(11) NOT NULL,
+  `valor` double NOT NULL,
+  `descricao` varchar(255) NOT NULL,
+  `marca` varchar(255) NOT NULL,
+  `oculto` int(11) NOT NULL,
+  `controle` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `patrimonio_geral`
+--
+
+INSERT INTO `patrimonio_geral` (`id`, `id_empresa`, `nome`, `matricula`, `quantidade`, `valor`, `descricao`, `marca`, `oculto`, `controle`) VALUES
+(21, 6, 'Marreta', 'M-123', 123, 0, 'Marreta de bater prego', 'Excelente', 0, 0),
+(22, 5, 'Marreta', 'm-123', 10, 25, 'Marreta de bater prego', 'Excelente', 0, 0),
+(23, 5, 'Cortadora de grama', 'M-223', 2, 234.23, 'Maquina para cortar grama e aparar a 3 cm', 'Ruim', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -6487,7 +6612,7 @@ CREATE TABLE IF NOT EXISTS `veiculo` (
   `modelo` varchar(56) NOT NULL,
   `ano` int(11) NOT NULL,
   `cor` varchar(56) NOT NULL,
-  `valor` int(11) NOT NULL,
+  `valor` double NOT NULL,
   `data_compra` date NOT NULL,
   `seguro` int(11) NOT NULL,
   `quilometragem` int(11) NOT NULL,
@@ -6543,6 +6668,12 @@ ALTER TABLE `config`
 -- Indexes for table `custo`
 --
 ALTER TABLE `custo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `dados_bancarios`
+--
+ALTER TABLE `dados_bancarios`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -6619,6 +6750,12 @@ ALTER TABLE `horarios`
   ADD KEY `id_funcionario` (`id_funcionario`);
 
 --
+-- Indexes for table `maquinario`
+--
+ALTER TABLE `maquinario`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `obs_supervisor`
 --
 ALTER TABLE `obs_supervisor`
@@ -6635,6 +6772,12 @@ ALTER TABLE `pais`
 -- Indexes for table `patrimonio`
 --
 ALTER TABLE `patrimonio`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `patrimonio_geral`
+--
+ALTER TABLE `patrimonio_geral`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -6697,6 +6840,11 @@ ALTER TABLE `config`
 ALTER TABLE `custo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
+-- AUTO_INCREMENT for table `dados_bancarios`
+--
+ALTER TABLE `dados_bancarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
 -- AUTO_INCREMENT for table `empresa`
 --
 ALTER TABLE `empresa`
@@ -6705,12 +6853,12 @@ ALTER TABLE `empresa`
 -- AUTO_INCREMENT for table `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=152;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=159;
 --
 -- AUTO_INCREMENT for table `equipamentos_func`
 --
 ALTER TABLE `equipamentos_func`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `estado`
 --
@@ -6730,12 +6878,12 @@ ALTER TABLE `filiais`
 -- AUTO_INCREMENT for table `funcionario`
 --
 ALTER TABLE `funcionario`
-  MODIFY `id_tabela` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=57;
+  MODIFY `id_tabela` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=60;
 --
 -- AUTO_INCREMENT for table `funcionario_epi`
 --
 ALTER TABLE `funcionario_epi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT for table `grupo`
 --
@@ -6746,6 +6894,11 @@ ALTER TABLE `grupo`
 --
 ALTER TABLE `horarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1410;
+--
+-- AUTO_INCREMENT for table `maquinario`
+--
+ALTER TABLE `maquinario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `obs_supervisor`
 --
@@ -6761,6 +6914,11 @@ ALTER TABLE `pais`
 --
 ALTER TABLE `patrimonio`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `patrimonio_geral`
+--
+ALTER TABLE `patrimonio_geral`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `periodicidade`
 --
