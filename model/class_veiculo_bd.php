@@ -61,7 +61,7 @@ class Veiculo{
 		$sql->conn_bd();
 		$g = new Glob();
 		$aux=0;
-		$query = "SELECT * FROM veiculo WHERE modelo LIKE '%%%s%%' &&  oculto = 0";
+		$query = "SELECT * FROM veiculo WHERE modelo LIKE '%%%s%%' &&  oculto = 0 && id_empresa=".$_SESSION['id_empresa'];
 		$query_tra = $g->tratar_query($query, $name);
 
 		while($result =  mysql_fetch_array($query_tra)){
@@ -85,7 +85,7 @@ class Veiculo{
 		 $sql->conn_bd();
 		 $g = new Glob();
 
-		 $query = "SELECT * FROM veiculo WHERE id = '%s' && oculto =0";
+		 $query = "SELECT * FROM veiculo WHERE id = '%s' && oculto =0 && id_empresa=".$_SESSION['id_empresa'];
 		 $result = $g->tratar_query($query, $id);
 		 
 		 if(@mysql_num_rows($result) == 0){

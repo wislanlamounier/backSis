@@ -40,7 +40,7 @@ function validate(){
          
 function formataMoney($valor){
 
-    echo "teste".$valor;
+    
     $replace = array(".","R$ ");
     $string = str_replace($replace, "", $valor);
 
@@ -348,7 +348,201 @@ function verificaValor($valor){
                 <input type="hidden" id="tipo" name="menu" value="0">
                 <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Veículo"></td></tr>
               </form>
-              </div>            
+              </div>
+              <?php /*ADIÇÕES DE DADOS NO BANCO */
+                    if(isset($_POST['maquinario']) && $_POST['maquinario'] == "cadastrar_maquinario"){
+                    // echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';                    
+                    if(validate()){
+                        $matricula = $_POST['matricula'];      
+                        $chassi_nserie = $_POST['chassi_nserie'];
+                        $fabricante = $_POST['fabricante'];
+                        $modelo = $_POST['modelo'];
+                        $cor = $_POST['cor'];
+                        $tipo_consumo = $_POST['tipo_consumo'];
+                        $tipo = $_POST['tipo'];
+                        $ano = $_POST['ano'];
+                        $data_compra = $_POST['data_compra'];
+                        $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;
+                        $valor = formataMoney($_POST['valor']);
+                        $horimetro_inicial = $_POST['hr_inicial'];
+                        $id_empresa = $_POST['empresa'];
+                        $id_fornecedor = $_POST['fornecedor'];
+                        $id_responsavel = $_POST['responsavel'];
+                        $observacao = $_POST['observacao'];
+
+
+                      $maquinario = new Maquinario();
+                      $maquinario->add_maquinario($matricula, $chassi_nserie, $modelo, $tipo, $tipo_consumo, $ano, $cor, $fabricante, $data_compra, $seguro, $horimetro_inicial, $id_empresa, $id_fornecedor, $id_responsavel, $observacao, $valor);
+    
+                      if($maquinario->add_maquinario_bd()){
+                        echo '<div class="msg" style="float: left;">Maquinario adicionado com sucesso !</div>';
+                      }else{
+                        echo '<div class="msg" style="float: left;">Falha ao adicionar Maquinario!</div>';
+                      }                      
+                      
+                      }
+                   }
+                  if(isset($_POST['veiculo']) && $_POST['veiculo'] == "cadastrar_veiculo"){
+                    // echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';
+                 
+                    if(validate()){
+                                                                                          
+                        $matricula = $_POST['matricula'];
+                        $chassi = $_POST['chassi'];
+                        $renavam = $_POST['renavam'];
+                        $placa = $_POST['placa'];
+                        $marca = $_POST['marca'];
+                        $modelo = $_POST['modelo'];
+                        $ano = $_POST['ano'];
+                        $cor = $_POST['cor'];
+                        $valor = formataMoney($_POST['valor']);
+                        $data_compra = $_POST['data_compra'];
+                        $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;                        
+                        $km_inicial = $_POST['km_inicial'];
+                        $tipo_combustivel = $_POST['combustivel'];              
+                        $id_empresa = $_POST['empresa'];
+                        $id_fornecedor = $_POST['fornecedor'];
+                        $id_responsavel = $_POST['responsavel'];
+                       
+                      
+                      $veiculo = new Veiculo();
+                      $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
+                      
+                      if($veiculo->add_veiculo_bd()){
+                        echo '<div class="msg" style="float: left;">Veiculo adicionado com sucesso !</div>';
+                      }else{
+                        echo '<div class="msg" style="float: left;">Falha ao adicionar Veiculo!</div>';
+                      }                      
+                      
+                      }
+                   }
+
+                   if(isset($_POST['cadastrar_patrimonio_geral']) && $_POST['cadastrar_patrimonio_geral'] == "cadastrar_patrimonio_geral"){
+                   //echo '<script>alert("'.formataMoney($_POST['valor']).'")</script>';  
+                                
+                    if(validate()){
+
+               
+                         $matricula = $_POST['matricula'];           
+                         $nome = $_POST['nome'];
+                         $marca = $_POST['marca'];
+                         $descricao = $_POST['descricao'];
+                         $quantidade = $_POST['quantidade'];
+                         $valor = formataMoney($_POST['valor']);                      
+                         $id_empresa = $_POST['empresa'];
+                        
+
+
+                      $patrimonio = new Patrimonio_geral();
+                      $patrimonio->add_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa);
+    
+                      if($patrimonio->add_patrimonio_geral_bd()){
+                        echo '<div class="msg" style="float: left;">Patrimonio adicionado com sucesso !</div>';
+                      }else{
+                        echo '<div class="msg" style="float: left;">Falha ao adicionar Patrimonio!</div>';
+                      }                      
+                      
+                      }
+                   }
+ 
+       /*FIM ADIÇÕES DE DADOS NO BANCO */  ?>   
+
+<?php /*INICIO EDITAR */ ?>
+                 <?php if(isset($_POST['atualiza_patrimonio_geral']) =='editar_patrimonio_geral'){?> 
+                     <?php 
+
+                      $id = $_POST['id'];
+                      $matricula = $_POST['matricula'];       
+                      $nome = $_POST['nome'];
+                      $marca = $_POST['marca'];
+                      $descricao = $_POST['descricao'];
+                      $quantidade = $_POST['quantidade'];
+                      $valor = formataMoney($_POST['valor']); 
+                      $id_empresa = $_POST['empresa'];
+                      
+                      
+                      $patrimonio = new Patrimonio_geral();                     
+    
+                      if($patrimonio->atualiza_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa, $id)){
+                        
+                        echo '<div class="msg" style="float: left;">Patrimonio atualizado com sucesso !</div>';
+                                                      
+                      }else{
+                        echo '<div class="msg" style="float: left;"> Falha ao atualizar Patrimonio!</div>';
+                      }  
+                                            
+                       ?> 
+
+           <?php }?>
+            <?php if(isset($_POST['atualiza_veiculo']) =='editar_veiculo'){?> 
+              <?php 
+
+                      $id = $_POST['id'];
+                      $matricula = $_POST['matricula'];
+                      $chassi = $_POST['chassi'];
+                      $renavam = $_POST['renavam'];
+                      $placa = $_POST['placa'];
+                      $marca = $_POST['marca'];
+                      $modelo = $_POST['modelo'];
+                      $ano = $_POST['ano'];
+                      $cor = $_POST['cor'];
+                      $valor = formataMoney($_POST['valor']);
+                      $data_compra = $_POST['data_compra'];
+                      $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;            
+                      $km_inicial = $_POST['km_inicial'];
+                      $tipo_combustivel = $_POST['combustivel'];
+                      $id_empresa = $_POST['empresa'];
+                      $id_fornecedor = $_POST['fornecedor'];
+                      $id_responsavel = $_POST['responsavel'];       
+                                       
+                                         
+                      $patrimonio = new Veiculo(); 
+                      if($patrimonio->atualiza_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel ,$id)){
+                        echo '<div class="msg" style="float: left;">Veículo atualizado com sucesso !</div>';
+                      }else{
+                        echo '<div class="msg" style="float: left;">Falha ao atualizar Veículo!</div>';
+                      }                      
+                       ?>               
+            <?php }?>
+
+            <?php if(isset($_POST['atualiza_maquinario']) =='editar_maquinario'){?>
+                <?php 
+
+                $id= $_POST['id'];
+                $matricula = $_POST['matricula'];      
+                $chassi_nserie = $_POST['chassi_nserie'];
+                $fabricante = $_POST['fabricante'];
+                $modelo = $_POST['modelo'];
+                $cor = $_POST['cor'];
+                $tipo_consumo = $_POST['tipo_consumo'];
+                $tipo = $_POST['tipo'];
+                $ano = $_POST['ano'];
+                $data_compra = $_POST['data_compra'];
+                $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;
+
+                $valor = formataMoney($_POST['valor']);
+
+                $horimetro_inicial = $_POST['hr_inicial'];
+                $id_empresa = $_POST['empresa'];
+                $id_fornecedor = $_POST['fornecedor'];
+                $id_responsavel = $_POST['responsavel'];
+                $observacao = $_POST['observacao'];
+
+                  $patrimonio = new Maquinario(); 
+                      if($patrimonio->atualiza_maquinario($matricula, $chassi_nserie, $modelo, $tipo, $tipo_consumo, $ano, $cor,
+                   $fabricante, $data_compra, $seguro, $horimetro_inicial, $id_empresa,
+                                 $id_fornecedor, $id_responsavel, $observacao,  $valor, $id)){
+
+                        echo '<div class="msg" style="float: left;">Máquinario atualizado com sucesso !</div>';
+                      }else{
+                        echo '<div class="msg" style="float: left;">Falha ao atualizar Máquinario!</div>';
+                      }                      
+                                    
+
+                ?>
+            <?php }?> 
+
+
             </div>
           </div>
               <?php }?>
@@ -525,103 +719,7 @@ function verificaValor($valor){
             <?php /*FIM CADASTRO DE PATRIMONIO GERAL*/}?>  
 	 	     
 
-	 	     <?php /*ADIÇÕES DE DADOS NO BANCO */
-                    if(isset($_POST['maquinario']) && $_POST['maquinario'] == "cadastrar_maquinario"){
-                    // echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';                    
-                    if(validate()){
-                      echo  "<br>".  $matricula = $_POST['matricula'];      
-                      echo  "<br>".  $chassi_nserie = $_POST['chassi_nserie'];
-                      echo  "<br>".  $fabricante = $_POST['fabricante'];
-                      echo  "<br>".  $modelo = $_POST['modelo'];
-                      echo  "<br>".  $cor = $_POST['cor'];
-                      echo  "<br>".  $tipo_consumo = $_POST['tipo_consumo'];
-                      echo  "<br>".  $tipo = $_POST['tipo'];
-                      echo  "<br>".  $ano = $_POST['ano'];
-                      echo  "<br>".  $data_compra = $_POST['data_compra'];
-                      echo  "<br>".  $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;
-                      echo  "<br>".  $valor = formataMoney($_POST['valor']);
-                      echo  "<br>".  $horimetro_inicial = $_POST['hr_inicial'];
-                      echo  "<br>".  $id_empresa = $_POST['empresa'];
-                      echo  "<br>".  $id_fornecedor = $_POST['fornecedor'];
-                      echo  "<br>".  $id_responsavel = $_POST['responsavel'];
-                      echo  "<br>".  $observacao = $_POST['observacao'];
-
-
-                      $maquinario = new Maquinario();
-                      $maquinario->add_maquinario($matricula, $chassi_nserie, $modelo, $tipo, $tipo_consumo, $ano, $cor, $fabricante, $data_compra, $seguro, $horimetro_inicial, $id_empresa, $id_fornecedor, $id_responsavel, $observacao, $valor);
-    
-                      if($maquinario->add_maquinario_bd()){
-                        echo '<div class="msg">Maquinario adicionado com sucesso !</div>';
-                      }else{
-                        echo '<div class="msg">Falha ao adicionar Maquinario!</div>';
-                      }                      
-                      
-                      }
-                   }
-                  if(isset($_POST['veiculo']) && $_POST['veiculo'] == "cadastrar_veiculo"){
-                		// echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';
-                 
-                    if(validate()){
-                                                                                      		
-                        echo  "<br>". $matricula = $_POST['matricula'];
-                        echo  "<br>". $chassi = $_POST['chassi'];
-                        echo  "<br>". $renavam = $_POST['renavam'];
-                        echo  "<br>". $placa = $_POST['placa'];
-                        echo  "<br>". $marca = $_POST['marca'];
-                        echo  "<br>". $modelo = $_POST['modelo'];
-                        echo  "<br>". $ano = $_POST['ano'];
-                        echo  "<br>". $cor = $_POST['cor'];
-                        echo  "<br>". $valor = formataMoney($_POST['valor']);
-                        echo  "<br>". $data_compra = $_POST['data_compra'];
-                        echo  "<br>". $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;                        
-                        echo  "<br>". $km_inicial = $_POST['km_inicial'];
-                        echo  "<br>". $tipo_combustivel = $_POST['combustivel'];							
-                        echo  "<br>". $id_empresa = $_POST['empresa'];
-                        echo  "<br>". $id_fornecedor = $_POST['fornecedor'];
-                        echo  "<br>". $id_responsavel = $_POST['responsavel'];
-                        
-						          
-                      $veiculo = new Veiculo();
-                      $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
-                      
-                      if($veiculo->add_veiculo_bd()){
-                        echo '<div class="msg">Veiculo adicionado com sucesso !</div>';
-                      }else{
-                        echo '<div class="msg">Falha ao adicionar Veiculo!</div>';
-                      }                      
-                			
-                      }
-                   }
-
-                   if(isset($_POST['cadastrar_patrimonio_geral']) && $_POST['cadastrar_patrimonio_geral'] == "cadastrar_patrimonio_geral"){
-                   //echo '<script>alert("'.formataMoney($_POST['valor']).'")</script>';  
-                                
-                    if(validate()){
-
-               
-                        echo  "<br>".  $matricula = $_POST['matricula'];           
-                        echo  "<br>".  $nome = $_POST['nome'];
-                        echo  "<br>".  $marca = $_POST['marca'];
-                        echo  "<br>".  $descricao = $_POST['descricao'];
-                        echo  "<br>".  $quantidade = $_POST['quantidade'];
-                        echo  "<br>".  $valor = formataMoney($_POST['valor']);                      
-                        echo  "<br>".  $id_empresa = $_POST['empresa'];
-                        
-
-
-                      $patrimonio = new Patrimonio_geral();
-                      $patrimonio->add_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa);
-    
-                      if($patrimonio->add_patrimonio_geral_bd()){
-                        echo '<div class="msg">Patrimonio adicionado com sucesso !</div>';
-                      }else{
-                        echo '<div class="msg">Falha ao adicionar Patrimonio!</div>';
-                      }                      
-                      
-                      }
-                   }
- 
-       /*FIM ADIÇÕES DE DADOS NO BANCO */  ?>
+	 	    
 
                      <?php if(isset($_GET['tipo']) =='editar' && isset($_GET['controle']) && $_GET['controle'] == "1"){?>                     
 
@@ -834,93 +932,6 @@ function verificaValor($valor){
           </div>
                   <?php }?>
 
-           <?php if(isset($_POST['atualiza_patrimonio_geral']) =='editar_patrimonio_geral'){?> 
-                     <?php 
-
-                      $id = $_POST['id'];
-                      $matricula = $_POST['matricula'];       
-                      $nome = $_POST['nome'];
-                      $marca = $_POST['marca'];
-                      $descricao = $_POST['descricao'];
-                      $quantidade = $_POST['quantidade'];
-                      $valor = formataMoney($_POST['valor']); 
-                      echo $id_empresa = $_POST['empresa'];
-                      
-                      $patrimonio = new Patrimonio_geral();                     
-    
-                      if($patrimonio->atualiza_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa, $id)){
-                        echo '<div class="msg">Patrimonio atualizado com sucesso !</div>';
-                      }else{
-                        echo '<div class="msg">Falha ao atualizar Patrimonio!</div>';
-                      }                      
-                       ?>               
-           <?php }?>
-            <?php if(isset($_POST['atualiza_veiculo']) =='editar_veiculo'){?> 
-              <?php 
-
-                      $id = $_POST['id'];
-                      $matricula = $_POST['matricula'];
-                      $chassi = $_POST['chassi'];
-                      $renavam = $_POST['renavam'];
-                      $placa = $_POST['placa'];
-                      $marca = $_POST['marca'];
-                      $modelo = $_POST['modelo'];
-                      $ano = $_POST['ano'];
-                      $cor = $_POST['cor'];
-                      $valor = formataMoney($_POST['valor']);
-                      $data_compra = $_POST['data_compra'];
-                      $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;            
-                      $km_inicial = $_POST['km_inicial'];
-                      $tipo_combustivel = $_POST['combustivel'];
-                      $id_empresa = $_POST['empresa'];
-                      $id_fornecedor = $_POST['fornecedor'];
-                      $id_responsavel = $_POST['responsavel'];       
-                                       
-                                         
-                      $patrimonio = new Veiculo(); 
-                      if($patrimonio->atualiza_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel ,$id)){
-                        echo '<div class="msg">Veículo atualizado com sucesso !</div>';
-                      }else{
-                        echo '<div class="msg">Falha ao atualizar Veículo!</div>';
-                      }                      
-                       ?>               
-            <?php }?>
-
-            <?php if(isset($_POST['atualiza_maquinario']) =='editar_maquinario'){?>
-                <?php 
-
-                $id= $_POST['id'];
-                $matricula = $_POST['matricula'];      
-                $chassi_nserie = $_POST['chassi_nserie'];
-                $fabricante = $_POST['fabricante'];
-                $modelo = $_POST['modelo'];
-                $cor = $_POST['cor'];
-                $tipo_consumo = $_POST['tipo_consumo'];
-                $tipo = $_POST['tipo'];
-                $ano = $_POST['ano'];
-                $data_compra = $_POST['data_compra'];
-                $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;
-
-                $valor = formataMoney($_POST['valor']);
-
-                $horimetro_inicial = $_POST['hr_inicial'];
-                $id_empresa = $_POST['empresa'];
-                $id_fornecedor = $_POST['fornecedor'];
-                $id_responsavel = $_POST['responsavel'];
-                $observacao = $_POST['observacao'];
-
-                  $patrimonio = new Maquinario(); 
-                      if($patrimonio->atualiza_maquinario($matricula, $chassi_nserie, $modelo, $tipo, $tipo_consumo, $ano, $cor,
-                   $fabricante, $data_compra, $seguro, $horimetro_inicial, $id_empresa,
-                                 $id_fornecedor, $id_responsavel, $observacao,  $valor, $id)){
-
-                        echo '<div class="msg">Máquinario atualizado com sucesso !</div>';
-                      }else{
-                        echo '<div class="msg">Falha ao atualizar Máquinario!</div>';
-                      }                      
-                                    
-
-                ?>
-            <?php }?> 
+          
 </body>
 </html>

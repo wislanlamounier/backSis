@@ -49,7 +49,7 @@ class Patrimonio_geral{
 		$sql->conn_bd();
 		$g = new Glob();
 		$aux=0;
-		$query = "SELECT * FROM patrimonio_geral WHERE nome LIKE '%%%s%%' &&  oculto = 0";
+		$query = "SELECT * FROM patrimonio_geral WHERE nome LIKE '%%%s%%' &&  oculto = 0 && id_empresa=".$_SESSION['id_empresa'];
 		$query_tra = $g->tratar_query($query, $name);
 
 		while($result =  mysql_fetch_array($query_tra)){
