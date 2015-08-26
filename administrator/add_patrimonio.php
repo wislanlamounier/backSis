@@ -53,11 +53,13 @@ function formataMoney($valor){
 //verifica o valor antes de carregar no text de edição
 function verificaValor($valor){
     //pega quantidade de caracteres - posisão do .
+
     if(strlen($valor) - strpos($valor, '.') < 3){
        $valor.='0';
     }else if(strpos($valor, '.') == 0){
       $valor.='.00';
     }
+    
     return $valor;
 }
 
@@ -94,7 +96,19 @@ function verificaValor($valor){
        
        return 'R$ '+v;
     }
-    
+
+    function mplaca(v){
+        if(v.length >=9){                                          // alert("mtel")
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+      
+       v=v.replace(/(\D{3})(\d{4})$/,"$1-$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       
+       
+       return v;
+      
+    }
     
    function id( el ){
      // alert("id")
@@ -103,6 +117,9 @@ function verificaValor($valor){
    window.onload = function(){
       id('valor').onkeypress = function(){ 
           mascara( this, mmoney );
+      }
+      id('placa').onkeypress = function(){
+        mascara(this, mplaca);
       }
     }
 
@@ -364,7 +381,7 @@ function verificaValor($valor){
                                                          ?>
                                                      </select></td></tr>
                               <tr><td><span>Data de Compra:</span></td><td><input type="date" name="data_compra" id="data_compra"></td><td><span>Seguro</span></td><td><input type="checkbox" class="seguro" onclick="tipo_form()" id="seguro" name="seguro" value="0"></td></tr>
-                              <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Horimetro:</span></td><td><input type="numeric" name="hr_inicial" id="hr_inicial"></td></tr>
+                              <tr><td><span>Valor:(corrigir valor)</span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Horimetro:</span></td><td><input type="numeric" name="hr_inicial" id="hr_inicial"></td></tr>
                               <tr><td><span>Forncedor:</span></td><td>
                                   <select id="fornecedor" name="fornecedor"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
@@ -435,7 +452,7 @@ function verificaValor($valor){
                              												</select>
                               	</td></tr>	
                              	<tr><td><span>Data de Compra:</span></td><td><input type="date" name="data_compra" id="data_compra"></td><td><span>Seguro</span></td><td><input type="checkbox" class="seguro" onclick="tipo_form()" id="seguro" name="seguro" value="0"></td></tr>
-                             	<tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Quilometragem:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial"></td></tr>
+                             	<tr><td><span>Valor:(corrigir valor)</span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Quilometragem:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial"></td></tr>
                              	<tr><td><span>Forncedor:</span></td><td>
                              			<select id="fornecedor" name="fornecedor"  style="width:100%">
 			                              <option value="no_sel">Selecione</option>
@@ -486,7 +503,7 @@ function verificaValor($valor){
                   <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula"></td></tr>                               
                   <tr><td><span>Nome:</span></td><td><input type="text" name="nome" id="nome"><td><span> Marca:</span></td><td><input type="text" name="marca" id="marca"></td></td></tr>
                   <tr><td><span>Quantidade:</span></td><td><input type="text" name="quantidade" id="quantidade"> <td><span> Descricao:</span></td><td><input type="text" name="descricao" id="descricao"></td></td></tr>
-                  <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor"></td><td></tr>
+                  <tr><td><span>Valor:(corrigir valor)</span></td><td><input type="numeric" name="valor" id="valor"></td><td></tr>
                   <tr><td><span>Empresa:</span></td><td>
                                   <select id="empresa" name="empresa"  style="width:100%" onchange="buscar_responsavel()">
                                     <option value="no_sel">Selecione</option>
@@ -512,11 +529,26 @@ function verificaValor($valor){
                     if(isset($_POST['maquinario']) && $_POST['maquinario'] == "cadastrar_maquinario"){
                     // echo '<script>alert("'.formataMoney($_POST['valor_compra']).'")</script>';                    
                     if(validate()){
-                      echo  "<br>".  $matricula = $_POST['matricula'];      echo  "<br>".  $chassi_nserie = $_POST['chassi_nserie'];echo  "<br>".  $fabricante = $_POST['fabricante'];echo  "<br>".  $modelo = $_POST['modelo'];echo  "<br>".  $cor = $_POST['cor'];echo  "<br>".  $tipo_consumo = $_POST['tipo_consumo'];echo  "<br>".  $tipo = $_POST['tipo'];echo  "<br>".  $ano = $_POST['ano'];echo  "<br>".  $data_compra = $_POST['data_compra'];echo  "<br>".  $seguro = $_POST['seguro'];echo  "<br>".  $valor = formataMoney($_POST['valor']); echo  "<br>".  $horimetro_inicial = $_POST['hr_inicial'];echo  "<br>".  $id_empresa = $_POST['empresa'];echo  "<br>".  $id_fornecedor = $_POST['fornecedor'];echo  "<br>".  $id_responsavel = $_POST['responsavel'];                        echo  "<br>".  $observacao = $_POST['observacao'];echo  "<br>".  $horimetro_final = 0;
+                      echo  "<br>".  $matricula = $_POST['matricula'];      
+                      echo  "<br>".  $chassi_nserie = $_POST['chassi_nserie'];
+                      echo  "<br>".  $fabricante = $_POST['fabricante'];
+                      echo  "<br>".  $modelo = $_POST['modelo'];
+                      echo  "<br>".  $cor = $_POST['cor'];
+                      echo  "<br>".  $tipo_consumo = $_POST['tipo_consumo'];
+                      echo  "<br>".  $tipo = $_POST['tipo'];
+                      echo  "<br>".  $ano = $_POST['ano'];
+                      echo  "<br>".  $data_compra = $_POST['data_compra'];
+                      echo  "<br>".  $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;
+                      echo  "<br>".  $valor = formataMoney($_POST['valor']);
+                      echo  "<br>".  $horimetro_inicial = $_POST['hr_inicial'];
+                      echo  "<br>".  $id_empresa = $_POST['empresa'];
+                      echo  "<br>".  $id_fornecedor = $_POST['fornecedor'];
+                      echo  "<br>".  $id_responsavel = $_POST['responsavel'];
+                      echo  "<br>".  $observacao = $_POST['observacao'];
 
 
                       $maquinario = new Maquinario();
-                      $maquinario->add_maquinario($matricula, $chassi_nserie, $modelo, $tipo, $tipo_consumo, $ano, $cor, $fabricante, $data_compra, $seguro, $horimetro_inicial, $horimetro_final, $id_empresa, $id_fornecedor, $id_responsavel, $observacao, $valor);
+                      $maquinario->add_maquinario($matricula, $chassi_nserie, $modelo, $tipo, $tipo_consumo, $ano, $cor, $fabricante, $data_compra, $seguro, $horimetro_inicial, $id_empresa, $id_fornecedor, $id_responsavel, $observacao, $valor);
     
                       if($maquinario->add_maquinario_bd()){
                         echo '<div class="msg">Maquinario adicionado com sucesso !</div>';
@@ -541,7 +573,7 @@ function verificaValor($valor){
                         echo  "<br>". $cor = $_POST['cor'];
                         echo  "<br>". $valor = formataMoney($_POST['valor']);
                         echo  "<br>". $data_compra = $_POST['data_compra'];
-                        echo  "<br>". $seguro = $_POST['seguro'];                        
+                        echo  "<br>". $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;                        
                         echo  "<br>". $km_inicial = $_POST['km_inicial'];
                         echo  "<br>". $tipo_combustivel = $_POST['combustivel'];							
                         echo  "<br>". $id_empresa = $_POST['empresa'];
@@ -601,7 +633,7 @@ function verificaValor($valor){
                     <div class="formulario">
                       <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR MAQUINÁRIO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
-                        <input type="hidden" id="maquinario" name="maquinario" value="cadastrar_maquinario">
+                        <input type="hidden" id="atualiza_maquinario" name="atualiza_maquinario" value="editar_maquinario">
                         <input type="hidden" id="id" name="id" value="<?php echo $maquinario->id ?>">
                           <table border="0">                          
                               <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula" value="<?php echo $maquinario->matricula ?>" ></td><td><span> N° Série / Chassi:</span></td> <td><input class="uppercase" type="text" name="chassi_nserie" id="chassi_nserie" value="<?php echo $maquinario->chassi_nserie ?>" ></td></tr>
@@ -688,7 +720,7 @@ function verificaValor($valor){
             <div class="formulario">              
                        <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR VEÍCULO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
-                        <input type="hidden" id="veiculo" name="veiculo" value="cadastrar_veiculo">
+                        <input type="hidden" id="atualiza_veiculo" name="atualiza_veiculo" value="editar_veiculo">
                         <input type="hidden" id="id" name="id" value="<?php echo $veiculo->id ?>">
                           <table border="0">                          
                               <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula" value="<?php echo $veiculo->matricula ?>"></td><td><span>Renavam:</span></td> <td><input type="text" name="renavam" id="renavam" value="<?php echo $veiculo->renavam ?>"></td></tr>                               
@@ -712,11 +744,12 @@ function verificaValor($valor){
                                                     <option value="Alcool">Álcool</option>
                                                     </select>
                                 </td></tr>  
-                              <tr><td><span>Data de Compra:</span></td><td><input type="date" name="data_compra" id="data_compra" value="<?php echo $veiculo->data_compra ?>"></td><td colspan="2"><?php if($veiculo->seguro == 1){ ?>
+                              <tr><td><span>Data de Compra:</span></td><td><input type="date" name="data_compra" id="data_compra" value="<?php echo $veiculo->data_compra ?>"></td><td colspan="2">
+                            <?php if($veiculo->seguro == 1){ ?>
                                        <span>Seguro</span> <input type="checkbox" style="height:12px;" id="seguro" checked name="seguro">
                              <?php }else{ ?>
-                                       <span>Seguro</span> <input type="checkbox" style="height:12px;" id="seguro"  name="seguro">
-                             <?php } ?></td></tr>
+                                       <span>Seguro</span> <input type="checkbox" style="height:12px;" id="seguro" name="seguro">
+                             <?php } ?></td>
                               <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor" value="<?php echo verificaValor($veiculo->valor) ?>"></td><td><span>Quilometragem:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial" value="<?php echo $veiculo->km_inicial ?>"></td></tr>
                               <tr> <td ><span>Fornecedor: </span></td>
                               <td colspan="2">
@@ -775,7 +808,7 @@ function verificaValor($valor){
             <div class="formulario">
              <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
               <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR PATRIMONIO EM GERAL</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
-               <input type="hidden" id="cadastrar_patrimonio_geral" name="cadastrar_patrimonio_geral" value="cadastrar_patrimonio_geral">
+               <input type="hidden" id="atualiza_patrimonio_geral" name="atualiza_patrimonio_geral" value="editar_patrimonio_geral">
                <input type="hidden" id="id" name="id" value="<?php echo $patrimonio_geral->id ?>"> 
               <table border="0">
                   <tr><td><span>Matricula:</span></td> <td><input class="uppercase" value="<?php echo $patrimonio_geral->matricula ?>" type="text" name="matricula" id="matricula"></td></tr>                               
@@ -801,5 +834,93 @@ function verificaValor($valor){
           </div>
                   <?php }?>
 
+           <?php if(isset($_POST['atualiza_patrimonio_geral']) =='editar_patrimonio_geral'){?> 
+                     <?php 
+
+                      $id = $_POST['id'];
+                      $matricula = $_POST['matricula'];       
+                      $nome = $_POST['nome'];
+                      $marca = $_POST['marca'];
+                      $descricao = $_POST['descricao'];
+                      $quantidade = $_POST['quantidade'];
+                      $valor = formataMoney($_POST['valor']); 
+                      echo $id_empresa = $_POST['empresa'];
+                      
+                      $patrimonio = new Patrimonio_geral();                     
+    
+                      if($patrimonio->atualiza_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa, $id)){
+                        echo '<div class="msg">Patrimonio atualizado com sucesso !</div>';
+                      }else{
+                        echo '<div class="msg">Falha ao atualizar Patrimonio!</div>';
+                      }                      
+                       ?>               
+           <?php }?>
+            <?php if(isset($_POST['atualiza_veiculo']) =='editar_veiculo'){?> 
+              <?php 
+
+                      $id = $_POST['id'];
+                      $matricula = $_POST['matricula'];
+                      $chassi = $_POST['chassi'];
+                      $renavam = $_POST['renavam'];
+                      $placa = $_POST['placa'];
+                      $marca = $_POST['marca'];
+                      $modelo = $_POST['modelo'];
+                      $ano = $_POST['ano'];
+                      $cor = $_POST['cor'];
+                      $valor = formataMoney($_POST['valor']);
+                      $data_compra = $_POST['data_compra'];
+                      $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;            
+                      $km_inicial = $_POST['km_inicial'];
+                      $tipo_combustivel = $_POST['combustivel'];
+                      $id_empresa = $_POST['empresa'];
+                      $id_fornecedor = $_POST['fornecedor'];
+                      $id_responsavel = $_POST['responsavel'];       
+                                       
+                                         
+                      $patrimonio = new Veiculo(); 
+                      if($patrimonio->atualiza_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel ,$id)){
+                        echo '<div class="msg">Veículo atualizado com sucesso !</div>';
+                      }else{
+                        echo '<div class="msg">Falha ao atualizar Veículo!</div>';
+                      }                      
+                       ?>               
+            <?php }?>
+
+            <?php if(isset($_POST['atualiza_maquinario']) =='editar_maquinario'){?>
+                <?php 
+
+                $id= $_POST['id'];
+                $matricula = $_POST['matricula'];      
+                $chassi_nserie = $_POST['chassi_nserie'];
+                $fabricante = $_POST['fabricante'];
+                $modelo = $_POST['modelo'];
+                $cor = $_POST['cor'];
+                $tipo_consumo = $_POST['tipo_consumo'];
+                $tipo = $_POST['tipo'];
+                $ano = $_POST['ano'];
+                $data_compra = $_POST['data_compra'];
+                $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;
+
+                $valor = formataMoney($_POST['valor']);
+
+                $horimetro_inicial = $_POST['hr_inicial'];
+                $id_empresa = $_POST['empresa'];
+                $id_fornecedor = $_POST['fornecedor'];
+                $id_responsavel = $_POST['responsavel'];
+                $observacao = $_POST['observacao'];
+
+                  $patrimonio = new Maquinario(); 
+                      if($patrimonio->atualiza_maquinario($matricula, $chassi_nserie, $modelo, $tipo, $tipo_consumo, $ano, $cor,
+                   $fabricante, $data_compra, $seguro, $horimetro_inicial, $id_empresa,
+                                 $id_fornecedor, $id_responsavel, $observacao,  $valor, $id)){
+
+                        echo '<div class="msg">Máquinario atualizado com sucesso !</div>';
+                      }else{
+                        echo '<div class="msg">Falha ao atualizar Máquinario!</div>';
+                      }                      
+                                    
+
+                ?>
+            <?php }?> 
 </body>
 </html>

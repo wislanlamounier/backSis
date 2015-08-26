@@ -115,6 +115,21 @@ class Veiculo{
 	     }
 	}	
 	
+	public function atualiza_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel, $id){
+		$sql = new Sql();	
+		$sql->conn_bd();
+		$g = new Glob();
+		$query = "UPDATE veiculo SET matricula='%s', chassi='%s', renavam='%s', placa='%s', marca='%s', modelo='%s', ano='%s', cor='%s', valor='%s', data_compra='%s', seguro='%s', km_inicial='%s', tipo_combustivel='%s', id_empresa='%s', id_fornecedor='%s', id_responsavel='%s' WHERE id ='%s' ";
+
+		$query_tra = $g->tratar_query($query, $matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel ,$id);
+		
+		if($query_tra){
+			return $query_tra;
+		}else{
+			return false;
+		}
+		
+	}
 	
 	// public function get_veiculo_chassi($chassi){
 	// 		$sql = new Sql();

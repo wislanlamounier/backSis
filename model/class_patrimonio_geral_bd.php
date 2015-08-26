@@ -93,7 +93,23 @@ class Patrimonio_geral{
 	     	
 	     	return $this;
 	     }
-	}	
+	}
+
+	public function atualiza_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa, $id){
+		$sql = new Sql();	
+		$sql->conn_bd();
+		$g = new Glob();
+		$query = "UPDATE patrimonio_geral SET nome='%s', descricao='%s', marca='%s', descricao='%s', quantidade='%s', valor='%s', id_empresa='%s' WHERE id ='%s' ";
+
+		$query_tra = $g->tratar_query($query, $nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa, $id);
+		
+		if($query_tra){
+			return $query_tra;
+		}else{
+			return false;
+		}
+		
+	}
 
 }
 	
