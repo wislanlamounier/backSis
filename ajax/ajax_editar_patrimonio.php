@@ -7,7 +7,7 @@
 						<div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Pesquisar e Editar</div>
 					</div>
 					<table style="float:left" class="table-pesquisa">
-					  	<tr><td colspan="2"><span>Digite um nome para editar:</span><br /></td></tr>
+					  	<tr><td colspan="2"><span>Digite o nome de um patrimonio para editar:</span><br /></td></tr>
 						<tr>
 							<td><span>Nome: </span></td>
 							<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" class="button" onclick="buscar_funcionarios(0)"></td>
@@ -24,7 +24,7 @@
 						<div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Pesquisar e Excluir</div>
 					</div>
 					<table style="float:left" class="table-pesquisa">
-					  	<tr><td colspan="2"><span>Digite um nome para excluir:</span><br /></td></tr>
+					  	<tr><td colspan="2"><span>Digite o nome de um patrimonio para excluir:</span><br /></td></tr>
 						<tr>
 							<td><span>Nome: </span></td>
 							<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" class="button" onclick="buscar_funcionarios(1)"></td>
