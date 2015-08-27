@@ -10,10 +10,10 @@ class Veiculo{
 	public $chassi;
 	public $renavam;
 	public $placa;
-	public $marca;
+	public $id_marca;
 	public $modelo;
 	public $ano;
-	public $cor;
+	public $id_cor;
 	public $valor;
 	public $data_compra;
 	public $seguro;	
@@ -24,16 +24,16 @@ class Veiculo{
 	public $id_responsavel;
 	public $oculto;
 
-	public function add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel){
+	public function add_veiculo($matricula, $chassi, $renavam, $placa, $id_marca, $modelo, $ano, $id_cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel){
 			
 			$this->matricula = $matricula;
 			$this->chassi = $chassi;
 			$this->renavam = $renavam;
 			$this->placa = $placa;
-			$this->marca = $marca;
+			$this->id_marca = $id_marca;
 			$this->modelo = $modelo;
 			$this->ano = $ano;
-			$this->cor = $cor;
+			$this->id_cor = $id_cor;
 			$this->valor = $valor;
 			$this->data_compra = $data_compra;
 			$this->seguro = $seguro;			
@@ -48,9 +48,9 @@ class Veiculo{
 			$sql = new Sql();
 			$sql->conn_bd();
 			$g = new Glob();
-			$query = "INSERT INTO veiculo(matricula, chassi, renavam, placa, marca, modelo, ano, cor, valor, data_compra, seguro, km_inicial, tipo_combustivel, id_empresa, id_fornecedor, id_responsavel)
+			$query = "INSERT INTO veiculo(matricula, chassi, renavam, placa, id_marca, modelo, ano, id_cor, valor, data_compra, seguro, km_inicial, tipo_combustivel, id_empresa, id_fornecedor, id_responsavel)
 									VALUES ('%s',	  '%s',	  '%s',   '%s',	'%s',	'%s',  '%s','%s',  '%s',  	'%s',         '%s',		'%s',		'%s',			'%s',		'%s',			'%s'	)";
-			if($g->tratar_query($query, $this->matricula, $this->chassi, $this->renavam, $this->placa, $this->marca, $this->modelo, $this->ano, $this->cor, $this->valor, $this->data_compra, $this->seguro, $this->km_inicial, $this->tipo_combustivel, $this->id_empresa, $this->id_fornecedor, $this->id_responsavel)){
+			if($g->tratar_query($query, $this->matricula, $this->chassi, $this->renavam, $this->placa, $this->id_marca, $this->modelo, $this->ano, $this->id_cor, $this->valor, $this->data_compra, $this->seguro, $this->km_inicial, $this->tipo_combustivel, $this->id_empresa, $this->id_fornecedor, $this->id_responsavel)){
 			return true; 
 		}else{
 			return false;
@@ -68,7 +68,7 @@ class Veiculo{
 			$return[$aux][0] = $result['id'];
 			$return[$aux][1] = $result['matricula'];
 			$return[$aux][2] = $result['modelo'];
-			$return[$aux][3] = $result['marca'];
+			$return[$aux][3] = $result['id_marca'];
 			$aux++;
 		}
 		if($aux == 0){
@@ -98,9 +98,9 @@ class Veiculo{
 			$this->renavam= $row['renavam'];
 			$this->placa= $row['placa'];
 			$this->chassi= $row['chassi'];
-			$this->marca = $row['marca'];
+			$this->id_marca = $row['id_marca'];
 			$this->modelo=  $row['modelo'];
-			$this->cor= $row['cor'];
+			$this->id_cor= $row['id_cor'];
 			$this->ano= $row['ano'];
 			$this->tipo_combustivel= $row['tipo_combustivel'];
 			$this->data_compra = $row['data_compra'];
@@ -115,13 +115,13 @@ class Veiculo{
 	     }
 	}	
 	
-	public function atualiza_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel, $id){
+	public function atualiza_veiculo($matricula, $chassi, $renavam, $placa, $id_marca, $modelo, $ano, $id_cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel, $id){
 		$sql = new Sql();	
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "UPDATE veiculo SET matricula='%s', chassi='%s', renavam='%s', placa='%s', marca='%s', modelo='%s', ano='%s', cor='%s', valor='%s', data_compra='%s', seguro='%s', km_inicial='%s', tipo_combustivel='%s', id_empresa='%s', id_fornecedor='%s', id_responsavel='%s' WHERE id ='%s' ";
+		$query = "UPDATE veiculo SET matricula='%s', chassi='%s', renavam='%s', placa='%s', id_marca='%s', modelo='%s', ano='%s', id_cor='%s', valor='%s', data_compra='%s', seguro='%s', km_inicial='%s', tipo_combustivel='%s', id_empresa='%s', id_fornecedor='%s', id_responsavel='%s' WHERE id ='%s' ";
 
-		$query_tra = $g->tratar_query($query, $matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel ,$id);
+		$query_tra = $g->tratar_query($query, $matricula, $chassi, $renavam, $placa, $id_marca, $modelo, $ano, $id_cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel ,$id);
 		
 		if($query_tra){
 			return $query_tra;
@@ -130,7 +130,38 @@ class Veiculo{
 		}
 		
 	}
+
+	public function ocultar_by_id($id){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$query = "UPDATE veiculo SET oculto = 1 WHERE id = %s";
+		$result = $g->tratar_query($query, $id);
+		if($result){
+			echo '<div class="msg">veículo excluído com sucesso!</div>';
+		}
+	}
 	
+	public function get_veiculo_by_nome($modelo){
+        $sql = new Sql();
+        $sql->conn_bd();
+        $g = new Glob();
+        $aux=0;
+        $return = array();
+        $query = $g->tratar_query("SELECT * FROM veiculo WHERE oculto = 0 && modelo LIKE '%%%s%%'",$modelo);
+
+        while($result = mysql_fetch_array($query)){
+          $return[$aux][0] = $result['id'];
+          $return[$aux][1] = $result['modelo'];
+          
+          $aux++;
+        }
+        if($aux == 0){
+          echo "<div class='msg'>Veículo não encontrada !</div>";
+        }else{
+        return $return;
+        }
+    }
 	// public function get_veiculo_chassi($chassi){
 	// 		$sql = new Sql();
 	//         $sql->conn_bd();
@@ -143,8 +174,8 @@ class Veiculo{
 	//           $return[$aux][0] = $result['matricula'];
 	//           $return[$aux][1] = $result['chassi'];
 	//           $return[$aux][2] = $result['modelo'];
-	//           $return[$aux][3] = $result['marca'];
-	//           $return[$aux][4] = $result['cor'];
+	//           $return[$aux][3] = $result['id_marca'];
+	//           $return[$aux][4] = $result['id_cor'];
 	//           $aux++;
 	//         }
 	//         if($aux == 0){
@@ -162,8 +193,8 @@ class Veiculo{
 	// 	while($result = mysql_fetch_array($query)){
 	//           $return[$aux][0] = $result['matricula'];	          
 	//           $return[$aux][1] = $result['modelo'];
-	//           $return[$aux][2] = $result['marca'];
-	//           $return[$aux][3] = $result['cor'];
+	//           $return[$aux][2] = $result['id_marca'];
+	//           $return[$aux][3] = $result['id_cor'];
 	//           $aux++;
 	//         }
 	//         if($aux == 0){
@@ -173,22 +204,22 @@ class Veiculo{
 	//         }
 	// 	}
 
-	// public function printVeiculo(/*$id_grupo*/){
+	// public function printVeiculo(/*$id_veiculo*/){
 	// 	// $empresa = new Empresa();
 	// 	// $empresa = $empresa->get_empresa_by_id($this->id_empresa);		
 	// 	// $responsavel = new Funcionario();
  //  		// $responsavel = $responsavel->get_func_id($this->id_responsavel);
- //  		// $grupo = new Grupo();
- //  		// $grupo = $grupo->get_grupo_id($id_grupo);
+ //  		// $veiculo = new Veículo();
+ //  		// $veiculo = $veiculo->get_veiculo_id($id_veiculo);
  //      	$texto = "";
 	// 	$texto .= "<table class='table_pesquisa'><tr>";
 	// 	$texto .= "<td colspan='2'><b><span>Matricula: <span></b></td><td colspan='2'><span><span>".$this->matricula."</span></td>";
 	// 	$texto .= "</tr>";
 	// 	$texto .= "<tr>";
-	// 	$texto .= "<td colspan='2'><b><span>Modelo: <span></b></td><td><span>".$this->modelo."</span> <td><span>Cor: <span></b></td> <td><span>".$this->cor."</span></td></td>";
+	// 	$texto .= "<td colspan='2'><b><span>Modelo: <span></b></td><td><span>".$this->modelo."</span> <td><span>Cor: <span></b></td> <td><span>".$this->id_cor."</span></td></td>";
 	// 	$texto .= "</tr>";
 	// 	$texto .= "<tr>";
-	// 	$texto .= "<td colspan='2'><b><span>Marca: <span></b></td><td><span><span>".$this->marca."</span> <td><span>Marca: <span></b></td> <td><span><span>".$this->marca."</span></td></td>";
+	// 	$texto .= "<td colspan='2'><b><span>Marca: <span></b></td><td><span><span>".$this->id_marca."</span> <td><span>Marca: <span></b></td> <td><span><span>".$this->id_marca."</span></td></td>";
 	// 	$texto .= "</tr>";	
 	// 	$texto .= "</table>";
 	// 	return $texto;	}

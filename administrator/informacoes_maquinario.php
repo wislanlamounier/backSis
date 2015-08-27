@@ -20,11 +20,11 @@ include_once("../model/class_maquinario_bd.php");
             }
         }
         if(param == 1){//EXCLUIR
-          var grupo = document.getElementById('nome_search').value;
+          var maquinario = document.getElementById('nome_search').value;
             //se encontrou o estado
-            if(grupo){
+            if(maquinario){
               
-              var url = '../ajax/ajax_buscar_informacoes_grupo.php?grupo='+grupo+'&param='+param;  //caminho do arquivo php que irá buscar as cidades no BD
+              var url = '../ajax/ajax_buscar_informacoes_maquinario.php?maquinario='+maquinario+'&param='+param;  //caminho do arquivo php que irá buscar as cidades no BD
 
               $.get(url, function(dataReturn) {
                 
@@ -34,7 +34,7 @@ include_once("../model/class_maquinario_bd.php");
         }
     }
     function buscar_editar(tipo){
-        var url = '../ajax/ajax_editar_exames.php?tipo='+tipo;  //caminho do arquivo php que irá buscar as cidades no BD
+        var url = '../ajax/ajax_editar_patrimonio.php?tipo='+tipo;  //caminho do arquivo php que irá buscar as cidades no BD
         $.get(url, function(dataReturn) {
         	$('#result').html(dataReturn);  //coloco na div o retorno da requisicao
         });
