@@ -38,7 +38,7 @@
       <li>
         <a style=""><span style="float:left">Obras </span><img style="float:left; margin-left:2px; margin-top:-2px;" src="../images/downarrow_1246.png" width="15px;"></a>
          <ul class="sub-menu">
-          <li><a href="#">Nova</a></li>
+          <li><a href="/viacampos/administrator/add_obra.php">Nova</a></li>
         </ul>
       </li>
     <?php } ?>

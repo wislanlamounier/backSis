@@ -39,6 +39,15 @@ OBSERVAÇÕES TABELA BANCO{
 		}
 		
 	}
+
+	TABLE (OBRAS){
+		CAMPO: STATUS{
+			0 -> ORÇAMENTO
+			1 -> OBRA
+			2 -> FINALIZADA
+		}
+		
+	}
 }
 
 
