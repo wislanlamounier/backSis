@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 25-Ago-2015 às 22:19
+-- Generation Time: 28-Ago-2015 às 15:24
 -- Versão do servidor: 5.6.25
 -- PHP Version: 5.6.11
 
@@ -5760,6 +5760,17 @@ INSERT INTO `config` (`id`, `descricao`, `valor`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `cores`
+--
+
+CREATE TABLE IF NOT EXISTS `cores` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `custo`
 --
 
@@ -6284,6 +6295,32 @@ INSERT INTO `grupo` (`id`, `nome`, `descricao`, `oculto`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `historico_manutencao`
+--
+
+CREATE TABLE IF NOT EXISTS `historico_manutencao` (
+  `id_patrimonio` int(11) NOT NULL,
+  `id_tipo_manutencao` int(11) NOT NULL,
+  `data_inicio` date NOT NULL,
+  `data_fim` date NOT NULL,
+  `id_fornecedor` int(11) NOT NULL,
+  `km_horimetro` double NOT NULL,
+  `valor_manutencao` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `historico_manutencao`
+--
+
+INSERT INTO `historico_manutencao` (`id_patrimonio`, `id_tipo_manutencao`, `data_inicio`, `data_fim`, `id_fornecedor`, `km_horimetro`, `valor_manutencao`) VALUES
+(1, 1, '2015-08-27', '2015-08-28', 10, 100, 0),
+(1, 1, '2015-08-27', '2015-08-27', 11, 100, 0),
+(1, 1, '2015-08-29', '2015-08-30', 10, 100, 0),
+(1, 2, '2015-08-27', '2015-08-29', 10, 100, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `horarios`
 --
 
@@ -6406,7 +6443,7 @@ CREATE TABLE IF NOT EXISTS `maquinario` (
   `chassi_nserie` varchar(255) NOT NULL,
   `fabricante` varchar(255) NOT NULL,
   `modelo` varchar(255) NOT NULL,
-  `cor` varchar(255) NOT NULL,
+  `id_cor` int(11) NOT NULL,
   `tipo_consumo` varchar(255) NOT NULL,
   `tipo` varchar(255) NOT NULL,
   `ano` int(11) NOT NULL,
@@ -6418,19 +6455,135 @@ CREATE TABLE IF NOT EXISTS `maquinario` (
   `id_fornecedor` int(11) NOT NULL,
   `id_empresa` int(11) NOT NULL,
   `id_responsavel` int(11) NOT NULL,
-  `horimetro_final` int(11) NOT NULL,
   `oculto` int(11) NOT NULL,
-  `controle` int(11) NOT NULL
+  `controle` int(11) NOT NULL,
+  `ativo` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `maquinario`
 --
 
-INSERT INTO `maquinario` (`id`, `matricula`, `chassi_nserie`, `fabricante`, `modelo`, `cor`, `tipo_consumo`, `tipo`, `ano`, `data_compra`, `seguro`, `valor`, `horimetro_inicial`, `observacao`, `id_fornecedor`, `id_empresa`, `id_responsavel`, `horimetro_final`, `oculto`, `controle`) VALUES
-(10, 'F_001', '41s65df15', 'New Holand', 'Escavadeira', 'Amarela', 'eletrico', 'escavadeira de pedra', 2015, '2015-08-25', 1, 25000, 465, 'observacao', 51, 5, 18, 0, 0, 0),
-(11, 'F_001', '41s65df15', 'New Holand', 'Escavadeira', 'Amarela', 'eletrico', 'escavadeira de pedra', 2015, '2015-08-26', 1, 0, 465, 'observacao', 50, 5, 21, 0, 0, 0),
-(12, '3453', '345', 'volvo', 'trator', '345', 'combustivel', '35', 2015, '2015-08-06', 1, 0, 345, '345', 58, 5, 18, 0, 0, 0);
+INSERT INTO `maquinario` (`id`, `matricula`, `chassi_nserie`, `fabricante`, `modelo`, `id_cor`, `tipo_consumo`, `tipo`, `ano`, `data_compra`, `seguro`, `valor`, `horimetro_inicial`, `observacao`, `id_fornecedor`, `id_empresa`, `id_responsavel`, `oculto`, `controle`, `ativo`) VALUES
+(10, 'F_001', '41s65df15', 'New Holand', 'Escavadeira', 0, 'eletrico', 'escavadeira de pedra', 2015, '2015-08-25', 1, 25000, 465, 'observacao', 51, 5, 18, 0, 0, 0),
+(11, 'F_001', '41s65df15', 'New Holand', 'Escavadeira', 0, 'eletrico', 'escavadeira de pedra', 2015, '2015-08-26', 1, 0, 465, 'observacao', 50, 5, 21, 0, 0, 0),
+(12, '3453', '345', 'volvo', 'trator', 0, 'combustivel', '35', 2015, '2015-08-06', 1, 0, 345, '345', 58, 5, 18, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `marca`
+--
+
+CREATE TABLE IF NOT EXISTS `marca` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `materiais`
+--
+
+CREATE TABLE IF NOT EXISTS `materiais` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `id_unidade_medida` int(11) NOT NULL,
+  `id_empresa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `obras`
+--
+
+CREATE TABLE IF NOT EXISTS `obras` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `id_empresa` int(11) NOT NULL,
+  `descricao` text NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `id_endereco` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `obra_funcionarios`
+--
+
+CREATE TABLE IF NOT EXISTS `obra_funcionarios` (
+  `id` int(11) NOT NULL,
+  `id_obra` int(11) NOT NULL,
+  `id_funcionarios` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `obra_maquinarios`
+--
+
+CREATE TABLE IF NOT EXISTS `obra_maquinarios` (
+  `id` int(11) NOT NULL,
+  `id_obra` int(11) NOT NULL,
+  `id_maquinarios` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `obra_materiais`
+--
+
+CREATE TABLE IF NOT EXISTS `obra_materiais` (
+  `id` int(11) NOT NULL,
+  `id_obra` int(11) NOT NULL,
+  `id_material` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `obra_patrimoniogerais`
+--
+
+CREATE TABLE IF NOT EXISTS `obra_patrimoniogerais` (
+  `id` int(11) NOT NULL,
+  `id_obra` int(11) NOT NULL,
+  `id_patrimonioGeral` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `obra_produtos`
+--
+
+CREATE TABLE IF NOT EXISTS `obra_produtos` (
+  `id` int(11) NOT NULL,
+  `id_obra` int(11) NOT NULL,
+  `id_produto` int(11) NOT NULL,
+  `quantidade_produto` int(11) NOT NULL,
+  `data_inicio_previsto` date NOT NULL,
+  `data_inicio_realizado` date NOT NULL,
+  `data_fim_previsto` date NOT NULL,
+  `data_fim_realizado` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `obra_veiculos`
+--
+
+CREATE TABLE IF NOT EXISTS `obra_veiculos` (
+  `id` int(11) NOT NULL,
+  `id_obra` int(11) NOT NULL,
+  `id_veiculo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -6476,36 +6629,6 @@ INSERT INTO `pais` (`id`, `nome`, `sigla`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `patrimonio`
---
-
-CREATE TABLE IF NOT EXISTS `patrimonio` (
-  `id` int(11) NOT NULL,
-  `id_custo` int(11) NOT NULL,
-  `id_grupo` int(11) NOT NULL,
-  `id_responsavel` int(11) NOT NULL,
-  `id_empresa` int(11) NOT NULL,
-  `id_fornecedor` int(11) NOT NULL,
-  `valor_compra` double NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `descricao` varchar(255) NOT NULL,
-  `oculto` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `patrimonio`
---
-
-INSERT INTO `patrimonio` (`id`, `id_custo`, `id_grupo`, `id_responsavel`, `id_empresa`, `id_fornecedor`, `valor_compra`, `nome`, `descricao`, `oculto`) VALUES
-(5, 8, 18, 22, 5, 51, 5000, 'Empilhadeira', 'Empilhadeira de palate de 8 m2', 0),
-(6, 9, 21, 49, 5, 51, 20000, 'Terreno 320 m²', 'Terreno localizado na rua tal, ponto de referencia tal', 0),
-(7, 10, 18, 18, 5, 51, 100500.3, 'Gol 1.0 2014', 'Gol 1.0, Branco, Ano 2014, Placa EHB9421', 0),
-(10, 13, 21, 18, 5, 58, 1500.25, 'Apartamento', 'Apartamento na praia', 0),
-(11, 19, 18, 18, 5, 50, 1560.2, 'Carro', 'Teste', 0);
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `patrimonio_geral`
 --
 
@@ -6519,8 +6642,8 @@ CREATE TABLE IF NOT EXISTS `patrimonio_geral` (
   `descricao` varchar(255) NOT NULL,
   `marca` varchar(255) NOT NULL,
   `oculto` int(11) NOT NULL,
-  `controle` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+  `controle` int(11) NOT NULL COMMENT '0 -> PATRIMONIO GERAL 1 -> MAQUINARIO 2 -> VEICULO '
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `patrimonio_geral`
@@ -6529,7 +6652,10 @@ CREATE TABLE IF NOT EXISTS `patrimonio_geral` (
 INSERT INTO `patrimonio_geral` (`id`, `id_empresa`, `nome`, `matricula`, `quantidade`, `valor`, `descricao`, `marca`, `oculto`, `controle`) VALUES
 (21, 6, 'Marreta', 'M-123', 123, 0, 'Marreta de bater prego', 'Excelente', 0, 0),
 (22, 5, 'Marreta', 'm-123', 10, 25, 'Marreta de bater prego', 'Excelente', 0, 0),
-(23, 5, 'Cortadora de grama', 'M-223', 2, 234.23, 'Maquina para cortar grama e aparar a 3 cm', 'Ruim', 0, 0);
+(23, 5, 'Cortadora de grama', 'M-223', 2, 234.23, 'Maquina para cortar grama e aparar a 3 cm', 'Ruim', 0, 0),
+(24, 5, 'Martelo', 'MT001', 10, 25, 'Martelo de Pregar', 'Execente', 0, 0),
+(25, 6, 'Martelo', 'MT001', 10, 250, 'Martelo de Pregar', 'Execente', 0, 0),
+(26, 6, 'Marreta', 'MT001', 10, 30, 'Marreta de quebrar', 'Execente', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -6551,6 +6677,43 @@ INSERT INTO `periodicidade` (`id`, `periodo`) VALUES
 (2, 30),
 (3, 60),
 (4, 90);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `produtos`
+--
+
+CREATE TABLE IF NOT EXISTS `produtos` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `id_empresa` int(11) NOT NULL,
+  `tempo_estimado_conclusao` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `produtos_materiais`
+--
+
+CREATE TABLE IF NOT EXISTS `produtos_materiais` (
+  `id` int(11) NOT NULL,
+  `id_produto` int(11) NOT NULL,
+  `id_material` int(11) NOT NULL,
+  `quantidade_material` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tipo_manutencao`
+--
+
+CREATE TABLE IF NOT EXISTS `tipo_manutencao` (
+  `id` int(11) NOT NULL,
+  `descricao` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -6599,6 +6762,19 @@ CREATE TABLE IF NOT EXISTS `turno_func_historico` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `unidade_medida`
+--
+
+CREATE TABLE IF NOT EXISTS `unidade_medida` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `grandeza` varchar(55) NOT NULL,
+  `sigla` varchar(55) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `veiculo`
 --
 
@@ -6608,20 +6784,20 @@ CREATE TABLE IF NOT EXISTS `veiculo` (
   `chassi` varchar(56) NOT NULL,
   `renavam` int(11) NOT NULL,
   `placa` varchar(8) NOT NULL,
-  `marca` varchar(56) NOT NULL,
+  `id_marca` int(11) NOT NULL,
   `modelo` varchar(56) NOT NULL,
   `ano` int(11) NOT NULL,
-  `cor` varchar(56) NOT NULL,
+  `id_cor` int(11) NOT NULL,
   `valor` double NOT NULL,
   `data_compra` date NOT NULL,
   `seguro` int(11) NOT NULL,
-  `quilometragem` int(11) NOT NULL,
   `km_inicial` int(20) NOT NULL,
   `tipo_combustivel` varchar(56) NOT NULL,
   `id_empresa` int(11) NOT NULL,
   `id_fornecedor` int(11) NOT NULL,
   `id_responsavel` int(11) NOT NULL,
-  `oculto` int(11) NOT NULL
+  `oculto` int(11) NOT NULL,
+  `ativo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -6662,6 +6838,12 @@ ALTER TABLE `clientes`
 -- Indexes for table `config`
 --
 ALTER TABLE `config`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cores`
+--
+ALTER TABLE `cores`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -6743,6 +6925,12 @@ ALTER TABLE `grupo`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `historico_manutencao`
+--
+ALTER TABLE `historico_manutencao`
+  ADD PRIMARY KEY (`id_patrimonio`,`id_tipo_manutencao`,`data_inicio`,`id_fornecedor`);
+
+--
 -- Indexes for table `horarios`
 --
 ALTER TABLE `horarios`
@@ -6753,6 +6941,62 @@ ALTER TABLE `horarios`
 -- Indexes for table `maquinario`
 --
 ALTER TABLE `maquinario`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `marca`
+--
+ALTER TABLE `marca`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `materiais`
+--
+ALTER TABLE `materiais`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `obras`
+--
+ALTER TABLE `obras`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `obra_funcionarios`
+--
+ALTER TABLE `obra_funcionarios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `obra_maquinarios`
+--
+ALTER TABLE `obra_maquinarios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `obra_materiais`
+--
+ALTER TABLE `obra_materiais`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_ID_OBRA` (`id_obra`),
+  ADD KEY `FK_ID_MATERIAL` (`id_material`);
+
+--
+-- Indexes for table `obra_patrimoniogerais`
+--
+ALTER TABLE `obra_patrimoniogerais`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `obra_produtos`
+--
+ALTER TABLE `obra_produtos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `obra_veiculos`
+--
+ALTER TABLE `obra_veiculos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -6769,12 +7013,6 @@ ALTER TABLE `pais`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `patrimonio`
---
-ALTER TABLE `patrimonio`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `patrimonio_geral`
 --
 ALTER TABLE `patrimonio_geral`
@@ -6784,6 +7022,24 @@ ALTER TABLE `patrimonio_geral`
 -- Indexes for table `periodicidade`
 --
 ALTER TABLE `periodicidade`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `produtos`
+--
+ALTER TABLE `produtos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `produtos_materiais`
+--
+ALTER TABLE `produtos_materiais`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tipo_manutencao`
+--
+ALTER TABLE `tipo_manutencao`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -6798,6 +7054,12 @@ ALTER TABLE `turno`
 ALTER TABLE `turno_func_historico`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_turno` (`id_turno`);
+
+--
+-- Indexes for table `unidade_medida`
+--
+ALTER TABLE `unidade_medida`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `veiculo`
@@ -6834,6 +7096,11 @@ ALTER TABLE `clientes`
 --
 ALTER TABLE `config`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `cores`
+--
+ALTER TABLE `cores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `custo`
 --
@@ -6900,6 +7167,51 @@ ALTER TABLE `horarios`
 ALTER TABLE `maquinario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
+-- AUTO_INCREMENT for table `marca`
+--
+ALTER TABLE `marca`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `materiais`
+--
+ALTER TABLE `materiais`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `obras`
+--
+ALTER TABLE `obras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `obra_funcionarios`
+--
+ALTER TABLE `obra_funcionarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `obra_maquinarios`
+--
+ALTER TABLE `obra_maquinarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `obra_materiais`
+--
+ALTER TABLE `obra_materiais`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `obra_patrimoniogerais`
+--
+ALTER TABLE `obra_patrimoniogerais`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `obra_produtos`
+--
+ALTER TABLE `obra_produtos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `obra_veiculos`
+--
+ALTER TABLE `obra_veiculos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `obs_supervisor`
 --
 ALTER TABLE `obs_supervisor`
@@ -6910,20 +7222,30 @@ ALTER TABLE `obs_supervisor`
 ALTER TABLE `pais`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `patrimonio`
---
-ALTER TABLE `patrimonio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
---
 -- AUTO_INCREMENT for table `patrimonio_geral`
 --
 ALTER TABLE `patrimonio_geral`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `periodicidade`
 --
 ALTER TABLE `periodicidade`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `produtos`
+--
+ALTER TABLE `produtos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `produtos_materiais`
+--
+ALTER TABLE `produtos_materiais`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tipo_manutencao`
+--
+ALTER TABLE `tipo_manutencao`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `turno`
 --
@@ -6935,10 +7257,26 @@ ALTER TABLE `turno`
 ALTER TABLE `turno_func_historico`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `unidade_medida`
+--
+ALTER TABLE `unidade_medida`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `veiculo`
 --
 ALTER TABLE `veiculo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Limitadores para a tabela `obra_materiais`
+--
+ALTER TABLE `obra_materiais`
+  ADD CONSTRAINT `FK_ID_MATERIAL` FOREIGN KEY (`id_material`) REFERENCES `materiais` (`id`),
+  ADD CONSTRAINT `FK_ID_OBRA` FOREIGN KEY (`id_obra`) REFERENCES `obras` (`id`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
