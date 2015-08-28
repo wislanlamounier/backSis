@@ -4,7 +4,6 @@ include_once("../model/class_sql.php");
 include_once("../model/class_empresa_bd.php");
 include_once("../model/class_cliente.php");
 include_once("../model/class_grupo_bd.php");
-include_once("../model/class_custo_bd.php");
 include_once("../model/class_funcionario_bd.php");
 
 class Patrimonio{
