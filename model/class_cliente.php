@@ -86,6 +86,41 @@ class Cliente {
 		}
 	}
 
+	public function get_cliandjur_id($id){
+		 $sql = new Sql();
+		 $sql->conn_bd();
+		 $g = new Glob();
+
+		 $query = "SELECT * FROM clientes WHERE id= '%s' && oculto=0" ;
+		 $result = $g->tratar_query($query, $id);
+		 
+		 if(@mysql_num_rows($result) == 0){
+            return false;            
+	     }else{
+	     	$cliente = new Cliente();
+	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	     	$cliente->id = $row['id'];
+	     	$cliente->nome_razao_soc = $row['nome_razao_soc'];
+	     	$cliente->data_nasc_data_fund = $row['data_nasc_data_fund'];
+	     	$cliente->cpf_cnpj = $row['cpf_cnpj'];
+	     	$cliente->telefone_cel = $row['telefone_cel'];	
+	     	$cliente->telefone_com = $row['telefone_com'];
+	     	$cliente->rg = $row['rg'];  
+	     	$cliente->id_endereco = $row['id_endereco'];
+	     	$cliente->tipo = $row['tipo'];	 
+	     	$cliente->responsavel = $row['responsavel'];
+	     	$cliente->cpf_responsavel = $row['cpf_responsavel'];
+	     	$cliente->data_nasc_responsavel = $row['data_nasc_responsavel'];
+	     	$cliente->email_resp= $row['email_responsavel'];
+	     	$cliente->observacao = $row['observacao'];
+	     	$cliente->site = $row['site'];
+	     	$cliente->fornecedor = $row['fornecedor'];
+	     	$cliente->id_empresa = $row['id_empresa'];
+
+	     	return $cliente;
+	     }
+
+	}
 
 	public function get_cli_id($id){
 		 $sql = new Sql();
@@ -96,30 +131,29 @@ class Cliente {
 		 $result = $g->tratar_query($query, $id);
 		 
 		 if(@mysql_num_rows($result) == 0){
-     
             return false;            
 	     }else{
-
+	     	$cliente = new Cliente();
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$this->id = $row['id'];
-	     	$this->nome = $row['nome_razao_soc'];
-	     	$this->data_nasc = $row['data_nasc_data_fund'];
-	     	$this->cpf = $row['cpf_cnpj'];
-	     	$this->telefone_cel = $row['telefone_cel'];	
-	     	$this->telefone_com = $row['telefone_com'];
-	     	$this->rg = $row['rg'];  
-	     	$this->id_endereco = $row['id_endereco'];
-	     	$this->tipo = $row['tipo'];	 
-	     	$this->responsavel = $row['responsavel'];
-	     	$this->cpf_responsavel = $row['cpf_responsavel'];
-	     	$this->data_nasc_responsavel = $row['data_nasc_responsavel'];
-	     	$this->email_resp= $row['email_responsavel'];
-	     	$this->observacao = $row['observacao'];
-	     	$this->site = $row['site'];
-	     	$this->fornecedor = $row['fornecedor'];
-	     	$this->id_empresa = $row['id_empresa'];
+	     	$cliente->id = $row['id'];
+	     	$cliente->nome = $row['nome_razao_soc'];
+	     	$cliente->data_nasc = $row['data_nasc_data_fund'];
+	     	$cliente->cpf = $row['cpf_cnpj'];
+	     	$cliente->telefone_cel = $row['telefone_cel'];	
+	     	$cliente->telefone_com = $row['telefone_com'];
+	     	$cliente->rg = $row['rg'];  
+	     	$cliente->id_endereco = $row['id_endereco'];
+	     	$cliente->tipo = $row['tipo'];	 
+	     	$cliente->responsavel = $row['responsavel'];
+	     	$cliente->cpf_responsavel = $row['cpf_responsavel'];
+	     	$cliente->data_nasc_responsavel = $row['data_nasc_responsavel'];
+	     	$cliente->email_resp= $row['email_responsavel'];
+	     	$cliente->observacao = $row['observacao'];
+	     	$cliente->site = $row['site'];
+	     	$cliente->fornecedor = $row['fornecedor'];
+	     	$cliente->id_empresa = $row['id_empresa'];
 
-	     	return $this;
+	     	return $cliente;
 	     }
 
 	}
