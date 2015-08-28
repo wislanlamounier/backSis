@@ -2,7 +2,7 @@
 session_start();
 include_once("../model/class_patrimonio_geral_bd.php");
 
-	$nome = $_GET['patrimonio'];  //codigo do estado passado por parametro
+	$nome = $_GET['patrimonio_geral'];  //codigo do estado passado por parametro
 
 	$patrimonio_geral = new Patrimonio_geral();
 	$patrimonio_geral = $patrimonio_geral->get_patrimonio_geral_nome($nome);
