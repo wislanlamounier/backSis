@@ -75,23 +75,23 @@ class Patrimonio_geral{
 
 		 $query = "SELECT * FROM patrimonio_geral WHERE id = '%s' && oculto =0";
 		 $result = $g->tratar_query($query, $id);
-		 
+		 $patrimonio = new Patrimonio_geral();
 		 if(@mysql_num_rows($result) == 0){
             echo 'Nenhum patrimonio encontrado';
             return false;
 	     }else{
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$this->id= $row['id'];
-	     	$this->nome= $row['nome'];
-			$this->matricula= $row['matricula'];
-			$this->marca= $row['marca'];
-			$this->descricao= $row['descricao'];
-			$this->quantidade= $row['quantidade'];
-			$this->valor= $row['valor'];
-			$this->id_empresa= $row['id_empresa'];
+	     	$patrimonio->id= $row['id'];
+	     	$patrimonio->nome= $row['nome'];
+			$patrimonio->matricula= $row['matricula'];
+			$patrimonio->marca= $row['marca'];
+			$patrimonio->descricao= $row['descricao'];
+			$patrimonio->quantidade= $row['quantidade'];
+			$patrimonio->valor= $row['valor'];
+			$patrimonio->id_empresa= $row['id_empresa'];
 	     	
 	     	
-	     	return $this;
+	     	return $patrimonio;
 	     }
 	}
 
@@ -121,25 +121,25 @@ class Patrimonio_geral{
 			echo '<div class="msg">Patrimonio excluido com sucesso!</div>';
 		}
 	}
-		public function get_patrimonio_geral_by_nome($nome){
-        $sql = new Sql();
-        $sql->conn_bd();
-        $g = new Glob();
-        $aux=0;
-        $return = array();
-        $query = $g->tratar_query("SELECT * FROM patrimonio_geral WHERE oculto = 0 && nome LIKE '%%%s%%'",$nome);
+	public function get_patrimonio_geral_by_nome($nome){
+		        $sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$aux=0;
+		$return = array();
+		$query = $g->tratar_query("SELECT * FROM patrimonio_geral WHERE oculto = 0 && nome LIKE '%%%s%%'",$nome);
 
-        while($result = mysql_fetch_array($query)){
-          $return[$aux][0] = $result['id'];
-          $return[$aux][1] = $result['nome'];
-          
-          $aux++;
-        }
-        if($aux == 0){
-          echo "<div class='msg'>Patrimonio não encontrado !</div>";
-        }else{
-        return $return;
-        }
+		while($result = mysql_fetch_array($query)){
+		  $return[$aux][0] = $result['id'];
+		  $return[$aux][1] = $result['nome'];
+		  
+		  $aux++;
+		}
+		if($aux == 0){
+		  echo "<div class='msg'>Patrimonio não encontrado !</div>";
+		}else{
+		return $return;
+		}
     }
 }
 	

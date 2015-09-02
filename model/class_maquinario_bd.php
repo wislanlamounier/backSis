@@ -1,5 +1,4 @@
 <?php
-
 include_once("../model/class_sql.php");
 require_once("../global.php");
 
@@ -97,31 +96,31 @@ class Maquinario{
 
 		 $query = "SELECT * FROM maquinario WHERE id = '%s' && oculto =0 && id_empresa=".$_SESSION['id_empresa'];
 		 $result = $g->tratar_query($query, $id);
-		 
+		 $maquinario = new Maquinario();
 		 if(@mysql_num_rows($result) == 0){
             echo 'Nenhum maquinario encontrado';
             return false;
 	     }else{
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$this->id= $row['id'];
-	     	$this->matricula = $row['matricula'];
-			$this->chassi_nserie = $row['chassi_nserie'];
-			$this->modelo = $row['modelo'];
-			$this->tipo = $row['tipo'];
-			$this->tipo_consumo = $row['tipo_consumo'];
-			$this->ano = $row['ano'];	
-			$this->id_cor = $row['id_cor'];
-			$this->fabricante = $row['fabricante'];
-			$this->data_compra = $row['data_compra'];
-			$this->seguro = $row['seguro'];	
-			$this->horimetro_inicial = $row['horimetro_inicial'];			
-			$this->id_empresa = $row['id_empresa'];
-			$this->id_fornecedor = $row['id_fornecedor'];
-			$this->id_responsavel = $row['id_responsavel'];
-			$this->observacao = $row['observacao'];		
-			$this->valor = $row['valor'];
+	     	$maquinario->id= $row['id'];
+	     	$maquinario->matricula = $row['matricula'];
+			$maquinario->chassi_nserie = $row['chassi_nserie'];
+			$maquinario->modelo = $row['modelo'];
+			$maquinario->tipo = $row['tipo'];
+			$maquinario->tipo_consumo = $row['tipo_consumo'];
+			$maquinario->ano = $row['ano'];	
+			$maquinario->id_cor = $row['id_cor'];
+			$maquinario->fabricante = $row['fabricante'];
+			$maquinario->data_compra = $row['data_compra'];
+			$maquinario->seguro = $row['seguro'];	
+			$maquinario->horimetro_inicial = $row['horimetro_inicial'];			
+			$maquinario->id_empresa = $row['id_empresa'];
+			$maquinario->id_fornecedor = $row['id_fornecedor'];
+			$maquinario->id_responsavel = $row['id_responsavel'];
+			$maquinario->observacao = $row['observacao'];		
+			$maquinario->valor = $row['valor'];
 	     	
-	     	return $this;
+	     	return $maquinario;
 	     }
 	}	
 

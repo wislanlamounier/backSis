@@ -23,8 +23,6 @@ class Glob{
         $query = call_user_func_array('sprintf', $args);
         $QUERY = $query;
 
-        
-        
         return mysql_query($query);
     }
 }

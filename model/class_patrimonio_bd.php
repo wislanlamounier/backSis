@@ -49,7 +49,7 @@ class Patrimonio{
         $g = new Glob();
         $aux=0;
         $return = array();
-        $query = "SELECT id, modelo, fabricante,  FROM maquinario as e where e.modelo like '%%%s%%' union SELECT id, modelo, marca FROM veiculo as f where f.modelo like '%%%s%%'";
+        $query = "SELECT id, modelo, fabricante  FROM maquinario as e where e.modelo like '%%%s%%' union SELECT id, modelo, id_marca FROM veiculo as f where f.modelo like '%%%s%%'";
         $query = $g->tratar_query($query, $modelo, $modelo);
         $result = mysql_fetch_array($query);
         
@@ -68,6 +68,30 @@ class Patrimonio{
         }
        
         return $return;
+        
+    }
+    public function get_name_patrimonio_id($id){
+        $sql = new Sql();
+        $sql->conn_bd();
+        $g = new Glob();
+        $aux=0;
+        $return = array();
+        $query = "SELECT id, modelo, fabricante, tipo  FROM maquinario as e where e.id = %d union SELECT id, modelo, id_marca, tipo FROM veiculo as f where f.id = %d";
+        $query_tra = $g->tratar_query($query, $id, $id);
+
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['modelo'];
+			$return[$aux][2] = $result['tipo'];
+			$aux++;
+		}
+		if($aux == 0){
+			$sql->close_conn();
+			echo '<div class="msg">Nenhum patrimonio encontrado!</div>';
+		}else{
+			$sql->close_conn();
+			return $return;
+		}
         
     }
     public function get_patrimonio_nome($name){
@@ -92,32 +116,7 @@ class Patrimonio{
 			return $return;
 		}
 	}
-    public function get_patrimonio_id($id){
-		 $sql = new Sql();
-		 $sql->conn_bd();
-		 $g = new Glob();
-
-		 $query = "SELECT * FROM patrimonio WHERE id = '%s' && oculto =0";
-		 $result = $g->tratar_query($query, $id);
-		 
-		 if(@mysql_num_rows($result) == 0){
-            echo 'Nenhum grupo encontrado';
-            return false;
-	     }else{
-	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$this->id = $row['id'];
-	     	$this->descricao = $row['descricao'];
-	     	$this->id_grupo = $row['id_grupo'];
-	     	$this->id_custo = $row['id_custo'];
-	     	$this->id_fornecedor = $row['id_fornecedor'];
-	     	$this->id_empresa = $row['id_empresa'];
-	     	$this->nome = $row['nome'];
-	     	$this->id_responsavel = $row['id_responsavel'];
-	     	$this->valor_compra = $row['valor_compra'];
-	     	
-	     	return $this;
-	     }
-	}	
+    
 
 	public function atualiza_patrimonio($nome, $descricao, $id_grupo, $id_fornecedor, $id_responsavel, $id_empresa, $id_custo, $valor_compra, $id){
 		$sql = new Sql();	

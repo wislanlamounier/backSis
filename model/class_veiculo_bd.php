@@ -87,31 +87,31 @@ class Veiculo{
 
 		 $query = "SELECT * FROM veiculo WHERE id = '%s' && oculto =0 && id_empresa=".$_SESSION['id_empresa'];
 		 $result = $g->tratar_query($query, $id);
-		 
+		 $veiculo = new Veiculo();
 		 if(@mysql_num_rows($result) == 0){
             echo 'Nenhum veículo encontrado';
             return false;
 	     }else{
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$this->id= $row['id'];
-	     	$this->matricula= $row['matricula'];
-			$this->renavam= $row['renavam'];
-			$this->placa= $row['placa'];
-			$this->chassi= $row['chassi'];
-			$this->id_marca = $row['id_marca'];
-			$this->modelo=  $row['modelo'];
-			$this->id_cor= $row['id_cor'];
-			$this->ano= $row['ano'];
-			$this->tipo_combustivel= $row['tipo_combustivel'];
-			$this->data_compra = $row['data_compra'];
-			$this->valor = $row['valor'];
-			$this->seguro= $row['seguro'];
-			$this->km_inicial= $row['km_inicial'];
-			$this->id_fornecedor= $row['id_fornecedor'];
-			$this->id_empresa= $row['id_empresa'];
-			$this->id_responsavel= $row['id_responsavel'];
+	     	$veiculo->id= $row['id'];
+	     	$veiculo->matricula= $row['matricula'];
+			$veiculo->renavam= $row['renavam'];
+			$veiculo->placa= $row['placa'];
+			$veiculo->chassi= $row['chassi'];
+			$veiculo->id_marca = $row['id_marca'];
+			$veiculo->modelo=  $row['modelo'];
+			$veiculo->id_cor= $row['id_cor'];
+			$veiculo->ano= $row['ano'];
+			$veiculo->tipo_combustivel= $row['tipo_combustivel'];
+			$veiculo->data_compra = $row['data_compra'];
+			$veiculo->valor = $row['valor'];
+			$veiculo->seguro= $row['seguro'];
+			$veiculo->km_inicial= $row['km_inicial'];
+			$veiculo->id_fornecedor= $row['id_fornecedor'];
+			$veiculo->id_empresa= $row['id_empresa'];
+			$veiculo->id_responsavel= $row['id_responsavel'];
 	     	
-	     	return $this;
+	     	return $veiculo;
 	     }
 	}	
 	
