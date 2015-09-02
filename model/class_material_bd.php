@@ -64,6 +64,29 @@ class Material{
 	     }
 
 	}
+	public function get_material_by_name($name){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$aux=0;
+		$query = "SELECT * FROM materiais WHERE nome LIKE '%%%s%%' ";
+		$query_tra = $g->tratar_query($query, $name);
+
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['nome'];
+			$return[$aux][2] = $result['id_unidade_medida'];
+			$aux++;
+		}
+		if($aux == 0){
+			$sql->close_conn();
+			echo '<div class="msg">Nenhum material encontrado!</div>';
+		}else{
+			$sql->close_conn();
+			return $return;
+		}
+	}
+	
 	public function get_all_material(){
 		$sql = new Sql();
 		$sql->conn_bd();
