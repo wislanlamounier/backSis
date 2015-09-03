@@ -103,7 +103,7 @@ function validate(){
         });
     }
     function apagarFuncionario(id){
-      alert("chamou")
+      // alert("chamou")
         var url = '../ajax/ajax_apagar_funcionarios.php?id='+id; 
         
         $.get(url, function(dataReturn) {
