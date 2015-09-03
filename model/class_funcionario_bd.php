@@ -106,44 +106,44 @@ class Funcionario{
 
 		 $query = "SELECT * FROM funcionario WHERE id= '%s' && oculto = 0";
 		 $result = $g->tratar_query($query, $id);
-		 
+		 $func = new Funcionario();
 		 if(@mysql_num_rows($result) == 0){
      
             return false;
 	     }else{
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$this->id = $row['id'];
-	     	$this->cod_serie = $row['cod_serie'];
-	     	$this->id_tabela = $row['id_tabela'];
-	     	$this->nome = $row['nome'];
-	     	$this->cpf = $row['cpf'];
-	     	$this->email = $row['email'];
-	     	$this->telefone = $row['telefone'];
-	     	$this->data_nasc = $row['data_nasc'];
-	     	$this->senha = $row['senha'];
-	     	$this->id_cbo = $row['id_cbo'];
-	     	$this->id_endereco = $row['id_endereco'];
-	     	$this->id_empresa = $row['id_empresa'];
-	     	$this->id_empresa_filial = $row['id_empresa_filial'];
-	     	$this->telefone = $row['telefone'];
-	     	$this->id_turno = $row['id_turno'];
-	     	$this->is_admin = $row['is_admin'];
-	     	$this->id_dados_bancarios = $row['id_dados_bancarios'];
-	     	$this->rg = $row['rg'];
-			$this->data_em_rg = $row['data_em_rg'];
-			$this->org_em_rg = $row['org_em_rg'];
-			$this->num_tit_eleitor = $row['num_tit_eleitor'];
-			$this->email_empresa = $row['email_empresa'];
-			$this->data_adm = $row['data_adm'];
-			$this->salario_base = $row['salario_base'];
-			$this->qtd_horas_sem = $row['qtd_horas_sem'];
-			$this->num_cart_trab = $row['num_cart_trab'];
-			$this->num_serie_cart_trab = $row['num_serie_cart_trab'];
-			$this->uf_cart_trab = $row['id_uf_cart_trab'];
-			$this->num_pis = $row['num_pis'];
-			$this->id_supervisor = $row['id_supervisor'];
+	     	$func->id = $row['id'];
+	     	$func->cod_serie = $row['cod_serie'];
+	     	$func->id_tabela = $row['id_tabela'];
+	     	$func->nome = $row['nome'];
+	     	$func->cpf = $row['cpf'];
+	     	$func->email = $row['email'];
+	     	$func->telefone = $row['telefone'];
+	     	$func->data_nasc = $row['data_nasc'];
+	     	$func->senha = $row['senha'];
+	     	$func->id_cbo = $row['id_cbo'];
+	     	$func->id_endereco = $row['id_endereco'];
+	     	$func->id_empresa = $row['id_empresa'];
+	     	$func->id_empresa_filial = $row['id_empresa_filial'];
+	     	$func->telefone = $row['telefone'];
+	     	$func->id_turno = $row['id_turno'];
+	     	$func->is_admin = $row['is_admin'];
+	     	$func->id_dados_bancarios = $row['id_dados_bancarios'];
+	     	$func->rg = $row['rg'];
+			$func->data_em_rg = $row['data_em_rg'];
+			$func->org_em_rg = $row['org_em_rg'];
+			$func->num_tit_eleitor = $row['num_tit_eleitor'];
+			$func->email_empresa = $row['email_empresa'];
+			$func->data_adm = $row['data_adm'];
+			$func->salario_base = $row['salario_base'];
+			$func->qtd_horas_sem = $row['qtd_horas_sem'];
+			$func->num_cart_trab = $row['num_cart_trab'];
+			$func->num_serie_cart_trab = $row['num_serie_cart_trab'];
+			$func->uf_cart_trab = $row['id_uf_cart_trab'];
+			$func->num_pis = $row['num_pis'];
+			$func->id_supervisor = $row['id_supervisor'];
 
-	     	return $this;
+	     	return $func;
 	     }
 	}
 	public function get_admin(){
