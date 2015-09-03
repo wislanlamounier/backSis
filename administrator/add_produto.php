@@ -20,132 +20,159 @@ function tipo_form($checked, $id_produto, $nome_material, $id_material, $medida_
 	$produtos_materiais->add_produtos_materiais_bd();
 }
 
+
  ?>
+ <script type="text/javascript">
+function sessionProduto(nome){
+	var produto = nome;
+	alert(nome);
+	 var url = '../ajax/ajax_incrementa_quantidade_material.php?nome='+nome;  //caminho do arquivo php que irá buscar os materiais
+
+         $.get(url, function(dataReturn) {
+            $('#form-input-select').html(dataReturn);  //coloco na div o retorno da requisicao
+          });
+}
+
+function buscarMateriais(){
+      
+        
+        var nome = document.getElementById("nome").value;
+        var url = '../ajax/ajax_buscar_materiais.php?nome='+nome;  //caminho do arquivo php que irá buscar os materiais
+
+         $.get(url, function(dataReturn) {
+            $('#form-input-select').html(dataReturn);  //coloco na div o retorno da requisicao
+          });
+    }
+function selecionaProduto(id){
+        // alert('chamou'+id)
+          
+            
+          var url = '../ajax/ajax_montar_material.php?id='+id;  //caminho do arquivo php que irá buscar as cidades no BD
+          // alert('passou')
+          $.get(url, function(dataReturn) {
+            
+            $('#form-input-dados').html(dataReturn);  //coloco na div o retorno da requisicao
+          });
+    }
+
+
+ </script>
 
 <html>
 <head>
 	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 	 <link rel="stylesheet" type="text/css" href="style1.css">
-<script type="text/javascript">
-
-function session(r){
-alert(r);
-var parametros = r.split(':');
-var id = "incluir:"+parametros[1];
-	document.getElementById(id).checked = true;
-
-
-
-}
-
-function validate(f){
-        var erros = 0;
-        var msg = "";
-          for (var i = 0; i < f.length; i++) {
-              if(f[i].name == "produto"){
-                  if(f[i].value == ""){
-                     msg += "Insira codigo no campo produto!\n";
-                     f[i].style.border = "1px solid #FF0000";
-                     erros++;
-                  }else{
-                      f[i].style.border = "1px solid #898989";
-                  }
-              }
-   
-
-         }
-          if(erros>0){            
-              alert(msg);
-            return false;
-          }
-      }
-
-function carregaUnidadeMedida(medida){
-      
-      var combo = document.getElementById("medida");
-      for (var i = 0; i < combo.options.length; i++)
-      {
-        if (combo.options[i].value == medida)
-        {
-          combo.options[i].selected = true;
-          break;
-        }
-      }
-    }
-</script>
 </head>
 
 <body>			
-	
-			<?php include_once("../view/topo.php"); ?>
-			<div>
-				<div class="formulario">
-					
-						<div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">PRODUDTO</span></div></div>
-						<form>
-							 <input type="hidden" id="buscar" name="buscar" value="buscar"> 
-						<div style="margin-top:80px; margin-left:150px; float:top; ">Buscar Insumo <input type="text" id="indice" name="indice"> <input type="submit" id="buscar" name="buscar" value="Buscar"></div>
-						</form>
-						<?php if(isset($_GET['buscar']) !='buscar'){?>
-						<div class="cabecalho"><div style="float:left "><span>Nome</span> </div><div><span>Receita</span></div></div>
-						<br><br>
-						<form form method="POST" id="cadastrar" onsubmit="return validate(this)">
-						<div><div style="float:left"><input type="text" name="produto" id="produto"></div><div style="float:left; padding-left:20px;" ><span>INCLUIR</span></div><div style="float:left; padding-left:20px;"><span>INSUMO</span></div><div style="float:left; padding-left:20px;"><span>QUANTIDADE</span></div></div>
-						
-						<?php
-						
-							$materiais = new Material();
-							$medida = new Unidade_medida();
-							$materiais = $materiais->get_all_material();
-							
+	<?php include_once("../view/topo.php"); ?>
 
-							 for ($i=0; $i < count($materiais); $i++) { ?>							
-							<?php  
-							    $id_unidade_medida = $materiais[$i][2];
-								$nome_material = $materiais[$i][1];
-								$id = $materiais[$i][0];
-								$medida = $medida->get_unidade_medida_by_id($id_unidade_medida);
-								
-							?>
-							<br>
-							<div class="resultados" id="resultados" style="margin-left:200px; margin-top:20px;"><div style="float:left; padding-left:20px;" ><input type="checkbox"  id="<?php echo 'incluir:'.$nome_material ?>" name="<?php echo 'incluir'.$nome_material ?>"></div><div style="float:left; padding-left:40px; padding-right:50px; width:30px;"><input readonly style="width:120px; border:0; background-color: rgba(100,100,100,0);" type="text" value="<?php echo $nome_material; ?>" name="<?php echo  'insumo'.$nome_material ?>"></div><div style="float:left; padding-left:40px; padding-right:20px;"><input type="numeric" onchange="session(this.name)" id="<?php echo 'quantidade'.$nome_material?>" name="<?php echo 'quantidade:'.$nome_material?>" style="width:40px;"><input readonly style="width:40px; border:0; background-color: rgba(100,100,100,0);"type="text" name="<?php echo 'medida'.$nome_material?>" id="medida" value="<?php echo $medida->sigla; ?>"></div></div>
-							<br>
-						
-							<?php } ?>
-							<input type="hidden" name="cad" id="cad">
-							<div> <input type="submit" name="cadastrar" value="Cadastrar"></div>
-							</form>
-						<?php } ?>	
+			
+            <div class="formulario" style="width:43%;">
+              <div class="title-box" style="float:left;width:100%"><div style="float:left"><img src="../images/add.png" width="35px" style="margin-left:5px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">PRODUTO</span></div></div>
+              	<?php 
+                    if(isset($_GET['t']) && $_GET['t'] == 'c'){
+                        unset($_SESSION['produto']);
+                    }
+               ?>
 
-						<?php if(isset($_GET['buscar']) =='buscar'){?>
-						<div class="cabecalho"><div style="float:left "><span>Nome</span> </div><div><span>Receita</span></div></div>
-						<br><br>
-						<form form method="POST" id="buscar">
-						<div><div style="float:left"><input type="text" name="produto" id="produto"></div><div style="float:left; padding-left:20px;" ><span>INCLUIR</span></div><div style="float:left; padding-left:20px;"><span>INSUMO</span></div><div style="float:left; padding-left:20px;"><span>QUANTIDADE</span></div></div>
-						
-							<?php 
-							$indice= $_GET['indice'];	
-							$materiais = new Material();
-							$medida = new Unidade_medida();
-							$materiais = $materiais->get_material_by_name($indice);
 
-									for ($i=0; $i < count($materiais); $i++) { ?>							
-										<?php  
-										    $id_unidade_medida = $materiais[$i][2];
-											$nome_material = $materiais[$i][1];
-											$id = $materiais[$i][0];
-											$medida = $medida->get_unidade_medida_by_id($id_unidade_medida);
-											
-										?>
-							<br>
-							<div class="resultados" id="resultados" style="margin-left:200px; margin-top:20px;"><div style="float:left; padding-left:20px;" ><input type="checkbox" id="incluir" name="<?php echo 'incluir'.$nome_material ?>"></div><div style="float:left; padding-left:40px; padding-right:50px; width:30px;"><input readyonly style="width:120px; border:0; background-color: rgba(100,100,100,0);" type="text" value="<?php echo $nome_material; ?>" name="<?php echo  'insumo'.$nome_material ?>"></div><div style="float:left; padding-left:40px; padding-right:20px;"><input type="text" onchange="session(this.value)" id="<?php echo 'quantidade'.$nome_material?>" name="<?php echo 'quantidade'.$nome_material?>" style="width:40px;"><input style="width:40px; border:0; background-color: rgba(100,100,100,0);"type="text" name="<?php echo 'medida'.$nome_material?>" id="medida" value="<?php echo $medida->sigla; ?>"></div></div>
-							<br>
-						
-							<?php } ?>
-							<input type="hidden" name="buscar" id="buscar">
-							<div> <input type="submit" name="cadastrar" value="Cadastrar"></div>
-							</form>
-						<?php }?>
+ <form  action="add_obra.php" onsubmit="return validate(this)">
+                               <input type="hidden" id="cad" name="cad" value="cad">
+                              
+                              <div class="bloco-1" id="dados_obra">            
+                                  <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
+                                  <div class="title-bloco">Produtos</div>
+                                  <div class="desc-bloco">
+                                      <span>Selecione os materiais </span>
+                                  </div>
+                                  <div class="body-bloco">
+                                      <div class="form-input left">
+                                          <div class="form-input">
+                                              <div class="form-input" style="background-color:rgba(200,200,200,0.5); padding: 10px 0px 10px 0px;">
+                                                  <input type="hidden" id="tipo" value="2">
+                                                  <span><b>Nome do Produto: </b></span>
+                                                  <input type="text" id="produto" name="produto" onchange="sessionProduto(this.value)">
+                                                  <?php echo $_SESSION['produto']['nome']?>
+                                              </div>
+                                              <span><b>Materiais: </b></span><br /><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:65%"> <input type="button" value="Buscar" onclick="buscarMateriais()">
+                                          </div>
+                                          <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
+                                              <select size="10" style="height: 100%; width: 100%">
+                                              </select>
+                                          </div>
+                                      </div>
+                                      <div class="form-input right">
+                                          <div class="form-input">
+                                              <span><b>Patrimonios selecionados: </b></span>
+                                          </div>
+                                          <div class="form-input" id="form-input-dados" style="border: 1px solid#bbb;  padding: 10px;">
+                                                <?php 
+                                                    echo '<table>';
+                                                    if(isset($_SESSION['obra']['patrimonio']))//se conter dados de patrimonio na sessão executa o for percorrendo e exibindo os dados com as quantidades
+                                                        for($aux = 0; $aux < count($_SESSION['obra']['patrimonio']); $aux++){
+                                                            //variavel tipo_id_qtd = os valores da sessão
+                                                            $tipo_id_qtd = explode(':', $_SESSION['obra']['patrimonio'][$aux]);
+                                                              
+
+                                                            echo '<tr>';
+                                                            if($tipo_id_qtd[0] == 0){
+                                                               $res = Patrimonio_geral::get_patrimonio_geral_id($tipo_id_qtd[1]);
+                                                               echo '<td ><span>'.$res->nome.': </span></td><td><input name="qtd:'.$res->id.':'.$tipo_id_qtd[0].'" id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'" onchange="increment(this.name)" style="width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td>';
+                                                            }else if($tipo_id_qtd[0] == 1){
+                                                               $res = Maquinario::get_maquinario_id($tipo_id_qtd[1]);
+                                                               echo '<td><span>'.$res->modelo.': </span></td><td><input name="qtd:'.$res->id.':'.$tipo_id_qtd[0].'" id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'"  onchange="increment(this.name)" style="width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td>';
+                                                            }else{
+                                                               $res = Veiculo::get_veiculo_id($tipo_id_qtd[1]);
+                                                               echo '<td><span>'.$res->modelo.': </span></td><td><input name="qtd:'.$res->id.':'.$tipo_id_qtd[0].'" id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'"  onchange="increment(this.name)" style="width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td>';
+                                                            }
+                                                            echo '</tr>';
+                                                            // if(count($patrimonio)>1)
+                                                            //  for($aux = 0; $aux < count($patrimonio); $aux++ ){
+                                                            //      echo 'id '. $patrimonio[$aux][1].'<br />';
+                                                            //  }
+                                                            // else
+                                                            //  echo 'id '. $patrimonio[0][1].'<br />';
+                                                        }
+                                                        echo '</table>';
+
+                                                 ?>
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="form-input" style="margin: 10px;text-align:center">
+                                         <input type="button"  onclick="javascript:window.history.back()" value="Voltar"> <input type="submit" value="Avançar">
+                                      </div>
+                                  </div>
+                              </div>
+                             
+                              <div class="buttons" style="text-align:center">
+                                  <input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_produto.php?t=c'" id="button" value="Cancelar">
+                              </div>
+                       </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 						<?php if(isset($_POST['cad']) =='cad'){?>
 

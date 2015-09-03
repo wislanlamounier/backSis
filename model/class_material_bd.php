@@ -56,11 +56,12 @@ class Material{
 	     }else{
 
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$this->id = $row['id'];
-	     	$this->nome = $row['nome'];
-	     	$this->id_unidade_medida = $row['id_unidade_medida'];          	
+	     	$material = new Material();
+	     	$material->id = $row['id'];
+	     	$material->nome = $row['nome'];
+	     	$material->id_unidade_medida = $row['id_unidade_medida'];          	
 
-	     	return $this;
+	     	return $material;
 	     }
 
 	}
