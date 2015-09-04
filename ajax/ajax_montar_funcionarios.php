@@ -29,7 +29,7 @@ include_once("../model/class_funcionario_bd.php");
         else
           echo '<tr style="background-color:#ccc;">';
       			 $res = Funcionario::get_func_id($_SESSION['obra']['funcionario'][$aux]);
-      			 echo '<td ><span>'.$res->nome.': </span></td><td style="text-align:center"><a style="cursor:pointer" id="'.$res->id.'" onclick="apagarFuncionario(this.id)"> <img style="width:15px" src="../images/delete.png"></a></td>';      		
+      			 echo '<td ><span>'.$res->nome.': </span></td><td style="text-align:center"><a style="cursor:pointer" id="'.$res->id.'" onclick="apagar(this.id,\'funcionario\')"> <img style="width:15px" src="../images/delete.png"></a></td>';      		
       		echo '</tr>';
   	}
   	echo '</table>';

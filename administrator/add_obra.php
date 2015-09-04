@@ -43,7 +43,7 @@ function validate(){
             
             $.get(url, function(dataReturn) {
             	
-              $('#form-input-select').html(dataReturn);  //coloco na div o retorno da requisicao
+              $('#form-input-select').html(dataReturn);  
             });
          
     }
@@ -63,7 +63,7 @@ function validate(){
         var url = '../ajax/ajax_buscar_patrimonios.php?nome='+nome+'&tipo='+tipo;  
 
          $.get(url, function(dataReturn) {
-            $('#form-input-select').html(dataReturn);  //coloco na div o retorno da requisicao
+            $('#form-input-select').html(dataReturn);
           });
     }
     function selecionaCliente(id){
@@ -71,7 +71,7 @@ function validate(){
           
           $.get(url, function(dataReturn) {
             
-            $('#form-input-dados').html(dataReturn);  //coloco na div o retorno da requisicao
+            $('#form-input-dados').html(dataReturn); 
           });
     }
     function selecionaPatrimonio(id){
@@ -81,7 +81,7 @@ function validate(){
           // alert('passou')
           $.get(url, function(dataReturn) {
             
-            $('#form-input-dados').html(dataReturn);  //coloco na div o retorno da requisicao
+            $('#form-input-dados').html(dataReturn); 
           });
     }
     function buscarFuncionario(){
@@ -90,7 +90,7 @@ function validate(){
 
         $.get(url, function(dataReturn) {
             
-            $('#form-input-select').html(dataReturn);  //coloco na div o retorno da requisicao
+            $('#form-input-select').html(dataReturn);
         });
     }
     function selecionaFuncionarios(id){
@@ -99,16 +99,16 @@ function validate(){
         
         $.get(url, function(dataReturn) {
           
-          $('#form-input-dados').html(dataReturn);  //coloco na div o retorno da requisicao
+          $('#form-input-dados').html(dataReturn);  
         });
     }
-    function apagarFuncionario(id){
-      // alert("chamou")
-        var url = '../ajax/ajax_apagar_funcionarios.php?id='+id; 
+    function apagar(id, whatarray){
+        // alert('id: '+id+"/ que array?: "+whatarray);
+        var url = '../ajax/ajax_apagar.php?id='+id+'&whatarray='+whatarray; 
         
         $.get(url, function(dataReturn) {
           
-          $('#form-input-dados').html(dataReturn);  //coloco na div o retorno da requisicao
+          $('#form-input-dados').html(dataReturn);  
         });
     }
 </script>
@@ -137,7 +137,7 @@ function validate(){
                               </div> -->
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
-                              		<div class="title-bloco">Cliente/ Obra</div>
+                              		<div class="title-bloco">Cliente/Obra</div>
                                   <div class="desc-bloco">
                                       <span>Selecione o cliente </span>
                                   </div>
@@ -165,8 +165,8 @@ function validate(){
                                           </div>
                                       </div>
                                       
-                                      <div class="form-input" style="margin: 10px;text-align:center">
-                                         <input type="submit" value="Avançar">
+                                      <div class="form-input" style="margin: 10px; text-align:center;  width:97%">
+                                         <input type="button"  onclick="javascript:window.history.back()" class="voltar" value="Voltar"> <input class="avancar" type="submit" value="Avançar">
                                       </div>
                                   </div>
                               </div>
@@ -179,7 +179,7 @@ function validate(){
                        
             <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_d_o'){ //add dados da obra?>
                       <form  action="add_obra.php" onsubmit="return validate(this)">
-                               <input type="hidden" id="t" name="t" value="a_p_o">
+                               <input type="hidden" id="t" name="t" value="a_pr_o">
                               <?php
                                   $_SESSION['obra']['cliente']['id_cli'] = $_GET['id_cli'];
                                   $_SESSION['obra']['cliente']['nome_cli'] = $_GET['nome_cli'];
@@ -219,8 +219,8 @@ function validate(){
                                           <span>Descricão:</span><br /><textarea type="text" placeholder="Descreva os principais detalhes da obra..." name="desc" id="desc"  style="width:90%; max-width:90%; height: 10%;max-height: 100px; padding: 2px;"><?php (isset($_SESSION['obra']['dados']['desc']))?print $_SESSION['obra']['dados']['desc']:'' ?></textarea>
                                       </div>
                                       
-                                      <div class="form-input" style="margin: 10px;text-align:center">
-                                           <input type="button"  onclick="javascript:window.history.back()" value="Voltar"> <input type="submit" value="Avançar">
+                                      <div class="form-input" style="margin: 10px; text-align:center;  width:97%">
+                                         <input type="button"  onclick="javascript:window.history.back()" class="voltar" value="Voltar"> <input class="avancar" type="submit" value="Avançar">
                                       </div>
                                   </div>
                               </div>
@@ -229,16 +229,67 @@ function validate(){
                                   <input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_obra.php?t=c'" id="button" value="Cancelar">
                               </div>
                        </form>
-			
-			      <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_p_o'){ //add produtos da obra?>
-                      <form  action="add_obra.php" onsubmit="return validate(this)">
-                               <input type="hidden" id="t" name="t" value="a_f_o">
+			      <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_pr_o'){ //add produtos da obra?>
+                        <form  action="add_obra.php" onsubmit="return validate(this)">
+                               <input type="hidden" id="t" name="t" value="a_p_o">
                               <?php
                                   $_SESSION['obra']['dados']['nome'] = $_GET['nome'];
                                   $_SESSION['obra']['dados']['data_inicio_previsto'] = $_GET['data_inicio_previsto'];
                                   $_SESSION['obra']['dados']['rua'] = $_GET['rua'];
                                   $_SESSION['obra']['dados']['num'] = $_GET['num'];
                                   $_SESSION['obra']['dados']['desc'] = $_GET['desc'];
+                                  
+                               ?>
+                              
+                        
+                              <div class="bloco-1" id="dados_obra">            
+                                  <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
+                                  <div class="title-bloco">Podutos/Obra</div>
+                                  <div class="desc-bloco">
+                                      <span>Selecione os Produtos </span>
+                                  </div>
+                                  <div class="body-bloco">
+                                      <div class="form-input left">
+                                          <div class="form-input">
+                                              <div class="form-input" style="background-color:rgba(200,200,200,0.5); padding: 10px 0px 10px 0px;">
+                                                  
+                                              </div>
+                                              <span><b>Nome: </b></span><br /><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:65%"> <input type="button" value="Buscar" onclick="buscarPatrimonios()">
+                                          </div>
+                                          <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
+                                              <select size="10" style="height: 100%; width: 100%">
+                                              </select>
+                                          </div>
+                                      </div>
+                                      <div class="form-input right">
+                                          <div class="form-input">
+                                              <span><b>Produtos selecionados: </b></span>
+                                          </div>
+                                          <div class="form-input" id="form-input-dados" style="border: 1px solid#bbb;  padding: 10px;">
+                                                
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="form-input" style="margin: 10px; text-align:center;  width:97%">
+                                         <input type="button"  onclick="javascript:window.history.back()" class="voltar" value="Voltar"> <input class="avancar" type="submit" value="Avançar">
+                                      </div>
+                                  </div>
+                              </div>
+                             
+                              <div class="buttons" style="text-align:center;">
+                                  <input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_obra.php?t=c'" id="button" value="Cancelar">
+                              </div>
+                       </form>
+
+			      <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_p_o'){ //add patrimonios da obra?>
+                      <form  action="add_obra.php" onsubmit="return validate(this)">
+                               <input type="hidden" id="t" name="t" value="a_f_o">
+                              <?php
+                                  // $_SESSION['obra']['dados']['nome'] = $_GET['nome'];
+                                  // $_SESSION['obra']['dados']['data_inicio_previsto'] = $_GET['data_inicio_previsto'];
+                                  // $_SESSION['obra']['dados']['rua'] = $_GET['rua'];
+                                  // $_SESSION['obra']['dados']['num'] = $_GET['num'];
+                                  // $_SESSION['obra']['dados']['desc'] = $_GET['desc'];
                                   
                                ?>
                               
@@ -275,7 +326,7 @@ function validate(){
                                           </div>
                                           <div class="form-input" id="form-input-dados" style="border: 1px solid#bbb;  padding: 10px;">
                                                 <?php 
-                                                    echo '<table>';
+                                                    echo '<table style="width:100%">';
                                                     if(isset($_SESSION['obra']['patrimonio']))//se conter dados de patrimonio na sessão executa o for percorrendo e exibindo os dados com as quantidades
                                                         for($aux = 0; $aux < count($_SESSION['obra']['patrimonio']); $aux++){
                                                             //variavel tipo_id_qtd = os valores da sessão
@@ -288,13 +339,13 @@ function validate(){
                                                               echo '<tr style="background-color:#ddd;">';
                                                             if($tipo_id_qtd[0] == 0){
                                                                $res = Patrimonio_geral::get_patrimonio_geral_id($tipo_id_qtd[1]);
-                                                               echo '<td ><span>'.$res->nome.': </span></td><td><input name="qtd:'.$res->id.':'.$tipo_id_qtd[0].'" id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'" onchange="increment(this.name)" style="background-color: rgba(240,240,240,0.5); width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td>';
+                                                               echo '<td ><span>'.$res->nome.': </span></td><td><input  id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'" onchange="increment(this.id)" style="width:30%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$tipo_id_qtd[2].'"></td><td><a style="cursor:pointer" name="'.$tipo_id_qtd[0].':'.$res->id.':'.$tipo_id_qtd[2].'" id="'.$res->id.'" onclick="apagar(this.name,\'patrimonio\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                                                             }else if($tipo_id_qtd[0] == 1){
                                                                $res = Maquinario::get_maquinario_id($tipo_id_qtd[1]);
-                                                               echo '<td><span>'.$res->modelo.': </span></td><td><input readonly name="qtd:'.$res->id.':'.$tipo_id_qtd[0].'" id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'"  onchange="increment(this.name)" style="width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td>';
+                                                               echo '<td><span>'.$res->modelo.': </span></td><td><input readonly  id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'"  onchange="increment(this.id)" style="width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td><td><a style="cursor:pointer" name="'.$tipo_id_qtd[0].':'.$res->id.':'.$tipo_id_qtd[2].'" id="'.$res->id.'" onclick="apagar(this.name,\'patrimonio\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                                                             }else{
                                                                $res = Veiculo::get_veiculo_id($tipo_id_qtd[1]);
-                                                               echo '<td><span>'.$res->modelo.': </span></td><td><input readonly name="qtd:'.$res->id.':'.$tipo_id_qtd[0].'" id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'"  onchange="increment(this.name)" style="width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td>';
+                                                               echo '<td><span>'.$res->modelo.': </span></td><td><input readonly  id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'"  onchange="increment(this.id)" style="width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td><td><a style="cursor:pointer" name="'.$tipo_id_qtd[0].':'.$res->id.':'.$tipo_id_qtd[2].'" id="'.$res->id.'" onclick="apagar(this.name,\'patrimonio\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                                                             }
                                                             echo '</tr>';
                                                             // if(count($patrimonio)>1)
@@ -310,8 +361,8 @@ function validate(){
                                           </div>
                                       </div>
                                       
-                                      <div class="form-input" style="margin: 10px;text-align:center">
-                                         <input type="button"  onclick="javascript:window.history.back()" value="Voltar"> <input type="submit" value="Avançar">
+                                      <div class="form-input" style="margin: 10px; text-align:center;  width:97%">
+                                         <input type="button"  onclick="javascript:window.history.back()" class="voltar" value="Voltar"> <input class="avancar" type="submit" value="Avançar">
                                       </div>
                                   </div>
                               </div>
@@ -370,7 +421,7 @@ function validate(){
                                                               else
                                                                 echo '<tr style="background-color:#ddd;">';
                                                                    $res = Funcionario::get_func_id($_SESSION['obra']['funcionario'][$aux]);
-                                                                   echo '<td ><span>'.$res->nome.': </span></td><td style="text-align:center"><a style="cursor:pointer" id="'.$res->id.'" onclick="apagarFuncionario(this.id)"><img style="width:15px" src="../images/delete.png"></a></td>';         
+                                                                   echo '<td ><span>'.$res->nome.': </span></td><td style="text-align:center"><a style="cursor:pointer" id="'.$res->id.'" onclick="apagar(this.id,\'funcionario\')"><img style="width:15px" src="../images/delete.png"></a></td>';         
                                                                 echo '</tr>';
                                                           }
                                                           echo '</table>';
@@ -379,8 +430,8 @@ function validate(){
                                           </div>
                                       </div>
                                       
-                                      <div class="form-input" style="margin: 10px;text-align:center">
-                                         <input type="button"  onclick="javascript:window.history.back()" value="Voltar"> <input type="submit" value="Avançar">
+                                      <div class="form-input" style="margin: 10px; text-align:center;  width:97%">
+                                         <input type="button"  onclick="javascript:window.history.back()" class="voltar" value="Voltar"> <input class="avancar" type="submit" value="Avançar">
                                       </div>
                                   </div>
                               </div>
