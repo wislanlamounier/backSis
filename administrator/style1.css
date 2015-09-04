@@ -632,7 +632,7 @@ h2{
 }
 .desc-produto{
 	float:top;
-	margin-top: -36px;
+	margin-top: -35px;
 	background-color: rgba(0,100,100,0.3);
 	padding: 25px;
 	/*border-bottom-right-radius: 0.3em;
@@ -666,6 +666,8 @@ h2{
 	margin-top: -20px;
 	background-color: rgba(0,100,100,0.1);
 	height: 450px;
+	border-bottom-left-radius: 0.5em;
+  	border-bottom-right-radius: 0.5em;
 }
 .resultados{
 	margin-left:200px;

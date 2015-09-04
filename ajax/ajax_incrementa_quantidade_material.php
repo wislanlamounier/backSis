@@ -15,15 +15,15 @@ include_once("../model/class_sql.php");
           }
     
   
-      for($aux = 0; $aux < count($_SESSION['produto']['material']); $aux++){
+      // for($aux = 0; $aux < count($_SESSION['produto']['material']); $aux++){
        
-         $id_qtd = explode(":", $_SESSION['produto']['material'][$aux]);
-         echo $id_qtd[0];
-         echo "<br>";
-         echo $id_qtd[1];
-         echo "<br>";
-        //   echo $_SESSION['produto']['material'][$aux];
-        }
+      //    $id_qtd = explode(":", $_SESSION['produto']['material'][$aux]);
+      //    echo $id_qtd[0];
+      //    echo "<br>";
+      //    echo $id_qtd[1];
+      //    echo "<br>";
+      //   //   echo $_SESSION['produto']['material'][$aux];
+      //   }
   
 
 	// if(isset($_GET['id']) && isset($_GET['qtd']) !="" ){
