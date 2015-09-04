@@ -2,10 +2,28 @@
 session_start();
 include_once("../model/class_sql.php");
   
-  if(isset($_GET['nome']) && $_GET['nome'] !=""){
-    $nome = $_GET['nome'];
-    $_SESSION['produto']['nome'] = $nome;
-  }
+    $id = $_GET['id'];  //codigo do estado passado por parametro
+    $quantidade = $_GET['qtd'];
+    
+    // echo "o id é".$id;
+    // echo "a quantidade é".$quantidade;
+
+        if(!isset($_SESSION['produto']['material'])){
+           $_SESSION['produto']['material'][0] = $id.':'.$quantidade;
+        }else{
+            $_SESSION['produto']['material'][count($_SESSION['produto']['material'])] = $id.':'.$quantidade;
+          }
+    
+  
+      for($aux = 0; $aux < count($_SESSION['produto']['material']); $aux++){
+       
+         $id_qtd = explode(":", $_SESSION['produto']['material'][$aux]);
+         echo $id_qtd[0];
+         echo "<br>";
+         echo $id_qtd[1];
+         echo "<br>";
+        //   echo $_SESSION['produto']['material'][$aux];
+        }
   
 
 	// if(isset($_GET['id']) && isset($_GET['qtd']) !="" ){

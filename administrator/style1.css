@@ -617,18 +617,93 @@ h2{
 }
 
 .cabecalho{
-
-	margin-top: 80px;
+	border-top-left-radius: 0.3em;
+  	border-top-right-radius: 0.3em;
+	background-color: rgba(0,100,0,0.5);
+	padding: 10px;
+	margin-top: 0px;
 }
 .cabecalho span{
+	font-weight: bold;
+	margin-top: 0px;
 	text-align: center;
 	text-transform: uppercase;
 
 }
+.desc-produto{
+	float:top;
+	margin-top: -36px;
+	background-color: rgba(0,100,100,0.3);
+	padding: 25px;
+	/*border-bottom-right-radius: 0.3em;
+  	border-bottom-left-radius: 0.3em;*/
+}
+.desc{
 
+	margin-top: 0px;
+	text-align: center;
+	text-transform: uppercase;
+}
+.desc input{
+	box-shadow: 0px 0px 10px #aaa;
+	float:left;
+	margin-top: -13px;
+}
+.detalhe{
 
+	float:left;
+	margin-top: -8px;
+	float:left; 
+	padding-left:20px;
+}
+.detalhe span{
+	background-color: rgba(0,100,100,0.0);
+	font-style: oblique;
+	font-weight: bold;
+}
+.formulario-produto{
+	float: top;
+	margin-top: -20px;
+	background-color: rgba(0,100,100,0.1);
+	height: 450px;
+}
+.resultados{
+	margin-left:200px;
+    margin-top:20px;
+	padding-top: 5px;
 
+}
+.quantidade{
+	float:left; 
+	padding-left:40px; 
+	padding-right:20px;
 
+}
+.quantidade input{	
+	width:40px;
+	 border:0;
+	 background-color: rgba(100,100,100,0);
+
+}
+.quantidade input#medida{	
+	width:40px;
+	 border:0;
+	 background-color: rgba(100,100,100,0);
+	 font-weight: bold;
+}
+
+.insumo{
+	float:left; 
+	padding-left:40px; 
+	padding-right:50px; 
+	width:30px;
+	
+}
+.insumo input#nome_material{
+	width:120px; 
+	border:0;
+	background-color: rgba(100,100,100,0);
+}
 
 
 
