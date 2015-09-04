@@ -10,6 +10,8 @@
                   <li><a href="/viacampos/administrator/add_epi.php">Equipamentos</a></li>                  
                   <li><a href="/viacampos/administrator/add_epiXfunc.php">Equipamentos por funcionario</a></li>
                   <li><a href="/viacampos/administrator/add_patrimonio.php">Patrimonio</a></li>
+                  <li><a href="/viacampos/administrator/add_produto.php">Produto</a></li>
+                  <li><a href="/viacampos/administrator/add_material.php">Material</a></li>
         <?php } ?>
         <li><a href="/viacampos/administrator/add_turno.php">Turno</a></li>
         <li><a href="/viacampos/administrator/add_cbo.php">CBO</a></li>

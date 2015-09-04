@@ -29,16 +29,19 @@ include_once("../model/class_material_bd.php");
 	// echo 'id_recebido: '.$id.'<br>';
 		
 	// // 	// echo 'count'.count( $_SESSION['obra']['patrimonio'] );
-	echo '<table>';
+	echo '<table style="width:100%">';
   	for($aux = 0; $aux < count($_SESSION['produto']['material']); $aux++){
   		$id_qtd = explode(':', $_SESSION['produto']['material'][$aux]);
   	    // echo 'ID: '.$tipo_id_qtd[1].' Tipo: '.$tipo_id_qtd[0].' Quantidade: '.$tipo_id_qtd[2].'<br />';
 
-  		echo '<tr>';
-  		    $res = new Material();
+  		if($aux%2==0)
+               echo '<tr style="background-color:#ccc;">';
+        else
+              echo '<tr style="background-color:#ddd;">';
+  		     $res = new Material();
   			 $res = Material::get_material_id($id_qtd[0]);
          
-  			 echo '<td ><span>'.$res->nome.': </span></td>';
+  			 echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd[1].'" onchange="increment(this.id)" style="width:30%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd[1].'"></td><td><a name="'.$res->id.':'.$id_qtd[1].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\')"><img style="width:15px" src="../images/delete.png"></a></td>';
   		
   		echo '</tr>';
   		// if(count($patrimonio)>1)

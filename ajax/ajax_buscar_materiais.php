@@ -23,7 +23,6 @@ include_once("../model/class_material_bd.php");
 	      echo "<option value='".$res[$aux][0]."'>".$res[$aux][1]."</option>";
 	     // echo "<option>teste</option>";
 	  	}
-	
 ?>
 	
 </select>
