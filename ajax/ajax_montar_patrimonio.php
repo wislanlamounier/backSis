@@ -30,23 +30,16 @@ include_once("../model/class_patrimonio_geral_bd.php");
         $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
   }
 
-	
 
-	
-	// echo 'total: '.$total.'<br>';
-	
-	// echo 'id_recebido: '.$id.'<br>';
-		
-	// // 	// echo 'count'.count( $_SESSION['obra']['patrimonio'] );
 	echo '<table style="width:100%">';
   	for($aux = 0; $aux < count($_SESSION['obra']['patrimonio']); $aux++){
   		$tipo_id_qtd = explode(':', $_SESSION['obra']['patrimonio'][$aux]);
   	    // echo 'ID: '.$tipo_id_qtd[1].' Tipo: '.$tipo_id_qtd[0].' Quantidade: '.$tipo_id_qtd[2].'<br />';
 
   		if($aux%2==0)
-           echo '<tr style="background-color:#aaa;">';
+           echo '<tr style="background-color:#ccc;">';
       else
-          echo '<tr style="background-color:#ccc;">';
+          echo '<tr style="background-color:#ddd;">';
   		if($tipo_id_qtd[0] == 0){
   			 $res = Patrimonio_geral::get_patrimonio_geral_id($tipo_id_qtd[1]);
   			 echo '<td ><span>'.$res->nome.': </span></td><td><input  id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'" onchange="increment(this.id)" style="width:30%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$tipo_id_qtd[2].'"></td><td><a style="cursor:pointer" name="'.$tipo_id_qtd[0].':'.$res->id.':'.$tipo_id_qtd[2].'" id="'.$res->id.'" onclick="apagar(this.name,\'patrimonio\')"><img style="width:15px" src="../images/delete.png"></a></td>';

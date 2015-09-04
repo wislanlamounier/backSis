@@ -29,9 +29,9 @@ include_once("../model/class_funcionario_bd.php");
 	echo '<table style="width:100%" >';
   	for($aux = 0; $aux < count($_SESSION['obra'][$whatarray]); $aux++){      	 
       	if($aux%2==0)
-           echo '<tr style="background-color:#aaa;">';
+           echo '<tr style="background-color:#ccc;">';
         else
-          echo '<tr style="background-color:#ccc;">';
+          echo '<tr style="background-color:#ddd;">';
               if($whatarray == 'patrimonio'){// se for arrray de patrimonio verifica o tipo
                   $tipo_id_qtd = explode(':', $_SESSION['obra'][$whatarray][$aux]);
 

@@ -25,9 +25,9 @@ include_once("../model/class_funcionario_bd.php");
   	for($aux = 0; $aux < count($_SESSION['obra']['funcionario']); $aux++){
       	    // echo 'ID: '.$tipo_id_qtd[1].' Tipo: '.$tipo_id_qtd[0].' Quantidade: '.$tipo_id_qtd[2].'<br />';
       	if($aux%2==0)
-           echo '<tr style="background-color:#aaa;">';
+           echo '<tr style="background-color:#ccc;">';
         else
-          echo '<tr style="background-color:#ccc;">';
+          echo '<tr style="background-color:#ddd;">';
       			 $res = Funcionario::get_func_id($_SESSION['obra']['funcionario'][$aux]);
       			 echo '<td ><span>'.$res->nome.': </span></td><td style="text-align:center"><a style="cursor:pointer" id="'.$res->id.'" onclick="apagar(this.id,\'funcionario\')"> <img style="width:15px" src="../images/delete.png"></a></td>';      		
       		echo '</tr>';

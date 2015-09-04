@@ -125,7 +125,7 @@ function validate(){
                     }
                ?>
             <?php if(isset($_GET['t']) && $_GET['t'] == 'a_c_o'){ // add clientes da obra?>
-            	              
+            	         <?php $_SESSION['obra']['status'] = 0; ?>
                        <form  action="add_obra.php" onsubmit="return validate(this)">
                         
                               <input type="hidden" id="t" name="t" value="a_d_o">
@@ -137,7 +137,7 @@ function validate(){
                               </div> -->
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
-                              		<div class="title-bloco">Cliente/Obra</div>
+                              		<div class="title-bloco"><b>Cliente/Obra</b></div>
                                   <div class="desc-bloco">
                                       <span>Selecione o cliente </span>
                                   </div>
@@ -190,15 +190,9 @@ function validate(){
                                   
                                ?>
                               
-                              <!-- <div class="situacao">                                  
-                                      <div class="situacao-box"><div>Dados da obra</div></div>
-                                      <div class="situacao-box"><div>Dados da obra</div></div>
-                                      <div class="situacao-box"><div>Dados da obra</div></div>
-                                      <div class="situacao-box"><div>Dados da obra</div></div>
-                              </div> -->
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
-                                  <div class="title-bloco">Dados da obra</div>
+                                  <div class="title-bloco"><b>Dados da obra</b></div>
                                   <div class="desc-bloco">
                                       <span>Preencha os principais dados da obra</span>
                                   </div>
@@ -240,20 +234,16 @@ function validate(){
                                   $_SESSION['obra']['dados']['desc'] = $_GET['desc'];
                                   
                                ?>
-                              
                         
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
-                                  <div class="title-bloco">Podutos/Obra</div>
+                                  <div class="title-bloco"><b>Podutos/Obra</b></div>
                                   <div class="desc-bloco">
                                       <span>Selecione os Produtos </span>
                                   </div>
                                   <div class="body-bloco">
                                       <div class="form-input left">
                                           <div class="form-input">
-                                              <div class="form-input" style="background-color:rgba(200,200,200,0.5); padding: 10px 0px 10px 0px;">
-                                                  
-                                              </div>
                                               <span><b>Nome: </b></span><br /><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:65%"> <input type="button" value="Buscar" onclick="buscarPatrimonios()">
                                           </div>
                                           <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
@@ -293,15 +283,9 @@ function validate(){
                                   
                                ?>
                               
-                              <!-- <div class="situacao">                                  
-                                      <div class="situacao-box"><div>Dados da obra</div></div>
-                                      <div class="situacao-box"><div>Dados da obra</div></div>
-                                      <div class="situacao-box"><div>Dados da obra</div></div>
-                                      <div class="situacao-box"><div>Dados da obra</div></div>
-                              </div> -->
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
-                                  <div class="title-bloco">Patrimonios/Obra</div>
+                                  <div class="title-bloco"><b>Patrimonios/Obra</b></div>
                                   <div class="desc-bloco">
                                       <span>Selecione os Patrimonios </span>
                                   </div>
@@ -348,12 +332,7 @@ function validate(){
                                                                echo '<td><span>'.$res->modelo.': </span></td><td><input readonly  id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'"  onchange="increment(this.id)" style="width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td><td><a style="cursor:pointer" name="'.$tipo_id_qtd[0].':'.$res->id.':'.$tipo_id_qtd[2].'" id="'.$res->id.'" onclick="apagar(this.name,\'patrimonio\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                                                             }
                                                             echo '</tr>';
-                                                            // if(count($patrimonio)>1)
-                                                            //  for($aux = 0; $aux < count($patrimonio); $aux++ ){
-                                                            //      echo 'id '. $patrimonio[$aux][1].'<br />';
-                                                            //  }
-                                                            // else
-                                                            //  echo 'id '. $patrimonio[0][1].'<br />';
+
                                                         }
                                                         echo '</table>';
 
@@ -392,7 +371,7 @@ function validate(){
                               </div> -->
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
-                                  <div class="title-bloco">Funcionários/Obra</div>
+                                  <div class="title-bloco"><b>Funcionários/Obra</b></div>
                                   <div class="desc-bloco">
                                       <span>Selecione os Funcionarios que trabalharão nessa obra</span>
                                   </div>
@@ -415,7 +394,6 @@ function validate(){
                                                      if(isset($_SESSION['obra']['funcionario'])){ 
                                                           echo '<table style="width:100%" >';
                                                           for($aux = 0; $aux < count($_SESSION['obra']['funcionario']); $aux++){
-                                                                  // echo 'ID: '.$tipo_id_qtd[1].' Tipo: '.$tipo_id_qtd[0].' Quantidade: '.$tipo_id_qtd[2].'<br />';
                                                               if($aux%2==0)
                                                                  echo '<tr style="background-color:#ccc;">';
                                                               else
@@ -446,13 +424,19 @@ function validate(){
 	 	    </div>
          <div class="formulario" style="width:43%;">
             <div class="bloco-1">
-                <div class="form-input"><h3>Dados do cadastramento</h3></div>
+                <div class="form-input">
+                    <div class="form-input"><b>DADOS DO CADASTRAMENTO</b></div>
+                    <?php if(isset($_SESSION['obra']['status']) && $_SESSION['obra']['status'] == 0 ){
+                          echo '<div class="form-input">(ORÇAMENTO)</div>';
+                    } ?>
+
+                </div>
                 <div class="body-bloco">
                   <?php if(isset($_SESSION['obra']['cliente'])){?>
                         <div class="form-input" style="border-bottom: 1px solid#aaa">
                               <span style="margin-left:10px;"><b>Cliente</b></span>
                         </div>
-                        <div class="form-input" style="padding: 0px 0px 5px 10px;">
+                        <div class="form-input" style="padding: 0px 0px 5px 10px; padding-left:20px;">
                             <span><b>Nome/Razão Social: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['cliente']['nome_cli']))?print $_SESSION['obra']['cliente']['nome_cli']:''; ?>"><br />
                             <span><b>CPF/CNPJ: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['cliente']['cpf_cnpj_cli']))?print $_SESSION['obra']['cliente']['cpf_cnpj_cli']:''; ?>"><br />
                             <span><b>Endereço: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['cliente']['rua']))?print $_SESSION['obra']['cliente']['rua']:''.(isset($_SESSION['obra']['cliente']['num']))?print ', '.$_SESSION['obra']['cliente']['num']:''; ?>"><br />
@@ -463,7 +447,7 @@ function validate(){
                             <div class="form-input" style="border-bottom: 1px solid#aaa">
                                   <span style="margin-left:10px;"><b>Dados da Obra</b></span>
                             </div>
-                            <div class="form-input" style="padding: 0px 0px 10px 10px;">
+                            <div class="form-input" style="padding: 0px 0px 10px 10px; padding-left:20px;">
                                 <span><b>Nome: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['nome']))?print $_SESSION['obra']['dados']['nome']:''; ?>"><br />
                                 <span><b>Data Inicio: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['data_inicio_previsto']))?print $_SESSION['obra']['dados']['data_inicio_previsto']:''; ?>"><br />
                                 <span><b>Endereço: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['rua']))?print $_SESSION['obra']['dados']['rua']:''.(isset($_SESSION['obra']['dados']['num']))?print ', '.$_SESSION['obra']['dados']['num']:''; ?>"><br />
@@ -477,7 +461,7 @@ function validate(){
                             <div class="form-input" style="border-bottom: 1px solid#aaa">
                                   <span style="margin-left:10px;"><b>Patrimonios/Obra</b></span>
                             </div>
-                            <div class="form-input" style="padding: 0px 0px 10px 10px;">
+                            <div class="form-input" style="padding: 0px 0px 10px 10px; ">
                                 <?php 
                                 
                                       for($aux = 0; $aux < count($_SESSION['obra']['patrimonio']); $aux++){
