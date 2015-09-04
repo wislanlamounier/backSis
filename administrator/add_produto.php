@@ -102,14 +102,44 @@ function selecionaProduto(id){
                                 
                                                for ($i=0; $i < count($materiais); $i++) { ?>              
                                               <?php  
-                                                  $id_unidade_medida = $materiais[$i][2];
+                                                $id_unidade_medida = $materiais[$i][2];
                                                 $nome_material = $materiais[$i][1];
                                                 $id = $materiais[$i][0];
                                                 $medida = $medida->get_unidade_medida_by_id($id_unidade_medida);
                                                 
                                               ?>
+                                              <?php 
+                                              if(isset($_SESSION['produto']['material'])){
                                              
-                                              <div class="resultados" id="resultados" ><div class="insumo"><input id="nome_material" readonly type="text" value="<?php echo $nome_material; ?>" name="<?php echo  'insumo'.$nome_material ?>"></div><div class="quantidade" ><input type="number" onchange="session(this.value, this.id)" id="<?php echo $id?>" name="<?php echo 'quantidade:'.$nome_material?>" value="<?php $_SESSION['produto']['material'][$id] ?>"><input readonly  id="medida" value="<?php echo $medida->sigla; ?>"></div></div>
+                                              for($aux = 0; $aux < count($materiais); $aux++){
+
+                                                $id_qtd = explode(":", $_SESSION['produto']['material'][$aux]);
+                                                  if($id == $id_qtd[0]){
+                                                   ?>
+                                                    <div class="resultados" id="resultados" ><div class="insumo"><input id="nome_material" readonly type="text" value="<?php echo $nome_material; ?>" name="<?php echo 'insumo'.$nome_material ?>"></div><div class="quantidade" ><input type="number" onchange="session(this.value, this.id)" id="<?php echo $id?>" name="<?php echo 'quantidade:'.$nome_material?>" value="<?php  echo $id_qtd[1]; ?>"><input readonly  id="medida" value="<?php echo $medida->sigla; ?>"></div></div>
+                                                    <?php echo 'é igual'.$aux;
+                                                   
+                                                  } 
+                                                  if($id != $id_qtd[0]){
+                                                     ?>
+                                                    <div class="resultados" id="resultados" ><div class="insumo"><input id="nome_material" readonly type="text" value="<?php echo $nome_material; ?>" name="<?php echo 'insumo'.$nome_material ?>"></div><div class="quantidade" ><input type="number" onchange="session(this.value, this.id)" id="<?php echo $id?>" name="<?php echo 'quantidade:'.$nome_material?>"><input readonly  id="medida" value="<?php echo $medida->sigla; ?>"></div></div>
+                                                    <?php echo 'nao é igual';
+                                                    
+                                                  }
+
+                                                 }
+
+
+                                                 }else{
+                                                   ?>
+                                                    <div class="resultados" id="resultados" ><div class="insumo"><input id="nome_material" readonly type="text" value="<?php echo $nome_material; ?>" name="<?php echo 'insumo'.$nome_material ?>"></div><div class="quantidade" ><input type="number" onchange="session(this.value, this.id)" id="<?php echo $id?>" name="<?php echo 'quantidade:'.$nome_material?>"><input readonly  id="medida" value="<?php echo $medida->sigla; ?>"></div></div>
+                                                    <?php 
+                                                 }
+                                              ?>
+
+                                              <!-- <div class="resultados" id="resultados" ><div class="insumo"><input id="nome_material" readonly type="text" value="<?php echo $nome_material; ?>" name="<?php echo 'insumo'.$nome_material ?>"></div><div class="quantidade" ><input type="number" onchange="session(this.value, this.id)" id="<?php echo $id?>" name="<?php echo 'quantidade:'.$nome_material?>" value="<?php  echo $id_qtd[1]; ?>"><input readonly  id="medida" value="<?php echo $medida->sigla; ?>"></div></div> -->
+
+                                              
                                              
                                               <br>                                            
                                               <?php } ?>
