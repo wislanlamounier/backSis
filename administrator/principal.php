@@ -1,6 +1,7 @@
 <?php 
 include("restrito.php");
 include_once("../model/class_horarios_bd.php");
+include_once("../model/class_funcionario_bd.php");
  ?>
  <html>
  <head>
@@ -39,7 +40,10 @@ include_once("../model/class_horarios_bd.php");
  		<?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 2){
  			echo '<div class="formulario" style="width:93%">';
  			// include_once("../view/box-atrasos.php");
- 			include("../view/painel_cliente.php");
+ 			include("../view/painel_cliente_obra.php");
+ 			include("../view/painel_info_obra.php");
+			include("../view/painel_funcionario_obra.php");
+			
 
  		}?> 
 
