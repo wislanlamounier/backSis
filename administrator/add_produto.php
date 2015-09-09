@@ -9,6 +9,7 @@ include_once("../model/class_veiculo_bd.php");
 include_once("../model/class_patrimonio_geral_bd.php");
 include_once("../model/class_funcionario_bd.php");
 include_once("../model/class_material_bd.php");
+include_once("../model/class_unidade_medida_bd.php");
 
 function validate(){
    if(!isset($_POST['desc']) || $_POST['desc'] == ""){
@@ -125,8 +126,9 @@ function validate(){
                                                         echo '<tr>';
                                                             $res = new Material();
                                                             $res = Material::get_material_id($id_qtd[0]);
-                                                           
-                                                           echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd[1].'" onchange="increment(this.id)" style="width:30%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd[1].'"></td><td><a name="'.$res->id.':'.$id_qtd[1].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+                                                            $uni = new Unidade_medida();
+                                                            $uni = $uni->get_unidade_medida_by_id($res->id_unidade_medida);
+                                                           echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd[1].'" onchange="increment(this.id)" style="width:30%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd[1].'"> <span>'.$uni->sigla.'</span></td><td><a name="'.$res->id.':'.$id_qtd[1].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                                                         
                                                         echo '</tr>';
                                                         // if(count($patrimonio)>1)
