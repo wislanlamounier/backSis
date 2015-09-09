@@ -69,7 +69,7 @@ class Cor{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$aux=0;
-		$query = mysql_query("SELECT * FROM cor");
+		$query = mysql_query("SELECT * FROM cores");
 
 		while($result = mysql_fetch_array($query)){
 			$return[$aux][0] = $result['id'];

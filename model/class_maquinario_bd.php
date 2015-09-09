@@ -13,7 +13,9 @@ class Maquinario{
 	public $id_cor;
 	public $fabricante;
 	public $data_compra;
-	public $seguro;	
+	public $seguro;
+	public $data_ini_seg; 
+	public $data_fim_seg;
 	public $horimetro_inicial;	
 	public $id_empresa;
 	public $id_fornecedor;
@@ -22,21 +24,25 @@ class Maquinario{
 	public $oculto;
 	public $valor;
 	
-	public function add_maquinario($matricula, $chassi_nserie, $modelo, $tipo, $tipo_consumo, $ano, $id_cor,
-									 $fabricante, $data_compra, $seguro, $horimetro_inicial, $id_empresa,
+	public function add_maquinario($matricula, $chassi_nserie, $modelo, $tipo_consumo, $ano, $id_cor,
+									 $fabricante, $data_compra, $seguro,  $data_ini_seg, $data_fim_seg, $horimetro_inicial, $id_empresa,
 									 							 $id_fornecedor, $id_responsavel, $observacao, $valor)
 	{		
 		
 		$this->matricula = $matricula;
 		$this->chassi_nserie = $chassi_nserie;
 		$this->modelo = $modelo;
-		$this->tipo = $tipo;
+		// $this->tipo = $tipo;
 		$this->tipo_consumo = $tipo_consumo;
 		$this->ano	 = $ano;	
 		$this->id_cor = $id_cor;
 		$this->fabricante = $fabricante;
 		$this->data_compra = $data_compra;
-		$this->seguro = $seguro;	
+		$this->seguro = $seguro;
+		$this->data_ini_seg = $data_ini_seg;
+		$this->data_fim_seg = $data_fim_seg;	
+
+
 		$this->horimetro_inicia = $horimetro_inicial;		
 		$this->id_empresa = $id_empresa;
 		$this->id_fornecedor = $id_fornecedor;
@@ -50,14 +56,10 @@ class Maquinario{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "INSERT INTO maquinario (matricula, chassi_nserie, modelo, tipo, tipo_consumo, ano, id_cor,
- 											fabricante, data_compra, seguro, horimetro_inicial, id_empresa,
- 												 id_fornecedor, id_responsavel, observacao, valor) 
-						VALUES 				( '%s',       '%s',       '%s',   '%s',   '%s',          '%s', '%s',
-											'%s',			'%s',		'%s',  			'%s',		'%s',
-													'%s',			'%s',			'%s',			'%s')";
+		$query = "INSERT INTO maquinario (matricula, chassi_nserie, modelo, tipo_consumo, ano, id_cor, fabricante, data_compra, seguro, data_ini_seg, data_fim_seg, horimetro_inicial, id_empresa, id_fornecedor, id_responsavel, observacao, valor) 
+						VALUES 				( '%s',      '%s',       '%s',   '%s',        '%s', '%s',      '%s',       '%s',	 '%s',		'%s',  			'%s',		'%s',             '%s',			'%s',			'%s',		 '%s' ,    '%s')";
 
-		if($g->tratar_query($query, $this->matricula, $this->chassi_nserie, $this->modelo, $this->tipo, $this->tipo_consumo,  $this->ano,  $this->id_cor, $this->fabricante, $this->data_compra, $this->seguro, $this->horimetro_inicia,  $this->id_empresa, $this->id_fornecedor, $this->id_responsavel, $this->observacao, $this->valor)){
+		if($g->tratar_query($query, $this->matricula, $this->chassi_nserie, $this->modelo, $this->tipo_consumo,  $this->ano,  $this->id_cor, $this->fabricante, $this->data_compra, $this->seguro, $this->data_ini_seg,$this->data_fim_seg, $this->horimetro_inicia,  $this->id_empresa, $this->id_fornecedor, $this->id_responsavel, $this->observacao, $this->valor)){
 				return true; 
 		}else{
 				return false;
@@ -106,13 +108,14 @@ class Maquinario{
 	     	$maquinario->matricula = $row['matricula'];
 			$maquinario->chassi_nserie = $row['chassi_nserie'];
 			$maquinario->modelo = $row['modelo'];
-			$maquinario->tipo = $row['tipo'];
 			$maquinario->tipo_consumo = $row['tipo_consumo'];
 			$maquinario->ano = $row['ano'];	
 			$maquinario->id_cor = $row['id_cor'];
 			$maquinario->fabricante = $row['fabricante'];
 			$maquinario->data_compra = $row['data_compra'];
 			$maquinario->seguro = $row['seguro'];	
+			$maquinario->data_ini_seg = $row['data_ini_seg'];	
+			$maquinario->data_fim_seg = $row['data_fim_seg'];	
 			$maquinario->horimetro_inicial = $row['horimetro_inicial'];			
 			$maquinario->id_empresa = $row['id_empresa'];
 			$maquinario->id_fornecedor = $row['id_fornecedor'];
@@ -124,18 +127,18 @@ class Maquinario{
 	     }
 	}	
 
-	public function atualiza_maquinario($matricula, $chassi_nserie, $modelo, $tipo, $tipo_consumo, $ano, $id_cor,
-                   $fabricante, $data_compra, $seguro, $horimetro_inicial, $id_empresa,
+	public function atualiza_maquinario($matricula, $chassi_nserie, $modelo, $tipo_consumo, $ano, $id_cor,
+                   $fabricante, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $horimetro_inicial, $id_empresa,
                                  $id_fornecedor, $id_responsavel, $observacao,  $valor, $id){
 		$sql = new Sql();	
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "UPDATE maquinario SET matricula='%s', chassi_nserie='%s', modelo='%s', tipo='%s', tipo_consumo='%s', ano='%s', id_cor='%s',
- 											fabricante='%s', data_compra='%s', seguro='%s', horimetro_inicial='%s', id_empresa='%s',
+		$query = "UPDATE maquinario SET matricula='%s', chassi_nserie='%s', modelo='%s',  tipo_consumo='%s', ano='%s', id_cor='%s',
+ 											fabricante='%s', data_compra='%s', seguro='%s', data_ini_seg = '%s', data_fim_seg = '%s', horimetro_inicial='%s', id_empresa='%s',
  												 id_fornecedor='%s', id_responsavel='%s', observacao='%s',  valor='%s'  WHERE id ='%s' ";
 
-		$query_tra = $g->tratar_query($query, $matricula, $chassi_nserie, $modelo, $tipo, $tipo_consumo, $ano, $id_cor,
-									 $fabricante, $data_compra, $seguro, $horimetro_inicial, $id_empresa,
+		$query_tra = $g->tratar_query($query, $matricula, $chassi_nserie, $modelo,  $tipo_consumo, $ano, $id_cor,
+									 $fabricante, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $horimetro_inicial, $id_empresa,
 									 							 $id_fornecedor, $id_responsavel, $observacao,  $valor, $id);
 		
 		if($query_tra){

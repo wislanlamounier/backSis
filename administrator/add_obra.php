@@ -237,7 +237,7 @@ function validate(){
                         
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
-                                  <div class="title-bloco"><b>Podutos/Obra</b></div>
+                                  <div class="title-bloco"><b>Produtos/Obra</b></div>
                                   <div class="desc-bloco">
                                       <span>Selecione os Produtos </span>
                                   </div>
@@ -302,6 +302,9 @@ function validate(){
                                           <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
                                               <select size="10" style="height: 100%; width: 100%">
                                               </select>
+                                          </div>
+                                          <div class="form-input">
+                                              <span style="color:#787878; font-size:12px;">(Duplo clique para selecionar)</span>
                                           </div>
                                       </div>
                                       <div class="form-input right">
@@ -383,6 +386,9 @@ function validate(){
                                           <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
                                               <select size="10" style="height: 100%; width: 100%">
                                               </select>
+                                          </div>
+                                          <div class="form-input">
+                                              <span style="color:#787878; font-size:12px;">(Duplo clique para selecionar)</span>
                                           </div>
                                       </div>
                                       <div class="form-input right">
