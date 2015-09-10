@@ -27,7 +27,7 @@ class ProdutosMateriais{
 
 		$result = $g->tratar_query($query, $this->id_material, $this->id_produto, $this->$quantidade); //inserindo no banco de dados
 		
-		$query = "SELECT * FROM produtos_materiais order by id desc";
+		$query = "SELECT * FROM produtos_materiais ORDER BY id DESC";
 		$result = $g->tratar_query($query); //pegando id da ultima insersão
 		 
 		 if(@mysql_num_rows($result) == 0){

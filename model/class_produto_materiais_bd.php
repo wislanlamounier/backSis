@@ -23,19 +23,17 @@ class ProdutosMateriais{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "INSERT INTO produtos_materiais(id_produto, id_material, quantidade) VALUES ('%s','%s','%s')";
+		$query = "INSERT INTO produto_materiais(id_produto, id_material, quantidade) VALUES ('%s','%s','%s')";
 
 		$result = $g->tratar_query($query, $this->id_produto, $this->id_material, $this->quantidade); //inserindo no banco de dados
-		
-		$query = "SELECT * FROM produtos_materiais order by id desc";
-		$result = $g->tratar_query($query); //pegando id da ultima insersão
+
 		 
 		 if(@mysql_num_rows($result) == 0){
+            $sql->close_conn();
             return false;
 	     }else{
-	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$id = $row['id'];
-	     	return $id;
+	     	$sql->close_conn();
+	     	return true;
 	     }
 	}
 
