@@ -19,13 +19,14 @@
         
 ?>
 <div class="painel-controle">
-      <div class="title-box" style="float:left;width:100%"><div style="float:left"><img src="../images/user.png" width="35px" style="margin-left:5px;"></div><div style="float:left; margin-top:10px; margin-left:10px; width:35px"><span class="title">Cliente</span></div></div>
+      
       <div class="colum">
+        <div style="float:left;width:100%"><div style="float:left"><img src="../images/user.png" width="50px" style="margin-left:5px; margin-top:-20px;margin-left:-20px;"></div><div style="float:left; margin-top:10px; margin-left:10px; width:35px"><span class="title"><b>Cliente</b></span></div></div>
         <div style="width:100%;"><span style="color: #676767;">Dados do cliente vinculado à obra</span></div>
-        <div class="descricao"><span style="font-size:18px;">Nome: </span></div> <div class="descricao"><span type="text" id="nome"><?php echo $cliente['nome_cli']?></span></div>
-        <div class="descricao"><span style="font-size:18px;">CPF/CNPJ: </span></div> <div class="descricao"><span type="text" id="cpf_cnpj_cli"><?php echo $cliente['cpf_cnpj_cli']?></span></div>
-        <div class="descricao"><span style="font-size:18px;">Telefone: </span></div> <div class="descricao"><span type="text" id="telefone_com"><?php echo $cliente['telefone_com']?></span></div>
-        <div class="descricao"><span style="font-size:18px;">Rua: </span></div> <div class="descricao"><span type="text" id="rua" ><?php echo $cliente['rua']?></span></div>
+        <div class="descricao"><span>Nome: </span></div> <div class="descricao"><span type="text" id="nome"><?php echo $cliente['nome_cli']?></span></div>
+        <div class="descricao"><span>CPF/CNPJ: </span></div> <div class="descricao"><span type="text" id="cpf_cnpj_cli"><?php echo $cliente['cpf_cnpj_cli']?></span></div>
+        <div class="descricao"><span>Telefone: </span></div> <div class="descricao"><span type="text" id="telefone_com"><?php echo $cliente['telefone_com']?></span></div>
+        <div class="descricao"><span>Rua: </span></div> <div class="descricao"><span type="text" id="rua" ><?php echo $cliente['rua']?></span></div>
       </div>
 
 </div>
