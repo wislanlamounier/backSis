@@ -2,6 +2,9 @@
 include("restrito.php");
 include_once("../model/class_horarios_bd.php");
 include_once("../model/class_funcionario_bd.php");
+include_once("../model/class_maquinario_bd.php");
+include_once("../model/class_patrimonio_geral_bd.php");
+include_once("../model/class_veiculo_bd.php")
  ?>
  <html>
  <head>
@@ -15,6 +18,29 @@ include_once("../model/class_funcionario_bd.php");
  	<link rel="stylesheet" type="text/css" href="style1.css">
  </head> 
  <script type="text/javascript">
+  function exibe(){
+        // document.getElementById("popup").style.display = "block";
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+      
+        var screenWidth = screen.width;
+        var screenHeight = screen.height;
+        // alert(windowWidth+" x "+windowHeight)
+        if(windowWidth > 1200){
+          document.getElementById("popup").style.marginLeft = "20%";
+        }else if(windowWidth > 1000){
+          document.getElementById("popup").style.marginLeft = "20%";
+        }else if(windowWidth > 500){
+          document.getElementById("popup").style.marginLeft = "20%";
+        }else{
+          document.getElementById("popup").style.marginLeft = "0%";
+        }
+    }
+    function fechar(){
+
+        document.getElementById("popup").style.marginLeft = "-450px";
+    }
+
  function moveRelogio(){
 
 		var data = new Date();
@@ -36,13 +62,16 @@ include_once("../model/class_funcionario_bd.php");
  </script>
  <body onload="moveRelogio()"> 
  		
+ 		
+
  		<?php include_once("../view/topo.php"); ?>
  		<?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 2){
  			echo '<div class="formulario" style="width:93%">';
  			// include_once("../view/box-atrasos.php");
- 			include("../view/painel_cliente_obra.php");
+ 			// include("../view/painel_cliente_obra.php");
  			include("../view/painel_info_obra.php");
-			include("../view/painel_funcionario_obra.php");
+ 			
+			// include("../view/painel_funcionario_obra.php");
 			
 
  		}?> 
