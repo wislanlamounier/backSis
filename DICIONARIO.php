@@ -26,8 +26,8 @@ OBSERVAÇÕES TABELA BANCO{
 
 	TABLE (CLIENTES){
 		CAMPO: TIPO{
-			0 -> CLIENTE
-			1 -> EMPRESA	
+			0 -> CLIENTE PF
+			1 -> CLIENTE PJ
 		}
 		
 	}

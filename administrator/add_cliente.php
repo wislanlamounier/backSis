@@ -23,7 +23,7 @@ require_once("../model/class_cidade_bd.php");
 <head>
 	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 	 <link rel="stylesheet" type="text/css" href="style.css">
-	 <link href="../css/landing-page.css" rel="stylesheet">
+	 
 
 </head>
 
@@ -68,8 +68,10 @@ require_once("../model/class_cidade_bd.php");
 
 		if(document.getElementById("pessoa_fisica").checked == true){
 			document.getElementById("razao_nome").innerHTML = "<span>Nome:</span>";
+			document.getElementById("data_nasc").value = "0000-00-00";
 			document.getElementById("data_fun_data_nasc").innerHTML = "<span>Data de Nascimento:</span>";
 			document.getElementById("cnpj_cpf").innerHTML = "<span>CPF:</span>";
+			document.getElementById("data_nasc").disabled = false;
 			document.getElementById("cnpj").type = "hidden";
 			document.getElementById("cnpj").value ="";
 			document.getElementById("cpf").type="text";
@@ -85,7 +87,9 @@ require_once("../model/class_cidade_bd.php");
 
 		if(document.getElementById("pessoa_juridica").checked == true){
 			document.getElementById("razao_nome").innerHTML = "<span>Razao Social:</span>";
-			document.getElementById("data_fun_data_nasc").innerHTML = "<span>Data Fundação:</span>";
+			document.getElementById("data_fun_data_nasc").innerHTML = "<span>Data registro:</span>";
+			document.getElementById("data_nasc").value = document.getElementById('today').value;
+			document.getElementById("data_nasc").disabled = true;
 			document.getElementById("cnpj_cpf").innerHTML = "<span>CNPJ:</span>";
 			document.getElementById("cnpj").type = "text";
 			document.getElementById("cpf").value ="";
@@ -291,14 +295,14 @@ require_once("../model/class_cidade_bd.php");
 		            }
 	         	}
 
-	         	if(f[i].name == "site"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
+	         	// if(f[i].name == "site"){
+		         //    if(f[i].value == ""){
+		         //       f[i].style.border = "1px solid #FF0000";
+		         //       erros++;
+		         //    }else{
+		         //       f[i].style.border = "1px solid #898989";
+		         //    }
+	         	// }
 
 	         	//Dados de responsavel
 
@@ -533,6 +537,7 @@ require_once("../model/class_cidade_bd.php");
 	
 			<?php include_once("../view/topo.php"); ?>
 			<div class='formulario' style="width:500px;">
+			<input type="hidden" id="today" value="<?php echo Date('Y-m-d'); ?>">
 			<?php if(isset($_GET['tipo']) && $_GET['tipo'] == "editar"){ //editar cliente pessoa fisica?>
 					 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR CLIENTE</span></div></div>
 
@@ -547,6 +552,7 @@ require_once("../model/class_cidade_bd.php");
 
                    ?>
     				<form form method="POST" id="add_cliente" action="add_cliente.php" onsubmit="return valida(this)">
+    					  
     					  <input type="hidden" name="tipo_post" value="editar_pessoa_fisica"><?php //input envia o tipo da requisição, se é add cliente,  edita cliente p/fisica ou edita cliente p/juridica ?>
 		                  <input type="hidden" id="id_cli" name="id_cli" value="<?php echo $cli->id; ?>">
 		                  <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $cli->id_endereco; ?>">
@@ -606,8 +612,8 @@ require_once("../model/class_cidade_bd.php");
 					                <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao"><?php echo $cli->observacao ?></textarea></div> </td></tr>                     
 					                <tr>
 					                    	 <td colspan="2" style="text-align:center">
-					                    	 	<input  class="button" type="submit" value="Editar">
-					                    	 	<input class="button" name="button" onclick="window.location.href='add_cliente.php'" id="button" value="Cancelar">
+					                    	 	<input  class="button" type="submit" value="Salvar">
+					                    	 	<input class="button" type="button" name="button" onclick="window.location.href='add_cliente.php'" id="button" value="Cancelar">
 					                    	 </td>
 					                    </tr> 
 					           	 </table>
@@ -638,7 +644,7 @@ require_once("../model/class_cidade_bd.php");
 					                   <?php } ?>
 					           	   		</tr>
 						               <tr> <td ><div id="razao_nome"><span>Razao Social:</span></div></td><td><input type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
-						                   <tr> <td ><div id="data_fun_data_nasc"><span>Data Fundação:</span></div></td> <td><input type="date" id="data_nasc" name="data_nasc" value="<?php echo $cli->data_nasc ?>" ></td></tr>
+						                   <tr> <td ><div id="data_fun_data_nasc"><span>Data registro: </span></div></td> <td><input type="date" id="data_nasc" readonly name="data_nasc" value="<?php echo $cli->data_nasc_data_fund ?>" ></td></tr>
 						                   <tr> <td ><div id="cnpj_cpf"><span>CNPJ:</span></div></td><td><input type="text" id="cnpj" name="cnpj" value="<?php echo $cli->cpf ?>" ></td></tr> 
 						                   <tr> <td ><span>Celular:</span></td> <td><input type="text" id="cel" name="cel" value="<?php echo $cli->telefone_cel ?>"></td></tr> 
 						                   <tr> <td ><span>Telefone:</span></td> <td><input type="text" id="tel" name="tel"value="<?php echo $cli->telefone_com ?>"></td></tr>                         
@@ -685,8 +691,8 @@ require_once("../model/class_cidade_bd.php");
 						                          <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao"><?php echo $cli->observacao ?></textarea></div> </td></tr>                     
 						                          <tr>
 							                    	 <td colspan="2" style="text-align:center">
-							                    	 	<input  class="button" type="submit" value="Editar">
-							                    	 	<input class="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
+							                    	 	<input  class="button" type="submit" value="Salvar">
+							                    	 	<input class="button" type="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
 							                    	 </td>
 							                    </tr> 
 						            </table>
@@ -696,17 +702,17 @@ require_once("../model/class_cidade_bd.php");
 						<div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE CLIENTE</span></div></div>
 						<form form method="POST" id="add_cliente" action="add_cliente.php" onsubmit="return valida(this)">
 								<input type="hidden" name="tipo_post" value="add_cliente"><?php //input envia o tipo da requisição, se é add cliente,  edita cliente p/fisica ou edita cliente p/juridica ?>
-								<table border="0" >
+								<table border="0" style="width:100%" >
 									 <tr><td colspan="2" padding-top:='10px'><span class="dados_cadastrais_title"><b>Dados Cadastrais</b><span></td></tr>
 									 <tr> <td ><span>Tipo:</span></td>
 									 	  <td> 	
-											 <input type="radio" style="height:12px;" onclick="tipo_form()" id="pessoa_fisica" name="tipo" ><span>Pessoa Física</span>
-											 <input type="radio" style="height:12px;" onclick="tipo_form()" id="pessoa_juridica" name="tipo" checked><span>Pessoa Juridica</span>
+											 <input type="radio" style="height:12px;" onclick="tipo_form()" id="pessoa_fisica" name="tipo" value="0"><span>Pessoa Física</span>
+											 <input type="radio" style="height:12px;" onclick="tipo_form()" id="pessoa_juridica" name="tipo" value="1"checked><span>Pessoa Juridica</span>
 											 <input type="checkbox" style="height:12px;" onclick="tipo_form()" id="fornecedor" name="fornecedor"><span>Fornecedor</span>
 										 </td>
 									 </tr>
 									 <tr> <td > <div id="razao_nome"><span>Razão Social:</span></div> </td><td><input type="text" id="nome" name="nome" ></td></tr>
-							         <tr> <td > <div id="data_fun_data_nasc"><span>Data Fundação:</span></div> </td> <td><input type="date" id="data_nasc" name="data_nasc" ></td></tr>
+							         <tr> <td > <div id="data_fun_data_nasc"><span>Data registro: </span></div> </td> <td><input type="date" disabled id="data_nasc" name="data_nasc" value="<?php echo Date("Y-m-d") ?>"></td></tr>
 							         <tr> <td > <div id="cnpj_cpf"><span>CNPJ:</span></div> </td><td><input type="text" id="cnpj" name="cnpj" ><input type="hidden" id="cpf" name="cpf"  ></td></tr> 
 							         <tr> <td > <span>Celular:</span> </td> <td><input type="text" id="cel" name="cel" ></td></tr> 
 							         <tr> <td > <span>Telefone:</span> </td> <td><input type="text" id="tel" name="tel" ></td></tr>			                    
@@ -740,7 +746,7 @@ require_once("../model/class_cidade_bd.php");
 					                          </div>
 					                    	</td>
 					                    </tr>                     
-					                    <tr> <td ><span>CEP:</span></td> <td><input type="number" id="cep" name="cep" ></td></tr> 
+					                    <tr> <td ><span>CEP:</span></td> <td><input type="text" id="cep" name="cep" ></td></tr> 
 					                    <tr> <td ><span>Site:</span></td> <td><input type="text" id="site" name="site" ></td></tr>
 					                    <tr><td colspan="2"><span><b>Responsável</b></span></td></tr>
 					                    <tr> <td ><span>Nome:</span></td> <td><input type="text" id="nome_resp" name="nome_resp" ></td></tr> 
@@ -752,7 +758,7 @@ require_once("../model/class_cidade_bd.php");
 					                    <tr>
 					                    	 <td colspan="2" style="text-align:center">
 					                    	 	<input  class="button" type="submit" value="Cadastrar">
-					                    	 	<input class="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
+					                    	 	<input class="button" name="button" type="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
 					                    	 </td>
 					                    </tr> 
 
@@ -825,7 +831,7 @@ require_once("../model/class_cidade_bd.php");
                         $telefone_com = $_POST['tel'];                        
                         $inscricao_estadual = $_POST['inscricao_estadual'];
                         $inscricao_municipal = $_POST['inscricao_municipal'];
-                        $tipo= 1;
+                        $tipo = 1;
                         $responsavel = $_POST['nome_resp'];
                         $cpf_responsavel = $_POST['cpf_resp'];
                         $data_nasc_resp = $_POST['datanasc_resp'];
@@ -867,21 +873,25 @@ require_once("../model/class_cidade_bd.php");
 
 							//recebendo cliente
 							//dados com logica
-							if($_POST['cpf'] != ""){
-								$cpf_cnpj = $_POST['cpf'];	
-							}
-							if($_POST['cnpj'] != ""){		
+							if($_POST['tipo'] == 0){
+								$cpf_cnpj = $_POST['cpf'];
+								$data_nasc_data_fund = (isset($_POST['data_nasc'])) ? $_POST['data_nasc'] : '';
+							}else if($_POST['tipo'] == 1){		
 								$cpf_cnpj = $_POST['cnpj'];
+								$data_nasc_data_fund = Date('Y-m-d');
 							}
+
+							
 
 							//dados sem logica
 							$cliente = new Cliente();
 							$nome_razao_soc = $_POST['nome'];
-							$data_nasc_data_fund = $_POST['data_nasc'];	
+
 							//$cpf_cnpj = $_POST['cnpj'];	
 							$telefone_cel = $_POST['cel'];
 							$telefone_com = $_POST['tel'];
 							$tipo = $_POST['tipo'];
+
 							$rg = $_POST['rg'];
 							$inscricao_estadual = $_POST['inscricao_estadual'];
 							$inscricao_municipal = $_POST['inscricao_municipal'];
@@ -901,18 +911,18 @@ require_once("../model/class_cidade_bd.php");
 							$cidade_id = $_POST['cidade'];
 
 							$cep = $_POST['cep'];	
-							$endereco->add_Endereco($bairro, $rua, $numero, $cidade_id, $cep);	
+							$endereco->add_endereco($rua, $numero, $cidade_id, $bairro, $cep);	
 							$id_endereco = $endereco->add_endereco_bd();
-
+							$id_empresa = $_SESSION['id_empresa'];
 							
 
 
-							$cliente->add_cliente($nome_razao_soc, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $id_endereco, $tipo, $rg, $inscricao_estadual, $inscricao_municipal, $responsavel, $cpf_responsavel, $data_nasc_resp, $email_resp, $site, $observacao, $fornecedor);
+							$cliente->add_cliente($nome_razao_soc, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $id_endereco, $tipo, $rg, $inscricao_estadual, $inscricao_municipal, $responsavel, $cpf_responsavel, $data_nasc_resp, $email_resp, $site, $observacao, $fornecedor, $id_empresa);
 							
 							if($cliente->add_cliente_bd()){
-								echo "Sucesso";
+								echo "<div class='msg'>Cliente adicionado com sucesso!</div>";
 							}else{
-								echo "falha";
+								echo "<div class='msg'>Falha ao adicionar cliente!</div>";
 							}
 						}//fim validate
 					}//fim isset($_POST['tipo_post']) && $_POST['tipo_post'] == 'editar_pessoa_fisica'
