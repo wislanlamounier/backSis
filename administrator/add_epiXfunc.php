@@ -99,7 +99,7 @@ function validate(){
                               <div class="msg" style="float:left">
                                 <div style="float:left; background-color:rgba(50,200,50,0.3); width:100%; height:43px; text-align:left; margin-top:-20px;">
                                   <div style="float:left; margin-left:5px;"><img src="../images/search-icon.png" style="width:40px;"></div>
-                                  <div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Adicionar <span>(Equipamentos para o funcionário escolhido)</span></div>
+                                  <div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;"><span>Selecione abaixo para qual funcionário deseja adicionar o<br />equipamento ou clique em pesquisar acima para filtrar a busca</span></div>
                                 </div>
                                 <table style="float:left" class="table-pesquisa">
                                   <?php
