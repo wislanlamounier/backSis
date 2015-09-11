@@ -467,7 +467,15 @@ function verificaValor($valor){
                       echo "<br>".  $cor = $_POST['cor'];
                       echo "<br>".  $valor = formataMoney($_POST['valor']);
                       echo "<br>".  $data_compra = $_POST['data_compra'];
-                      echo "<br>".  $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;                        
+                      echo "<br>".  $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;
+                       if($seguro == 1){                      
+                        
+                          echo "<br>".  $data_ini_seg = $_POST['data_ini_seg'];
+                          echo "<br>". $data_fim_seg = $_POST['data_fim_seg'];
+                       }else{
+                          echo "<br>".$data_ini_seg = "0000-00-00";
+                          echo "<br>".  $data_fim_seg = "0000-00-00";
+                       }
                       echo "<br>".  $km_inicial = $_POST['km_inicial'];
                       echo "<br>".  $tipo_combustivel = $_POST['combustivel'];              
                       echo "<br>".  $id_empresa = $_POST['empresa'];
@@ -476,7 +484,7 @@ function verificaValor($valor){
                        
                       
                       $veiculo = new Veiculo();
-                      $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
+                      $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
                       
                       if($veiculo->add_veiculo_bd()){
                         echo '<div class="msg" style="float: left;">Veiculo adicionado com sucesso !</div>';
@@ -558,7 +566,14 @@ function verificaValor($valor){
                      $cor = $_POST['cor'];
                      $valor = formataMoney($_POST['valor']);
                      $data_compra = $_POST['data_compra'];
-                     $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;            
+                     $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;
+                     if($seguro == 1){
+                         $data_ini_seg = $_POST['data_ini_seg'];
+                         $data_fim_seg = $_POST['data_fim_seg'];
+                       }else{
+                         $data_ini_seg = "0000-00-00";
+                         $data_fim_seg = "0000-00-00";
+                       }            
                      $km_inicial = $_POST['km_inicial'];
                      $tipo_combustivel = $_POST['combustivel'];
                      $id_empresa = $_POST['empresa'];
@@ -567,7 +582,7 @@ function verificaValor($valor){
                                        
                                          
                       $patrimonio = new Veiculo(); 
-                      if($patrimonio->atualiza_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel ,$id)){
+                      if($patrimonio->atualiza_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel ,$id)){
                         echo '<div class="msg" style="float: left;">Veículo atualizado com sucesso !</div>';
                       }else{
                         echo '<div class="msg" style="float: left;">Falha ao atualizar Veículo!</div>';
@@ -685,7 +700,7 @@ function verificaValor($valor){
                                   </td>
                                   <td colspan="3">
                                       <span>Data inicio:</span><input title="Data início do seguro" id="data_ini_seg" disabled type="date" style="width:135px">
-                                      <span>Data inicio:</span><input title="Data Final do seguro" id="data_fim_seg" disabled  type="date" style="width:135px">
+                                      <span>Data fim:</span><input title="Data Final do seguro" id="data_fim_seg" disabled  type="date" style="width:135px">
                                   </td>
                               </tr>   
                               <tr><td><span>Valor: </span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Horimetro:</span></td><td><input title="Horimetro inicial do maquinário" type="number" name="hr_inicial" id="hr_inicial"></td></tr>
@@ -781,7 +796,23 @@ function verificaValor($valor){
                              												<option value="Alcool">Álcool</option>
                              												</select>
                               	</td></tr>	
-                             	<tr><td><span>Data de Compra:</span></td><td><input type="date" name="data_compra" id="data_compra"></td><td><span>Seguro</span></td><td><input type="checkbox" class="seguro" onclick="tipo_form()" id="seguro" name="seguro" value="0"></td></tr>
+                             	<tr>
+                                  <td>
+                                      <span>Data de Compra:</span>
+                                  </td>
+                                  <td>
+                                      <input type="date" name="data_compra" id="data_compra">
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      <span>Seguro: </span><input type="checkbox" class="seguro"  style="height:13px;" onclick="tipo_form()" id="seguro" name="seguro" value="0">
+                                  </td>
+                                  <td colspan="3">
+                                      <span>Data inicio:</span><input title="Data início do seguro" id="data_ini_seg" name="data_ini_seg" disabled type="date" style="width:135px">
+                                      <span>Data fim:</span><input title="Data Final do seguro" id="data_fim_seg" name="data_fim_seg" disabled  type="date" style="width:135px">
+                                  </td>
+                              </tr>   
                              	<tr><td><span>Valor:(corrigir valor)</span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Quilometragem:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial"></td></tr>
                              	<tr><td><span>Forncedor:</span></td><td>
                              			<select id="fornecedor" name="fornecedor"  style="width:100%">
@@ -871,7 +902,7 @@ function verificaValor($valor){
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR MAQUINÁRIO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
                         <input type="hidden" id="atualiza_maquinario" name="atualiza_maquinario" value="editar_maquinario">
                         <input type="hidden" id="id" name="id" value="<?php echo $maquinario->id ?>">
-                          <table border="1">                          
+                          <table border="0">                          
                               <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula" value="<?php echo $maquinario->matricula ?>" ></td><td><span> N° Série / Chassi:</span></td> <td><input class="uppercase" type="text" name="chassi_nserie" id="chassi_nserie" value="<?php echo $maquinario->chassi_nserie ?>" ></td></tr>
                               <tr><td><span>Fabricante:</span></td><td><input type="text" name="fabricante" id="fabricante" value="<?php echo $maquinario->fabricante ?>" > <td><span> Modelo:</span></td><td><input type="text" name="modelo" id="modelo" value="<?php echo $maquinario->modelo ?>"></td></td></tr>            
                                <tr><td><span>Cor:</span></td><td>
@@ -928,7 +959,7 @@ function verificaValor($valor){
                                   </td>
                                   <td colspan="3">
                                       <span>Data inicio:</span><input title="Data início do seguro" name="data_ini_seg" id="data_ini_seg" <?php ($maquinario->seguro == 1)?print '':print 'disabled' ?> type="date" value="<?php ($maquinario->seguro == 1)?print $maquinario->data_ini_seg:''  ?>" style="width:135px">
-                                      <span>Data inicio:</span><input title="Data Final do seguro" name="data_fim_seg" id="data_fim_seg" <?php ($maquinario->seguro == 1)?print '':print 'disabled' ?> value="<?php ($maquinario->seguro == 1)?print $maquinario->data_fim_seg:''  ?>" type="date" style="width:135px">
+                                      <span>Data fim:</span><input title="Data Final do seguro" name="data_fim_seg" id="data_fim_seg" <?php ($maquinario->seguro == 1)?print '':print 'disabled' ?> value="<?php ($maquinario->seguro == 1)?print $maquinario->data_fim_seg:''  ?>" type="date" style="width:135px">
                                   </td>
                               </tr>
 
@@ -1036,12 +1067,28 @@ function verificaValor($valor){
                                                     <option value="Alcool">Álcool</option>
                                                     </select>
                                 </td></tr>  
-                              <tr><td><span>Data de Compra:</span></td><td><input type="date" name="data_compra" id="data_compra" value="<?php echo $veiculo->data_compra ?>"></td><td colspan="2">
-                            <?php if($veiculo->seguro == 1){ ?>
-                                       <span>Seguro</span> <input type="checkbox" style="height:12px;" id="seguro" checked name="seguro">
-                             <?php }else{ ?>
-                                       <span>Seguro</span> <input type="checkbox" style="height:12px;" id="seguro" name="seguro">
-                             <?php } ?></td>
+                               </tr>
+                              <tr>
+                                  <td><span>Data de Compra:</span></td>
+                                  <td><input type="date" name="data_compra" id="data_compra" value="<?php echo $veiculo->data_compra ?>"></td>
+                                  
+                           </tr> 
+
+
+                           <tr>
+                                  <!-- <td>
+                                      <span>Seguro: </span><input type="checkbox" class="seguro"  style="height:13px;" onclick="tipo_form()" id="seguro" name="seguro" value="0">
+                                  </td> -->
+                                  <td >
+                                        <span>Seguro</span> <input type="checkbox" style="height:12px;width:12px" id="seguro" <?php ($veiculo->seguro == 1)?print 'checked':'' ?> name="seguro">                             
+                                  </td>
+                                  <td colspan="3">
+                                      <span>Data inicio:</span><input title="Data início do seguro" name="data_ini_seg" id="data_ini_seg" <?php ($veiculo->seguro == 1)?print '':print 'disabled' ?> type="date" value="<?php ($veiculo->seguro == 1)?print $veiculo->data_ini_seg:''  ?>" style="width:135px">
+                                      <span>Data fim:</span><input title="Data Final do seguro" name="data_fim_seg" id="data_fim_seg" <?php ($veiculo->seguro == 1)?print '':print 'disabled' ?> value="<?php ($veiculo->seguro == 1)?print $veiculo->data_fim_seg:''  ?>" type="date" style="width:135px">
+                                  
+
+                                  </td>
+                              </tr>
                               <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor" value="<?php echo verificaValor($veiculo->valor) ?>"></td><td><span>Quilometragem:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial" value="<?php echo $veiculo->km_inicial ?>"></td></tr>
                               <tr> <td ><span>Fornecedor: </span></td>
                               <td colspan="2">

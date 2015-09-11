@@ -170,7 +170,8 @@ function validate(){
                 if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
                   if(validate()){
                      $exame = new Exame();
-                     $exame->add_exame($_POST['descricao'], $_POST['periodo']);
+                     $exame->add_exame($_POST['descricao'], $_POST['periodo'], $id = $_SESSION['id_empresa']);
+
                      // echo $exame->printExames();
                      if($exame->add_exame_bd()){
                         echo '<div class="msg">Cadastrado com sucesso!</div>';

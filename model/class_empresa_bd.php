@@ -15,9 +15,11 @@ class Empresa{
     public $id_endereco;
     public $telefone;
     public $id_responsavel;
+    public $nivel_acesso;
 
 
-    public function add_empresa($cnpj, $razao_social, $nome_fantasia, $ins_estadual, $ins_municipal,  $telefone, $id_responsavel, $id_endereco){
+
+    public function add_empresa($cnpj, $razao_social, $nome_fantasia, $ins_estadual, $ins_municipal,  $telefone, $id_responsavel, $id_endereco, $nivel_acesso){
           $this->cnpj = $cnpj;
           $this->razao_social = $razao_social;
           $this->nome_fantasia = $nome_fantasia;
@@ -26,20 +28,22 @@ class Empresa{
           $this->id_endereco = $id_endereco;
           $this->telefone = $telefone;
           $this->id_responsavel = $id_responsavel;
+          $this->nivel_acesso = $nivel_acesso;
     }
 
-    public function add_empresa_bd($cnpj, $razao_social, $nome_fantasia, $ins_estadual, $ins_municipal,  $telefone, $id_responsavel, $id_endereco){
+    public function add_empresa_bd(){
           $sql = new Sql();
           $sql->conn_bd();
           $g = new Glob();
           $return = array();
-          $query = "INSERT INTO empresa (cnpj, razao_social, nome_fantasia, ins_estadual, ins_municipal, telefone, id_responsavel, id_endereco) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')";
-          if($g->tratar_query($query, $this->cnpj, $this->razao_social, $this->nome_fantasia, $this->ins_estadual, $this->ins_municipal,  $this->telefone, $this->id_responsavel, $this->id_endereco)){
+          $query = "INSERT INTO empresa (cnpj, razao_social, nome_fantasia, ins_estadual, ins_municipal, telefone, id_responsavel, id_endereco, nivel_acesso) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')";
+          if($g->tratar_query($query, $this->cnpj, $this->razao_social, $this->nome_fantasia, $this->ins_estadual, $this->ins_municipal,  $this->telefone, $this->id_responsavel, $this->id_endereco, $this->nivel_acesso)){
             return true;
           }else{
             return false;
           }
     }
+
     public function get_all_empresa(){
         $sql = new Sql();
         $sql->conn_bd();

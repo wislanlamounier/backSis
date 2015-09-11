@@ -10,25 +10,27 @@ class Exame{
 	public $id;
 	public $descricao;
 	public $id_periodicidade;
+	public $id_empresa;
 	
-	public function add_exame($descricao, $id_periodicidade){
+	public function add_exame($descricao, $id_periodicidade, $id_empresa){
 		$this->descricao = $descricao;
 		$this->id_periodicidade = $id_periodicidade;
+		$this->id_empresa = $id_empresa;
 	}
 
 	public function add_exame_bd(){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "INSERT INTO exames (descricao, id_periodicidade) VALUES ('%s','%s')";
-		return $g->tratar_query($query, $this->descricao, $this->id_periodicidade);
+		$query = "INSERT INTO exames (descricao, id_periodicidade,id_empresa) VALUES ('%s','%s','%s')";
+		return $g->tratar_query($query, $this->descricao, $this->id_periodicidade, $this->id_empresa);
 	}
 	public function get_exame_id($id){
 		 $sql = new Sql();
 		 $sql->conn_bd();
 		 $g = new Glob();
 
-		 $query = "SELECT * FROM exames WHERE id = '%s'";
+		 $query = "SELECT * FROM exames WHERE id = '%s'  && oculto = 0";
 		 $result = $g->tratar_query($query, $id);
 		 
 		 if(@mysql_num_rows($result) == 0){
@@ -96,7 +98,7 @@ class Exame{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$aux=0;
-		$query = mysql_query("SELECT * FROM exames");
+		$query = mysql_query("SELECT * FROM exames WHERE oculto = 0");
 
 		while($result = mysql_fetch_array($query)){
 			$return[$aux][0] = $result['id'];
