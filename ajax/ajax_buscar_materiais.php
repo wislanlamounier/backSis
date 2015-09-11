@@ -18,7 +18,7 @@ include_once("../model/class_produto_bd.php");
 	
 ?>
 
-
+<?php if($res){ ?>
 <select name="clientes" id="clientes" size='10' style="height: 100%; width: 100%" onDblClick="selecionaProduto(this.value)">
   <?php
   	if($res) 
@@ -31,3 +31,4 @@ include_once("../model/class_produto_bd.php");
 ?>
 	
 </select>
+<?php } ?>

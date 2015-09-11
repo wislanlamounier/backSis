@@ -13,10 +13,11 @@ class ProdutosMateriais{
 
 	public function add_produtos_materiais($id_produto, $id_material, $quantidade)
 	{		
-		
-		$this->id_material = $id_material;
-		$this->id_produto = $id_produto;
-		$this->quantidade = $quantidade;
+		$produtosMateriais = new ProdutosMateriais();
+		$produtosMateriais->id_material = $id_material;
+		$produtosMateriais->id_produto = $id_produto;
+		$produtosMateriais->quantidade = $quantidade;
+		return $produtosMateriais;
 	}
 
 	public function add_produtos_materiais_bd(){

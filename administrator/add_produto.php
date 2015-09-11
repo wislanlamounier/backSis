@@ -106,7 +106,7 @@ function validate(){
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
                                   
                                   <div class="desc-bloco">
-                                      <span>Selecione os Materiais referentes a esse produto </span>
+                                      <span>Selecione os Materiais necessários para esse produto </span>
                                   </div>
                                   <div class="body-bloco">
                                       <div class="form-input left">
@@ -122,6 +122,7 @@ function validate(){
                                               <select size="10" style="height: 100%; width: 100%">
                                               </select>
                                           </div>
+                                          
                                       </div>
                                       <div class="form-input right">
                                           <div class="form-input">
@@ -171,21 +172,27 @@ function validate(){
                                   $produto = new Produto();
                                   $produto_materiais = new  ProdutosMateriais();
                                   $materiais = $_SESSION['produto']['material'];
+                                  print_r($_SESSION['produto']['material']);
                                   $nome = $_POST['nome'];
                                   $id_empresa = $_SESSION['id_empresa'];
                                   $produto->add_produtos($nome, $id_empresa);//inserindo dados no objeto
                                   $id_produto = $produto->add_produto_bd();
                                   
                                   if($id_produto){
-                                    echo '<div class="msg">Sucesso</div>';
-                                    echo "Nome: ".$nome;
+                                    echo "Nome: ".$nome.'<br />';
                                     for($aux = 0; $aux < count($materiais); $aux++){
-                                        echo '<br />'.$materiais[$aux];
+                                        // echo '<br />'.$materiais[$aux];
                                         $id_qtd_tipo = explode(":", $materiais[$aux]);
+                                        
                                         // echo 'id produto: '.$id_produto.'/ id_material: '. $id_qtd_tipo[0].'/ quantidade: '. $id_qtd_tipo[1].'<br />';
-                                        $produto_materiais->add_produtos_materiais($id_produto, $id_qtd_tipo[0], $id_qtd_tipo[1]);
+                                        $id_material = $id_qtd_tipo[0].':'.$id_qtd_tipo[2];
+                                        echo 'Id_material: '.$id_material.'<br />';
+
+                                        $produto_materiais = ProdutosMateriais::add_produtos_materiais($id_produto, $id_material, $id_qtd_tipo[1]);
                                         $sucesso = $produto_materiais->add_produtos_materiais_bd();
-                                        if($sucesso){
+                                        
+
+                                        if($sucesso == true){
                                            echo 'adicionou id produto: '.$id_produto.'/ id_material: '. $id_qtd_tipo[0].'/ quantidade: '. $id_qtd_tipo[1].'<br />';
                                         }
                                     }
