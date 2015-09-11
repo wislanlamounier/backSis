@@ -6,7 +6,7 @@
        <ul class="sub-menu">
         <li><a href="/viacampos/administrator/add_func.php">Funcionário</a></li>
         <?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 1){ ?>
-                  <li><a href="/viacampos/administrator/add_cliente.php">Cliente / Administrador</a></li>
+                  <li><a href="/viacampos/administrator/add_cliente.php">Cliente / Fornecedor</a></li>
                   <li><a href="/viacampos/administrator/add_epi.php">Equipamentos</a></li>                  
                   <li><a href="/viacampos/administrator/add_epiXfunc.php">Equipamentos por funcionario</a></li>
                   <li><a href="/viacampos/administrator/add_patrimonio.php">Patrimonio</a></li>
