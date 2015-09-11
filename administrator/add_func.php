@@ -56,20 +56,28 @@ function validate(){
    return true;
 }
 
-function formata_salario($salario){
+function formata_salario($valor){
     $replace = array(".","R$ ");
-    $string = str_replace($replace, "", $_POST['sal_base']);
+    $string = str_replace($replace, "", $valor);
+
+    $replace = array(",");
+    $string = str_replace($replace, ".", $string);
     
-    $findme   = ',';
-    $pos = strpos($string, $findme);
-    
-    if($pos == true){
-       $return = substr($string, 0, $pos-(strlen($string)) );
-    }else{
-      $return = $string;
+    $return = $string;
+    return $return;
+}
+
+function verificaValor($valor){
+    //pega quantidade de caracteres - posisão do .
+
+    // $return = substr($valor, 0, -2).'.'.substr($valor,-2);
+    if(strlen($valor) - strpos($valor, '.') < 3){
+       $valor.='0';
+    }else if(strpos($valor, '.') == 0){
+       $valor.='.00';
     }
     
-    return $return;
+    return $valor;
 }
 
 ?>
@@ -159,42 +167,42 @@ function formata_salario($salario){
                 }
                
               }
-              if(f[i].name == "rg"){
-                if(f[i].value == ""){
-                  msg += "Insira um RG!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
-              if(f[i].name == "org_em_rg"){
-                if(f[i].value == ""){
-                  msg += "Preencha o campo Órgão Emissor!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
-              if(f[i].name == "data_em_rg"){
-                if(f[i].value == ""){
-                  msg += "Preencha o campo Data Emissão!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
-              if(f[i].name == "titu_eleitoral"){
-                if(f[i].value == ""){
-                  msg += "Preencha o campo Título Eleitoral!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
+              // if(f[i].name == "rg"){
+              //   if(f[i].value == ""){
+              //     msg += "Insira um RG!\n";
+              //     f[i].style.border = "1px solid #FF0000";
+              //     erros++;
+              //   }else{
+              //     f[i].style.border = "1px solid #898989"; 
+              //   }
+              // }
+              // if(f[i].name == "org_em_rg"){
+              //   if(f[i].value == ""){
+              //     msg += "Preencha o campo Órgão Emissor!\n";
+              //     f[i].style.border = "1px solid #FF0000";
+              //     erros++;
+              //   }else{
+              //     f[i].style.border = "1px solid #898989"; 
+              //   }
+              // }
+              // if(f[i].name == "data_em_rg"){
+              //   if(f[i].value == ""){
+              //     msg += "Preencha o campo Data Emissão!\n";
+              //     f[i].style.border = "1px solid #FF0000";
+              //     erros++;
+              //   }else{
+              //     f[i].style.border = "1px solid #898989"; 
+              //   }
+              // }
+              // if(f[i].name == "titu_eleitoral"){
+              //   if(f[i].value == ""){
+              //     msg += "Preencha o campo Título Eleitoral!\n";
+              //     f[i].style.border = "1px solid #FF0000";
+              //     erros++;
+              //   }else{
+              //     f[i].style.border = "1px solid #898989"; 
+              //   }
+              // }
               if(f[i].name == "email_emp"){
                 if(f[i].value == ""){
                   msg += "Preencha o campo Email empresarial!\n";
@@ -228,45 +236,52 @@ function formata_salario($salario){
                   f[i].style.border = "1px solid #FF0000";
                   erros++;
                 }else{
-                  f[i].style.border = "1px solid #898989"; 
+                  if(f[i].value <= 0){
+                      msg += "Insira um valor acima de 0 em Quant. de Horas Semanais!\n";
+                      f[i].style.border = "1px solid #FF0000";
+                      erros++;
+                  }else{
+                      f[i].style.border = "1px solid #898989"; 
+                  }
                 }
+                
               }
-              if(f[i].name == "pis"){
-                if(f[i].value == ""){
-                  msg += "Preencha o campo PIS!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
-              if(f[i].name == "num_cart_trab"){
-                if(f[i].value == ""){
-                  msg += "Preencha o campo Nº Car. Trabalho!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
-              if(f[i].name == "uf_cart_trab"){
-                if(f[i].value == "Selecione UF"){
-                  msg += "Selecione um Estado Para Carteira de Trab.!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
-              if(f[i].name == "num_serie_cart_trab"){
-                if(f[i].value == ""){
-                  msg += "Preencha o campo Nº de. Série!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
+              // if(f[i].name == "pis"){
+              //   if(f[i].value == ""){
+              //     msg += "Preencha o campo PIS!\n";
+              //     f[i].style.border = "1px solid #FF0000";
+              //     erros++;
+              //   }else{
+              //     f[i].style.border = "1px solid #898989"; 
+              //   }
+              // }
+              // if(f[i].name == "num_cart_trab"){
+              //   if(f[i].value == ""){
+              //     msg += "Preencha o campo Nº Car. Trabalho!\n";
+              //     f[i].style.border = "1px solid #FF0000";
+              //     erros++;
+              //   }else{
+              //     f[i].style.border = "1px solid #898989"; 
+              //   }
+              // }
+              // if(f[i].name == "uf_cart_trab"){
+              //   if(f[i].value == "Selecione UF"){
+              //     msg += "Selecione um Estado Para Carteira de Trab.!\n";
+              //     f[i].style.border = "1px solid #FF0000";
+              //     erros++;
+              //   }else{
+              //     f[i].style.border = "1px solid #898989"; 
+              //   }
+              // }
+              // if(f[i].name == "num_serie_cart_trab"){
+              //   if(f[i].value == ""){
+              //     msg += "Preencha o campo Nº de. Série!\n";
+              //     f[i].style.border = "1px solid #FF0000";
+              //     erros++;
+              //   }else{
+              //     f[i].style.border = "1px solid #898989"; 
+              //   }
+              // }
 
               if(f[i].name == "data_nasc" && f[i].value == ""){
                 msg += "Insira uma Data de Nascimento!\n";
@@ -343,21 +358,29 @@ function formata_salario($salario){
                 f[i].style.border = "1px solid #898989";
               }
 
-              if(f[i].name == "num" && f[i].value == ""){
-                msg += "Preencha o campo Número\n";
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "num" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
+              if(f[i].name == "num"){
+                if(f[i].value == ""){
+                  msg += "Preencha o campo Número!\n";
+                  f[i].style.border = "1px solid #FF0000";
+                  erros++;
+                }else{
+                    if(f[i].value <= 0){
+                        msg += "Insira um valor acima de 0 no campo Número!\n";
+                        f[i].style.border = "1px solid #FF0000";
+                        erros++;
+                    }else{
+                        f[i].style.border = "1px solid #898989";
+                    }
+                }
+                
               }
 
-              if(f[i].name == "estado" && f[i].value == "Selecione um estado"){
+              if(f[i].name == "estado" && f[i].value == "no_sel"){
                 msg += "Selecione um Estado\n";
                 f[i].style.border = "1px solid #FF0000";
                 erros++;
               }
-              if(f[i].name == "estado" && f[i].value != "Selecione um estado"){
+              if(f[i].name == "estado" && f[i].value != "no_sel"){
                 f[i].style.border = "1px solid #898989";
               }
               if(f[i].name == "superv"){
@@ -380,15 +403,15 @@ function formata_salario($salario){
                      f[i].style.border = "1px solid #898989";
                   }
                }
-               if(f[i].name == "cep"){
-                  if(f[i].value == ""){
-                      msg += "Selecione um cep\n";
-                     f[i].style.border = "1px solid #FF0000";
-                     erros++;
-                  }else{
-                     f[i].style.border = "1px solid #898989";
-                  }
-               }
+               // if(f[i].name == "cep"){
+               //    if(f[i].value == ""){
+               //        msg += "Selecione um cep\n";
+               //       f[i].style.border = "1px solid #FF0000";
+               //       erros++;
+               //    }else{
+               //       f[i].style.border = "1px solid #898989";
+               //    }
+               // }
           }
           if(erros>0){            
               alert(msg);
@@ -422,7 +445,19 @@ function formata_salario($salario){
       function execmascara(){
           v_obj.value=v_fun(v_obj.value)
       }
-
+    function mmoney(v){
+       if(v.length >=18){                                          // alert("mtel")
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+       v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
+       v=v.replace(/(\d)(\d{11})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       v=v.replace(/(\d)(\d{8})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       v=v.replace(/(\d)(\d{5})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       v=v.replace(/(\d)(\d{2})$/,"$1,$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       
+       return 'R$ '+v;
+    }
    function mtel(v){
        if(v.length >=15){
          v = v.substring(0,(v.length - 1));
@@ -463,6 +498,14 @@ function formata_salario($salario){
      return document.getElementById( el );
    }
    window.onload = function(){
+      mascara( id('sal_base'), mmoney );
+
+      // id('valor').onclick = function(){ 
+      //     mascara( this, mmoney );
+      // }
+      id('sal_base').onkeypress = function(){ 
+          mascara( this, mmoney );
+      }
       id('cpf').onkeypress = function(){ 
           mascara( this, mcpf );
       }
@@ -667,13 +710,13 @@ function carregaUf_CartTrab(uf){
                      
                      // echo $func->printFunc();
                    ?>
-                  <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR FUNCIONÁRIO</span></div></div>
+                  <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="60px" style="margin-left:-20px; margin-top:-20px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR FUNCIONÁRIO</span></div></div>
                   <form method="POST" id="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
                     <div id="popup" class="popup" style="float:left">
                       <div class="formulario" style="width:300px;">
                         <table style="width:100%; text-align:center;" border="0">
                             <input type="hidden" id="id_banco" name="id_banco" value="<?php echo $banco->id ?>">
-                           <tr><td colspan='2'><b>Dados Bancarios</b></td></tr>
+                           <tr><td colspan='2'><b>Dados Bancários</b></td></tr>
                            <tr><td><label>Banco:</label></td><td><input type="text" style="width:100%" name="banco" value="<?php  ($banco)?print $banco->banco:'' ?>"></td></tr>
                            <tr><td><label>Ag:</label></td><td><input type="text" style="width:100%" name="agencia" value="<?php ($banco)?print $banco->agencia:'' ?>"></td></tr>
                             <tr><td> <label>Op:</label></td><td><input type="text" style="width:100%" name="operacao" value="<?php ($banco)?print $banco->operacao:'' ?>"></td></tr>
@@ -688,10 +731,10 @@ function carregaUf_CartTrab(uf){
                   <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $func->id_endereco; ?>">
                   <table border='0'>
                     <tr><td colspan="4" style="padding-top:10px; padding-bottom:10px;"><span style="color:#565656">Atenção: Se o campo senha ficar em branco a senha não sera alterada</span></td></tr>
-                     <tr> <td><span>Código:</span></td> <td colspan="3"><input autofocus style="width:100%" type="text" id="codigo" name="codigo" value="<?php echo $func->cod_serie; ?>"></td></tr> <!-- cod_serie -->
+                     <tr> <td><span>Código:</span></td> <td colspan="3"><input autofocus style="width:100%; text-transform: uppercase" type="text" id="codigo" name="codigo" value="<?php echo $func->cod_serie; ?>"></td></tr> <!-- cod_serie -->
                      <tr> <td><span>Nome:</span></td> <td colspan="3"><input style="width:100%" type="text" id="nome" name="nome" value="<?php echo $func->nome; ?>"></td></tr> <!-- nome -->
                      <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%" type="text" id="cpf" name="cpf" value="<?php echo $func->cpf; ?>"></td></tr> <!-- CPF -->
-                     <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg" value="<?php echo $func->rg; ?>"></td><td><span>Org.Em:</span></td><td><input style="width:100px;" type="text" id="org_em_rg" name="org_em_rg" value="<?php echo $func->org_em_rg; ?>"></td></tr> <!-- RG -->
+                     <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg" value="<?php echo $func->rg; ?>"></td><td><span>Org.Em:</span></td><td><input style="width:100px; text-transform: uppercase;" type="text" id="org_em_rg" name="org_em_rg" value="<?php echo $func->org_em_rg; ?>"></td></tr> <!-- RG -->
                      <tr> <td><span>Data Em. RG:</span></td> <td colspan="3"><input type="date" id="data_em_rg" name="data_em_rg" value="<?php echo $func->data_em_rg; ?>" title="Data de emissão do RG"></td></tr> <!-- data de emissão do rg -->
                      <tr> <td><span>Título Eleitoral:</span></td> <td colspan="3"><input type="text" id="titu_eleitoral" name="titu_eleitoral" value="<?php echo $func->num_tit_eleitor; ?>"></td></tr> <!-- Numero do titulo eleitoral -->
                      <tr> <td><span>Data Nasc.:</span></td> <td><input type="date" id="data_nasc" name="data_nasc" value="<?php echo $func->data_nasc; ?>"></td></tr> <!-- data nacimento -->
@@ -729,8 +772,8 @@ function carregaUf_CartTrab(uf){
                         </td>
                         <?php echo '<script> buscar_postos('.$func->id_empresa.'); </script>'; ?> 
                      </tr>
-                     <tr> <td colspan="4"><span><a title="Clique aqui para cadastrar dados bancarios" onclick="exibe()" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/icon-edita.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Editar dados bancários</div></a></span></td> </tr>
-                     <tr> <td><span>Salário Base:</span></td> <td><input type="text" id="sal_base" name="sal_base" value="<?php echo $func->salario_base; ?>"></td></tr> <!-- Salário base -->
+                     <tr> <td colspan="4"><span><a title="Clique aqui para cadastrar dados bancários" onclick="exibe()" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/icon-edita.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Editar dados bancários</div></a></span></td> </tr>
+                     <tr> <td><span>Salário Base:</span></td> <td><input type="text" id="sal_base" name="sal_base" value="<?php echo verificaValor($func->salario_base) ?>"></td></tr> <!-- Salário base -->
                      <tr> <td><span>Qtd. Horas Semanais:</span></td> <td><input type="number" id="qtd_horas_sem" name="qtd_horas_sem" value="<?php echo $func->qtd_horas_sem; ?>"></td></tr> <!-- Quantidade de horas semanais -->
                      <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" value="<?php echo $func->num_pis; ?>"></td></tr> <!-- Numero do PIS -->
                      <tr> 
@@ -807,7 +850,7 @@ function carregaUf_CartTrab(uf){
                                 
                            ?>
                            <select name="estado" id="estado" onchange="buscar_cidades()">
-                              <option value="0">Selecione um estado</option>
+                              <option value="no_sel">Selecione um estado</option>
                               <?php 
                                  foreach($estados as $key => $estado){
                                     echo '<option value="'.$estados[$key][0].'">'.$estados[$key][1].'</option>';
@@ -902,7 +945,7 @@ function carregaUf_CartTrab(uf){
                 <div id="popup" class="popup" style="float:left">
                       <div class="formulario" style="width:300px;">
                         <table style="width:100%; text-align:center" border="0">
-                           <tr><td colspan='2'><b>Dados Bancarios</b></td></tr>
+                           <tr><td colspan='2'><b>Dados Bancários</b></td></tr>
                            <tr><td><label>Banco:</label></td><td><input type="text" name="banco"></td></tr>
                            <tr><td><label>Ag:</label></td><td><input type="text" name="agencia"></td></tr>
                             <tr><td> <label>Op:</label></td><td><input type="text" name="operacao"></td></tr>
@@ -913,7 +956,7 @@ function carregaUf_CartTrab(uf){
                 </div>
                 <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                   <table border="0">
-                    <tr> <td><span>Código:</span></td> <td colspan="3"><input style="width:100%" type="text" id="codigo" name="codigo"></td></tr> <!-- cod_serie -->
+                    <tr> <td><span>Código:</span></td> <td colspan="3"><input autofocus style="width:100%; text-transform: uppercase" type="text" id="codigo" name="codigo"></td></tr> <!-- cod_serie -->
                      <tr>
                         <td>
                           <span>Nome:</span>
@@ -925,7 +968,7 @@ function carregaUf_CartTrab(uf){
                      <!-- campo input com texto dentro -->
                      <!-- <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="cpf" name="cpf" value='Insira seu email aqui' onclick="this.value='';" onblur="javascript:if (this.value=='') {this.value='Insira seu email aqui'};"></td></tr> -->
                      <tr> <td><span>CPF:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="cpf" name="cpf"></td></tr> <!-- CPF -->
-                     <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg"></td><td><span>Org.Emissor:</span></td><td><input style="width:100%" type="text" id="org_em_rg" name="org_em_rg" ></td></tr> <!-- RG -->
+                     <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg"></td><td><span>Org.Emissor:</span></td><td><input style="width:100%; text-transform: uppercase" type="text" id="org_em_rg" name="org_em_rg" ></td></tr> <!-- RG -->
                      <tr> <td><span>Data Em. RG:</span></td> <td colspan="3"><input type="date" id="data_em_rg" name="data_em_rg"  title="Data de emissão do RG"></td></tr> <!-- data de emissão do rg -->
                      <tr> <td><span>Título Eleitoral:</span></td> <td colspan="3"><input type="text" id="titu_eleitoral" name="titu_eleitoral" ></td></tr> <!-- Numero do titulo eleitoral -->
                      <tr> <td><span>Data Nasc.:</span></td> <td><input type="date" id="data_nasc" name="data_nasc"></td></tr> <!-- data nacimento -->
@@ -962,7 +1005,7 @@ function carregaUf_CartTrab(uf){
                            </div>
                         </td>
                      </tr>
-                     <tr> <td colspan="4"><span><a onclick="exibe()" title="Clique aqui para editar dados bancarios" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/add.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Cadastrar dados bancários</div></a></span></td> </tr>
+                     <tr> <td colspan="4"><span><a onclick="exibe()" title="Clique aqui para editar dados bancários" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/add.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Cadastrar dados bancários</div></a></span></td> </tr>
                      <tr> <td><span>Salário Base:</span></td> <td><input type="text" id="sal_base" name="sal_base" ></td></tr> <!-- Salário base -->
                      <tr> <td><span>Qtd. Horas Semanais:</span></td> <td><input type="number" id="qtd_horas_sem" name="qtd_horas_sem" ></td></tr> <!-- Quantidade de horas semanais -->
                      <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" ></td></tr> <!-- Numero do PIS -->
@@ -1036,7 +1079,7 @@ function carregaUf_CartTrab(uf){
                               $estados = $estado->get_name_all_uf();
                            ?>
                            <select name="estado" id="estado" onchange="buscar_cidades()">
-                              <option>Selecione um estado</option>
+                              <option value="no_sel">Selecione um estado</option>
                               <?php 
                                  foreach($estados as $key => $estado){
                                     echo '<option value="'.$estados[$key][0].'">'.$estados[$key][1].'</option>';
@@ -1089,7 +1132,7 @@ function carregaUf_CartTrab(uf){
                <?php //fica dentro do cadastrar porque depois que altera o funcionario entra nesse if
 
                 if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
-                        echo '<script> alert("entrou aqui")</script>';
+                        
                         if(validate()){
                            $func = new Funcionario();
                            $end = new Endereco();
@@ -1220,7 +1263,7 @@ function carregaUf_CartTrab(uf){
                            }
                            //************** FIM ATUALIZA ENDERECO ******************
                            
-                           //************** ATUALIZA DADOS BANCARIOS ******************
+                           //************** ATUALIZA DADOS BANCáRIOS ******************
                            $id_banco = $_POST['id_banco'];
                            $banco = strtoupper($_POST['banco']);
                            $agencia = $_POST['agencia'];
@@ -1236,7 +1279,7 @@ function carregaUf_CartTrab(uf){
                               // echo 'Banco: '.$id_dados_bancarios.' adicionado com sucesso';
                            }
                            
-                           //************** FIM ATUALIZA DADOS BANCARIOS ******************
+                           //************** FIM ATUALIZA DADOS BANCáRIOS ******************
 
                            if($func->atualiza_func($id, $id_dados_bancarios, $cod_serie, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor)){
                               echo '<div class="msg">Funcionário editado com sucesso</div>';

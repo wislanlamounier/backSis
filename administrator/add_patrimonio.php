@@ -18,8 +18,7 @@ function validate(){
     }
          
 function formataMoney($valor){
-
-    
+  
     $replace = array(".","R$ ");
     $string = str_replace($replace, "", $valor);
 
