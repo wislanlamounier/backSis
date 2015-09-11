@@ -200,7 +200,7 @@ function validate(){
                      
                      $cboXexames = new CboXexames();
                      $cbo = new Cbo();
-                     $cbo->add_cbo($_POST['codigo'], $_POST['descricao']);
+                     $cbo->add_cbo($_POST['codigo'], $_POST['descricao'],$id = $_SESSION['id_empresa']);
                      $id_cbo = $cbo->add_cbo_bd();// id do registro cadastrado
                      $id_exames = $_POST['selecionados'];
 

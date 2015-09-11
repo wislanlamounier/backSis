@@ -127,10 +127,14 @@ require_once("../model/class_cidade_bd.php");
                   msg += "Preencha o campo de telefone!\n";
                   f[i].style.border = "1px solid #FF0000";
                   erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
+                }if(f[i].value <= 0){
+                        msg += "Insira um valor acima de 0 no campo Número!\n";
+                        f[i].style.border = "1px solid #FF0000";
+                        erros++;
+                    }else{
+                        f[i].style.border = "1px solid #898989";
+                    }
+                  }
               if(f[i].name == "razao_social"){
                 if(f[i].value == ""){
                   msg += "Preencha o campo de Razão Social!\n";
@@ -317,19 +321,23 @@ function buscar_cidades(){
 		}
 	}
 	    function carregaCidade(){
-      var combo = document.getElementById("cidade");
-      var cidade = document.getElementById("cidade").value;
-
-      for (var i = 0; i < 1000; i++)
-      {
-        if (combo.options[i].value == cidade)
-        {
-          combo.options[i].selected = true;
-          break;
-        }
+        var combo = document.getElementById("cidade");
+        var cidade = document.getElementById("id_cidade").value;
+  
+        for (var i = 0; i < 1000; i++)
+         {
+           if (combo.options[i].value == cidade)
+               {
+               combo.options[i].selected = true;
+               break;
+             }
+           } 
       }
-      
-    }
+  function disparaLoadCidade(){
+      setTimeout(function() {
+         carregaCidade();
+        }, 500);
+      }
 
     function carregaUf(uf){
       var combo = document.getElementById("estado");
@@ -356,12 +364,7 @@ function buscar_cidades(){
         }
       }
     }
-    function disparaLoadCidade(){
-      setTimeout(function() {
-         carregaCidade();
-        }, 500);
-
-    }
+   
  </script>
 
  <body onload="disparaLoadCidade()">  		
@@ -420,6 +423,7 @@ function buscar_cidades(){
                              </select>
                            </div>
                         </td>
+
                          <?php echo "<script> carregaCidade('".$endereco[0][2]."'); </script>" ?>
                      </tr>
                      <tr><td><span><b>Responsável</b></span></td>
@@ -438,7 +442,7 @@ function buscar_cidades(){
                      </tr>
               		   <tr>
                           <td colspan="2" style="text-align:center">
-                              <input  class="button" type="submit" value="editar">
+                              <input  class="button" type="submit" value="Editar">
                               <input class="button" name="button" onclick="window.location.href='add_empresa.php'" id="button" value="Cancelar">
                           </td>
                       </tr> 
@@ -451,18 +455,18 @@ function buscar_cidades(){
 					 <input type="hidden" name="tipo" value="cadastrar">	                 
 	                 <table border='0' style="width:100%">                  
                      <tr> <td><span>Razão Social:</span></td> <td colspan="3"><input style="width:100%" type="text" id="razao_social" name="razao_social"  ></td></tr> <!-- nome -->
-                     <tr> <td><span>Nome Fantasia:</span></td> <td><input style="width:100%" type="text" id="nome_fantasia" name="nome_fantasia"></td></tr> <!-- CPF -->
+                     <tr> <td><span>Nome Fantasia:</span></td> <td colspan="3"><input style="width:100%" type="text" id="nome_fantasia" name="nome_fantasia"></td></tr> <!-- CPF -->
                      <tr> <td><span>CNPJ:</span></td> <td><input style="width:100%" type="text" id="cnpj" name="cnpj"></td></tr> <!-- RG -->
-                     <tr> <td><span>Inscrição Estadual:</span></td> <td colspan="3"><input style="width:100%" type="text" id="inscricao_estadual" name="inscricao_estadual"> </td></tr> <!-- data de emissão do rg -->
-                     <tr> <td><span>Inscricao Municipal:</span></td> <td colspan="3"><input style="width:100%" type="text" id="inscricao_municipal" name="inscricao_municipal" ></td></tr> <!-- Numero do titulo eleitoral -->
-                     <tr> <td><span>Telefone:</span></td> <td><input style="width:100%" type="text" id="tel" name="tel"></td></tr>
+                     <tr> <td><span>Inscrição Estadual:</span></td> <td ><input style="width:100%; text-transform:uppercase;"  type="text" id="inscricao_estadual" name="inscricao_estadual"> </td><td><span>Inscricao Municipal:</span></td> <td><input style="width:100%; text-transform:uppercase; padding-left:-30px;" type="text" id="inscricao_municipal" name="inscricao_municipal" ></td></tr> <!-- data de emissão do rg -->
+                     <tr> </tr> <!-- Numero do titulo eleitoral -->
+                     <tr> <td><span>Telefone:</span></td><td ><input style="width:100%" type="text" id="tel" name="tel"></td></tr>
                      <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
-                     <tr><td> <span>Rua: </span></td><td colspan="3"><input style="width:100%" type="text" id="rua" name="rua" ></td></tr>
-                     <tr><td> <span>Numero: </span></td><td colspan="3"><input style="width:100%" type="number" id="numero" name="numero"   ></td></tr>
+                     <tr><td> <span>Rua: </span></td><td colspan="1"><input style="width:100%" type="text" id="rua" name="rua" ></td><td><span>Numero:</span><input style="width:40%" type="number" id="numero" name="numero"></td></tr>
+                     <tr></tr>
                      <tr><td> <span>Bairro: </span></td><td colspan="3"><input style="width:100%" type="text" id="bairro" name="bairro" > </td></tr>
                      <tr><td> <span> CEP </span></td><td><input style="width:100%" type="text" id="cep" name="cep"> </td></tr>                     
                      <tr><td><span>Estado:</span></td>
-                        <td>
+                        <td colspan="2">
                            <?php //buscar array de CBO
                               $estado = new Estado();
                               $estados = $estado->get_name_all_uf();
@@ -479,7 +483,7 @@ function buscar_cidades(){
                         </td>
                      </tr>
                      <tr><td><span>Cidades:</span></td>                       
-                        <td colspan="3">
+                        <td colspan="2">
                            <div id="load_cidades">
                              <select name="cidade" id="cidade" style="width:100%">
                                <option value="">Selecione um estado</option>
@@ -488,7 +492,7 @@ function buscar_cidades(){
                         </td>
                      </tr>
                      <tr><td><span><b>Responsável</b></span></td>
-					 <td><select id="responsavel" name="responsavel" style="width:100%">
+					 <td colspan="2"><select id="responsavel" name="responsavel" style="width:100%">
                               <option value="no_res">Selecione o Responsável</option>
                               <?php 
                                  $func = new Funcionario();
@@ -529,10 +533,12 @@ function buscar_cidades(){
                   					 $rua = $_POST['rua'];
                   					 $numero = $_POST['numero'];
                   					 $cidade_id = $_POST['cidade']; 
-                  					 $cep = $_POST['cep'];	
+                  					 $cep = $_POST['cep'];
+                             $nivel_acesso = $_SESSION['nivel_acesso'];	
                   					 $endereco->add_Endereco($bairro, $rua, $numero, $cidade_id, $cep);	
                   					 $id_endereco = $endereco->add_endereco_bd();                     
-                             $empresa->add_empresa($cnpj, $razao_social, $nome_fantasia, $ins_estadual, $ins_municipal,  $telefone, $id_responsavel, $id_endereco);
+                             $empresa->add_empresa($cnpj, $razao_social, $nome_fantasia, $ins_estadual, $ins_municipal,  $telefone, $id_responsavel, $id_endereco, $nivel_acesso);
+
                              if($empresa->add_empresa_bd()){
                                 echo '<div class="msg">Empresa cadastrada com sucesso!</div>';
                              }else{

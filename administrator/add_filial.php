@@ -358,7 +358,7 @@ function validate(){
                     <input type="hidden" id="tipo" name="tipo" value="editar">
                  
                      <!-- <tr> <td ><span>CNPJ:</span></td> <td colspan="2"><input type="text" id="cnpj" name="cnpj" style="width:100%"></td></tr> <!- cnpj --> 
-                     <tr> <td ><span>Código Posto:</span></td> <td colspan="2"><input type="text" id="cod_posto" name="cod_posto" style="width:100%" value="<?php echo $filial->cod_posto; ?>"></td></tr> <!-- cod_posto -->
+                     <tr> <td ><span>Código Posto:</span></td> <td colspan="2"><input type="text" id="cod_posto" name="cod_posto" style="width:100%; text-transform:uppercase;" value="<?php echo $filial->cod_posto; ?>"></td></tr> <!-- cod_posto -->
                      <tr> <td ><span>Nome:</span></td> <td colspan="2"><input type="text" id="nome" name="nome" style="width:100%"value="<?php echo $filial->nome; ?>"></td></tr> <!-- nome -->
                      <tr> <td ><span>Telefone:</span></td > <td colspan="2"><input type="text" id="telefone" name="telefone" style="width:100%" value="<?php echo $filial->telefone; ?>"></td></tr> <!-- nome -->
                      <tr> <td ><span>Rua:</span></td> <td><input value="<?php echo $endereco[0][0]; ?>" type="text" id="rua" name="rua"><span> Nº: </span></td> <td><input value="<?php echo $endereco[0][1]; ?>" style="width:60px" type="text" id="num" name="num"></td></tr> <!-- rua -->
@@ -395,8 +395,7 @@ function validate(){
                         <?php echo "<script> buscar_cid('".$endereco[0][3]."'); </script>";  ?>
                       </tr>
 
-                     <tr> <td ><span>CEP:</span></td> <td colspan="2"><input type="text" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>" style="width:100%"></td></tr> <!-- cep -->
-                     
+                     <tr> <td ><span>CEP:</span></td> <td colspan="2"><input type="text" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>" style="width:100%"></td></tr> <!-- cep -->                     
                      <tr> 
                         <td ><span>Empresa:</span></td>
                         <td colspan="2">
@@ -434,7 +433,7 @@ function validate(){
                      <!-- <tr><td colspan="2"><span style="color:#898989">Segure Ctrl para múltiplas seleções</span></td></tr>   -->
                      <tr>
                           <td colspan="3" style="text-align:center">
-                              <input class="button" type="submit" onclick="selectAll()" name="button" id="button" value="Cadastrar">
+                              <input class="button" type="submit" onclick="selectAll()" name="button" id="button" value="Editar">
                               <input class="button" name="button" onclick="window.location.href='add_filial.php'" id="button" value="Cancelar">
                           </td>
                       </tr>
@@ -446,7 +445,7 @@ function validate(){
                   <table border="0" style="width:100%" >
                      <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                      <!-- <tr> <td ><span>CNPJ:</span></td> <td colspan="2"><input type="text" id="cnpj" name="cnpj" style="width:100%"></td></tr> <!- cnpj --> 
-                     <tr> <td ><span>Código Posto:</span></td> <td colspan="2"><input type="text" id="cod_posto" name="cod_posto" style="width:100%"></td></tr> <!-- cod_posto -->
+                     <tr> <td ><span>Código Posto:</span></td> <td colspan="2"><input type="text" id="cod_posto" name="cod_posto" style="width:100%; text-transform:uppercase;"></td></tr> <!-- cod_posto -->
                      <tr> <td ><span>Nome:</span></td> <td colspan="2"><input type="text" id="nome" name="nome" style="width:100%"></td></tr> <!-- nome -->
                      <tr> <td ><span>Telefone:</span></td > <td colspan="2"><input type="text" id="telefone" name="telefone" style="width:100%"></td></tr> <!-- nome -->
                      <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua"><span> Nº: </span></td> <td><input style="width:60px" type="text" id="num" name="num"></td></tr> <!-- rua -->
