@@ -18,7 +18,9 @@ include_once("../model/class_veiculo_bd.php")
  	<link rel="stylesheet" type="text/css" href="style1.css">
  </head> 
  <script type="text/javascript">
-  function exibe(){
+  function exibe(popup){
+  	var p = popup;
+  	
         // document.getElementById("popup").style.display = "block";
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
@@ -27,18 +29,18 @@ include_once("../model/class_veiculo_bd.php")
         var screenHeight = screen.height;
         // alert(windowWidth+" x "+windowHeight)
         if(windowWidth > 1200){
-          document.getElementById("popup").style.marginLeft = "20%";
+          document.getElementById(p).style.marginLeft = "20%";
         }else if(windowWidth > 1000){
-          document.getElementById("popup").style.marginLeft = "20%";
+          document.getElementById(p).style.marginLeft = "20%";
         }else if(windowWidth > 500){
-          document.getElementById("popup").style.marginLeft = "20%";
+          document.getElementById(p).style.marginLeft = "20%";
         }else{
-          document.getElementById("popup").style.marginLeft = "0%";
+          document.getElementById(p).style.marginLeft = "0%";
         }
     }
-    function fechar(){
-
-        document.getElementById("popup").style.marginLeft = "-450px";
+    function fechar(popup){
+    	p = popup;
+        document.getElementById(p).style.marginLeft = "-450px";
     }
 
  function moveRelogio(){
