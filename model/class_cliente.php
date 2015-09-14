@@ -470,7 +470,7 @@ class Cliente {
 			echo "";
 		}elseif ($this->fornecedor==1){
 			$texto .= "<tr>";
-		$texto .= "<td><span><b>Forncedor: </b></span></td><td><span>".$this->fornecedor."</span></td>";	
+		$texto .= "<td><span><b>Forncedor </b></span></td><td><span>".$this->fornecedor."</span></td>";	
 		$texto .= "</tr>";	
 		}
 									
