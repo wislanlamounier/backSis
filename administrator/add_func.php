@@ -68,13 +68,24 @@ function formata_salario($valor){
 }
 
 function verificaValor($valor){
-    //pega quantidade de caracteres - posisão do .
+        
+    if(!strpos($valor, '.')){// se não existe . na string (EX R$ 15) tem que adicionar .00 para ficar (R$ 15.00)
+       $valor .= '.00';
 
-    // $return = substr($valor, 0, -2).'.'.substr($valor,-2);
-    if(strlen($valor) - strpos($valor, '.') < 3){
-       $valor.='0';
-    }else if(strpos($valor, '.') == 0){
-       $valor.='.00';
+    /**** Comments else if ****
+      se (tamanho da string) - (posisão do ponto) for < 3 
+      EX:
+      len ->  12345
+      str ->  100.5
+      pos ->  01234
+      
+      len == 5; pos == 3;
+
+      (5-3) == 2; 2 < 3
+
+    */
+    }else if(strlen($valor) - strpos($valor, '.') < 3){
+        $valor .= '0';
     }
     
     return $valor;

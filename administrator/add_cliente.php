@@ -699,7 +699,7 @@ require_once("../model/class_cidade_bd.php");
 						        </form>
 				<?php }else{ //adicionar cliente?>
 
-						<div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE CLIENTE</span></div></div>
+						<div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="60px" style="margin-left:-20px; margin-top:-20px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE CLIENTE</span></div></div>
 						<form form method="POST" id="add_cliente" action="add_cliente.php" onsubmit="return valida(this)">
 								<input type="hidden" name="tipo_post" value="add_cliente"><?php //input envia o tipo da requisição, se é add cliente,  edita cliente p/fisica ou edita cliente p/juridica ?>
 								<table border="0" style="width:100%" >

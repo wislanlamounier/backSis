@@ -8,6 +8,7 @@ include_once("../model/class_maquinario_bd.php");
 include_once("../model/class_veiculo_bd.php");
 include_once("../model/class_patrimonio_geral_bd.php");
 include_once("../model/class_funcionario_bd.php");
+include_once("../model/class_produto_bd.php");
 
 function validate(){
    if(!isset($_POST['desc']) || $_POST['desc'] == ""){
@@ -24,17 +25,58 @@ function validate(){
 
 </head>
 <script type="text/javascript">
-    function increment(nome){//chama a pagina que vai incrementar a quantidade no patrimonio
-
-            var parametros = nome.split(":");
+    function exibe(id){
+        
+        var url = '../ajax/ajax_buscar_materiais.php?id_produto='+id; 
             
-            var quantidade = document.getElementById(nome).value;
-            
-            var url = '../ajax/ajax_incrementa_quantidade.php?id='+parametros[1]+'&qtd='+quantidade+'&tipo='+parametros[2]; 
-            
-            $.get(url, function(dataReturn) {
+         $.get(url, function(dataReturn) {
               
-            });
+              $('#popup').html(dataReturn);  
+         });
+
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+      
+        var screenWidth = screen.width;
+        var screenHeight = screen.height;
+        // alert(windowWidth+" x "+windowHeight)
+        if(windowWidth > 1200){
+          document.getElementById("popup").style.marginLeft = "35%";
+        }else if(windowWidth > 1000){
+          document.getElementById("popup").style.marginLeft = "30%";
+        }else if(windowWidth > 500){
+          document.getElementById("popup").style.marginLeft = "20%";
+        }else{
+          document.getElementById("popup").style.marginLeft = "0%";
+        }
+    }
+    function fechar(){
+
+        document.getElementById("popup").style.marginLeft = "-450px";
+    }
+    function increment(nome, whatarray){//chama a pagina que vai incrementar a quantidade no patrimonio
+           
+           if(whatarray == 'patrimonio'){
+                var parametros = nome.split(":");
+                
+                var quantidade = document.getElementById(nome).value;
+                
+                var url = '../ajax/ajax_incrementa_quantidade.php?id='+parametros[1]+'&qtd='+quantidade+'&tipo='+parametros[2]+'&whatarray='+whatarray; 
+                
+                $.get(url, function(dataReturn) {
+                  
+                });
+            }else if(whatarray == 'produto'){
+                var parametros = nome.split(":");
+                
+                var quantidade = document.getElementById(nome).value;
+                
+                var url = '../ajax/ajax_incrementa_quantidade.php?id='+parametros[0]+'&qtd='+quantidade+'&whatarray='+whatarray; 
+                
+                $.get(url, function(dataReturn) {
+                  
+                });
+            }
     }
   	function buscarClientes(){
 
@@ -78,7 +120,7 @@ function validate(){
           var tipo = document.getElementById("tipo").value;
             
           var url = '../ajax/ajax_montar_patrimonio.php?id='+id+'&tipo='+tipo;  
-          // alert('passou')
+
           $.get(url, function(dataReturn) {
             
             $('#form-input-dados').html(dataReturn); 
@@ -103,7 +145,7 @@ function validate(){
         });
     }
     function apagar(id, whatarray){
-        // alert('id: '+id+"/ que array?: "+whatarray);
+
         var url = '../ajax/ajax_apagar.php?id='+id+'&whatarray='+whatarray; 
         
         $.get(url, function(dataReturn) {
@@ -111,6 +153,24 @@ function validate(){
           $('#form-input-dados').html(dataReturn);  
         });
     }
+    function buscarProdutos(){
+        var nome = document.getElementById("nome").value;
+        
+        var url = '../ajax/ajax_buscar_materiais.php?nome='+nome+'&tipo=p';  
+        $.get(url, function(dataReturn) {
+            $('#form-input-select').html(dataReturn);
+        });
+    }
+    function selecionaProduto(id){
+            
+          var url = '../ajax/ajax_montar_material.php?id='+id+'&whatarray=obra';
+          
+          $.get(url, function(dataReturn) {
+            
+            $('#form-input-dados').html(dataReturn); 
+          });
+    }
+
 </script>
 
 <body>	
@@ -122,6 +182,13 @@ function validate(){
               <?php 
                     if(isset($_GET['t']) && $_GET['t'] == 'c'){
                         unset($_SESSION['obra']);
+                        echo '<div class="msg">
+                                  <form  action="add_obra.php">
+                                    <input type="hidden" id="t" name="t" value="a_c_o">
+                                    Cadastramento cancelado!<br /><br />
+                                    <input type="submit"  value="Nova Obra" class="button"> <input type="button" onclick="window.location.href=\'principal.php\'" value="Início" class="button">
+                                  </form> 
+                              </div>';
                     }
                ?>
             <?php if(isset($_GET['t']) && $_GET['t'] == 'a_c_o'){ // add clientes da obra?>
@@ -234,6 +301,15 @@ function validate(){
                                   $_SESSION['obra']['dados']['desc'] = $_GET['desc'];
                                   
                                ?>
+                               <div id="popup" class="popup" style="float:left">
+                                    <div class="formulario" style="width:300px;">
+                                      <table style="width:100%; text-align:center;" border="0">
+                                         <input type="hidden" id="id_banco" name="id_banco" value="<?php echo $banco->id ?>">
+                                         <tr><td colspan='2'><b>Materiais</b></td></tr>
+                                         <tr><td colspan='2'><input onclick="fechar()" type="button"  class="button" value="Concluir" ></td></tr>
+                                       </table>
+                                    </div>
+                               </div>
                         
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
@@ -244,7 +320,7 @@ function validate(){
                                   <div class="body-bloco">
                                       <div class="form-input left">
                                           <div class="form-input">
-                                              <span><b>Nome: </b></span><br /><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:65%"> <input type="button" value="Buscar" onclick="buscarPatrimonios()">
+                                              <span><b>Nome: </b></span><br /><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:65%"> <input type="button" value="Buscar" onclick="buscarProdutos()">
                                           </div>
                                           <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
                                               <select size="10" style="height: 100%; width: 100%">
@@ -256,7 +332,28 @@ function validate(){
                                               <span><b>Produtos selecionados: </b></span>
                                           </div>
                                           <div class="form-input" id="form-input-dados" style="border: 1px solid#bbb;  padding: 10px;">
-                                                
+                                                <?php 
+
+                                                  if(isset($_SESSION['obra']['produto'])){
+                                                      echo '<table>';
+                                                      for($aux = 0; $aux < count($_SESSION['obra']['produto']); $aux++){
+                                                        $id_qtd = explode(':', $_SESSION['obra']['produto'][$aux]);
+
+                                                        if($aux%2==0)
+                                                                   echo '<tr style="background-color:#ccc;">';
+                                                            else
+                                                                  echo '<tr style="background-color:#ddd;">';
+                                                                
+                                                         $res = new Produto();
+                                                         $res = $res->get_produto_id($id_qtd[0]);
+                                                         echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd[1].'" onchange="increment(this.id,\'produto\')" style="width:100%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd[1].'"></td><td><a name="'.$res->id.'" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span>Ver materiais</span></a></td><td><a name="'.$res->id.':'.$id_qtd[1].'" style="cursor:pointer"  onclick="apagar(this.name,\'produto\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+                                                            
+                                                          echo '</tr>';
+                                                      }
+                                                      echo '</table>';
+                                                }
+
+                                                 ?>
                                           </div>
                                       </div>
                                       
@@ -280,14 +377,13 @@ function validate(){
                                   // $_SESSION['obra']['dados']['rua'] = $_GET['rua'];
                                   // $_SESSION['obra']['dados']['num'] = $_GET['num'];
                                   // $_SESSION['obra']['dados']['desc'] = $_GET['desc'];
-                                  
                                ?>
                               
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
                                   <div class="title-bloco"><b>Patrimonios/Obra</b></div>
                                   <div class="desc-bloco">
-                                      <span>Selecione os Patrimonios </span>
+                                      <span>Selecione os Patrimonios</span>
                                   </div>
                                   <div class="body-bloco">
                                       <div class="form-input left">
@@ -318,7 +414,6 @@ function validate(){
                                                         for($aux = 0; $aux < count($_SESSION['obra']['patrimonio']); $aux++){
                                                             //variavel tipo_id_qtd = os valores da sessão
                                                             $tipo_id_qtd = explode(':', $_SESSION['obra']['patrimonio'][$aux]);
-                                                              
 
                                                             if($aux%2==0)
                                                                echo '<tr style="background-color:#ccc;">';
@@ -326,13 +421,13 @@ function validate(){
                                                               echo '<tr style="background-color:#ddd;">';
                                                             if($tipo_id_qtd[0] == 0){
                                                                $res = Patrimonio_geral::get_patrimonio_geral_id($tipo_id_qtd[1]);
-                                                               echo '<td ><span>'.$res->nome.': </span></td><td><input  id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'" onchange="increment(this.id)" style="width:30%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$tipo_id_qtd[2].'"></td><td><a style="cursor:pointer" name="'.$tipo_id_qtd[0].':'.$res->id.':'.$tipo_id_qtd[2].'" id="'.$res->id.'" onclick="apagar(this.name,\'patrimonio\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+                                                               echo '<td ><span>'.$res->nome.': </span></td><td><input  id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'" onchange="increment(this.id, \'patrimonio\')" style="width:30%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$tipo_id_qtd[2].'"></td><td><a style="cursor:pointer" name="'.$tipo_id_qtd[0].':'.$res->id.':'.$tipo_id_qtd[2].'" id="'.$res->id.'" onclick="apagar(this.name,\'patrimonio\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                                                             }else if($tipo_id_qtd[0] == 1){
                                                                $res = Maquinario::get_maquinario_id($tipo_id_qtd[1]);
-                                                               echo '<td><span>'.$res->modelo.': </span></td><td><input readonly  id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'"  onchange="increment(this.id)" style="width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td><td><a style="cursor:pointer" name="'.$tipo_id_qtd[0].':'.$res->id.':'.$tipo_id_qtd[2].'" id="'.$res->id.'" onclick="apagar(this.name,\'patrimonio\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+                                                               echo '<td><span>'.$res->modelo.': </span></td><td><input readonly  id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'"  onchange="increment(this.id, \'patrimonio\')" style="width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td><td><a style="cursor:pointer" name="'.$tipo_id_qtd[0].':'.$res->id.':'.$tipo_id_qtd[2].'" id="'.$res->id.'" onclick="apagar(this.name,\'patrimonio\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                                                             }else{
                                                                $res = Veiculo::get_veiculo_id($tipo_id_qtd[1]);
-                                                               echo '<td><span>'.$res->modelo.': </span></td><td><input readonly  id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'"  onchange="increment(this.id)" style="width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td><td><a style="cursor:pointer" name="'.$tipo_id_qtd[0].':'.$res->id.':'.$tipo_id_qtd[2].'" id="'.$res->id.'" onclick="apagar(this.name,\'patrimonio\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+                                                               echo '<td><span>'.$res->modelo.': </span></td><td><input readonly  id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'"  onchange="increment(this.id, \'patrimonio\')" style="width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td><td><a style="cursor:pointer" name="'.$tipo_id_qtd[0].':'.$res->id.':'.$tipo_id_qtd[2].'" id="'.$res->id.'" onclick="apagar(this.name,\'patrimonio\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                                                             }
                                                             echo '</tr>';
 

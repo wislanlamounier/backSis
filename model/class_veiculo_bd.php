@@ -108,8 +108,8 @@ class Veiculo{
 			$veiculo->data_compra = $row['data_compra'];
 			$veiculo->valor = $row['valor'];
 			$veiculo->seguro= $row['seguro'];
-			$veiculo->data_ini_seg= $row['data_ini_seg'];
-			$veiculo->data_fim_seg= $row['data_fim_seg'];
+			$veiculo->data_ini_seg = $row['data_ini_seg'];
+			$veiculo->data_fim_seg = $row['data_fim_seg'];
 			$veiculo->km_inicial= $row['km_inicial'];
 			$veiculo->id_fornecedor= $row['id_fornecedor'];
 			$veiculo->id_empresa= $row['id_empresa'];

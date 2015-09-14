@@ -77,6 +77,7 @@ include_once("../model/class_produto_bd.php");
             else
               echo '<tr style="background-color:#ddd;">';
                   if($whatarray == 'patrimonio'){// se for array de patrimonio verifica o tipo
+                      //$_SESSION['obra']['patrimonio'][$aux] = 'qtd:id:tipo';
                       $tipo_id_qtd = explode(':', $_SESSION['obra'][$whatarray][$aux]);
 
                       if($tipo_id_qtd[0] == 0){
@@ -89,9 +90,15 @@ include_once("../model/class_produto_bd.php");
                          $res = Veiculo::get_veiculo_id($tipo_id_qtd[1]);
                          echo '<td><span>'.$res->modelo.': </span></td><td><input readonly  id="qtd:'.$res->id.':'.$tipo_id_qtd[0].'"  onchange="increment(this.id)" style="width:30%" type="number" value="'.$tipo_id_qtd[2].'"></td><td><a style="cursor:pointer" name="'.$tipo_id_qtd[0].':'.$res->id.':'.$tipo_id_qtd[2].'" id="'.$res->id.'" onclick="apagar(this.name,\'patrimonio\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                       }
-                  }else if($whatarray == 'funcionario'){
-                     $res = Funcionario::get_func_id($_SESSION['obra'][$whatarray][$aux]);
-                     echo '<td ><span>'.$res->nome.': </span></td><td style="text-align:center"><a id="'.$res->id.'" style="cursor: pointer" onclick="apagar(this.id,\''.$whatarray.'\')"><img style="width:15px" src="../images/delete.png"></a></td>';          
+                  }else if($whatarray == 'funcionario'){ // se for funcionario exibe funcionarios
+                      $res = Funcionario::get_func_id($_SESSION['obra'][$whatarray][$aux]);
+                      echo '<td ><span>'.$res->nome.': </span></td><td style="text-align:center"><a id="'.$res->id.'" style="cursor: pointer" onclick="apagar(this.id,\''.$whatarray.'\')"><img style="width:15px" src="../images/delete.png"></a></td>';          
+                  }else if($whatarray == 'produto'){ // se for produto exibe produtos
+                      $id_qtd = explode(':', $_SESSION['obra'][$whatarray][$aux]);// pega id e qtd que estão concatenados na session
+                      $res = new Produto();
+                      $res = $res->get_produto_id($id_qtd[0]);
+                      echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd[1].'" onchange="increment(this.id,\'produto\')" style="background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd[1].'"></td><td><a name="'.$res->id.'" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span>Ver materiais</span></a></td><td><a name="'.$res->id.':'.$id_qtd[1].'" style="cursor:pointer"  onclick="apagar(this.name,\'produto\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+
                   }
                 
               echo '</tr>';

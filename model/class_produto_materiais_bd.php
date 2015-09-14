@@ -29,7 +29,7 @@ class ProdutosMateriais{
 		$result = $g->tratar_query($query, $this->id_produto, $this->id_material, $this->quantidade); //inserindo no banco de dados
 
 		 
-		 if(@mysql_num_rows($result) == 0){
+		 if(!$result){
             $sql->close_conn();
             return false;
 	     }else{

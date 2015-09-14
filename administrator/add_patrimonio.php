@@ -30,13 +30,24 @@ function formataMoney($valor){
 }
 //verifica o valor antes de carregar no text de edição
 function verificaValor($valor){
-    //pega quantidade de caracteres - posisão do .
+        
+    if(!strpos($valor, '.')){// se não existe . na string (EX R$ 15) tem que adicionar .00 para ficar (R$ 15.00)
+       $valor .= '.00';
 
-    // $return = substr($valor, 0, -2).'.'.substr($valor,-2);
-    if(strlen($valor) - strpos($valor, '.') < 3){
-       $valor.='0';
-    }else if(strpos($valor, '.') == 0){
-       $valor.='.00';
+    /**** Comments else if ****
+      se (tamanho da string) - (posisão do ponto) for < 3 
+      EX:
+      len ->  12345
+      str ->  100.5
+      pos ->  01234
+      
+      len == 5; pos == 3;
+
+      (5-3) == 2; 2 < 3
+
+    */
+    }else if(strlen($valor) - strpos($valor, '.') < 3){
+        $valor .= '0';
     }
     
     return $valor;
@@ -865,7 +876,7 @@ function verificaValor($valor){
                   <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula"></td></tr>                               
                   <tr><td><span>Nome:</span></td><td><input type="text" name="nome" id="nome"><td><span> Marca:</span></td><td><input type="text" name="marca" id="marca"></td></td></tr>
                   <tr><td><span>Quantidade:</span></td><td><input type="text" name="quantidade" id="quantidade"> <td><span> Descricao:</span></td><td><input type="text" name="descricao" id="descricao"></td></td></tr>
-                  <tr><td><span>Valor:(corrigir valor)</span></td><td><input type="numeric" name="valor" id="valor"></td><td></tr>
+                  <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor"></td><td></tr>
                   <tr><td><span>Empresa:</span></td><td>
                                   <select id="empresa" name="empresa"  style="width:100%" onchange="buscar_responsavel()">
                                     <option value="no_sel">Selecione</option>

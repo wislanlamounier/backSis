@@ -78,6 +78,28 @@ class Produto{
 	     }
 
 	}
+	public function get_materiais_produto($id_produto){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$aux=0;
+		$query = "SELECT * FROM produto_materiais WHERE id_produto = '%s'";
+		$query_tra = $g->tratar_query($query, $id_produto);
+
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id_produto'];
+			$return[$aux][1] = $result['id_material'];
+			$return[$aux][2] = $result['quantidade'];
+			$aux++;
+		}
+		if($aux == 0){
+			$sql->close_conn();
+			echo '<div class="msg">Nenhum produto encontrado!</div>';
+		}else{
+			$sql->close_conn();
+			return $return;
+		}
+	}
 	
 
 }

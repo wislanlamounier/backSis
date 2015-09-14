@@ -151,7 +151,7 @@ function validade(){
                        </form>              
                <?php }else{ ?>                
                        <form method="POST" class="ad_epi" id="ad_epi" name="ad_epi" action="add_epi.php" onsubmit="return validate(this)">
-                        <div class="title-box" style="float:left"><div style="float:left"><img src="../images/icon-add-epi.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE EQUIPAMENTOS</span></div></div>
+                        <div class="title-box" style="float:left"><div style="float:left"><img src="../images/icon-add-epi.png" width="60px" style="margin-left:-20px; margin-top:-20px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE EQUIPAMENTOS</span></div></div>
                         <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                           <table border="0" style="width:100%">
                               <tr><td><span>EPI:</span></td><td><input style="height:12px;" type="checkbox" title="É um equipamento de proteção individual?" name="is_epi" id="is_epi"><span style="font-size:12px;color:#999;">(Equipamento de proteção individual)</span></td></tr>

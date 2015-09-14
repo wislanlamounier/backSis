@@ -1,8 +1,6 @@
 <?
 /**
-* @author Andre Matos
 * @access public
-*
 */
 OBSERVAÇÕES TABELA BANCO{
 	

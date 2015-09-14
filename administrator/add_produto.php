@@ -81,7 +81,43 @@ function validate(){
 
 <body>  
       <?php include_once("../view/topo.php"); ?>
+            <?php
+                if(isset($_SESSION['produto']['material'])){
+                    $cont=0; //conta se todos os materiais foram adicionados com sucesso
+                    $materiais = $_SESSION['produto']['material'];
+                    $sucesso = false; // verifica se o produto foi adicionado com sucesso
+                    if(isset($_POST['nome'])){
+                        $produto = new Produto();
+                        $produto_materiais = new  ProdutosMateriais();                      
+                        // print_r($_SESSION['produto']['material']);
+                        $nome = $_POST['nome'];
+                        $id_empresa = $_SESSION['id_empresa'];
+                        $produto->add_produtos($nome, $id_empresa);//inserindo dados no objeto
+                        $id_produto = $produto->add_produto_bd();
+                        
+                        if($id_produto){
+                          $sucesso = true;
 
+                          for($aux = 0; $aux < count($materiais); $aux++){
+                              // echo '<br />'.$materiais[$aux];
+                              $id_qtd_tipo = explode(":", $materiais[$aux]);
+                              
+
+                              $id_material = $id_qtd_tipo[0].':'.$id_qtd_tipo[2];
+
+
+                              $produto_materiais = $produto_materiais->add_produtos_materiais($id_produto, $id_material, $id_qtd_tipo[1]);
+                              // $sucesso = $produto_materiais->add_produtos_materiais_bd();
+                              
+                              if($produto_materiais->add_produtos_materiais_bd()){
+                                 $cont++;
+                              }
+                          }
+                          unset($_SESSION['produto']);
+                        }
+                    }
+                }
+           ?>
       
             <div class="formulario" style="width:500px;">
               <div class="title-box" style="float:left;width:100%"><div style="float:left"><img src="../images/add.png" width="35px" style="margin-left:5px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">NOVO PRODUTO</span></div></div>
@@ -167,41 +203,15 @@ function validate(){
                               
                        </form>
       
-                       <?php
-                              if(isset($_POST['nome'])){
-                                  $produto = new Produto();
-                                  $produto_materiais = new  ProdutosMateriais();
-                                  $materiais = $_SESSION['produto']['material'];
-                                  print_r($_SESSION['produto']['material']);
-                                  $nome = $_POST['nome'];
-                                  $id_empresa = $_SESSION['id_empresa'];
-                                  $produto->add_produtos($nome, $id_empresa);//inserindo dados no objeto
-                                  $id_produto = $produto->add_produto_bd();
-                                  
-                                  if($id_produto){
-                                    echo "Nome: ".$nome.'<br />';
-                                    for($aux = 0; $aux < count($materiais); $aux++){
-                                        // echo '<br />'.$materiais[$aux];
-                                        $id_qtd_tipo = explode(":", $materiais[$aux]);
-                                        
-                                        // echo 'id produto: '.$id_produto.'/ id_material: '. $id_qtd_tipo[0].'/ quantidade: '. $id_qtd_tipo[1].'<br />';
-                                        $id_material = $id_qtd_tipo[0].':'.$id_qtd_tipo[2];
-                                        echo 'Id_material: '.$id_material.'<br />';
-
-                                        $produto_materiais = ProdutosMateriais::add_produtos_materiais($id_produto, $id_material, $id_qtd_tipo[1]);
-                                        $sucesso = $produto_materiais->add_produtos_materiais_bd();
-                                        
-
-                                        if($sucesso == true){
-                                           echo 'adicionou id produto: '.$id_produto.'/ id_material: '. $id_qtd_tipo[0].'/ quantidade: '. $id_qtd_tipo[1].'<br />';
-                                        }
-                                    }
-                                  }
-                              }
-
-                                  
-                               ?>
-
+                       
+                        <?php 
+                            if(isset($sucesso) && $sucesso == true && count($materiais) == $cont){
+                              echo '<div class="msg">Produto '.$_POST['nome'].' adicionado com sucesso</div>';
+                            }
+                            if(isset($sucesso) && !$sucesso && isset($_POST['nome'])){
+                              echo '<div class="msg">'.(count($materiais)-$cont).' materiais não foram adicionados</div>';
+                            }
+                         ?>
 
             
 
