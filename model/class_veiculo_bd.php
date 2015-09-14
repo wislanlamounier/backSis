@@ -49,8 +49,8 @@ class Veiculo{
 			$sql = new Sql();
 			$sql->conn_bd();
 			$g = new Glob();
-			$query = "INSERT INTO veiculo(matricula, chassi, renavam, placa, id_marca, modelo, ano, id_cor, valor, data_compra, seguro, data_ini_seg, data_fim_seg, km_inicial, tipo_combustivel, id_empresa, id_fornecedor, id_responsavel)
-									VALUES ('%s',	  '%s',	  '%s',   '%s',	'%s',	'%s',  '%s','%s',  '%s',  	'%s',         '%s',		'%s',		'%s',			'%s',		'%s',			       '%s',    '%s',            '%s'	)";
+			$query = "INSERT INTO veiculo(matricula, chassi, renavam, placa, id_marca, modelo, ano, id_cor, valor, data_compra, seguro, data_ini_seg, data_fim_seg, km_inicial, tipo_combustivel, id_empresa, id_fornecedor, id_responsavel, controle)
+									VALUES ('%s',	  '%s',	  '%s',   '%s',	'%s',	'%s',  '%s','%s',  '%s',  	'%s',         '%s',		'%s',		'%s',			'%s',		'%s',			       '%s',    '%s',            '%s'	, '0')";
 			if($g->tratar_query($query, $this->matricula, $this->chassi, $this->renavam, $this->placa, $this->id_marca, $this->modelo, $this->ano, $this->id_cor, $this->valor, $this->data_compra, $this->seguro, $this->data_ini_seg, $this->data_fim_seg, $this->km_inicial, $this->tipo_combustivel, $this->id_empresa, $this->id_fornecedor, $this->id_responsavel)){
 			return true; 
 		}else{
