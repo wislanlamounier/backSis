@@ -181,7 +181,7 @@ class Patrimonio{
 
 			$veiculo = new Veiculo();
 			$veiculo = $veiculo->get_veiculo_id($id);
-
+			print_r($veiculo);
 			$cliente = new CLiente();
 			$cliente = $cliente->get_cli_by_id($veiculo->id_fornecedor);
 
@@ -194,7 +194,7 @@ class Patrimonio{
       		$cor = new Cor();
       		$cor = $cor->get_cor_id($veiculo->id_cor);
 
-			print_r($veiculo);
+			
 			echo "<table class='table_pesquisa'>";
 			echo "<tr><td><span><b>Matricula <b/></span></td><td><span>".$veiculo->matricula."</span></td></tr>";
 			echo "<tr><td><span><b>Chassi_Nserie <b/></span></td><td><span>".$veiculo->chassi_nserie."</span></td></tr>";
