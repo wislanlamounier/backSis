@@ -5,6 +5,9 @@ include_once("../model/class_empresa_bd.php");
 include_once("../model/class_cliente.php");
 include_once("../model/class_grupo_bd.php");
 include_once("../model/class_funcionario_bd.php");
+include_once("../model/class_maquinario_bd.php");
+include_once("../model/class_veiculo_bd.php");
+include_once("../model/class_cor_bd.php");
 
 class Patrimonio{
 	public $id;
@@ -49,7 +52,7 @@ class Patrimonio{
         $g = new Glob();
         $aux=0;
         $return = array();
-        $query = "SELECT id, modelo, fabricante  FROM maquinario as e where e.modelo like '%%%s%%' union SELECT id, modelo, id_marca FROM veiculo as f where f.modelo like '%%%s%%'";
+        $query = "SELECT id, modelo, fabricante, controle  FROM maquinario as e where e.modelo like '%%%s%%' union SELECT id, modelo, id_marca, controle FROM veiculo as f where f.modelo like '%%%s%%'";
         $query = $g->tratar_query($query, $modelo, $modelo);
         $result = mysql_fetch_array($query);
         
@@ -63,6 +66,7 @@ class Patrimonio{
 	          $return[$aux][0] = $result['id'];
 	          $return[$aux][1] = $result['modelo'];
 	          $return[$aux][2] = $result['fabricante'];
+	          $return[$aux][3] = $result['controle'];
 
 	          $aux++;
         }
@@ -143,48 +147,108 @@ class Patrimonio{
 			echo '<div class="msg">Patrimonio excluido com sucesso!</div>';
 		}
 	}
-	public function printPatrimonio(){
-		
 
-		
-		  $veiculo = new Veiculo();
-		  $veiculo = $veiculo->get_empresa_by_id($this->id_empresa);	  
-		  
-		  
+	public function buscaPatrimonio($id, $controle){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$aux=0;
+		$query = "SELECT id, modelo, fabricante, controle  FROM maquinario as e where e.id = '%s' && e.controle = '%s' union SELECT id, modelo, id_marca, controle FROM veiculo as f where f.id = '%s' && f.controle = '%s'";
+		$query_tra = $g->tratar_query($query, $id, $controle, $id, $controle);
 
-		$texto ="";
-		$texto .= "<table class='table_pesquisa'><tr>";
-		$texto .= "<tr>";
-		$texto .= "<td><span><b>ID: </b></span></td><td><span>".$this->id."</span></td>";
-		$texto .= "</tr>";
-		$texto .= "<tr>";
-		$texto .= "<td><span><b>Grupo: </b></span></td><td><span>".$grupo->nome."</span></td>";
-		$texto .= "</tr>";		
-		$texto .= "<tr>";
-		$texto .= "<td><span><b>Empresa: </b></span></td><td><span>".$empresa->nome_fantasia."</span></td>";
-		$texto .= "</tr>";
-		$texto .= "<tr>";
-		$texto .= "<td><span><b>Nome: </b></span></td><td><span>".$this->nome."</span></td>";
-		$texto .= "</tr>";		
-		$texto .= "<tr>";
-		$texto .= "<td><span><b>Descricao: </b></span></td><td><span>".$this->descricao."</span></td>";
-		$texto .= "</tr>";
-		$texto .= "<tr>";
-		$texto .= "<td><span><b>Valor Compra: </b></span></td><td><span>".$this->valor_compra."</span></td>";
-		$texto .= "</tr>";
-		$texto .= "<tr>";
-		$texto .= "<td><span><b>Valor Hora: </b></span></td><td><span>".$custo->valor_hora."</span></td>";
-		$texto .= "</tr>";
-		$texto .= "<tr>";
-		$texto .= "<td><span><b>Forncedor: </b></span></td><td><span>".$cliente->nome_fornecedor."</span></td>";
-		$texto .= "</tr>";
-		$texto .= "<tr>";
-		$texto .= "<td><span><b>Responsável: </b></span></td><td><span>".$funcionario->nome."</span></td>";
-		$texto .= "</tr>";		
-									
-		$texto .= "</table>";
+		$result =  mysql_fetch_array($query_tra);
+			// print_r($result);
+			$return[0] = $result['id'];
+			$return[1] = $result['modelo'];
+			$return[2] = $result['fabricante'];
+			$return[3] = $result['controle'];
+		
+		
+			return $return;
+		
+	}
 	
- 		return $texto;
+
+	public function printPatrimonio($id, $controle){
+		$patrimonio = new Patrimonio();
+
+		$result=$patrimonio->buscaPatrimonio($id,$controle);
+		
+		if($result[3]==2){
+
+			$veiculo = new Veiculo();
+			$veiculo = $veiculo->get_veiculo_id($id);
+
+			$cliente = new CLiente();
+			$cliente = $cliente->get_cli_by_id($veiculo->id_fornecedor);
+
+			$func = new Funcionario();
+      		$func = $func->get_nome_by_id($veiculo->id_responsavel); 
+
+      		$empresa = new Empresa();
+      		$empresa = $empresa->get_empresa_by_id($veiculo->id_empresa);
+
+      		$cor = new Cor();
+      		$cor = $cor->get_cor_id($veiculo->id_cor);
+
+			print_r($veiculo);
+			echo "<table class='table_pesquisa'>";
+			echo "<tr><td><span><b>Matricula <b/></span></td><td><span>".$veiculo->matricula."</span></td></tr>";
+			echo "<tr><td><span><b>Chassi_Nserie <b/></span></td><td><span>".$veiculo->chassi_nserie."</span></td></tr>";
+			echo "<tr><td><span><b>Modelo <b/></span></td><td><span>".$veiculo->modelo."</span></td></tr>";
+			echo "<tr><td><span><b>Tipo Consumo <b/></span></td><td><span>".$veiculo->tipo_consumo."</span></td></tr>";
+			echo "<tr><td><span><b>Cor <b/></span></td><td><span>".$cor->nome."</span></td></tr>";
+			echo "<tr><td><span><b>Fabricante <b/></span></td><td><span>".$veiculo->fabricante."</span></td></tr>";
+			echo "<tr><td><span><b>Data de Compra <b/></span></td><td><span>".$veiculo->data_compra."</span></td></tr>";
+			echo "<tr><td><span><b>Data inicio do seguro <b/></span></td><td><span>".$veiculo->data_ini_seg."</span></td></tr>";
+			echo "<tr><td><span><b>Cdata Fim do seguro <b/></span></td><td><span>".$veiculo->data_fim_seg."</span></td></tr>";			
+			echo "<tr><td><span><b>Responsável <b/></span></td><td><span>".$func."</span></td></tr>";			
+			echo "<tr><td><span><b>Forncedor <b/></span></td><td><span>".$cliente->nome_fornecedor."</span></td></tr>";
+			echo "<tr><td><span><b>Empresa Responsável <b/></span></td><td><span>".$empresa->nome_fantasia."</span></td></tr>";			
+			echo "<tr><td><span><b>Observação<b/></span></td><td><span>".$veiculo->observacao."</span></td></tr>";
+			
+			echo "VEÍCULO";
+		}
+	    if($result[3]==1){
+	    	// $maquinario = array();
+
+	    	$maquinario = new Maquinario();
+			$maquinario = $maquinario->get_maquinario_id($id);
+
+			$cliente = new CLiente();
+			$cliente = $cliente->get_cli_by_id($maquinario->id_fornecedor);
+
+			$func = new Funcionario();
+      		$func = $func->get_nome_by_id($maquinario->id_responsavel); 
+
+      		$empresa = new Empresa();
+      		$empresa = $empresa->get_empresa_by_id($maquinario->id_empresa);
+
+      		$cor = new Cor();
+      		$cor = $cor->get_cor_id($maquinario->id_cor);
+
+			echo "<table class='table_pesquisa'>";
+			echo "<tr><td><span><b>Matricula <b/></span></td><td><span>".$maquinario->matricula."</span></td></tr>";
+			echo "<tr><td><span><b>Chassi_Nserie <b/></span></td><td><span>".$maquinario->chassi_nserie."</span></td></tr>";
+			echo "<tr><td><span><b>Modelo <b/></span></td><td><span>".$maquinario->modelo."</span></td></tr>";
+			echo "<tr><td><span><b>Tipo Consumo <b/></span></td><td><span>".$maquinario->tipo_consumo."</span></td></tr>";
+			echo "<tr><td><span><b>Cor <b/></span></td><td><span>".$cor->nome."</span></td></tr>";
+			echo "<tr><td><span><b>Fabricante <b/></span></td><td><span>".$maquinario->fabricante."</span></td></tr>";
+			echo "<tr><td><span><b>Data de Compra <b/></span></td><td><span>".$maquinario->data_compra."</span></td></tr>";
+			echo "<tr><td><span><b>Data inicio do seguro <b/></span></td><td><span>".$maquinario->data_ini_seg."</span></td></tr>";
+			echo "<tr><td><span><b>Cdata Fim do seguro <b/></span></td><td><span>".$maquinario->data_fim_seg."</span></td></tr>";			
+			echo "<tr><td><span><b>Responsável <b/></span></td><td><span>".$func."</span></td></tr>";			
+			echo "<tr><td><span><b>Forncedor <b/></span></td><td><span>".$cliente->nome_fornecedor."</span></td></tr>";
+			echo "<tr><td><span><b>Empresa Responsável <b/></span></td><td><span>".$empresa->nome_fantasia."</span></td></tr>";
+			
+			echo "<tr><td><span><b>Observação<b/></span></td><td><span>".$maquinario->observacao."</span></td></tr>";
+			// print_r($resp);
+			// print_r($maquinario);
+			echo "MAQUINARIO";
+		}
+		// print_r($result);
+		// print_r($patrimonio);
+		
 	 }
 
 }

@@ -18,11 +18,11 @@ class Cor{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "INSERT INTO cor (nome) VALUES ('%s')";
+		$query = "INSERT INTO cores (nome) VALUES ('%s')";
 
 		$result = $g->tratar_query($query, $this->nome); //inserindo no banco de dados
 		
-		$query = "SELECT * FROM cor order by id desc";
+		$query = "SELECT * FROM cores order by id desc";
 		$result = $g->tratar_query($query); //pegando id da ultima insersão
 		 
 		 if(@mysql_num_rows($result) == 0){
@@ -39,7 +39,7 @@ class Cor{
 		$sql = new Sql();	
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "UPDATE cor SET nome = '%s' WHERE id = '%s' ";
+		$query = "UPDATE cores SET nome = '%s' WHERE id = '%s' ";
 
 		return $g->tratar_query($query, $nome, $id);
 	}
@@ -49,7 +49,7 @@ class Cor{
 		 $sql->conn_bd();
 		 $g = new Glob();
 
-		 $query = "SELECT * FROM cor WHERE id= '%s'";
+		 $query = "SELECT * FROM cores WHERE id= '%s'";
 		 $result = $g->tratar_query($query, $id);
 		 
 		 if(@mysql_num_rows($result) == 0){

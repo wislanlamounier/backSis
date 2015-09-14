@@ -84,7 +84,7 @@ class Epi{
 		$g = new Glob();
 		$return = array();
 		$aux=0;
-		$query = "SELECT * FROM equipamentos_func WHERE nome_epi LIKE '%%%s%%' && id_empresa = %s";
+		$query = "SELECT * FROM equipamentos_func WHERE  nome_epi LIKE '%%%s%%' && id_empresa = %s && oculto = 0";
 		$query_tra = $g->tratar_query($query, $nome_epi, $_SESSION['id_empresa']);
 
 		while($result =  mysql_fetch_array($query_tra)){
@@ -129,7 +129,7 @@ class Epi{
 		$sql->conn_bd();
 		$g = new Glob();
 		
-		$query = "UPDATE equipamentos_func set quantidade = '%s' WHERE id= '%s'";
+		$query = "UPDATE equipamentos_func set quantidade = '%s' WHERE id= '%s' && oculto = 0";
 		$result = $g->tratar_query($query, $quantidade, $id_epi);
 	}
 
@@ -138,7 +138,7 @@ class Epi{
 		$sql->conn_bd();
 		$g = new Glob();
 		
-		$query = "SELECT * FROM equipamentos_func WHERE id= '%s'";
+		$query = "SELECT * FROM equipamentos_func WHERE id= '%s' && oculto = 0";
 		$result = $g->tratar_query($query, $id);
 
 		if(@mysql_num_rows($result) == 0){
@@ -154,7 +154,7 @@ class Epi{
 		$sql->conn_bd();
 		$aux=0;
 		$return = array();
-		$query = mysql_query("SELECT * FROM equipamentos_func");
+		$query = mysql_query("SELECT * FROM equipamentos_func WHERE oculto = 0");
 
 		while($result = mysql_fetch_array($query)){
 			$return[$aux][0] = $result['id'];
@@ -170,7 +170,7 @@ class Epi{
 		$sql->conn_bd();
 		$g = new Glob();
 		$aux=0;
-		$query = "SELECT * FROM equipamentos_func WHERE nome_epi LIKE '%%%s%%'";
+		$query = "SELECT * FROM equipamentos_func WHERE nome_epi LIKE '%%%s%%' WHERE oculto = 0";
 		$query_tra = $g->tratar_query($query, $name);
 
 		while($result =  mysql_fetch_array($query_tra)){
@@ -189,12 +189,23 @@ class Epi{
 		}
 	}
 	
+	 public function ocultar_by_id($id){
+    $sql = new Sql();
+    $sql->conn_bd();
+    $g = new Glob();
+    $query = "UPDATE equipamentos_func SET oculto = 1 WHERE id = %s";
+    $result = $g->tratar_query($query, $id);
+    if($result){
+      echo '<div class="msg">Equipamento excluido com sucesso!</div>';
+   		 }
+    }
+
 	public function getNome($id){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
 		
-		$query = "SELECT * FROM equipamentos_func WHERE id= '%s'";
+		$query = "SELECT * FROM equipamentos_func WHERE id= '%s' && oculto = 0";
 		$result = $g->tratar_query($query, $id);
 
 		if(@mysql_num_rows($result) == 0){

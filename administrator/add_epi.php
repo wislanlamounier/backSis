@@ -23,7 +23,17 @@ function validade(){
 <html>
 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
-        
+
+     function confirma(id,nome){
+          
+          if(confirm("Excluir EPI "+nome+" , tem certeza?")){
+             var url = '../ajax/ajax_excluir_epi.php?id='+id+'&nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
+             $.get(url, function(dataReturn) {
+               $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+             });
+          }
+       }
+           
     function carregaEmpresa(empresa){
       
       var combo = document.getElementById("empresa");
