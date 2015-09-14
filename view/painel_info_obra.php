@@ -26,9 +26,9 @@
         }
         if (isset($_SESSION['obra']['patrimonio'])){
            for($aux = 0; $aux < 1; $aux++){
-            $_SESSION['obra']['patrimonio'][0]=1;
+            // $_SESSION['obra']['patrimonio'][0]=1;
                                                              
-         }                                      
+          }                                      
         }
         
 ?>
