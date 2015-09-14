@@ -45,7 +45,7 @@ include("../model/class_patrimonio_bd.php");
                      foreach($patrimonios as $key => $patrimonio){
                         echo '<tr>
 
-                                 <td><a href="pesquisa_patrimonio.php?verificador=1&id='.$patrimonios[$key][0].'&controle='.$patrimonios[$key][3].'">'.$patrimonios[$key][0]." ".$patrimonios[$key][1]." ".$patrimonios[$key][2].'</a></td></tr>';
+                                 <td><a href="pesquisa_patrimonio.php?verificador=1&id='.$patrimonios[$key][0].'&controle='.$patrimonios[$key][3].'">'.$patrimonios[$key][0]." ".$patrimonios[$key][1]." ".$patrimonios[$key][3].'</a></td></tr>';
                      }
                      echo '</table>';
                 }
@@ -55,7 +55,7 @@ include("../model/class_patrimonio_bd.php");
                   $id = $_GET['id'];
                   $controle = $_GET['controle'];
                   $patrimonio->printPatrimonio($id,$controle);
-                  
+
 
 
 

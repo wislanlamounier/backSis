@@ -52,7 +52,7 @@ class Patrimonio{
         $g = new Glob();
         $aux=0;
         $return = array();
-        $query = "SELECT id, modelo, fabricante, controle  FROM maquinario as e where e.modelo like '%%%s%%' union SELECT id, modelo, id_marca, controle FROM veiculo as f where f.modelo like '%%%s%%'";
+        $query = "SELECT id, modelo, fabricante, controle, matricula  FROM maquinario as e where e.modelo like '%%%s%%' union SELECT id, modelo, id_marca, controle, matricula FROM veiculo as f where f.modelo like '%%%s%%'";
         $query = $g->tratar_query($query, $modelo, $modelo);
         $result = mysql_fetch_array($query);
         
@@ -67,6 +67,8 @@ class Patrimonio{
 	          $return[$aux][1] = $result['modelo'];
 	          $return[$aux][2] = $result['fabricante'];
 	          $return[$aux][3] = $result['controle'];
+	          $return[$aux][4] = $result['matricula'];
+
 
 	          $aux++;
         }
@@ -153,7 +155,7 @@ class Patrimonio{
 		$sql->conn_bd();
 		$g = new Glob();
 		$aux=0;
-		$query = "SELECT id, modelo, fabricante, controle  FROM maquinario as e where e.id = '%s' && e.controle = '%s' union SELECT id, modelo, id_marca, controle FROM veiculo as f where f.id = '%s' && f.controle = '%s'";
+		$query = "SELECT id, modelo, fabricante, controle FROM maquinario as e where e.id = '%s' && e.controle = '%s' union SELECT id, modelo, id_marca, controle FROM veiculo as f where f.id = '%s' && f.controle = '%s'";
 		$query_tra = $g->tratar_query($query, $id, $controle, $id, $controle);
 
 		$result =  mysql_fetch_array($query_tra);
@@ -162,6 +164,7 @@ class Patrimonio{
 			$return[1] = $result['modelo'];
 			$return[2] = $result['fabricante'];
 			$return[3] = $result['controle'];
+			
 		
 		
 			return $return;
@@ -173,7 +176,7 @@ class Patrimonio{
 		$patrimonio = new Patrimonio();
 
 		$result=$patrimonio->buscaPatrimonio($id,$controle);
-		
+
 		if($result[3]==2){
 
 			$veiculo = new Veiculo();
