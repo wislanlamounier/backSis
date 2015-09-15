@@ -18,6 +18,10 @@ include_once("../model/class_veiculo_bd.php")
  	<link rel="stylesheet" type="text/css" href="style1.css">
  </head> 
  <script type="text/javascript">
+
+  function hidden(id){
+     document.getElementById(id).style.display = "none";
+  }
   function exibe(popup){
   	var p = popup;
   	
@@ -72,6 +76,7 @@ include_once("../model/class_veiculo_bd.php")
  			// include_once("../view/box-atrasos.php");
  			// include("../view/painel_cliente_obra.php");
  			include("../view/painel_info_obra.php");
+
  			
 			// include("../view/painel_funcionario_obra.php");
 			

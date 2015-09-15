@@ -122,7 +122,7 @@ class Patrimonio_geral{
 		}
 	}
 	public function get_patrimonio_geral_by_nome($nome){
-		        $sql = new Sql();
+		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
 		$aux=0;
