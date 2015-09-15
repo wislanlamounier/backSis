@@ -49,7 +49,7 @@ class Empresa{
         $sql->conn_bd();
         $g = new Glob();
         $aux=0;
-      
+        $return = array();
         $query = $g->tratar_query("SELECT * FROM empresa WHERE oculto = 0");
 
         while($result = mysql_fetch_array($query)){
@@ -160,15 +160,15 @@ class Empresa{
     }
 
     public function ocultar_by_id($id){
-    $sql = new Sql();
-    $sql->conn_bd();
-    $g = new Glob();
-    $query = "UPDATE empresa SET oculto = 1 WHERE id = %s";
-    $result = $g->tratar_query($query, $id);
-    if($result){
-      echo '<div class="msg">Cliente excluido com sucesso!</div>';
+        $sql = new Sql();
+        $sql->conn_bd();
+        $g = new Glob();
+        $query = "UPDATE empresa SET oculto = 1 WHERE id = %s";
+        $result = $g->tratar_query($query, $id);
+        if($result){
+          echo '<div class="msg">Cliente excluido com sucesso!</div>';
+        }
     }
-  }
 
     public function printEmpresa(){
       

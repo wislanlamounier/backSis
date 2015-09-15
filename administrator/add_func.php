@@ -510,28 +510,19 @@ function verificaValor($valor){
    }
    window.onload = function(){
       mascara( id('sal_base'), mmoney );
-
-      // id('valor').onclick = function(){ 
-      //     mascara( this, mmoney );
-      // }
+      
       id('sal_base').onkeypress = function(){ 
           mascara( this, mmoney );
       }
       id('cpf').onkeypress = function(){ 
           mascara( this, mcpf );
       }
-      id('data_nasc').onkeypress = function(){
-          mascara( this, dnasc );
-      }
+      
       id('telefone').onkeypress = function(){
           mascara( this, mtel );
       }
-      id('data_admissao').onkeypress = function(){
-          mascara( this, dnasc );
-      }
-      id('data_em_rg').onkeypress = function(){
-          mascara( this, dnasc );
-      }
+      
+      
    }
    // fim Mask
    function validarCPF(cpf) {  

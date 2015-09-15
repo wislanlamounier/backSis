@@ -104,14 +104,13 @@ class Cbo{
 		}else{
 			return $return;
 		}
-		
 
 	}
 
 	public function get_name_all_cbo(){
 		 $sql = new Sql();
 		 $sql->conn_bd();
-		 $return = array(array());
+		 $return = array();
 		 $aux=0;
 
 		 $query = mysql_query("SELECT * FROM cbo WHERE oculto = 0 ORDER BY descricao asc");

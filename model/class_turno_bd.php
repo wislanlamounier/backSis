@@ -155,10 +155,10 @@ class Turno{
 		 	$return[$aux][2] = $result['nome'];
 		 	$aux++;
 		 }
-		 if($aux == 0){
-		 	//target="_blank|_self|_parent|_top|framename"
-		 	echo '<div class="msg">Nenhum turno encontrado! <a target="_blank" href="add_turno.php"> Cadastre agora</a></div>';
-		 }
+		 // if($aux == 0){
+		 // 	//target="_blank|_self|_parent|_top|framename"
+		 // 	echo '<div class="msg">Nenhum turno encontrado! <a target="_blank" href="add_turno.php"> Cadastre agora</a></div>';
+		 // }
 		 
 		 return $return;
 	}
@@ -178,10 +178,10 @@ class Turno{
 		 	$return[$aux][2] = $result['nome'];
 		 	$aux++;
 		 }
-		 if($aux == 0){
-		 	//target="_blank|_self|_parent|_top|framename"
-		 	echo '<div class="msg">Nenhum turno encontrado! <a target="_blank" href="add_turno.php"> Cadastre agora</a></div>';
-		 }
+		 // if($aux == 0){
+		 // 	//target="_blank|_self|_parent|_top|framename"
+		 // 	echo '<div class="msg">Nenhum turno encontrado! <a target="_blank" href="add_turno.php"> Cadastre agora</a></div>';
+		 // }
 		 
 		 return $return;
 	}

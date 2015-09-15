@@ -202,7 +202,7 @@ function validate(){
                      $cbo = new Cbo();
                      $cbo->add_cbo($_POST['codigo'], $_POST['descricao'],$id = $_SESSION['id_empresa']);
                      $id_cbo = $cbo->add_cbo_bd();// id do registro cadastrado
-                     $id_exames = $_POST['selecionados'];
+                     $id_exames = isset($_POST['selecionados']) ? $_POST['selecionados'] : null;
 
                      if ($cboXexames->add_cbo_x_exames($id_exames, $id_cbo)){
                         echo '<div class="msg">Atualizado com sucesso!</div>';
