@@ -8,7 +8,8 @@ include_once("../model/class_funcionario_bd.php");
 include_once("../model/class_maquinario_bd.php");
 include_once("../model/class_veiculo_bd.php");
 include_once("../model/class_cor_bd.php");
-
+include_once("../model/class_marca_bd.php");
+include_once("../model/class_patrimonio_geral_bd.php");
 class Patrimonio{
 	public $id;
 	public $id_custo;
@@ -181,7 +182,7 @@ class Patrimonio{
 
 			$veiculo = new Veiculo();
 			$veiculo = $veiculo->get_veiculo_id($id);
-			print_r($veiculo);
+		
 			$cliente = new CLiente();
 			$cliente = $cliente->get_cli_by_id($veiculo->id_fornecedor);
 
@@ -194,21 +195,23 @@ class Patrimonio{
       		$cor = new Cor();
       		$cor = $cor->get_cor_id($veiculo->id_cor);
 
+      		$marca = new Marca();
+      		$marca = $marca->get_marca_id($veiculo->id_marca);
 			
 			echo "<table class='table_pesquisa'>";
 			echo "<tr><td><span><b>Matricula <b/></span></td><td><span>".$veiculo->matricula."</span></td></tr>";
-			echo "<tr><td><span><b>Chassi_Nserie <b/></span></td><td><span>".$veiculo->chassi_nserie."</span></td></tr>";
+			echo "<tr><td><span><b>Chassi_Nserie <b/></span></td><td><span>".$veiculo->chassi."</span></td></tr>";
 			echo "<tr><td><span><b>Modelo <b/></span></td><td><span>".$veiculo->modelo."</span></td></tr>";
-			echo "<tr><td><span><b>Tipo Consumo <b/></span></td><td><span>".$veiculo->tipo_consumo."</span></td></tr>";
+			echo "<tr><td><span><b>Tipo Consumo <b/></span></td><td><span>".$veiculo->tipo_combustivel."</span></td></tr>";
 			echo "<tr><td><span><b>Cor <b/></span></td><td><span>".$cor->nome."</span></td></tr>";
-			echo "<tr><td><span><b>Fabricante <b/></span></td><td><span>".$veiculo->fabricante."</span></td></tr>";
+			echo "<tr><td><span><b>Fabricante <b/></span></td><td><span>".$marca->nome."</span></td></tr>";
 			echo "<tr><td><span><b>Data de Compra <b/></span></td><td><span>".$veiculo->data_compra."</span></td></tr>";
 			echo "<tr><td><span><b>Data inicio do seguro <b/></span></td><td><span>".$veiculo->data_ini_seg."</span></td></tr>";
-			echo "<tr><td><span><b>Cdata Fim do seguro <b/></span></td><td><span>".$veiculo->data_fim_seg."</span></td></tr>";			
+			echo "<tr><td><span><b>Data Fim do seguro <b/></span></td><td><span>".$veiculo->data_fim_seg."</span></td></tr>";			
 			echo "<tr><td><span><b>Responsável <b/></span></td><td><span>".$func."</span></td></tr>";			
 			echo "<tr><td><span><b>Forncedor <b/></span></td><td><span>".$cliente->nome_fornecedor."</span></td></tr>";
 			echo "<tr><td><span><b>Empresa Responsável <b/></span></td><td><span>".$empresa->nome_fantasia."</span></td></tr>";			
-			echo "<tr><td><span><b>Observação<b/></span></td><td><span>".$veiculo->observacao."</span></td></tr>";
+		
 			
 			echo "VEÍCULO";
 		}
@@ -245,13 +248,32 @@ class Patrimonio{
 			echo "<tr><td><span><b>Empresa Responsável <b/></span></td><td><span>".$empresa->nome_fantasia."</span></td></tr>";
 			
 			echo "<tr><td><span><b>Observação<b/></span></td><td><span>".$maquinario->observacao."</span></td></tr>";
-			// print_r($resp);
-			// print_r($maquinario);
+			
 			echo "MAQUINARIO";
 		}
-		// print_r($result);
-		// print_r($patrimonio);
+
+		if($result[3]==0){
+
+			$patrimonio_geral = new Patrimonio_geral();
+			$patrimonio_geral = $patrimonio_geral->get_patrimonio_geral_id($id);
+
+      		$empresa = new Empresa();
+      		$empresa = $empresa->get_empresa_by_id($patrimonio_geral->id_empresa);
+
+      		
+			
+			echo "<table class='table_pesquisa'>";
+			echo "<tr><td><span><b>Matricula <b/></span></td><td><span>".$patrimonio_geral->matricula."</span></td></tr>";
+			echo "<tr><td><span><b>Nome <b/></span></td><td><span>".$patrimonio_geral->nome."</span></td></tr>";
+			echo "<tr><td><span><b>Quantidade <b/></span></td><td><span>".$patrimonio_geral->quantidade."</span></td></tr>";
+			echo "<tr><td><span><b>Marca<b/></span></td><td><span>".$patrimonio_geral->marca."</span></td></tr>";
+			echo "<tr><td><span><b>Valor <b/></span></td><td><span>".$patrimonio_geral->valor."</span></td></tr>";
+			echo "<tr><td><span><b>Descrião <b/></span></td><td><span>".$patrimonio_geral->descricao."</span></td></tr>";
+					
 		
+			
+			echo "PATRIMONIO GERAL";
+		}
 	 }
 
 }

@@ -26,7 +26,7 @@ include("../model/class_patrimonio_bd.php");
 
 
      <div class="formulario">
-           <div class="title-box" style="float:left"><div style="float:left"><img src="../images/search-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Pesquisar Patrimonio</span></div></div>                                                                
+           <div class="title-box" style="float:left"><div style="float:left"><img src="../images/search-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Pesquisar Patrimonio (Maquinário e Veículo)</span></div></div>                                                                
                  <form method="POST" class="pesquisa-campos" id="pesquisa-campos" name="pesquisa-campos" action="pesquisa_patrimonio.php">
                     <table id="table-search">
                       <tr>
