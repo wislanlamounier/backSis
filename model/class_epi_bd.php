@@ -154,7 +154,7 @@ class Epi{
 		$sql->conn_bd();
 		$aux=0;
 		$return = array();
-		$query = mysql_query("SELECT * FROM equipamentos_func WHERE oculto = 0");
+		$query = mysql_query("SELECT * FROM equipamentos_func WHERE oculto = 0") or print(mysql_error());
 
 		while($result = mysql_fetch_array($query)){
 			$return[$aux][0] = $result['id'];
@@ -190,14 +190,14 @@ class Epi{
 	}
 	
 	 public function ocultar_by_id($id){
-    $sql = new Sql();
-    $sql->conn_bd();
-    $g = new Glob();
-    $query = "UPDATE equipamentos_func SET oculto = 1 WHERE id = %s";
-    $result = $g->tratar_query($query, $id);
-    if($result){
-      echo '<div class="msg">Equipamento excluido com sucesso!</div>';
-   		 }
+	    $sql = new Sql();
+	    $sql->conn_bd();
+	    $g = new Glob();
+	    $query = "UPDATE equipamentos_func SET oculto = 1 WHERE id = %s";
+	    $result = $g->tratar_query($query, $id);
+	    if($result){
+	      echo '<div class="msg">Equipamento excluido com sucesso!</div>';
+   		}
     }
 
 	public function getNome($id){

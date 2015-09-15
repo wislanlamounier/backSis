@@ -26,16 +26,32 @@ include_once("../model/class_patrimonio_geral_bd.php");
           }
       }
       if($verifica > 0){
-  		  echo '<script>alert("Você já adicionou esse veiculo")</script>';
+  		  echo '<script>alert("Você já adicionou esse patrimonio")</script>';
       }else{
           $_SESSION['obra']['patrimonio'][$total] = $tipo.':'.$id.':1';
           //verifica se é maquinario ou veiculo para adicionar seus respectivos responsaveis à obra
           if($tipo == 1){// maquinario
                 $res = Maquinario::get_maquinario_id($id);
-                $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
+                $verifica = 0;
+                for($aux = 0; $aux < count($_SESSION['obra']['funcionario']) ; $aux++ ){
+                    if($res->id_responsavel == $_SESSION['obra']['funcionario'][$aux]){
+                      $verifica++;
+                    }
+                }
+                if($verifica == 0){
+                    $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
+                }
           }else if($tipo == 2){//veiculos
                 $res = Veiculo::get_veiculo_id($id);
-                $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
+                $verifica = 0;
+                for($aux = 0; $aux < count($_SESSION['obra']['funcionario']) ; $aux++ ){
+                    if($res->id_responsavel == $_SESSION['obra']['funcionario'][$aux]){
+                      $verifica++;
+                    }
+                }
+                if($verifica == 0){
+                    $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
+                }
           }
       }
 	}

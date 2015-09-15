@@ -17,7 +17,18 @@ include_once("../model/class_funcionario_bd.php");
   		$_SESSION['obra']['funcionario'][0] = $id;
 	}else{
   		$total = count( $_SESSION['obra']['funcionario'] );
-  		$_SESSION['obra']['funcionario'][$total] = $id;
+  		$verifica = 0;// verificará se existe um
+      for($aux = 0; $aux < $total ; $aux++){//percorre o array
+          $id_array = $_SESSION['obra']['funcionario'][$aux];// pega id do patrimonio da posição atual
+          if($id == $id_array){
+            $verifica++;
+          }
+      }
+      if($verifica > 0){
+        echo '<script>alert("Você já adicionou esse funcionario")</script>';
+      }else{
+          $_SESSION['obra']['funcionario'][$total] = $id;
+      }
 	}
   
 
