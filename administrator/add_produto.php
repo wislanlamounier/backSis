@@ -14,10 +14,10 @@ include_once("../model/class_produto_bd.php");
 include_once("../model/class_produto_materiais_bd.php");
 
 function validate(){
-   if(!isset($_POST['desc']) || $_POST['desc'] == ""){
+   if(!isset($_POST['nome']) || $_POST['nome'] == ""){
         return false;
     }
-      return true;
+    return true;
 }
  ?>
 
@@ -77,6 +77,12 @@ function validate(){
           $('#form-input-dados').html(dataReturn);  
         });
     }
+    function cancel(){
+      opc = confirm("Tem certeza que deseja cancelar?");
+      if(opc)
+        window.location.href='add_produto.php?t=c';
+
+    }
 </script>
 
 <body>  
@@ -86,7 +92,7 @@ function validate(){
                     $cont=0; //conta se todos os materiais foram adicionados com sucesso
                     $materiais = $_SESSION['produto']['material'];
                     $sucesso = false; // verifica se o produto foi adicionado com sucesso
-                    if(isset($_POST['nome'])){
+                    if(validate()){
                         $produto = new Produto();
                         $produto_materiais = new  ProdutosMateriais();                      
                         // print_r($_SESSION['produto']['material']);
@@ -198,7 +204,7 @@ function validate(){
                               </div>
                              
                               <div class="buttons" style="text-align:center">
-                                  <input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_produto.php?t=c'" id="button" value="Cancelar">
+                                  <input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="cancel()" id="button" value="Cancelar">
                               </div>
                               
                        </form>

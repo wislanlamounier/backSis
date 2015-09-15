@@ -9,6 +9,7 @@ include_once("../model/class_veiculo_bd.php");
 include_once("../model/class_patrimonio_geral_bd.php");
 include_once("../model/class_funcionario_bd.php");
 include_once("../model/class_produto_bd.php");
+include_once("../model/class_cbo_bd.php");
 
 function validate(){
    if(!isset($_POST['desc']) || $_POST['desc'] == ""){
@@ -55,28 +56,29 @@ function validate(){
         document.getElementById("popup").style.marginLeft = "-450px";
     }
     function increment(nome, whatarray){//chama a pagina que vai incrementar a quantidade no patrimonio
-           
-           if(whatarray == 'patrimonio'){
-                var parametros = nome.split(":");
+           var parametros = nome.split(":");
                 
-                var quantidade = document.getElementById(nome).value;
-                
-                var url = '../ajax/ajax_incrementa_quantidade.php?id='+parametros[1]+'&qtd='+quantidade+'&tipo='+parametros[2]+'&whatarray='+whatarray; 
-                
-                $.get(url, function(dataReturn) {
-                  
-                });
-            }else if(whatarray == 'produto'){
-                var parametros = nome.split(":");
-                
-                var quantidade = document.getElementById(nome).value;
-                
-                var url = '../ajax/ajax_incrementa_quantidade.php?id='+parametros[0]+'&qtd='+quantidade+'&whatarray='+whatarray; 
-                
-                $.get(url, function(dataReturn) {
-                  
-                });
-            }
+           var quantidade = document.getElementById(nome).value;
+
+           if(quantidade > 0){
+               if(whatarray == 'patrimonio'){
+                    
+                    var url = '../ajax/ajax_incrementa_quantidade.php?id='+parametros[1]+'&qtd='+quantidade+'&tipo='+parametros[2]+'&whatarray='+whatarray; 
+                    
+                    $.get(url, function(dataReturn) {
+                      
+                    });
+                }else if(whatarray == 'produto'){
+                    
+                    var url = '../ajax/ajax_incrementa_quantidade.php?id='+parametros[0]+'&qtd='+quantidade+'&whatarray='+whatarray; 
+                    
+                    $.get(url, function(dataReturn) {
+                      
+                    });
+                }
+          }else{
+             alert("Insira um valor maior que 0")
+          }
     }
   	function buscarClientes(){
 
@@ -170,6 +172,11 @@ function validate(){
             $('#form-input-dados').html(dataReturn); 
           });
     }
+    function cancel(){
+      opc = confirm("Tem certeza que deseja cancelar?");
+      if(opc)
+        window.location.href='add_obra.php?t=c';
+    }
 
 </script>
 
@@ -196,12 +203,7 @@ function validate(){
                        <form  action="add_obra.php" onsubmit="return validate(this)">
                         
                               <input type="hidden" id="t" name="t" value="a_d_o">
-                              <!-- <div class="situacao">                                  
-                                      <div class="situacao-box"><div>Dados da obra</div></div>
-                                      <div class="situacao-box"><div>Dados da obra</div></div>
-                                      <div class="situacao-box"><div>Dados da obra</div></div>
-                                      <div class="situacao-box"><div>Dados da obra</div></div>
-                              </div> -->
+
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
                               		<div class="title-bloco"><b>Cliente/Obra</b></div>
@@ -211,11 +213,14 @@ function validate(){
                                   <div class="body-bloco">
                                       <div class="form-input left">
                                           <div class="form-input">
-                                              <span><b>Nome/ Razao Social: </b></span><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:65%"> <input type="button" value="Buscar" onclick="buscarClientes()">
+                                              <span><b>Nome/Razao Social: </b></span><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:65%"> <input type="button" value="Buscar" onclick="buscarClientes()">
                                           </div>
                                           <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
                                               <select size="10" style="height: 100%; width: 100%">
                                               </select>
+                                          </div>
+                                          <div class="form-input">
+                                              <span style="color:#787878; font-size:12px;">(Clique para selecionar)</span>
                                           </div>
                                       </div>
                                       <div class="form-input right">
@@ -233,13 +238,13 @@ function validate(){
                                       </div>
                                       
                                       <div class="form-input" style="margin: 10px; text-align:center;  width:97%">
-                                         <input type="button"  onclick="javascript:window.history.back()" class="voltar" value="Voltar"> <input class="avancar" type="submit" value="Avançar">
+                                         <!-- <input type="button"  onclick="javascript:window.history.back()" class="voltar" value="Voltar"> --> <input class="avancar" type="submit" value="Avançar">
                                       </div>
                                   </div>
                               </div>
                               <div class="form-input">
                                     <div class="buttons">
-                                        <!-- <input type="submit" name="button" class="button" id="button" value="cadastrar"> --> <input type="button" name="button" class="button" onclick="window.location.href='add_obra.php?t=c'" id="button" value="Cancelar">
+                                        <!-- <input type="submit" name="button" class="button" id="button" value="Cadastrar"> --> <input type="button" name="button" class="button" onclick="cancel()" id="button" value="Cancelar">
                                     </div>
                               </div>
                        </form>          
@@ -287,7 +292,7 @@ function validate(){
                               </div>
                              
                               <div class="buttons" style="text-align:center">
-                                  <input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_obra.php?t=c'" id="button" value="Cancelar">
+                                  <input type="submit" name="button" class="button" id="button" value="Cadastrar"> <input type="button" name="button" class="button" onclick="cancel()" id="button" value="Cancelar">
                               </div>
                        </form>
 			      <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_pr_o'){ //add produtos da obra?>
@@ -304,7 +309,7 @@ function validate(){
                                <div id="popup" class="popup" style="float:left">
                                     <div class="formulario" style="width:300px;">
                                       <table style="width:100%; text-align:center;" border="0">
-                                         <input type="hidden" id="id_banco" name="id_banco" value="<?php echo $banco->id ?>">
+                                         <!-- <input type="hidden" id="id_banco" name="id_banco" value="<?php echo $banco->id ?>"> -->
                                          <tr><td colspan='2'><b>Materiais</b></td></tr>
                                          <tr><td colspan='2'><input onclick="fechar()" type="button"  class="button" value="Concluir" ></td></tr>
                                        </table>
@@ -325,6 +330,9 @@ function validate(){
                                           <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
                                               <select size="10" style="height: 100%; width: 100%">
                                               </select>
+                                          </div>
+                                          <div class="form-input">
+                                              <span style="color:#787878; font-size:12px;">(Duplo clique para selecionar)</span>
                                           </div>
                                       </div>
                                       <div class="form-input right">
@@ -364,7 +372,7 @@ function validate(){
                               </div>
                              
                               <div class="buttons" style="text-align:center;">
-                                  <input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_obra.php?t=c'" id="button" value="Cancelar">
+                                  <input type="submit" name="button" class="button" id="button" value="Cadastrar"> <input type="button" name="button" class="button" onclick="cancel()" id="button" value="Cancelar">
                               </div>
                        </form>
 
@@ -445,7 +453,7 @@ function validate(){
                               </div>
                              
                               <div class="buttons" style="text-align:center">
-                                  <input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_obra.php?t=c'" id="button" value="Cancelar">
+                                  <input type="submit" name="button" class="button" id="button" value="Cadastrar"> <input type="button" name="button" class="button" onclick="cancel()" id="button" value="Cancelar">
                               </div>
                        </form>
       
@@ -516,7 +524,7 @@ function validate(){
                               </div>
                              
                               <div class="buttons" style="text-align:center">
-                                  <input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_obra.php?t=c'" id="button" value="Cancelar">
+                                  <input type="submit" name="button" class="button" id="button" value="Cadastrar"> <input type="button" name="button" class="button" onclick="cancel()" id="button" value="Cancelar">
                               </div>
                        </form>
 
@@ -538,49 +546,94 @@ function validate(){
                               <span style="margin-left:10px;"><b>Cliente</b></span>
                         </div>
                         <div class="form-input" style="padding: 0px 0px 5px 10px; padding-left:20px;">
-                            <span><b>Nome/Razão Social: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['cliente']['nome_cli']))?print $_SESSION['obra']['cliente']['nome_cli']:''; ?>"><br />
-                            <span><b>CPF/CNPJ: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['cliente']['cpf_cnpj_cli']))?print $_SESSION['obra']['cliente']['cpf_cnpj_cli']:''; ?>"><br />
-                            <span><b>Endereço: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['cliente']['rua']))?print $_SESSION['obra']['cliente']['rua']:''.(isset($_SESSION['obra']['cliente']['num']))?print ', '.$_SESSION['obra']['cliente']['num']:''; ?>"><br />
-                            <span><b>Telefone: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['cliente']['telefone_com']))?print $_SESSION['obra']['cliente']['telefone_com']:''; ?>"><br />
+                            <?php if(isset($_SESSION['obra']['cliente']['nome_cli']) && $_SESSION['obra']['cliente']['nome_cli'] != '' ){ ?>
+                                        <span><b>Nome/Razão Social: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['cliente']['nome_cli']))?print $_SESSION['obra']['cliente']['nome_cli']:''; ?>"><br />
+                            <?php }if(isset($_SESSION['obra']['cliente']['cpf_cnpj_cli']) && $_SESSION['obra']['cliente']['cpf_cnpj_cli'] != ''){ ?>
+                                        <span><b>CPF/CNPJ: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['cliente']['cpf_cnpj_cli']))?print $_SESSION['obra']['cliente']['cpf_cnpj_cli']:''; ?>"><br />
+                            <?php }if(isset($_SESSION['obra']['cliente']['rua']) && $_SESSION['obra']['cliente']['rua'] != ''){ ?>
+                                        <span><b>Endereço: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['cliente']['rua']))?print $_SESSION['obra']['cliente']['rua']:''.(isset($_SESSION['obra']['cliente']['num']))?print ', '.$_SESSION['obra']['cliente']['num']:''; ?>"><br />
+                            <?php }if(isset($_SESSION['obra']['cliente']['telefone_com']) && $_SESSION['obra']['cliente']['telefone_com'] != ''){ ?>
+                                        <span><b>Telefone: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['cliente']['telefone_com']))?print $_SESSION['obra']['cliente']['telefone_com']:''; ?>"><br />
+                            <?php } ?>
                         </div>
                     <?php } ?>
-                    <?php if(isset($_SESSION['obra']['dados'])){?>
+                    <?php if(isset($_SESSION['obra']['dados']) && count($_SESSION['obra']['dados']) > 0){?>
                             <div class="form-input" style="border-bottom: 1px solid#aaa">
                                   <span style="margin-left:10px;"><b>Dados da Obra</b></span>
                             </div>
                             <div class="form-input" style="padding: 0px 0px 10px 10px; padding-left:20px;">
-                                <span><b>Nome: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['nome']))?print $_SESSION['obra']['dados']['nome']:''; ?>"><br />
-                                <span><b>Data Inicio: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['data_inicio_previsto']))?print $_SESSION['obra']['dados']['data_inicio_previsto']:''; ?>"><br />
-                                <span><b>Endereço: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['rua']))?print $_SESSION['obra']['dados']['rua']:''.(isset($_SESSION['obra']['dados']['num']))?print ', '.$_SESSION['obra']['dados']['num']:''; ?>"><br />
-                                <?php if(isset($_SESSION['obra']['dados']['desc']) && $_SESSION['obra']['dados']['desc'] != ''){// se existe descrição ?>
-                                    <span><b>Descrição: </b></span><br />
-                                          <textarea style="padding: 1px 0px 2px 10px;width:90%; min-width: 90%; max-width:95%; max-height:15%; height: 5%; border: 0" readonly><?php (isset($_SESSION['obra']['dados']['desc']))?print $_SESSION['obra']['dados']['desc']:''; ?></textarea>
+                                <?php if(isset($_SESSION['obra']['dados']['nome']) && $_SESSION['obra']['dados']['nome'] != ''){ ?>
+                                            <span><b>Nome: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['nome']))?print $_SESSION['obra']['dados']['nome']:''; ?>"><br />
+                                <?php }if(isset($_SESSION['obra']['dados']['data_inicio_previsto']) && $_SESSION['obra']['dados']['data_inicio_previsto'] != ''){ ?>
+                                            <span><b>Data Inicio: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['data_inicio_previsto']))?print $_SESSION['obra']['dados']['data_inicio_previsto']:''; ?>"><br />
+                                <?php }if(isset($_SESSION['obra']['dados']['rua']) && $_SESSION['obra']['dados']['rua'] != ''){ ?>
+                                            <span><b>Endereço: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['rua']))?print $_SESSION['obra']['dados']['rua']:''.(isset($_SESSION['obra']['dados']['num']))?print ', '.$_SESSION['obra']['dados']['num']:''; ?>"><br />
+                                <?php }if(isset($_SESSION['obra']['dados']['desc']) && $_SESSION['obra']['dados']['desc'] != ''){// se existe descrição ?>
+                                            <span><b>Descrição: </b></span><br />
+                                                <textarea style="padding: 1px 0px 2px 10px;width:90%; min-width: 90%; max-width:95%; max-height:15%; height: 5%; border: 0" readonly><?php (isset($_SESSION['obra']['dados']['desc']))?print $_SESSION['obra']['dados']['desc']:''; ?></textarea>
                                 <?php } ?>
                             </div>
                    <?php } ?>
-                   <?php if(isset($_SESSION['obra']['patrimonio'])){?>
+                   <?php if(isset($_SESSION['obra']['produto']) && count($_SESSION['obra']['produto']) > 0){?>
+                            <div class="form-input" style="border-bottom: 1px solid#aaa">
+                                  <span style="margin-left:10px;"><b>Produtos/Obra</b></span>
+                            </div>
+                            <div class="form-input" style="padding: 0px 0px 10px 10px; padding-left:20px;">
+                                <?php 
+
+                                                  if(isset($_SESSION['obra']['produto'])){
+                                                      echo '<table style="text-align:center; width:90%">';
+
+                                                      echo '<tr style="background-color:#ddd;"><td><span><b>Nome</b></span></td><td><span><b>Quantidade</b></span></td></tr>';
+                                                      for($aux = 0; $aux < count($_SESSION['obra']['produto']); $aux++){
+                                                        $id_qtd = explode(':', $_SESSION['obra']['produto'][$aux]);
+
+                                                        if($aux%2==0)
+                                                                   echo '<tr style="background-color:#ccc;">';
+                                                            else
+                                                                  echo '<tr style="background-color:#ddd; ">';
+                                                                
+                                                         $res = new Produto();
+                                                         $res = $res->get_produto_id($id_qtd[0]);
+                                                         echo '<td style="padding: 3 10 3 10px;"><span>'.$res->nome.' </span></td><td style="padding: 3 10 3 10px;"><span>'.$id_qtd[1].'</span></td>';
+                                                            
+                                                          echo '</tr>';
+                                                      }
+                                                      echo '</table>';
+                                                }
+
+                                                 ?>
+                            </div>
+                   <?php } ?>
+                   <?php if(isset($_SESSION['obra']['patrimonio']) && count($_SESSION['obra']['patrimonio']) > 0){?>
                             <div class="form-input" style="border-bottom: 1px solid#aaa">
                                   <span style="margin-left:10px;"><b>Patrimonios/Obra</b></span>
                             </div>
-                            <div class="form-input" style="padding: 0px 0px 10px 10px; ">
+                            <div class="form-input" style="padding: 0px 0px 10px 10px; padding-left:20px; ">
                                 <?php 
-                                
+                                      echo '<table style="text-align:center; width:90%">';
+                                            echo '<tr style="background-color:#ddd;"><td><span><b>Nome</b></span></td><td><span><b>Quantidade</b></span></td></tr>';
                                       for($aux = 0; $aux < count($_SESSION['obra']['patrimonio']); $aux++){
                                                  //variavel tipo_id_qtd = os valores da sessão
                                                  $tipo_id_qtd = explode(':', $_SESSION['obra']['patrimonio'][$aux]);
-                                                   
-
-                                                 
+                                                 if($aux%2==0)
+                                                          echo '<tr style="background-color:#ccc;">';
+                                                 else
+                                                          echo '<tr style="background-color:#ddd; ">';
                                                  if($tipo_id_qtd[0] == 0){
                                                     $res = Patrimonio_geral::get_patrimonio_geral_id($tipo_id_qtd[1]);
-                                                    echo '<li style="margin-left:10px;"><span>'.$res->nome.': </span><input readonly style="width:30%; border: 0" type="number" value="'.$tipo_id_qtd[2].'"></li>';
+                                                    // echo '<li style="margin-left:10px;"><span>'.$res->nome.': </span><input readonly style="width:30%; border: 0" type="number" value="'.$tipo_id_qtd[2].'"></li>';
+                                                    echo '<td style="padding: 3 10 3 10px;"><span>'.$res->nome.' </span></td><td style="padding: 3 10 3 10px;"><span>'.$tipo_id_qtd[2].'</span></td>';
                                                  }else if($tipo_id_qtd[0] == 1){
                                                     $res = Maquinario::get_maquinario_id($tipo_id_qtd[1]);
-                                                    echo '<li style="margin-left:10px;"><span>'.$res->modelo.': </span><input readonly style="width:30%; border: 0" type="number" value="'.$tipo_id_qtd[2].'"></li>';
+                                                    // echo '<li style="margin-left:10px;"><span>'.$res->modelo.': </span><input readonly style="width:30%; border: 0" type="number" value="'.$tipo_id_qtd[2].'"></li>';
+                                                    echo '<td style="padding: 3 10 3 10px;"><span>'.$res->modelo.' </span></td><td style="padding: 3 10 3 10px;"><span>'.$tipo_id_qtd[2].'</span></td>';
                                                  }else{
                                                     $res = Veiculo::get_veiculo_id($tipo_id_qtd[1]);
-                                                    echo '<li style="margin-left:10px;"><span>'.$res->modelo.': </span><input readonly style="width:30%; border: 0" type="number" value="'.$tipo_id_qtd[2].'"></li>';
+                                                    // echo '<li style="margin-left:10px;"><span>'.$res->modelo.': </span><input readonly style="width:30%; border: 0" type="number" value="'.$tipo_id_qtd[2].'"></li>';
+                                                    echo '<td style="padding: 3 10 3 10px;"><span>'.$res->modelo.' </span></td><td style="padding: 3 10 3 10px;"><span>'.$tipo_id_qtd[2].'</span></td>';
                                                  }
+                                                 echo '</tr>';
                                                  
                                                  // if(count($patrimonio)>1)
                                                  //  for($aux = 0; $aux < count($patrimonio); $aux++ ){
@@ -589,22 +642,35 @@ function validate(){
                                                  // else
                                                  //  echo 'id '. $patrimonio[0][1].'<br />';
                                       }
+                                      echo '</table>';
                                     
                                  ?>
                             </div>
                    <?php } ?>
-                   <?php if(isset($_SESSION['obra']['funcionario'])){?>
+                   <?php if(isset($_SESSION['obra']['funcionario']) && count($_SESSION['obra']['funcionario']) > 0){?>
                                 <div class="form-input" style="border-bottom: 1px solid#aaa">
                                   <span style="margin-left:10px;"><b>Funcionários/Obra</b></span>
                             </div>
-                            <div class="form-input" style="padding: 0px 0px 10px 10px;">
+                            <div class="form-input" style="padding: 0px 0px 10px 10px; padding-left:20px;">
                                 <?php 
-                                
+                                      echo '<table style="text-align:center; width:90%">';
+                                            echo '<tr style="background-color:#ddd;"><td><span><b>Nome</b></span></td><td><span><b>Cargo</b></span></td></tr>';
                                       for($aux = 0; $aux < count($_SESSION['obra']['funcionario']); $aux++){
                                                  //variavel tipo_id_qtd = os valores da sessão
-                                                 echo '<li style="margin-left:10px;"><span>'.Funcionario::get_nome_by_id($_SESSION['obra']['funcionario'][$aux]).'</span></li>';
+                                                 // echo '<li style="margin-left:10px;"><span>'.Funcionario::get_nome_by_id($_SESSION['obra']['funcionario'][$aux]).'</span></li>';
+                                          if($aux%2==0)
+                                               echo '<tr style="background-color:#ccc;">';
+                                          else
+                                               echo '<tr style="background-color:#ddd; ">';
+                                          // buscarcargo
+                                             $funcionario = Funcionario::get_func_id($_SESSION['obra']['funcionario'][$aux]);
+                                             $cbo = new Cbo();
+                                             $cbo = $cbo->get_cbo_by_id($funcionario->id_cbo);
+                                                echo '<td style="padding: 3 10 3 10px;"><span>'.$funcionario->nome.' </span></td><td style="padding: 3 10 3 10px;"><span>'.$cbo->descricao.'</span></td>';
+                                                echo '</tr>';
                                       }
-                                    
+                                      
+                                      echo '</table>';
                                  ?>
                             </div>
                    <?php } ?>

@@ -14,21 +14,33 @@ include_once("../model/class_patrimonio_geral_bd.php");
 	
   //verifica se ainda não existe patrimonio cadastrado
 	if(!isset($_SESSION['obra']['patrimonio'])){
-		//obra recebe a concatenação do tipo:id:quantidade
-		$_SESSION['obra']['patrimonio'][0] = $tipo.':'.$id.':1';
+  		//obra recebe a concatenação do tipo:id:quantidade
+  		$_SESSION['obra']['patrimonio'][0] = $tipo.':'.$id.':1';
 	}else{
-		$total = count( $_SESSION['obra']['patrimonio'] );
-		$_SESSION['obra']['patrimonio'][$total] = $tipo.':'.$id.':1';
+  		$total = count( $_SESSION['obra']['patrimonio'] );
+      $verifica = 0;// verificará se existe um
+      for($aux = 0; $aux < count( $_SESSION['obra']['patrimonio'] ); $aux++){//percorre o array
+          $id_array = explode(":", $_SESSION['obra']['patrimonio'][$aux]);// pega id do patrimonio da posição atual
+          if($id == $id_array[1] && $tipo == $id_array[0]){
+            $verifica++;
+          }
+      }
+      if($verifica > 0){
+  		  echo '<script>alert("Você já adicionou esse veiculo")</script>';
+      }else{
+          $_SESSION['obra']['patrimonio'][$total] = $tipo.':'.$id.':1';
+          //verifica se é maquinario ou veiculo para adicionar seus respectivos responsaveis à obra
+          if($tipo == 1){// maquinario
+                $res = Maquinario::get_maquinario_id($id);
+                $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
+          }else if($tipo == 2){//veiculos
+                $res = Veiculo::get_veiculo_id($id);
+                $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
+          }
+      }
 	}
   
-  //verifica se é maquinario ou veiculo para adicionar seus respectivos responsaveis à obra
-  if($tipo == 1){// maquinario
-        $res = Maquinario::get_maquinario_id($id);
-        $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
-  }else if($tipo == 2){//veiculos
-        $res = Veiculo::get_veiculo_id($id);
-        $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
-  }
+  
 
 
 	echo '<table style="width:100%">';
