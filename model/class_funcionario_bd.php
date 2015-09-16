@@ -99,6 +99,58 @@ class Funcionario{
 
 	}
 
+	public function add_func_parcial($nome, $email, $cpf, $telefone, $senha, $id_empresa){
+		$this->nome = $nome;
+		$this->email = $email;
+		$this->cpf = $cpf;
+		$this->telefone = $telefone;
+		$this->senha = $senha;
+		$this->id_empresa = $id_empresa;
+
+	}
+
+	public function add_func_parcial_bd(){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+
+		$query = "SELECT * FROM funcionario ORDER BY id DESC";
+		$result = $g->tratar_query($query);
+
+		$row = mysql_fetch_array($result, MYSQL_ASSOC);//pega o ultimo funcionario cadastrado
+
+		$novo_id = $row['id']+1;
+
+		$query = "INSERT INTO funcionario (id, nome, email, cpf, telefone, senha, id_empresa, is_admin) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '1')";
+		
+		$result = $g->tratar_query($query, $novo_id, $this->nome, $this->email, $this->cpf, $this->telefone, $this->senha, $this->id_empresa);		
+		 
+		 if($result){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	 public function busca_ultimo_id_funcionario(){
+          $sql = new Sql();
+          $sql->conn_bd();
+          $g = new Glob();
+          
+          $query = "SELECT * FROM funcionario order by id desc";
+          $result = $g->tratar_query($query); 
+          
+           
+           if(@mysql_num_rows($result) == 0){
+                  return 1;
+             }else{
+      
+              $row = mysql_fetch_array($result, MYSQL_ASSOC);
+              $id = $row['id']+1;
+              return $id;
+             }
+          }
+
 	public function get_func_id($id){
 		 $sql = new Sql();
 		 $sql->conn_bd();
