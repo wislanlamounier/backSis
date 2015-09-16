@@ -65,16 +65,16 @@ class Filial{
             return false;
 	     }else{
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$this->id = $row['id'];
-	     	$this->nome = $row['nome'];
-	     	// $this->cnpj = $row['cnpj'];
-	     	$this->cod_posto = $row['cod_posto'];
-	     	$this->telefone = $row['telefone'];
-	     	$this->id_endereco = $row['id_endereco'];
-	     	$this->id_responsavel = $row['id_responsavel'];
-	     	$this->id_empresa = $row['id_empresa'];
+	     	$filial = new Filial();
+	     	$filial->id = $row['id'];
+	     	$filial->nome = $row['nome'];
+	     	$filial->cod_posto = $row['cod_posto'];
+	     	$filial->telefone = $row['telefone'];
+	     	$filial->id_endereco = $row['id_endereco'];
+	     	$filial->id_responsavel = $row['id_responsavel'];
+	     	$filial->id_empresa = $row['id_empresa'];
 	     	
-	     	return $this;
+	     	return $filial;
 	     }
 	}
 	public function get_filial_by_cnpj_and_nome($nome){

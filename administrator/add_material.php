@@ -98,9 +98,6 @@ function validate(){
                 if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
                    if(validate()){
 
-                    echo $_POST['nome'];
-                    echo $_POST['medida'];
-                    echo $_POST['empresa'];
                     if($_POST['medida']!= "no_sel" && $_POST['empresa']!="no_sel"){
                      $material = new Material();
                      $material->add_material($_POST['nome'], $_POST['medida'], $_POST['empresa']); 

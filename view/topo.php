@@ -15,6 +15,9 @@
 		<div style="float:right;"><a title="Clique para sair" href="logout.php"><img src="../images/fechar.png" width="20px"></a></div>
 	</div>
 </div>
+<div style="float:right; padding-right:10px;">
+    <a href=""><span>Reportar um Erro</span></a>
+</div>
 <div style="float:left; width:100%">
  	<div class="menu">
 		<div class="menu">

@@ -467,8 +467,7 @@ class Funcionario{
 	public function printFunc(){
         $empresa = new Empresa();
         $empresa = $empresa->get_empresa_by_id($this->id_empresa);
-		$filial = new Filial();
-        $filial = $filial->get_filial_id($this->id_empresa_filial);
+        $filial = Filial::get_filial_id($this->id_empresa_filial);
         $cbo = new Cbo();
         $cbo = $cbo->get_cbo_by_id($this->id_cbo);
         $turno = new Turno();
@@ -498,7 +497,8 @@ class Funcionario{
 		$texto .= "<tr>";
 		$texto .= "<td colspan='2'><b><span>Empresa: <span></b></td><td colspan='2'><span>".$empresa->nome_fantasia."</span></td>";
 		$texto .= "</tr>";
-		if($filial->id){
+
+		if($filial){
 			$texto .= "<tr>";
 			$texto .= "<td colspan='2'><b><span>Filial: <span></b></td><td colspan='2'><span>".$filial->nome."</span></td>";
 			$texto .= "</tr>";

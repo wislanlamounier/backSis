@@ -156,12 +156,13 @@ class Epi{
 		$return = array();
 		$query = mysql_query("SELECT * FROM equipamentos_func WHERE oculto = 0") or print(mysql_error());
 
-		while($result = mysql_fetch_array($query)){
-			$return[$aux][0] = $result['id'];
-			$return[$aux][1] = $result['nome_epi'];
-			$return[$aux][2] = $result['quantidade'];
-			$aux++;
-		}
+		if($query)
+			while($result = mysql_fetch_array($query)){
+				$return[$aux][0] = $result['id'];
+				$return[$aux][1] = $result['nome_epi'];
+				$return[$aux][2] = $result['quantidade'];
+				$aux++;
+			}
 		return $return;
 	}
 
@@ -172,14 +173,14 @@ class Epi{
 		$aux=0;
 		$query = "SELECT * FROM equipamentos_func WHERE nome_epi LIKE '%%%s%%' WHERE oculto = 0";
 		$query_tra = $g->tratar_query($query, $name);
-
-		while($result =  mysql_fetch_array($query_tra)){
-			$return[$aux][0] = $result['id'];
- 			$return[$aux][1] = $result['nome_epi'];
-			$return[$aux][2] = $result['descricao'];
-			
-			$aux++;
-		}
+		if($query_tra)
+			while($result =  mysql_fetch_array($query_tra)){
+				$return[$aux][0] = $result['id'];
+	 			$return[$aux][1] = $result['nome_epi'];
+				$return[$aux][2] = $result['descricao'];
+				
+				$aux++;
+			}
 		if($aux == 0){
 			$sql->close_conn();
 			echo '<div class="msg">Nenhum EPI encontrado!</div>';
