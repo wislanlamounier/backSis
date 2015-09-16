@@ -36,13 +36,64 @@ class Empresa{
           $sql->conn_bd();
           $g = new Glob();
           $return = array();
-          $query = "INSERT INTO empresa (cnpj, razao_social, nome_fantasia, ins_estadual, ins_municipal, telefone, id_responsavel, id_endereco, nivel_acesso) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')";
-          if($g->tratar_query($query, $this->cnpj, $this->razao_social, $this->nome_fantasia, $this->ins_estadual, $this->ins_municipal,  $this->telefone, $this->id_responsavel, $this->id_endereco, $this->nivel_acesso)){
+          $query = "SELECT * FROM empresa order by id desc";
+          $result = $g->tratar_query($query);
+          $row = mysql_fetch_array($result, MYSQL_ASSOC);
+          $id = $row['id']+1;
+
+          $query = "INSERT INTO empresa (id, cnpj, razao_social, nome_fantasia, ins_estadual, ins_municipal, telefone, id_responsavel, id_endereco, nivel_acesso) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')";
+          if($g->tratar_query($query, $id, $this->cnpj, $this->razao_social, $this->nome_fantasia, $this->ins_estadual, $this->ins_municipal,  $this->telefone, $this->id_responsavel, $this->id_endereco, $this->nivel_acesso)){
             return true;
           }else{
             return false;
           }
     }
+
+    public function add_empresa_parcial($nome_fantasia, $razao_soc, $cnpj, $id){
+
+          $this->nome_fantasia = $nome_fantasia;
+          $this->razao_social = $razao_soc;
+          $this->cnpj = $cnpj;
+          $this->id_responsavel = $id;
+    }
+
+    public function add_empresa_parcial_bd(){
+          $sql = new Sql();
+          $sql->conn_bd();
+          $g = new Glob();
+          $return = array();
+          $query = "SELECT * FROM empresa order by id desc";
+          $result = $g->tratar_query($query);
+          $row = mysql_fetch_array($result, MYSQL_ASSOC);
+          $id = $row['id']+1;
+
+
+          $query = "INSERT INTO empresa(id, nome_fantasia, razao_social, cnpj, id_responsavel) VALUES ('%s', '%s', '%s', '%s', '%s')";
+
+          if ($g->tratar_query($query, $id, $this->nome_fantasia, $this->razao_social, $this->cnpj, $this->id_responsavel)){
+            return true;
+          }else{
+            return false;
+          }
+    }
+
+    public function busca_ultimo_id_empresa(){
+          $sql = new Sql();
+          $sql->conn_bd();
+          $g = new Glob();
+
+          $query = "SELECT * FROM empresa order by id desc";
+          $result = $g->tratar_query($query); 
+          
+           
+           if(@mysql_num_rows($result) == 0){                
+                  return 1;
+             }else{      
+              $row = mysql_fetch_array($result, MYSQL_ASSOC);
+              $id = $row['id']+1;
+              return $id;
+             }
+          }
 
     public function get_all_empresa(){
         $sql = new Sql();

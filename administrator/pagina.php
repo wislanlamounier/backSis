@@ -13,7 +13,6 @@ include("restrito.php");
 <body>			
 	
 			<?php include_once("../view/topo.php"); ?>
-			
 	 
 </body>
 </html>
