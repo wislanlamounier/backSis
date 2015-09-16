@@ -346,6 +346,15 @@ h2{
   display:block; clear:both; padding: 10px; position:fixed; width:370px; /*height:280px;*/ margin-left:-450px; float:left;  background-color:#eee; box-shadow: 0px 0px 10px #333; border-radius:10px;
   transition: all 1s;
 }
+.popup-erro{
+	transition: all 1s;
+}
+.back-popup{
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0,0,0,0.7);
+	display: none;
+}
 /*********************** BOX-ANIVERSARIANTES && BOX-ATRASOS*********************/
 
 .box-aniversariantes, .box-atrasos{

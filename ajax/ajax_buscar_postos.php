@@ -21,6 +21,7 @@ include_once("../model/class_sql.php");
 
 
 <select name="empresa_filial" id="empresa_filial">
+	<option value="no_sel">Selecione um posto</option>
   <?php
   	if($dados) 
 	    foreach($arrFiliais as $value => $nome){

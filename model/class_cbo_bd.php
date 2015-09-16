@@ -71,9 +71,9 @@ class Cbo{
 		$sql->conn_bd();
 		$g = new Glob();
 
-		$query = "INSERT INTO cbo (codigo, descricao) VALUES ('%s', '%s')";
+		$query = "INSERT INTO cbo (codigo, descricao, id_empresa) VALUES ('%s', '%s', '%s')";
 
-		if($g->tratar_query($query, $this->codigo, $this->descricao)){
+		if($g->tratar_query($query, $this->codigo, $this->descricao, $_SESSION['id_empresa'])){
 			echo '<div class="msg">CBO cadastrado com sucesso!</div>';
 			$query = mysql_query("SELECT * FROM cbo ORDER BY id DESC");
 			$result =  mysql_fetch_array($query);
@@ -113,7 +113,7 @@ class Cbo{
 		 $return = array();
 		 $aux=0;
 
-		 $query = mysql_query("SELECT * FROM cbo WHERE oculto = 0 ORDER BY descricao asc");
+		 $query = mysql_query("SELECT * FROM cbo WHERE oculto = 0 && id_empresa = ".$_SESSION['id_empresa']." ORDER BY descricao asc");
 		 
 		 while($result =  mysql_fetch_array($query)){
 		 	$return[$aux][0] = $result['id'];

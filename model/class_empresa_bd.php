@@ -17,8 +17,6 @@ class Empresa{
     public $id_responsavel;
     public $nivel_acesso;
 
-
-
     public function add_empresa($cnpj, $razao_social, $nome_fantasia, $ins_estadual, $ins_municipal,  $telefone, $id_responsavel, $id_endereco, $nivel_acesso){
           $this->cnpj = $cnpj;
           $this->razao_social = $razao_social;
@@ -41,8 +39,8 @@ class Empresa{
           $row = mysql_fetch_array($result, MYSQL_ASSOC);
           $id = $row['id']+1;
 
-          $query = "INSERT INTO empresa (id, cnpj, razao_social, nome_fantasia, ins_estadual, ins_municipal, telefone, id_responsavel, id_endereco, nivel_acesso) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')";
-          if($g->tratar_query($query, $id, $this->cnpj, $this->razao_social, $this->nome_fantasia, $this->ins_estadual, $this->ins_municipal,  $this->telefone, $this->id_responsavel, $this->id_endereco, $this->nivel_acesso)){
+          $query = "INSERT INTO empresa (id, cnpj, razao_social, nome_fantasia, ins_estadual, ins_municipal, telefone, id_responsavel, id_endereco, nivel_acesso, id_empresa) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s', '%s')";
+          if($g->tratar_query($query, $id, $this->cnpj, $this->razao_social, $this->nome_fantasia, $this->ins_estadual, $this->ins_municipal,  $this->telefone, $this->id_responsavel, $this->id_endereco, $this->nivel_acesso, $_SESSION['id_empresa'])){
             return true;
           }else{
             return false;
@@ -68,9 +66,9 @@ class Empresa{
           $id = $row['id']+1;
 
 
-          $query = "INSERT INTO empresa(id, nome_fantasia, razao_social, cnpj, id_responsavel) VALUES ('%s', '%s', '%s', '%s', '%s')";
+          $query = "INSERT INTO empresa(id, nome_fantasia, razao_social, cnpj, id_responsavel, id_empresa) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
 
-          if ($g->tratar_query($query, $id, $this->nome_fantasia, $this->razao_social, $this->cnpj, $this->id_responsavel)){
+          if ($g->tratar_query($query, $id, $this->nome_fantasia, $this->razao_social, $this->cnpj, $this->id_responsavel, $id)){
             return true;
           }else{
             return false;
@@ -101,7 +99,7 @@ class Empresa{
         $g = new Glob();
         $aux=0;
         $return = array();
-        $query = $g->tratar_query("SELECT * FROM empresa WHERE oculto = 0");
+        $query = $g->tratar_query("SELECT * FROM empresa WHERE oculto = 0 && id_empresa = ".$_SESSION['id_empresa']);
 
         while($result = mysql_fetch_array($query)){
           $return[$aux][0] = $result['id'];
@@ -118,7 +116,7 @@ class Empresa{
         $g = new Glob();
         $aux=0;
         $return = array();
-        $query = $g->tratar_query("SELECT * FROM empresa WHERE oculto = 0 && nome_fantasia LIKE '%%%s%%'", $nome);
+        $query = $g->tratar_query("SELECT * FROM empresa WHERE oculto = 0 && id_empresa = ".$_SESSION['id_empresa']." && nome_fantasia LIKE '%%%s%%'", $nome);
 
         while($result = mysql_fetch_array($query)){
           $return[$aux][0] = $result['id'];

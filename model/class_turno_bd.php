@@ -27,9 +27,9 @@ class Turno{
 		$g = new Glob();
 		
 
-		$query = "INSERT INTO turno (nome, descricao, ini_exp, ini_alm, fim_alm, fim_exp) VALUES ('%s','%s', '%s', '%s', '%s', '%s')";
+		$query = "INSERT INTO turno (nome, descricao, ini_exp, ini_alm, fim_alm, fim_exp, id_empresa) VALUES ('%s','%s', '%s', '%s', '%s', '%s', '%s')";
 
-		$g->tratar_query($query, $this->nome, $this->desc, $this->ini_exp, $this->ini_alm, $this->fim_alm, $this->fim_exp);
+		$g->tratar_query($query, $this->nome, $this->desc, $this->ini_exp, $this->ini_alm, $this->fim_alm, $this->fim_exp, $_SESSION['id_empresa']);
 	}
 	public function atualiza_turno($nome, $id, $descricao, $ini_exp, $ini_alm, $fim_alm, $fim_exp){
 		$sql = new Sql();
@@ -170,7 +170,7 @@ class Turno{
 
 		 //"SELECT * FROM turno as turno WHERE nome LIKE '%%%s%%' && oculto = 0 && NOT EXISTS (SELECT id FROM funcionario WHERE id_turno = turno.id";
 
-		 $query = mysql_query("SELECT * FROM turno WHERE oculto = 0");
+		 $query = mysql_query("SELECT * FROM turno WHERE oculto = 0 && id_empresa = ".$_SESSION['id_empresa']);
 		 
 		 while($result =  mysql_fetch_array($query)){
 		 	$return[$aux][0] = $result['id'];

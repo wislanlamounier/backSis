@@ -682,6 +682,7 @@ function carregaUf_CartTrab(uf){
            } 
       }
   function disparaLoadCidade(){
+      carrega_postos();
       setTimeout(function() {
          carregaCidade();
         }, 500);
@@ -741,8 +742,8 @@ function carregaUf_CartTrab(uf){
                      <tr> <td><span>Título Eleitoral:</span></td> <td colspan="3"><input type="text" id="titu_eleitoral" name="titu_eleitoral" value="<?php echo $func->num_tit_eleitor; ?>"></td></tr> <!-- Numero do titulo eleitoral -->
                      <tr> <td><span>Data Nasc.:</span></td> <td><input type="date" id="data_nasc" name="data_nasc" value="<?php echo $func->data_nasc; ?>"></td></tr> <!-- data nacimento -->
                      <tr> <td><span>Telefone:</span></td> <td><input type="text" id="telefone" name="telefone" value="<?php echo $func->telefone; ?>"></td></tr> <!-- telefone -->
-                     <tr> <td><span>Email Pessoal:</span></td> <td colspan="3"><input style="width:100%" type="text" id="email" name="email" value="<?php echo $func->email; ?>"></td></tr> <!-- email -->
-                     <tr> <td><span>Email Empresarial:</span></td> <td colspan="3"><input style="width:100%" type="text" id="email_emp" name="email_emp" value="<?php echo $func->email_empresa; ?>"></td></tr> <!-- email empresarial -->
+                     <tr> <td><span>Email Pessoal:</span></td> <td colspan="3"><input style="width:100%" type="email" id="email" name="email" value="<?php echo $func->email; ?>"></td></tr> <!-- email -->
+                     <tr> <td><span>Email Empresarial:</span></td> <td colspan="3"><input style="width:100%" type="email" id="email_emp" name="email_emp" value="<?php echo $func->email_empresa; ?>"></td></tr> <!-- email empresarial -->
                      <tr> <td><span>Senha:</span></td> <td><input type="text" id="senha" name="senha"></td></tr> <!-- senha -->
                      <tr>
                         <td><span>Empresa:</span></td>
@@ -751,8 +752,7 @@ function carregaUf_CartTrab(uf){
                               $empresa = new Empresa();
                               $empresas = $empresa->get_all_empresa();
                            ?>
-                           <select name="empresa" id="empresa" onchange="carrega_postos()">
-                              <option value="no_sel">Selecione</option>
+                           <select name="empresa" id="empresa" onchange="carrega_postos()" style="width:130px">
                               <?php 
                                  foreach($empresas as $key => $empresa){
                                     echo '<option value="'.$empresas[$key][0].'">'.$empresas[$key][2].'</option>';
@@ -760,7 +760,7 @@ function carregaUf_CartTrab(uf){
                               ?>
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
-                        <span>Data Adm.:</span><input type="date" id="data_admissao" style="width: 140px;" name="data_admissao" value="<?php echo $func->data_adm; ?>" title="Data de admissão do funcionário"></td>
+                        <span>Data Adm.:</span><input type="date" id="data_admissao" style="width: 130px;" name="data_admissao" value="<?php echo $func->data_adm; ?>" title="Data de admissão do funcionário"></td>
                         <?php echo "<script> carregaEmpresa('".$func->id_empresa."') </script>";  ?>
                      </tr>
                      <tr>
@@ -815,7 +815,7 @@ function carregaUf_CartTrab(uf){
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
                         </td>
-                        <?php echo "<script> carregaTurno('".$func->id_turno."') </script>";  ?>
+                        <?php echo "<script>carregaTurno('".$func->id_turno."') </script>";  ?>
 
                      </tr>
                      <tr>
@@ -975,8 +975,8 @@ function carregaUf_CartTrab(uf){
                      <tr> <td><span>Título Eleitoral:</span></td> <td colspan="3"><input type="text" id="titu_eleitoral" name="titu_eleitoral" ></td></tr> <!-- Numero do titulo eleitoral -->
                      <tr> <td><span>Data Nasc.:</span></td> <td><input type="date" id="data_nasc" name="data_nasc"></td></tr> <!-- data nacimento -->
                      <tr> <td><span>Telefone:</span></td> <td><input type="text" id="telefone" name="telefone" ></td></tr> <!-- telefone -->
-                     <tr> <td><span>Email Pessoal:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="email" name="email"></td></tr> <!-- email -->
-                     <tr> <td><span>Email empresarial:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="email_emp" name="email_emp"></td></tr> <!-- email empresa_filialrial -->
+                     <tr> <td><span>Email Pessoal:</span></td> <td colspan="3"><input style="width:100%;" type="email" id="email" name="email"></td></tr> <!-- email -->
+                     <tr> <td><span>Email empresarial:</span></td> <td colspan="3"><input style="width:100%;" type="email" id="email_emp" name="email_emp"></td></tr> <!-- email empresa_filialrial -->
                      <tr> <td><span>Senha:</span></td> <td colspan="3"><input type="password" id="senha" name="senha"></td></tr> <!-- senha -->
                      <tr>
                         <td><span>Empresa:</span></td>
@@ -986,7 +986,6 @@ function carregaUf_CartTrab(uf){
                               $empresas = $empresa->get_all_empresa();
                            ?>
                            <select name="empresa" id="empresa" onchange="carrega_postos()">
-                              <option value="no_sel">Selecione</option>
                               <?php 
                                  foreach($empresas as $key => $empresa){
                                     echo '<option value="'.$empresas[$key][0].'">'.$empresas[$key][2].'</option>';
@@ -995,7 +994,7 @@ function carregaUf_CartTrab(uf){
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
                         
-                        <span>Data Adm.:</span><input type="date" id="data_admissao" style="width: 140px;" name="data_admissao"  title="Data de admissão do funcionário"></td>
+                        <span>Data Adm.:</span><input type="date" id="data_admissao" style="width: 130px;" name="data_admissao"  title="Data de admissão do funcionário"></td>
                      </tr>
                      <tr>
                         <td><span>Posto de trabalho:</span></td>

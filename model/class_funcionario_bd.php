@@ -203,7 +203,7 @@ class Funcionario{
 		$sql->conn_bd();
 		$g = new Glob();
 		$aux = 0;
-		$query = "SELECT * FROM funcionario WHERE oculto = 0 && is_admin = 1 ORDER BY nome ASC";
+		$query = "SELECT * FROM funcionario WHERE oculto = 0 && is_admin = 1 && id_empresa = ".$_SESSION['id_empresa']." ORDER BY nome ASC";
 		
 		$query_tra = $g->tratar_query($query);
 
@@ -220,7 +220,7 @@ class Funcionario{
 		$g = new Glob();
 		$mes = '-'.$data[3].$data[4].'-';
 		$aux = 0;
-		$query = "SELECT * FROM funcionario WHERE data_nasc LIKE '%%%s%%' && oculto = 0 ORDER BY data_nasc ASC";
+		$query = "SELECT * FROM funcionario WHERE data_nasc LIKE '%%%s%%' && oculto = 0 && id_empresa = ".$_SESSION['id_empresa']." ORDER BY data_nasc ASC";
 		
 		$query_tra = $g->tratar_query($query, $mes);
 

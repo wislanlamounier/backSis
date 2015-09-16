@@ -400,7 +400,6 @@ function validate(){
                         <td ><span>Empresa:</span></td>
                         <td colspan="2">
                            <select id="empresa" name="empresa"  style="width:100%">
-                              <option value="no_sel">Selecione uma Empresa</option>
                               <?php 
                                  $empresa = new Empresa();
                                  $empresa = $empresa->get_all_empresa();
@@ -485,7 +484,6 @@ function validate(){
                         <td ><span>Empresa:</span></td>
                         <td colspan="2">
                            <select id="empresa" name="empresa"  style="width:100%">
-                              <option value="no_sel">Selecione uma Empresa</option>
                               <?php 
                                  $empresa = new Empresa();
                                  $empresa = $empresa->get_all_empresa();
