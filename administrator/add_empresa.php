@@ -442,7 +442,7 @@ function buscar_cidades(){
                      </tr>
               		   <tr>
                           <td colspan="2" style="text-align:center">
-                              <input  class="button" type="submit" value="Editar">
+                              <input  class="button" type="submit" value="Salvar">
                               <input class="button" name="button" onclick="window.location.href='add_empresa.php'" id="button" value="Cancelar">
                           </td>
                       </tr> 

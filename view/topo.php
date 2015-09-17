@@ -16,10 +16,13 @@
             document.getElementById("back-popup").style.display = "none";
         	document.getElementById("popup-erro").style.marginLeft = "-600px";
         });
- 		
- 		
-
- 	}
+  	}
+    function desabilitaDiv1(){        
+        document.getElementById("box-login1").style.display = "none";
+        } 
+    function desabilitaDiv2(){
+        document.getElementById("box-login2").style.display = "none";
+        }
 	function exibe_error(){
         // document.getElementById("popup").style.display = "block";
         var windowWidth = window.innerWidth;
