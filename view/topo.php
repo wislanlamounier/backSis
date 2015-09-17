@@ -45,6 +45,7 @@
         document.getElementById("popup-erro").style.marginLeft = "-600px";
     }
  </script>
+
 <div style="width:100%; float:left;" >
 	<div class="img" style="float:left"><img src="../images/logo75mm.png"></div>
 	<div class="box-login" style="">
@@ -52,6 +53,7 @@
 		<div class="nome-box-login" style=""><span style="">Usuário:<br /></span><?php echo $_SESSION["user"]; ?><br /><span style="">Empresa:<br /></span><?php echo $_SESSION['empresa']."<span> (".$nivel_acesso.")</span>" ?></div>
 		<div style="float:right;"><a title="Clique para sair" href="logout.php"><img src="../images/fechar.png" width="20px"></a></div>
 	</div>
+    <?php include_once("finalizarcadastro.php");?>
 </div>
 <div style="float:right; padding-right:10px;">
     <a onclick="exibe_error()" style="cursor:pointer"><span>Reportar um Erro</span></a>

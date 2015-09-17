@@ -21,6 +21,7 @@ include_once("../global.php");
   $userbusca = $g->tratar_query($query,$_POST["id"], $_POST["pass"]);
   // $userbusca vai receber a qt de linhas que tem essa busca 
     if(mysql_num_rows($userbusca) == 1 ){
+
         session_start(); // inicia sessão
         $row = mysql_fetch_array($userbusca);
         $query = "SELECT * FROM empresa WHERE  id='%s'";
@@ -31,6 +32,28 @@ include_once("../global.php");
         $_SESSION['id_empresa'] = $empresa['id'];
         $_SESSION['empresa'] = $empresa['nome_fantasia'];
         $_SESSION['nivel_acesso'] = $empresa['nivel_acesso'];
+
+        $_SESSION['telefone'] = $empresa['telefone'];
+        if($_SESSION['telefone']==""){
+          $_SESSION['telefone'] = "";
+        }
+
+        $_SESSION['ins_estadual'] = $empresa['ins_estadual'];
+        if($_SESSION['ins_estadual']==""){
+          $_SESSION['ins_estadual'] = "";
+        }
+
+        $_SESSION['ins_municipal'] = $empresa['ins_municipal'];
+        if($_SESSION['ins_municipal']==""){
+          $_SESSION['ins_municipal'] = "";
+        }
+
+        $_SESSION['id_endereco'] = $empresa['id_endereco'];
+        if($_SESSION['id_endereco']==""){
+          $_SESSION['id_endereco'] = "";
+        }
+
+
         header("location:principal.php"); // pagina que sera redirecionada após login
     }else{
       header("location:index.php?falha=yes");
