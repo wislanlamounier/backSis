@@ -210,7 +210,7 @@ class Cliente {
 		$query = "UPDATE clientes SET oculto = 1 WHERE id = %s";
 		$result = $g->tratar_query($query, $id);
 		if($result){
-			echo '<div class="msg">Cliente excluido com sucesso!</div>';
+			return true;
 		}
 	}
 

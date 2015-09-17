@@ -136,6 +136,7 @@ function verificaValor($valor){
           var url = '../ajax/ajax_excluir_funcionario.php?id='+id+'&nome='+nome;
           $.get(url, function(dataReturn) {
             $('#result').html(dataReturn);
+            window.location.href='add_func.php';
           });
        }
     }
@@ -693,6 +694,28 @@ function carregaUf_CartTrab(uf){
 
 
             <?php include_once("../view/topo.php"); ?>
+              <?php 
+                  //verifica se todas as dependencias do funcionario estão cadastradas
+                  $cbo = new Cbo();
+                  $cbos = $cbo->get_name_all_cbo();
+                  $cont = 0;
+                  $msg = 'ATENÇÃO!\n\nPara cadastrar um funcionário é necessario:\n\n';
+                  if(!$cbos){
+                     $msg .= ($cont+1).' Cadastrar um CBO (Cadastro Brasileiro de Ocupações)\n';
+                     $cont++;
+                  }
+
+                  $turno = new Turno();
+                  $turnos = $turno->get_name_all_turno();
+
+                  if(!$turnos){
+                     $msg .= ($cont+1).' Cadastrar um Turno';
+                     $cont++;
+                  }
+                  
+                  if($cont > 0)
+                    echo '<script>alert("'.$msg.'");</script>';
+               ?>
             
               <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?> <!-- EDITAR FUNCIONARIO -->
                 <div class='formulario' style="width:500px;">

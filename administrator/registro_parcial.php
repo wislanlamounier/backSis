@@ -99,7 +99,7 @@ require_once("../phpmailer/phpmailer.class.php");
 			// Define a mensagem (Texto e Assunto)
 			// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 			$id_responsavel = $id_responsavel - 1; //codigo para enviar id corrigido//
-			$mail->Subject  = "Senha sitema de Gerenciamento de Obras"; // Assunto da mensagem
+			$mail->Subject  = "Cadastro efetuado no sitema de Gerenciamento de Obras"; // Assunto da mensagem
 			$mail->Body = "
 						<p>Obrigado por efetuar o cadastro em nosso sitema SGO.<br>
 						Seu id para login é:".$id_responsavel." e senha: ".$senhaoriginal.".<br><br>
@@ -127,14 +127,10 @@ require_once("../phpmailer/phpmailer.class.php");
 			
 		    $redirect = "../index.php?cadastro=ok&nome=".$nome."&#cadastro";
 
-
-
 			header("location:$redirect");
 			
 
-		}else{
-		
-			
+		}else{			
 			$redirect = "../index.php?#cadastro";
 			header("location:$redirect");
 		}

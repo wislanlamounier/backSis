@@ -28,7 +28,6 @@ include_once("../model/class_sql.php");
 	      echo "<option value='{$value}'>{$nome}</option>";
 	     // echo "<option>teste</option>";
 	  	}
-	else
-		echo "<option value='no_sel'>Nenhum posto cadastrado</option>";
+	
 ?>
 </select>
