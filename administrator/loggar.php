@@ -19,6 +19,7 @@ include_once("../global.php");
   $query = "SELECT * FROM funcionario WHERE  id='%s' AND is_admin ='1' AND senha = md5('%s') AND oculto = 0";
 
   $userbusca = $g->tratar_query($query,$_POST["id"], $_POST["pass"]);
+  $id_funcionario = $_POST["id"];
   // $userbusca vai receber a qt de linhas que tem essa busca 
     if(mysql_num_rows($userbusca) == 1 ){
 
@@ -53,6 +54,7 @@ include_once("../global.php");
           $_SESSION['id_endereco'] = "";
         }
 
+        $_SESSION['id_funcionario'] = $id_funcionario;
 
         header("location:principal.php"); // pagina que sera redirecionada após login
     }else{
