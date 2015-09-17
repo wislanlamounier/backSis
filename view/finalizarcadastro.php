@@ -69,15 +69,11 @@
        
         $i = 0;
         
-        
+        print_r($func);
         foreach ($func as $key => $value) {
             if(!isset($value) or $value==0){
                 
-                if($key == "cod_serie"){
-                    echo '<br>'.$key;
-                    echo '<br>'.$value;
-                    $i = $i +1;
-                }
+                
                 if($key == "rg"){
                     echo '<br>'.$key;
                      $i = $i +1;
@@ -111,6 +107,14 @@
                 if($key == "data_adm"){
                     echo '<br>'.$key;
                      $i = $i +1;
+                }
+                if($key == "cod_serie"){
+
+                    if($value !=""){
+                        $i = $i +0;
+                    }else{
+                        $i = $i +1;
+                    }
                 }
             }
         }
