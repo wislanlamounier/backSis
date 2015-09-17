@@ -20,11 +20,12 @@
                         <a href="#services">Serviços</a>
                     </li>
                     <li>
-                        <a href="#contact">Contato</a>
-                    </li>
-                    <li>
                         <a href="#cadastro">Cadastre-se</a>
                     </li>
+                    <li>
+                        <a href="#contact">Contato</a>
+                    </li>
+                    
                     <li>
                         <a href="administrator/">Acesse</a>
                     </li>

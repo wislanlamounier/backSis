@@ -52,8 +52,8 @@ require_once("../model/class_cidade_bd.php");
           var url = '../ajax/ajax_excluir_cliente.php?id='+id+'&nome='+nome+'&tipopess='+tipopess;  //caminho do arquivo php que irá buscar as cidades no BD
           
           $.get(url, function(dataReturn) {
-          	
             $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+            window.location.href='add_cliente.php';
           });
        }
     }
