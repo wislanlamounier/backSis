@@ -2,16 +2,13 @@
 
 <?php 
     if (isset($_GET['cadastro'])== 'ok') {
-        $nome = $_GET['nome'];
-        $empresa = $_GET['email'];
-        $senha = $_GET['senha'];
-        $id = $_GET['id'];
+        $nome = $_GET['nome'];      ;
         ?>
         <div class="content-section-a" style="background-color:rgba(255,255,255,0.3);">
             <div class="container">
                 <div class="section-heading"><h2>Parabens <i><?php echo $nome ?></i> seu cadastro foi efetuado !!</h2></div>
                 <div><h4>Seu login e senha foram enviados para o seu e-mail.</h4></div>
-                <div><h4>Clique em ACESSE AGORA para entrar no sistema <?php echo "id é:". $id= $id-1 ."e senha: ".$senha."Não esqueer de tirar quando arrumar a função de envio"?>.</h4></div>
+                <div><h4>Clique em ACESSE AGORA para entrar no sistema.</h4></div>
 
             </div>
         </div>
@@ -25,9 +22,9 @@
         <div class="container" >
             <div class="row" style="text-align:center;">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Cadastre-se</h2>                       
+                    <h2 class="section-heading">CADASTRO</h2>                       
                             <div style="text-align:center">
-                                <form method="POST" action="administrator/registro_parcial.php" onsubmit="return valida(this), validarSenha(this)">                                    
+                                <form style="background-color: rgba(150,150,150,0.2); margin-bottom: 40px;" method="POST" action="administrator/registro_parcial.php" onsubmit="return valida(this), validarSenha(this), validarCPF(this.cpf.value)">                                    
                                 <table border='0' class="table-footer" style="height:150px; width:500px;">
                                     <tr><td><h4>Funcionario</h4></td><td><h4>Empresa</h4></td></tr>
                                     <tr><td><input placeholder="Nome" class="form-control" type="text" name="nome" id="nome"></td><td><input placeholder="Nome Fantasia" class="form-control" type="text" name="nome_fantasia" id="nome_fantasia"></td></tr>

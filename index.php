@@ -34,11 +34,11 @@
             for (var i = 0; i < f.length; i++) {
                 if (f[i].name == 'senha'){                    
                     var s1=f[i].value;
-                    alert(s1);
+                    
                 }
                 if(f[i].name=='senha1'){                    
                     var s2=f[i].value;
-                    alert(s2);
+                    
                 }                
             }
             if (s1 == s2)
@@ -98,6 +98,7 @@
               if(f[i].name == "cpf" && f[i].value != ""){
                 f[i].style.border = "1px solid #898989";
               }
+
         if(f[i].name == "cnpj" && f[i].value == ""){
                 msg += "Preencha o cnpj!\n";
                 
@@ -200,8 +201,8 @@
       }          
         }
    // fim Mask
-        function validarCPF(cpf) {
-   
+        function validarCPF(cpf){
+          
         cpf = cpf.replace(/[^\d]+/g,'');    
         if(cpf == '') return false; 
         // Elimina CPFs invalidos conhecidos    
@@ -234,7 +235,8 @@
         if (rev == 10 || rev == 11) 
             rev = 0;    
         if (rev != parseInt(cpf.charAt(10)))
-            return false;       
+            return false;
+
         return true;   
 }
 
