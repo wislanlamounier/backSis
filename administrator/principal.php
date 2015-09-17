@@ -18,6 +18,10 @@ include_once("../model/class_veiculo_bd.php")
  	<link rel="stylesheet" type="text/css" href="style1.css">
  </head> 
  <script type="text/javascript">
+ 
+ function desabilitaDiv(){
+        alert('entrou');
+    } 
 
   function hidden(id){
      document.getElementById(id).style.display = "none";
