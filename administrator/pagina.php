@@ -11,8 +11,17 @@ include("restrito.php");
 </head>
 
 <body>			
-	
-			<?php include_once("../view/topo.php"); ?>
-	 
+	 <?php
+                        $diretorio ='C:\Users\Lucas';
+                        $files = scandir($diretorio,1);
+                       
+                       
+                        foreach ($files as $key => $value) {
+                            
+                            echo $key;
+                            
+                        }                      
+                        ?>
+			
 </body>
 </html>
