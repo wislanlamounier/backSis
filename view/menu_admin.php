@@ -16,7 +16,7 @@
         <li><a href="/viacampos/administrator/add_turno.php">Turno</a></li>
         <li><a href="/viacampos/administrator/add_cbo.php">CBO</a></li>
         <li><a href="/viacampos/administrator/add_exames.php">Exames</a></li>
-        <li><a href="/viacampos/administrator/add_empresa.php">Empresa</a></li>        
+        <?php echo '<li><a href="/viacampos/administrator/add_empresa.php?tipo=editar&id='.$_SESSION['id_empresa'].'">Empresa</a></li>'; ?>
         <li><a href="/viacampos/administrator/add_filial.php">Filial</a></li>
       </ul>
     </li>

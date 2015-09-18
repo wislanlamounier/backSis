@@ -370,7 +370,7 @@ function buscar_cidades(){
  <body onload="disparaLoadCidade()">  		
  		<?php include_once("../view/topo.php"); ?>
  		<div class="formulario">
-              		<?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?> 
+              	<?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?> 
               		 	<?php  
                         $id = $_GET['id'];
                         $empresa = new Empresa();
@@ -449,7 +449,7 @@ function buscar_cidades(){
                 	 </table>
                 	 </form>
                 	 
-					<?php }else{ ?> <!-- CADASTRAR Empresa -->					
+					<?php }else if(1 != 1){ ?> <!-- CADASTRAR Empresa NÃO SERÁ DISPONIVEL -->
 					<form method="POST" id="ad_emp" name="add_empresa" action="add_empresa.php" onsubmit="return valida(this)">
 					 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Adicionar Empresa</span></div></div>
 					 <input type="hidden" name="tipo" value="cadastrar">	                 
