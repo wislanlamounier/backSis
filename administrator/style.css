@@ -398,7 +398,7 @@ h2{
 	font-size:16px;
 }
 .select{
-	border: 1px solid#black;
+	border: 1px solid:black;
 	margin-top: 10px;
 	margin-bottom: 10px;	
 	float:left;
@@ -474,7 +474,7 @@ h2{
 }
 /******************************************************************************/
 .add_patrimonio select{
-	border: 1px solid#black;
+	border: 1px solid:black;
 	margin-top: 10px;
 	margin-bottom: 10px;	
 	float:left;
@@ -558,7 +558,7 @@ h2{
 
 .menu_patrimonio form{
 	float: left;
-        margin: 20px 10px 0px 50px;
+    margin: 20 10px 0px 50px;
 }
 /********************************* ADD_OBRA**************************************/
 .bloco-1{

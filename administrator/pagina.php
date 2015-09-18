@@ -11,9 +11,8 @@ include("restrito.php");
 </head>
 
 <body>			
-    
-			
-    
+	
+			<?php include_once("../view/topo.php"); ?>
 	 
 </body>
 </html>
