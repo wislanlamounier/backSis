@@ -442,7 +442,7 @@ function buscar_cidades(){
                      </tr>
               		   <tr>
                           <td colspan="2" style="text-align:center">
-                              <input  class="button" type="submit" value="Salvar">
+                              <input  class="button" type="submit" value="Salvar" >
                               <input class="button" name="button" onclick="window.location.href='add_empresa.php'" id="button" value="Cancelar">
                           </td>
                       </tr> 
@@ -581,6 +581,7 @@ function buscar_cidades(){
                                  
                                  if($empresa->atualiza_empresa($id, $cnpj, $razao_social, $nome_fantasia, $ins_estadual, $ins_municipal, $telefone, $id_responsavel, $id_endereco)){
                                     echo '<div class="msg">Empresa atualizada com sucesso!</div>';
+                                    echo '<script>window.location.href=\'add_empresa.php\'</script>';
                                  }else{
                                     echo '<div class="msg">Erro ao atualizar empresa!</div>';
                                  }

@@ -23,10 +23,10 @@
 	<div id="box-login1" class="box-login" style="background-color: rgba(255, 0, 0, 0.7)">
 		<div style="float:left"><img src="../images/user.png" width="40px"></div>
         <div class="nome-box-login"> <?php 
-        $id_empresa = $_SESSION['id_empresa'];
+                $id_empresa = $_SESSION['id_empresa'];
 
-        $empresa = new Empresa();
-        $empresa = $empresa->get_empresa_by_id($id_empresa);
+                $empresa = new Empresa();
+                $empresa = $empresa->get_empresa_by_id($id_empresa);
                      
                 $i = 0; 
                 foreach ($empresa as $key => $value) {
@@ -49,7 +49,8 @@
                 }
         if ($i == 0){            
             echo '<script> desabilitaDiv1()</script>';
-                    }
+            // echo '<script> window.location.href="add_empresa.php"</script>';
+         }
         echo 'Você tem '.$i.' dados importantes para serem cadastrados.';
 
 
@@ -74,7 +75,6 @@
        
         foreach ($func as $key => $value) {
             if(!isset($value) or $value==0){
-                
                 
                 if($key == "rg"){
                     echo '<br>'.$key;
@@ -124,7 +124,8 @@
         echo 'Você tem '.$i.' dados importantes para serem cadastrados.';
           if ($i == 0){
             echo '<script> desabilitaDiv2()</script>';
-                    }
+            // echo '<script> window.location.href="add_func.php"</script>';
+          }
         ?></div><br>
 
         <div style="float:right;"><span style='float:left; margin-top:2px;'>Cadastrar  </span><a style="float:left; margin-left:10px;"title="Clique para sair" <?php echo 'href="http://localhost/viacampos/administrator/add_func.php?tipo=editar&id='.$id_funcionario.'"' ?>><img src="../images/ir.png" width="20px"></a></div>

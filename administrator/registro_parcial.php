@@ -99,7 +99,7 @@ require_once("../phpmailer/phpmailer.class.php");
 			// Define a mensagem (Texto e Assunto)
 			// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 			$id_responsavel = $id_responsavel - 1; //codigo para enviar id corrigido//
-			$mail->Subject  = "Cadastro efetuado no sitema de Gerenciamento de Obras"; // Assunto da mensagem
+			$mail->Subject  = "Cadastro efetuado com sucesso"; // Assunto da mensagem
 			$mail->Body = "
 						<p>Obrigado por efetuar o cadastro em nosso sitema SGO.<br>
 						Seu id para login é:".$id_responsavel." e senha: ".$senhaoriginal.".<br><br>
