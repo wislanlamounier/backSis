@@ -221,6 +221,7 @@ function validade(){
 
                               if($epi->atualiza_epi($is_epi, $_POST['codigo'], $_POST['nome'], $_POST['desc'],  $_POST['empresa'], $_POST['quantidade'], $_POST['id'] ) ){
                                  echo '<div class="msg">Atualizado com sucesso!</div>';
+                                 echo '<script>alert("EPI atualizado com sucesso")</script>';
                               }else{
                                  echo '<div class="msg">Falha na atualização!</div>';
                               }

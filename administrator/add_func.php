@@ -1306,10 +1306,11 @@ function carregaUf_CartTrab(uf){
                            //************** FIM ATUALIZA DADOS BANCáRIOS ******************
 
                            if($func->atualiza_func($id, $id_dados_bancarios, $cod_serie, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor)){
-                              echo '<div class="msg">Funcionário editado com sucesso</div>';
-                              echo '<script>window.location.href=\'add_func.php\'</script>';
+                              echo '<div class="msg">Funcionário atualizado com sucesso</div>';
+                              echo '<script>alert("Funcionário atualizado com sucesso")</script>';
+                              echo '<script>window.location.href=\'principal.php\'</script>';
                            }else{
-                              echo '<div class="msg">Falha ao editar funcionário</div>';
+                              echo '<div class="msg">Falha ao atualizar funcionário</div>';
                            }
                     }
                 }
