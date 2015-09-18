@@ -52,10 +52,15 @@ include("../model/class_cliente.php");
 
                                $clis = $cli->pesquisa_cli_by_name($_POST['name_search'], $tipo, $_SESSION['id_empresa']);
                                        echo '<table class="exibe-pesquisa">';
-                                       if(count($clis)>0)
+                                       $aux = 0;
+                              if(count($clis)>0)
                                foreach($clis as $key => $cli){
-                                  echo '<tr>
-                                           <td><a href="pesquisa_cli.php?verificador=1&id='.$clis[$key][0].'">'.$clis[$key][0]." ".$clis[$key][1].'</a></td></tr>';
+                                  if($aux%2 == 0)
+                                       echo '<tr style="background-color:#bbb">';
+                                  else
+                                      echo '<tr style="background-color:#cbcbcb">';
+                                  echo '<td><a href="pesquisa_cli.php?verificador=1&id='.$clis[$key][0].'">'.$clis[$key][0]." ".$clis[$key][1].'</a></td></tr>';
+                                  $aux++;
                                }
                                echo '</table>';
                           }                         
@@ -64,12 +69,18 @@ include("../model/class_cliente.php");
                                  $tipo = $_POST['tipo'];
                                  $clis = $cli->pesquisa_cli_by_name($_POST['name_search'], $tipo, $_SESSION['id_empresa']);
                                  if($clis != ""){
-                                         echo '<table class="exibe-pesquisa">';
-                                 if(count($clis)>0)
-                                 foreach($clis as $key => $cli){
-                                    echo '<tr>
-                                             <td><a href="pesquisa_cli.php?verificador=2&id='.$clis[$key][0].'">'.$clis[$key][0]." ".$clis[$key][1].'</a></td></tr>';
-                                 }
+                                   echo '<table class="exibe-pesquisa">';
+                                   $aux = 0;
+                                   if(count($clis)>0)
+                                       foreach($clis as $key => $cli){
+                                          if($aux%2 == 0)
+                                             echo '<tr style="background-color:#bbb">';
+                                          else
+                                              echo '<tr style="background-color:#cbcbcb">';
+
+                                          echo '<td><a href="pesquisa_cli.php?verificador=2&id='.$clis[$key][0].'">'.$clis[$key][0]." ".$clis[$key][1].'</a></td></tr>';
+                                    $aux++;
+                                   }
                                  }
                                  echo '</table>';
                           }

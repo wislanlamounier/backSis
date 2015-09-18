@@ -414,10 +414,19 @@ h2{
 	font-size:16px;
 	cursor:pointer;
 }
+.exibe-pesquisa{
+	width: 100%;
+	border: 1px solid#aaa;
+}
+.exibe-pesquisa tr td{
+	padding-left: 10px;
+}
 .exibe-pesquisa a{
 	text-decoration: none;
 	color: #333;
+	text-align: center;
 }
+
 .exibe-pesquisa a:hover{
 	color: #000;
 	text-shadow: 0px 0px 0.3px #000;

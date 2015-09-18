@@ -41,10 +41,16 @@ include("../model/class_filial_bd.php");
                    $filial = new Filial();
                    $filiais = $filial->get_filial_by_cnpj_and_nome($_POST['name_search']);
                      echo '<table class="exibe-pesquisa">';
+                     $aux = 0;
                      if(count($filiais)>0)
                      foreach($filiais as $key => $filial){
-                        echo '<tr>
-                                 <td><a href="pesquisa_filial.php?verificador=1&id='.$filiais[$key][0].'">'.$filiais[$key][1]." ".$filiais[$key][2].'</a></td></tr>';
+                        if($aux%2 == 0)
+                             echo '<tr style="background-color:#bbb">';
+                        else
+                            echo '<tr style="background-color:#cbcbcb">';
+                        
+                            echo '<td><a href="pesquisa_filial.php?verificador=1&id='.$filiais[$key][0].'">'.$filiais[$key][1]." ".$filiais[$key][2].'</a></td></tr>';
+                        $aux++;
                      }
                      echo '</table>';
                 }

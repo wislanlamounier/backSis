@@ -84,13 +84,14 @@ class Epi{
 		$g = new Glob();
 		$return = array();
 		$aux=0;
-		$query = "SELECT * FROM equipamentos_func WHERE  nome_epi LIKE '%%%s%%' && id_empresa = %s && oculto = 0";
+		$query = "SELECT * FROM equipamentos_func WHERE  nome_epi LIKE '%%%s%%' && id_empresa = '%s' && oculto = 0";
 		$query_tra = $g->tratar_query($query, $nome_epi, $_SESSION['id_empresa']);
-
 		while($result =  mysql_fetch_array($query_tra)){
 			$return[$aux][0] = $result['id'];
 			$return[$aux][1] = $result['nome_epi'];
+			$return[$aux][2] = $result['descricao'];
 			$aux++;
+
 		}
 		
 		
@@ -167,27 +168,28 @@ class Epi{
 	}
 
 	public function get_epi_name($name){
-		$sql = new Sql();
-		$sql->conn_bd();
-		$g = new Glob();
-		$aux=0;
-		$query = "SELECT * FROM equipamentos_func WHERE nome_epi LIKE '%%%s%%' WHERE oculto = 0";
-		$query_tra = $g->tratar_query($query, $name);
-		if($query_tra)
-			while($result =  mysql_fetch_array($query_tra)){
-				$return[$aux][0] = $result['id'];
-	 			$return[$aux][1] = $result['nome_epi'];
-				$return[$aux][2] = $result['descricao'];
+		// $sql = new Sql();
+		// $sql->conn_bd();
+		// $g = new Glob();
+		// $aux=0;
+		// $query = "SELECT * FROM equipamentos_func WHERE nome_epi LIKE '%%%s%%' WHERE oculto = 0";
+		// $query_tra = $g->tratar_query($query, $name);
+		// if($query_tra)
+		// 	while($result =  mysql_fetch_array($query_tra)){
+		// 		$return[$aux][0] = $result['id'];
+	 // 			$return[$aux][1] = $result['nome_epi'];
 				
-				$aux++;
-			}
-		if($aux == 0){
-			$sql->close_conn();
-			echo '<div class="msg">Nenhum EPI encontrado!</div>';
-		}else{
-			$sql->close_conn();
-			return $return;
-		}
+				
+		// 		$aux++;
+		// 	}
+		// if($aux == 0){
+		// 	$sql->close_conn();
+		// 	echo '<div class="msg">Nenhum EPI encontrado!</div>';
+		// }else{
+		// 	$sql->close_conn();
+		// 	return $return;
+		// }
+		return 'FUNÇÃO DESNECESSARIA';
 	}
 	
 	 public function ocultar_by_id($id){
