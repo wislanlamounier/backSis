@@ -41,10 +41,18 @@ include("../model/class_cliente.php");
                                 $func = new Funcionario();                                
                                 $funcs = $func->get_func_by_name($_POST['name_search'], $_SESSION['id_empresa']);
                                echo '<table class="exibe-pesquisa">';
+                                echo '<tr><td>ID</td><td>Nome</td></tr>';
+                                $aux = 0;
                                 if(count($funcs)>0)
                                 foreach($funcs as $key => $func){
-                                   echo '<tr>
-                                            <td><a href="pesquisa_func.php?verificador=1&id='.$funcs[$key][0].'">'.$funcs[$key][0]." ".$funcs[$key][1].'</a></td></tr>';
+                                  if($aux%2 == 0)
+                                       echo '<tr style="background-color:#bbb">';
+                                  else
+                                      echo '<tr style="background-color:#cbcbcb">';
+
+                                    echo '<td><a href="pesquisa_func.php?verificador=1&id='.$funcs[$key][0].'">'.$funcs[$key][0].'</a></td><td><a href="pesquisa_func.php?verificador=1&id='.$funcs[$key][0].'">'.$funcs[$key][1].'</a></td>
+                                        </tr>';
+                                  $aux++;
                                 }
                                 echo '</table>';
                            
@@ -52,11 +60,11 @@ include("../model/class_cliente.php");
                            if(isset($_GET['verificador']) && $_GET['verificador'] == 1){
                              
                                $func = new Funcionario();
-                              $func = $func->get_func_id($_GET['id']);
-                              echo $func->printFunc();
+                               $func = $func->get_func_id($_GET['id']);
+                                echo $func->printFunc();
                             }
                           ?>                          
-                          </div>
+                     </div>
                          
                                 
 </body>

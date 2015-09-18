@@ -42,9 +42,9 @@ class Patrimonio{
 									VALUES ( '%s',		'%s',	'%s',			'%s',			'%s',		'%s',	    '%s',	    '%s' )";
 
 		if($g->tratar_query($query, $this->id_custo, $this->id_grupo, $this->id_responsavel, $this->id_fornecedor, $this->id_empresa, $this->valor_compra, $this->nome, $this->descricao)){
-		return true; 
+			return true; 
 		}else{
-		return false;
+			return false;
 		} 
 	}
 	public function get_all_patrimonio($modelo){

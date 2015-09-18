@@ -81,11 +81,15 @@ include_once("../model/class_endereco_bd.php");
                         switch($_POST['rdo']){
                           case 0:
                                 echo '<table class="exibe-pesquisa">';
-                                //ARRUMAR AQUI
+                                $aux = 0;
                                 for($aux=0; $aux < count($turno); $aux++){
-                                    echo '<tr>';
+                                    if($aux%2 == 0)
+                                         echo '<tr style="background-color:#bbb">';
+                                    else
+                                        echo '<tr style="background-color:#cbcbcb">';
                                     echo '<td><a href="pesquisa_turno.php?verificador=1&id='.$turno[$aux][0].'">'.$turno[$aux][0].' - <b>'.$turno[$aux][1].'</b></td>';
                                     echo '</tr>';
+                                    $aux++;
                                 }
                                 echo '</table>';
                                 if(count($turno) == 0)
@@ -93,11 +97,15 @@ include_once("../model/class_endereco_bd.php");
                                 break;
                           case 1:
                                 echo '<table class="exibe-pesquisa">';
-                                //ARRUMAR AQUI
+                                $aux = 0;
                                 for($aux=0; $aux < count($turno); $aux++){
-                                  echo '<tr>';
+                                  if($aux%2 == 0)
+                                         echo '<tr style="background-color:#bbb">';
+                                    else
+                                        echo '<tr style="background-color:#cbcbcb">';
                                   echo '<td><a href="pesquisa_turno.php?verificador=1&id='.$turno[$aux][0].'">'.$turno[$aux][0].' - '.$turno[$aux][1].' [ Início expediente: <b>'.$turno[$aux][3].'</b> ]</td>';
                                   echo '</tr>';
+                                  $aux++;
                                 }
                                 echo '</table>';
                                 if(count($turno) == 0)
@@ -105,11 +113,15 @@ include_once("../model/class_endereco_bd.php");
                                 break;
                           case 2:
                                 echo '<table class="exibe-pesquisa">';
-                                //ARRUMAR AQUI
+                                $aux = 0;
                                 for($aux=0; $aux < count($turno); $aux++){
-                                  echo '<tr>';
+                                  if($aux%2 == 0)
+                                         echo '<tr style="background-color:#bbb">';
+                                    else
+                                        echo '<tr style="background-color:#cbcbcb">';
                                   echo '<td><a href="pesquisa_turno.php?verificador=1&id='.$turno[$aux][0].'">'.$turno[$aux][0].' - '.$turno[$aux][1].' [ Início almoço: <b>'.$turno[$aux][4].'</b> ]</td>';
                                   echo '</tr>';
+                                  $aux++;
                                 }
                                 echo '</table>';
                                 if(count($turno) == 0)
@@ -117,11 +129,15 @@ include_once("../model/class_endereco_bd.php");
                                 break;
                           case 3:
                                 echo '<table class="exibe-pesquisa">';
-                                //ARRUMAR AQUI
+                                $aux = 0;
                                 for($aux=0; $aux < count($turno); $aux++){
-                                  echo '<tr>';
+                                 if($aux%2 == 0)
+                                         echo '<tr style="background-color:#bbb">';
+                                    else
+                                        echo '<tr style="background-color:#cbcbcb">';
                                   echo '<td><a href="pesquisa_turno.php?verificador=1&id='.$turno[$aux][0].'">'.$turno[$aux][0].' - '.$turno[$aux][1].' [ Fim almoço: <b>'.$turno[$aux][5].'</b> ]</td>';
                                   echo '</tr>';
+                                  $aux++;
                                 }
                                 echo '</table>';
                                 if(count($turno) == 0)
@@ -129,11 +145,15 @@ include_once("../model/class_endereco_bd.php");
                                 break;
                           case 4:
                                 echo '<table class="exibe-pesquisa">';
-                                //ARRUMAR AQUI
+                                $aux = 0;
                                 for($aux=0; $aux < count($turno); $aux++){
-                                  echo '<tr>';
+                                 if($aux%2 == 0)
+                                         echo '<tr style="background-color:#bbb">';
+                                    else
+                                        echo '<tr style="background-color:#cbcbcb">';
                                   echo '<td><a href="pesquisa_turno.php?verificador=1&id='.$turno[$aux][0].'">'.$turno[$aux][0].' - '.$turno[$aux][1].' [ Fim expediente: <b>'.$turno[$aux][6].'</b> ]</td>';
                                   echo '</tr>';
+                                  $aux++;
                                 }
                                 echo '</table>';
                                 if(count($turno) == 0)

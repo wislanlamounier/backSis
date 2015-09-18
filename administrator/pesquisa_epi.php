@@ -39,12 +39,18 @@ include("../model/class_epi_bd.php");
              <?php
                    if(isset($_POST['name_search']) && $_POST['name_search'] != ""){
                       $epi = new Epi();
-                      $epis = $epi->get_epi_name($_POST['name_search']);
+                      $epis = $epi->get_epi_by_name($_POST['name_search']);
                         echo '<table class="exibe-pesquisa">';
+                        $aux = 0;
                         if(count($epis)>0)
                         foreach($epis as $key => $epi){
-                           echo '<tr>
-                                    <td><a href="pesquisa_epi.php?verificador=1&id='.$epis[$key][0].'">'.$epis[$key][1]." - ".$epis[$key][2].'</a></td></tr>';
+                          if($aux%2 == 0)
+                             echo '<tr style="background-color:#bbb">';
+                          else
+                              echo '<tr style="background-color:#cbcbcb">'; 
+
+                           echo '<td><a href="pesquisa_epi.php?verificador=1&id='.$epis[$key][0].'">'.$epis[$key][1]." - ".$epis[$key][2].'</a></td></tr>';
+                           $aux++;
                         }
                         echo '</table>';
                    }
