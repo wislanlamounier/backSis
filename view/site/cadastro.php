@@ -17,7 +17,7 @@
         # code...
     }else{
         ?>
-        <button type="button" name="botao_filtro" class="button_filtro" id="botao_filtro" value="Filtro" onclick="ver_filtro('filtro')" style="width:100"><img src="../img_sistema/filtro.png" align="absmiddle" height="16"> Filtro</button>
+
         <a  name="cadastro"></a>
         <div class="content-section-a">
             <div class="container" >
