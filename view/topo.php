@@ -19,9 +19,11 @@
   	}
     function desabilitaDiv1(){        
         document.getElementById("box-login1").style.display = "none";
+        alert("chamouDIV1");
         } 
     function desabilitaDiv2(){
         document.getElementById("box-login2").style.display = "none";
+        alert("chamouDIV2");
         }
 	function exibe_error(){
         // document.getElementById("popup").style.display = "block";

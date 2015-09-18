@@ -9,7 +9,6 @@
  ?>
  <script type="text/javascript">
  	function submitForm(form){
-
  		var url = 'reportMailError.php?pag='+form[0].value+'&descricao='+form[1].value; 
  		$.get(url, function(dataReturn) {
             alert("Erro reportado com sucesso, Obrigado");
@@ -18,100 +17,92 @@
         });
 
  </script>
-
-	<!-- Janela do topo referente a empresa -->
-	<div id="box-login1" class="box-login" style="background-color: rgba(255, 0, 0, 0.7)">
-		<div style="float:left"><img src="../images/user.png" width="40px"></div>
-        <div class="nome-box-login"> <?php 
-                $id_empresa = $_SESSION['id_empresa'];
+ <!-- Código para verificação se a empresa ja foi totalmente cadastrada -->
+            <?php 
+                $id_empresa = $_SESSION['id_empresa']; /* Recebe o id da empresa na seção*/
 
                 $empresa = new Empresa();
-                $empresa = $empresa->get_empresa_by_id($id_empresa);
+                $empresa = $empresa->get_empresa_by_id($id_empresa); /*Busca dados da empresa no banco de dados*/
                      
-                $i = 0; 
-                foreach ($empresa as $key => $value) {
+                $i = 0; /*Verificador de quantiade de dados*/
+                foreach ($empresa as $key => $value) { /* codigo para correr a empresa e encrementar o verficador de quantidade*/
 
                     if($value == "" or $value==0){
                         
                         if($key == "ins_estadual"){
-                             echo '<br>'.$key;
                             $i++;
                         }
                         if($key == "ins_municipal"){
-                             echo '<br>'.$key;
-                             $i++;
+                            $i++;
                         }
                         if($key == "id_endereco"){
-                            echo '<br>'.$key;
-                             $i++;
+                            $i++;
                         }               
                     }
                 }
-        if ($i == 0){            
-            echo '<script> desabilitaDiv1()</script>';
-            // echo '<script> window.location.href="add_empresa.php"</script>';
-         }
-        echo 'Você tem '.$i.' dados importantes para serem cadastrados.';
+                
+        if ($i != 0){ 
+        ?>
+        <div  id="box-login1" class="box-login" style="background-color: rgba(255, 0, 0, 0.7); clear:left; float:left;">
+        <div style="float:left"><img src="../images/user.png" width="40px"></div>
+        <div class="nome-box-login"></div><br>
+        <?php  
+        echo 'Você tem '.$i.' dados importantes para serem cadastrados em Empresa';
+         ?>
+        
+        <div style="float:right;"><span style='float:left; margin-top:2px;'>Cadastrar  </span><a style="float:left; margin-left:10px;"title="Clique para sair" <?php echo 'href="http://localhost/viacampos/administrator/add_empresa.php?tipo=editar&id='.$id_empresa.'"' ?>><img src="../images/ir.png" width="20px"></a></div>    
+        </div>
+        <?php 
+        }
+        ?>
 
-
-        ?></div>
-		<!-- <div class="nome-box-login" style=""><span style="">Lucas voce precisa completar seu cadastro para poder usar todas funções do sofware:<br /></span><?php echo $_SESSION["user"]; ?><br /><span style="">Empresa:<br /></span><?php echo $_SESSION['empresa']."<span> (".$nivel_acesso.")</span>" ?></div> -->
-		<div style="float:right;"><a title="Clique para sair" <?php echo 'href="http://localhost/viacampos/administrator/add_empresa.php?tipo=editar&id='.$id_empresa.'"' ?>><img src="../images/ir.png" width="20px"></a></div>
-	</div>
+	<!-- Janela do topo referente a empresa -->
+	
 
 
     <!-- janela do topo referente ao usuario -->
-    <div id="box-login2" class="box-login" style="background-color: rgba(255, 0, 0, 0.7)">
-        <div style="float:left"><img src="../images/user.png" width="40px"></div>
-        <div class="nome-box-login" style=""> <?php 
+
+
+
+
+
+     <?php 
         
         $id_funcionario = $_SESSION['id_funcionario'];
         $func = new Funcionario();
-
-        $func = $func->get_func_id($id_funcionario);
-       
-        $i = 0;
-        
+        $func = $func->get_func_id($id_funcionario);       
+        $i = 0;      
        
         foreach ($func as $key => $value) {
             if(!isset($value) or $value==0){
                 
                 if($key == "rg"){
-                    echo '<br>'.$key;
                      $i = $i +1;
                 }
                 if($key == "id_endereco"){
-                    echo '<br>'.$key;
                      $i = $i +1;
                 }
                 if($key == "data_nasc"){
-                    echo '<br>'.$key;
                      $i = $i +1;
                 }
                          
                 if($key == "id_cbo"){
-                    echo '<br>'.$key;
                      $i = $i +1;
                 }
                 if($key == "id_endereco"){
-                    echo '<br>'.$key;
                      $i = $i +1;
                 }
                 if($key == "id_turno"){
-                    echo '<br>'.$key;
                      $i = $i +1;
                 }
                 
                 if($key == "salario_base"){
-                    echo '<br>'.$key;
                      $i = $i +1;
                 }
                 if($key == "data_adm"){
-                    echo '<br>'.$key;
                      $i = $i +1;
                 }
                 if($key == "cod_serie"){
-
                     if($value !=""){
                         $i = $i +0;
                     }else{
@@ -121,16 +112,28 @@
             }
         }
 
-        echo 'Você tem '.$i.' dados importantes para serem cadastrados.';
-          if ($i == 0){
-            echo '<script> desabilitaDiv2()</script>';
-            // echo '<script> window.location.href="add_func.php"</script>';
-          }
-        ?></div><br>
+       
+          if ($i != 0){
+                ?>
+        <div id="box-login2" class="box-login" style="background-color: rgba(255, 0, 0, 0.7);clear:right;">
+        <div style="float:left"><img src="../images/user.png" width="40px"></div>
+        <div class="nome-box-login" style=""></div><br>
+        <?php
+         echo 'Você tem '.$i.' dados importantes para serem cadastrados em Funcionario'; 
+         ?>
+        <div style="float:right;"><span style='float:left; margin-top:2px;'>Cadastrar  </span><a style="float:left; margin-left:10px;"title="Clique para sair" <?php echo 'href="http://localhost/viacampos/administrator/add_func.php?tipo=editar&id='.$id_funcionario.'"' ?>><img src="../images/ir.png" width="20px"></a></div>    
+        </div>
+        <?php 
+        }
+        ?>
 
-        <div style="float:right;"><span style='float:left; margin-top:2px;'>Cadastrar  </span><a style="float:left; margin-left:10px;"title="Clique para sair" <?php echo 'href="http://localhost/viacampos/administrator/add_func.php?tipo=editar&id='.$id_funcionario.'"' ?>><img src="../images/ir.png" width="20px"></a></div>
+
+
+
+
+
+
+
     
-    </div>
-
 
 
