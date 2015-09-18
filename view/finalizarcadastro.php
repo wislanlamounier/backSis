@@ -1,4 +1,6 @@
-<?php 
+<?php
+include_once("../model/class_empresa_bd.php");
+include_once("../model/class_empresa_bd.php");
 	if($_SESSION['nivel_acesso'] == 0){
 		$nivel_acesso = "Acesso Total";
 	}else if($_SESSION['nivel_acesso'] == 1){
@@ -43,14 +45,17 @@
                 
         if ($i != 0){ 
         ?>
-        <div  id="box-login1" class="box-login" style="background-color: rgba(255, 0, 0, 0.7); clear:left; float:left;">
-        <div style="float:left"><img src="../images/user.png" width="40px"></div>
-        <div class="nome-box-login"></div><br>
-        <?php  
-        echo 'Você tem '.$i.' dados importantes para serem cadastrados em Empresa';
-         ?>
-        
-        <div style="float:right;"><span style='float:left; margin-top:2px;'>Cadastrar  </span><a style="float:left; margin-left:10px;"title="Clique para sair" <?php echo 'href="http://localhost/viacampos/administrator/add_empresa.php?tipo=editar&id='.$id_empresa.'"' ?>><img src="../images/ir.png" width="20px"></a></div>    
+        <div  id="box-login1" class="box-login" style="background-color: rgba(255, 0, 0, 0.7); width:30%; margin-right:10px;">
+            <div style="float:left;margin-top:5px;"><img src="../images/alerta.png" width="40px"></div>
+            <div class="nome-box-login"></div><br>
+                <div style="float:left; padding-left: 10px">
+                    <span>
+                    <?php  
+                    echo 'Você tem '.$i.' dados importantes para serem cadastrados em Empresa';
+                     ?>
+                    </span>
+                </div>
+            <div style="float:right;"><span style='float:left; margin-top:2px;'>Cadastrar  </span><a style="float:left; margin-left:10px;"title="Cadastrar agora" <?php echo 'href="http://localhost/viacampos/administrator/add_empresa.php?tipo=editar&id='.$id_empresa.'"' ?>><img src="../images/ir.png" width="20px"></a></div>    
         </div>
         <?php 
         }
@@ -115,14 +120,20 @@
        
           if ($i != 0){
                 ?>
-        <div id="box-login2" class="box-login" style="background-color: rgba(255, 0, 0, 0.7);clear:right;">
-        <div style="float:left"><img src="../images/user.png" width="40px"></div>
-        <div class="nome-box-login" style=""></div><br>
-        <?php
-         echo 'Você tem '.$i.' dados importantes para serem cadastrados em Funcionario'; 
-         ?>
-        <div style="float:right;"><span style='float:left; margin-top:2px;'>Cadastrar  </span><a style="float:left; margin-left:10px;"title="Clique para sair" <?php echo 'href="http://localhost/viacampos/administrator/add_func.php?tipo=editar&id='.$id_funcionario.'"' ?>><img src="../images/ir.png" width="20px"></a></div>    
-        </div>
+
+            <div id="box-login2" class="box-login" style="background-color: rgba(255, 0, 0, 0.7); width:30%; margin-right:10px;">
+                <div style="float:left; margin-top:5px;"><img src="../images/alerta.png" width="40px"></div>
+                <div class="nome-box-login" style=""></div><br>
+                    <div style="float:left; padding-left: 10px">
+                        <span>
+                            <?php
+                             echo 'Você tem '.$i.' dados importantes para serem cadastrados em Funcionário!'; 
+                             ?>
+                        </span>
+                    </div>
+                <div style="float:right;"><span style='float:left; margin-top:2px;'>Cadastrar  </span><a style="float:left; margin-left:10px;"title="Cadastrar agora" <?php echo 'href="http://localhost/viacampos/administrator/add_func.php?tipo=editar&id='.$id_funcionario.'"' ?>><img src="../images/ir.png" width="20px"></a></div>    
+            </div>
+
         <?php 
         }
         ?>

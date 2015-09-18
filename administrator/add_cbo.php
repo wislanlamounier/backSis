@@ -221,6 +221,7 @@ function validate(){
 
                                  if($cbo_x_exames->atualiza_cbo_x_exames($_POST['id'], $array_id_exames)){
                                     echo '<div class="msg">Atualizado com sucesso!</div>';
+                                    echo '<script>alert("CBO atualizado com sucesso")</script>';
                                  }
                               }else{
                                  echo '<div class="msg">Falha na atualização!</div>';

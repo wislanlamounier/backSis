@@ -456,6 +456,10 @@ function verificaValor($valor){
     
                       if($maquinario->add_maquinario_bd()){
                         echo '<div class="msg" style="float: left;">Maquinario adicionado com sucesso !</div>';
+                        echo '<script>alert("Maquinário adicionado com sucesso!")</script>';
+                        if(isset($_POST['local']) && $_POST['local'] == 'addobra'){//se $_POST['local'] == addobra quer dizer que a pagina add_patrimonio foi chamada da add_obra, então tem que retornar pra la
+                             echo '<script>window.location.href=\'add_obra.php?t=a_p_o\'</script>';
+                        }
                       }else{
                         echo '<div class="msg" style="float: left;">Falha ao adicionar Maquinario!</div>';
                       }                      
@@ -467,40 +471,44 @@ function verificaValor($valor){
                  
                     if(validate()){
                                                                                           
-                      echo "<br>".  $matricula = $_POST['matricula'];
-                      echo "<br>".  $chassi = $_POST['chassi'];
-                      echo "<br>".  $renavam = $_POST['renavam'];
-                      echo "<br>".  $placa = $_POST['placa'];
-                      echo "<br>".  $marca = $_POST['marca'];
-                      echo "<br>".  $modelo = $_POST['modelo'];
-                      echo "<br>".  $ano = $_POST['ano'];
-                      echo "<br>".  $cor = $_POST['cor'];
-                      echo "<br>".  $valor = formataMoney($_POST['valor']);
-                      echo "<br>".  $data_compra = $_POST['data_compra'];
-                      echo "<br>".  $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;
-                       if($seguro == 1){                      
-                        
-                          echo "<br>".  $data_ini_seg = $_POST['data_ini_seg'];
-                          echo "<br>". $data_fim_seg = $_POST['data_fim_seg'];
-                       }else{
-                          echo "<br>".$data_ini_seg = "0000-00-00";
-                          echo "<br>".  $data_fim_seg = "0000-00-00";
-                       }
-                      echo "<br>".  $km_inicial = $_POST['km_inicial'];
-                      echo "<br>".  $tipo_combustivel = $_POST['combustivel'];              
-                      echo "<br>".  $id_empresa = $_POST['empresa'];
-                      echo "<br>".  $id_fornecedor = $_POST['fornecedor'];
-                      echo "<br>".  $id_responsavel = $_POST['responsavel'];
-                       
-                      
-                      $veiculo = new Veiculo();
-                      $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
-                      
-                      if($veiculo->add_veiculo_bd()){
-                        echo '<div class="msg" style="float: left;">Veiculo adicionado com sucesso !</div>';
-                      }else{
-                        echo '<div class="msg" style="float: left;">Falha ao adicionar Veiculo!</div>';
-                      }                      
+                         $matricula = $_POST['matricula'];
+                         $chassi = $_POST['chassi'];
+                         $renavam = $_POST['renavam'];
+                         $placa = $_POST['placa'];
+                         $marca = $_POST['marca'];
+                         $modelo = $_POST['modelo'];
+                         $ano = $_POST['ano'];
+                         $cor = $_POST['cor'];
+                         $valor = formataMoney($_POST['valor']);
+                         $data_compra = $_POST['data_compra'];
+                         $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;
+                           if($seguro == 1){                      
+                            
+                              $data_ini_seg = $_POST['data_ini_seg'];
+                             $data_fim_seg = $_POST['data_fim_seg'];
+                           }else{
+                              $data_ini_seg = "0000-00-00";
+                                $data_fim_seg = "0000-00-00";
+                           }
+                         $km_inicial = $_POST['km_inicial'];
+                         $tipo_combustivel = $_POST['combustivel'];              
+                         $id_empresa = $_POST['empresa'];
+                         $id_fornecedor = $_POST['fornecedor'];
+                         $id_responsavel = $_POST['responsavel'];
+                           
+                          
+                          $veiculo = new Veiculo();
+                          $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
+                          
+                          if($veiculo->add_veiculo_bd()){
+                            echo '<div class="msg" style="float: left;">Veiculo adicionado com sucesso !</div>';
+                            echo '<script>alert("Veículo adicionado com sucesso!")</script>';
+                            if(isset($_POST['local']) && $_POST['local'] == 'addobra'){//se $_POST['local'] == addobra quer dizer que a pagina add_patrimonio foi chamada da add_obra, então tem que retornar pra la
+                                echo '<script>window.location.href=\'add_obra.php?t=a_p_o\'</script>';
+                            }
+                          }else{
+                            echo '<div class="msg" style="float: left;">Falha ao adicionar Veiculo!</div>';
+                          }                      
                       
                       }
                    }
@@ -526,6 +534,10 @@ function verificaValor($valor){
     
                       if($patrimonio->add_patrimonio_geral_bd()){
                         echo '<div class="msg" style="float: left;">Patrimonio adicionado com sucesso !</div>';
+                        echo '<script>alert("Patrimonio geral adicionado com sucesso!")</script>';
+                            if(isset($_POST['local']) && $_POST['local'] == 'addobra'){//se $_POST['local'] == addobra quer dizer que a pagina add_patrimonio foi chamada da add_obra, então tem que retornar pra la
+                                echo '<script>window.location.href=\'add_obra.php?t=a_p_o\'</script>';
+                            }
                       }else{
                         echo '<div class="msg" style="float: left;">Falha ao adicionar Patrimonio!</div>';
                       }                      
@@ -554,6 +566,7 @@ function verificaValor($valor){
                       if($patrimonio->atualiza_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa, $id)){
                         
                         echo '<div class="msg" style="float: left;">Patrimonio atualizado com sucesso !</div>';
+                        echo '<script>alert("Patrimonio Geral atualizado com sucesso")</script>';
                                                       
                       }else{
                         echo '<div class="msg" style="float: left;"> Falha ao atualizar Patrimonio!</div>';
@@ -594,6 +607,7 @@ function verificaValor($valor){
                       $patrimonio = new Veiculo(); 
                       if($patrimonio->atualiza_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel ,$id)){
                         echo '<div class="msg" style="float: left;">Veículo atualizado com sucesso !</div>';
+                        echo '<script>alert("Veículo atualizado com sucesso")</script>';
                       }else{
                         echo '<div class="msg" style="float: left;">Falha ao atualizar Veículo!</div>';
                       }                      
@@ -634,8 +648,8 @@ function verificaValor($valor){
                       if($patrimonio->atualiza_maquinario($matricula, $chassi_nserie, $modelo, $tipo_consumo, $ano, $cor,
                    $fabricante, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $horimetro_inicial, $id_empresa,
                                  $id_fornecedor, $id_responsavel, $observacao,  $valor, $id)){
-
                         echo '<div class="msg" style="float: left;">Máquinario atualizado com sucesso !</div>';
+                        echo '<script>alert("Maquinário atualizado com sucesso")</script>';
                       }else{
                         echo '<div class="msg" style="float: left;">Falha ao atualizar Máquinario!</div>';
                       }                      
@@ -654,6 +668,7 @@ function verificaValor($valor){
             <div id="content">   
             <div class="formulario">                  
                       <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
+                        <input type="hidden" id="local" name="local" value="<?php echo $_GET['local'] ?>"><?php //armazena o local da requisição da pagina ?>
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR MAQUINÁRIO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
                         <input type="hidden" id="maquinario" name="maquinario" value="cadastrar_maquinario">
                           <table border="0" style="max-width:100%">                          
@@ -763,6 +778,7 @@ function verificaValor($valor){
             <div class="formulario">              
                        <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR VEÍCULO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
+                        <input type="hidden" id="local" name="local" value="<?php echo $_GET['local'] ?>"><?php //armazena o local da requisição da pagina ?>
                         <input type="hidden" id="veiculo" name="veiculo" value="cadastrar_veiculo">
                           <table border="0">                          
                           		<tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula"></td><td><span>Renavam:</span></td> <td><input type="text" name="renavam" id="renavam" class="uppercase"></td></tr>                             	
@@ -823,7 +839,7 @@ function verificaValor($valor){
                                       <span>Data fim:</span><input title="Data Final do seguro" id="data_fim_seg" name="data_fim_seg" disabled  type="date" style="width:135px">
                                   </td>
                               </tr>   
-                             	<tr><td><span>Valor:(corrigir valor)</span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Quilometragem:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial"></td></tr>
+                             	<tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Quilometragem:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial"></td></tr>
                              	<tr><td><span>Forncedor:</span></td><td>
                              			<select id="fornecedor" name="fornecedor"  style="width:100%">
 			                              <option value="no_sel">Selecione</option>
@@ -871,6 +887,7 @@ function verificaValor($valor){
             <div class="formulario">
              <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
               <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRAR PATRIMONIO EM GERAL</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
+               <input type="hidden" id="local" name="local" value="<?php echo $_GET['local'] ?>"><?php //armazena o local da requisição da pagina ?>
                <input type="hidden" id="cadastrar_patrimonio_geral" name="cadastrar_patrimonio_geral" value="cadastrar_patrimonio_geral"> 
               <table border="0">
                   <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula"></td></tr>                               

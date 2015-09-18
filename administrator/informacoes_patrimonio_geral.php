@@ -24,7 +24,7 @@ include_once("../model/class_patrimonio_geral_bd.php");
             //se encontrou o estado
             if(patrimonio){
               
-              var url = '../ajax/ajax_buscar_informacoes_patrimonio_geral.php?patrimonio='+patrimonio+'&param='+param;  //caminho do arquivo php que irá buscar as cidades no BD
+              var url = '../ajax/ajax_buscar_informacoes_patrimonio_geral.php?patrimonio_geral='+patrimonio+'&param='+param;  //caminho do arquivo php que irá buscar as cidades no BD
 
               $.get(url, function(dataReturn) {
                 

@@ -585,6 +585,7 @@ function validate(){
                                 
                                 if($filial->atualiza_filial($id, $nome, $cod_posto, $telefone, $id_endereco, $id_responsavel, $id_empresa)){
                                       echo '<div class="msg">Atualizado com sucesso!</div>';
+                                      echo '<script>alert("Filial atualizado com sucesso")</script>';
                                 }else{
                                    echo '<div class="msg">Falha na atualização!</div>';
                                 }

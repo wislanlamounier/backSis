@@ -285,7 +285,8 @@ function validate(){
                                  .$_POST['fim_exp_h'].":".$_POST['fim_exp_m'];
 
                         if($turno->atualiza_turno($nome, $id, $desc, $ini_exp, $ini_alm, $fim_alm, $fim_exp)){
-                            echo '<div class="msg">Turno editado com sucesso!</div>';
+                            echo '<div class="msg">Turno atualizado com sucesso!</div>';
+                            echo '<script>alert("Turno atualizado com sucesso")</script>';
                         }else{
                             echo '<div class="msg">Falha ao editar turno!</div>';
                         }

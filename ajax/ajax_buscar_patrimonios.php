@@ -19,15 +19,25 @@ include_once("../model/class_patrimonio_geral_bd.php");
 		$res = Veiculo::get_veiculo_nome($nome);
 ?>
 
+<?php if($res){ ?>
+	<select name="clientes" id="clientes" size='10' style="height: 100%; width: 100%" onDblClick="selecionaPatrimonio(this.value)">
+	  <?php
+	  	if($res) 
+		   for($aux = 0; $aux < count($res); $aux++){
+		      echo "<option value='".$res[$aux][0]."'>".$res[$aux][2]."</option>";
+		     // echo "<option>teste</option>";
+		  	}
+		
+	?>
+		
+	</select>
+<?php }else{
+			if($tipo == 0)//patrimonio geral
+				echo '<div class="msg"><a href="add_patrimonio.php?tipo=cadastrar_patrimonio_geral&menu=0&button=Veículo&local=addobra">Cadastrar agora</a></div>';
+			else if($tipo == 1)//maquinario
+				echo '<div class="msg"><a href="add_patrimonio.php?tipo=cadastrar_maquinario&menu=0&button=Veículo&local=addobra">Cadastrar agora</a></div>';
+			else//$tipo == 2: veiculos
+				echo '<div class="msg"><a href="add_patrimonio.php?tipo=cadastrar_veiculo&menu=0&button=Veículo&local=addobra">Cadastrar agora</a></div>';
+	
 
-<select name="clientes" id="clientes" size='10' style="height: 100%; width: 100%" onDblClick="selecionaPatrimonio(this.value)">
-  <?php
-  	if($res) 
-	   for($aux = 0; $aux < count($res); $aux++){
-	      echo "<option value='".$res[$aux][0]."'>".$res[$aux][2]."</option>";
-	     // echo "<option>teste</option>";
-	  	}
-	
-?>
-	
-</select>
+} ?>

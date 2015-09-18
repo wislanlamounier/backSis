@@ -213,6 +213,7 @@ function validate(){
                         <?php 
                             if(isset($sucesso) && $sucesso == true && count($materiais) == $cont){
                               echo '<div class="msg">Produto '.$_POST['nome'].' adicionado com sucesso</div>';
+                              
                             }
                             if(isset($sucesso) && !$sucesso && isset($_POST['nome'])){
                               echo '<div class="msg">'.(count($materiais)-$cont).' materiais não foram adicionados</div>';

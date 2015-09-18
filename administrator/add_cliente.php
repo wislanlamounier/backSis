@@ -809,9 +809,10 @@ require_once("../model/class_cidade_bd.php");
 	                        }
 
 	                       if($cliente->atualiza_cli($id, $nome_razao_soc, $cpf_cnpj, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $rg, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_resp, $site, $observacao, $fornecedor)){
-	                          echo '<div class="msg">Cliente editado com sucesso</div>';
+	                          echo '<div class="msg">Cliente atualizado com sucesso</div>';
+	                          echo '<script>alert("Cliente atualizado com sucesso")</script>';
 	                       }else{
-	                          echo '<div class="msg">Falha ao editar funcionário</div>';
+	                          echo '<div class="msg">Falha ao atualizar funcionário</div>';
 	                       }
 	                    }//fim validate
                  }//fim if isset($_POST['tipo_post']) && $_POST['tipo_post'] == 'editar_pessoa_fisica'
@@ -860,9 +861,10 @@ require_once("../model/class_cidade_bd.php");
                         }
 
                        if($cliente->atualiza_cli_jur($id, $nome_razao_soc, $cpf_cnpj, $data_nasc_data_fund, $cpf_cnpj, $telefone_cel, $telefone_com, $tipo, $inscricao_estadual, $inscricao_municipal, $id_endereco,  $responsavel, $cpf_responsavel, $data_nasc_resp, $site, $observacao, $fornecedor, $email_resp)){
-                          echo '<div class="msg">Cliente editado com sucesso</div>';
+                          echo '<div class="msg">Cliente atualizado com sucesso</div>';
+                          echo '<script>alert("Cliente atualizado com sucesso")</script>';
                        }else{
-                          echo '<div class="msg">Falha ao editar Cliente</div>';
+                          echo '<div class="msg">Falha ao atualizar Cliente</div>';
                        }
                     }//fim if validate
                  }//fim if isset($_POST['tipo_post']) && $_POST['tipo_post'] == 'editar_pessoa_juridica'

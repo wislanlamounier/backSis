@@ -199,7 +199,10 @@ function validate(){
                     }
                ?>
             <?php if(isset($_GET['t']) && $_GET['t'] == 'a_c_o'){ // add clientes da obra?>
-            	         <?php $_SESSION['obra']['status'] = 0; ?>
+            	         <?php 
+                          $_SESSION['obra']['status'] = 0; 
+                          $_SESSION['obra']['situacao_cadastramento'] = 'a_c_o';
+                        ?>
                        <form  action="add_obra.php" onsubmit="return validate(this)">
                         
                               <input type="hidden" id="t" name="t" value="a_d_o">
@@ -250,6 +253,9 @@ function validate(){
                        </form>          
                        
             <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_d_o'){ //add dados da obra?>
+                      <?php
+                        $_SESSION['obra']['situacao_cadastramento'] = 'a_d_o';
+                      ?>
                       <form  action="add_obra.php" onsubmit="return validate(this)">
                                <input type="hidden" id="t" name="t" value="a_pr_o">
                               <?php
@@ -296,6 +302,9 @@ function validate(){
                               </div>
                        </form>
 			      <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_pr_o'){ //add produtos da obra?>
+                        <?php
+                          $_SESSION['obra']['situacao_cadastramento'] = 'a_pr_o';
+                        ?>
                         <form  action="add_obra.php" onsubmit="return validate(this)">
                                <input type="hidden" id="t" name="t" value="a_p_o">
                               <?php
@@ -377,6 +386,9 @@ function validate(){
                        </form>
 
 			      <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_p_o'){ //add patrimonios da obra?>
+                      <?php
+                        $_SESSION['obra']['situacao_cadastramento'] = 'a_p_o';
+                      ?>
                       <form  action="add_obra.php" onsubmit="return validate(this)">
                                <input type="hidden" id="t" name="t" value="a_f_o">
                               <?php
@@ -458,6 +470,9 @@ function validate(){
                        </form>
       
             <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_f_o'){ //add produtos da obra?>
+                      <?php
+                        $_SESSION['obra']['situacao_cadastramento'] = 'a_f_o';
+                      ?>
                         <form  action="add_obra.php" onsubmit="return validate(this)">
                                <input type="hidden" id="t" name="t" value="final">
                               <?php

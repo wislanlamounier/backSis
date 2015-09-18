@@ -122,6 +122,7 @@ function validate(){
                               $material = new Material();
                               if($material->atualiza_material($_POST['material'], $_POST['desc'], $_POST['id'] ) ){
                                  echo '<div class="msg">Atualizado com sucesso!</div>';
+                                 echo '<script>alert("Material atualizado com sucesso")</script>';
                               }else{
                                  echo '<div class="msg">Falha na atualização!</div>';
                               }

@@ -370,7 +370,7 @@ function buscar_cidades(){
  <body onload="disparaLoadCidade()">  		
  		<?php include_once("../view/topo.php"); ?>
  		<div class="formulario">
-              	<?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?> 
+          <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?> 
               		 	<?php  
                         $id = $_GET['id'];
                         $empresa = new Empresa();
@@ -581,7 +581,8 @@ function buscar_cidades(){
                                  
                                  if($empresa->atualiza_empresa($id, $cnpj, $razao_social, $nome_fantasia, $ins_estadual, $ins_municipal, $telefone, $id_responsavel, $id_endereco)){
                                     echo '<div class="msg">Empresa atualizada com sucesso!</div>';
-                                    echo '<script>window.location.href=\'add_empresa.php\'</script>';
+                                    echo '<script>alert("Empresa atualizada com sucesso")</script>';
+                                    echo '<script>window.location.href=\'principal.php\'</script>';
                                  }else{
                                     echo '<div class="msg">Erro ao atualizar empresa!</div>';
                                  }

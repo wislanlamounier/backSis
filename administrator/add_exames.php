@@ -189,6 +189,7 @@ function validate(){
                               $exame = new Exame();
                               if($exame->atualiza_exame($_POST['descricao'], $_POST['periodo'], $_POST['id'] ) ){
                                  echo '<div class="msg">Atualizado com sucesso!</div>';
+                                 echo '<script>alert("Exame atualizado com sucesso")</script>';
                               }else{
                                  echo '<div class="msg">Falha na atualização!</div>';
                               }
