@@ -7,10 +7,10 @@
 						<div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Pesquisar e Editar</div>
 					</div>
 					<table style="float:left" class="table-pesquisa">
-					  	<tr><td colspan="2"><span>Digite o nome de um patrimonio para editar:</span><br /></td></tr>
+					  	<tr><td colspan="2"><span>Digite o nome de um material para editar:</span><br /></td></tr>
 						<tr>
 							<td><span>Nome: </span></td>
-							<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" class="button" onclick="buscar_patrimonios('0')"></td>
+							<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" class="button" onclick="buscar_materiais('0')"></td>
 						</tr>
 						
 					</table>
@@ -24,10 +24,10 @@
 						<div style="float:left; margin-left:5px; margin-top:10px; font-size:18px; color:#333;">Pesquisar e Excluir</div>
 					</div>
 					<table style="float:left" class="table-pesquisa">
-					  	<tr><td colspan="2"><span>Digite o nome de um patrimonio para excluir:</span><br /></td></tr>
+					  	<tr><td colspan="2"><span>Digite o nome de um material para excluir:</span><br /></td></tr>
 						<tr>
 							<td><span>Nome: </span></td>
-							<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" class="button" onclick="buscar_patrimonios('1')"></td>
+							<td><input type="text" id="nome_search" name="nome_search"></td><td><input type="button" value="Buscar" class="button" onclick="buscar_materiais('1')"></td>
 						</tr>
 						
 					</table>

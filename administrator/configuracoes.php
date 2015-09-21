@@ -86,10 +86,10 @@ include_once("../model/class_sql.php");
                    <form method="POST" action="configuracoes.php">
                       <table border="0">
                           <tr>
-                            <td ><span>Limite de atraso permitido: </span></td><td><input type="text" id="temp_limit_atraso" name="temp_limit_atraso" value="<?php echo $_SESSION['temp_limit_atraso']; ?>"></td><td><span style="color:#565656"> (Máximo permitido: 59 minutos)</span></td>
+                            <td ><span><b>Limite de atraso permitido: </b></span></td><td><input type="text" id="temp_limit_atraso" name="temp_limit_atraso" value="<?php echo $_SESSION['temp_limit_atraso']; ?>"></td><td><span style="color:#565656"> (Máximo permitido: 59 minutos)</span></td>
                           </tr>
                           <tr>
-                            <td ><span>Empresa: </span></td><td><a href="<?php echo 'add_empresa.php?tipo=editar&id='.$_SESSION['id_empresa'] ?>"><span>Configurar dados</span></a></td><!-- <td><span style="color:#565656"> (Máximo permitido: 59 minutos)</span></td> -->
+                            <td ><span><b>Empresa: </b></span></td><td><a href="<?php echo 'add_empresa.php?tipo=editar&id='.$_SESSION['id_empresa'] ?>"><span>Configurar dados</span></a></td><!-- <td><span style="color:#565656"> (Máximo permitido: 59 minutos)</span></td> -->
                           </tr>
                           <tr>
                             <td colspan="3" style="padding-top:20px; text-align:center"><input type="submit" class="button" value="Salvar"> <input type="button" class="button" value="Cancelar"></td>

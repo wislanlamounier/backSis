@@ -1,8 +1,8 @@
 <?php 
     @session_start();
-    if(isset($_SESSION["id"])){
+    if(isset($_SESSION["id"]) && isset($_SESSION["user"]) && isset($_SESSION["id_empresa"])){
     }else{
-      header("location:index.php");
+      header("location:index.php?falha=session");
     }
 
  ?>

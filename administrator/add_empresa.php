@@ -145,8 +145,8 @@ require_once("../model/class_cidade_bd.php");
                 }
               }
               if(f[i].name == "responsavel"){
-                if(f[i].value == ""){
-                  msg += "Escolha uma opção no campo de responsavel!\n";
+                if(f[i].value == "no_res"){
+                  msg += "Escolha uma opção no campo Responsavel!\n";
                   f[i].style.border = "1px solid #FF0000";
                   erros++;
                 }else{

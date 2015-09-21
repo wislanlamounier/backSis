@@ -101,14 +101,16 @@ require_once("../phpmailer/phpmailer.class.php");
 			$id_responsavel = $id_responsavel - 1; //codigo para enviar id corrigido//
 			$mail->Subject  = "Cadastro efetuado com sucesso"; // Assunto da mensagem
 			$mail->Body = "
-						
-						<p>Obrigado por efetuar o cadastro em nosso sitema SGO.<br>
-						Seu id para login é:".$id_responsavel.".<br><br>
+						<p><b>Obrigado!</b></p>
+						<p>Seu cadastro foi efetuado com sucesso no Sistema de Gerenciamento de Obras. <br >
+						Seu id para login é ".$id_responsavel.".<br><br>
 
-						Para melhor aproveitamento do software é necessario que finalize o cadastro de sua empresa e do funcionario administrador.
-						
-			";
-			$mail->AltBody = "Seu id para login é ".$id_responsavel." e senha:  ALTBODY \r\n :)";
+						Para melhor aproveitamento do software é necessario que finalize seu cadastro.<br />
+
+						Att.<br />
+
+						Equipe ControlSystem";
+			$mail->AltBody = "Seu id para login é ".$id_responsavel." ALTBODY \r\n :)";
 			// Define os anexos (opcional)
 			// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 			//$mail->AddAttachment("c:/temp/documento.pdf", "novo_nome.pdf");  // Insere um anexo
@@ -126,7 +128,7 @@ require_once("../phpmailer/phpmailer.class.php");
 			}
 			
 			
-		    $redirect = "../index.php?cadastro=ok&nome=".$nome."&#cadastro";
+		    $redirect = "../index.php?cadastro=ok&nome=".$nome."&login=".$id_responsavel;
 
 			header("location:$redirect");
 			

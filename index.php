@@ -49,98 +49,98 @@
             }
 
         function valida(f){
-        var erros = 0;
-        var msg = "";
+              var erros = 0;
+              var msg = "";
 
-       for (var i = 0; i < f.length; i++) { 
-        if(f[i].name == "nome" && f[i].value == ""){
-                msg += "Insira um Nome!\n";
-                
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "nome" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }
-        if(f[i].name == "nome_fantasia" && f[i].value == ""){
-                msg += "Insira o nome fantasia da empresa!\n";
-                
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "nome_fantasia" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }
-        if(f[i].name == "email" && f[i].value == ""){
-                msg += "Insira o email!\n";
-                
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "email" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }
-        if(f[i].name == "razao_soc" && f[i].value == ""){
-                msg += "Insira a Razão social da empresa!\n";
-                
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "razao_soc" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }
-        if(f[i].name == "cpf" && f[i].value == ""){
-                msg += "Preencha o CPF!\n";
-                
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "cpf" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }
+             for (var i = 0; i < f.length; i++) { 
+              if(f[i].name == "nome" && f[i].value == ""){
+                      msg += "Insira um Nome!\n";
+                      
+                      f[i].style.border = "1px solid #FF0000";
+                      erros++;
+                    }
+                    if(f[i].name == "nome" && f[i].value != ""){
+                      f[i].style.border = "1px solid #898989";
+                    }
+              if(f[i].name == "nome_fantasia" && f[i].value == ""){
+                      msg += "Insira o nome fantasia da empresa!\n";
+                      
+                      f[i].style.border = "1px solid #FF0000";
+                      erros++;
+                    }
+                    if(f[i].name == "nome_fantasia" && f[i].value != ""){
+                      f[i].style.border = "1px solid #898989";
+                    }
+              if(f[i].name == "email" && f[i].value == ""){
+                      msg += "Insira o email!\n";
+                      
+                      f[i].style.border = "1px solid #FF0000";
+                      erros++;
+                    }
+                    if(f[i].name == "email" && f[i].value != ""){
+                      f[i].style.border = "1px solid #898989";
+                    }
+              if(f[i].name == "razao_soc" && f[i].value == ""){
+                      msg += "Insira a Razão social da empresa!\n";
+                      
+                      f[i].style.border = "1px solid #FF0000";
+                      erros++;
+                    }
+                    if(f[i].name == "razao_soc" && f[i].value != ""){
+                      f[i].style.border = "1px solid #898989";
+                    }
+              if(f[i].name == "cpf" && f[i].value == ""){
+                      msg += "Preencha o CPF!\n";
+                      
+                      f[i].style.border = "1px solid #FF0000";
+                      erros++;
+                    }
+                    if(f[i].name == "cpf" && f[i].value != ""){
+                      f[i].style.border = "1px solid #898989";
+                    }
 
-        if(f[i].name == "cnpj" && f[i].value == ""){
-                msg += "Preencha o cnpj!\n";
-                
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "cnpj" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }
-        if(f[i].name == "telefone" && f[i].value == ""){
-                msg += "Insira o telefone!\n";
-                
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "telefone" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }              
-        if(f[i].name == "senha" && f[i].value == ""){
-                msg += "Preencha o campo senha!\n";
-                
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "senha" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }
-        if(f[i].name == "senha1" && f[i].value == ""){
-                msg += "Preencha senha no campo repetir senha!\n";
-                
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "senha1" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }
+              if(f[i].name == "cnpj" && f[i].value == ""){
+                      msg += "Preencha o cnpj!\n";
+                      
+                      f[i].style.border = "1px solid #FF0000";
+                      erros++;
+                    }
+                    if(f[i].name == "cnpj" && f[i].value != ""){
+                      f[i].style.border = "1px solid #898989";
+                    }
+              if(f[i].name == "telefone" && f[i].value == ""){
+                      msg += "Insira o telefone!\n";
+                      
+                      f[i].style.border = "1px solid #FF0000";
+                      erros++;
+                    }
+                    if(f[i].name == "telefone" && f[i].value != ""){
+                      f[i].style.border = "1px solid #898989";
+                    }              
+              if(f[i].name == "senha" && f[i].value == ""){
+                      msg += "Preencha o campo senha!\n";
+                      
+                      f[i].style.border = "1px solid #FF0000";
+                      erros++;
+                    }
+                    if(f[i].name == "senha" && f[i].value != ""){
+                      f[i].style.border = "1px solid #898989";
+                    }
+              if(f[i].name == "senha1" && f[i].value == ""){
+                      msg += "Preencha senha no campo repetir senha!\n";
+                      
+                      f[i].style.border = "1px solid #FF0000";
+                      erros++;
+                    }
+                    if(f[i].name == "senha1" && f[i].value != ""){
+                      f[i].style.border = "1px solid #898989";
+                    }
 
-        }
-           if(erros>0){            
-              alert(msg);
-            return false;
-          }
+              }
+                 if(erros>0){            
+                    alert(msg);
+                    return false;
+                }
         }
             // Mask
         function mascara(o,f){
@@ -201,7 +201,7 @@
       }          
         }
    // fim Mask
-        function validarCPF(cpf){
+      function validarCPF(cpf){
           
         cpf = cpf.replace(/[^\d]+/g,'');    
         if(cpf == '') return false; 
@@ -239,20 +239,78 @@
 
         return true;   
 }
+    function exibe_error(){
+        // document.getElementById("popup").style.display = "block";
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+      
+        var screenWidth = screen.width;
+        var screenHeight = screen.height;
+        // alert(windowWidth+" x "+windowHeight)
+    document.getElementById("back-popup").style.display = "block";
+        if(windowWidth > 1200){
+          document.getElementById("popup").style.marginLeft = "40%";
+        }else if(windowWidth > 1000){
+          document.getElementById("popup").style.marginLeft = "30%";
+        }else if(windowWidth > 500){
+          document.getElementById("popup").style.marginLeft = "20%";
+        }else{
+          document.getElementById("popup").style.marginLeft = "0%";
+        }
+
+    }
+    function fecha_error(){
+        document.getElementById("back-popup").style.display = "none";
+        document.getElementById("popup").style.marginLeft = "-600px";
+        setTimeout(function() {
+           window.location.href='index.php';
+        }, 500);
+    }
 
     </script>
 </head>
+<style type="text/css">
+.popup{
+    display:block;  padding: 10px; position:absolute;  z-index: 100; width:370px; margin-top: 150px; height:250px; margin-left:-450px; float:left;  background-color:#eee; box-shadow: 0px 0px 10px #000; border-radius:10px;
+    transition: all 1s;
+}
+.popup-erro{
+  transition: all 1s;
+}
+.back-popup{
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.7);
+  display: none;
+}
+.fechar{
+  float: right;
+}
+.fechar a{
+  cursor: pointer;
+}
+</style>
 
 <body>
 
     <!-- Navigation -->
     <?php include_once("view/site/navigation.php") ?>
 
+    <div class="back-popup" id="back-popup" style="position:absolute; z-index: 1">
+    </div>
+    <div id="popup" class="popup">
+        <div style="float:left; margin-left:-30px;margin-top:-40px; "><img src="img/sucesso.png"></div>
+        <div class="fechar"><a onclick='fecha_error()' style=""><img src="img/icon-fechar.png"></a></div>
+        <div style=" font-size:18px; float:left; margin-top:10px; width:100%">Obrigado <?php echo $_GET['nome']; ?></div><br />
+        <div style=" text-align: justify; float:left; margin-top:10px;">Seu cadastro foi efetuado com sucesso no Sistema de Gerenciamento de Obras! Verifique seu email para mais informações ou <a href="administrator/"><b>Clique Aqui</b></a> para acessar o sistema!</div><br /><br />
+        <div style=" text-align: justify; float:left;">Usuario: <b><?php isset($_GET['login'])? print $_GET['login']:'' ?></b></div>
+    </div>
+
     <!-- Header -->
     <?php include_once("view/site/header.php") ?>    
-
+    
     <!-- Page Content -->
-	<?php include_once("view/site/services.php") ?>    
+	   <?php include_once("view/site/services.php") ?>    
     
     <!-- /.content-section-a -->
 
@@ -271,5 +329,12 @@
     <script src="js/bootstrap.min.js"></script>
 
 </body>
+<?php 
+    if(isset($_GET['cadastro']) && $_GET['cadastro'] == 'ok'){
+        echo "<script>exibe_error();</script>";
+
+    }
+ ?>
+
 
 </html>

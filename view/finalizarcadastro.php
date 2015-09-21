@@ -55,7 +55,7 @@ include_once("../model/class_empresa_bd.php");
                      ?>
                     </span>
                 </div>
-            <div style="float:right;"><span style='float:left; margin-top:2px;'>Cadastrar  </span><a style="float:left; margin-left:10px;"title="Cadastrar agora" <?php echo 'href="http://localhost/viacampos/administrator/add_empresa.php?tipo=editar&id='.$id_empresa.'"' ?>><img src="../images/ir.png" width="20px"></a></div>    
+            <div style="float:right;"><span style='float:left; margin-top:2px;'>Cadastrar  </span><a style="float:left; margin-left:10px;"title="Cadastrar agora" <?php echo 'href="add_empresa.php?tipo=editar&id='.$id_empresa.'"' ?>><img src="../images/ir.png" width="20px"></a></div>    
         </div>
         <?php 
         }
@@ -81,9 +81,9 @@ include_once("../model/class_empresa_bd.php");
         foreach ($func as $key => $value) {
             if(!isset($value) or $value==0){
                 
-                if($key == "rg"){
-                     $i = $i +1;
-                }
+                // if($key == "rg"){
+                //      $i = $i +1;
+                // }
                 if($key == "id_endereco"){
                      $i = $i +1;
                 }
@@ -131,7 +131,7 @@ include_once("../model/class_empresa_bd.php");
                              ?>
                         </span>
                     </div>
-                <div style="float:right;"><span style='float:left; margin-top:2px;'>Cadastrar  </span><a style="float:left; margin-left:10px;"title="Cadastrar agora" <?php echo 'href="http://localhost/viacampos/administrator/add_func.php?tipo=editar&id='.$id_funcionario.'"' ?>><img src="../images/ir.png" width="20px"></a></div>    
+                <div style="float:right;"><span style='float:left; margin-top:2px;'>Cadastrar  </span><a style="float:left; margin-left:10px;"title="Cadastrar agora" <?php echo 'href="add_func.php?tipo=editar&id='.$id_funcionario.'"' ?>><img src="../images/ir.png" width="20px"></a></div>    
             </div>
 
         <?php 

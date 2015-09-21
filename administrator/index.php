@@ -28,8 +28,11 @@ if(isset($_SESSION["id"])){
 				</table>
 			</form>
 			<?php 
-				if(isset($_GET['falha'])){
+				if(isset($_GET['falha']) && $_GET['falha'] == 'login'){
 					echo "<div style='width:100%; height:100px; font-size:14px; color:#b00'>Usuário ou senha inválidos!</div>";
+				}
+				if(isset($_GET['falha']) && $_GET['falha'] == 'session'){
+					echo "<div style='width:100%; height:100px; font-size:14px; color:#b00'>Sua sessão expirou!<br />Por favor, efetue o login novamente!</div>";
 				}
 			 ?>
 			

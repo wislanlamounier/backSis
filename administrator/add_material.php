@@ -133,7 +133,7 @@ function validate(){
 	           	
 		 		?>
 	 	    </div> 
-	 	   <!--  <?php include("informacoes_material.php") ?>  -->
+	 	   <?php include_once("informacoes_material.php") ?> 
 	 		</div> 
 </body>
 </html>

@@ -701,7 +701,7 @@ function carregaUf_CartTrab(uf){
                   $cont = 0;
                   $msg = 'ATENÇÃO!\n\nPara cadastrar um funcionário é necessario:\n\n';
                   if(!$cbos){
-                     $msg .= ($cont+1).' Cadastrar um CBO (Cadastro Brasileiro de Ocupações)\n';
+                     $msg .= ($cont+1).'º Cadastrar um CBO (Cadastro Brasileiro de Ocupações)\n';
                      $cont++;
                   }
 
@@ -709,7 +709,7 @@ function carregaUf_CartTrab(uf){
                   $turnos = $turno->get_name_all_turno();
 
                   if(!$turnos){
-                     $msg .= ($cont+1).' Cadastrar um Turno';
+                     $msg .= ($cont+1).'º Cadastrar um Turno';
                      $cont++;
                   }
                   

@@ -5,7 +5,8 @@ include_once("../model/class_maquinario_bd.php");
 ?>
 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
-	function buscar_funcionarios(param){
+	function buscar_patrimonios(param){
+        
         if(param == 0){//EDITAR
       	   var maquinario = document.getElementById('nome_search').value;
             //se encontrou o estado

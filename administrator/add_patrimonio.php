@@ -763,7 +763,7 @@ function verificaValor($valor){
                                </div>
                             </td></tr>
                             <tr><td><span><b>Observação</b></span></td></tr>                     
-                              <tr><td colspan="4"> <textarea align="center" rows="4" cols="50" id="observacao" name="observacao" style="max-width:488px" ></textarea> </td></tr>                              
+                              <tr><td colspan="4"> <textarea align="center" rows="4" cols="80" id="observacao" name="observacao" style="max-width:488px; max-height: 150px" ></textarea> </td></tr>                              
                           </table>
                           <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_patrimonio.php'" id="button" value="Cancelar"></td></tr>
                        </form>

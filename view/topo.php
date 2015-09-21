@@ -8,6 +8,7 @@
 	}
  ?>
  <script type="text/javascript">
+
  	function submitForm(form){
 
  		var url = 'reportMailError.php?pag='+form[0].value+'&descricao='+form[1].value; 

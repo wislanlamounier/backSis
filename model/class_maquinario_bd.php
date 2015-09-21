@@ -84,7 +84,7 @@ class Maquinario{
 		}
 		if($aux == 0){
 			$sql->close_conn();
-			echo '<div class="msg">Nenhum maquinario encontrado!</div>';
+			echo '<div class="msg" id="msg">Nenhum maquinario encontrado!</div>';
 		}else{
 			$sql->close_conn();
 			return $return;
@@ -156,7 +156,7 @@ class Maquinario{
 		$query = "UPDATE maquinario SET oculto = 1 WHERE id = %s";
 		$result = $g->tratar_query($query, $id);
 		if($result){
-			echo '<div class="msg">Maquinário excluido com sucesso!</div>';
+			echo '<div class="msg" id="msg">Maquinário excluido com sucesso!</div>';
 		}
 	}
 
@@ -177,19 +177,19 @@ class Maquinario{
 		}
 		if($aux == 0){
 			$sql->close_conn();
-			echo '<div class="msg">Nenhum maquinario encontrado!</div>';
+			echo '<div class="msg" id="msg">Nenhum maquinario encontrado!</div>';
 		}else{
 			$sql->close_conn();
 			return $return;
 		}
 	}
-public function get_maquinario_by_nome($modelo){
+	public function get_maquinario_by_nome($modelo){
         $sql = new Sql();
         $sql->conn_bd();
         $g = new Glob();
         $aux=0;
         $return = array();
-        $query = $g->tratar_query("SELECT * FROM maquinario WHERE oculto = 0 && modelo LIKE '%%%s%%'",$modelo);
+        $query = $g->tratar_query("SELECT * FROM maquinario WHERE oculto = 0 && id_empresa = '%s' && modelo LIKE '%%%s%%'",$modelo, $_SESSION['id_empresa']);
 
         while($result = mysql_fetch_array($query)){
           $return[$aux][0] = $result['id'];
@@ -198,9 +198,9 @@ public function get_maquinario_by_nome($modelo){
           $aux++;
         }
         if($aux == 0){
-          echo "<div class='msg'>Maquinario não encontrada !</div>";
+           echo "<div class='msg' id='msg'>Maquinario não encontrado !</div>";
         }else{
-        return $return;
+           return $return;
         }
     }
 

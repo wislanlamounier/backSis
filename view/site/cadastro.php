@@ -2,7 +2,7 @@
 
 <?php 
     if (isset($_GET['cadastro'])== 'ok') {
-        $nome = $_GET['nome'];      ;
+            $nome = $_GET['nome'];      ;
         ?>
         <div class="content-section-a" style="background-color:rgba(255,255,255,0.3);">
             <div class="container">
@@ -17,7 +17,7 @@
         # code...
     }else{
         ?>
-        <button type="button" name="botao_filtro" class="button_filtro" id="botao_filtro" value="Filtro" onclick="ver_filtro('filtro')" style="width:100"><img src="../img_sistema/filtro.png" align="absmiddle" height="16"> Filtro</button>
+        
         <a  name="cadastro"></a>
         <div class="content-section-a">
             <div class="container" >
@@ -27,7 +27,7 @@
                                 <div style="text-align:center">
                                     <form style="background-color: rgba(150,150,150,0.2); padding-bottom: 40px;" method="POST" action="administrator/registro_parcial.php" onsubmit="return valida(this), validarSenha(this), validarCPF(this.cpf.value)">                                    
                                         <table border='0' class="table-footer" style="height:150px; width:500px;">
-                                            <tr><td><h4>Funcionário</h4></td><td><h4>Empresa</h4></td></tr>
+                                            <tr><td><h4>Usuário</h4></td><td><h4>Empresa</h4></td></tr>
                                             <tr><td><input placeholder="Nome" class="form-control" type="text" name="nome" id="nome"></td><td><input placeholder="Nome Fantasia" class="form-control" type="text" name="nome_fantasia" id="nome_fantasia"></td></tr>
                                             <tr><td><input placeholder="Email" class="form-control" type="text" name="email" id="email"></td><td><input placeholder="Razão Social" class="form-control" type="text" name="razao_soc" id="razao_soc"></td></tr>
                                             <tr><td><input placeholder="CPF" class="form-control" type="text" name="cpf" id="cpf"></td><td><input placeholder="CNPJ" class="form-control" type="text" name="cnpj" id="cnpj"></td></tr>

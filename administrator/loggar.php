@@ -58,6 +58,6 @@ include_once("../global.php");
 
         header("location:principal.php"); // pagina que sera redirecionada após login
     }else{
-      header("location:index.php?falha=yes");
+      header("location:index.php?falha=login");
     }
  ?>
