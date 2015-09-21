@@ -675,7 +675,35 @@ h2{
 
 /********************************* FIM ADD_OBRA**********************************/
 
-
+/********************************* começo pesquisar **********************************/
+.historico{
+    float:right;
+    clear:right;    
+    margin-top:20px;
+    background-color:#dedede;
+    padding: 10px;
+}
+.historico-itens{
+    float:left; clear:left; width: 100%; height: 25px;
+    border-bottom: 1px solid;
+    border-color: #cfcbcb;
+    transition-duration: 0.5s;
+    
+}
+.historico-itens:hover{
+   transform: scale(1.05);
+	/*transition: all 0.3s;	*/	
+        
+	box-shadow: 2.8px 2.8px 12px #888;
+	background-color:rgba(155,155,255,0.2);	
+	width:95%;
+	margin-left: 15px;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+	border: 2px solid#EBCCFF;
+}
+/********************************* FIM PESQUISAR PESQUISAR_FUNC**********************************/
 
 
 

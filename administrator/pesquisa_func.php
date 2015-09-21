@@ -40,6 +40,7 @@ include("../model/class_cliente.php");
                             
                                 $func = new Funcionario();                                
                                 $funcs = $func->get_func_by_name($_POST['name_search'], $_SESSION['id_empresa']);
+                                
                                echo '<table class="exibe-pesquisa">';
                                 echo '<tr><td>ID</td><td>Nome</td></tr>';
                                 $aux = 0;
@@ -62,10 +63,14 @@ include("../model/class_cliente.php");
                                $func = new Funcionario();
                                $func = $func->get_func_id($_GET['id']);
                                 echo $func->printFunc();
+                                $_SESSION['func']['id_funcionario']= $_GET['id'];
+                                
                             }
-                          ?>                          
-                     </div>
+                            
+                          ?>
                          
+                     </div>
+                        <?php include("../view/historico_funcionario.php"); ?>  
                                 
 </body>
 </html>

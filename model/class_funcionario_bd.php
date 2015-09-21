@@ -404,7 +404,42 @@ class Funcionario{
 			echo '<div class="msg">Funcionário excluido com sucesso!</div>';
 		}
 	}
+        
+        public function get_historico_func_by_id($id){
+                $sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();                
+                $result = array();
+                $aux =0;
+                $query = "SELECT * FROM funcionario WHERE oculto = 1 && id='%s'"; 
+                
+		$query_tra = $g->tratar_query($query, $id);
 
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['nome'];
+                        $return[$aux][2] = $result['cod_serie'];
+                        $return[$aux][3] = $result['salario_base'];
+                        $return[$aux][4] = $result['id_endereco'];
+                        $return[$aux][5] = $result['id_cbo'];
+                        $return[$aux][6] = $result['data_dem'];
+                        $return[$aux][7] = $result['qtd_horas_sem'];
+                        $return[$aux][8] = $result['data_fim'];
+                        $return[$aux][9] = $result['id_supervisor'];
+                        $return[$aux][10] = $result['id_turno'];
+                        $return[$aux][11] = $result['is_admin'];
+                        $return[$aux][12] = $result['email'];
+                        
+                        
+                        
+			$aux++;
+		}
+		if($aux == 0){
+			echo '<div class="msg">Nenhum funcionário encontrado!</div>';
+		}else{
+			return $return;
+		}
+        }
 // $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis
 
 
@@ -529,45 +564,46 @@ class Funcionario{
 
         $texto = "";
 		$texto .= "<table class='table_pesquisa'><tr>";
-		$texto .= "<td colspan='2'><b><span>ID: <span></b></td><td colspan='2'><span><span>".$this->id."</span></td>";
+		$texto .= "<td colspan='2'><b><span>ID: <span></b></td><td><span><span>".$this->id."</span><td><span>Cod_Serie</span></td><td><span>".$this->cod_serie."</span></td></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td colspan='2'><b><span>Nome: <span></b></td><td colspan='2'><span>".$this->nome."</span></td>";
+		$texto .= "<td colspan='2'><b><span>Nome: <span></b></td><td colspan='3'><span>".$this->nome."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td colspan='2'><b><span>Telefone: <span></b></td><td colspan='2'><span>".$this->telefone."</span></td>";
+		$texto .= "<td colspan='2'><b><span>Telefone: <span></b></td><td colspan='3'><span>".$this->telefone."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td colspan='2'><b><span>CPF: <span></b></td><td colspan='2'><span>".$this->cpf."</span></td>";
+		$texto .= "<td colspan='2'><b><span>CPF: <span></b></td><td colspan='3'><span>".$this->cpf."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td colspan='2'><b><span>Data de Nascimento: <span></b></td><td colspan='2'><span>".$this->data_nasc."</span></td>";
+		$texto .= "<td colspan='2'><b><span>Data de Nascimento: <span></b></td><td colspan='3'><span>".$this->data_nasc."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td colspan='2'><b><span>Email:<span> </b></td><td colspan='2'><span>".$this->email."</span></td>";
+		$texto .= "<td colspan='2'><b><span>Email:<span> </b></td><td colspan='3'><span>".$this->email."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td colspan='2'><b><span>Empresa: <span></b></td><td colspan='2'><span>".$empresa->nome_fantasia."</span></td>";
+		$texto .= "<td colspan='2'><b><span>Empresa: <span></b></td><td colspan='3'><span>".$empresa->nome_fantasia."</span></td>";
 		$texto .= "</tr>";
 
 		if($filial){
 			$texto .= "<tr>";
-			$texto .= "<td colspan='2'><b><span>Filial: <span></b></td><td colspan='2'><span>".$filial->nome."</span></td>";
+			$texto .= "<td colspan='2'><b><span>Filial: <span></b></td><td colspan='3><span>".$filial->nome."</span></td>";
 			$texto .= "</tr>";
 		}
 		$texto .= "<tr>";
-		$texto .= "<td colspan='2'><b><span>CBO: <span></b></td><td colspan='2'><span>".$cbo->descricao."</span></td>";
+		$texto .= "<td colspan='2'><b><span>CBO: <span></b></td><td colspan='3'><span>".$cbo->descricao."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td colspan='2'><b><span>Turno: <span></b></td><td colspan='2'><span>".$turno->nome." - ". $turno->desc."</span></td>";
+		$texto .= "<td colspan='2'><b><span>Turno: <span></b></td><td colspan='3'><span>".$turno->nome." - ". $turno->desc."</span></td>";
 		$texto .= "</tr>";
 		if(count($epi_func)>0){
-			$texto .= '<tr> <td colspan="4"><span><b>Equipamentos do funcionário:</b></span></td></tr>';
+			$texto .= '<tr> <td colspan="5"><span><b>Equipamentos do funcionário:</b></span></td></tr>';
 			$texto .= '<tr> <td><span>ID</span></td> <td><span>Nome</span></td> <td><span>Data da entrega</span></td><td><span>Quantidade</span></td></tr>';
                       foreach ($epi_func as $key => $value) {
                        $texto .= '<tr><td><span>'.$epi_func[$key]->id.'</span></td><td><span>'.$epi_func[$key]->nome_epi.'</span></td><td><span>'.$epi_func[$key]->data_entrega.'</span></td><td><span>'.$epi_func[$key]->quantidade.'</span></td></tr>';
                       } 
 		}
+                
 		$texto .= "</table>";
 		return $texto;
 	}
