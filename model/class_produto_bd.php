@@ -73,6 +73,7 @@ class Produto{
 	     	$produto = new Produto();
 	     	$produto->id = $row['id'];
 	     	$produto->nome = $row['nome'];
+                $produto->id_empresa = $row['id_empresa'];
 
 	     	return $produto;
 	     }
@@ -90,6 +91,7 @@ class Produto{
 			$return[$aux][0] = $result['id_produto'];
 			$return[$aux][1] = $result['id_material'];
 			$return[$aux][2] = $result['quantidade'];
+                        $return[$aux][3] = $result['id'];
 			$aux++;
 		}
 		if($aux == 0){
