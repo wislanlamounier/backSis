@@ -63,6 +63,7 @@ include("../model/class_cliente.php");
                                $func = new Funcionario();
                                $func = $func->get_func_id($_GET['id']);
                                 echo $func->printFunc();
+                                
                                 $_SESSION['func']['id_funcionario']= $_GET['id'];
                                 
                             }
@@ -70,7 +71,8 @@ include("../model/class_cliente.php");
                           ?>
                          
                      </div>
+                       <?php if(isset($_GET['verificador']) && $_GET['verificador'] == 1){ ?>
                         <?php include("../view/historico_funcionario.php"); ?>  
-                                
+                       <?php }?>         
 </body>
 </html>

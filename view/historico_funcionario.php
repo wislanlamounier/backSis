@@ -1,20 +1,21 @@
 
 <div style="float:left; margin-left: 10px; width:49%;">
     <div style="float:left; width:100%;" class="historico" id="historico">
-    <?php 
-    $funcionario = new Funcionario();
-    $funcionario = $funcionario->get_historico_func_by_id($_SESSION['teste']['id_funcionario']);
+    <?php
     
-    foreach ($funcionario as $key => $alterados) {
+    $funcionario = new Funcionario(); 
+    $funcionario = $funcionario->get_historico_func_by_id($_GET['id']); // Busca de todos os funcionarios que estao com oculto = 1\\
+    
+    foreach ($funcionario as $key => $alterados) {  // Percorre o array de funcionario 
         
         ?>
-                <?php 
+                <?php
                 
                 $turno = new Turno();
                 $turno = $turno->getTurnoById($alterados[10]);
                 $cbo = new CBO();
                 $cbo = $cbo->get_cbo_by_id($alterados[5]);
-                if($alterados[11] == 1)
+                if($alterados[11] == 1) // logica para imprimir administrador
                 {
                     $adm = "SIM";
                 }else{
