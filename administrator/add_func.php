@@ -235,11 +235,19 @@ function verificaValor($valor){
               }
               if(f[i].name == "sal_base"){
                 if(f[i].value == ""){
-                  msg += "Preencha o campo Salário Base!\n";
+                  msg += "Preencha corretamente o campo Salário Base!\n";
                   f[i].style.border = "1px solid #FF0000";
                   erros++;
                 }else{
-                  f[i].style.border = "1px solid #898989"; 
+                    var salario = f[i].value;
+                    var realAnCent = salario.replace(/[\R\$\,\.\ ]/g , "");
+                    if(realAnCent <= 0){
+                        msg += "Preencha corretamente o campo Salário Base!\n";
+                        f[i].style.border = "1px solid #FF0000";
+                        erros++;
+                    }else{
+                        f[i].style.border = "1px solid #898989"; 
+                    }
                 }
               }
               if(f[i].name == "qtd_horas_sem"){

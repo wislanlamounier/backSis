@@ -71,8 +71,7 @@ include("../model/class_cliente.php");
                           ?>
                          
                      </div>
-                       <?php if(isset($_GET['verificador']) && $_GET['verificador'] == 1){ ?>
-                        <?php include("../view/historico_funcionario.php"); ?>  
-                       <?php }?>         
+                     <?php include("../view/historico_funcionario.php"); ?>  
+                       
 </body>
 </html>
