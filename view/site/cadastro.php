@@ -25,7 +25,7 @@
                         <!-- <div class="clearfix"></div> -->
                         <h2 class="section-heading">Cadastre-se</h2>                       
                                 <div style="text-align:center">
-                                    <form style="background-color: rgba(150,150,150,0.2); padding-bottom: 40px;" method="POST" action="administrator/registro_parcial.php" onsubmit="return valida(this), validarSenha(this), validarCPF(this.cpf.value)">                                    
+                                    <form style="background-color: rgba(150,150,150,0.2); padding-bottom: 40px;" method="POST" action="administrator/registro_parcial.php" onsubmit="return validaTudo(this)">                                    
                                         <table border='0' class="table-footer" style="height:150px; width:500px;">
                                             <tr><td><h4>Usuário</h4></td><td><h4>Empresa</h4></td></tr>
                                             <tr><td><input placeholder="Nome" class="form-control" type="text" name="nome" id="nome"></td><td><input placeholder="Nome Fantasia" class="form-control" type="text" name="nome_fantasia" id="nome_fantasia"></td></tr>

@@ -33,13 +33,32 @@ class Material{
 		} 
 	}
 	
-	 public function atualiza_material($nome, $id){
+	 public function atualiza_material($nome, $id_unidade_medida, $id){
 		$sql = new Sql();	
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "UPDATE materiais SET nome = '%s' WHERE id = '%s' ";
+		$query = "UPDATE materiais SET nome = '%s', id_unidade_medida = '%s' WHERE id = '%s'";
+                
+                if($g->tratar_query($query, $nome, $id_unidade_medida, $id)){
+                    return true;
+                        }else{
+                          return false;
+                        }
+	}
+        
+        public function verifica_material($nome){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
 
-		return $g->tratar_query($query, $nome, $id);
+		$query = "SELECT * FROM endereco WHERE nome = '%s'";
+		$result = $g->tratar_query($query, $nome);
+
+		if(@mysql_num_rows($result) == 0){
+			return false;
+		}else{
+			return true;
+		}
 	}
 	
 	public function get_material_id($id){
@@ -70,7 +89,7 @@ class Material{
 		$sql->conn_bd();
 		$g = new Glob();
 		$aux=0;
-		$query = "SELECT * FROM materiais WHERE nome LIKE '%%%s%%' ";
+		$query = "SELECT * FROM materiais WHERE nome LIKE '%%%s%%' && oculto = 0 ";
 		$query_tra = $g->tratar_query($query, $name);
 
 		while($result =  mysql_fetch_array($query_tra)){
@@ -101,8 +120,20 @@ class Material{
 			$aux++;
 		}
 		return $return;
+            }
+       
+       public function ocultar_by_id($id){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$query = "UPDATE materiais SET oculto = 1 WHERE id = %s";
+		$result = $g->tratar_query($query, $id);
+		if($result){
+			echo '<div class="msg" id="msg">Material excluido com sucesso!</div>';
+		}
 	}
 
+   
+
 }
-	
  ?>

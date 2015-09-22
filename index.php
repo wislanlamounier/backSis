@@ -28,10 +28,48 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
+        function validaTudo(f){
+            err = 0;
+            if(validarSenha(f)== false){
+                alert("Confirme suas senhas !");
+                err++;
+            }
+            
+            for (var i = 0; i < f.length; i++) { 
+                 if(f[i].name == "cpf" && f[i].value != ""){
+                         if(validarCPF(f[i].value) == false){
+                                 err++;
+                                               }
+                }
+             }
+            if(valida(f)== false){
+                err++;
+            }
+            
+            
+            
+            if(err != 0){
+                return false;
+            }
+        }
+        
+        
         function validarSenha(f){
             var s1;
             var s2;
             for (var i = 0; i < f.length; i++) {
+                
+                if(f[i].name == 'senha'){
+                    if(f[i].value ==""){
+                        return false;
+                    }
+                }
+                
+                if(f[i].name == 'senha1'){
+                    if(f[i].value ==""){
+                        return false;
+                    }
+                }
                 if (f[i].name == 'senha'){                    
                     var s1=f[i].value;
                     
@@ -41,10 +79,12 @@
                     
                 }                
             }
+            
             if (s1 == s2)
                 return true;
-            else
-                alert("SENHAS DIFERENTES")
+            
+            else 
+            return false;
                  
             }
 
