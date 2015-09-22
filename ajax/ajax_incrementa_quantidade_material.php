@@ -18,18 +18,17 @@ include_once("../model/class_patrimonio_geral_bd.php");
       for($aux = 0; $aux < count($_SESSION['produto']['editar']['material']); $aux++){
           $id_qtd_tipo = explode(":", $_SESSION['produto']['editar']['material'][$aux]);
           
-          if($id_qtd_tipo[0] == $id){
+          if($id_qtd_tipo[0] == $id && $tipo == $id_qtd_tipo[2]){//verifica se o tipo e o id são iguais
              $_SESSION['produto']['editar']['material'][$aux] = $id.':'.$quantidade.':'.$tipo;
           }
        }
-       
-
   }else{
 
       for($aux = 0; $aux < count($_SESSION['produto']['material']); $aux++){
+
           $id_qtd_tipo = explode(":", $_SESSION['produto']['material'][$aux]);
           
-          if($id_qtd_tipo[0] == $id){
+          if($id_qtd_tipo[0] == $id && $tipo == $id_qtd_tipo[2]){//verifica se o tipo e o id são iguais
              $_SESSION['produto']['material'][$aux] = $id.':'.$quantidade.':'.$tipo;
           }
        }  
