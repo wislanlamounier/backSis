@@ -37,6 +37,14 @@ class ProdutosMateriais{
 	     	return true;
 	     }
 	}
+	public function limpa_materiais_produto($id_produto){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$query = "DELETE FROM produto_materiais WHERE id_produto = '%s'";
+		$result = $g->tratar_query($query,$id_produto);
+
+	}
 
 	
 

@@ -194,7 +194,8 @@ class Funcionario{
 			$func->uf_cart_trab = $row['id_uf_cart_trab'];
 			$func->num_pis = $row['num_pis'];
 			$func->id_supervisor = $row['id_supervisor'];
-
+			$func->data_ini = $row['data_ini'];
+			$func->data_fim = $row['data_fim'];
 	     	return $func;
 	     }
 	}
@@ -435,8 +436,7 @@ class Funcionario{
 			$aux++;
 		}
 		if($aux == 0){
-			echo '<div class="msg">Nenhum funcionário encontrado!</div>';
-                        return false; 
+            return false; 
 		}else{
 			return $return;
 		}
@@ -454,7 +454,9 @@ class Funcionario{
 		
 		$temp = Funcionario::get_func_id($id);
 		$cont = 0; //conta se algum dado importante foi alterado
+		$true = false;
 		foreach ($temp as $key => $value) {
+			
 			if($key == 'data_nasc' && $temp->$key != $data_nasc){// verifica se data_nascimento foi alterado
 				$cont++;
 			}else if($key == 'id_empresa' && $temp->$key != $id_empresa){// verifica se empresa foi alterada
@@ -469,9 +471,13 @@ class Funcionario{
 				$cont++;
 			}else if($key == 'qtd_horas_sem' && $temp->$key != $qtd_horas_sem){// verifica se turno foi alterado
 				$cont++;
+			}else if($key == 'data_ini' && $temp->$key == '0000-00-00'){// se data_ini for 0000-00-00 é a primeira alteração e não precisa gerar historico
+				echo "<script>alert('é a primeira alteração');</script>";
+				$true = true;
 			}
 		}
-		if($cont > 0){//se cont > 0 um dos dados importantes foi alterado e necessita gerar histórico
+		
+		if($cont > 0 && !$true){//se cont > 0 um dos dados importantes foi alterado e necessita gerar histórico, e se true for verdadeiro quer dizer que é a primeira alteração e não precisa gerar historico
 			$sql = new Sql();
 			$sql->conn_bd();
 			$g = new Glob();
@@ -494,7 +500,7 @@ class Funcionario{
 
 		    return $query_tra;
 
-			//se foi alterado algo importante tem que adicionar um novo registro com as alterações e manter o outro
+			//se foi alterado algo importante tem que adicionar um novo registro com as novas alterações e manter o antigo
 			// Funcionario::add_func($id, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor);
 
 		}else{
@@ -510,11 +516,16 @@ class Funcionario{
 			}
 
 			$query .= "WHERE id_tabela = '%s' and oculto = 0";
-			// printf($query, $nome, $cpf, $data_nasc, $telefone, $email, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $id);
-			if($aux == 0){
+			
+			if($aux == 0){// se aux == 0 a senha não foi alterada então não precisa enviar o parametro $senha
 				$query_tra = $g->tratar_query($query, $nome, $id_dados_bancarios, $cod_serie, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,          $id_tabela);
 			}else{
 				$query_tra = $g->tratar_query($query, $nome, $id_dados_bancarios, $cod_serie, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,         $senha, $id_tabela);
+			}
+
+			if($true){// se true, é a primeira alteração então é necessario adicionar a data_ini do registro
+				$query = "UPDATE funcionario SET data_ini='%s' WHERE id_tabela = '%s' and oculto = 0";
+				$g->tratar_query($query, date('Y-m-d'), $id_tabela);
 			}
 
 			return $query_tra;
@@ -551,6 +562,29 @@ class Funcionario{
 	     }
 		return $return;
 
+	}
+	function verificaValor($valor){
+        
+	    if(!strpos($valor, '.')){// se não existe . na string (EX R$ 15) tem que adicionar .00 para ficar (R$ 15.00)
+	       $valor .= '.00';
+
+	    /**** Comments else if ****
+	      se (tamanho da string) - (posisão do ponto) for < 3 
+	      EX:
+	      len ->  12345
+	      str ->  100.5
+	      pos ->  01234
+	      
+	      len == 5; pos == 3;
+
+	      (5-3) == 2; 2 < 3
+
+	    */
+	    }else if(strlen($valor) - strpos($valor, '.') < 3){
+	        $valor .= '0';
+	    }
+	    
+	    return $valor;
 	}
 	public function printFunc(){
         $empresa = new Empresa();
@@ -591,6 +625,9 @@ class Funcionario{
 			$texto .= "<td colspan='2'><b><span>Filial: <span></b></td><td colspan='3><span>".$filial->nome."</span></td>";
 			$texto .= "</tr>";
 		}
+		$texto .= "<tr>";
+		$texto .= "<td colspan='2'><b><span>Salário base: <span></b></td><td colspan='3'><span>R$ ".$this->verificaValor($this->salario_base)."</span></td>";
+		$texto .= "</tr>";
 		$texto .= "<tr>";
                 if(isset($cbo->descricao)){
 		$texto .= "<td colspan='2'><b><span>CBO: <span></b></td><td colspan='3'><span>".$cbo->descricao."</span></td>";

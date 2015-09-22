@@ -36,6 +36,15 @@ class Produto{
 	     	return $id;
 	     }
 	}
+	public function atualiza_produto($nome, $id_produto){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$query = "UPDATE produtos SET nome = '%s' WHERE id = '%s'";
+
+		$result = $g->tratar_query($query, $nome, $id_produto); //inserindo no banco de dados
+
+	}
 	public function get_produto_by_name($name){
 		$sql = new Sql();
 		$sql->conn_bd();
@@ -73,7 +82,7 @@ class Produto{
 	     	$produto = new Produto();
 	     	$produto->id = $row['id'];
 	     	$produto->nome = $row['nome'];
-                $produto->id_empresa = $row['id_empresa'];
+            $produto->id_empresa = $row['id_empresa'];
 
 	     	return $produto;
 	     }

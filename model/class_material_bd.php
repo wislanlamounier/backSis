@@ -91,13 +91,13 @@ class Material{
 		$aux=0;
 		$query = "SELECT * FROM materiais WHERE nome LIKE '%%%s%%' && oculto = 0 ";
 		$query_tra = $g->tratar_query($query, $name);
-
-		while($result =  mysql_fetch_array($query_tra)){
-			$return[$aux][0] = $result['id'];
-			$return[$aux][1] = $result['nome'];
-			$return[$aux][2] = $result['id_unidade_medida'];
-			$aux++;
-		}
+		if($query_tra)
+			while($result =  mysql_fetch_array($query_tra)){
+				$return[$aux][0] = $result['id'];
+				$return[$aux][1] = $result['nome'];
+				$return[$aux][2] = $result['id_unidade_medida'];
+				$aux++;
+			}
 		if($aux == 0){
 			$sql->close_conn();
 			echo '<div class="msg">Nenhum material encontrado!</div>';

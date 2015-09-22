@@ -8,6 +8,7 @@ include_once("../model/class_unidade_medida_bd.php");
 
 	$sql = new Sql();
 	$sql->conn_bd();
+	$acao = $_GET['acao'];
 	if(isset($_GET['id_produto'])){// pega e exibe os materiais desse produto
 		$id_produto = $_GET['id_produto'];
 		$produto = Produto::get_produto_id($id_produto);
@@ -47,7 +48,7 @@ include_once("../model/class_unidade_medida_bd.php");
 		?>
 
 		<?php if($res){ ?>
-			<select name="clientes" id="clientes" size='10' style="height: 100%; width: 100%" onDblClick="selecionaProduto(this.value)">
+			<select name="clientes" id="clientes" size='10' style="height: 100%; width: 100%" onDblClick="selecionaProduto(this.value,'<?php echo $acao ?>')">
 			  <?php
 			  	if($res) 
 				   for($aux = 0; $aux < count($res); $aux++){

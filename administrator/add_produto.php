@@ -29,7 +29,7 @@ function validate(){
 </head>
 <script type="text/javascript">
     function increment(nome, acao){//chama a pagina que vai incrementar a quantidade no patrimonio
-            alert("chamou: "+acao)
+            // alert("chamou: "+acao)
             var parametros = nome.split(":");
             
             var quantidade = document.getElementById(nome).value;
@@ -41,15 +41,16 @@ function validate(){
             });
     }
     
-    function buscarMateriais(){
+    function buscarMateriais(acao){
+      
         var nome = document.getElementById("nome_pesquisa").value;
         if(document.getElementById("m").checked == true){
-            var url = '../ajax/ajax_buscar_materiais.php?nome='+nome+'&tipo=m';  
+            var url = '../ajax/ajax_buscar_materiais.php?nome='+nome+'&tipo=m&acao='+acao;  
             $.get(url, function(dataReturn) {
                 $('#form-input-select').html(dataReturn);
             });
         }else if(document.getElementById("p").checked == true){
-            var url = '../ajax/ajax_buscar_materiais.php?nome='+nome+'&tipo=p';  
+            var url = '../ajax/ajax_buscar_materiais.php?nome='+nome+'&tipo=p&acao='+acao;  
             $.get(url, function(dataReturn) {
                 $('#form-input-select').html(dataReturn);
             });
@@ -58,9 +59,9 @@ function validate(){
         
     }
 
-    function selecionaProduto(id){
+    function selecionaProduto(id, whatarray){
             
-          var url = '../ajax/ajax_montar_material.php?id='+id;  
+          var url = '../ajax/ajax_montar_material.php?id='+id+'&whatarray='+whatarray;  
           
           $.get(url, function(dataReturn) {
             
@@ -68,9 +69,9 @@ function validate(){
           });
     }
 
-    function apagar(id, whatarray){
+    function apagar(id, whatarray, acao){
         
-        var url = '../ajax/ajax_apagar.php?id='+id+'&whatarray='+whatarray; 
+        var url = '../ajax/ajax_apagar.php?id='+id+'&whatarray='+whatarray+'&acao='+acao; 
         
         $.get(url, function(dataReturn) {
           
@@ -104,7 +105,7 @@ function validate(){
                         $id_produto = $produto->add_produto_bd();
                         
                         if($id_produto){
-                          $sucesso = true;
+                          $sucesso = 'Cadastrado';
 
                           for($aux = 0; $aux < count($materiais); $aux++){
                               // echo '<br />'.$materiais[$aux];
@@ -125,38 +126,39 @@ function validate(){
                         }
                     }
                 }else if(isset($_POST['t']) && $_POST['t'] == 'editar'){
-                    // $cont=0; //conta se todos os materiais foram adicionados com sucesso
-                    // $materiais = $_SESSION['produto']['edita']['material'];
-                    // $sucesso = false; // verifica se o produto foi adicionado com sucesso
-                    // if(validate()){
-                    //     $produto = new Produto();
-                    //     $produto_materiais = new  ProdutosMateriais();                 
-                    //     $nome = $_POST['nome'];
-                    //     $id_empresa = $_SESSION['id_empresa'];
-                    //     $produto->add_produtos($nome, $id_empresa);//inserindo dados no objeto
-                    //     $id_produto = $produto->add_produto_bd();
+                    $cont=0; //conta se todos os materiais foram adicionados com sucesso
+                    $materiais = $_SESSION['produto']['editar']['material'];
+                    $sucesso = false; // verifica se o produto foi adicionado com sucesso
+                    if(validate()){
+                        $produto = new Produto();
+                        $produto_materiais = new  ProdutosMateriais();                      
+                        // print_r($_SESSION['produto']['material']);
                         
-                    //     if($id_produto){
-                    //       $sucesso = true;
-
-                    //       for($aux = 0; $aux < count($materiais); $aux++){
-                    //           // echo '<br />'.$materiais[$aux];
-                    //           $id_qtd_tipo = explode(":", $materiais[$aux]);
+                        $nome = $_POST['nome'];
+                        $id_produto = $_POST['id_produto'];
+                        $produto = $produto->atualiza_produto($nome, $id_produto);
+                        
+                        if($id_produto){
+                          $sucesso = 'Atualizado';
+                          $produto_materiais->limpa_materiais_produto($id_produto);
+                          for($aux = 0; $aux < count($materiais); $aux++){
+                              // echo '<br />'.$materiais[$aux];
+                              $id_qtd_tipo = explode(":", $materiais[$aux]);
                               
 
-                    //           $id_material = $id_qtd_tipo[0].':'.$id_qtd_tipo[2];
+                              $id_material = $id_qtd_tipo[0].':'.$id_qtd_tipo[2];
 
 
-                    //           $produto_materiais = $produto_materiais->add_produtos_materiais($id_produto, $id_material, $id_qtd_tipo[1]);
-                    //           // $sucesso = $produto_materiais->add_produtos_materiais_bd();
+                              $produto_materiais = $produto_materiais->add_produtos_materiais($id_produto, $id_material, $id_qtd_tipo[1]);
+                              // $sucesso = $produto_materiais->add_produtos_materiais_bd();
                               
-                    //           if($produto_materiais->add_produtos_materiais_bd()){
-                    //              $cont++;
-                    //           }
-                    //       }
-                    //       unset($_SESSION['produto']);
-                    //     }
-                    // }
+                              if($produto_materiais->add_produtos_materiais_bd()){
+                                 $cont++;
+                              }
+                          }
+                          unset($_SESSION['produto']);
+                        }
+                    }
                     echo '<script>alert("Em desenvolvimento")</script>';
                 }
            ?>
@@ -171,7 +173,7 @@ function validate(){
                <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){ ?>
               
                       <form  action="add_produto.php" method="POST" onsubmit="return validate(this)">
-                               <input type="hidden" id="t" name="t" value="editar">
+
                                 <?php
                                     unset($_SESSION['produto']['editar']);
                                     $produto = new Produto();
@@ -189,12 +191,10 @@ function validate(){
                                         }
                                         $_SESSION['produto']['editar']['material'][$aux] = $id_tipo[0].':'.$quantidade.':'.$id_tipo[1];
                                         $aux++;
-                                    }
-                                  
-                                  
-                                
+                                    }                                  
                                ?>
-                              
+                              <input type="hidden" id="t" name="t" value="editar">
+                               <input type="hidden" id="id_produto" name="id_produto" value="<?php echo $produto->id ?>">
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
                                   
@@ -209,13 +209,12 @@ function validate(){
                                               </div>
                                               <span><b>Pesquisar materiais: </b></span><br />
                                               <input type="radio" style="height:12px" checked name="tipo_material" id="m"><span>Materiais</span><input type="radio" name="tipo_material" id="p" style="height:12px"><span>Produtos</span>
-                                              <input type="text" placeholder="Digite para pesquisar..." title="Digite o nome do material para pesquisar" id="nome_pesquisa" style="width:65%"> <input type="button" value="Buscar" onclick="buscarMateriais()">
+                                              <input type="text" placeholder="Digite para pesquisar..." title="Digite o nome do material para pesquisar" id="nome_pesquisa" style="width:65%"> <input type="button" value="Buscar" onclick="buscarMateriais('editaproduto')">
                                           </div>
                                           <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
                                               <select size="10" style="height: 100%; width: 100%">
                                               </select>
                                           </div>
-                                          
                                       </div>
                                       <div class="form-input right">
                                           <div class="form-input">
@@ -238,11 +237,11 @@ function validate(){
                                                                   $res = Material::get_material_id($id_qtd_tipo[0]);
                                                                   $uni = new Unidade_medida();
                                                                   $uni = $uni->get_unidade_medida_by_id($res->id_unidade_medida);
-                                                                  echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" onchange="increment(this.id, \'editar\')" style="width:30%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd_tipo[1].'"> <span>'.$uni->sigla.'</span></td><td><a name="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+                                                                  echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" onchange="increment(this.id, \'editar\')" style="width:50%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd_tipo[1].'"> <span>'.$uni->sigla.'</span></td><td><a name="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\',\'editar\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                                                             }else if($id_qtd_tipo[2] == 'p'){// se for produto
                                                                   $res = new Produto();
                                                                   $res = $res->get_produto_id($id_qtd_tipo[0]);
-                                                                  echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" onchange="increment(this.id, \'editar\')" style="width:30%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd_tipo[1].'"></td><td><a name="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+                                                                  echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" onchange="increment(this.id, \'editar\')" style="width:50%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd_tipo[1].'"></td><td><a name="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\',\'editar\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                                                             }
                                                         echo '</tr>';
                                                       }
@@ -298,7 +297,7 @@ function validate(){
                                               </div>
                                               <span><b>Pesquisar materiais: </b></span><br />
                                               <input type="radio" style="height:12px" checked name="tipo_material" id="m"><span>Materiais</span><input type="radio" name="tipo_material" id="p" style="height:12px"><span>Produtos</span>
-                                              <input type="text" placeholder="Digite para pesquisar..." title="Digite o nome do material para pesquisar" id="nome_pesquisa" style="width:65%"> <input type="button" value="Buscar" onclick="buscarMateriais()">
+                                              <input type="text" placeholder="Digite para pesquisar..." title="Digite o nome do material para pesquisar" id="nome_pesquisa" style="width:65%"> <input type="button" value="Buscar" onclick="buscarMateriais('addproduto')">
                                           </div>
                                           <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
                                               <select size="10" style="height: 100%; width: 100%">
@@ -327,11 +326,11 @@ function validate(){
                                                                   $res = Material::get_material_id($id_qtd_tipo[0]);
                                                                   $uni = new Unidade_medida();
                                                                   $uni = $uni->get_unidade_medida_by_id($res->id_unidade_medida);
-                                                                  echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" onchange="increment(this.id,\'cadastrar\')" style="width:30%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd_tipo[1].'"> <span>'.$uni->sigla.'</span></td><td><a name="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+                                                                  echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" onchange="increment(this.id,\'cadastrar\')" style="width:50%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd_tipo[1].'"> <span>'.$uni->sigla.'</span></td><td><a name="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                                                             }else if($id_qtd_tipo[2] == 'p'){// se for produto
                                                                   $res = new Produto();
                                                                   $res = $res->get_produto_id($id_qtd_tipo[0]);
-                                                                  echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" onchange="increment(this.id, \'cadastrar\')" style="width:30%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd_tipo[1].'"></td><td><a name="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+                                                                  echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" onchange="increment(this.id, \'cadastrar\')" style="width:50%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd_tipo[1].'"></td><td><a name="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                                                             }
                                                         echo '</tr>';
                                                       }
@@ -350,9 +349,11 @@ function validate(){
                        </form>
       
                        
-                        <?php 
-                            if(isset($sucesso) && $sucesso == true && count($materiais) == $cont){
-                              echo '<div class="msg">Produto '.$_POST['nome'].' adicionado com sucesso</div>';
+                        <?php
+
+
+                            if(isset($sucesso) && $sucesso != false && count($materiais) == $cont){
+                              echo '<div class="msg">Produto '.$_POST['nome'].' '.$sucesso.' com sucesso</div>';
                               
                             }
                             if(isset($sucesso) && !$sucesso && isset($_POST['nome'])){

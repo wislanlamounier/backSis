@@ -11,18 +11,18 @@ include_once("../model/class_produto_bd.php");
 	
 	$id = $_GET['id'];  //codigo do array passado por parametro
 	$whatarray = $_GET['whatarray'];// que array? especifica em qual array sera feita a exclusão: funcionario, patrimonio
-  $acao = $_GET['acao'];
+  $acao = isset($_GET['acao']) ? $_GET['acao'] : null;
 	$total = 0;
 	$cont = 0;
-  
+        echo "<script>alert('Acao: ".$acao."');</script>";
         if($whatarray == 'material'){// se for igual produto exclui os materiais do adicionar produto
-
-              for($aux = 0; $aux < count($_SESSION['produto'][$whatarray]); $aux++){//percorrendo array escolhido
             
-                if($_SESSION['produto'][$whatarray][$aux] == $id){// quando encontrar o id escolhido
+            for($aux = 0; $aux < count($_SESSION['produto'][$whatarray]); $aux++){//percorrendo array escolhido
+            
+              if($_SESSION['produto'][$whatarray][$aux] == $id){// quando encontrar o id escolhido
 
-                    unset($_SESSION['produto'][$whatarray][$aux]);// unset posição do array que contem o id à ser excluido
-                }
+                  unset($_SESSION['produto'][$whatarray][$aux]);// unset posição do array que contem o id à ser excluido
+              }
             }
             foreach ($_SESSION['produto'][$whatarray] as $key => $value) { // percorre o array e reordena-o
                $array[$cont] = $value;
