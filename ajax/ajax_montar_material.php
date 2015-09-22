@@ -41,7 +41,7 @@ include_once("../model/class_produto_bd.php");
 			  	}
 			  	echo '</table>';
 	}else if(isset($_GET['whatarray']) && $_GET['whatarray'] == 'addproduto'){
-				echo "<script>alert('Adicionar');</script>";
+				
 				$total = 0;
 				if($param_id[0] == 'm'){// se for material
 					$id = $param_id[1];
@@ -99,7 +99,7 @@ include_once("../model/class_produto_bd.php");
 			      // echo 'ID: '.$id.' TIPO: '.$tipo.'<br />';
   		
 	  }else if(isset($_GET['whatarray']) && $_GET['whatarray'] == 'editaproduto'){
-	  		echo "<script>alert('Editar');</script>";
+	  		
 	  		$total = 0;
 				if($param_id[0] == 'm'){// se for material
 					$id = $param_id[1];
