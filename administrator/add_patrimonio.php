@@ -665,6 +665,24 @@ function verificaValor($valor){
               
           
             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_maquinario') /*TABELA DE CADASTRO MAQUINARIO*/{?>
+                                <?php 
+                               //verifica se todas as dependencias do funcionario estão cadastradas
+
+                               $cont = 0;
+                               $msg = 'ATENÇÃO!\n\nPara cadastrar um funcionário é necessario:\n\n';
+
+
+                               $cliente = new Cliente();
+                               $cliente = $cliente->get_all_fornecedor();
+
+                               if(!$cliente){
+                                  $msg .= ($cont+1).'º Cadastrar um Fornecedor';
+                                  $cont++;
+                               }
+
+                               if($cont > 0)
+                                 echo '<script>alert("'.$msg.'");</script>';
+                                ?>
             <div id="content">   
             <div class="formulario">                  
                       <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
@@ -774,6 +792,25 @@ function verificaValor($valor){
             <?php /* FIM TABELA MAQUINARIO !!!*/  }?>
 
             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'cadastrar_veiculo')/*TABELA CADASTRO VEICULO*/{?>
+               <?php 
+                  //verifica se todas as dependencias do funcionario estão cadastradas
+                  
+                  $cont = 0;
+                  $msg = 'ATENÇÃO!\n\nPara cadastrar um funcionário é necessario:\n\n';
+                
+
+                  $cliente = new Cliente();
+                  $cliente = $cliente->get_all_fornecedor();
+
+                  if(!$cliente){
+                     $msg .= ($cont+1).'º Cadastrar um Fornecedor';
+                     $cont++;
+                  }
+                  
+                  if($cont > 0)
+                    echo '<script>alert("'.$msg.'");</script>';
+               ?>
+            
             <div id="content">   
             <div class="formulario">              
                        <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">

@@ -31,7 +31,7 @@ include("../model/class_patrimonio_bd.php");
                     <table id="table-search">
                       <tr>
                          <td><span >Patrimonio: </span></td>
-                         <td><input type="text" id="name_search" name="name_search" title="Digite qual patrimobio deseja procurar..."></td>
+                         <td><input type="text" id="name_search" name="name_search" title="Digite qual patrimonio deseja procurar..."></td>
                          <td><input type="submit" value="Buscar" class="button"></td>
                       </tr>
                    </table>

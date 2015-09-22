@@ -288,13 +288,14 @@ class Cliente {
 			return $return;
 		}
 	}
-	    public function get_all_cliente(){
+        
+        public function get_all_cliente(){
         $sql = new Sql();
         $sql->conn_bd();
         $g = new Glob();
         $aux=0;
       
-        $query = $g->tratar_query("SELECT * FROM clientes WHERE oculto = 0 && fornecedor = 1");
+        $query = $g->tratar_query("SELECT * FROM clientes WHERE oculto = 0 & fornecedor = 1");
 
         while($result = mysql_fetch_array($query)){
           $return[$aux][0] = $result['id'];
@@ -304,6 +305,30 @@ class Cliente {
         return $return;
         
     }
+    public function get_all_fornecedor(){
+		 $sql = new Sql();
+		 $sql->conn_bd();
+		 $return = array();
+		 $aux=0;
+
+		 //"SELECT * FROM turno as turno WHERE nome LIKE '%%%s%%' && oculto = 0 && NOT EXISTS (SELECT id FROM funcionario WHERE id_turno = turno.id";
+
+		 $query = mysql_query("SELECT * FROM clientes WHERE oculto = 0 & fornecedor = 1");
+		 
+		 while($result =  mysql_fetch_array($query)){
+		 	$return[$aux][0] = $result['id'];
+		 	$return[$aux][1] = $result['nome_razao_soc'];
+		 	
+		 	$aux++;
+		 }
+		 // if($aux == 0){
+		 // 	//target="_blank|_self|_parent|_top|framename"
+		 // 	echo '<div class="msg">Nenhum turno encontrado! <a target="_blank" href="add_turno.php"> Cadastre agora</a></div>';
+		 // }
+		 
+		 return $return;
+	}
+    
     public function get_cli_by_id($id){
 		 $sql = new Sql();
 		 $sql->conn_bd();
