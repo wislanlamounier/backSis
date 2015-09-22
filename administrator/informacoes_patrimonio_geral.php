@@ -34,7 +34,7 @@ include_once("../model/class_patrimonio_geral_bd.php");
         }
     }
     function buscar_editar(tipo){
-        var url = '../ajax/ajax_editar_patrimonio.php?tipo='+tipo;  //caminho do arquivo php que irá buscar as cidades no BD
+        var url = '../ajax/ajax_editar_patrimonio_geral.php?tipo='+tipo;  //caminho do arquivo php que irá buscar as cidades no BD
         $.get(url, function(dataReturn) {
         	$('#result').html(dataReturn);  //coloco na div o retorno da requisicao
         });
