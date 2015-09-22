@@ -436,6 +436,7 @@ class Funcionario{
 		}
 		if($aux == 0){
 			echo '<div class="msg">Nenhum funcionário encontrado!</div>';
+                        return false; 
 		}else{
 			return $return;
 		}
@@ -591,7 +592,9 @@ class Funcionario{
 			$texto .= "</tr>";
 		}
 		$texto .= "<tr>";
+                if(isset($cbo->descricao)){
 		$texto .= "<td colspan='2'><b><span>CBO: <span></b></td><td colspan='3'><span>".$cbo->descricao."</span></td>";
+                }
 		$texto .= "</tr>";
 		$texto .= "<tr>";
 		$texto .= "<td colspan='2'><b><span>Turno: <span></b></td><td colspan='3'><span>".$turno->nome." - ". $turno->desc."</span></td>";
