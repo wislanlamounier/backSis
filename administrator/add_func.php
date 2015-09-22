@@ -869,10 +869,10 @@ function carregaUf_CartTrab(uf){
                         <?php echo "<script> carregaCBO('".$func->id_cbo."') </script>";  ?>
                      </tr>
                      <tr>
-                        <td> <span>Rua: </span></td><td colspan="3"><input style="width:275px" type="text" id="rua" name="rua" value="<?php echo $endereco[0][0]; ?>" > <span>Nº</span> <input style="width:60px;" type="number" id="num" name="num" value="<?php echo $endereco[0][1]; ?>"> </td>
+                        <td> <span>Rua: </span></td><td colspan="3"><input style="width:260px" type="text" id="rua" name="rua" value="<?php echo $endereco[0][0]; ?>" > <span>Nº</span> <input style="width:60px;" type="number" id="num" name="num" value="<?php echo $endereco[0][1]; ?>"> </td>
                      </tr>
                       <tr>
-                        <td> <span>Bairro: </span></td><td colspan="3"><input style="width:225px" type="text" id="bairro" name="bairro" style="width:200px" value="<?php echo $endereco[0][4]; ?>"> <span> CEP </span> <input style="width:100px;" type="text" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>"> </td>
+                        <td> <span>Bairro: </span></td><td colspan="3"><input style="width:210px" type="text" id="bairro" name="bairro" style="width:200px" value="<?php echo $endereco[0][4]; ?>"> <span> CEP </span> <input style="width:100px;" type="text" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>"> </td>
                      </tr>
                      <tr>
                         <td><span>Estado:</span></td>

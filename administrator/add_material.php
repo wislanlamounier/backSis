@@ -23,9 +23,10 @@ function validate(){
 </head>
 <script type="text/javascript">
 
-	function confirma(id,nome, tipopess){
+	function confirma(id,nome){
+            
        if(confirm("Excluir Material "+nome+" , tem certeza?") ){
-          var url = '../ajax/ajax_excluir_material.php?id='+id+'&nome='+nome+'&tipopess='+tipopess;  //caminho do arquivo php que irá buscar as cidades no BD
+          var url = '../ajax/ajax_excluir_material.php?id='+id+'&nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
           
           $.get(url, function(dataReturn) {
           	
@@ -33,6 +34,20 @@ function validate(){
           });
        }
     }
+        function carregaU_M(uf){
+           
+      var combo = document.getElementById("medida");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == uf)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }
+     
+    } 
 </script>
 
 <body>	
@@ -42,22 +57,35 @@ function validate(){
             <div class="formulario">
             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){?>
             	<?php 
-            		 $id = $_GET['id'];
+                     $id = $_GET['id'];
                      $material = new Material();
                      $material = $material->get_material_id($id);
                      $id = $material->id;
                      $nome = $material->nome;
-                     
+                    
+                     $u_m = new Unidade_medida(); //u_m UNIDADE DE MEDIDA
+                     $u_m = $u_m->get_unidade_medida_by_id($material->id_unidade_medida);
             	 ?>
 
-                <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR GRUPO GRUPO</span></div></div>
+                <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR MATERIAL</span></div></div>
                        <form method="POST" id="add_material" action="add_material.php" onsubmit="return validate(this)">
                             <input type="hidden" id="tipo" name="tipo" value="editar">
                             <input type="hidden" id="id" name="id" value="<?php echo $id ?>">                            
                             <table border="0">
-                            	<tr><td><span>Nome:</span></td> <td><input type="text" name="material" id="material"  value="<?php echo $nome ?>"></td></tr>
-                            <tr><td><span>Descricão:</span></td><td><input type="text" name="desc" id="desc" value="<?php echo $descricao ?>"></td></tr>
-                           <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="editar"> <input type="button" name="button" class="button" onclick="window.location.href='add_material.php'" id="button" value="Cancelar"></td></tr>  
+                            	<tr><td><span>Nome:</span></td> <td><input type="text" name="nome" id="n"ome  value="<?php echo $nome ?>"></td></tr>
+                            <tr><td><span>Unidade de medida:</span></td><td><select id="medida" name="medida"  style="width:100%">
+                                    <option value="no_sel">Selecione</option>
+                                    <?php 
+                                       $medida = new Unidade_medida();
+                                       $medida = $medida->get_all_unidade_medida();
+                                       for ($i=0; $i < count($medida) ; $i++) { 
+                                          echo '<option value="'.$medida[$i][0].'">'.$medida[$i][2].'</option>';
+                                       }
+                                     ?>
+                                       <?php echo "<script> carregaU_M('".$u_m->id."'); </script>" ?> 
+                                 </select><td></tr>
+                            
+                           <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Editar"> <input type="button" name="button" class="button" onclick="window.location.href='add_material.php'" id="button" value="Cancelar"></td></tr>  
                             </table>                            
                        </form>              
             <?php }else{ ?>              
@@ -65,7 +93,7 @@ function validate(){
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">MATERIAIS</span></div></div>
                         <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                           <table border="0">                          
-                          		<tr><td><span>Nome:</span></td> <td><input type="text" name="nome" id="nome"></td><td><span>Unidade de medida:</span></td><td>
+                            <tr><td><span>Nome:</span></td> <td><input type="text" name="nome" id="nome"></td><td><span>Unidade de medida:</span></td><td>
                                   <select id="medida" name="medida"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
                                     <?php 
@@ -115,21 +143,25 @@ function validate(){
                      }                 
                 }
                 if(isset($_POST['tipo']) && $_POST['tipo'] == "editar"){
+                    
                 	if(isset($_POST['id'])){
-
+                              
                             if(validate()){
-
+                            
                               $material = new Material();
-                              if($material->atualiza_material($_POST['material'], $_POST['desc'], $_POST['id'] ) ){
-                                 echo '<div class="msg">Atualizado com sucesso!</div>';
-                                 echo '<script>alert("Material atualizado com sucesso")</script>';
+                              $id = $_POST['id'];
+                              $nome = $_POST['nome'];
+                              $id_unidade_medida = $_POST['medida'];
+                              
+                              if($material->atualiza_material($nome, $id_unidade_medida, $id )){
+                                 
                               }else{
                                  echo '<div class="msg">Falha na atualização!</div>';
                               }
                               
 	                       }
 	                   }                         
-	           		}
+                        }
 	           	
 		 		?>
 	 	    </div> 
