@@ -159,7 +159,7 @@ function validate(){
                           unset($_SESSION['produto']);
                         }
                     }
-                    echo '<script>alert("Em desenvolvimento")</script>';
+                    
                 }
            ?>
       
