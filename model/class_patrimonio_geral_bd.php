@@ -54,14 +54,15 @@ class Patrimonio_geral{
 
 		while($result =  mysql_fetch_array($query_tra)){
 			$return[$aux][0] = $result['id'];
-			$return[$aux][1] = $result['matricula'];
-			$return[$aux][2] = $result['nome'];
-			$return[$aux][3] = $result['descricao'];
+			$return[$aux][1] = $result['nome'];
+			$return[$aux][2] = $result['descricao'];
+			$return[$aux][3] = $result['controle'];
+                        $return[$aux][4] = $result['matricula'];
 			$aux++;
 		}
 		if($aux == 0){
 			$sql->close_conn();
-			echo '<div class="msg">Nenhum patrimonio encontrado!</div>';
+			
 		}else{
 			$sql->close_conn();
 			return $return;
@@ -121,26 +122,26 @@ class Patrimonio_geral{
 			echo '<div class="msg">Patrimonio excluido com sucesso!</div>';
 		}
 	}
-	public function get_patrimonio_geral_by_nome($nome){
-		$sql = new Sql();
-		$sql->conn_bd();
-		$g = new Glob();
-		$aux=0;
-		$return = array();
-		$query = $g->tratar_query("SELECT * FROM patrimonio_geral WHERE oculto = 0 && nome LIKE '%%%s%%'",$nome);
-
-		while($result = mysql_fetch_array($query)){
-		  $return[$aux][0] = $result['id'];
-		  $return[$aux][1] = $result['nome'];
-		  
-		  $aux++;
-		}
-		if($aux == 0){
-		  echo "<div class='msg'>Patrimonio não encontrado !</div>";
-		}else{
-		return $return;
-		}
-    }
+//	public function get_patrimonio_geral_by_nome($nome){
+//		$sql = new Sql();
+//		$sql->conn_bd();
+//		$g = new Glob();
+//		$aux=0;
+//		$return = array();
+//		$query = $g->tratar_query("SELECT * FROM patrimonio_geral WHERE oculto = 0 && nome LIKE '%%%s%%'",$nome);
+//
+//		while($result = mysql_fetch_array($query)){
+//		  $return[$aux][0] = $result['id'];
+//		  $return[$aux][1] = $result['nome'];
+//		  
+//		  $aux++;
+//		}
+//		if($aux == 0){
+//		  echo "<div class='msg'>Patrimonio não encontrado !</div>";
+//		}else{
+//		return $return;
+//		}
+//    }
 }
 	
  ?>

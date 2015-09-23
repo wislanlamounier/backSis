@@ -7,7 +7,7 @@ $patrimonio_geral->ocultar_by_id($_GET['id']);
 
 $nome = 'a';//busca os clientes com a letra a
 
-$patrimonio_geral = $patrimonio_geral->get_patrimonio_geral_by_nome($nome);
+$patrimonio_geral = $patrimonio_geral->get_patrimonio_geral_nome($nome);
 
 if(count($patrimonio_geral) == 0){
 	return;

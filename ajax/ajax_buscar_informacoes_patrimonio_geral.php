@@ -8,7 +8,9 @@ include_once("../model/class_patrimonio_geral_bd.php");
 	$patrimonio_geral = $patrimonio_geral->get_patrimonio_geral_nome($nome);
 
 	if(count($patrimonio_geral) == 0){
-		return;
+		
+                echo '<div class="msg">Nenhum patrimonio encontrado!</div>';
+                return;
 	}
 	for ($i = 0; $i < count($patrimonio_geral); $i++) {
 	  $arrPatrimonio_geral[$i][0] = $patrimonio_geral[$i][0];
@@ -29,6 +31,7 @@ include_once("../model/class_patrimonio_geral_bd.php");
 		<table style="float:left" class="table-pesquisa">
 		  <?php
 		  	$cont=0;
+                       
 		  	if($patrimonio_geral) 
 			    foreach($arrPatrimonio_geral as $value => $nome){
 			      echo "<tr><td style='padding-left:20px;'><a href='add_patrimonio.php?tipo=editar&controle=0&id=".$arrPatrimonio_geral[$value][0]."'>".$arrPatrimonio_geral[$value][1]." ".$arrPatrimonio_geral[$value][2]." ".$arrPatrimonio_geral[$value][3]."</a></td></tr>";

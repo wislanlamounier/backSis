@@ -289,7 +289,10 @@ h2{
 	background-color:rgba(255,255,255,1);
 	
 }
-
+.formulario textarea{
+    
+    max-width: 504px;
+}
 .formulario textarea:hover, input:hover{
 	/*box-shadow: 0px 0px 10px #565656;*/
 	background-color:rgba(255,255,255,1);
@@ -297,7 +300,7 @@ h2{
 }
 .formulario{
 	padding:20px;
-    box-shadow: 0px 0px 10px #aaa;
+        box-shadow: 0px 0px 10px #aaa;
 	float: left;
 	margin-top: 20px;
 	margin-left: 15px;

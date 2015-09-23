@@ -609,7 +609,7 @@ require_once("../model/class_cidade_bd.php");
 					                <tr> <td ><span>Data Nascimento:</span></td> <td><input type="date" id="datanasc_resp" name="datanasc_resp" value="<?php echo $cli->data_nasc_responsavel ?>" ></td></tr> 
 					                <tr> <td ><span>E-mail:</span></td> <td><input type="text" id="email_resp" name="email_resp" value="<?php echo $cli->email_resp ?>"></td></tr>                     
 					                <tr><td colspan="2"><span><b>Observação</b></span></td></tr>                     
-					                <tr><td colspan="2"> <div align="center"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao"><?php echo $cli->observacao ?></textarea></div> </td></tr>                     
+					                <tr><textarea align="center" rows="4" cols="50" id="observacao" name="observacao"><?php echo $cli->observacao ?></textarea></tr>                    
 					                <tr>
 					                    	 <td colspan="2" style="text-align:center">
 					                    	 	<input  class="button" type="submit" value="Salvar">
