@@ -742,8 +742,8 @@ function verificaValor($valor){
                                       <span>Seguro: </span><input type="checkbox" class="seguro"  style="height:13px;" onclick="tipo_form()" id="seguro" name="seguro" value="0">
                                   </td>
                                   <td colspan="3">
-                                      <span>Data inicio:</span><input title="Data início do seguro" id="data_ini_seg" disabled type="date" style="width:135px">
-                                      <span>Data fim:</span><input title="Data Final do seguro" id="data_fim_seg" disabled  type="date" style="width:135px">
+                                      <span>Data inicio:</span><input title="Data início do seguro" id="data_ini_seg" name="data_ini_seg"disabled type="date" style="width:135px">
+                                      <span>Data fim:</span><input title="Data Final do seguro" id="data_fim_seg" name="data_fim_seg" disabled  type="date" style="width:135px">
                                   </td>
                               </tr>   
                               <tr><td><span>Valor: </span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Horimetro:</span></td><td><input title="Horimetro inicial do maquinário" type="number" name="hr_inicial" id="hr_inicial"></td></tr>
@@ -818,7 +818,7 @@ function verificaValor($valor){
                         <input type="hidden" id="local" name="local" value="<?php echo $_GET['local'] ?>"><?php //armazena o local da requisição da pagina ?>
                         <input type="hidden" id="veiculo" name="veiculo" value="cadastrar_veiculo">
                           <table border="0">                          
-                          		<tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula"></td><td><span>Renavam:</span></td> <td><input type="text" name="renavam" id="renavam" class="uppercase"></td></tr>                             	
+                                <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula"></td><td><span>Renavam:</span></td> <td><input type="text" name="renavam" id="renavam" class="uppercase"></td></tr>                             	
                              	<tr><td><span>Placa:</span></td><td><input class="uppercase" type="text" name="placa" id="placa"><td><span> Chassi:</span></td><td><input type="text" name="chassi" id="chassi" class="uppercase"></td></td></tr>
                              	<tr><td><span>Marca:</span></td><td>
                                   <select id="marca" name="marca"  style="width:100%">

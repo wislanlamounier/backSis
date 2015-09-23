@@ -22,7 +22,42 @@ function validate(){
 
 </head>
 <script type="text/javascript">
-
+        function valida(f){
+	        var erros = 0;
+	        var msg = "";
+	          for (var i = 0; i < f.length; i++) {
+                      if(f[i].name == "empresa"){
+		            if(f[i].value == "no_sel"){
+		               f[i].style.border = "1px solid #FF0000";
+		               erros++;
+		            }else{
+		               f[i].style.border = "1px solid #898989";
+		            }
+	         	}
+                        if(f[i].name == "nome"){
+		            if(f[i].value == ""){
+		               f[i].style.border = "1px solid #FF0000";
+		               erros++;
+		            }else{
+		               f[i].style.border = "1px solid #898989";
+		            }
+	         	}
+                        if(f[i].name == "medida"){
+		            if(f[i].value == "no_sel"){
+		               f[i].style.border = "1px solid #FF0000";
+		               erros++;
+		            }else{
+		               f[i].style.border = "1px solid #898989";
+		            }
+	         	}
+                  }
+                  		
+                    if(erros>0){
+                        return false;
+			}else{
+                    return true;
+			}
+                     }
 	function confirma(id,nome){
             
        if(confirm("Excluir Material "+nome+" , tem certeza?") ){
@@ -89,7 +124,7 @@ function validate(){
                             </table>                            
                        </form>              
             <?php }else{ ?>              
-                       <form method="POST" class="add_material" id="add_material" name="add_material" action="add_material.php" onsubmit="return validate(this)">
+                       <form method="POST" class="add_material" id="add_material" name="add_material" action="add_material.php" onsubmit="return valida(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">MATERIAIS</span></div></div>
                         <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                           <table border="0">                          
