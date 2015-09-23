@@ -12,7 +12,7 @@ include_once("../model/class_produto_bd.php");
 
 	//se cadastro de produto na obra
 	if(isset($_GET['whatarray']) && $_GET['whatarray'] == 'obra' ){
-		$total = 0;
+					$total = 0;
 				
 					$id = $param_id[1];
 					if(!isset($_SESSION['obra']['produto'])){// se ainda não possui dados, adiciona a concatenação de id + qtd no indice 0

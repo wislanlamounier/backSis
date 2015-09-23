@@ -8,7 +8,7 @@ include_once("../model/class_unidade_medida_bd.php");
 
 	$sql = new Sql();
 	$sql->conn_bd();
-	$acao = $_GET['acao'];
+	$acao = isset($_GET['acao']) ? $_GET['acao']:null;
 	if(isset($_GET['id_produto'])){// pega e exibe os materiais desse produto
 		$id_produto = $_GET['id_produto'];
 		$produto = Produto::get_produto_id($id_produto);
