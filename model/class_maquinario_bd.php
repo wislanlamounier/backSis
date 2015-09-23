@@ -25,8 +25,8 @@ class Maquinario{
 	public $valor;
 	
 	public function add_maquinario($matricula, $chassi_nserie, $modelo, $tipo_consumo, $ano, $id_cor,
-									 $fabricante, $data_compra, $seguro,  $data_ini_seg, $data_fim_seg, $horimetro_inicial, $id_empresa,
-									 							 $id_fornecedor, $id_responsavel, $observacao, $valor)
+                                         $fabricante, $data_compra, $seguro,  $data_ini_seg, $data_fim_seg, $horimetro_inicial, $id_empresa,
+                                            $id_fornecedor, $id_responsavel, $observacao, $valor)
 	{		
 		
 		$this->matricula = $matricula;
@@ -41,14 +41,11 @@ class Maquinario{
 		$this->seguro = $seguro;
 		$this->data_ini_seg = $data_ini_seg;
 		$this->data_fim_seg = $data_fim_seg;	
-
-
 		$this->horimetro_inicia = $horimetro_inicial;		
 		$this->id_empresa = $id_empresa;
 		$this->id_fornecedor = $id_fornecedor;
 		$this->id_responsavel = $id_responsavel;
 		$this->observacao = $observacao;
-		
 		$this->valor = $valor;
 	}
 
@@ -56,8 +53,8 @@ class Maquinario{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "INSERT INTO maquinario (matricula, chassi_nserie, modelo, tipo_consumo, ano, id_cor, fabricante, data_compra, seguro, data_ini_seg, data_fim_seg, horimetro_inicial, id_empresa, id_fornecedor, id_responsavel, observacao, valor) 
-						VALUES 				( '%s',      '%s',       '%s',   '%s',        '%s', '%s',      '%s',       '%s',	 '%s',		'%s',  			'%s',		'%s',             '%s',			'%s',			'%s',		 '%s' ,    '%s')";
+		$query = "INSERT INTO maquinario (matricula, chassi_nserie, modelo, tipo_consumo, ano, id_cor, fabricante, data_compra, seguro, data_ini_seg, data_fim_seg, horimetro_inicial, id_empresa, id_fornecedor, id_responsavel, observacao, valor, controle) 
+						VALUES 				( '%s',      '%s',       '%s',   '%s',        '%s', '%s',      '%s',       '%s',	 '%s',		'%s',  			'%s',		'%s',             '%s',			'%s',			'%s',		 '%s' ,    '%s', '1')";
 
 		if($g->tratar_query($query, $this->matricula, $this->chassi_nserie, $this->modelo, $this->tipo_consumo,  $this->ano,  $this->id_cor, $this->fabricante, $this->data_compra, $this->seguro, $this->data_ini_seg,$this->data_fim_seg, $this->horimetro_inicia,  $this->id_empresa, $this->id_fornecedor, $this->id_responsavel, $this->observacao, $this->valor)){
 				return true; 
@@ -80,6 +77,7 @@ class Maquinario{
 			$return[$aux][1] = $result['matricula'];
 			$return[$aux][2] = $result['modelo'];
 			$return[$aux][3] = $result['fabricante'];
+                        
 			$aux++;
 		}
 		if($aux == 0){

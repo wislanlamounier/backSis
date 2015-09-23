@@ -475,16 +475,16 @@ function verificaValor($valor){
                          $chassi = $_POST['chassi'];
                          $renavam = $_POST['renavam'];
                          $placa = $_POST['placa'];
-                         $marca = $_POST['marca'];
+                         $id_marca = $_POST['marca'];
                          $modelo = $_POST['modelo'];
                          $ano = $_POST['ano'];
-                         $cor = $_POST['cor'];
+                         $id_cor = $_POST['cor'];
                          $valor = formataMoney($_POST['valor']);
                          $data_compra = $_POST['data_compra'];
                          $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;
                            if($seguro == 1){                      
                             
-                              $data_ini_seg = $_POST['data_ini_seg'];
+                             $data_ini_seg = $_POST['data_ini_seg'];
                              $data_fim_seg = $_POST['data_fim_seg'];
                            }else{
                               $data_ini_seg = "0000-00-00";
@@ -498,8 +498,10 @@ function verificaValor($valor){
                            
                           
                           $veiculo = new Veiculo();
-                          $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
-                          
+                         
+                         
+                          $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $id_marca, $modelo, $ano, $id_cor, $valor, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
+                          print_r($veiculo);
                           if($veiculo->add_veiculo_bd()){
                             echo '<div class="msg" style="float: left;">Veiculo adicionado com sucesso !</div>';
                             echo '<script>alert("Veículo adicionado com sucesso!")</script>';

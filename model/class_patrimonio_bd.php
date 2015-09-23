@@ -10,43 +10,44 @@ include_once("../model/class_veiculo_bd.php");
 include_once("../model/class_cor_bd.php");
 include_once("../model/class_marca_bd.php");
 include_once("../model/class_patrimonio_geral_bd.php");
+
 class Patrimonio{
-	public $id;
-	public $id_custo;
-	public $id_grupo;		
-	public $id_responsavel;
-	public $id_fornecedor;
-	public $id_empresa;	
-	public $valor_compra;
-	public $nome;
-	public $descricao;
-
-	public function add_patrimonio($id_custo, $id_grupo, $id_responsavel, $id_fornecedor, $id_empresa, $valor_compra, $nome, $descricao){
-		
-		$this->id_custo = $id_custo;
-		$this->id_grupo = $id_grupo;		
-		$this->id_responsavel = $id_responsavel;
-		$this->id_fornecedor = $id_fornecedor;
-		$this->id_empresa = $id_empresa;		
-		$this->valor_compra = $valor_compra;
-		$this->nome = $nome;
-		$this->descricao = $descricao;
-	}
-	
-	public function add_patrimonio_bd(){
-		$sql = new Sql();
-		$sql->conn_bd();
-		$g = new Glob();
-
-		$query = "INSERT INTO patrimonio (id_custo, id_grupo, id_responsavel, id_fornecedor, id_empresa, valor_compra, nome, descricao)
-									VALUES ( '%s',		'%s',	'%s',			'%s',			'%s',		'%s',	    '%s',	    '%s' )";
-
-		if($g->tratar_query($query, $this->id_custo, $this->id_grupo, $this->id_responsavel, $this->id_fornecedor, $this->id_empresa, $this->valor_compra, $this->nome, $this->descricao)){
-			return true; 
-		}else{
-			return false;
-		} 
-	}
+//	public $id;
+//	public $id_custo;
+//	public $id_grupo;		
+//	public $id_responsavel;
+//	public $id_fornecedor;
+//	public $id_empresa;	
+//	public $valor_compra;
+//	public $nome;
+//	public $descricao;
+//	public function add_patrimonio($id_custo, $id_grupo, $id_responsavel, $id_fornecedor, $id_empresa, $valor_compra, $nome, $descricao){
+//		
+//		$this->id_custo = $id_custo;
+//		$this->id_grupo = $id_grupo;		
+//		$this->id_responsavel = $id_responsavel;
+//		$this->id_fornecedor = $id_fornecedor;
+//		$this->id_empresa = $id_empresa;		
+//		$this->valor_compra = $valor_compra;
+//		$this->nome = $nome;
+//		$this->descricao = $descricao;
+//	}
+//	
+//	public function add_patrimonio_bd(){
+//		$sql = new Sql();
+//		$sql->conn_bd();
+//		$g = new Glob();
+//
+//		$query = "INSERT INTO patrimonio (id_custo, id_grupo, id_responsavel, id_fornecedor, id_empresa, valor_compra, nome, descricao)
+//									VALUES ( '%s',		'%s',	'%s',			'%s',			'%s',		'%s',	    '%s',	    '%s' )";
+//
+//		if($g->tratar_query($query, $this->id_custo, $this->id_grupo, $this->id_responsavel, $this->id_fornecedor, $this->id_empresa, $this->valor_compra, $this->nome, $this->descricao)){
+//			return true; 
+//		}else{
+//			return false;
+//		} 
+//	}
+        
 	public function get_all_patrimonio($modelo){
         $sql = new Sql();
         $sql->conn_bd();
@@ -69,8 +70,6 @@ class Patrimonio{
 	          $return[$aux][2] = $result['fabricante'];
 	          $return[$aux][3] = $result['controle'];
 	          $return[$aux][4] = $result['matricula'];
-
-
 	          $aux++;
         }
        

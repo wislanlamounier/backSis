@@ -34,7 +34,7 @@ class Patrimonio_geral{
 		$sql->conn_bd();
 		$g = new Glob();
 		$query = "INSERT INTO patrimonio_geral (nome, matricula, marca, descricao, quantidade, valor, id_empresa, controle) 
-									VALUES  	( '%s',  '%s',   '%s',   '%s', 	  		'%s',	'%s',		'%s',  '0')";
+                                        VALUES  	( '%s',  '%s',   '%s',   '%s',      '%s',	'%s',	'%s',       '0')";
 
 		if($g->tratar_query($query, $this->nome, $this->matricula, $this->marca, $this->descricao, $this->quantidade, $this->valor, $this->id_empresa)){
 				return true; 
