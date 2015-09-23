@@ -390,7 +390,7 @@ function buscar_cidades(){
                      <tr> <td><span>Nome Fantasia:</span></td> <td><input style="width:100%" type="text" id="nome_fantasia" name="nome_fantasia"  value="<?php echo $empresa->nome_fantasia; ?>"></td></tr> <!-- CPF -->
                      <tr> <td><span>CNPJ:</span></td> <td><input style="width:100%" type="text" id="cnpj" name="cnpj"value="<?php echo $empresa->cnpj; ?>"></td></tr> <!-- RG -->
                      <tr> <td><span>Inscrição Estadual:</span></td> <td colspan="3"><input style="width:100%" type="text" id="inscricao_estadual" name="inscricao_estadual" value="<?php echo $empresa->ins_estadual; ?>" > </td></tr> <!-- data de emissão do rg -->
-                     <tr> <td><span>Inscricao Municipal:</span></td> <td colspan="3"><input style="width:100%" type="text" id="inscricao_municipal" name="inscricao_municipal" value="<?php echo $empresa->ins_municipal; ?>"> </td></tr> <!-- Numero do titulo eleitoral -->
+                     <tr> <td><span>Inscrição Municipal:</span></td> <td colspan="3"><input style="width:100%" type="text" id="inscricao_municipal" name="inscricao_municipal" value="<?php echo $empresa->ins_municipal; ?>"> </td></tr> <!-- Numero do titulo eleitoral -->
                      <tr> <td><span>Telefone:</span></td> <td><input style="width:100%" type="text" id="tel" name="tel" value="<?php echo $empresa->telefone; ?>"></td></tr>
                      <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
                      <tr><td> <span>Rua: </span></td><td colspan="3"><input style="width:100%" value="<?php echo $endereco[0][0]; ?>" type="text" id="rua" name="rua" > </td></tr>
@@ -457,7 +457,7 @@ function buscar_cidades(){
                      <tr> <td><span>Razão Social:</span></td> <td colspan="3"><input style="width:100%" type="text" id="razao_social" name="razao_social"  ></td></tr> <!-- nome -->
                      <tr> <td><span>Nome Fantasia:</span></td> <td colspan="3"><input style="width:100%" type="text" id="nome_fantasia" name="nome_fantasia"></td></tr> <!-- CPF -->
                      <tr> <td><span>CNPJ:</span></td> <td><input style="width:100%" type="text" id="cnpj" name="cnpj"></td></tr> <!-- RG -->
-                     <tr> <td><span>Inscrição Estadual:</span></td> <td ><input style="width:100%; text-transform:uppercase;"  type="text" id="inscricao_estadual" name="inscricao_estadual"> </td><td><span>Inscricao Municipal:</span></td> <td><input style="width:100%; text-transform:uppercase; padding-left:-30px;" type="text" id="inscricao_municipal" name="inscricao_municipal" ></td></tr> <!-- data de emissão do rg -->
+                     <tr> <td><span>Inscrição Estadual:</span></td> <td ><input style="width:100%; text-transform:uppercase;"  type="text" id="inscricao_estadual" name="inscricao_estadual"> </td><td><span>Inscrição Municipal:</span></td> <td><input style="width:100%; text-transform:uppercase; padding-left:-30px;" type="text" id="inscricao_municipal" name="inscricao_municipal" ></td></tr> <!-- data de emissão do rg -->
                      <tr> </tr> <!-- Numero do titulo eleitoral -->
                      <tr> <td><span>Telefone:</span></td><td ><input style="width:100%" type="text" id="tel" name="tel"></td></tr>
                      <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
