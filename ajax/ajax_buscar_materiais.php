@@ -25,15 +25,16 @@ include_once("../model/class_unidade_medida_bd.php");
 					$res = Material::get_material_id($id_material[0]);
 					$uni = new Unidade_medida();
 					$uni = $uni->get_unidade_medida_by_id($res->id_unidade_medida);
-				}else if($id_material[1] == 'p')// buscar produtos
+				}else if($id_material[1] == 'p'){// buscar produtos
 					$res = Produto::get_produto_id($id_material[0]);
+				}
               	
               	if($aux%2==0)// para tabela ficar zebrada
 			               echo '<tr style="background-color:#ccc;">';
 			        else
 			               echo '<tr style="background-color:#ddd;">';
 
-              	echo '<td >'.$res->nome.'</td><td>'.$materiais[$aux][2].' '.$uni->sigla.'</td></tr>';
+              	echo '<td >'.$res->nome.'</td><td>'.$materiais[$aux][2].' '.( isset($uni) ?$uni->sigla:'').'</td></tr>';
               }
         echo '<tr><td colspan="2"><input onclick="fechar()" type="button"  class="button" value="Concluir" ></td></tr>
             </table>

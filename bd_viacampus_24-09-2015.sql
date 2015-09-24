@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 24-Set-2015 às 19:12
+-- Generation Time: 24-Set-2015 às 21:24
 -- Versão do servidor: 5.6.25
 -- PHP Version: 5.6.11
 
@@ -6089,7 +6089,7 @@ CREATE TABLE IF NOT EXISTS `maquinario` (
 --
 
 INSERT INTO `maquinario` (`id`, `matricula`, `chassi_nserie`, `fabricante`, `modelo`, `id_cor`, `tipo_consumo`, `ano`, `data_compra`, `seguro`, `data_ini_seg`, `data_fim_seg`, `valor`, `horimetro_inicial`, `observacao`, `id_fornecedor`, `id_empresa`, `id_responsavel`, `oculto`, `controle`, `ativo`) VALUES
-(1, 'LB 16', '13352151', 'Liebherr', 'LB 16 Liebherr', 7, 'Combustivel', 2015, '2015-09-24', 0, '0000-00-00', '0000-00-00', 1200300, 160, 'A LB 16 Liebherr foi concebida como máquina rotativa para grandes perfurações. Podem ser executados todos os procedimentos usuais de perfuração. Incluindo a furação Kelly, perfuração sem fim com caracol, ferramente de remoção parcial ou integral, furação ', 1, 5, 4, 0, 1, 0);
+(1, 'LB 16', '13352151', 'Liebherr', 'LB 16 Liebherr', 7, 'Combustivel', 2015, '2015-09-24', 0, '0000-00-00', '0000-00-00', 1200300, 160, 'A LB 16 Liebherr foi concebida como máquina rotativa para grandes perfurações. Podem ser executados todos os procedimentos usuais de perfuração. Incluindo a furação Kelly, perfuração sem fim com caracol, ferramente de remoção parcial ou integral, furação ', 1, 5, 5, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -6365,7 +6365,7 @@ CREATE TABLE IF NOT EXISTS `produtos` (
 
 INSERT INTO `produtos` (`id`, `nome`, `id_empresa`, `tempo_estimado_conclusao`) VALUES
 (13, 'Parede', 3, 0),
-(14, 'Estaca 0,30 x 0,50', 5, 0),
+(14, 'Estaca 0,30 x 5,0', 5, 0),
 (15, 'Estaca 0,30 x 8,80', 5, 0),
 (16, 'Estaca 0,30 x 4,0', 5, 0),
 (17, 'Bloco 1', 5, 0),
@@ -6383,7 +6383,7 @@ CREATE TABLE IF NOT EXISTS `produto_materiais` (
   `id_produto` int(11) NOT NULL,
   `id_material` varchar(55) NOT NULL COMMENT 'materiais é cadastrado m:id produto é cadastrado p:id porque o prduto tambem pode ser um material',
   `quantidade` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `produto_materiais`
@@ -6395,11 +6395,6 @@ INSERT INTO `produto_materiais` (`id`, `id_produto`, `id_material`, `quantidade`
 (107, 13, '9:m', 3),
 (108, 13, '11:m', 10),
 (109, 13, '5:m', 33),
-(110, 14, '16:m', 50),
-(111, 14, '17:m', 5),
-(112, 14, '33:m', 15),
-(113, 14, '18:m', 1),
-(114, 14, '21:m', 1),
 (115, 15, '17:m', 8),
 (116, 15, '21:m', 1),
 (117, 15, '16:m', 80),
@@ -6409,8 +6404,14 @@ INSERT INTO `produto_materiais` (`id`, `id_produto`, `id_material`, `quantidade`
 (121, 16, '18:m', 2),
 (122, 16, '33:m', 20),
 (123, 17, '14:p', 4),
-(124, 18, '15:p', 4),
-(125, 19, '16:p', 4);
+(125, 19, '16:p', 4),
+(126, 14, '16:m', 50),
+(127, 14, '17:m', 5),
+(128, 14, '33:m', 15),
+(129, 14, '18:m', 1),
+(130, 14, '21:m', 1),
+(131, 18, '15:p', 2),
+(132, 18, '14:p', 2);
 
 -- --------------------------------------------------------
 
@@ -6532,7 +6533,7 @@ CREATE TABLE IF NOT EXISTS `veiculo` (
 INSERT INTO `veiculo` (`id`, `matricula`, `chassi`, `renavam`, `placa`, `id_marca`, `modelo`, `ano`, `id_cor`, `valor`, `data_compra`, `data_ini_seg`, `data_fim_seg`, `seguro`, `km_inicial`, `tipo_combustivel`, `id_empresa`, `id_fornecedor`, `id_responsavel`, `oculto`, `ativo`, `controle`) VALUES
 (1, '132132135', '31351531', 131351, '3513513', 8, '1231351', 2014, 1, 150000, '2015-09-01', '0000-00-00', '0000-00-00', 0, 0, 'Gasolina', 4, 1, 2, 0, 0, 2),
 (2, '12312', '132123123132', 31321321, 'aaa-1234', 7, '1321321321', 2015, 5, 1231.51, '2015-09-02', '2015-09-09', '0000-00-00', 1, 123123, 'Gasolina', 4, 1, 2, 0, 0, 2),
-(3, 'R-01', '1511256541', 1231513, 'aaa-1321', 5, 'Retroescavadeira', 2011, 7, 152000, '2015-09-01', '0000-00-00', '0000-00-00', 0, 0, 'Gasolina', 5, 1, 5, 0, 0, 2);
+(3, 'R-01', '1511256541', 1231513, 'aaa-1321', 5, 'Retroescavadeira', 2011, 7, 152000, '2015-09-01', '0000-00-00', '0000-00-00', 0, 0, 'Gasolina', 5, 1, 4, 0, 0, 2);
 
 --
 -- Indexes for dumped tables
@@ -6976,7 +6977,7 @@ ALTER TABLE `produtos`
 -- AUTO_INCREMENT for table `produto_materiais`
 --
 ALTER TABLE `produto_materiais`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=126;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=133;
 --
 -- AUTO_INCREMENT for table `tipo_manutencao`
 --

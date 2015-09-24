@@ -600,8 +600,7 @@ h2{
 }
 .title-bloco{
 	background-color: rgba(0,100,0,0.5);
-	padding: 5px;
-
+	float:left; width:100%; padding: 0
 }
 .desc-bloco{
 	padding: 10px 0px 10px 0px;
@@ -663,12 +662,10 @@ h2{
 	float: left;
 }
 .ativo{
-	
 	background-color: rgba(0,100,0,0.5);
 	height: 30px;
 }
 .inativo{
-	
 	background-color: rgba(150,100,0,0.5);
 	height: 30px;
 }
@@ -677,6 +674,25 @@ h2{
 }
 
 /********************************* FIM ADD_OBRA**********************************/
+
+/********************************* MENU ADD_OBRA ****************************************************/
+.menu_obra{
+	list-style: none;
+}
+.menu_obra li{
+	display: inline;
+	margin-top: -16px;
+	float: left;	
+	padding: 10px;
+	height: 17px;
+	
+}
+
+.ativo a{
+	color: #000;
+	text-shadow: 0px 0px 1px #000;
+}
+/********************************* FIM MENU ADD_OBRA ************************************************/
 
 /********************************* começo pesquisar **********************************/
 .expand{
@@ -728,8 +744,6 @@ h2{
 	border: 2px solid#EBCCFF;
 }
 /********************************* FIM PESQUISAR PESQUISAR_FUNC**********************************/
-
-
 
 
 
