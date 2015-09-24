@@ -501,7 +501,7 @@ function verificaValor($valor){
                          
                          
                           $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $id_marca, $modelo, $ano, $id_cor, $valor, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
-                          print_r($veiculo);
+                          
                           if($veiculo->add_veiculo_bd()){
                             echo '<div class="msg" style="float: left;">Veiculo adicionado com sucesso !</div>';
                             echo '<script>alert("Veículo adicionado com sucesso!")</script>';
