@@ -744,6 +744,39 @@ h2{
 	border: 2px solid#EBCCFF;
 }
 /********************************* FIM PESQUISAR PESQUISAR_FUNC**********************************/
+/********************************* UNIDADE DE MEDIDA**********************************/
+
+.opcoes-unidade-medida{
+        
+        width: 100%;
+        float: left;
+        
+}
+.nova_unidade{
+        
+        width: 48%;
+        float: left;
+        padding-bottom:  20px;
+        margin-top:20px;
+}
+.editar_unidade{
+        
+        width: 48%;
+        float: left;
+        padding-bottom:  20px;
+        margin-top:20px;
+}
+/*.ocultar-opcoes-unidade{
+        margin-left: 40px;
+        
+}*/
+.atributos-novo{
+        float:left;
+       
+}
+
+
+<<<<<<< HEAD
 
 
 
@@ -756,6 +789,10 @@ h2{
 
 
 
-
-
-
+=======
+.atributos-novo span{
+        width: 80px;
+        float:left;
+}
+/********************************* FIM UNIDADE DE MEDIDA**********************************/
+>>>>>>> 783d7d7284e108e182d5893f586ef9467850623d
