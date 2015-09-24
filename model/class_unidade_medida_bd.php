@@ -12,11 +12,31 @@ class Unidade_medida{
 	
 
 
-	public function add_unidade_medida($nome)
+	public function add_unidade_medida($nome,$grandeza,$sigla)
 	{		
 		$this->nome = $nome;	
 		$this->grandeza = $grandeza;
 		$this->sigla = $sigla;
+                return true;
+	}
+        public function add_unidade_medida_bd(){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$query = "INSERT INTO unidade_medida (nome, grandeza, sigla) VALUES ('%s','%s','%s')";
+
+		$result = $g->tratar_query($query, $this->nome, $this->grandeza, $this->sigla); //inserindo no banco de dados
+		
+		$query = "SELECT * FROM unidade_medida order by id desc";
+		$result = $g->tratar_query($query); //pegando id da ultima insersão
+		 
+		 if(@mysql_num_rows($result) == 0){
+            return false;
+	     }else{
+	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	     	$id = $row['id'];
+	     	return $id;
+	     }
 	}
 	
 
