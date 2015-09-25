@@ -159,8 +159,8 @@ include_once("../model/class_sql.php");
                 
                   <div class="title-box"><div style="float:left"><img src="../images/config.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Configurações</span></div></div>
                   
-                  <div style="float:left; width: 100%; margin-top:20px; padding-top: 5px; padding-bottom: 5px; text-align: center; background:url(../images/footer_lodyas.png); " ><span style="color: #ddd;" class="title">PONTO</span></div>
-                  <div style="float:left">
+                  <div style="float:left; width: 100%; margin-top:20px; padding-top: 5px; padding-bottom: 5px; text-align: center; background:url(../images/footer_lodyas.png); " ><span style="color: #ddd;" class="title">PONTO</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="mostraTabela1('ponto')" ></div>
+                  <div id="ponto" hidden="on" style="float:left">
                   <form method="POST" action="configuracoes.php">
                       <table border="0">
                           <tr>
