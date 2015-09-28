@@ -54,8 +54,47 @@ class Unidade_medida{
 		}
 		return $return;
 	}
+         
+         
+        public function get_unidade_medida_by_nome($nome){
+             $sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$aux=0;
+		$query = "SELECT * FROM unidade_medida WHERE oculto = '0' && nome LIKE '%%%s%%'";
+		$query_tra = $g->tratar_query($query, $nome);
 
-	public function get_unidade_medida_by_id($id){
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['nome'];
+			$return[$aux][2] = $result['sigla'];
+                        $return[$aux][3] = $result['grandeza'];
+			$aux++;
+		}
+		if($aux == 0){
+			$sql->close_conn();
+			echo '<div class="msg">Nenhum  encontrado!</div>';
+		}else{
+			$sql->close_conn();
+			return $return;
+		}
+	}
+        
+        public function atualiza_unidade_medida($nome, $grandeza, $sigla,$id){
+       $sql = new Sql();
+        $sql->conn_bd();
+        $g = new Glob();
+
+        $query = "UPDATE unidade_medida SET nome = '%s', grandeza = '%s', sigla ='%s' WHERE id = '%s'";
+
+        if($g->tratar_query($query, $nome, $grandeza, $sigla, $id)){
+            return true;
+            }else{
+          return false;
+             }
+         }
+    
+        public function get_unidade_medida_by_id($id){
 		 $sql = new Sql();
 		 $sql->conn_bd();
 		 $g = new Glob();
@@ -70,13 +109,19 @@ class Unidade_medida{
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
 	     	$this->id= $row['id'];
 	     	$this->nome= $row['nome'];
-			$this->sigla= $row['sigla'];
-		
-	     	
+		$this->sigla= $row['sigla'];
 	     	return $this;
 	     }
-	}	
+	}
+        
+        public function ocultar_unidade_medida($id){
+            $sql = new Sql();
+            $sql->conn_bd();
+            $g = new Glob();
+            $query = "UPDATE unidade_medida SET oculto = 1 WHERE id = '%s'";
+            $result = $g->tratar_query($query, $id);
+            
+        }
 
-	
 	}
  ?>

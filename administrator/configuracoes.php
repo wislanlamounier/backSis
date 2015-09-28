@@ -43,7 +43,9 @@ include_once("../model/class_sql.php");
 
 <head>
      <title>Configurações</title>
+    
      <meta charset="UTF-8">
+      <script src="../javascript/angular.min.js" type="text/javascript"></script>
      <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
    <link rel="stylesheet" type="text/css" href="style.css">   
      <link href='http://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
@@ -51,6 +53,38 @@ include_once("../model/class_sql.php");
 </head>
  <script type="text/javascript">
      
+    function confirma(teste){
+        data = teste.split(" ");
+        alert(id = data[0]);
+        alert(nome = data[1]);
+        alert(pesq = data[2]);
+        
+        
+       if(confirm("Excluir unidade "+nome+" , tem certeza?") ){
+          var url = '../ajax/ajax_excluir_unidade_medida.php?id='+id+'&nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
+          
+          $.get(url, function(dataReturn) {
+            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+            window.location.href='configuracoes.php?nome='+pesq;
+          });
+       }
+    }
+   
+    function busca(){
+        
+       if(document.getElementById('nome_e').value !=0 ){
+           var nome = document.getElementById('nome_e').value;
+         
+       }
+       window.location = 'configuracoes.php?nome='+nome;
+
+    }
+    function atualizar(unidade){
+        data = unidade.split(" ");
+       
+        alert("A unidade de medida "+ data[1] +" será alterada");
+               
+    }
     function valida(f){ 
       var erros=0;   
       for(i=0; i<f.length; i++){
@@ -87,6 +121,16 @@ include_once("../model/class_sql.php");
 
    }
      
+     function hideall(x){
+            if(document.getElementById(x).hidden == true){
+                document.getElementById(x).hidden = false;
+            }else{
+                document.getElementById(x).hidden = true;
+                document.getElementById(1).hidden = true;
+                document.getElementById(2).hidden = true;
+            }
+          
+     }
      
      function mostraTabela1(x){
         
@@ -94,6 +138,7 @@ include_once("../model/class_sql.php");
             if(document.getElementById(2).hidden == false){
                 document.getElementById(2).hidden = true;
             }
+            
             
             if(document.getElementById(x).hidden == true){
                 document.getElementById(x).hidden = false;
@@ -148,14 +193,7 @@ include_once("../model/class_sql.php");
 
             <?php include_once("../view/topo.php"); ?>
             <div class="formulario" >
-                <div>
-                  <?php 
-                    if(validate()){
-                         $config = new Config();
-                         $config->atualizaTempLimitAtraso($_POST['temp_limit_atraso']);
-                      }
-                   ?>
-                </div>
+               
                 
                   <div class="title-box"><div style="float:left"><img src="../images/config.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Configurações</span></div></div>
                   
@@ -175,6 +213,16 @@ include_once("../model/class_sql.php");
                       
                     </table>
                   </form>
+                       <div>
+                  <?php 
+                    if(validate()){
+                         $config = new Config();
+                         $config->atualizaTempLimitAtraso($_POST['temp_limit_atraso']);
+                         
+                      }
+                   ?>
+                </div>
+                      
                  </div>
                   <?php include_once("../view/unidade_medida.php")?>      
                 
