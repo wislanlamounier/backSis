@@ -962,6 +962,11 @@ function verificaValor($valor){
                          
                           $maquinario = new Maquinario();
                           $maquinario = $maquinario->get_maquinario_id($_GET['id']);
+                          
+                          $funcionario = new Funcionario();
+                          $funcionario = $funcionario->get_func_id($maquinario->id_responsavel);
+                          
+                          
                        ?>
                     <div class="formulario">
                       <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
@@ -1063,7 +1068,7 @@ function verificaValor($valor){
                               <td colspan="2">
                                  <div id="load_responsavel">
                                    <select name="responsavel" id="responsavel" style="width:100%">
-                                     <option value="no_sel">Selecione um Responsável</option>
+                                     <option value="<?php $maquinario->id_responsavel ?>"><?php echo $funcionario->nome; ?></option>
                                    </select>
                                    <?php echo "<script> buscar_responsavel() </script>";  ?>
                                  </div>

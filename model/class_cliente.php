@@ -355,10 +355,10 @@ class Cliente {
 
 		$endereco = new Endereco();
 		$endereco = $endereco->get_endereco_id($this->id_endereco);
-        $empresa = new Empresa();
-        $empresa = $empresa->get_empresa_by_id($this->id_empresa);
-        $cidade = new Cidade();
-        $cidade = $cidade->get_city_by_id($endereco->id_cidade);
+                $empresa = new Empresa();
+                $empresa = $empresa->get_empresa_by_id($this->id_empresa);
+                $cidade = new Cidade();
+                $cidade = $cidade->get_city_by_id($endereco->id_cidade);
 	
 		$texto ="";
 		$texto .= "<table class='table_pesquisa'><tr>";
@@ -386,7 +386,7 @@ class Cliente {
 		$texto .= "<td><span><b>Site: </b></span></td><td><span>".$this->site."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
-		$texto .= "<td><span><b>Data de Fundação: </b></span></td><td><span>".$this->data_nasc."</span></td>";
+		$texto .= "<td><span><b>Data de Fundação: </b></span></td><td><span>".$this->data_nasc_data_fund."</span></td>";
 		$texto .= "</tr>";		
 		$texto .= "<tr>";
 		$texto .= "<td><span><b>Rua: </b></span></td><td><span>".$endereco->rua."</span></td>";

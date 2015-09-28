@@ -35,7 +35,6 @@ require_once("../model/class_cidade_bd.php");
 		if(isset($_POST['data_nasc'])){return true;}else{return false;}
 		if(isset($_POST['cpf'])){return true;}else{return false;}
 		if(isset($_POST['tel'])){return true;}else{return false;}
-		if(isset($_POST['cel'])){return true;}else{return false;}
 		if(isset($_POST['bairro'])){return true;}else{return false;}
 		if(isset($_POST['rua'])){return true;}else{return false;}
 		if(isset($_POST['numero'])){return true;}else{return false;}
@@ -156,15 +155,7 @@ require_once("../model/class_cidade_bd.php");
 		            }
 	         	}
 
-	         	if(f[i].name == "cel"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-
+	         	
 	         	if(f[i].name == "tel"){
 		            if(f[i].value == ""){
 		               f[i].style.border = "1px solid #FF0000";
