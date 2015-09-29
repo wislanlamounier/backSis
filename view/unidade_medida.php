@@ -9,10 +9,10 @@
        <div id="1" hidden="on">
            <form method="POST" action="configuracoes.php" onsubmit="return valida(this)">
                <input type="hidden" value="cadastrar" name="cadastrar" id="cadastrar">
-               <div class="atributos-novo"><span><b>Nome: </b></span><input style="background-color:#ddd;" type="text" name="nome" id="nome"></div>
-               <div class="atributos-novo"><span><b>Grandeza: </b></span><input style="background-color:#ddd;" type="text" name="grandeza" id="grandeza"></div>
-               <div class="atributos-novo"><span><b>Sigla: </b></span><input style="background-color:#ddd; width: 50px;" type="text" name="sigla" id="sigla" style="width:45px;"></div>
-               <div  style="margin-top:20px; margin-left: 25%; float:left;"><input type="submit" class="button" value="Salvar"><input type="button" class="button" value="Cancelar"> </div>
+               <div class="atributos-novo"><span><b>Nome: </b></span><input style="background-color:#ddd; margin-bottom: 5px; box-shadow: 2px 2px 3px #666;" type="text" name="nome" id="nome"></div>
+               <div class="atributos-novo"><span><b>Grandeza: </b></span><input style="background-color:#ddd; margin-bottom: 5px; box-shadow: 2px 2px 3px #666;" type="text" name="grandeza" id="grandeza"></div>
+               <div class="atributos-novo"><span><b>Sigla: </b></span><input style="background-color:#ddd; width: 50px; box-shadow: 2px 2px 3px #666;" type="text" name="sigla" id="sigla" style="width:45px;"></div>
+               <div style="margin-top:20px; margin-left: 25%; float:left;"><input type="submit" class="button" value="Salvar"><input type="button" class="button" value="Cancelar"> </div>
            </form>
             <?php 
             if(isset($_POST['cadastrar']) && $_POST['cadastrar'] == "cadastrar" ){
@@ -36,7 +36,7 @@
         <div id="2" hidden="on">
            <form method="POST" action="configuracoes.php">
                <input type="hidden" value="editar" name="editar" id="editar" >
-               <div class="atributos-novo" style="" ><span><b>Nome: </b></span><input style="background-color:#ddd;" type="text" name="nome_e" id="nome_e"><input type="button" class="button" value="Buscar" onclick="busca()"></div>
+               <div class="atributos-novo" ><span><b>Nome: </b></span><input style="background-color:#ddd; padding-top: 6px;  box-shadow: 2px 2px 3px #666;" type="text" name="nome_e" id="nome_e"><input  style="margin-left: 10px;"type="button" class="button" value="Buscar" onclick="busca()"></div>
                
            </form>
             
@@ -81,6 +81,9 @@
                         
                     <?php 
                     if(isset($result)){
+                        
+                    echo "<div class='box-titulo'><span class='titulo'>Nome</span> <span class='titulo' >Grandeza</span><span class='titulo'>Sigla</span></div>";
+                    
                     foreach ($result as $key => $value) {
                       
                     $id = $value[0];
@@ -91,15 +94,17 @@
                         
                         <div style="margin-top:20px; padding-bottom:20px;">
                             <form method="POST" id="" >
-                             
-                            
                             <input type="hidden" id="editar" name="editar" value="editar" >    
                             <input type="hidden" id="id" name="id" value="<?php echo $id ?>" >
-                            <span  style="float:left; padding-right: 10px;">Nome</span>                          <input style="float:left; padding-right: 10px; width: 22%; background-color: #ddd; border:0" type="text" name="nome"value="<?php echo $nome ?>" id="<?php echo $nome ?>">
-                            <span  style="float:left; padding-left: 10px; padding-right: 10px;">Grandeza</span>  <input style="float:left; width: 23%;  background-color: #ddd; border:0" type="text" name="grandeza"                value="<?php echo $grandeza ?>" id="<?php echo $grandeza ?>">
-                            <span  style="float:left; padding-right: 10px; padding-left: 10px; ">Sigla</span>    <input style="float:left; width: 8%;  background-color: #ddd; border:0"type="text"   name="sigla"                   value="<?php echo $sigla ?>" id="<?php echo $sigla ?>">
-                            <input style="float:right; background-color: rgba(100,100,100,0.1); background-image: url('../images/revoke.png'); width: 26px; background-repeat: no-repeat;" value=""  type="submit" onclick="confirma('<?php echo $id." ".$nome." ".$_GET['nome']; ?>')">
-                            <input style="float:right; margin-left: 1px; margin-right: 1px; background-color: rgba(100,100,100,0.1); background-image: url('../images/apply.png'); width: 26px; background-repeat: no-repeat;" value=""  type="submit" onclick="atualizar('<?php echo $id." ".$nome." ".$grandeza." ".$sigla; ?>')">
+                            <div class="tabela-unidades">
+                            <input class="tabela-unidades-nome"     type="text" name="nome"                      value="<?php echo $nome ?>" id="<?php echo $nome ?>">
+                            <input class="tabela-unidades-grandeza" type="text" name="grandeza"                 value="<?php echo $grandeza ?>" id="<?php echo $grandeza ?>">
+                            <input class="tabela-unidades-sigla"    type="text" name="sigla"                  value="<?php echo $sigla ?>" id="<?php echo $sigla ?>">
+                           
+
+                           
+                            <input class="button-tabela-unidade-deletar"  value=""  type="submit" onclick="confirma('<?php echo $id." ".$nome." ".$_GET['nome']; ?>')">
+                            <input class="button-tabela-unidade-salvar"   value=""  type="submit" onclick="atualizar('<?php echo $id." ".$nome." ".$grandeza." ".$sigla; ?>')">
                             </form>
                            
                         </div>

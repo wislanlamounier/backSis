@@ -177,7 +177,7 @@ class Patrimonio{
 
 		$result=$patrimonio->buscaPatrimonio($id,$controle);
 
-		if($result[3]==2){
+		if($result[3]== 2){
 
 			$veiculo = new Veiculo();
 			$veiculo = $veiculo->get_veiculo_id($id);
@@ -186,16 +186,16 @@ class Patrimonio{
 			$cliente = $cliente->get_cli_by_id($veiculo->id_fornecedor);
 
 			$func = new Funcionario();
-      		$func = $func->get_nome_by_id($veiculo->id_responsavel); 
+                        $func = $func->get_nome_by_id($veiculo->id_responsavel); 
 
-      		$empresa = new Empresa();
-      		$empresa = $empresa->get_empresa_by_id($veiculo->id_empresa);
+                        $empresa = new Empresa();
+                        $empresa = $empresa->get_empresa_by_id($veiculo->id_empresa);
 
-      		$cor = new Cor();
-      		$cor = $cor->get_cor_id($veiculo->id_cor);
+                        $cor = new Cor();
+                        $cor = $cor->get_cor_id($veiculo->id_cor);
 
-      		$marca = new Marca();
-      		$marca = $marca->get_marca_id($veiculo->id_marca);
+                        $marca = new Marca();
+                        $marca = $marca->get_marca_id($veiculo->id_marca);
 			
 			echo "<table class='table_pesquisa'>";
 			echo "<tr><td><span><b>Matricula <b/></span></td><td><span>".$veiculo->matricula."</span></td></tr>";
