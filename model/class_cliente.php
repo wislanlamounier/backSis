@@ -65,7 +65,32 @@ class Cliente {
 			return false;
 		} 
 	}
-	public function get_cli_by_name($name, $tipo){
+        
+	public function get_all_cli($id_empresa){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$aux=0;
+		$query = "SELECT * FROM clientes WHERE id_empresa='%s' && oculto = 0";
+		$query_tra = $g->tratar_query($query, $id_empresa);
+
+		while($result =  mysql_fetch_array($query_tra)){
+			$return[$aux][0] = $result['id'];
+			$return[$aux][1] = $result['nome_razao_soc'];
+                        $return[$aux][2] = $result['tipo'];
+
+			$aux++;
+		}
+		if($aux == 0){
+			$sql->close_conn();
+			echo '<div class="msg">Nenhum cliente encontrado!</div>';
+		}else{
+			$sql->close_conn();
+			return $return;
+		}
+	}        
+        
+	public function get_cli_by_name($name, $tipo ,$id_empresa){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
@@ -295,7 +320,7 @@ class Cliente {
         $g = new Glob();
         $aux=0;
       
-        $query = $g->tratar_query("SELECT * FROM clientes WHERE oculto = 0 & fornecedor = 1");
+        $query = $g->tratar_query("SELECT * FROM clientes WHERE oculto = 0 && id_empresa = ".$_SESSION['id_empresa']."");
 
         while($result = mysql_fetch_array($query)){
           $return[$aux][0] = $result['id'];
@@ -313,7 +338,7 @@ class Cliente {
 
 		 //"SELECT * FROM turno as turno WHERE nome LIKE '%%%s%%' && oculto = 0 && NOT EXISTS (SELECT id FROM funcionario WHERE id_turno = turno.id";
 
-		 $query = mysql_query("SELECT * FROM clientes WHERE oculto = 0 & fornecedor = 1");
+		 $query = mysql_query("SELECT * FROM clientes WHERE oculto = 0 && fornecedor = 1 && id_empresa = ".$_SESSION['id_empresa']."");
 		 
 		 while($result =  mysql_fetch_array($query)){
 		 	$return[$aux][0] = $result['id'];
@@ -321,10 +346,7 @@ class Cliente {
 		 	
 		 	$aux++;
 		 }
-		 // if($aux == 0){
-		 // 	//target="_blank|_self|_parent|_top|framename"
-		 // 	echo '<div class="msg">Nenhum turno encontrado! <a target="_blank" href="add_turno.php"> Cadastre agora</a></div>';
-		 // }
+		
 		 
 		 return $return;
 	}
@@ -334,7 +356,7 @@ class Cliente {
 		 $sql->conn_bd();
 		 $g = new Glob();
 
-		 $query = "SELECT * FROM clientes WHERE id= '%s' && fornecedor = 1 && oculto=0" ;
+		 $query = "SELECT * FROM clientes where id = '%s' && fornecedor = 1 && id_empresa = ".$_SESSION['id_empresa']."" ;
 		 $result = $g->tratar_query($query, $id);
 		 
 		 if(@mysql_num_rows($result) == 0){

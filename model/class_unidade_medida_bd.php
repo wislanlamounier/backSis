@@ -44,12 +44,13 @@ class Unidade_medida{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$aux=0;
-		$query = mysql_query("SELECT * FROM unidade_medida");
+		$query = mysql_query("SELECT * FROM unidade_medida WHERE oculto = '0'");
 
 		while($result = mysql_fetch_array($query)){
 			$return[$aux][0] = $result['id'];
 			$return[$aux][1] = $result['nome'];
 			$return[$aux][2] = $result['sigla'];
+                        $return[$aux][3] = $result['grandeza'];
 			$aux++;
 		}
 		return $return;

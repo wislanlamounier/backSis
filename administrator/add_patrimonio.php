@@ -363,7 +363,7 @@ function verificaValor($valor){
         }
       }
     }
-    function carregaForncedor(fornecedor){
+    function carregaFornecedor(fornecedor){
       
       var combo = document.getElementById("fornecedor");
       for (var i = 0; i < combo.options.length; i++)
@@ -754,7 +754,7 @@ function verificaValor($valor){
                                     <option value="no_sel">Selecione</option>
                                     <?php 
                                        $fornecedor = new Cliente();
-                                       $fornecedor = $fornecedor->get_all_cliente();
+                                       $fornecedor = $fornecedor->get_all_fornecedor();
                                        for ($i=0; $i < count($fornecedor) ; $i++) { 
                                           echo '<option value="'.$fornecedor[$i][0].'">'.$fornecedor[$i][1].'</option>';
                                        }
@@ -884,7 +884,7 @@ function verificaValor($valor){
 			                              <option value="no_sel">Selecione</option>
 			                              <?php 
 			                                 $fornecedor = new Cliente();
-			                                 $fornecedor = $fornecedor->get_all_cliente();
+			                                 $fornecedor = $fornecedor->get_all_fornecedor();
 			                                 for ($i=0; $i < count($fornecedor) ; $i++) { 
 			                                    echo '<option value="'.$fornecedor[$i][0].'">'.$fornecedor[$i][1].'</option>';
 			                                 }
@@ -1040,14 +1040,18 @@ function verificaValor($valor){
                             <td colspan="2">
                                <select id="fornecedor" name="fornecedor"  style="width:100%">
                                   <option value="no_sel">Selecione um Fornecedor</option>
+                                  
                                   <?php 
                                      $fornecedor = new Cliente();
-                                     $fornecedor = $fornecedor->get_all_cliente();
+                                     $fornecedor = $fornecedor->get_all_fornecedor();
+                                     
                                      for ($i=0; $i < count($fornecedor) ; $i++) { 
                                         echo '<option value="'.$fornecedor[$i][0].'">'.$fornecedor[$i][1].'</option>';
                                      }
+                                      
                                      ?>
                                  </select>
+                               
                                  <?php echo "<script> carregaForncedor('".$maquinario->id_fornecedor."') </script>";  ?>
                               </td>
                               </tr>
@@ -1167,13 +1171,13 @@ function verificaValor($valor){
                                     <option value="no_sel">Selecione um Fornecedor</option>
                                     <?php 
                                        $fornecedor = new Cliente();
-                                       $fornecedor = $fornecedor->get_all_cliente();
+                                       $fornecedor = $fornecedor->get_all_fornecedor();
                                        for ($i=0; $i < count($fornecedor) ; $i++) { 
                                           echo '<option value="'.$fornecedor[$i][0].'">'.$fornecedor[$i][1].'</option>';
                                        }
                                      ?>
                                  </select>
-                                 <?php echo "<script> carregaForncedor('".$veiculo->id_fornecedor."') </script>";  ?>
+                                 <?php echo "<script> carregaFornecedor('".$veiculo->id_fornecedor."') </script>";  ?>
                               </td>
                               </tr>
                 

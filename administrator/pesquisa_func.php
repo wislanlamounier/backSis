@@ -29,19 +29,19 @@ include("../model/class_cliente.php");
                                          <table id="table-search">
                                              <tr>                                             
                                                 <td><span>Funcionario Nome: </span></td>
-                                                <td><input style="width:100%" type="text" id="name_search" name="name_search"></td>
+                                                <td><input style="width:100%" type="text" id="name_search" name="name_search" placeholder="Pesquise em branco para todos os registros."></td>
                                                 <td><input type="submit" class="button" value="Buscar"></td>
                                              </tr>
                                           </table>
                                     </form>
                          <?php
 
-                          if(isset($_POST['name_search']) && $_POST['name_search'] != ""){
-                            
-                                $func = new Funcionario();                                
+                          if(isset($_POST['name_search'])){
+                               $func = new Funcionario();    
+                                                  
                                 $funcs = $func->get_func_by_name($_POST['name_search'], $_SESSION['id_empresa']);
                                 
-                               echo '<table class="exibe-pesquisa">';
+                                echo '<table class="exibe-pesquisa">';
                                 echo '<tr><td>ID</td><td>Nome</td></tr>';
                                 $aux = 0;
                                 if(count($funcs)>0)

@@ -31,13 +31,13 @@ include("../model/class_exame_bd.php");
                     <table id="table-search">
                       <tr>
                          <td><span >Exame: </span></td>
-                         <td><input type="text" id="name_search" name="name_search" title="Digite o nome do exame"></td>
+                         <td><input type="text" id="name_search" name="name_search" placeholder="Pesquise em branco para todos os resultados"title="Digite o nome do exame"></td>
                          <td><input type="submit" value="Buscar" class="button"></td>
                       </tr>
                    </table>
                  </form>
           <?php
-                if(isset($_POST['name_search']) && $_POST['name_search'] != ""){
+                if(isset($_POST['name_search'])){
                    $exame = new Exame();
                    $exames = $exame->get_exame_by_desc($_POST['name_search']);
                      echo '<table class="exibe-pesquisa">';

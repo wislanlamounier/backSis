@@ -53,6 +53,13 @@ include_once("config.php");
 </head>
  <script type="text/javascript">
      
+     
+     
+     
+     
+     
+     
+     
     function confirma(teste){
         data = teste.split(" ");
         id = data[0];

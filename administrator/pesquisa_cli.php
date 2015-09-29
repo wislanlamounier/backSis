@@ -37,15 +37,17 @@ include("../model/class_cliente.php");
                                          </td>
                                   </tr>
                                   <tr>
-                                     <td><span>Cliente: </span></td>
-                                     <td><input type="text" id="name_search" name="name_search"></td>
+                                      <td><span><b>Cliente:</b> </span></td>
+                                     <td><input type="text" id="name_search" name="name_search" placeholder="Escolha um tipo e digite o nome, ou pesquise todos em branco."></td>
                                      <td><input type="submit" value="Buscar" class="button"></td>
                                   </tr>
                                  </table>
                            </form>
                     <?php
-
-                     if(isset($_POST['name_search']) && $_POST['name_search'] != ""){
+                    
+                        
+                     if(isset($_POST['name_search'])){
+                            
                            if($_POST['tipo']==0){
                                $cli = new Cliente();
                                $tipo = $_POST['tipo'];
@@ -85,7 +87,30 @@ include("../model/class_cliente.php");
                                  echo '</table>';
                           }
                           if($_POST['tipo']==2){
-                              echo '<div class="msg">Selecione um tipo de cliente</div>';
+                                    if(isset($_POST['name_serach'])== ""){
+                                    $cli = new Cliente();
+                                    $clis = $cli->get_all_cli($_SESSION['id_empresa']);
+                               
+                                    echo '<table class="exibe-pesquisa">';
+                                    $aux = 0;
+                                    if(count($clis)>0)
+                                    foreach($clis as $key => $cli){
+                                    if($clis[$key][2] ==0){
+                                       $verificador = 1;
+                                       }
+                                       if($clis[$key][2] ==1){
+                                       $verificador = 2;    
+                                       } 
+                                  if($aux%2 == 0)
+                                       echo '<tr style="background-color:#bbb">';
+                                  else
+                                      echo '<tr style="background-color:#cbcbcb">';
+                                  echo '<td><a href="pesquisa_cli.php?verificador='.$verificador.'&id='.$clis[$key][0].'">'.$clis[$key][0]." ".$clis[$key][1].'</a></td></tr>';
+                                  $aux++;
+                               }
+                               echo '</table>';
+                               echo '<div class="msg"> Você pode selecionario um tipo de Cliente</div>';
+                             }
                           }
                    }
                    $cli = new Cliente();
