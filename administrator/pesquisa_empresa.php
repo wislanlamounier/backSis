@@ -38,14 +38,17 @@ include_once("../model/class_empresa_bd.php");
                          <table id="table-search">
                            <tr>
                               <td><span >Nome Fantasia: </span></td>
-                              <td><input type="text" id="name_search" name="name_search" title="Digite o código ou a descrição para pesquisar"></td>
+                              <td><input type="text" id="name_search" name="name_search" placeholder="Pesquise em branco para todos os resultados."title="Digite o código ou a descrição para pesquisar"></td>
                               <td><input type="submit" class="button" value="Buscar"></td>
                            </tr>
                         </table>
                       </form>
                <?php
-                     if(isset($_POST['name_search']) && $_POST['name_search'] != ""){
+                     if(isset($_POST['name_search'])){
                         $empresa = new Empresa();
+                        if(isset($_POST['name_search'])==""){
+                            $empresas = $empresa->get_all_empresa();
+                        }
                         $empresas = $empresa->get_empresa_by_nome_fantasia($_POST['name_search']);
                        
                           echo '<table class="exibe-pesquisa">';

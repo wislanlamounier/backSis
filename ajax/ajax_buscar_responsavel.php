@@ -6,7 +6,7 @@ include_once("../model/class_sql.php");
 
 	$empresa = $_GET['empresa'];  //codigo do estado passado por parametro
 
-	$sql = "SELECT * FROM funcionario WHERE id_empresa= $empresa ORDER BY id";  //consulta todas as cidades que possuem o codigo do estado
+	$sql = "SELECT * FROM funcionario WHERE id_empresa = $empresa ORDER BY id";  //consulta todas as cidades que possuem o codigo do estado
 	$res = mysql_query($sql);
 	if($res)
 		$num = mysql_num_rows($res);

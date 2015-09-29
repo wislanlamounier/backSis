@@ -5,8 +5,8 @@ include_once("../model/class_funcionario_bd.php");
 include_once("../model/class_horarios_bd.php");
 include_once("../model/class_turno_bd.php");
 include_once("../model/class_sql.php");
- include_once("../model/class_config.php");
- include_once("config.php");
+include_once("../model/class_config.php");
+include_once("config.php");
 
 
 ?>
@@ -45,19 +45,26 @@ include_once("../model/class_sql.php");
      <title>Configurações</title>
     
      <meta charset="UTF-8">
-      <script src="../javascript/angular.min.js" type="text/javascript"></script>
+     <script src="../javascript/angular.min.js" type="text/javascript"></script>
      <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-   <link rel="stylesheet" type="text/css" href="style.css">   
+     <link rel="stylesheet" type="text/css" href="style.css">   
      <link href='http://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
      <link href='http://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet' type='text/css'>
 </head>
  <script type="text/javascript">
      
+     
+     
+     
+     
+     
+     
+     
     function confirma(teste){
         data = teste.split(" ");
-        alert(id = data[0]);
-        alert(nome = data[1]);
-        alert(pesq = data[2]);
+        id = data[0];
+        nome = data[1];
+        pesq = data[2];
         
         
        if(confirm("Excluir unidade "+nome+" , tem certeza?") ){

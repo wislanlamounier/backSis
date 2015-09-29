@@ -31,13 +31,13 @@ include("../model/class_epi_bd.php");
                        <table id="table-search">
                          <tr>
                             <td><span>Nome: </span></td>
-                            <td><input type="text" id="name_search" name="name_search" title="Digite nome do equipamento queepi deseja pesquisar"></td>
+                            <td><input type="text" id="name_search" placeholder="Pesquise em branco para todos os resultados" name="name_search" title="Digite nome do equipamento queepi deseja pesquisar"></td>
                             <td><input type="submit" value="Buscar" class="button"></td>
                          </tr>
                       </table>
                     </form>
              <?php
-                   if(isset($_POST['name_search']) && $_POST['name_search'] != ""){
+                   if(isset($_POST['name_search'])){
                       $epi = new Epi();
                       $epis = $epi->get_epi_by_name($_POST['name_search']);
                         echo '<table class="exibe-pesquisa">';

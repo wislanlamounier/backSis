@@ -31,15 +31,17 @@ include("../model/class_filial_bd.php");
                     <table id="table-search">
                       <tr>
                          <td><span >Filial: </span></td>
-                         <td><input type="text" id="name_search" name="name_search" title="Digite nome ou CNPJ da filial que deseja pesquisar"></td>
+                         <td><input type="text" placeholder="Pesquise em branco para todos os registros."id="name_search" name="name_search" title="Digite nome ou CNPJ da filial que deseja pesquisar"></td>
                          <td><input type="submit" value="Buscar" class="button"></td>
                       </tr>
                    </table>
                  </form>
           <?php
-                if(isset($_POST['name_search']) && $_POST['name_search'] != ""){
+                if(isset($_POST['name_search'])){
                    $filial = new Filial();
-                   $filiais = $filial->get_filial_by_cnpj_and_nome($_POST['name_search']);
+                   
+                
+                     $filiais = $filial->get_filial_by_cnpj_and_nome($_POST['name_search']);
                      echo '<table class="exibe-pesquisa">';
                      $aux = 0;
                      if(count($filiais)>0)

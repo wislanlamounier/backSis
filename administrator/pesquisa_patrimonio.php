@@ -31,15 +31,21 @@ include("../model/class_patrimonio_bd.php");
                     <table id="table-search">
                       <tr>
                          <td><span >Patrimonio: </span></td>
-                         <td><input type="text" id="name_search" name="name_search" title="Digite qual patrimobio deseja procurar..."></td>
+                         <td><input type="text" id="name_search" name="name_search" title="Digite qual patrimobio deseja procurar..." placeholder="Deixe em branco para pesquisar todos"></td>
                          <td><input type="submit" value="Buscar" class="button"></td>
                       </tr>
                    </table>
                  </form>
           <?php
-                if(isset($_POST['name_search']) && $_POST['name_search'] != ""){
+                if(isset($_POST['name_search'])){
                    $patrimonio = new Patrimonio();
-                   $patrimonios = $patrimonio->get_all_patrimonio($_POST['name_search']);
+                   $patrimonios = $patrimonio->get_all_patrimonio($_POST['name_search'], $_SESSION['id_empresa']);
+                             if($_POST['name_search']==""){
+                                 $patrimonios = $patrimonio->get_all();
+                             }
+                             
+                  
+                           
                    $patrimonios_geral = new Patrimonio_geral();
                    $geral = $patrimonios_geral->get_patrimonio_geral_nome($_POST['name_search']);
                    $aux = 0;
