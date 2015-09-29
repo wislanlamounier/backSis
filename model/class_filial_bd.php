@@ -143,7 +143,7 @@ class Filial{
 		$query = "UPDATE filiais SET oculto = 1 WHERE id = %s";
 		$result = $g->tratar_query($query, $id);
 		if($result){
-			echo '<div class="msg">Filial excluida com sucesso!</div>';
+			return true;
 		}
 	}
 
