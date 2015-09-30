@@ -69,49 +69,47 @@
             
              <?php 
              
-                if(isset($_GET['nome'])){
-                    echo '<script>mostraTabela1("opcoes-unidade-medida")</script>';
-                    echo '<script>mostraTabela1(2)</script>';
-                    $aux = 1;  
-                    $nome =  $_GET['nome'];
-                    $unidade_medida = new Unidade_medida();
+                if(isset($_GET['nome'])){ /* Confere se foi pesquisado algum nome e mostra as tabelas*/
+                    echo '<script>mostraTabela1("opcoes-unidade-medida")</script>'; /* Mostra tabela com opções novo e editar */
+                    echo '<script>mostraTabela1(2)</script>'; /* Mostra tabela com resultados  */
+                     
+                    $nome =  $_GET['nome'];/* Recebe dados por GET */
+                    $unidade_medida = new Unidade_medida();/* Instancia Classe de Unidade de medida */
                     if($nome == "undefined"){
-                        $result = $unidade_medida->get_all_unidade_medida();
+                        $result = $unidade_medida->get_all_unidade_medida(); /* Busca todos as unidades */
                     }else{
-                        $result = $unidade_medida->get_unidade_medida_by_nome($nome);
+                        $result = $unidade_medida->get_unidade_medida_by_nome($nome); /* Busca unidades por nome */
                     }
-                ?>
-                    <div style="float:left; clear:left;">
-                        
-                    <?php 
-                    
-                    
-                    if(isset($result)){
+               
+                    if(count($result)!= 0){
+                        echo "<div class='box-titulo'><span class='titulo'>Nome</span> <span class='titulo' >Grandeza</span><span class='titulo'>Sigla</span></div>";/*Tabela com descricoes */
+                    }
+                    $total = count($result);
+                    if($total > 5){                        
+                       echo '<div class="master">'; /* Se a pesquisa retornar um total maior que 5 mostra com rolagem */
+                    }
+                    if($total < 5){
+                       echo '<div style="padding-top:20px; #666; clear:left; width: 100%;" >'; /* Se a pesquisa retornar  um total menor que 5 mostra sem rolagem */
                        
-                    echo "<div class='box-titulo'><span class='titulo'>Nome</span> <span class='titulo' >Grandeza</span><span class='titulo'>Sigla</span></div>";
-                    
-                    foreach ($result as $key => $value) {
-                      
+                    }               
+                    if(isset($result)){     /*Verifica se retornou resultados*/                   
+    
+                    foreach ($result as $key => $value) { /* foreach para preencher os dados e popular os input */
+                     
+              
                     $id = $value[0];
                     $nome = $value[1];
                     $sigla = $value[2];
                     $grandeza = $value[3];
                     ?>
-                       <?php
-//                        if($key > 5){
-//                            echo "<script>oculta()</script>";
-//                            echo "<input style='margin-top: 10px;' type='button' value'next' onclick'next'>";
-//                            
-//                            
-//                        }
-//                        ?>
-                        <div id="resultados" style="margin-top:20px; padding-bottom:20px;">
+                       
+                        <div id="resultados" style="margin-top:0px; padding-bottom:10px; ">
                             <form method="POST" id="" >
                             <input type="hidden" id="editar" name="editar" value="editar" >    
                             <input type="hidden" id="id" name="id" value="<?php echo $id ?>" >
-                            <div id="tabelaunidades" class="tabela-unidades">
-                            <input class="tabela-unidades-nome"     type="text" name="nome"                      value="<?php echo $nome ?>" id="<?php echo $nome ?>">
-                            <input class="tabela-unidades-grandeza" type="text" name="grandeza"                 value="<?php echo $grandeza ?>" id="<?php echo $grandeza ?>">
+                            <div  class="tabela-unidades">
+                            <input class="tabela-unidades-nome"     type="text" name="nome"                   value="<?php echo $nome ?>" id="<?php echo $nome ?>">
+                            <input class="tabela-unidades-grandeza" type="text" name="grandeza"               value="<?php echo $grandeza ?>" id="<?php echo $grandeza ?>">
                             <input class="tabela-unidades-sigla"    type="text" name="sigla"                  value="<?php echo $sigla ?>" id="<?php echo $sigla ?>">                         
                             <input class="button-tabela-unidade-deletar"  value=""  type="submit" onclick="confirma('<?php echo $id." ".$nome." ".$_GET['nome']; ?>')">
                             <input class="button-tabela-unidade-salvar"   value=""  type="submit" onclick="atualizar('<?php echo $id." ".$nome." ".$grandeza." ".$sigla; ?>')">
