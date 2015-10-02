@@ -21,11 +21,68 @@ function validate(){
 
 <html>
 <head>
-	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-	 <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap"async defer></script> <!-- Linkando para API Google.maps-->
+	<script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 <script type="text/javascript">
+    //FUNÇÕES DO GOOGLE.MAPS API//
+    
+                var map;
+    function initMap() {
+              var zoom = 4; // zoom original para aparecer o mapa longe 
+              var originalMapCenter = new google.maps.LatLng(-14.2392976, -53.1805017) // PONTO iNICIAL COM A LAT E LONG DO BRASIL
+              var lat = document.getElementById('lat').value;  //RECEBE O VALOR DA LAT PELO INPUT
+              var long = document.getElementById('long').value;// RECEBE O VALOR DA LONG PELO INPUT              
+             
+              if(lat != "" && long != ""){
+                
+                var originalMapCenter = new google.maps.LatLng(lat, long);
+                zoom = 16; // RECEBE O ZOOM PARA VIZUALIZAR O MAPA MENOR
+              }
+              var map = new google.maps.Map(document.getElementById('map'),{
+                mapTypeId: google.maps.MapTypeId.SATELLITE,/*ROADMAP*/ // TIPO DE SATELITE
+                scrollwheel: false,
+                zoom: zoom,
+                center: originalMapCenter
+              });
+
+              var infowindow = new google.maps.InfoWindow({
+                content: 'Sua Obra', // MENSSAGEM QUE APARECE NO CENTRO DA TELA
+                position: originalMapCenter
+              });
+              infowindow.open(map);
+
+              map.addListener('zoom_changed', function() {
+                infowindow.setContent('Zoom: ' + map.getZoom());
+              });
+            }
+    function mostraLocal(){ // FUNCAO QUE MOSTRA OCULTA OU MOSTRA A DIV DO MAPA
+        document.getElementById('fundo').hidden = false;
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+        var screenWidth = screen.width;        
+        var screenHeight = screen.height;
+        
+            if(windowWidth > 1200){
+         
+          document.getElementById("map").style.marginLeft = "28%";
+          document.getElementById("map").style.marginTop = "12%";
+           
+            }else if(windowWidth > 1000){
+          document.getElementById("map").style.marginLeft = "10%";
+             }else if(windowWidth > 500){
+          document.getElementById("map").style.marginLeft = "10%";
+             }else{
+          document.getElementById("map").style.marginLeft = "10%";
+        }
+            initMap(); // INICIA O INTMAP DE NOVO POR QUE SE NAO FICA PAGINA EM BRANCO
+     }
+
+    
+    
+    
     function expand(id_obg, id_btn){
         if(document.getElementById(id_obg).className == 'form-input colapse'){
             // document.getElementById(id_obg).style.display = 'none';
@@ -66,7 +123,8 @@ function validate(){
         }
     }
     function fechar(){
-
+        document.getElementById("fundo").hidden = "false";
+        document.getElementById("map").style.marginLeft = "-800px";
         document.getElementById("popup").style.marginLeft = "-450px";
     }
     function increment(nome, whatarray){//chama a pagina que vai incrementar a quantidade no patrimonio
@@ -197,7 +255,7 @@ function validate(){
 <body>	
 			<?php include_once("../view/topo.php"); ?>
 
-			       
+            <div  style=" transition-duration: 0.8s; position: absolute; width:700px; height: 500px; margin-left: -800px; margin-top: -300px; z-index: 2;" id="map"></div>
             <div class="formulario" style="width:43%;">
               <div class="title-box" style="float:left;width:100%"><div style="float:left"><img src="../images/add.png" width="35px" style="margin-left:5px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">NOVA OBRA</span></div></div>
               
@@ -315,6 +373,12 @@ function validate(){
                                       <div class="form-input" style="width:40%; margin-left: 10px;">
                                           <span>Data inicio:</span><br /><input type="date" name="data_inicio_previsto" id="data_inicio_previsto" value="<?php (isset($_SESSION['obra']['dados']['data_inicio_previsto']))?print $_SESSION['obra']['dados']['data_inicio_previsto']:''; ?>" style="width:100%; ">
                                       </div>
+                                      <div class="form-input" style="width:45%">
+                                          <span>Latitude:</span><br /><input  type="text" placeholder="Digite a latitude..."  name="lat"  id="lat"    onchange="initMap()" value="<?php (isset($_SESSION['obra']['dados']['lat']))?print $_SESSION['obra']['dados']['lat']:''; ?>"> <!-- SE A SESSION JA TEM LATITUDE MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
+                                      </div>
+                                      <div class="form-input" style="width:40%; margin-left: 10px;">
+                                          <span>Longitude:</span><br /><input type="text" placeholder="Digite a longitude..."  name="long" id="long"  onchange="initMap()" value="<?php (isset($_SESSION['obra']['dados']['long']))?print $_SESSION['obra']['dados']['long']:''; ?>"><input style="margin-left:10px" type="button" value="Ver Local" onclick="mostraLocal()"> <!-- SE A SESSION JA TEM LONGITUDE E MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
+                                      </div>
                                       <div class="form-input" style="width:60%">
                                           <span>Rua:</span><br /><input type="text" placeholder="" name="rua" id="rua" style="width:100%" value="<?php (isset($_SESSION['obra']['dados']['rua']))?print $_SESSION['obra']['dados']['rua']:'' ?>">
                                       </div>
@@ -347,6 +411,8 @@ function validate(){
                                   isset($_GET['rua']) ? $_SESSION['obra']['dados']['rua'] = $_GET['rua'] : '';
                                   isset($_GET['num']) ? $_SESSION['obra']['dados']['num'] = $_GET['num'] : '';
                                   isset($_GET['desc']) ? $_SESSION['obra']['dados']['desc'] = $_GET['desc'] : '';
+                                  isset($_GET['lat']) ? $_SESSION['obra']['dados']['lat'] = $_GET['lat'] : '';  /* GET PARA PEGAR O VALOR DA SESSION DADA PELA PAGINA ANTERIOR */
+                                  isset($_GET['long']) ? $_SESSION['obra']['dados']['long'] = $_GET['long'] : ''; /* GET PARA PEGAR O VALOR DA SESSION DADA PELA PAGINA ANTERIOR */
                                   
                                ?>
                         
@@ -619,6 +685,11 @@ function validate(){
                                             <span><b>Data Inicio: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['data_inicio_previsto']))?print $_SESSION['obra']['dados']['data_inicio_previsto']:''; ?>"><br />
                                 <?php }if(isset($_SESSION['obra']['dados']['rua']) && $_SESSION['obra']['dados']['rua'] != ''){ ?>
                                             <span><b>Endereço: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['rua']))?print $_SESSION['obra']['dados']['rua']:''.(isset($_SESSION['obra']['dados']['num']))?print ', '.$_SESSION['obra']['dados']['num']:''; ?>"><br />
+                                            
+                                            <?php }if(isset($_SESSION['obra']['dados']['lat']) && $_SESSION['obra']['dados']['lat'] != '' && isset($_SESSION['obra']['dados']['long']) && $_SESSION['obra']['dados']['lat'] != ''  ){ ?> <!-- CONDIÇÃO PARA VER SE EXISTE DADOS DE LATITUDE NA SESSION -->
+                                            <span><b>Coordenadas: </b></span><input readonly   type="text" style="border: 0" id="lat" value="<?php (isset($_SESSION['obra']['dados']['lat']))?print $_SESSION['obra']['dados']['lat']:''?>"> <input id="long" readonly   type="text" style="border: 0" id="lat" value="<?php (isset($_SESSION['obra']['dados']['long']))?print $_SESSION['obra']['dados']['long']:''?>"><input  style="margin-left: 10px;"type="button" onclick="mostraLocal()" value="Ver local"><br /> <!-- MONSTRA A DIV PARA VISUALIZAÇÃO DO MAPA -->
+                                            <!-- LINHA DE CIMA PARA PRINTAR NA TELA AS CORDENADAS COM ID DE LAT E LONG POR QUE O ONCLICK CHAMA A INITMAP() E A INITMAP() PRECISA DE CAMPOS LAT E LONG COM VALORES SETADOS CONDIÇÃO PARA VER SE EXISTE DADOS DE LATITUDE NA SESSION -->
+                                            
                                 <?php }if(isset($_SESSION['obra']['dados']['desc']) && $_SESSION['obra']['dados']['desc'] != ''){// se existe descrição ?>
                                             <span><b>Descrição: </b></span><br />
                                                 <textarea style="padding: 1px 0px 2px 10px;width:90%; min-width: 90%; max-width:95%; max-height:15%; height: 5%; border: 0" readonly><?php (isset($_SESSION['obra']['dados']['desc']))?print $_SESSION['obra']['dados']['desc']:''; ?></textarea>
@@ -730,7 +801,14 @@ function validate(){
                 </div>
             </div>
          </div>
+   <div id="fundo" hidden="on" style="background-color:rgba(0,0,0,0.8); margin-top: -9px; margin-left: -9px; width:100%; height: 100%; position: absolute; z-index: 1" >
+       <span  onclick="fechar()" style="cursor:pointer; color:floralwhite; float:right; margin-top:10px; margin-right:10px; z-index: 1"> Fechar</span>
+   </div>  
+    
+    
 	 	    <?php //include("informacoes_grupo.php") ?> 
-	 		
+    
+  
 </body>
+
 </html>

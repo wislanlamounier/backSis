@@ -785,7 +785,8 @@ h2{
 
 
 .master{
-    box-shadow: 2px 2px 3px #666; clear:left; width: 100%; height: 180px; overflow: scroll; overflow-x: hidden; border-bottom: solid 1px; border-bottom-color: #bcbcbc;    
+    
+    box-shadow: 2px 2px 3px #666; clear:left; width: 100%; transition-delay: 1s;  height: 180px; overflow: scroll; overflow-x: hidden; border-bottom: solid 1px; border-bottom-color: #bcbcbc;    
 }
 
 ::-webkit-scrollbar {
