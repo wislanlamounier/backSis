@@ -239,6 +239,7 @@ function validate(){
         zoom: zoom,
         center: originalMapCenter
       });
+      
 
       var infowindow = new google.maps.InfoWindow({
         content: 'Aqui é sua Obra',
@@ -358,6 +359,7 @@ function validate(){
                                   isset($_GET['rua']) ? $_SESSION['obra']['cliente']['rua'] = $_GET['rua'] : '';
                                   isset($_GET['num']) ? $_SESSION['obra']['cliente']['num'] = $_GET['num'] : '';
                                   isset($_GET['telefone_com']) ? $_SESSION['obra']['cliente']['telefone_com'] = $_GET['telefone_com'] : '';
+                                 
                                   
                                ?>
                               
@@ -379,10 +381,16 @@ function validate(){
                                           <span>Data inicio:</span><br /><input type="date" name="data_inicio_previsto" id="data_inicio_previsto" value="<?php (isset($_SESSION['obra']['dados']['data_inicio_previsto']))?print $_SESSION['obra']['dados']['data_inicio_previsto']:''; ?>" style="width:100%; ">
                                       </div>
                                       <div class="form-input" style="width:45%">
-                                          <span>Latitude:</span><br /><input  type="text" placeholder="Digite a latitude..." id="lat"  name="lat" onchange="initMap()"  value="<?php (isset($_SESSION['obra']['dados']['lat']))?print $_SESSION['obra']['dados']['lat']:''; ?>"> <!-- SE A SESSION JA TEM LATITUDE MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
+                                          <span>Latitude:</span><br /><input  type="text" placeholder="Digite a latitude..." id="lat"  name="lat"   onchange="initMap()"  value="<?php (isset($_SESSION['obra']['dados']['lat']))?print $_SESSION['obra']['dados']['lat']:''; ?>"> <!-- SE A SESSION JA TEM LATITUDE MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
                                       </div>
                                       <div class="form-input" style="width:40%; margin-left: 10px;">
                                           <span>Longitude:</span><br /><input type="text" placeholder="Digite a longitude..."id="long"  name="long" onchange="initMap()" value="<?php (isset($_SESSION['obra']['dados']['long']))?print $_SESSION['obra']['dados']['long']:''; ?>"><input style="margin-left:10px" type="button" value="Ver Local" onclick="mostraLocal()"> <!-- SE A SESSION JA TEM LONGITUDE E MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
+                                      </div>
+                                      <div class="form-input" style="width:45%">
+                                          <span>Bairro:</span><br /><input  type="text" placeholder="Bairro" name="bairro" id="bairro" value="<?php (isset($_SESSION['obra']['dados']['bairro']))?print $_SESSION['obra']['dados']['bairro']:''; ?>" style="width:100%; text-transform: capitalize">
+                                      </div>
+                                      <div class="form-input" style="width:40%; margin-left: 10px;">
+                                          <span>Cidade:</span><br /><input type="text" name="cidade" placeholder="Cidade" id="cidade" value="<?php (isset($_SESSION['obra']['dados']['cidade']))?print $_SESSION['obra']['dados']['cidade']:''; ?>" style="width:100%; text-transform: capitalize">
                                       </div>
                                       <div class="form-input" style="width:60%">
                                           <span>Rua:</span><br /><input type="text" placeholder="" name="rua" id="rua" style="width:100%" value="<?php (isset($_SESSION['obra']['dados']['rua']))?print $_SESSION['obra']['dados']['rua']:'' ?>">
@@ -418,7 +426,8 @@ function validate(){
                                   isset($_GET['desc']) ? $_SESSION['obra']['dados']['desc'] = $_GET['desc'] : '';
                                   isset($_GET['lat']) ? $_SESSION['obra']['dados']['lat'] = $_GET['lat'] : '';  /* GET PARA PEGAR O VALOR DA SESSION DADA PELA PAGINA ANTERIOR */
                                   isset($_GET['long']) ? $_SESSION['obra']['dados']['long'] = $_GET['long'] : ''; /* GET PARA PEGAR O VALOR DA SESSION DADA PELA PAGINA ANTERIOR */
-                                  
+                                  isset($_GET['bairro']) ? $_SESSION['obra']['dados']['bairro'] = $_GET['bairro'] : '';
+                                  isset($_GET['cidade']) ? $_SESSION['obra']['dados']['cidade'] = $_GET['cidade'] : '';
                                ?>
                         
                               <div class="bloco-1" id="dados_obra">            
@@ -690,6 +699,11 @@ function validate(){
                                             <span><b>Data Inicio: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['data_inicio_previsto']))?print $_SESSION['obra']['dados']['data_inicio_previsto']:''; ?>"><br />
                                 <?php }if(isset($_SESSION['obra']['dados']['rua']) && $_SESSION['obra']['dados']['rua'] != ''){ ?>
                                             <span><b>Endereço: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['rua']))?print $_SESSION['obra']['dados']['rua']:''.(isset($_SESSION['obra']['dados']['num']))?print ', '.$_SESSION['obra']['dados']['num']:''; ?>"><br />
+                                <?php }if(isset($_SESSION['obra']['dados']['bairro']) && $_SESSION['obra']['dados']['bairro'] != ''){ ?>
+                                            <span><b>Bairro: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['bairro']))?print $_SESSION['obra']['dados']['bairro']:''?>"><br />
+                                            
+                                             <?php }if(isset($_SESSION['obra']['dados']['cidade']) && $_SESSION['obra']['dados']['cidade'] != ''){ ?>
+                                            <span><b>Cidade: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['cidade']))?print $_SESSION['obra']['dados']['cidade']:''?>"><br />
                                             
                                             <?php }if(isset($_SESSION['obra']['dados']['lat']) && $_SESSION['obra']['dados']['lat'] != '' && isset($_SESSION['obra']['dados']['long']) && $_SESSION['obra']['dados']['lat'] != ''  ){ ?> <!-- CONDIÇÃO PARA VER SE EXISTE DADOS DE LATITUDE NA SESSION -->
                                             <span><b>Coordenadas: </b></span><input readonly   type="text" style="border: 0" id="lat" value="<?php (isset($_SESSION['obra']['dados']['lat']))?print $_SESSION['obra']['dados']['lat']:''?>"> <input id="long" readonly   type="text" style="border: 0" id="lat" value="<?php (isset($_SESSION['obra']['dados']['long']))?print $_SESSION['obra']['dados']['long']:''?>"><input  style="margin-left: 10px;"type="button" onclick="mostraLocal()" value="Ver local"><br /> <!-- MONSTRA A DIV PARA VISUALIZAÇÃO DO MAPA -->

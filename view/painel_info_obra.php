@@ -8,8 +8,10 @@
             ?>
             <div clas="msg-descricao"><span style="color: #003300;"> <b>Dados da Obra</b></span></div>
             <div class="descricao" id="nome">                 <span>Nome:           </span><span>                 <?php echo $obras['nome'];                 if($obras['nome']==""){echo "<script>hidden('nome')</script>";}?></span></div>
-            <div class="descricao" id="data_inicio_previsto"> <span>Data de Início: </span><span>                 <?php echo $obras['data_inicio_previsto']; if($obras['data_inicio_previsto']==""){echo "<script>hidden('data_inicio_previsto')</script>";}?></span></div>
-            <div class="descricao" id="data_fim">             <span>Data de Fim:    </span><span>                 <?php echo $obras['data_inicio_previsto']; if($obras['data_inicio_previsto']==""){echo "<script>hidden('data_fim')</script>";}?></span></div>
+            <div class="descricao" id="data_inicio_previsto"> <span>Data de Início: </span><span>                 <?php echo $obras['data_inicio_previsto']; if($obras['data_inicio_previsto']==""){echo "<script>hidden('data_inicio_previsto')</script>";}?></span></div>            
+            <div class="descricao" id="localizacao">        <span>Coordenadas:      </span><span>                 <?php echo "Lat: ".$obras['lat']." | Long: ".$obras['long']; if($obras['lat']==""){echo "<script>hidden('localizacao')</script>";}?></span><img title="Ver mapa !" style="float:left; cursor: pointer; " width="36px" height="25px" onclick="mostraLocal()" src="../images/local.png"></div>
+            <input type="hidden" id="lat" value="<?php (isset($obras['lat']))?print $obras['lat']:''; ?>">
+            <input type="hidden" id="long" value="<?php (isset($obras['long']))?print $obras['long']:''; ?>">
             <div class="descricao" id="desc" style="border:0"><span>Descrição:      </span><textarea readonly type="text" id="desc" ><?php echo $obras['desc'];?></textarea><?php if($obras['desc']==""){echo "<script>hidden('desc')</script>";} ?></div>
             
             <?php 
@@ -67,8 +69,8 @@
                            
                       <?php } ?>
                     <?php } ?>  
-                            <tr><td><input onclick="fechar(this.name)" name="popup" type="button" class="button" style="clear: both; float:left; margin-top:10px;" value="Concluir"></td></tr>
-                </div>
+                            <tr><td><input onclick="fechar_patrimonio(this.name)" name="popup" type="button" class="button" style="clear: both; float:left; margin-top:10px;" value="Concluir"></td></tr>
+      </div>
 
 
       <div id="popup-patrimonio" class="popup-painel" style="float:left">
@@ -90,6 +92,6 @@
                                                }
         }      
          ?>          
-                 <tr><td><input onclick="fechar(this.name)" type="button" name="popup-patrimonio" class="button" style="clear: both; float:left; margin-top:10px;" value="Concluir"></td></tr>
+                 <tr><td><input name="popup-patrimonio"  onclick="fechar_patrimonio(this.name)" type="button"  class="button" style="clear: both; float:left; margin-top:10px;" value="Concluir"></td></tr>
       </div>
         <!-- fimpopup -->
