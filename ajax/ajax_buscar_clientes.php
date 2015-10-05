@@ -34,6 +34,7 @@ include_once("../global.php");
   <?php
   	if($dados) 
 	    foreach($arrClientes as $value => $nome){
+              $value = $value.",".$_SESSION['id_empresa'];  
 	      echo "<option value='{$value}'>{$nome}</option>";
 	     // echo "<option>teste</option>";
 	  	}

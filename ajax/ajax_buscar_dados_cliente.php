@@ -8,9 +8,10 @@ include_once("../model/class_endereco_bd.php");
 
 	
 	$id = $_GET['id'];  //codigo do cliente passado por parametro
-
-	$cliente = Cliente::get_cliandjur_id($id);
-        print_r($cliente);
+        $id_empresa = $_GET['id_empresa'];
+        
+	$cliente = Cliente::get_cliandjur_id($id,$id_empresa);
+       
 	$endereco = Endereco::get_endereco($cliente->id_endereco);
   	if($cliente)
   		// echo 'Cliente: '.$cliente->nome_razao_soc;

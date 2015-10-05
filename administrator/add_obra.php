@@ -21,43 +21,42 @@ function validate(){
 
 <html>
 <head>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap"async defer></script> <!-- Linkando para API Google.maps-->
 	<script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 <script type="text/javascript">
-    //FUNÇÕES DO GOOGLE.MAPS API//
-    
-                var map;
-    function initMap() {
-              var zoom = 4; // zoom original para aparecer o mapa longe 
-              var originalMapCenter = new google.maps.LatLng(-14.2392976, -53.1805017) // PONTO iNICIAL COM A LAT E LONG DO BRASIL
-              var lat = document.getElementById('lat').value;  //RECEBE O VALOR DA LAT PELO INPUT
-              var long = document.getElementById('long').value;// RECEBE O VALOR DA LONG PELO INPUT              
-             
-              if(lat != "" && long != ""){
-                
-                var originalMapCenter = new google.maps.LatLng(lat, long);
-                zoom = 16; // RECEBE O ZOOM PARA VIZUALIZAR O MAPA MENOR
-              }
-              var map = new google.maps.Map(document.getElementById('map'),{
-                mapTypeId: google.maps.MapTypeId.SATELLITE,/*ROADMAP*/ // TIPO DE SATELITE
-                scrollwheel: false,
-                zoom: zoom,
-                center: originalMapCenter
-              });
-
-              var infowindow = new google.maps.InfoWindow({
-                content: 'Sua Obra', // MENSSAGEM QUE APARECE NO CENTRO DA TELA
-                position: originalMapCenter
-              });
-              infowindow.open(map);
-
-              map.addListener('zoom_changed', function() {
-                infowindow.setContent('Zoom: ' + map.getZoom());
-              });
-            }
+//    //FUNÇÕES DO GOOGLE.MAPS API//
+//    
+//                var map;
+//    function initMap() {
+//              var zoom = 4; // zoom original para aparecer o mapa longe 
+//              var originalMapCenter = new google.maps.LatLng(-14.2392976, -53.1805017) // PONTO iNICIAL COM A LAT E LONG DO BRASIL
+//              var lat = document.getElementById('lat').value;  //RECEBE O VALOR DA LAT PELO INPUT
+//              var long = document.getElementById('long').value;// RECEBE O VALOR DA LONG PELO INPUT              
+//             
+//              if(lat != "" && long != ""){
+//                
+//                var originalMapCenter = new google.maps.LatLng(lat, long);
+//                zoom = 16; // RECEBE O ZOOM PARA VIZUALIZAR O MAPA MENOR
+//              }
+//              var map = new google.maps.Map(document.getElementById('map'),{
+//                mapTypeId: google.maps.MapTypeId.SATELLITE,/*ROADMAP*/ // TIPO DE SATELITE
+//                scrollwheel: false,
+//                zoom: zoom,
+//                center: originalMapCenter
+//              });
+//
+//              var infowindow = new google.maps.InfoWindow({
+//                content: 'Sua Obra', // MENSSAGEM QUE APARECE NO CENTRO DA TELA
+//                position: originalMapCenter
+//              });
+//              infowindow.open(map);
+//
+//              map.addListener('zoom_changed', function() {
+//                infowindow.setContent('Zoom: ' + map.getZoom());
+//              });
+//            }
     function mostraLocal(){ // FUNCAO QUE MOSTRA OCULTA OU MOSTRA A DIV DO MAPA
         document.getElementById('fundo').hidden = false;
         var windowWidth = window.innerWidth;
@@ -77,7 +76,7 @@ function validate(){
              }else{
           document.getElementById("map").style.marginLeft = "10%";
         }
-            initMap(); // INICIA O INTMAP DE NOVO POR QUE SE NAO FICA PAGINA EM BRANCO
+             // INICIA O INTMAP DE NOVO POR QUE SE NAO FICA PAGINA EM BRANCO
      }
 
     
@@ -182,8 +181,10 @@ function validate(){
             $('#form-input-select').html(dataReturn);
           });
     }
-    function selecionaCliente(id){
-          var url = '../ajax/ajax_buscar_dados_cliente.php?id='+id;  
+    function selecionaCliente(retorno){
+        var id = retorno.split(",");
+        
+          var url = '../ajax/ajax_buscar_dados_cliente.php?id='+id[0]+'&id_empresa='+id[1];  
           
           $.get(url, function(dataReturn) {
             
@@ -255,7 +256,76 @@ function validate(){
 <body>	
 			<?php include_once("../view/topo.php"); ?>
 
-            <div  style=" transition-duration: 0.8s; position: absolute; width:700px; height: 500px; margin-left: -800px; margin-top: -300px; z-index: 2;" id="map"></div>
+<!--            <div  style=" transition-duration: 0.8s; position: absolute; width:700px; height: 500px; margin-left: -800px; margin-top: -300px; z-index: 2;" id="map"></div>-->
+
+
+
+
+
+
+    
+    <script>
+
+var map;
+function initMap() {
+  
+              var zoom = 4; // zoom original para aparecer o mapa longe 
+              var originalMapCenter = new google.maps.LatLng(-14.2392976, -53.1805017) // PONTO iNICIAL COM A LAT E LONG DO BRASIL
+              var lat = document.getElementById('lat').value;  //RECEBE O VALOR DA LAT PELO INPUT
+              var long = document.getElementById('long').value;// RECEBE O VALOR DA LONG PELO INPUT      
+  
+  if(lat !== "" && long !==""){
+    var originalMapCenter = new google.maps.LatLng(lat, long);
+    zoom = 16;
+  }
+  var map = new google.maps.Map(document.getElementById('map'),{
+    mapTypeId: google.maps.MapTypeId.SATELLITE,/*ROADMAP*/
+    scrollwheel: false,
+    zoom: zoom,
+    center: originalMapCenter
+  });
+
+  var infowindow = new google.maps.InfoWindow({
+    content: 'Aqui é sua Obra',
+    position: originalMapCenter
+  });
+  infowindow.open(map);
+
+  map.addListener('zoom_changed', function() {
+    infowindow.setContent('Zoom: ' + map.getZoom());
+  });
+ 
+}
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap"async defer></script>
+ <div style="margin-left: -800px; transition-duration: 0.8s; position: absolute; width:700px; height: 500px; z-index: 2;"id="map"></div>    
+  
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <div class="formulario" style="width:43%;">
               <div class="title-box" style="float:left;width:100%"><div style="float:left"><img src="../images/add.png" width="35px" style="margin-left:5px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">NOVA OBRA</span></div></div>
               
@@ -374,10 +444,10 @@ function validate(){
                                           <span>Data inicio:</span><br /><input type="date" name="data_inicio_previsto" id="data_inicio_previsto" value="<?php (isset($_SESSION['obra']['dados']['data_inicio_previsto']))?print $_SESSION['obra']['dados']['data_inicio_previsto']:''; ?>" style="width:100%; ">
                                       </div>
                                       <div class="form-input" style="width:45%">
-                                          <span>Latitude:</span><br /><input  type="text" placeholder="Digite a latitude..."  name="lat"  id="lat"    onchange="initMap()" value="<?php (isset($_SESSION['obra']['dados']['lat']))?print $_SESSION['obra']['dados']['lat']:''; ?>"> <!-- SE A SESSION JA TEM LATITUDE MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
+                                          <span>Latitude:</span><br /><input  type="text" placeholder="Digite a latitude..." id="lat"  name="lat" onchange="initMap()"  value="<?php (isset($_SESSION['obra']['dados']['lat']))?print $_SESSION['obra']['dados']['lat']:''; ?>"> <!-- SE A SESSION JA TEM LATITUDE MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
                                       </div>
                                       <div class="form-input" style="width:40%; margin-left: 10px;">
-                                          <span>Longitude:</span><br /><input type="text" placeholder="Digite a longitude..."  name="long" id="long"  onchange="initMap()" value="<?php (isset($_SESSION['obra']['dados']['long']))?print $_SESSION['obra']['dados']['long']:''; ?>"><input style="margin-left:10px" type="button" value="Ver Local" onclick="mostraLocal()"> <!-- SE A SESSION JA TEM LONGITUDE E MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
+                                          <span>Longitude:</span><br /><input type="text" placeholder="Digite a longitude..."id="long"  name="long" onchange="initMap()" value="<?php (isset($_SESSION['obra']['dados']['long']))?print $_SESSION['obra']['dados']['long']:''; ?>"><input style="margin-left:10px" type="button" value="Ver Local" onclick="mostraLocal()"> <!-- SE A SESSION JA TEM LONGITUDE E MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
                                       </div>
                                       <div class="form-input" style="width:60%">
                                           <span>Rua:</span><br /><input type="text" placeholder="" name="rua" id="rua" style="width:100%" value="<?php (isset($_SESSION['obra']['dados']['rua']))?print $_SESSION['obra']['dados']['rua']:'' ?>">

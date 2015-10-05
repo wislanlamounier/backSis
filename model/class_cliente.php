@@ -112,11 +112,11 @@ class Cliente {
 			return $return;
 		}
 	}
-	public function get_cliandjur_id($id){
+	public function get_cliandjur_id($id,$id_empresa){
 		 $sql = new Sql();
 		 $sql->conn_bd();
 		 $g = new Glob();
-                 $id_empresa = $_SESSION['id_empresa'];
+                 
 		 $query = 'SELECT * FROM clientes WHERE id= "%s" && oculto=0 && id_empresa= "%s" && tipo = 1' ;
 		 $result = $g->tratar_query($query, $id ,$id_empresa);
 		 
