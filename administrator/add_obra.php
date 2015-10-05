@@ -26,37 +26,7 @@ function validate(){
 
 </head>
 <script type="text/javascript">
-//    //FUNÇÕES DO GOOGLE.MAPS API//
-//    
-//                var map;
-//    function initMap() {
-//              var zoom = 4; // zoom original para aparecer o mapa longe 
-//              var originalMapCenter = new google.maps.LatLng(-14.2392976, -53.1805017) // PONTO iNICIAL COM A LAT E LONG DO BRASIL
-//              var lat = document.getElementById('lat').value;  //RECEBE O VALOR DA LAT PELO INPUT
-//              var long = document.getElementById('long').value;// RECEBE O VALOR DA LONG PELO INPUT              
-//             
-//              if(lat != "" && long != ""){
-//                
-//                var originalMapCenter = new google.maps.LatLng(lat, long);
-//                zoom = 16; // RECEBE O ZOOM PARA VIZUALIZAR O MAPA MENOR
-//              }
-//              var map = new google.maps.Map(document.getElementById('map'),{
-//                mapTypeId: google.maps.MapTypeId.SATELLITE,/*ROADMAP*/ // TIPO DE SATELITE
-//                scrollwheel: false,
-//                zoom: zoom,
-//                center: originalMapCenter
-//              });
-//
-//              var infowindow = new google.maps.InfoWindow({
-//                content: 'Sua Obra', // MENSSAGEM QUE APARECE NO CENTRO DA TELA
-//                position: originalMapCenter
-//              });
-//              infowindow.open(map);
-//
-//              map.addListener('zoom_changed', function() {
-//                infowindow.setContent('Zoom: ' + map.getZoom());
-//              });
-//            }
+
     function mostraLocal(){ // FUNCAO QUE MOSTRA OCULTA OU MOSTRA A DIV DO MAPA
         document.getElementById('fundo').hidden = false;
         var windowWidth = window.innerWidth;
@@ -251,80 +221,45 @@ function validate(){
         window.location.href='add_obra.php?t=c';
     }
 
-</script>
+    var map;
+    function initMap() {
+      
+      var zoom = 4; // zoom original para aparecer o mapa longe 
+      var originalMapCenter = new google.maps.LatLng(-14.2392976, -53.1805017) // PONTO iNICIAL COM A LAT E LONG DO BRASIL
+      var lat = document.getElementById('lat').value;  //RECEBE O VALOR DA LAT PELO INPUT
+      var long = document.getElementById('long').value;// RECEBE O VALOR DA LONG PELO INPUT      
+      
+      if(lat !== "" && long !==""){
+        var originalMapCenter = new google.maps.LatLng(lat, long);
+        zoom = 16;
+      }
+      var map = new google.maps.Map(document.getElementById('map'),{
+        mapTypeId: google.maps.MapTypeId.SATELLITE,/*ROADMAP*/
+        scrollwheel: false,
+        zoom: zoom,
+        center: originalMapCenter
+      });
 
-<body>	
+      var infowindow = new google.maps.InfoWindow({
+        content: 'Aqui é sua Obra',
+        position: originalMapCenter
+      });
+      infowindow.open(map);
+
+      map.addListener('zoom_changed', function() {
+        infowindow.setContent('Zoom: ' + map.getZoom());
+      });
+     
+    }
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap" async defer></script>
+<body onload="initMap()">	
 			<?php include_once("../view/topo.php"); ?>
 
-<!--            <div  style=" transition-duration: 0.8s; position: absolute; width:700px; height: 500px; margin-left: -800px; margin-top: -300px; z-index: 2;" id="map"></div>-->
 
-
-
-
-
-
-    
-    <script>
-
-var map;
-function initMap() {
+            <div style="margin-left: -800px; transition-duration: 0.8s; position: absolute; width:700px; height: 500px; z-index: 2; border: 1px solid#fff"id="map"></div>    
   
-              var zoom = 4; // zoom original para aparecer o mapa longe 
-              var originalMapCenter = new google.maps.LatLng(-14.2392976, -53.1805017) // PONTO iNICIAL COM A LAT E LONG DO BRASIL
-              var lat = document.getElementById('lat').value;  //RECEBE O VALOR DA LAT PELO INPUT
-              var long = document.getElementById('long').value;// RECEBE O VALOR DA LONG PELO INPUT      
-  
-  if(lat !== "" && long !==""){
-    var originalMapCenter = new google.maps.LatLng(lat, long);
-    zoom = 16;
-  }
-  var map = new google.maps.Map(document.getElementById('map'),{
-    mapTypeId: google.maps.MapTypeId.SATELLITE,/*ROADMAP*/
-    scrollwheel: false,
-    zoom: zoom,
-    center: originalMapCenter
-  });
-
-  var infowindow = new google.maps.InfoWindow({
-    content: 'Aqui é sua Obra',
-    position: originalMapCenter
-  });
-  infowindow.open(map);
-
-  map.addListener('zoom_changed', function() {
-    infowindow.setContent('Zoom: ' + map.getZoom());
-  });
- 
-}
-
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap"async defer></script>
- <div style="margin-left: -800px; transition-duration: 0.8s; position: absolute; width:700px; height: 500px; z-index: 2;"id="map"></div>    
-  
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             <div class="formulario" style="width:43%;">
               <div class="title-box" style="float:left;width:100%"><div style="float:left"><img src="../images/add.png" width="35px" style="margin-left:5px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">NOVA OBRA</span></div></div>
@@ -799,7 +734,7 @@ function initMap() {
                    <?php } ?>
                    <?php if(isset($_SESSION['obra']['patrimonio']) && count($_SESSION['obra']['patrimonio']) > 0){?>
                             <div class="form-input" style="border-bottom: 1px solid#aaa">
-                                  <span style="margin-left:10px;"><b>Patrimonios/Obra</b></span> <span><a name="btn_pat_obra" id="btn_pat_obra" onclick="expand('pat_obra',this.id)" style="cursor: pointer; color:#773333">(Ocultar)</a></span><?php echo $_SESSION['oculto'] ?>
+                                  <span style="margin-left:10px;"><b>Patrimonios/Obra</b></span> <span><a name="btn_pat_obra" id="btn_pat_obra" onclick="expand('pat_obra',this.id)" style="cursor: pointer; color:#773333">(Ocultar)</a></span>
                             </div>
                             <div class="form-input" id="pat_obra" style="padding: 0px 0px 10px 10px; padding-left:20px; ">
                                 <?php 
