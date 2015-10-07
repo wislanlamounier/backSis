@@ -46,6 +46,7 @@
                             //$return[$aux][11] = is_admin
                             //$return[$aux][12] = email
                             //$return[$aux][13] = data_ini
+                            //$return[$aux][14] = id_valor_custo
                             
                             $turno = new Turno();
                             $turno = $turno->getTurnoById($alterados[10]);
@@ -59,6 +60,9 @@
                                 $adm = "NÃO";
                             }
                               
+                            $valor_custo = new Valor_custo();
+                            $valor_custo = $valor_custo->get_valor_custo_id($alterados[14]);
+                            
                             // $data = explode('-', $alterados[8]);
                             // $data_fim = $data[2].'/'.$data[1].'/'.$data[0];
 
@@ -66,7 +70,7 @@
                             $expl_date_ini = explode('-', $data_hora_ini[0]);
                             $data_ini = $expl_date_ini[2].'/'.$expl_date_ini[1].'/'.$expl_date_ini[0];
                             $data_ini .= '</b> às <b>'.$data_hora_ini[1];
-
+                            
                             $data_hora_fim = explode(' ', $alterados[8]);
                             $expl_date_fim = explode('-', $data_hora_fim[0]);
                             $data_fim = $expl_date_fim[2].'/'.$expl_date_fim[1].'/'.$expl_date_fim[0];
@@ -89,6 +93,7 @@
                                     <div class="historico-itens"> <div style="float:left; width: 35%;"><span><b>Administrador</b></span></div>                   <div style="float:left"><span><?php echo $adm; ?></span></div></div>
                                     <div class="historico-itens"> <div style="float:left; width: 35%;"><span><b>Jornada de trabalho(semanal)</b></span></div>    <div style="float:left"><span><?php echo $alterados[7]." Horas" ?> </span></div></div>
                                     <div class="historico-itens"> <div style="float:left; width: 35%;"><span><b>Email</b></span></div>                           <div style="float:left"><span><?php echo $alterados[12] ?></span></div></div>
+                                    <div class="historico-itens"> <div style="float:left; width: 35%;"><span><b>Valor de Custo</b></span></div>                  <div style="float:left"><span><?php echo $valor_custo->valor ?></span></div></div>
                             </div>
                     
                     

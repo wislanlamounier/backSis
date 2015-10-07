@@ -41,9 +41,21 @@ class Valor_custo{
 		$sql = new Sql();	
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "UPDATE valor_custo SET valor = '%s', id_tipo_custo = '%s' WHERE id = '%s' ";
-
-		return $g->tratar_query($query, $valor, $id_tipo_custo, $id);
+                $query = "UPDATE valor_custo SET oculto = 1 WHERE id = $id ";                
+		mysql_query($query);               
+                $query = "INSERT INTO valor_custo (valor, id_tipo_custo) VALUES ($valor, $id_tipo_custo)";
+               
+                mysql_query($query); 
+                
+                $query = "SELECT * FROM valor_custo order by id desc";
+		$result = mysql_query($query); 
+                $return  = @mysql_fetch_array($result);
+                 
+                 $id = $return['id'];
+                                      
+                        return $id;
+                     
+                
 	}
 	
 	public function get_valor_custo_id($id){

@@ -23,10 +23,11 @@ class Maquinario{
 	public $observacao;
 	public $oculto;
 	public $valor;
+        public $id_valor_custo;
 	
 	public function add_maquinario($matricula, $chassi_nserie, $modelo, $tipo_consumo, $ano, $id_cor,
                                          $fabricante, $data_compra, $seguro,  $data_ini_seg, $data_fim_seg, $horimetro_inicial, $id_empresa,
-                                            $id_fornecedor, $id_responsavel, $observacao, $valor)
+                                            $id_fornecedor, $id_responsavel, $observacao, $valor, $id_valor_custo)
 	{		
 		
 		$this->matricula = $matricula;
@@ -47,16 +48,17 @@ class Maquinario{
 		$this->id_responsavel = $id_responsavel;
 		$this->observacao = $observacao;
 		$this->valor = $valor;
+                $this->id_valor_custo = $id_valor_custo;
 	}
 
 	public function add_maquinario_bd(){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "INSERT INTO maquinario (matricula, chassi_nserie, modelo, tipo_consumo, ano, id_cor, fabricante, data_compra, seguro, data_ini_seg, data_fim_seg, horimetro_inicial, id_empresa, id_fornecedor, id_responsavel, observacao, valor, controle) 
-						VALUES 				( '%s',      '%s',       '%s',   '%s',        '%s', '%s',      '%s',       '%s',	 '%s',		'%s',  			'%s',		'%s',             '%s',			'%s',			'%s',		 '%s' ,    '%s', '1')";
+		$query = "INSERT INTO maquinario (matricula, chassi_nserie, modelo, tipo_consumo, ano, id_cor, fabricante, data_compra, seguro, data_ini_seg, data_fim_seg, horimetro_inicial, id_empresa, id_fornecedor, id_responsavel, observacao, valor, id_valor_custo, controle) 
+		VALUES 				  ( '%s',      '%s',         '%s',   '%s',        '%s', '%s',      '%s',       '%s',	 '%s',		'%s',  	'%s',		'%s',             '%s',		'%s',		'%s',	  '%s' ,      '%s',      '%s',           '1')";
 
-		if($g->tratar_query($query, $this->matricula, $this->chassi_nserie, $this->modelo, $this->tipo_consumo,  $this->ano,  $this->id_cor, $this->fabricante, $this->data_compra, $this->seguro, $this->data_ini_seg,$this->data_fim_seg, $this->horimetro_inicia,  $this->id_empresa, $this->id_fornecedor, $this->id_responsavel, $this->observacao, $this->valor)){
+		if($g->tratar_query($query, $this->matricula, $this->chassi_nserie, $this->modelo, $this->tipo_consumo,  $this->ano,  $this->id_cor, $this->fabricante, $this->data_compra, $this->seguro, $this->data_ini_seg,$this->data_fim_seg, $this->horimetro_inicia,  $this->id_empresa, $this->id_fornecedor, $this->id_responsavel, $this->observacao, $this->valor, $this->id_valor_custo)){
 				return true; 
 		}else{
 				return false;
@@ -120,24 +122,24 @@ class Maquinario{
 			$maquinario->id_responsavel = $row['id_responsavel'];
 			$maquinario->observacao = $row['observacao'];		
 			$maquinario->valor = $row['valor'];
-	     	
+                        $maquinario->id_valor_custo = $row['id_valor_custo'];
 	     	return $maquinario;
 	     }
 	}	
 
 	public function atualiza_maquinario($matricula, $chassi_nserie, $modelo, $tipo_consumo, $ano, $id_cor,
                    $fabricante, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $horimetro_inicial, $id_empresa,
-                                 $id_fornecedor, $id_responsavel, $observacao,  $valor, $id){
+                                 $id_fornecedor, $id_responsavel, $observacao,  $valor, $id_valor_custo, $id){
 		$sql = new Sql();	
 		$sql->conn_bd();
 		$g = new Glob();
 		$query = "UPDATE maquinario SET matricula='%s', chassi_nserie='%s', modelo='%s',  tipo_consumo='%s', ano='%s', id_cor='%s',
  											fabricante='%s', data_compra='%s', seguro='%s', data_ini_seg = '%s', data_fim_seg = '%s', horimetro_inicial='%s', id_empresa='%s',
- 												 id_fornecedor='%s', id_responsavel='%s', observacao='%s',  valor='%s'  WHERE id ='%s' ";
+ 												 id_fornecedor='%s', id_responsavel='%s', observacao='%s',  valor='%s', id_valor_custo='%s'  WHERE id ='%s' ";
 
 		$query_tra = $g->tratar_query($query, $matricula, $chassi_nserie, $modelo,  $tipo_consumo, $ano, $id_cor,
 									 $fabricante, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $horimetro_inicial, $id_empresa,
-									 							 $id_fornecedor, $id_responsavel, $observacao,  $valor, $id);
+									 							 $id_fornecedor, $id_responsavel, $observacao,  $valor, $id_valor_custo, $id);
 		
 		if($query_tra){
 			return $query_tra;

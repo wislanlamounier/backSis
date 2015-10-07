@@ -14,6 +14,8 @@ include_once("../model/class_estado_bd.php");
 include_once("../model/class_endereco_bd.php");
 include_once("../model/class_empresa_bd.php");
 include_once("../model/class_banco.php");
+include_once("../model/class_valor_custo_bd.php");
+include_once("../model/class_tipo_custo_bd.php");
 
 function validate(){
   if(!isset($_POST['codigo']) || $_POST['codigo'] == ""){
@@ -457,6 +459,21 @@ function verificaValor($valor){
           });
       }
     }
+    
+     function carregaTipo_custo(tc){
+           
+      var combo = document.getElementById("tipo_custo");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == tc)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }
+    } 
+    
     // Mask
     function mascara(o,f){
           v_obj=o
@@ -737,6 +754,11 @@ function carregaUf_CartTrab(uf){
                      $endereco = new Endereco();
                      $endereco = $endereco->get_endereco( $func->id_endereco );
                      $banco = Banco::get_banco_by_id($func->id_dados_bancarios);
+                     
+                     $id_valor_custo = $func->id_valor_custo;
+                     
+                     $valor_custo = new Valor_custo();
+                     $valor_custo = $valor_custo->get_valor_custo_id($id_valor_custo);
                       // $endereco[0][0] Rua
                       // $endereco[0][1] Numero
                       // $endereco[0][2] Cidade
@@ -767,6 +789,7 @@ function carregaUf_CartTrab(uf){
                   <input type="hidden" id="id_func" name="id_tabela" value="<?php echo $func->id_tabela; ?>">
                   <input type="hidden" id="id_func" name="id_func" value="<?php echo $func->id; ?>">
                   <input type="hidden" id="id_endereco" name="id_endereco" value="<?php echo $func->id_endereco; ?>">
+                  <input type="hidden" id="id_custo" name="id_custo" value="<?php echo $valor_custo->id ?>">
                   <table border='0'>
                     <tr><td colspan="4" style="padding-top:10px; padding-bottom:10px;"><span style="color:#565656">Atenção: Se o campo senha ficar em branco a senha não sera alterada</span></td></tr>
                      <tr> <td><span>Código:*</span></td> <td colspan="3"><input autofocus style="width:100%; text-transform: uppercase" type="text" id="codigo" name="codigo" value="<?php echo $func->cod_serie; ?>"></td></tr> <!-- cod_serie -->
@@ -809,9 +832,28 @@ function carregaUf_CartTrab(uf){
                         </td>
                         <?php echo '<script> buscar_postos('.$func->id_empresa.'); </script>'; ?> 
                      </tr>
+                     
                      <tr> <td colspan="4"><span><a title="Clique aqui para cadastrar dados bancários" onclick="exibe()" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/icon-edita.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Editar dados bancários</div></a></span></td> </tr>
-                     <tr> <td><span>Salário Base:*</span></td> <td><input type="text" id="sal_base" name="sal_base" value="<?php echo verificaValor($func->salario_base) ?>"></td></tr> <!-- Salário base -->
-                     <tr> <td><span>Valor de custo:*</span></td> <td><input type="text" id="custo" name="custo" value="<?php echo verificaValor($func->custo) ?>"></td></tr> <!-- Salário base -->
+                     <tr> <td><span>Salário Base:</span></td> <td><input type="text" id="sal_base" name="sal_base"  value="<?php echo $func->salario_base; ?>" ></td></tr> <!-- Salário base -->
+                     <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo" value="<?php echo  $valor_custo->valor; ?>"></td>
+                                  <td>
+                                      <select id="tipo_custo" name="tipo_custo"  style="width:100%">
+                                    <option value="no_sel">Selecione</option>
+                                    <?php 
+                                       $tipo_custo = new Tipo_custo();
+                                       $tipo_custo = $tipo_custo->get_all_tipo_custo();                                       
+                                       foreach ($tipo_custo as $key => $value) {
+                                           echo '<option value="'.$value[0].'">'.$value[1].'</option>';
+                                       }
+//                                       for ($i=0; $i < count($empresa) ; $i++) { 
+//                                          echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
+//                                       }
+                                     ?>
+                                    <?php echo "<script> carregaTipo_custo('".$valor_custo->id_tipo_custo."'); </script>" ?> 
+                                 </select>
+                                  </td>
+                              </tr>
+                     
                      <tr> <td><span>Qtd. Horas Semanais:*</span></td> <td><input type="number" id="qtd_horas_sem" name="qtd_horas_sem" value="<?php echo $func->qtd_horas_sem; ?>"></td></tr> <!-- Quantidade de horas semanais -->
                      <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" value="<?php echo $func->num_pis; ?>"></td></tr> <!-- Numero do PIS -->
                      <tr> 
@@ -1044,7 +1086,26 @@ function carregaUf_CartTrab(uf){
                      </tr>
                      <tr> <td colspan="4"><span><a onclick="exibe()" title="Clique aqui para editar dados bancários" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/add.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Cadastrar dados bancários</div></a></span></td> </tr>
                      <tr> <td><span>Salário Base:*</span></td> <td><input type="text" id="sal_base" name="sal_base" ></td></tr> <!-- Salário base -->
-                     <tr> <td><span>Valor de Custo: </span></td> <td><input type="text" id="custo" name="custo" ></td></tr> <!-- Salário base -->
+                     
+                     <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo"></td>
+                                  <td>
+                                      <select id="tipo_custo" name="tipo_custo"  style="width:100%">
+                                    <option value="no_sel">Selecione</option>
+                                    <?php 
+                                       $tipo_custo = new Tipo_custo();
+                                       $tipo_custo = $tipo_custo->get_all_tipo_custo();                                       
+                                       foreach ($tipo_custo as $key => $value) {
+                                           echo '<option value="'.$value[0].'">'.$value[1].'</option>';
+                                       }
+//                                       for ($i=0; $i < count($empresa) ; $i++) { 
+//                                          echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
+//                                       }
+                                     ?>
+                                 </select>
+                                      
+                                  </td>
+                              </tr>
+                     
                      <tr> <td><span>Qtd. Horas Semanais:*</span></td> <td><input type="number" id="qtd_horas_sem" name="qtd_horas_sem" ></td></tr> <!-- Quantidade de horas semanais -->
                      <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" ></td></tr> <!-- Numero do PIS -->
                      <tr> 
@@ -1215,6 +1276,17 @@ function carregaUf_CartTrab(uf){
 
 
                            $salario_base = formata_salario($_POST['sal_base']);
+                           
+                           $valor_custo = new Valor_custo();                                        
+                           if(isset($_POST['valor_custo'])!= ""){
+                            $id_tipo_custo = $_POST['tipo_custo'];
+                            $valor = $_POST['valor_custo'];
+                            $valor_custo->add_valor_custo($valor, $id_tipo_custo);
+                            $id_valor_custo = $valor_custo->add_valor_custo_bd();
+                                }
+                           
+                           
+                           
                            $qtd_horas_sem = $_POST['qtd_horas_sem'];
                            $num_cart_trab = $_POST['num_cart_trab'];
                            $num_serie_cart_trab = $_POST['num_serie_cart_trab'] ;
@@ -1227,7 +1299,7 @@ function carregaUf_CartTrab(uf){
                            $data_ini = date("Y-m-d H:i:s");
                            $data_fim = "0000-00-00";
 
-                           $func->add_func($id_banco, $cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $data_ini, $data_fim);
+                           $func->add_func($id_banco, $cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $id_valor_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $data_ini, $data_fim);
                            // echo $func->printFunc();
                            if($func->add_func_bd()){
                                echo '<div class="msg">Funcionário cadastrado com sucesso!</div>';
@@ -1243,6 +1315,7 @@ function carregaUf_CartTrab(uf){
                         
                            $func = new Funcionario();
                            $endereco = new Endereco();
+                           $valor_custo = new Valor_custo();
                            
                            $cod_serie = $_POST['codigo'];
                            $id = $_POST['id_func'];
@@ -1275,6 +1348,16 @@ function carregaUf_CartTrab(uf){
                            $data_adm = $_POST['data_admissao'];
                            
                            $salario_base = formata_salario($_POST['sal_base']);  // retorna salario formatado
+                           
+                            $id_custo = $_POST['id_custo'];
+                               
+                                if(isset($_POST['valor_custo'])!= ""){
+                                   
+                                     $id_tipo_custo = $_POST['tipo_custo'];
+                                     $valor = $_POST['valor_custo'];
+                                     $id_custo = $valor_custo->atualiza_valor_custo($valor, $id_tipo_custo, $id_custo);
+                                   
+                                };
                            
                            $qtd_horas_sem = $_POST['qtd_horas_sem'];
                            $num_cart_trab = $_POST['num_cart_trab'];
@@ -1319,7 +1402,7 @@ function carregaUf_CartTrab(uf){
                            
                            //************** FIM ATUALIZA DADOS BANCáRIOS ******************
 
-                           if($func->atualiza_func($id, $id_dados_bancarios, $cod_serie, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor)){
+                           if($func->atualiza_func($id, $id_dados_bancarios, $cod_serie, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $id_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor)){
                               echo '<div class="msg">Funcionário atualizado com sucesso</div>';
                               echo '<script>alert("Funcionário atualizado com sucesso")</script>';
                               echo '<script>window.location.href=\'principal.php\'</script>';

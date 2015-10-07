@@ -11,12 +11,13 @@ class Patrimonio_geral{
 	public $descricao;
 	public $quantidade;
 	public $valor;
+        public $id_valor_custo;
 	public $id_empresa;
 	public $oculto;
 
 	
 	
-	public function add_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa)
+	public function add_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_valor_custo, $id_empresa)
 	{		
 		
 		$this->nome = $nome;
@@ -25,6 +26,7 @@ class Patrimonio_geral{
 		$this->descricao = $descricao;
 		$this->quantidade = $quantidade;
 		$this->valor = $valor;
+                $this->id_valor_custo = $id_valor_custo;
 		$this->id_empresa = $id_empresa;
 
 	}
@@ -33,10 +35,10 @@ class Patrimonio_geral{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "INSERT INTO patrimonio_geral (nome, matricula, marca, descricao, quantidade, valor, id_empresa, controle) 
-                                        VALUES  	( '%s',  '%s',   '%s',   '%s',      '%s',	'%s',	'%s',       '0')";
+		$query = "INSERT INTO patrimonio_geral (nome, matricula, marca, descricao, quantidade, valor, id_valor_custo, id_empresa, controle) 
+                                        VALUES  	( '%s',  '%s',   '%s',   '%s',      '%s',	'%s',	'%s',           '%s',     '0')";
 
-		if($g->tratar_query($query, $this->nome, $this->matricula, $this->marca, $this->descricao, $this->quantidade, $this->valor, $this->id_empresa)){
+		if($g->tratar_query($query, $this->nome, $this->matricula, $this->marca, $this->descricao, $this->quantidade, $this->valor, $this->id_valor_custo, $this->id_empresa)){
 				return true; 
 		}else{
 				return false;
@@ -58,6 +60,7 @@ class Patrimonio_geral{
 			$return[$aux][2] = $result['descricao'];
 			$return[$aux][3] = $result['controle'];
                         $return[$aux][4] = $result['matricula'];
+                        
 			$aux++;
 		}
 		if($aux == 0){
@@ -89,20 +92,21 @@ class Patrimonio_geral{
 			$patrimonio->descricao= $row['descricao'];
 			$patrimonio->quantidade= $row['quantidade'];
 			$patrimonio->valor= $row['valor'];
+                        $patrimonio->id_valor_custo= $row['id_valor_custo'];
 			$patrimonio->id_empresa= $row['id_empresa'];
-	     	
+                        
 	     	
 	     	return $patrimonio;
 	     }
 	}
 
-	public function atualiza_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa, $id){
+	public function atualiza_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_valor_custo, $id_empresa, $id){
 		$sql = new Sql();	
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "UPDATE patrimonio_geral SET nome='%s', descricao='%s', marca='%s', descricao='%s', quantidade='%s', valor='%s', id_empresa='%s' WHERE id ='%s' ";
+		$query = "UPDATE patrimonio_geral SET nome='%s', descricao='%s', marca='%s', descricao='%s', quantidade='%s', valor='%s', id_valor_custo = '%s', id_empresa='%s' WHERE id ='%s' ";
 
-		$query_tra = $g->tratar_query($query, $nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa, $id);
+		$query_tra = $g->tratar_query($query, $nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_valor_custo, $id_empresa, $id);
 		
 		if($query_tra){
 			return $query_tra;

@@ -14,6 +14,7 @@ class Veiculo{
 	public $ano;
 	public $id_cor;
 	public $valor;
+        public $id_valor_custo;
 	public $data_compra;
 	public $seguro;	
 	public $km_inicial;
@@ -23,7 +24,7 @@ class Veiculo{
 	public $id_responsavel;
 	public $oculto;
 
-	public function add_veiculo($matricula, $chassi, $renavam, $placa, $id_marca, $modelo, $ano, $id_cor, $valor, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel){
+	public function add_veiculo($matricula, $chassi, $renavam, $placa, $id_marca, $modelo, $ano, $id_cor, $valor, $id_valor_custo ,$data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel){
 			
 			$this->matricula = $matricula;
 			$this->chassi = $chassi;
@@ -34,6 +35,7 @@ class Veiculo{
 			$this->ano = $ano;
 			$this->id_cor = $id_cor;
 			$this->valor = $valor;
+                        $this->id_valor_custo = $id_valor_custo;
 			$this->data_compra = $data_compra;
 			$this->seguro = $seguro;			
 			$this->km_inicial = $km_inicial;
@@ -49,9 +51,9 @@ class Veiculo{
 			$sql = new Sql();
 			$sql->conn_bd();
 			$g = new Glob();
-			$query = "INSERT INTO veiculo(matricula, chassi, renavam, placa, id_marca, modelo, ano, id_cor, valor, data_compra, seguro, data_ini_seg, data_fim_seg, km_inicial, tipo_combustivel, id_empresa, id_fornecedor, id_responsavel, controle)
-									VALUES ('%s',	  '%s',	  '%s',   '%s',	'%s',	'%s',  '%s','%s',  '%s',  	'%s',         '%s',		'%s',		'%s',			'%s',		'%s',			       '%s',    '%s',            '%s'	, '2')";
-			if($g->tratar_query($query, $this->matricula, $this->chassi, $this->renavam, $this->placa, $this->id_marca, $this->modelo, $this->ano, $this->id_cor, $this->valor, $this->data_compra, $this->seguro, $this->data_ini_seg, $this->data_fim_seg, $this->km_inicial, $this->tipo_combustivel, $this->id_empresa, $this->id_fornecedor, $this->id_responsavel)){
+			$query = "INSERT INTO veiculo(matricula, chassi, renavam, placa, id_marca, modelo, ano, id_cor, valor, id_valor_custo, data_compra, seguro, data_ini_seg, data_fim_seg, km_inicial, tipo_combustivel, id_empresa, id_fornecedor, id_responsavel, controle)
+									VALUES ('%s',	  '%s',	  '%s',   '%s',	'%s',	'%s',  '%s','%s','%s',  '%s',  	'%s',         '%s',		'%s',		'%s',			'%s',		'%s',			       '%s',    '%s',            '%s'	, '2')";
+			if($g->tratar_query($query, $this->matricula, $this->chassi, $this->renavam, $this->placa, $this->id_marca, $this->modelo, $this->ano, $this->id_cor, $this->valor, $this->id_valor_custo, $this->data_compra, $this->seguro, $this->data_ini_seg, $this->data_fim_seg, $this->km_inicial, $this->tipo_combustivel, $this->id_empresa, $this->id_fornecedor, $this->id_responsavel)){
 			return true; 
 		}else{
 			return false;
@@ -106,6 +108,7 @@ class Veiculo{
 			$veiculo->tipo_combustivel= $row['tipo_combustivel'];
 			$veiculo->data_compra = $row['data_compra'];
 			$veiculo->valor = $row['valor'];
+                        $veiculo->id_valor_custo = $row['id_valor_custo'];
 			$veiculo->seguro= $row['seguro'];
 			$veiculo->data_ini_seg = $row['data_ini_seg'];
 			$veiculo->data_fim_seg = $row['data_fim_seg'];
@@ -113,18 +116,19 @@ class Veiculo{
 			$veiculo->id_fornecedor= $row['id_fornecedor'];
 			$veiculo->id_empresa= $row['id_empresa'];
 			$veiculo->id_responsavel= $row['id_responsavel'];
+                        
 	     	
 	     	return $veiculo;
 	     }
 	}	
 	
-	public function atualiza_veiculo($matricula, $chassi, $renavam, $placa, $id_marca, $modelo, $ano, $id_cor, $valor, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel, $id){
+	public function atualiza_veiculo($matricula, $chassi, $renavam, $placa, $id_marca, $modelo, $ano, $id_cor, $valor, $id_valor_custo ,$data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel, $id){
 		$sql = new Sql();	
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "UPDATE veiculo SET matricula='%s', chassi='%s', renavam='%s', placa='%s', id_marca='%s', modelo='%s', ano='%s', id_cor='%s', valor='%s', data_compra='%s', seguro='%s', data_ini_seg='%s', data_fim_seg='%s', km_inicial='%s', tipo_combustivel='%s', id_empresa='%s', id_fornecedor='%s', id_responsavel='%s' WHERE id ='%s' ";
+		$query = "UPDATE veiculo SET matricula='%s', chassi='%s', renavam='%s', placa='%s', id_marca='%s', modelo='%s', ano='%s', id_cor='%s', valor='%s', id_valor_custo = '%s', data_compra='%s', seguro='%s', data_ini_seg='%s', data_fim_seg='%s', km_inicial='%s', tipo_combustivel='%s', id_empresa='%s', id_fornecedor='%s', id_responsavel='%s' WHERE id ='%s' ";
 
-		$query_tra = $g->tratar_query($query, $matricula, $chassi, $renavam, $placa, $id_marca, $modelo, $ano, $id_cor, $valor, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel ,$id);
+		$query_tra = $g->tratar_query($query, $matricula, $chassi, $renavam, $placa, $id_marca, $modelo, $ano, $id_cor, $valor, $id_valor_custo, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel ,$id);
 		
 		if($query_tra){
 			return $query_tra;

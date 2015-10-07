@@ -31,6 +31,7 @@ class Funcionario{
 	public $email_empresa;
 	public $data_adm;
 	public $salario_base;
+        public $id_valor_custo;
 	public $qtd_horas_sem;
 	public $num_cart_trab;
 	public $num_serie_cart_trab;
@@ -40,7 +41,7 @@ class Funcionario{
 	public $data_ini;
 	public $data_fim;
 	
-	public function add_func($id_dados_bancarios, $cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $data_ini, $data_fim){
+	public function add_func($id_dados_bancarios, $cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $id_valor_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $data_ini, $data_fim){
 			$this->id_dados_bancarios = $id_dados_bancarios;
 			$this->cod_serie = $cod_serie;
 			$this->nome = $nome;
@@ -49,7 +50,7 @@ class Funcionario{
 			$this->telefone = $telefone;
 			$this->email = $email;
 			$this->senha = $senha;
-		    $this->id_cbo = $id_cbo;
+                        $this->id_cbo = $id_cbo;
 			$this->id_endereco = $id_endereco;
 			$this->id_empresa = $id_empresa;
 			$this->id_empresa_filial = $id_empresa_filial;
@@ -63,6 +64,7 @@ class Funcionario{
 			$this->email_empresa = $email_empresa;
 			$this->data_adm = $data_adm;
 			$this->salario_base = $salario_base;
+                        $this->id_valor_custo = $id_valor_custo;
 			$this->qtd_horas_sem = $qtd_horas_sem;
 			$this->num_cart_trab = $num_cart_trab;
 			$this->num_serie_cart_trab = $num_serie_cart_trab;
@@ -85,12 +87,12 @@ class Funcionario{
 
 		$novo_id = $row['id']+1;//pega o id do ultimo e incrementa 1 para saber o id do proximo
 
-		$query = "INSERT INTO funcionario (id, id_dados_bancarios, cod_serie, nome, cpf,   rg, data_nasc, telefone, email, senha, id_turno, id_cbo, id_empresa, id_empresa_filial, is_admin, id_endereco, data_em_rg, org_em_rg, num_tit_eleitor, email_empresa, data_adm, salario_base, qtd_horas_sem, num_cart_trab, num_serie_cart_trab, id_uf_cart_trab, num_pis, id_supervisor, data_ini) 
-		                           VALUES (%d,       %d,            '%s',   '%s', '%s', '%s',  '%s',      '%s',    '%s',  '%s',    %d,       %d,      %d,             %d,           %d,        %d,        '%s',        '%s',         '%s',         '%s',         '%s',      '%s',          %d,          '%s',            '%s',                %d,           '%s',     '%s',         '%s')";
+		$query = "INSERT INTO funcionario (id, id_dados_bancarios, cod_serie, nome, cpf,   rg, data_nasc, telefone, email, senha, id_turno, id_cbo, id_empresa, id_empresa_filial, is_admin, id_endereco, data_em_rg, org_em_rg, num_tit_eleitor, email_empresa, data_adm, salario_base, id_valor_custo, qtd_horas_sem, num_cart_trab, num_serie_cart_trab, id_uf_cart_trab, num_pis, id_supervisor, data_ini) 
+		                           VALUES (%d,       %d,            '%s',   '%s', '%s', '%s',  '%s',      '%s',    '%s',  '%s',    %d,       %d,      %d,             %d,           %d,        %d,        '%s',        '%s',         '%s',         '%s',         '%s',      '%s',          %d,    '%s',      '%s',            '%s',                %d,           '%s',     '%s',         '%s')";
 
 		$result = $g->tratar_query($query,$novo_id, $this->id_dados_bancarios, $this->cod_serie,
 			                       $this->nome, $this->cpf, $this->rg, $this->data_nasc, $this->telefone, $this->email, $this->senha, $this->id_turno, $this->id_cbo, $this->id_empresa,
-			                       $this->id_empresa_filial, $this->is_admin, $this->id_endereco, $this->data_em_rg, $this->org_em_rg, $this->num_tit_eleitor, $this->email_empresa, $this->data_adm, $this->salario_base, $this->qtd_horas_sem, $this->num_cart_trab, $this->num_serie_cart_trab, $this->uf_cart_trab, $this->num_pis, $this->id_supervisor, $this->data_ini);
+			                       $this->id_empresa_filial, $this->is_admin, $this->id_endereco, $this->data_em_rg, $this->org_em_rg, $this->num_tit_eleitor, $this->email_empresa, $this->data_adm, $this->salario_base, $this->id_valor_custo, $this->qtd_horas_sem, $this->num_cart_trab, $this->num_serie_cart_trab, $this->uf_cart_trab, $this->num_pis, $this->id_supervisor, $this->data_ini);
 		if($result){
 			return true;
 		}else{
@@ -188,6 +190,7 @@ class Funcionario{
 			$func->email_empresa = $row['email_empresa'];
 			$func->data_adm = $row['data_adm'];
 			$func->salario_base = $row['salario_base'];
+                        $func->id_valor_custo = $row['id_valor_custo'];
 			$func->qtd_horas_sem = $row['qtd_horas_sem'];
 			$func->num_cart_trab = $row['num_cart_trab'];
 			$func->num_serie_cart_trab = $row['num_serie_cart_trab'];
@@ -362,6 +365,8 @@ class Funcionario{
 	// 	[10]=> string(1) "3" 
 	// 	["quantidade"]=> string(1) "3" 
 	// }
+        
+        
 	
 	public function get_func_by_name($name){
 		$sql = new Sql();
@@ -419,19 +424,19 @@ class Funcionario{
 			while($result =  mysql_fetch_array($query_tra)){
 				$return[$aux][0] = $result['id'];
 				$return[$aux][1] = $result['nome'];
-	            $return[$aux][2] = $result['cod_serie'];
-	            $return[$aux][3] = $result['salario_base'];
-	            $return[$aux][4] = $result['id_endereco'];
-	            $return[$aux][5] = $result['id_cbo'];
-	            $return[$aux][6] = $result['data_dem'];
-	            $return[$aux][7] = $result['qtd_horas_sem'];
-	            $return[$aux][8] = $result['data_fim'];
-	            $return[$aux][9] = $result['id_supervisor'];
-	            $return[$aux][10] = $result['id_turno'];
-	            $return[$aux][11] = $result['is_admin'];
-	            $return[$aux][12] = $result['email'];
-	            $return[$aux][13] = $result['data_ini'];
-	                        
+                                $return[$aux][2] = $result['cod_serie'];
+                                $return[$aux][3] = $result['salario_base'];
+                                $return[$aux][4] = $result['id_endereco'];
+                                $return[$aux][5] = $result['id_cbo'];
+                                $return[$aux][6] = $result['data_dem'];
+                                $return[$aux][7] = $result['qtd_horas_sem'];
+                                $return[$aux][8] = $result['data_fim'];
+                                $return[$aux][9] = $result['id_supervisor'];
+                                $return[$aux][10] = $result['id_turno'];
+                                $return[$aux][11] = $result['is_admin'];
+                                $return[$aux][12] = $result['email'];
+                                $return[$aux][13] = $result['data_ini'];
+	                        $return[$aux][14] = $result['id_valor_custo'];
 	                        
 	                        
 				$aux++;
@@ -447,7 +452,7 @@ class Funcionario{
 
 
 
-	public function atualiza_func($id, $id_dados_bancarios, $cod_serie, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor){
+	public function atualiza_func($id, $id_dados_bancarios, $cod_serie, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $id_valor_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
@@ -472,6 +477,8 @@ class Funcionario{
 				$cont++;
 			}else if($key == 'qtd_horas_sem' && $temp->$key != $qtd_horas_sem){// verifica se turno foi alterado
 				$cont++;
+                        }else if($key == 'id_valor_custo' && $temp->$key != $id_valor_custo){
+                                $cont++;
 			}else if($key == 'data_ini' && $temp->$key == '0000-00-00 00:00:00'){// se data_ini for 0000-00-00 é a primeira alteração e não precisa gerar historico
 				// echo "<script>alert('é a primeira alteração');</script>";
 				$true = true;
@@ -487,16 +494,16 @@ class Funcionario{
 			$aux = 0;
 			$query_tra = false;
 			if($senha == ""){
-					$query = "INSERT INTO funcionario (id, id_dados_bancarios, cod_serie,  nome, cpf, rg, data_nasc, telefone, email,  senha, id_turno, id_cbo, id_empresa, id_empresa_filial, is_admin, id_endereco, data_em_rg, org_em_rg, num_tit_eleitor, email_empresa, data_adm, salario_base, qtd_horas_sem, num_cart_trab, num_serie_cart_trab, id_uf_cart_trab, num_pis, id_supervisor, data_ini) 
-				                               VALUES ('%s',     %d,              '%s',    '%s', '%s', '%s', '%s',      '%s',     '%s', '%s'  ,  %d,       %d,      %d,             %d,        %d,        %d,        '%s',        '%s',         '%s',         '%s',         '%s',      '%s',          %d,          '%s',            '%s',                %d,           '%s',     '%s',           '%s')";
+					$query = "INSERT INTO funcionario (id, id_dados_bancarios, cod_serie,  nome, cpf, rg, data_nasc, telefone, email,  senha, id_turno, id_cbo, id_empresa, id_empresa_filial, is_admin, id_endereco, data_em_rg, org_em_rg, num_tit_eleitor, email_empresa, data_adm, salario_base, id_valor_custo, qtd_horas_sem, num_cart_trab, num_serie_cart_trab, id_uf_cart_trab, num_pis, id_supervisor, data_ini) 
+				                               VALUES ('%s',     %d,              '%s',    '%s', '%s', '%s', '%s',      '%s',     '%s', '%s'  ,  %d,       %d,      %d,             %d,        %d,        %d,        '%s',        '%s',         '%s',         '%s',         '%s',      '%s',          %d,     '%s',     '%s',            '%s',                %d,           '%s',     '%s',           '%s')";
 
-				    $query_tra = $g->tratar_query($query, $id, $id_dados_bancarios, $cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $temp->senha, $id_turno, $id_cbo, $id_empresa, $id_empresa_filial, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, date("Y-m-d H:i:s"));
+				    $query_tra = $g->tratar_query($query, $id, $id_dados_bancarios, $cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $temp->senha, $id_turno, $id_cbo, $id_empresa, $id_empresa_filial, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $id_valor_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, date("Y-m-d H:i:s"));
 			
 			}else{
-					$query = "INSERT INTO funcionario (id, id_dados_bancarios, cod_serie, nome, cpf, rg, data_nasc, telefone, email,  senha, id_turno, id_cbo, id_empresa, id_empresa_filial, is_admin, id_endereco, data_em_rg, org_em_rg, num_tit_eleitor, email_empresa, data_adm, salario_base, qtd_horas_sem, num_cart_trab, num_serie_cart_trab, id_uf_cart_trab, num_pis, id_supervisor, data_ini) 
-				                               VALUES ('%s',       %d,             '%s',  '%s', '%s', '%s', '%s',      '%s',   '%s',   '%s',    %d,       %d,      %d,             %d,           %d,        %d,        '%s',        '%s',         '%s',         '%s',         '%s',      '%s',          %d,          '%s',            '%s',                %d,           '%s',     '%s',          '%s')";
+					$query = "INSERT INTO funcionario (id, id_dados_bancarios, cod_serie, nome, cpf, rg, data_nasc, telefone, email,  senha, id_turno, id_cbo, id_empresa, id_empresa_filial, is_admin, id_endereco, data_em_rg, org_em_rg, num_tit_eleitor, email_empresa, data_adm, salario_base, id_valor_custo, qtd_horas_sem, num_cart_trab, num_serie_cart_trab, id_uf_cart_trab, num_pis, id_supervisor, data_ini) 
+				                               VALUES ('%s',       %d,             '%s',  '%s', '%s', '%s', '%s',      '%s',   '%s',   '%s',    %d,       %d,      %d,             %d,           %d,        %d,        '%s',        '%s',         '%s',         '%s',         '%s',      '%s',          %d,   '%s',       '%s',            '%s',                %d,           '%s',     '%s',          '%s')";
 
-				    $query_tra = $g->tratar_query($query, $id, $id_dados_bancarios, $cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_turno, $id_cbo, $id_empresa, $id_empresa_filial, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, date("Y-m-d H:i:s"));
+				    $query_tra = $g->tratar_query($query, $id, $id_dados_bancarios, $cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_turno, $id_cbo, $id_empresa, $id_empresa_filial, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $id_valor_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, date("Y-m-d H:i:s"));
 			}
 
 		    return $query_tra;
@@ -508,7 +515,7 @@ class Funcionario{
 
 			$aux=0;
 			
-			$query = "UPDATE funcionario SET nome='%s', id_dados_bancarios = %d, cod_serie = '%s', cpf='%s', data_nasc='%s', id_endereco = '%s', telefone = '%s', email = '%s', id_empresa = '%s', id_empresa_filial = '%s', id_turno = '%s', id_cbo = '%s', is_admin = '%s', rg = '%s', data_em_rg = '%s' , org_em_rg = '%s', num_tit_eleitor = '%s', email_empresa = '%s', data_adm = '%s', salario_base = '%s', qtd_horas_sem = '%s', num_cart_trab = '%s', num_serie_cart_trab = '%s', id_uf_cart_trab = '%s', num_pis = '%s', id_supervisor = '%s'";
+			$query = "UPDATE funcionario SET nome='%s', id_dados_bancarios = %d, cod_serie = '%s', cpf='%s', data_nasc='%s', id_endereco = '%s', telefone = '%s', email = '%s', id_empresa = '%s', id_empresa_filial = '%s', id_turno = '%s', id_cbo = '%s', is_admin = '%s', rg = '%s', data_em_rg = '%s' , org_em_rg = '%s', num_tit_eleitor = '%s', email_empresa = '%s', data_adm = '%s', salario_base = '%s', id_valor_custo = '%s', qtd_horas_sem = '%s', num_cart_trab = '%s', num_serie_cart_trab = '%s', id_uf_cart_trab = '%s', num_pis = '%s', id_supervisor = '%s'";
 											     // $nome,    $cpf,       $data_nasc,       $telefone,      $email,       $id_empresa_filial,        $id_turno,    $id_cbo,        $is_admin,        $data_em_rg ,     $org_em_rg,          $num_tit_eleitor,    $email_empresa,       $data_adm,        $salario_base,     $qtd_horas_sem,       $num_cart_trab,       $num_serie_cart_trab,        $uf_cart_trab,   $num_pis, $id
 
 			if($senha != ""){
@@ -519,9 +526,9 @@ class Funcionario{
 			$query .= "WHERE id_tabela = '%s' and oculto = 0";
 			
 			if($aux == 0){// se aux == 0 a senha não foi alterada então não precisa enviar o parametro $senha
-				$query_tra = $g->tratar_query($query, $nome, $id_dados_bancarios, $cod_serie, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,          $id_tabela);
+				$query_tra = $g->tratar_query($query, $nome, $id_dados_bancarios, $cod_serie, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $id_valor_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,          $id_tabela);
 			}else{
-				$query_tra = $g->tratar_query($query, $nome, $id_dados_bancarios, $cod_serie, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,         $senha, $id_tabela);
+				$query_tra = $g->tratar_query($query, $nome, $id_dados_bancarios, $cod_serie, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $id_valor_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,         $senha, $id_tabela);
 			}
 
 			if($true){// se true, é a primeira alteração então é necessario adicionar a data_ini do registro
@@ -590,6 +597,8 @@ class Funcionario{
 	public function printFunc(){
         $empresa = new Empresa();
         $empresa = $empresa->get_empresa_by_id($this->id_empresa);
+        $valor_custo = new Valor_custo();
+        $valor_custo = $valor_custo->get_valor_custo_id($this->id_valor_custo);
         $filial = Filial::get_filial_id($this->id_empresa_filial);
         $cbo = new Cbo();
         $cbo = $cbo->get_cbo_by_id($this->id_cbo);
@@ -628,6 +637,9 @@ class Funcionario{
 		}
 		$texto .= "<tr>";
 		$texto .= "<td colspan='2'><b><span>Salário base: <span></b></td><td colspan='3'><span>R$ ".$this->verificaValor($this->salario_base)."</span></td>";
+		$texto .= "</tr>";
+                $texto .= "<tr>";
+		$texto .= "<td colspan='2'><b><span>Salário base: <span></b></td><td colspan='3'><span>R$ ".$this->verificaValor($valor_custo->valor)."</span></td>";
 		$texto .= "</tr>";
 		$texto .= "<tr>";
                 if(isset($cbo->descricao)){

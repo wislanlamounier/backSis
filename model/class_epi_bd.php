@@ -223,7 +223,9 @@ class Epi{
 		echo "<table class='table_pesquisa'>";
 		echo "<tr><td><span>ID: </span></td><td><span>".$this->id."</span></td></tr>";
 		echo "<tr><td><span>Nome: </span></td><td><span>".$this->nome_epi."</span></td></tr>";
-		echo "<tr><td><span>Descricao: </span></td><td><span>".$this->descricao."</span></td></tr>";
+                echo "<tr><td><span>Código: </span></td><td><span>".$this->codigo."</span></td></tr>";
+                echo "<tr><td><span>Descrição: </span></td><td><span>".$this->descricao."</span></td></tr>";
+		
 		echo "<tr><td><span>Quantidade: </span></td><td><span>".$this->quantidade."</span></td></tr>";
 		if($this->is_epi == 1){
 			echo"<tr><td><span>Equipamento de Proteção</span></td><td><span><input type='checkbox' disabled checked>";

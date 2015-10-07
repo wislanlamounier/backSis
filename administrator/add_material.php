@@ -257,7 +257,6 @@ function verificaValor($valor){
                                      ?>
                                     <?php echo "<script> carregaTipo_custo('".$valor_custo->id_tipo_custo."'); </script>" ?> 
                                  </select>
-                                      
                                   </td>
                               </tr>
                                 <tr><td><span>Unidade de medida:</span></td><td><select id="medida" name="medida"  style="width:100%">
@@ -335,9 +334,8 @@ function verificaValor($valor){
 
                     if($_POST['medida']!= "no_sel" && $_POST['empresa']!="no_sel"){
                      $material = new Material();
-                     $valor_custo = new Valor_custo();
                      
-                    
+                     $valor_custo = new Valor_custo();                                        
                      if(isset($_POST['valor_custo'])!= ""){
                          $id_tipo_custo = $_POST['tipo_custo'];
                          $valor = $_POST['valor_custo'];
@@ -367,18 +365,17 @@ function verificaValor($valor){
                                $id = $_POST['id'];
                                $nome = $_POST['nome'];
                                $id_unidade_medida = $_POST['medida'];
+                               
                                $id_custo = $_POST['id_custo'];
                                
-                                if(isset($_POST['valor_custo'])!= ""){
+                                   if(isset($_POST['valor_custo'])!= ""){
                                    
                                      $id_tipo_custo = $_POST['tipo_custo'];
                                      $valor = $_POST['valor_custo'];
-                                     $valor_custo->atualiza_valor_custo($valor, $id_tipo_custo, $id_custo);
-                                     
+                                     $id_custo = $valor_custo->atualiza_valor_custo($valor, $id_tipo_custo, $id_custo);
                                 };
                      
-                              if($material->atualiza_material($nome, $id_custo, $id_unidade_medida, $id )){
-                                 
+                              if($material->atualiza_material($nome, $id_custo, $id_unidade_medida, $id )){                                 
                               }else{
                                  echo '<div class="msg">Falha na atualização!</div>';
                               }

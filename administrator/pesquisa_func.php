@@ -2,6 +2,7 @@
 <?php
 include("restrito.php");
 include("../model/class_cliente.php");
+include("../model/class_valor_custo_bd.php");
 
 ?>
 <html>
