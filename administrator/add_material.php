@@ -5,14 +5,49 @@ include_once("../model/class_sql.php");
 include("../model/class_empresa_bd.php");
 include("../model/class_unidade_medida_bd.php");
 include("../model/class_material_bd.php");
+include("../model/class_tipo_custo_bd.php");
+include("../model/class_valor_custo_bd.php");
 
 function validate(){
    if(!isset($_POST['nome']) || $_POST['nome'] == ""){
         return false;
    	}
-   		   return true;    
-     
+   		   return true;
     }
+function formata_salario($valor){
+    $replace = array(".","R$ ");
+    $string = str_replace($replace, "", $valor);
+
+    $replace = array(",");
+    $string = str_replace($replace, ".", $string);
+    
+    $return = $string;
+    return $return;
+}
+
+function verificaValor($valor){
+        
+    if(!strpos($valor, '.')){// se não existe . na string (EX R$ 15) tem que adicionar .00 para ficar (R$ 15.00)
+       $valor .= '.00';
+
+    /**** Comments else if ****
+      se (tamanho da string) - (posisão do ponto) for < 3 
+      EX:
+      len ->  12345
+      str ->  100.5
+      pos ->  01234
+      
+      len == 5; pos == 3;
+
+      (5-3) == 2; 2 < 3
+
+    */
+    }else if(strlen($valor) - strpos($valor, '.') < 3){
+        $valor .= '0';
+    }
+    
+    return $valor;
+}
  ?>
 
 <html>
@@ -81,8 +116,99 @@ function validate(){
           break;
         }
       }
-     
-    } 
+    }
+    function carregaTipo_custo(tc){
+           
+      var combo = document.getElementById("tipo_custo");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == tc)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }
+    }    
+        function mascara(o,f){
+          v_obj=o
+          v_fun=f
+          setTimeout("execmascara()",1)
+      }
+      function execmascara(){
+          v_obj.value=v_fun(v_obj.value)
+      }
+    function mmoney(v){
+       if(v.length >=18){                                          // alert("mtel")
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+       v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
+       v=v.replace(/(\d)(\d{11})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       v=v.replace(/(\d)(\d{8})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       v=v.replace(/(\d)(\d{5})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       v=v.replace(/(\d)(\d{2})$/,"$1,$2");    //Coloca hífen entre o quarto e o quinto dígitos
+       
+       return 'R$ '+v;
+    }
+   function mtel(v){
+       if(v.length >=15){
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+       v=v.replace(/\D/g,"");
+       v=v.replace(/^(\d{2})(\d)/g,"($1) $2");
+       v=v.replace(/(\d)(\d{4})$/,"$1-$2");
+       return v;
+   }
+    function mcpf(v){
+       if(v.length >=15){  
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+       v=v.replace(/\D/g,""); 
+       v=v.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4");
+       return v;
+    }
+    function dnasc(v){
+       if(v.length >=10){      
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+       v=v.replace(/\D/g,""); 
+       v=v.replace(/^(\d{2})(\d{2})(\d{4})/,"$1/$2/$3");  
+       return v;
+   }
+    function mrg(v){
+       if(v.length >=13){
+         v = v.substring(0,(v.length - 1));
+         return v;
+       }
+       v=v.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})/,"$1.$2.$3-$4");
+       return v;
+   }
+   function id( el ){
+     return document.getElementById( el );
+   }
+   window.onload = function(){
+      mascara( id('custo'), mmoney );
+      
+      id('sal_base').onkeypress = function(){ 
+          mascara( this, mmoney );
+      }
+      id('custo').onkeypress = function(){ 
+          mascara( this, mmoney );
+      }
+      id('cpf').onkeypress = function(){ 
+          mascara( this, mcpf );
+      }
+      
+      id('telefone').onkeypress = function(){
+          mascara( this, mtel );
+      }
+      
+      
+   }
 </script>
 
 <body>	
@@ -97,7 +223,13 @@ function validate(){
                      $material = $material->get_material_id($id);
                      $id = $material->id;
                      $nome = $material->nome;
-                    
+                     $id_valor_custo = $material->id_valor_custo;
+                     
+                     $valor_custo = new Valor_custo();
+                     $valor_custo = $valor_custo->get_valor_custo_id($id_valor_custo);
+                     
+                     
+                     
                      $u_m = new Unidade_medida(); //u_m UNIDADE DE MEDIDA
                      $u_m = $u_m->get_unidade_medida_by_id($material->id_unidade_medida);
             	 ?>
@@ -105,10 +237,30 @@ function validate(){
                 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR MATERIAL</span></div></div>
                        <form method="POST" id="add_material" action="add_material.php" onsubmit="return validate(this)">
                             <input type="hidden" id="tipo" name="tipo" value="editar">
-                            <input type="hidden" id="id" name="id" value="<?php echo $id ?>">                            
+                            <input type="hidden" id="id" name="id" value="<?php echo $id ?>"> 
+                            <input type="hidden" id="id_custo" name="id_custo" value="<?php echo $valor_custo->id ?>">
                             <table border="0">
-                            	<tr><td><span>Nome:</span></td> <td><input type="text" name="nome" id="n"ome  value="<?php echo $nome ?>"></td></tr>
-                            <tr><td><span>Unidade de medida:</span></td><td><select id="medida" name="medida"  style="width:100%">
+                                <tr><td><span>Nome:</span></td> <td><input type="text" name="nome" id="nome"  value="<?php echo $nome ?>"></td></tr>                                
+                                <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo" value="<?php echo  $valor_custo->valor; ?>"></td>
+                                  <td>
+                                      <select id="tipo_custo" name="tipo_custo"  style="width:100%">
+                                    <option value="no_sel">Selecione</option>
+                                    <?php 
+                                       $tipo_custo = new Tipo_custo();
+                                       $tipo_custo = $tipo_custo->get_all_tipo_custo();                                       
+                                       foreach ($tipo_custo as $key => $value) {
+                                           echo '<option value="'.$value[0].'">'.$value[1].'</option>';
+                                       }
+//                                       for ($i=0; $i < count($empresa) ; $i++) { 
+//                                          echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
+//                                       }
+                                     ?>
+                                    <?php echo "<script> carregaTipo_custo('".$valor_custo->id_tipo_custo."'); </script>" ?> 
+                                 </select>
+                                      
+                                  </td>
+                              </tr>
+                                <tr><td><span>Unidade de medida:</span></td><td><select id="medida" name="medida"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
                                     <?php 
                                        $medida = new Unidade_medida();
@@ -150,9 +302,29 @@ function validate(){
                                           echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
                                        }
                                      ?>
-                                 </select><td></tr>
+                                 </select>
+                              </td>
+                              </tr>
+                              <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo"></td>
+                                  <td>
+                                      <select id="tipo_custo" name="tipo_custo"  style="width:100%">
+                                    <option value="no_sel">Selecione</option>
+                                    <?php 
+                                       $tipo_custo = new Tipo_custo();
+                                       $tipo_custo = $tipo_custo->get_all_tipo_custo();                                       
+                                       foreach ($tipo_custo as $key => $value) {
+                                           echo '<option value="'.$value[0].'">'.$value[1].'</option>';
+                                       }
+//                                       for ($i=0; $i < count($empresa) ; $i++) { 
+//                                          echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
+//                                       }
+                                     ?>
+                                 </select>
+                                      
+                                  </td>
+                              </tr>
                           </table>
-                          <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_material.php'" id="button" value="Cancelar"></td></tr>
+                          <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_material.php'" id="button" value="Cancelar"></td></tr>
                        </form>          
                        
             <?php }?>               
@@ -163,14 +335,22 @@ function validate(){
 
                     if($_POST['medida']!= "no_sel" && $_POST['empresa']!="no_sel"){
                      $material = new Material();
-                     $material->add_material($_POST['nome'], $_POST['medida'], $_POST['empresa']); 
+                     $valor_custo = new Valor_custo();
+                     
+                    
+                     if(isset($_POST['valor_custo'])!= ""){
+                         $id_tipo_custo = $_POST['tipo_custo'];
+                         $valor = $_POST['valor_custo'];
+                         $valor_custo->add_valor_custo($valor, $id_tipo_custo);
+                         $id_valor_custo = $valor_custo->add_valor_custo_bd();
+                     }
+                     $material->add_material($_POST['nome'], $id_valor_custo ,$_POST['medida'], $_POST['empresa']); 
                       
                      if($material->add_material_bd()){
                         echo '<div class="msg">Cadastrado com sucesso!</div>';
                      }else{
                         echo '<div class="msg">Erro ao cadastrar!</div>';
                      }
-
                   	}else{
                 
                         echo '<div class="msg">Erro ao cadastrar!</div>';
@@ -182,13 +362,22 @@ function validate(){
                 	if(isset($_POST['id'])){
                               
                             if(validate()){
-                            
-                              $material = new Material();
-                              $id = $_POST['id'];
-                              $nome = $_POST['nome'];
-                              $id_unidade_medida = $_POST['medida'];
-                              
-                              if($material->atualiza_material($nome, $id_unidade_medida, $id )){
+                               $valor_custo = new Valor_custo();
+                               $material = new Material();
+                               $id = $_POST['id'];
+                               $nome = $_POST['nome'];
+                               $id_unidade_medida = $_POST['medida'];
+                               $id_custo = $_POST['id_custo'];
+                               
+                                if(isset($_POST['valor_custo'])!= ""){
+                                   
+                                     $id_tipo_custo = $_POST['tipo_custo'];
+                                     $valor = $_POST['valor_custo'];
+                                     $valor_custo->atualiza_valor_custo($valor, $id_tipo_custo, $id_custo);
+                                     
+                                };
+                     
+                              if($material->atualiza_material($nome, $id_custo, $id_unidade_medida, $id )){
                                  
                               }else{
                                  echo '<div class="msg">Falha na atualização!</div>';

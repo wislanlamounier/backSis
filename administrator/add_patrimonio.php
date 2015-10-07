@@ -444,6 +444,7 @@ function verificaValor($valor){
                            $data_fim_seg = "0000-00-00";
                        }
                        $valor = formataMoney($_POST['valor']);
+                       $valor_custo = formataMoney($_POST['valor_custo']);
                        $horimetro_inicial = $_POST['hr_inicial'];
                        $id_empresa = $_POST['empresa'];
                        $id_fornecedor = $_POST['fornecedor'];
@@ -452,7 +453,7 @@ function verificaValor($valor){
 
 
                       $maquinario = new Maquinario();
-                      $maquinario->add_maquinario($matricula, $chassi_nserie, $modelo, $tipo_consumo, $ano, $cor, $fabricante, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $horimetro_inicial, $id_empresa, $id_fornecedor, $id_responsavel, $observacao, $valor);
+                      $maquinario->add_maquinario($matricula, $chassi_nserie, $modelo, $tipo_consumo, $ano, $cor, $fabricante, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $horimetro_inicial, $id_empresa, $id_fornecedor, $id_responsavel, $observacao, $valor, $valor_custo);
     
                       if($maquinario->add_maquinario_bd()){
                         echo '<div class="msg" style="float: left;">Maquinario adicionado com sucesso !</div>';
@@ -480,6 +481,7 @@ function verificaValor($valor){
                          $ano = $_POST['ano'];
                          $id_cor = $_POST['cor'];
                          $valor = formataMoney($_POST['valor']);
+                         $valor_custo = formataMoney($_POST['valor_custo']);
                          $data_compra = $_POST['data_compra'];
                          $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;
                            if($seguro == 1){                      
@@ -500,7 +502,7 @@ function verificaValor($valor){
                           $veiculo = new Veiculo();
                          
                          
-                          $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $id_marca, $modelo, $ano, $id_cor, $valor, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
+                          $veiculo->add_veiculo($matricula, $chassi, $renavam, $placa, $id_marca, $modelo, $ano, $id_cor, $valor, $valor_custo, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel);
                           
                           if($veiculo->add_veiculo_bd()){
                             echo '<div class="msg" style="float: left;">Veiculo adicionado com sucesso !</div>';
@@ -526,13 +528,14 @@ function verificaValor($valor){
                          $marca = $_POST['marca'];
                          $descricao = $_POST['descricao'];
                          $quantidade = $_POST['quantidade'];
-                         $valor = formataMoney($_POST['valor']);                      
+                         $valor = formataMoney($_POST['valor']); 
+                         $valor_custo = formataMoney($_POST['valor_custo']);
                          $id_empresa = $_POST['empresa'];
                         
 
 
                       $patrimonio = new Patrimonio_geral();
-                      $patrimonio->add_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa);
+                      $patrimonio->add_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $valor_custo, $id_empresa);
     
                       if($patrimonio->add_patrimonio_geral_bd()){
                         echo '<div class="msg" style="float: left;">Patrimonio adicionado com sucesso !</div>';
@@ -559,13 +562,14 @@ function verificaValor($valor){
                       $marca = $_POST['marca'];
                       $descricao = $_POST['descricao'];
                       $quantidade = $_POST['quantidade'];
-                      $valor = formataMoney($_POST['valor']); 
+                      $valor = formataMoney($_POST['valor']);
+                      $valor_custo = formataMoney($_POST['valor_custo']);
                       $id_empresa = $_POST['empresa'];
                       
                       
                       $patrimonio = new Patrimonio_geral();                     
     
-                      if($patrimonio->atualiza_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $id_empresa, $id)){
+                      if($patrimonio->atualiza_patrimonio_geral($nome, $matricula, $marca, $descricao, $quantidade, $valor, $valor_custo, $id_empresa, $id)){
                         
                         echo '<div class="msg" style="float: left;">Patrimonio atualizado com sucesso !</div>';
                         echo '<script>alert("Patrimonio Geral atualizado com sucesso")</script>';
@@ -590,6 +594,7 @@ function verificaValor($valor){
                      $ano = $_POST['ano'];
                      $cor = $_POST['cor'];
                      $valor = formataMoney($_POST['valor']);
+                     $valor_custo = formataMoney($_POST['valor_custo']);
                      $data_compra = $_POST['data_compra'];
                      $seguro = (isset($_POST['seguro']))?(($_POST['seguro'])?1:0):0;
                      if($seguro == 1){
@@ -607,7 +612,7 @@ function verificaValor($valor){
                                        
                                          
                       $patrimonio = new Veiculo(); 
-                      if($patrimonio->atualiza_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel ,$id)){
+                      if($patrimonio->atualiza_veiculo($matricula, $chassi, $renavam, $placa, $marca, $modelo, $ano, $cor, $valor, $valor_custo, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $km_inicial, $tipo_combustivel, $id_empresa, $id_fornecedor, $id_responsavel ,$id)){
                         echo '<div class="msg" style="float: left;">Veículo atualizado com sucesso !</div>';
                         echo '<script>alert("Veículo atualizado com sucesso")</script>';
                       }else{
@@ -639,7 +644,7 @@ function verificaValor($valor){
                 }
 
                 $valor = formataMoney($_POST['valor']);
-
+                $valor_custo = formataMoney($_POST['valor_custo']);
                 $horimetro_inicial = $_POST['hr_inicial'];
                 $id_empresa = $_POST['empresa'];
                 $id_fornecedor = $_POST['fornecedor'];
@@ -649,7 +654,7 @@ function verificaValor($valor){
                   $patrimonio = new Maquinario(); 
                       if($patrimonio->atualiza_maquinario($matricula, $chassi_nserie, $modelo, $tipo_consumo, $ano, $cor,
                    $fabricante, $data_compra, $seguro, $data_ini_seg, $data_fim_seg, $horimetro_inicial, $id_empresa,
-                                 $id_fornecedor, $id_responsavel, $observacao,  $valor, $id)){
+                                 $id_fornecedor, $id_responsavel, $observacao,  $valor, $valor_custo, $id)){
                         echo '<div class="msg" style="float: left;">Máquinario atualizado com sucesso !</div>';
                         echo '<script>alert("Maquinário atualizado com sucesso")</script>';
                       }else{
@@ -731,17 +736,10 @@ function verificaValor($valor){
                                            </select>
                                     </td>
                               </tr> 
+                              <tr><td><span>Data de Compra:</span></td><td><input type="date" name="data_compra" id="data_compra"></td></tr>
                               <tr>
                                   <td>
-                                      <span>Data de Compra:</span>
-                                  </td>
-                                  <td>
-                                      <input type="date" name="data_compra" id="data_compra">
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td>
-                                      <span>Seguro: </span><input type="checkbox" class="seguro"  style="height:13px;" onclick="tipo_form()" id="seguro" name="seguro" value="0">
+                                      <span>Seguro: </span><input type="checkbox" class="seguro"  style="height:13px" onclick="tipo_form()" id="seguro" name="seguro" value="0">
                                   </td>
                                   <td colspan="3">
                                       <span>Data inicio:</span><input title="Data início do seguro" id="data_ini_seg" name="data_ini_seg"disabled type="date" style="width:135px">
@@ -749,6 +747,7 @@ function verificaValor($valor){
                                   </td>
                               </tr>   
                               <tr><td><span>Valor: </span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Horimetro:</span></td><td><input title="Horimetro inicial do maquinário" type="number" name="hr_inicial" id="hr_inicial"></td></tr>
+                              <tr><td><span>Valor de custo:</span></td><td><input type="numeric" name="custo" id="custo"></td></tr>
                               <tr><td><span>Forncedor:</span></td><td>
                                   <select id="fornecedor" name="fornecedor"  style="width:100%" title="Selecione o fornecedor do maquinário">
                                     <option value="no_sel">Selecione</option>
@@ -879,6 +878,7 @@ function verificaValor($valor){
                                   </td>
                               </tr>   
                              	<tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Quilometragem:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial"></td></tr>
+                                 <tr><td><span>Valor de Custo:</span></td><td><input type="custo" name="custo" id="custo"></td></tr>
                              	<tr><td><span>Forncedor:</span></td><td>
                              			<select id="fornecedor" name="fornecedor"  style="width:100%">
 			                              <option value="no_sel">Selecione</option>
@@ -933,6 +933,7 @@ function verificaValor($valor){
                   <tr><td><span>Nome:</span></td><td><input type="text" name="nome" id="nome"><td><span> Marca:</span></td><td><input type="text" name="marca" id="marca"></td></td></tr>
                   <tr><td><span>Quantidade:</span></td><td><input type="text" name="quantidade" id="quantidade"> <td><span> Descricao:</span></td><td><input type="text" name="descricao" id="descricao"></td></td></tr>
                   <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor"></td><td></tr>
+                   <tr><td><span>Valor de custo:</span></td><td><input type="valor_custo" name="valor_custo" id="valor"></td></tr>
                   <tr><td><span>Empresa:</span></td><td>
                                   <select id="empresa" name="empresa"  style="width:100%" onchange="buscar_responsavel()">
                                     <option value="no_sel">Selecione</option>
@@ -1036,6 +1037,7 @@ function verificaValor($valor){
 
                               
                             <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor" value="<?php echo verificaValor($maquinario->valor) ?>"></td><td><span>Horimetro:</span></td><td><input type="numeric" name="hr_inicial" id="hr_inicial" value="<?php echo $maquinario->horimetro_inicial ?>"></td></tr>
+                            <tr><td><span>Valor de custo:</span></td><td><input type="numeric" name="custo" id="custo" value="<?php echo verificaValor($maquinario->valor_custo) ?>"></td></tr>
                             <tr> <td ><span>Fornecedor: </span></td>
                             <td colspan="2">
                                <select id="fornecedor" name="fornecedor"  style="width:100%">
@@ -1165,6 +1167,7 @@ function verificaValor($valor){
                                   </td>
                               </tr>
                               <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor" value="<?php echo verificaValor($veiculo->valor) ?>"></td><td><span>Quilometragem:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial" value="<?php echo $veiculo->km_inicial ?>"></td></tr>
+                              <tr><td><span>Valor de custo:</span></td><td><input type="numeric" name="custo" id="custo" value="<?php echo verificaValor($veiculo->valor_custo) ?>"></td></tr>
                               <tr> <td ><span>Fornecedor: </span></td>
                               <td colspan="2">
                                  <select id="fornecedor" name="fornecedor"  style="width:100%">
@@ -1229,6 +1232,7 @@ function verificaValor($valor){
                   <tr><td><span>Nome:</span></td><td><input type="text" name="nome" id="nome" value="<?php echo $patrimonio_geral->nome ?>"><td><span> Marca:</span></td><td><input type="text" name="marca" id="marca"value="<?php echo $patrimonio_geral->marca ?>"></td></td></tr>
                   <tr><td><span>Quantidade:</span></td><td><input type="text" name="quantidade" id="quantidade" value="<?php echo $patrimonio_geral->quantidade ?>"> <td><span> Descricao:</span></td><td><input type="text" name="descricao" id="descricao" value="<?php echo $patrimonio_geral->descricao?>"></td></td></tr>
                   <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor" value="<?php echo verificaValor($patrimonio_geral->valor) ?>"></td><td></tr>
+                  <tr><td><span>Valor de custo:</span></td><td><input type="numeric" name="valor_custo" id="valor_custo" value="<?php echo verificaValor($patrimonio_geral->valor_custo) ?>">></td></tr>
                   <tr><td><span>Empresa:</span></td><td>
                                   <select id="empresa" name="empresa"  style="width:100%" onchange="buscar_responsavel()">
                                     <option value="no_sel">Selecione</option>

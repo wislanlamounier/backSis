@@ -6,15 +6,17 @@ require_once("../global.php");
 class Material{
 	public $id;
 	public $nome;
+        public $id_valor_custo;
 	public $id_unidade_medida;
 	public $id_empresa;
 
 	
 
 
-	public function add_material($nome, $id_unidade_medida, $id_empresa)
+	public function add_material($nome, $id_valor_custo, $id_unidade_medida, $id_empresa)
 	{		
 		$this->nome = $nome;
+                $this->id_valor_custo = $id_valor_custo;
 		$this->id_unidade_medida = $id_unidade_medida;
 		$this->id_empresa = $id_empresa;
 
@@ -24,22 +26,22 @@ class Material{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "INSERT INTO materiais (nome, id_unidade_medida, id_empresa) VALUES ('%s','%s','%s')";
+		$query = "INSERT INTO materiais (nome, id_valor_custo, id_unidade_medida, id_empresa) VALUES ('%s', '%s' ,'%s','%s')";
 
-		if($g->tratar_query($query, $this->nome, $this->id_unidade_medida, $this->id_empresa)){
+		if($g->tratar_query($query, $this->nome, $this->id_valor_custo, $this->id_unidade_medida,  $this->id_empresa)){
 					return true; 
 		}else{
 				return false;
 		} 
 	}
 	
-	 public function atualiza_material($nome, $id_unidade_medida, $id){
+	 public function atualiza_material($nome, $id_valor_custo, $id_unidade_medida, $id){
 		$sql = new Sql();	
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "UPDATE materiais SET nome = '%s', id_unidade_medida = '%s' WHERE id = '%s'";
+		$query = "UPDATE materiais SET nome = '%s', id_valor_custo = '%s', id_unidade_medida = '%s' WHERE id = '%s'";
                 
-                if($g->tratar_query($query, $nome, $id_unidade_medida, $id)){
+                if($g->tratar_query($query, $nome, $id_valor_custo, $id_unidade_medida, $id)){
                     return true;
                         }else{
                           return false;
@@ -78,6 +80,7 @@ class Material{
 	     	$material = new Material();
 	     	$material->id = $row['id'];
 	     	$material->nome = $row['nome'];
+                $material->id_valor_custo = $row['id_valor_custo'];
 	     	$material->id_unidade_medida = $row['id_unidade_medida'];          	
 
 	     	return $material;

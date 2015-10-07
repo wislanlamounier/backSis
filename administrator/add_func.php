@@ -250,6 +250,7 @@ function verificaValor($valor){
                     }
                 }
               }
+              
               if(f[i].name == "qtd_horas_sem"){
                 if(f[i].value == ""){
                   msg += "Preencha o campo Quant. de Horas Semanais!\n";
@@ -521,6 +522,9 @@ function verificaValor($valor){
       mascara( id('sal_base'), mmoney );
       
       id('sal_base').onkeypress = function(){ 
+          mascara( this, mmoney );
+      }
+      id('custo').onkeypress = function(){ 
           mascara( this, mmoney );
       }
       id('cpf').onkeypress = function(){ 
@@ -807,6 +811,7 @@ function carregaUf_CartTrab(uf){
                      </tr>
                      <tr> <td colspan="4"><span><a title="Clique aqui para cadastrar dados bancários" onclick="exibe()" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/icon-edita.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Editar dados bancários</div></a></span></td> </tr>
                      <tr> <td><span>Salário Base:*</span></td> <td><input type="text" id="sal_base" name="sal_base" value="<?php echo verificaValor($func->salario_base) ?>"></td></tr> <!-- Salário base -->
+                     <tr> <td><span>Valor de custo:*</span></td> <td><input type="text" id="custo" name="custo" value="<?php echo verificaValor($func->custo) ?>"></td></tr> <!-- Salário base -->
                      <tr> <td><span>Qtd. Horas Semanais:*</span></td> <td><input type="number" id="qtd_horas_sem" name="qtd_horas_sem" value="<?php echo $func->qtd_horas_sem; ?>"></td></tr> <!-- Quantidade de horas semanais -->
                      <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" value="<?php echo $func->num_pis; ?>"></td></tr> <!-- Numero do PIS -->
                      <tr> 
@@ -1039,6 +1044,7 @@ function carregaUf_CartTrab(uf){
                      </tr>
                      <tr> <td colspan="4"><span><a onclick="exibe()" title="Clique aqui para editar dados bancários" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/add.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Cadastrar dados bancários</div></a></span></td> </tr>
                      <tr> <td><span>Salário Base:*</span></td> <td><input type="text" id="sal_base" name="sal_base" ></td></tr> <!-- Salário base -->
+                     <tr> <td><span>Valor de Custo: </span></td> <td><input type="text" id="custo" name="custo" ></td></tr> <!-- Salário base -->
                      <tr> <td><span>Qtd. Horas Semanais:*</span></td> <td><input type="number" id="qtd_horas_sem" name="qtd_horas_sem" ></td></tr> <!-- Quantidade de horas semanais -->
                      <tr> <td><span>Nº PIS:</span></td> <td colspan="3"><input type="text" id="pis" name="pis" ></td></tr> <!-- Numero do PIS -->
                      <tr> 

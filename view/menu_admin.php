@@ -32,7 +32,7 @@
           <li><a href="/viacampos/administrator/pesquisa_patrimonio.php">Patrimonio</a></li>
         <?php } ?>
         <li><a href="/viacampos/administrator/pesquisa_filial.php">Filial</a></li>
-        <li><a href="/viacampos/administrator/pesquisa_epi.php">EPI</a></li>
+        <li><a href="/viacampos/administrator/pesquisa_epi.php">Equipamentos por Funcionario</a></li>
         <li><a href="/viacampos/administrator/pesquisa_exames.php">Exames</a></li>
       </ul>
     </li>
