@@ -361,7 +361,8 @@ function validate(){
                      <tr> <td ><span>Código Posto:</span></td> <td colspan="2"><input type="text" id="cod_posto" name="cod_posto" style="width:100%; text-transform:uppercase;" value="<?php echo $filial->cod_posto; ?>"></td></tr> <!-- cod_posto -->
                      <tr> <td ><span>Nome:</span></td> <td colspan="2"><input type="text" id="nome" name="nome" style="width:100%"value="<?php echo $filial->nome; ?>"></td></tr> <!-- nome -->
                      <tr> <td ><span>Telefone:</span></td > <td colspan="2"><input type="text" id="telefone" name="telefone" style="width:100%" value="<?php echo $filial->telefone; ?>"></td></tr> <!-- nome -->
-                     <tr> <td ><span>Rua:</span></td> <td><input value="<?php echo $endereco[0][0]; ?>" type="text" id="rua" name="rua"><span> Nº: </span></td> <td><input value="<?php echo $endereco[0][1]; ?>" style="width:60px" type="text" id="num" name="num"></td></tr> <!-- rua -->
+                     <tr> <td ><span>Rua:</span></td> <td><input value="<?php echo $endereco[0][0]; ?>" type="text" id="rua" name="rua"><span> Nº: </span><input value="<?php echo $endereco[0][1]; ?>" style="width:60px" type="text" id="num" name="num"></td></tr> <!-- rua -->
+                     <tr> <td ><span>Complemento:</span> </td><td><input  style="width:50%" value="<?php echo $endereco[0][6]; ?>" type="text" id="complemento" name="complemento" ></td></tr> 
                      <tr> <td ><span>Bairro:</span></td> <td colspan="2"><input value="<?php echo $endereco[0][4]; ?>" type="text" id="bairro" name="bairro" style="width:100%"></td></tr> <!-- bairro -->
                      <tr> 
                         <tr>
@@ -447,17 +448,18 @@ function validate(){
                      <tr> <td ><span>Código Posto:</span></td> <td colspan="2"><input type="text" id="cod_posto" name="cod_posto" style="width:100%; text-transform:uppercase;"></td></tr> <!-- cod_posto -->
                      <tr> <td ><span>Nome:</span></td> <td colspan="2"><input type="text" id="nome" name="nome" style="width:100%"></td></tr> <!-- nome -->
                      <tr> <td ><span>Telefone:</span></td > <td colspan="2"><input type="text" id="telefone" name="telefone" style="width:100%"></td></tr> <!-- nome -->
-                     <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua"><span> Nº: </span></td> <td><input style="width:60px" type="text" id="num" name="num"></td></tr> <!-- rua -->
+                     <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua"><span> Nº: </span><input style="width:60px" type="text" id="num" name="num"></td></tr> <!-- rua -->
+                     <tr> <td><span>Complemento:</span></td><td><input type="text" id="complemento" name="complemento"></td></tr>
                      <tr> <td ><span>Bairro:</span></td> <td colspan="2"><input type="text" id="bairro" name="bairro" style="width:100%"></td></tr> <!-- bairro -->
                      
                      <tr> 
-                        <td ><span>UF:</span></td>
+                        <td><span >UF:</span></td>
                         <td colspan="2">
                            <?php //buscar array de CBO
                               $estado = new Estado();
                               $estados = $estado->get_name_all_uf();
                            ?>
-                           <select name="estado" id="estado" onchange="buscar_cidades()" style="width:100%">
+                           <select style="width:50%" name="estado" id="estado" onchange="buscar_cidades()" style="width:100%">
                               <option value="no_sel">Selecione um estado</option>
                               <?php 
                                  foreach($estados as $key => $estado){
@@ -471,7 +473,7 @@ function validate(){
                         <td><span> Cidade: </span></td>
                         <td colspan="2">
                            <div id="load_cidades">
-                             <select name="cidade" id="cidade" style="width:100%">
+                             <select style="width:50%" name="cidade" id="cidade" style="width:100%">
                                <option value="no_sel">Selecione um estado</option>
                              </select>
                            </div>
@@ -483,7 +485,7 @@ function validate(){
                      <tr> 
                         <td ><span>Empresa:</span></td>
                         <td colspan="2">
-                           <select id="empresa" name="empresa"  style="width:100%">
+                           <select style="width:50%" id="empresa" name="empresa"  style="width:100%">
                               <?php 
                                  $empresa = new Empresa();
                                  $empresa = $empresa->get_all_empresa();
@@ -537,8 +539,8 @@ function validate(){
                       $id_cidade = $_POST['cidade'];
                       $bairro = $_POST['bairro'];
                       $cep = $_POST['cep'];
-  
-                      $endereco->add_endereco($rua, $num, $id_cidade, $bairro, $cep);
+                      $complemento = $_POST['complemento'];
+                      $endereco->add_endereco($rua, $num, $id_cidade, $bairro, $cep, $complemento);
                       // $endereco->bairro = $bairro;
                       // $endereco->cep = $cep;
   
@@ -573,13 +575,14 @@ function validate(){
                                 $id_cidade = $_POST['cidade'];
                                 $bairro = $_POST['bairro'];
                                 $cep = $_POST['cep'];
+                                $complemento = $_POST['complemento'];
                                 $existe_endereco = $endereco->verifica_endereco($_POST['id_endereco']);
                                 
                                 if($existe_endereco){
-                                    $endereco->atualiza_endereco($rua, $num, $id_cidade, $_POST['id_endereco'], $bairro, $cep );
+                                    $endereco->atualiza_endereco($rua, $num, $id_cidade, $_POST['id_endereco'], $bairro, $cep, $complemento );
                                     $id_endereco = $_POST['id_endereco'];
                                 }else{
-                                    $endereco->add_endereco($rua, $num, $id_cidade, $bairro, $cep);
+                                    $endereco->add_endereco($rua, $num, $id_cidade, $bairro, $cep, $complemento);
                                     $id_endereco = $endereco->add_endereco_bd();
                                 }
                                 

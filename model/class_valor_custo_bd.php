@@ -38,6 +38,7 @@ class Valor_custo{
 
 
 	 public function atualiza_valor_custo($valor, $id_tipo_custo, $id){
+             
 		$sql = new Sql();	
 		$sql->conn_bd();
 		$g = new Glob();

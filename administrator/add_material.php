@@ -85,6 +85,23 @@ function verificaValor($valor){
 		               f[i].style.border = "1px solid #898989";
 		            }
 	         	}
+                          if(f[i].name == "valor_custo" && f[i].value == ""){
+                msg += "Insira o valor de custo do funcionario!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "valor_custo" && f[i].value != ""){
+                f[i].style.border = "1px solid #898989";
+              }
+              
+              if(f[i].name == "tipo_custo" && f[i].value == "no_sel"){
+                msg += "Insira tip de custo!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "tipo_custo" && f[i].value != "no_sel"){
+                f[i].style.border = "1px solid #898989";
+              }
                   }
                   		
                     if(erros>0){

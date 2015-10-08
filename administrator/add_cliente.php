@@ -81,7 +81,6 @@ require_once("../model/class_cidade_bd.php");
 			document.getElementById("inscricao_municipal").type="hidden";
 			document.getElementById("inscricao_municipal").value="";
 			document.getElementById("inscricao_municipal_nulo").innerHTML = "";
-
 		}
 
 		if(document.getElementById("pessoa_juridica").checked == true){
@@ -102,8 +101,6 @@ require_once("../model/class_cidade_bd.php");
 			document.getElementById("inscricao_municipal_nulo").innerHTML="<span>Inscrição Municipal:</span>";
 			document.getElementById("inscricao_municipal").name="inscricao_municipal";		
 		}
-
-
 	}
 
 		
@@ -156,7 +153,7 @@ require_once("../model/class_cidade_bd.php");
 	         	}
 
 	         	
-	         	if(f[i].name == "tel"){
+	         	if(f[i].name == "com"){
 		            if(f[i].value == ""){
 		               f[i].style.border = "1px solid #FF0000";
 		               erros++;
@@ -205,7 +202,7 @@ require_once("../model/class_cidade_bd.php");
 		            }
 	         	}
 
-	         	if(f[i].name == "tel"){
+	         	if(f[i].name == "com"){
 		            if(f[i].value == ""){
 		               f[i].style.border = "1px solid #FF0000";
 		               erros++;
@@ -215,29 +212,9 @@ require_once("../model/class_cidade_bd.php");
 	         	}
 
 		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-
-	         		if(f[i].name == "inscricao_estadual"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-
-	       		if(f[i].name == "inscricao_municipal"){
-		    	        if(f[i].value == ""){
-		    	           f[i].style.border = "1px solid #FF0000";
-		    	           erros++;
-		    	        }else{
-		    	          f[i].style.border = "1px solid #898989";
-		    	        }
-	        	 	}
-
-	         	
-	        	 }
+                                }
+                            }
+	        	}
 
 	         	//Dados de endereço 
 
@@ -284,54 +261,7 @@ require_once("../model/class_cidade_bd.php");
 		            }else{
 		               f[i].style.border = "1px solid #898989";
 		            }
-	         	}
-
-	         	// if(f[i].name == "site"){
-		         //    if(f[i].value == ""){
-		         //       f[i].style.border = "1px solid #FF0000";
-		         //       erros++;
-		         //    }else{
-		         //       f[i].style.border = "1px solid #898989";
-		         //    }
-	         	// }
-
-	         	//Dados de responsavel
-
-	         	if(f[i].name == "nome_resp"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-
-	         	if(f[i].name == "cpf_resp"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-
-	         	if(f[i].name == "datanasc_resp"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
-
-	         	if(f[i].name == "email_resp"){
-		            if(f[i].value == ""){
-		               f[i].style.border = "1px solid #FF0000";
-		               erros++;
-		            }else{
-		               f[i].style.border = "1px solid #898989";
-		            }
-	         	}
+                            }
 			}
 			if(erros>0){
 				return false;
@@ -454,7 +384,7 @@ require_once("../model/class_cidade_bd.php");
       id('cpf_resp').onkeypress = function(){
           mascara( this, mcpf );
       }
-      id('tel').onkeypress = function(){
+      id('com').onkeypress = function(){
           mascara( this, mtel );
       }
       id('cel').onkeypress = function(){
@@ -537,7 +467,7 @@ require_once("../model/class_cidade_bd.php");
                      $cli = $cli->get_cli_id($_GET['id']);//buscando funcionario no banco
                      $endereco = new Endereco();
                      $endereco = $endereco->get_endereco( $cli->id_endereco );
-                      
+                     
                       echo '<input type="hidden" id="id_cidade" value="'.$endereco[0][2].'">';
                     
 
@@ -556,16 +486,17 @@ require_once("../model/class_cidade_bd.php");
 					                          		<input type="checkbox" id="fornecedor"  name="fornecedor" style="height:12px;"><span>Fornecedor</span>
 					                   <?php } ?>
 					           	   </tr>
-					               <tr> <td ><span>Nome:</span></td><td colspan="3"><input style="width:100%" type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
+					                <tr> <td ><span>Nome:</span></td><td colspan="3"><input style="width:100%" type="text" id="nome" name="nome" value="<?php echo $cli->nome; ?>" ></td></tr>
 					                <tr> <td ><span>Data Nasc:</span></td> <td><input type="date" id="data_nasc" name="data_nasc" value="<?php echo $cli->data_nasc ?>" ></td></tr>
 					                <tr> <td ><span>CPF:</span></td><td><input type="text" id="cpf" name="cpf" value="<?php echo $cli->cpf ?>" ></td></tr> 
 					                <tr> <td ><span>Celular:</span></td> <td><input type="text" id="cel" name="cel" value="<?php echo $cli->telefone_cel ?>"></td></tr> 
-					                <tr> <td ><span>Telefone:</span></td> <td><input type="text" id="tel" name="tel"value="<?php echo $cli->telefone_com ?>"></td></tr>                         
+					                <tr> <td ><span>Telefone:</span></td> <td><input type="text" id="com" name="com"value="<?php echo $cli->telefone_com ?>"></td></tr>                         
 					                <tr> <td ><span>RG:</span></td> <td><input type="text" id="rg" name="rg" value="<?php echo $cli->rg ?>" ></td></tr>  
 					                <tr> <td colspan="2"><span><b>Endereço</b></span></td></tr>
+                                                        <tr> <td ><span>Rua: </span></td><td colspan="3"><input style="width:100%" value="<?php echo $endereco[0][0]; ?>" type="text" id="rua" name="rua" > </td></tr>       
 					                <tr> <td ><span>Bairro:</span></td> <td><input type="text" id="bairro" name="bairro"  value="<?php echo $endereco[0][4]; ?>" ></td></tr> 
-					                <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua" value="<?php echo $endereco[0][0]; ?>"></td></tr> 
-					                <tr> <td ><span>Numero:</span></td> <td><input type="number" id="numero" name="numero" value="<?php echo $endereco[0][1]; ?>" ></td></tr>
+					                <tr> <td ><span>Numero: </span></td><td colspan="2"><input  style="width:25%" value="<?php echo $endereco[0][1]; ?>" type="number" id="numero" name="numero" > <span>Complemento: </span> <input  style="width:50%" value="<?php echo $endereco[0][6]; ?>" type="text" id="complemento" name="complemento" ></td></tr> 
+					                
 					                <tr> <td ><span>UF:</span></td> 
 					                  <td>
 					                    <select id="estado" name="estado" onchange="buscar_cidades()">
@@ -600,7 +531,7 @@ require_once("../model/class_cidade_bd.php");
 					                <tr> <td ><span>Data Nascimento:</span></td> <td><input type="date" id="datanasc_resp" name="datanasc_resp" value="<?php echo $cli->data_nasc_responsavel ?>" ></td></tr> 
 					                <tr> <td ><span>E-mail:</span></td> <td><input type="text" id="email_resp" name="email_resp" value="<?php echo $cli->email_resp ?>"></td></tr>                     
 					                <tr><td colspan="2"><span><b>Observação</b></span></td></tr>                     
-					                <tr><textarea align="center" rows="4" cols="50" id="observacao" name="observacao"><?php echo $cli->observacao ?></textarea></tr>                    
+					                <tr><td colspan="4"><textarea align="center" rows="4" cols="50" id="observacao" name="observacao"><?php echo $cli->observacao ?></textarea></td></tr>                    
 					                <tr>
 					                    	 <td colspan="2" style="text-align:center">
 					                    	 	<input  class="button" type="submit" value="Salvar">
@@ -638,13 +569,13 @@ require_once("../model/class_cidade_bd.php");
 						                   <tr> <td ><div id="data_fun_data_nasc"><span>Data registro: </span></div></td> <td><input type="date" id="data_nasc" readonly name="data_nasc" value="<?php echo $cli->data_nasc_data_fund ?>" ></td></tr>
 						                   <tr> <td ><div id="cnpj_cpf"><span>CNPJ:</span></div></td><td><input type="text" id="cnpj" name="cnpj" value="<?php echo $cli->cpf ?>" ></td></tr> 
 						                   <tr> <td ><span>Celular:</span></td> <td><input type="text" id="cel" name="cel" value="<?php echo $cli->telefone_cel ?>"></td></tr> 
-						                   <tr> <td ><span>Telefone:</span></td> <td><input type="text" id="tel" name="tel"value="<?php echo $cli->telefone_com ?>"></td></tr>                         
+						                   <tr> <td ><span>Telefone:</span></td> <td><input type="text" id="com" name="com"value="<?php echo $cli->telefone_com ?>"></td></tr>                         
 						                   <tr> <td ><div id="inscricao_estadual_rg"><span>Inscrição Estadual:</span></div></td> <td><input type="text" id="inscricao_estadual" name="inscricao_estadual" value="<?php echo $cli->inscricao_estadual ?>" ></td></tr>
 						                    <tr><td><div id="inscricao_municipal_rg"><span>Inscrição Municipal:</span></div></td><td><input type="text" id="inscricao_municipal" name="inscricao_municipal" value="<?php echo $cli->inscricao_municipal ?>"></td></tr>  
 						                          <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
 						                          <tr> <td ><span>Bairro:</span></td> <td><input type="text" id="bairro" name="bairro"  value="<?php echo $endereco[0][4]; ?>" ></td></tr> 
-						                          <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua" value="<?php echo $endereco[0][0]; ?>"></td></tr> 
-						                          <tr> <td ><span>Numero:</span></td> <td><input type="number" id="numero" name="numero" value="<?php echo $endereco[0][1]; ?>" ></td></tr>
+						                          <tr><td> <span>Rua: </span></td><td colspan="3"><input style="width:100%" value="<?php echo $endereco[0][0]; ?>" type="text" id="rua" name="rua" > </td></tr>        
+						                          <tr><td> <span>Numero: </span></td><td colspan="2"><input  style="width:25%" value="<?php echo $endereco[0][1]; ?>" type="number" id="numero" name="numero" > <span>Complemento: </span> <input  style="width:50%" value="<?php echo $endereco[0][6]; ?>" type="text" id="complemento" name="complemento" ></td></tr> 
 						                          <tr> <td ><span>UF:</span></td> 
 						                            <td>
 						                              <select id="estado" name="estado" onchange="buscar_cidades()">
@@ -706,13 +637,15 @@ require_once("../model/class_cidade_bd.php");
 							         <tr> <td > <div id="data_fun_data_nasc"><span>Data registro: </span></div> </td> <td><input type="date" disabled id="data_nasc" name="data_nasc" value="<?php echo Date("Y-m-d") ?>"></td></tr>
 							         <tr> <td > <div id="cnpj_cpf"><span>CNPJ:</span></div> </td><td><input type="text" id="cnpj" name="cnpj" ><input type="hidden" id="cpf" name="cpf"  ></td></tr> 
 							         <tr> <td > <span>Celular:</span> </td> <td><input type="text" id="cel" name="cel" ></td></tr> 
-							         <tr> <td > <span>Telefone:</span> </td> <td><input type="text" id="tel" name="tel" ></td></tr>			                    
+							         <tr> <td > <span>Telefone:</span> </td> <td><input type="text" id="com" name="com" ></td></tr>			                    
 							         <tr> <td > <div id="inscricao_estadual_rg"><span>Inscrição Estadual:</span></div> </td> <td><input type="number" id="inscricao_estadual" name="inscricao_estadual" > <input type="hidden" id="rg" name="rg"  ></td></tr>			                     
 							         <tr> <td > <div id="inscricao_municipal_nulo"><span>Inscrição Municipal:</span></div> </td> <td><input type="number" id="inscricao_municipal" name="inscricao_municipal" ></td></tr></div>        
 					                    <tr><td colspan="2"><span><b>Endereço</b></span> </td></tr>
-					                    <tr> <td ><span>Bairro:</span></td> <td><input type="text" id="bairro" name="bairro" ></td></tr> 
-					                    <tr> <td ><span>Rua:</span></td> <td><input type="text" id="rua" name="rua" ></td></tr> 
-					                    <tr> <td ><span>Numero:</span></td> <td><input type="number" id="numero" name="numero" ></td></tr>
+					                    <tr><td><span>Bairro:</span></td> <td><input type="text" id="bairro" name="bairro" ></td></tr>
+                                                            <tr><td><span>Rua:</span></td> <td><input type="text" id="rua" name="rua" ></td></tr>
+					                    <tr><td><span>Numero: </span></td><td><input style="width:25%" type="number" id="numero" name="numero"></td></tr>
+                                                            <tr><td><span>Complemento:</span></td><td><input  type="text" id="complemento" name="complemento"></td></tr>
+					                    
 					                    <tr> <td ><span>UF:</span></td> 
 					                    	<td>
 					                    		<select id="estado" name="estado" onchange="buscar_cidades()">
@@ -769,7 +702,7 @@ require_once("../model/class_cidade_bd.php");
 	                        $data_nasc_data_fund = $_POST['data_nasc']; 
 	                        $cpf_cnpj = $_POST['cpf']; 
 	                        $telefone_cel = $_POST['cel'];
-	                        $telefone_com = $_POST['tel'];                        
+	                        $telefone_com = $_POST['com'];                        
 	                        $rg = $_POST['rg'];
 	                        $tipo= 0;
 	                        $responsavel = $_POST['nome_resp'];
@@ -787,15 +720,16 @@ require_once("../model/class_cidade_bd.php");
 	                        $id_cidade = $_POST['cidade'];
 	                        $bairro = $_POST['bairro'];
 	                        $cep = $_POST['cep'];
+                                $complemento = $_POST['complemento'];
 	                        
 
 	                        $existe_endereco = $endereco->verifica_endereco($_POST['id_endereco']);
 
 	                       if($existe_endereco){
-	                            $endereco->atualiza_endereco($rua, $numero, $id_cidade, $_POST['id_endereco'], $bairro, $cep );
+	                            $endereco->atualiza_endereco($rua, $numero, $id_cidade, $_POST['id_endereco'], $bairro, $cep, $complemento );
 	                            $id_endereco = $_POST['id_endereco'];
 	                        }else{
-	                            $endereco->add_endereco($rua, $numero, $id_cidade, $bairro, $cep);
+	                            $endereco->add_endereco($rua, $numero, $id_cidade, $bairro, $cep, $complemento);
 	                            $id_endereco = $endereco->add_endereco_bd();
 	                        }
 
@@ -820,7 +754,7 @@ require_once("../model/class_cidade_bd.php");
                         $data_nasc_data_fund = $_POST['data_nasc']; 
                         $cpf_cnpj = $_POST['cnpj']; 
                         $telefone_cel = $_POST['cel'];
-                        $telefone_com = $_POST['tel'];                        
+                        $telefone_com = $_POST['com'];                        
                         $inscricao_estadual = $_POST['inscricao_estadual'];
                         $inscricao_municipal = $_POST['inscricao_municipal'];
                         $tipo = 1;
@@ -839,15 +773,15 @@ require_once("../model/class_cidade_bd.php");
                         $id_cidade = $_POST['cidade'];
                         $bairro = $_POST['bairro'];
                         $cep = $_POST['cep'];
-                        
+                        echo $complemento = $_POST['complemento'];
 
                         $existe_endereco = $endereco->verifica_endereco($_POST['id_endereco']);
 
                        if($existe_endereco){
-                            $endereco->atualiza_endereco($rua, $numero, $id_cidade, $_POST['id_endereco'], $bairro, $cep );
+                            $endereco->atualiza_endereco($rua, $numero, $id_cidade, $_POST['id_endereco'], $bairro, $cep, $complemento );
                             $id_endereco = $_POST['id_endereco'];
                         }else{
-                            $endereco->add_endereco($rua, $numero, $id_cidade, $bairro, $cep);
+                            $endereco->add_endereco($rua, $numero, $id_cidade, $bairro, $cep, $complemento);
                             $id_endereco = $endereco->add_endereco_bd();
                         }
 
@@ -882,7 +816,7 @@ require_once("../model/class_cidade_bd.php");
 
 							//$cpf_cnpj = $_POST['cnpj'];	
 							$telefone_cel = $_POST['cel'];
-							$telefone_com = $_POST['tel'];
+							$telefone_com = $_POST['com'];
 							$tipo = $_POST['tipo'];
 
 							$rg = $_POST['rg'];
@@ -902,9 +836,9 @@ require_once("../model/class_cidade_bd.php");
 							$rua = $_POST['rua'];
 							$numero = $_POST['numero'];
 							$cidade_id = $_POST['cidade'];
-
 							$cep = $_POST['cep'];	
-							$endereco->add_endereco($rua, $numero, $cidade_id, $bairro, $cep);	
+                                                        $complemento = $_POST['complemento'];
+							$endereco->add_endereco($rua, $numero, $cidade_id, $bairro, $cep, $complemento);	
 							$id_endereco = $endereco->add_endereco_bd();
 							$id_empresa = $_SESSION['id_empresa'];
 							

@@ -14,13 +14,7 @@ require_once("../model/class_cidade_bd.php");
    }
    if(!isset($_POST['cnpj']) || $_POST['cnpj'] == ""){
          return false;
-   }
-   if(!isset($_POST['inscricao_estadual']) || $_POST['inscricao_estadual'] == ""){
-         return false;
-   }
-   if(!isset($_POST['inscricao_municipal']) || $_POST['inscricao_municipal'] == ""){
-         return false;
-   }
+   }   
    if(!isset($_POST['tel']) || $_POST['tel'] == ""){
          return false;
    }
@@ -85,25 +79,6 @@ require_once("../model/class_cidade_bd.php");
                 f[i].style.border = "1px solid #898989";
               }
 
-             
-              if(f[i].name == "inscricao_municipal"){
-                if(f[i].value == ""){
-                  msg += "Preencha o campo da inscrição municipal!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
-              if(f[i].name == "inscricao_estadual"){
-                if(f[i].value == ""){
-                  msg += "Preencha o campo inscricao_estadual!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
               if(f[i].name == "tel"){
                 if(f[i].value == ""){
                   msg += "Preencha o campo de telefone!\n";
@@ -393,8 +368,8 @@ function buscar_cidades(){
                      <tr> <td><span>Inscrição Municipal:</span></td> <td colspan="3"><input style="width:100%" type="text" id="inscricao_municipal" name="inscricao_municipal" value="<?php echo $empresa->ins_municipal; ?>"> </td></tr> <!-- Numero do titulo eleitoral -->
                      <tr> <td><span>Telefone:</span></td> <td><input style="width:100%" type="text" id="tel" name="tel" value="<?php echo $empresa->telefone; ?>"></td></tr>
                      <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
-                     <tr><td> <span>Rua: </span></td><td colspan="3"><input style="width:100%" value="<?php echo $endereco[0][0]; ?>" type="text" id="rua" name="rua" > </td></tr>
-                     <tr><td> <span>Numero: </span></td><td colspan="3"><input  style="width:100%" value="<?php echo $endereco[0][1]; ?>" type="number" id="numero" name="numero" > </td></tr>
+                     <tr><td> <span>Rua: </span></td><td colspan="3"><input style="width:100%" value="<?php echo $endereco[0][0]; ?>" type="text" id="rua" name="rua" > </td></tr>                     
+                     <tr><td> <span>Numero: </span></td><td colspan="3"><input  style="width:25%" value="<?php echo $endereco[0][1]; ?>" type="number" id="numero" name="numero" > <span>Complemento: </span> <input  style="width:50%" value="<?php echo $endereco[0][6]; ?>" type="text" id="complemento" name="complemento" ></td></tr> 
                      <tr><td> <span>Bairro: </span></td><td colspan="3"><input style="width:100%" value="<?php echo $endereco[0][4]; ?>" type="text" id="bairro" name="bairro" > </td></tr>
                      <tr><td> <span> CEP </span></td><td><input type="text" style="width:100%" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>"> </td></tr>                     
                      <tr><td><span>Estado:</span></td>
@@ -461,8 +436,8 @@ function buscar_cidades(){
                      <tr> </tr> <!-- Numero do titulo eleitoral -->
                      <tr> <td><span>Telefone:</span></td><td ><input style="width:100%" type="text" id="tel" name="tel"></td></tr>
                      <tr><td colspan="2"><span><b>Endereço</b></span></td></tr>
-                     <tr><td> <span>Rua: </span></td><td colspan="1"><input style="width:100%" type="text" id="rua" name="rua" ></td><td><span>Numero:</span><input style="width:40%" type="number" id="numero" name="numero"></td></tr>
-                     <tr></tr>
+                     <tr><td> <span>Rua: </span></td><td colspan="1"><input style="width:100%" type="text" id="rua" name="rua" ></td></tr>
+                     <tr><td> <span>Numero:</span><input style="width:25%" type="number" id="numero" name="numero"><span>Complemento:</span><input style="width:50%" type="text" id="complemento" name="complemento"></td></tr>
                      <tr><td> <span>Bairro: </span></td><td colspan="3"><input style="width:100%" type="text" id="bairro" name="bairro" > </td></tr>
                      <tr><td> <span> CEP </span></td><td><input style="width:100%" type="text" id="cep" name="cep"> </td></tr>                     
                      <tr><td><span>Estado:</span></td>
@@ -525,7 +500,7 @@ function buscar_cidades(){
                              $razao_social = $_POST['razao_social'];
                              $nome_fantasia = $_POST['nome_fantasia'];
                              $ins_estadual = $_POST['inscricao_estadual'];
-                             $ins_municipal = $_POST['inscricao_municipal'];
+                             $ins_municipal = $_POST['inscricao_municipal'];                             
                              $telefone = $_POST['tel'];
                              $id_responsavel = $_POST['responsavel'];
                              $endereco = new Endereco();
@@ -534,8 +509,9 @@ function buscar_cidades(){
                   					 $numero = $_POST['numero'];
                   					 $cidade_id = $_POST['cidade']; 
                   					 $cep = $_POST['cep'];
+                                                         $complemento = $_POST['complemento'];
                              $nivel_acesso = $_SESSION['nivel_acesso'];	
-                  					 $endereco->add_Endereco($bairro, $rua, $numero, $cidade_id, $cep);	
+                  					 $endereco->add_Endereco($bairro, $rua, $numero, $cidade_id, $cep, $complemento);	
                   					 $id_endereco = $endereco->add_endereco_bd();                     
                              $empresa->add_empresa($cnpj, $razao_social, $nome_fantasia, $ins_estadual, $ins_municipal,  $telefone, $id_responsavel, $id_endereco, $nivel_acesso);
 
@@ -566,11 +542,12 @@ function buscar_cidades(){
                                  $id_cidade = $_POST['cidade'];
                                  $bairro = $_POST['bairro'];
                                  $cep = $_POST['cep'];
+                                 $complemento = $_POST['complemento'];
                                  
 
                                  $existe_endereco = $endereco->verifica_endereco($_POST['id_endereco']);
                                  if($existe_endereco){
-                                    $endereco->atualiza_endereco($rua, $num, $id_cidade, $_POST['id_endereco'], $bairro, $cep );
+                                    $endereco->atualiza_endereco($rua, $num, $id_cidade, $_POST['id_endereco'], $bairro, $cep, $complemento);
                                     $id_endereco = $_POST['id_endereco'];
                                 }else{
                                     $endereco->add_endereco($rua, $num, $id_cidade, $bairro, $cep);

@@ -30,6 +30,12 @@ function validate(){
    if(!isset($_POST['telefone']) || $_POST['telefone'] == ""){
        return false;
    }
+   if(!isset($_POST['valor_custo']) || $_POST['valor_custo'] == ""){
+       return false;
+   }
+    if(!isset($_POST['tipo_custo']) || $_POST['tipo_custo'] == ""){
+       return false;
+   }
    if(!isset($_POST['email']) || $_POST['email'] == ""){
        return false;
    }
@@ -163,7 +169,24 @@ function verificaValor($valor){
               if(f[i].name == "nome" && f[i].value != ""){
                 f[i].style.border = "1px solid #898989";
               }
-
+              if(f[i].name == "valor_custo" && f[i].value == ""){
+                msg += "Insira o valor de custo do funcionario!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "valor_custo" && f[i].value != ""){
+                f[i].style.border = "1px solid #898989";
+              }
+              
+              if(f[i].name == "tipo_custo" && f[i].value == "no_sel"){
+                msg += "Insira tip de custo!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "tipo_custo" && f[i].value != "no_sel"){
+                f[i].style.border = "1px solid #898989";
+              }
+              
               if(f[i].name == "cpf"){
                 if(f[i].value == ""){
                   msg += "Insira um CPF!\n";
@@ -754,7 +777,6 @@ function carregaUf_CartTrab(uf){
                      $endereco = new Endereco();
                      $endereco = $endereco->get_endereco( $func->id_endereco );
                      $banco = Banco::get_banco_by_id($func->id_dados_bancarios);
-                     
                      $id_valor_custo = $func->id_valor_custo;
                      
                      $valor_custo = new Valor_custo();
@@ -921,6 +943,7 @@ function carregaUf_CartTrab(uf){
                       <tr>
                         <td> <span>Bairro:* </span></td><td colspan="3"><input style="width:210px" type="text" id="bairro" name="bairro" style="width:200px" value="<?php echo $endereco[0][4]; ?>"> <span> CEP </span> <input style="width:100px;" type="text" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>"> </td>
                      </tr>
+                     <tr><td><span>Complemento: </span> </td><td><input  style="width:50%" value="<?php echo $endereco[0][6]; ?>" type="text" id="complemento" name="complemento" ></td></tr> 
                      <tr>
                         <td><span>Estado:*</span></td>
                         <td>
@@ -1115,6 +1138,7 @@ function carregaUf_CartTrab(uf){
                            <?php //buscar array estados
                               $estado = new Estado();
                               $estados = $estado->get_name_all_uf();
+                              
                            ?>
                            <select name="uf_cart_trab" id="uf_cart_trab">
                               <option>Selecione UF</option>
@@ -1170,6 +1194,7 @@ function carregaUf_CartTrab(uf){
                      <tr>
                         <td> <span>Bairro:* </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" style="width:65%"> <span> CEP </span> <input style="width:80px;" type="text" id="cep" name="cep" > </td>
                      </tr>
+                     <tr><td><span>Complemento: </span> </td><td><input  style="width:50%" value="<?php echo $endereco[0][6]; ?>" type="text" id="complemento" name="complemento" ></td></tr> 
                      <tr>
                         <td><span>Estado:*</span></td>
                         <td>
@@ -1241,8 +1266,9 @@ function carregaUf_CartTrab(uf){
                            $id_cidade = $_POST['cidade'];
                            $bairro = $_POST['bairro'];
                            $cep = $_POST['cep'];
+                           $complemento = $_POST['complemento'];
                            $is_admin = 0;
-                           $end->add_endereco($rua, $numero, $id_cidade, $bairro, $cep);
+                           $end->add_endereco($rua, $numero, $id_cidade, $bairro, $cep, $complemento);
                            
                            $id_endereco = $end->add_endereco_bd();
 
@@ -1372,14 +1398,15 @@ function carregaUf_CartTrab(uf){
                            $id_cidade = $_POST['cidade'];
                            $bairro = $_POST['bairro'];
                            $cep = $_POST['cep'];
+                           $complemento = $_POST['complemento'];
 
                            $existe_endereco = $endereco->verifica_endereco($_POST['id_endereco']);
 
                            if($existe_endereco){//Se já existe um endereço  cadastrado (ATUALIZA)
-                                $endereco->atualiza_endereco($rua, $numero, $id_cidade, $_POST['id_endereco'], $bairro, $cep );
+                                $endereco->atualiza_endereco($rua, $numero, $id_cidade, $_POST['id_endereco'], $bairro, $cep, $complemento );
                                 $id_endereco = $_POST['id_endereco'];
                            }else{//Se NÃO existe um endereço  cadastrado (ADICIONA)
-                                $endereco->add_endereco($rua, $numero, $id_cidade, $bairro, $cep);
+                                $endereco->add_endereco($rua, $numero, $id_cidade, $bairro, $cep, $complemento);
                                 $id_endereco = $endereco->add_endereco_bd();
                            }
                            //************** FIM ATUALIZA ENDERECO ******************

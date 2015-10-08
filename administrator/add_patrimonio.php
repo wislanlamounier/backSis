@@ -241,14 +241,22 @@ function verificaValor($valor){
                   f[i].style.border = "1px solid #898989"; 
                 }
               }
-              if(f[i].name == "valor"){
-                if(f[i].value == ""){
-                  msg += "Preencha o campo de Valor!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
+               if(f[i].name == "valor_custo" && f[i].value == ""){
+                msg += "Insira o valor de custo do funcionario!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "valor_custo" && f[i].value != ""){
+                f[i].style.border = "1px solid #898989";
+              }
+              
+              if(f[i].name == "tipo_custo" && f[i].value == "no_sel"){
+                msg += "Insira tip de custo!\n";
+                f[i].style.border = "1px solid #FF0000";
+                erros++;
+              }
+              if(f[i].name == "tipo_custo" && f[i].value != "no_sel"){
+                f[i].style.border = "1px solid #898989";
               }
             
               if(f[i].name == "nome"){
@@ -377,14 +385,16 @@ function verificaValor($valor){
         }
       }
     }
-    function carregaFornecedor(fornecedor){
-      
+      function carregaFornecedor(fornecedor){
+           
       var combo = document.getElementById("fornecedor");
+     
       for (var i = 0; i < combo.options.length; i++)
       {
         if (combo.options[i].value == fornecedor)
         {
           combo.options[i].selected = true;
+          
           break;
         }
       }
@@ -730,7 +740,7 @@ function verificaValor($valor){
                 $id_custo = $_POST['id_custo'];
                                
                                    if(isset($_POST['valor_custo'])!= ""){
-                                   
+                                     
                                      $id_tipo_custo = $_POST['tipo_custo'];
                                      $valor2 = $_POST['valor_custo'];
                                      $id_custo = $valor_custo->atualiza_valor_custo($valor2, $id_tipo_custo, $id_custo);
@@ -1208,7 +1218,7 @@ function verificaValor($valor){
                                      ?>
                                  </select>
                                
-                                 <?php echo "<script> carregaForncedor('".$maquinario->id_fornecedor."') </script>";  ?>
+                                 <?php echo "<script> carregaFornecedor('".$maquinario->id_fornecedor."') </script>";  ?>
                               </td>
                               </tr>
                               <td colspan="4" style="text-align:center"><span><b>Informações do veículo ligado a empresa</b></span></td></tr>
@@ -1253,7 +1263,8 @@ function verificaValor($valor){
                             $valor_custo = $valor_custo->get_valor_custo_id($id_valor_custo);
                        ?>
 
-                    <div id="content">   
+                    <div id="content">  
+                       
             <div class="formulario">              
                        <form method="POST" class="add_patrimonio" id="add_patrimonio" name="patrimonio" action="add_patrimonio.php" onsubmit="return validate(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR VEÍCULO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
@@ -1350,6 +1361,7 @@ function verificaValor($valor){
                                  <select id="fornecedor" name="fornecedor"  style="width:100%">
                                     <option value="no_sel">Selecione um Fornecedor</option>
                                     <?php 
+                                   
                                        $fornecedor = new Cliente();
                                        $fornecedor = $fornecedor->get_all_fornecedor();
                                        for ($i=0; $i < count($fornecedor) ; $i++) { 

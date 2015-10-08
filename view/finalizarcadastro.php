@@ -31,12 +31,6 @@ include_once("../model/class_empresa_bd.php");
 
                     if($value == "" or $value==0){
                         
-                        if($key == "ins_estadual"){
-                            $i++;
-                        }
-                        if($key == "ins_municipal"){
-                            $i++;
-                        }
                         if($key == "id_endereco"){
                             $i++;
                         }               

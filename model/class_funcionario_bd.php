@@ -639,7 +639,7 @@ class Funcionario{
 		$texto .= "<td colspan='2'><b><span>Salário base: <span></b></td><td colspan='3'><span>R$ ".$this->verificaValor($this->salario_base)."</span></td>";
 		$texto .= "</tr>";
                 $texto .= "<tr>";
-		$texto .= "<td colspan='2'><b><span>Salário base: <span></b></td><td colspan='3'><span>R$ ".$this->verificaValor($valor_custo->valor)."</span></td>";
+		$texto .= "<td colspan='2'><b><span>Valor de Custo: <span></b></td><td colspan='3'><span>R$ ".$this->verificaValor($valor_custo->valor)."</span></td>";;
 		$texto .= "</tr>";
 		$texto .= "<tr>";
                 if(isset($cbo->descricao)){

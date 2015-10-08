@@ -72,7 +72,12 @@ include("../model/class_valor_custo_bd.php");
                           ?>
                          
                      </div>
-                     <?php include("../view/historico_funcionario.php"); ?>  
+                     
+                     <?php 
+                     if(isset($_GET['id'])){
+                     include("../view/historico_funcionario.php"); 
+                     }
+                     ?>  
                        
 </body>
 </html>
