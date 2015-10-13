@@ -307,6 +307,7 @@ h2{
 	border: 1px solid#aaa;
 	margin-bottom: 20px;
 	width: 500px;
+        
 	text-align: center;
 	background-color: rgba(100,100,100,0.2);	
 }
@@ -598,6 +599,10 @@ h2{
 .form-input textarea:hover{
 	background-color: #dedede;
 }
+form-input select{
+    background-color: #dedede;
+}
+
 .title-bloco{
 	background-color: rgba(0,100,0,0.5);
 	float:left; width:100%; padding: 0
@@ -744,6 +749,17 @@ h2{
 	border: 2px solid#EBCCFF;
 }
 /********************************* FIM PESQUISAR PESQUISAR_FUNC**********************************/
+
+/********************************* CONFIGURAÇÕES ******************************************/
+.configuracoes{
+    float: left;
+    margin: 20px;
+    border: solid 1px;
+    
+}
+/********************************* FIM CONFIGURAÇÕES ******************************/
+
+
 /********************************* UNIDADE DE MEDIDA**********************************/
 
 .opcoes-unidade-medida{
@@ -882,4 +898,84 @@ h2{
 }
 
 /********************************* FIM UNIDADE DE MEDIDA**********************************/
+/******************************** MATERIAIS POR REGIAO ***********************************/
+.menu-materiais{
+   box-shadow: 3px 3px 3px #9a9a9a; margin-top: 20px; float:left; border-radius: 5px; padding-top: 8px; width:100%; background-color: #00ba65; height: 25px; position: relative;
+}
+.menu-materiais span{
+    float:left;
+    text-align: left;
+    width: 19%;
+    margin-left: 2px;
 
+}
+.adicionando-valores{
+    width: 100%;
+    clear:left;
+    float: left;
+    
+    
+    
+   
+}
+.opcoes-materiais{
+        
+        width: 100%;
+        float: left;
+        
+}
+.add-valor-material{
+        
+        width: 48%;
+        float: left;
+        padding-bottom:  20px;
+        margin-top:20px;
+}
+.materiais{
+    width: 100%;
+    clear: left;
+    float: left;
+}
+.materiais span{
+    float:left;
+}
+.materiais input{
+    float:left; text-align: center; padding-right: 10px; width: 30%; background-color: #ddd; border: solid 1px;    
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 2px 2px 3px #666;
+    -webkit-box-shadow: 2px 2px 3px #666;
+    box-shadow: 2px 2px 3px #666;
+    outline: 0;
+    -webkit-appearance: none;
+}
+.materiais select{
+    float:left; text-align: center; padding-right: 10px; width: 20%; background-color: #ddd; border: solid 1px;
+    margin-left: 20px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 2px 2px 3px #666;
+    -webkit-box-shadow: 2px 2px 3px #666;
+    box-shadow: 2px 2px 3px #666;
+    outline: 0;
+    -webkit-appearance: none;
+}
+
+.button-tabela-material-salvar{
+    float:right; margin-left: 1px; margin-right: 1px; background: none; background-image: url('../images/apply.png'); width: 26px; background-repeat: no-repeat;    
+     -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 2px 2px 3px #666;
+    -webkit-box-shadow: 2px 2px 3px #666;
+    box-shadow: 2px 2px 3px #666;
+    outline: 0;
+    -webkit-appearance: none;
+}
+
+.master-materiais{
+    box-shadow: 2px 2px 3px #666; clear:left; width: 100%; transition-delay: 1s;  height: 180px; overflow: scroll; overflow-x: hidden; border-bottom: solid 1px; border-bottom-color: #bcbcbc;
+}
+/******************************** FIM MATERIAIS POR REGIAO ***********************************/

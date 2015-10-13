@@ -540,11 +540,11 @@ class Funcionario{
 		}
 	}
 
-	public function get_all_func_emp($id_empresa){
-		$sql = new Sql();
+	public function get_all_func_emp(){
+	$sql = new Sql();
 		$sql->conn_bd();
 		$aux=0;
-		$query = mysql_query("SELECT * FROM funcionario WHERE oculto = 0 $$ id_empresa='%s'");
+		$query = mysql_query("SELECT * FROM funcionario WHERE oculto = 0 && id_empresa = '".$_SESSION['id_empresa']."'");
 
 		while($result = mysql_fetch_array($query)){
 			$return[$aux][0] = $result['id'];
@@ -552,6 +552,7 @@ class Funcionario{
 			$aux++;
 		}
 		return $return;
+            
 	}
 
 	public function get_nome_by_id($id){

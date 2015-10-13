@@ -6,6 +6,9 @@ include_once("../model/class_horarios_bd.php");
 include_once("../model/class_turno_bd.php");
 include_once("../model/class_sql.php");
 include_once("../model/class_config.php");
+include_once("../model/class_cidade_bd.php");
+include_once("../model/class_estado_bd.php");
+include_once("../model/class_material_bd.php");
 include_once("config.php");
 
 
@@ -134,8 +137,25 @@ include_once("config.php");
           
      }
      
+     function carregaU_M(uf){
+          data = uf.split(":");
+          var aux = data[0];          
+          var aux2 = data[1];
+         
+          var combo = document.getElementById(aux2+":medida");
+          for (var i = 0; i < combo.options.length; i++)
+          {
+            if (combo.options[i].value == aux)
+            {
+              combo.options[i].selected = true;
+
+              break;
+            }
+          }
+        }
+     
+     
      function mostraTabela1(x){
-        
             
             if(document.getElementById(2).hidden == false){
                 document.getElementById(2).hidden = true;
@@ -189,48 +209,45 @@ include_once("config.php");
               mascara( this, mnum );
           }
        }
-
+       
+        function buscar_cidades(x){ 
+          
+          var estado = document.getElementById(x).value;  //codigo do estado escolhido
+          data = x.split(":");
+          var aux = data[0];
+         
+          var aux2 = data[1];
+         
+          //se encontrou o estado
+          if(estado){
+            var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+            $.get(url, function(dataReturn) {
+              $('#'+aux+'load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
+            });
+          }
+        }
+   
  </script>
 <body>
 
             <?php include_once("../view/topo.php"); ?>
-            <div class="formulario" >
+    <div class="formulario">
                
-                
+               
                   <div class="title-box"><div style="float:left"><img src="../images/config.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Configurações</span></div></div>
                   
-                  <div style="float:left; width: 100%; margin-top:20px; padding-top: 5px; padding-bottom: 5px; text-align: center; background:url(../images/footer_lodyas.png); " ><span style="color: #ddd;" class="title">PONTO</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="mostraTabela1('ponto')" ></div>
-                  <div id="ponto" hidden="on" style="float:left">
-                  <form method="POST" action="configuracoes.php">
-                      <table border="0">
-                          <tr>
-                            <td ><span><b>Limite de atraso permitido: </b></span></td><td><input type="text" id="temp_limit_atraso" name="temp_limit_atraso" value="<?php echo $_SESSION['temp_limit_atraso']; ?>"></td><td><span style="color:#565656"> (Máximo permitido: 59 minutos)</span></td>
-                          </tr>
-                          <tr>
-                            <td ><span><b>Empresa: </b></span></td><td><a href="<?php echo 'add_empresa.php?tipo=editar&id='.$_SESSION['id_empresa'] ?>"><span>Configurar dados</span></a></td><!-- <td><span style="color:#565656"> (Máximo permitido: 59 minutos)</span></td> -->
-                          </tr>
-                          <tr>
-                            <td colspan="3" style="padding-top:20px; text-align:center"><input type="submit" class="button" value="Salvar"> <input type="button" class="button" value="Cancelar"></td>
-                          </tr>
-                      
-                    </table>
-                  </form>
-                       <div>
-                  <?php 
-                    if(validate()){
-                         $config = new Config();
-                         $config->atualizaTempLimitAtraso($_POST['temp_limit_atraso']);
-                         
-                      }
-                   ?>
-                </div>
-                      
-                 </div>
-                  <?php include_once("../view/unidade_medida.php")?>      
-                
-                
-         </div>
+        <div>
+        <?php include_once("../view/ponto.php")?> 
+        </div>
+        <div>
+         <?php include_once("../view/material_valor.php")?>
+        </div>       
+        <div>
+        <?php include_once("../view/unidade_medida.php")?> <!--DEIXAR SEMPRE POR ULTIMO NO MENU-->
+        </div>
+        
          
-     
+                   
+     </div>
 </body>
 </html>

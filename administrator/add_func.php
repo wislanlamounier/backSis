@@ -1194,7 +1194,7 @@ function carregaUf_CartTrab(uf){
                      <tr>
                         <td> <span>Bairro:* </span></td><td colspan="3"><input type="text" id="bairro" name="bairro" style="width:65%"> <span> CEP </span> <input style="width:80px;" type="text" id="cep" name="cep" > </td>
                      </tr>
-                     <tr><td><span>Complemento: </span> </td><td><input  style="width:50%" value="<?php echo $endereco[0][6]; ?>" type="text" id="complemento" name="complemento" ></td></tr> 
+                     <tr><td><span>Complemento: </span> </td><td><input  style="width:50%" value="" type="text" id="complemento" name="complemento" ></td></tr> 
                      <tr>
                         <td><span>Estado:*</span></td>
                         <td>

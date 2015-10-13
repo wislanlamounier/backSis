@@ -29,6 +29,20 @@ function validate(){
     function novo_produto(){             
         window.open("add_produto.php");
     }
+    
+    function carregaF_O(f_o){
+          
+      var combo = document.getElementById("responsavel_obra");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == f_o)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }
+    }
 
     function mostraLocal(){ // FUNCAO QUE MOSTRA OCULTA OU MOSTRA A DIV DO MAPA
         document.getElementById('fundo').hidden = false;
@@ -362,7 +376,7 @@ function validate(){
                                   isset($_GET['rua']) ? $_SESSION['obra']['cliente']['rua'] = $_GET['rua'] : '';
                                   isset($_GET['num']) ? $_SESSION['obra']['cliente']['num'] = $_GET['num'] : '';
                                   isset($_GET['telefone_com']) ? $_SESSION['obra']['cliente']['telefone_com'] = $_GET['telefone_com'] : '';
-                                 
+                                  
                                   
                                ?>
                               
@@ -382,7 +396,28 @@ function validate(){
                                       </div>
                                       <div class="form-input" style="width:40%; margin-left: 10px;">
                                           <span>Data inicio:</span><br /><input type="date" name="data_inicio_previsto" id="data_inicio_previsto" value="<?php (isset($_SESSION['obra']['dados']['data_inicio_previsto']))?print $_SESSION['obra']['dados']['data_inicio_previsto']:''; ?>" style="width:100%; ">
+                                      </div>  
+                                      <div class="form-input" style="width:45%">
+                                          <span>Responsavel pela obra :</span><br />
+                                          <select id="responsavel_obra" name="responsavel_obra"  style="background-color: #dedede;width:100%">
+                                            <option>Selecione</option>
+                                            
+                                                <?php 
+                                                   $func = new Funcionario();
+                                                   $func = $func->get_all_func_emp();
+                                                   for ($i=0; $i < count($func) ; $i++) { 
+                                                      echo '<option value="'.$func[$i][0].'">'.$func[$i][1].'</option>';
+                                                   }
+                                                 ?>
+                                             <?php echo "<script> carregaF_O('".$_SESSION['obra']['dados']['responsavel_obra']."'); </script>" ?>
+                                             </select>
+                                          
+                                          
+                                          
                                       </div>
+                                      <div class="form-input" style="width:40%; margin-left: 10px;">
+                                          <span>Site:</span><br /><input type="text" name="site" id="site" placeholder="INDEFINIDO..">
+                                      </div>  
                                       <div class="form-input" style="width:45%">
                                           <span>Latitude:</span><br /><input  type="text" placeholder="Digite a latitude..." id="lat"  name="lat"   onchange="initMap()"  value="<?php (isset($_SESSION['obra']['dados']['lat']))?print $_SESSION['obra']['dados']['lat']:''; ?>"> <!-- SE A SESSION JA TEM LATITUDE MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
                                       </div>
@@ -431,6 +466,8 @@ function validate(){
                                   isset($_GET['long']) ? $_SESSION['obra']['dados']['long'] = $_GET['long'] : ''; /* GET PARA PEGAR O VALOR DA SESSION DADA PELA PAGINA ANTERIOR */
                                   isset($_GET['bairro']) ? $_SESSION['obra']['dados']['bairro'] = $_GET['bairro'] : '';
                                   isset($_GET['cidade']) ? $_SESSION['obra']['dados']['cidade'] = $_GET['cidade'] : '';
+                                  isset($_GET['responsavel_obra']) ? $_SESSION['obra']['dados']['responsavel_obra'] = $_GET['responsavel_obra'] : '';
+                                  
                                ?>
                         
                               <div class="bloco-1" id="dados_obra">            

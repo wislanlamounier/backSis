@@ -5,8 +5,7 @@ include_once("../model/class_sql.php");
 include("../model/class_empresa_bd.php");
 include("../model/class_unidade_medida_bd.php");
 include("../model/class_material_bd.php");
-include("../model/class_tipo_custo_bd.php");
-include("../model/class_valor_custo_bd.php");
+
 
 function validate(){
    if(!isset($_POST['nome']) || $_POST['nome'] == ""){
@@ -85,25 +84,7 @@ function verificaValor($valor){
 		               f[i].style.border = "1px solid #898989";
 		            }
 	         	}
-                          if(f[i].name == "valor_custo" && f[i].value == ""){
-                msg += "Insira o valor de custo do funcionario!\n";
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "valor_custo" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }
-              
-              if(f[i].name == "tipo_custo" && f[i].value == "no_sel"){
-                msg += "Insira tip de custo!\n";
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "tipo_custo" && f[i].value != "no_sel"){
-                f[i].style.border = "1px solid #898989";
-              }
-                  }
-                  		
+         
                     if(erros>0){
                         return false;
 			}else{
@@ -121,19 +102,19 @@ function verificaValor($valor){
           });
        }
     }
-        function carregaU_M(uf){
-           
-      var combo = document.getElementById("medida");
-      for (var i = 0; i < combo.options.length; i++)
-      {
-        if (combo.options[i].value == uf)
-        {
-          combo.options[i].selected = true;
-          
-          break;
+    function carregaU_M(uf){
+
+          var combo = document.getElementById("medida");
+          for (var i = 0; i < combo.options.length; i++)
+          {
+            if (combo.options[i].value == uf)
+            {
+              combo.options[i].selected = true;
+
+              break;
+            }
+          }
         }
-      }
-    }
     function carregaTipo_custo(tc){
            
       var combo = document.getElementById("tipo_custo");
@@ -240,10 +221,7 @@ function verificaValor($valor){
                      $material = $material->get_material_id($id);
                      $id = $material->id;
                      $nome = $material->nome;
-                     $id_valor_custo = $material->id_valor_custo;
-                     
-                     $valor_custo = new Valor_custo();
-                     $valor_custo = $valor_custo->get_valor_custo_id($id_valor_custo);
+                   
                      
                      
                      
@@ -254,28 +232,10 @@ function verificaValor($valor){
                 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR MATERIAL</span></div></div>
                        <form method="POST" id="add_material" action="add_material.php" onsubmit="return validate(this)">
                             <input type="hidden" id="tipo" name="tipo" value="editar">
-                            <input type="hidden" id="id" name="id" value="<?php echo $id ?>"> 
-                            <input type="hidden" id="id_custo" name="id_custo" value="<?php echo $valor_custo->id ?>">
+                            <input type="hidden" id="id" name="id" value="<?php echo $id ?>">                             
                             <table border="0">
-                                <tr><td><span>Nome:</span></td> <td><input type="text" name="nome" id="nome"  value="<?php echo $nome ?>"></td></tr>                                
-                                <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo" value="<?php echo  $valor_custo->valor; ?>"></td>
-                                  <td>
-                                      <select id="tipo_custo" name="tipo_custo"  style="width:100%">
-                                    <option value="no_sel">Selecione</option>
-                                    <?php 
-                                       $tipo_custo = new Tipo_custo();
-                                       $tipo_custo = $tipo_custo->get_all_tipo_custo();                                       
-                                       foreach ($tipo_custo as $key => $value) {
-                                           echo '<option value="'.$value[0].'">'.$value[1].'</option>';
-                                       }
-//                                       for ($i=0; $i < count($empresa) ; $i++) { 
-//                                          echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
-//                                       }
-                                     ?>
-                                    <?php echo "<script> carregaTipo_custo('".$valor_custo->id_tipo_custo."'); </script>" ?> 
-                                 </select>
-                                  </td>
-                              </tr>
+                                <tr><td><span>Nome:</span></td> <td><input type="text" name="nome" id="nome"  value="<?php echo $nome ?>"></td></tr>  
+                                
                                 <tr><td><span>Unidade de medida:</span></td><td><select id="medida" name="medida"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
                                     <?php 
@@ -321,24 +281,7 @@ function verificaValor($valor){
                                  </select>
                               </td>
                               </tr>
-                              <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo"></td>
-                                  <td>
-                                      <select id="tipo_custo" name="tipo_custo"  style="width:100%">
-                                    <option value="no_sel">Selecione</option>
-                                    <?php 
-                                       $tipo_custo = new Tipo_custo();
-                                       $tipo_custo = $tipo_custo->get_all_tipo_custo();                                       
-                                       foreach ($tipo_custo as $key => $value) {
-                                           echo '<option value="'.$value[0].'">'.$value[1].'</option>';
-                                       }
-//                                       for ($i=0; $i < count($empresa) ; $i++) { 
-//                                          echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
-//                                       }
-                                     ?>
-                                 </select>
-                                      
-                                  </td>
-                              </tr>
+                              
                           </table>
                           <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_material.php'" id="button" value="Cancelar"></td></tr>
                        </form>          
@@ -351,15 +294,7 @@ function verificaValor($valor){
 
                     if($_POST['medida']!= "no_sel" && $_POST['empresa']!="no_sel"){
                      $material = new Material();
-                     
-                     $valor_custo = new Valor_custo();                                        
-                     if(isset($_POST['valor_custo'])!= ""){
-                         $id_tipo_custo = $_POST['tipo_custo'];
-                         $valor = $_POST['valor_custo'];
-                         $valor_custo->add_valor_custo($valor, $id_tipo_custo);
-                         $id_valor_custo = $valor_custo->add_valor_custo_bd();
-                     }
-                     $material->add_material($_POST['nome'], $id_valor_custo ,$_POST['medida'], $_POST['empresa']); 
+                     $material->add_material($_POST['nome'],$_POST['medida'], $_POST['empresa']); 
                       
                      if($material->add_material_bd()){
                         echo '<div class="msg">Cadastrado com sucesso!</div>';
@@ -382,17 +317,8 @@ function verificaValor($valor){
                                $id = $_POST['id'];
                                $nome = $_POST['nome'];
                                $id_unidade_medida = $_POST['medida'];
-                               
-                               $id_custo = $_POST['id_custo'];
-                               
-                                   if(isset($_POST['valor_custo'])!= ""){
-                                   
-                                     $id_tipo_custo = $_POST['tipo_custo'];
-                                     $valor = $_POST['valor_custo'];
-                                     $id_custo = $valor_custo->atualiza_valor_custo($valor, $id_tipo_custo, $id_custo);
-                                };
                      
-                              if($material->atualiza_material($nome, $id_custo, $id_unidade_medida, $id )){                                 
+                              if($material->atualiza_material($nome, $id_unidade_medida, $id )){                                 
                               }else{
                                  echo '<div class="msg">Falha na atualização!</div>';
                               }
