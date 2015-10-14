@@ -14,7 +14,7 @@
 			//@amats Enviar Email
 			//@amats Classe para envio de email
 			//@amats Email
-			error_reporting (E_ALL);
+			// error_reporting (E_ALL);
 		 	// @amats Inclui o arquivo class.phpmailer.php localizado na pasta: /var/www/openemr/library/classes/class.phpmailer.php
 			// @amats Alterar esse endereço
 			require_once("../phpmailer/phpmailer.class.php");
