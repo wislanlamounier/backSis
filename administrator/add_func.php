@@ -613,6 +613,7 @@ function verificaValor($valor){
 }
 function buscar_cid(id_est){
       var estado = id_est;
+      
       if(estado){
         var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;
         $.get(url, function(dataReturn) {

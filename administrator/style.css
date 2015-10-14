@@ -912,33 +912,30 @@ form-input select{
 .adicionando-valores{
     width: 100%;
     clear:left;
-    float: left;
-    
-    
-    
-   
+    float: left;    
 }
-.opcoes-materiais{
-        
+.opcoes-materiais{        
         width: 100%;
-        float: left;
-        
+        float: left; 
+        background-color: #bbb;
 }
-.add-valor-material{
-        
+.add-valor-material{        
         width: 48%;
         float: left;
         padding-bottom:  20px;
         margin-top:20px;
 }
 .materiais{
+    
+    margin-top: 10px;
     width: 100%;
     clear: left;
     float: left;
 }
 .materiais span{
     float:left;
-}
+    font-weight: bolder;
+    }
 .materiais input{
     float:left; text-align: center; padding-right: 10px; width: 30%; background-color: #ddd; border: solid 1px;    
     -moz-border-radius: 10px;
@@ -951,11 +948,11 @@ form-input select{
     -webkit-appearance: none;
 }
 .materiais select{
-    float:left; text-align: center; padding-right: 10px; width: 20%; background-color: #ddd; border: solid 1px;
+    float:left; text-align: center; padding-right: 10px; width: 30%; background-color: #ddd; 
     margin-left: 20px;
-    -moz-border-radius: 10px;
+    -moz-border-radius: 5px;
     -webkit-border-radius: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
     -moz-box-shadow: 2px 2px 3px #666;
     -webkit-box-shadow: 2px 2px 3px #666;
     box-shadow: 2px 2px 3px #666;
@@ -964,7 +961,7 @@ form-input select{
 }
 
 .button-tabela-material-salvar{
-    float:right; margin-left: 1px; margin-right: 1px; background: none; background-image: url('../images/apply.png'); width: 26px; background-repeat: no-repeat;    
+    float:right;  margin-top: 10px; background-position: center;  background-image: url('../images/apply.png'); width: 60px; background-repeat: no-repeat;    
      -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
@@ -976,6 +973,10 @@ form-input select{
 }
 
 .master-materiais{
-    box-shadow: 2px 2px 3px #666; clear:left; width: 100%; transition-delay: 1s;  height: 180px; overflow: scroll; overflow-x: hidden; border-bottom: solid 1px; border-bottom-color: #bcbcbc;
+    box-shadow: 2px 2px 3px #666; clear:left; width: 100%; transition-delay: 1s;  height: 240px; overflow: scroll; overflow-x: hidden; border-bottom: solid 1px; border-bottom-color: #bcbcbc;
+}
+
+.tipo-cadastro{
+    
 }
 /******************************** FIM MATERIAIS POR REGIAO ***********************************/

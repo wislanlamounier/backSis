@@ -126,19 +126,8 @@ include_once("config.php");
 
    }
      
-     function hideall(x){
-            if(document.getElementById(x).hidden == true){
-                document.getElementById(x).hidden = false;
-            }else{
-                document.getElementById(x).hidden = true;
-                document.getElementById(1).hidden = true;
-                document.getElementById(2).hidden = true;
-            }
-          
-     }
-     
-     function carregaU_M(uf){
-          data = uf.split(":");
+     function carregaU_M(um){
+          data = um.split(":");
           var aux = data[0];          
           var aux2 = data[1];
          
@@ -153,8 +142,27 @@ include_once("config.php");
             }
           }
         }
+        
+      function hideall(x){
+            if(document.getElementById(x).hidden == true){
+                document.getElementById(x).hidden = false;
+            }else{
+                document.getElementById(x).hidden = true;
+                document.getElementById(1).hidden = true;
+                document.getElementById(2).hidden = true;
+                document.getElementById(3).hidden = true;
+                document.getElementById(4).hidden = true;
+                document.getElementById("opcoes-materiais").hidden = true;
+            }
+        }
      
-     
+     function ocultaTabela(x){
+          if(document.getElementById(x).hidden == true){
+                document.getElementById(x).hidden = false;
+            }else{
+                document.getElementById(x).hidden = true;
+            }
+     }
      function mostraTabela1(x){
             
             if(document.getElementById(2).hidden == false){
@@ -210,12 +218,31 @@ include_once("config.php");
           }
        }
        
-        function buscar_cidades(x){ 
-          
-          var estado = document.getElementById(x).value;  //codigo do estado escolhido
-          data = x.split(":");
+    function carregaUf(uf){
+         data = uf.split(" ");
           var aux = data[0];
          
+          var aux2 = data[1];
+        
+        
+      var combo = document.getElementById(aux2+"xestado");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == aux)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }
+      buscar_cidades(aux2+"xestado");
+    } 
+    
+    function buscar_cidades(x){ 
+          
+          var estado = document.getElementById(x).value;  //codigo do estado escolhido
+          data = x.split("x");
+          var aux = data[0];
           var aux2 = data[1];
          
           //se encontrou o estado
@@ -225,7 +252,25 @@ include_once("config.php");
               $('#'+aux+'load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
             });
           }
-        }
+    }
+    
+    function carregaCidade(){
+                
+                
+                var combo = document.getElementById("cidade");
+                var cidade = document.getElementById("id_cidade").value;
+                
+                for (var i = 0; i < combo.length; i++)
+                {
+
+                  if (combo.options[i].value == cidade)
+                  {
+                    combo.options[i].selected = true;
+                    break;
+                  }
+                }      
+    }
+   
    
  </script>
 <body>
