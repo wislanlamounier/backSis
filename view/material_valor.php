@@ -12,7 +12,7 @@
         </div>
         <div class="materiais" id="3" hidden="on"> 
             <div><span >UF:</span></div> 
-            <form method="GET" action="../administrator/configuracoes.php">
+            <form method="GET" action="../administrator/add_material.php">
                 <?php
                 //buscar array de CBO
                 $estado = new Estado();
@@ -37,7 +37,7 @@
         </div>
 
         <?php
-        if ($_GET['axestado']!= "no_sel" && $_GET['cidade']!= "no_sel" )  {
+        if (isset($_GET['axestado']) && isset($_GET['cidade']) )  {
 
             $Carrestado = $_GET['axestado'];
             $Carrcidade = $_GET['cidade'];
@@ -52,17 +52,22 @@
                     <span>Valor</span>
 
                 </div>
-                <form method="POST" id="materiais" action="testevalores.php">  
+                <form method="POST" id="materiais" action="../administrator/salva_materiais_valor.php">  
                     <div class="master-materiais">   
 
                         <?php
-                        $material = new Material();
-                        $material = $material->get_all_material();
+                        $custo_regiao = new Custo_regiao();
+                        $t_c = new Tipo_custo();
+                        $estado = new Estado();
                         $unidade_medida = new Unidade_medida();
                         $cidade = new Cidade();
+                        $material = new Material();
+                        $v_c = new Valor_custo();
+                        $material = $material->get_all_material();  
                         $cidade = $cidade->get_city_by_id($Carrcidade);
-                        $estado = new Estado();
-                        $estados = $estado->get_estado_by_id($Carrestado);                       
+                        $estados = $estado->get_estado_by_id($Carrestado); 
+                        $t_c = $t_c->get_all_tipo_custo();
+                        
                         
 
                         foreach ($material as $key => $value) {
@@ -76,17 +81,33 @@
 
                                 <div class="materiais">
 
-                                    <input readonly style="width: 20%" type="text" name="<?php echo $id_material . ":" . "material" ?>" id="<?php echo $id_material . ":" . "material" ?>" value="<?php echo $value[1]; ?>"> 
-                                    <input readonly style="width: 10%; margin-left:10px" type="text" name="<?php echo $id_material . ":" . "medida" ?>" id="<?php echo $id_material . ":" . "medida" ?>" value="<?php echo $u_m->sigla ?>"> 
-                                    <input readonly style="width: 10%; margin-left:20px" type="text" name="<?php echo $id_material . ":" . "estado" ?>" id="<?php echo $id_material . ":" . "estado" ?>" value="<?php echo $estado->uf ?>"> 
-                                    <input readonly type="text" style="width: 25%; margin-left: 20px" id="id_cidade" value="<?php echo $cidade->nome ?>">                                    
-                                    <input style="width: 20%; margin-left: 10px; text-align: left;"type="text" id="<?php echo $id_material . "valor_custo" ?>" name="<?php echo $id_material . "valor_custo" ?>"> 
+                                    <input readonly style="width: 20%" type="text" name="<?php echo $id_material.":material" ?>" id="<?php echo $id_material.":material" ?>" value="<?php echo $value[1]; ?>"> 
+                                    <input readonly style="width: 10%; margin-left:5px" type="text" name="<?php echo $id_material.":medida" ?>" id="<?php echo $u_m->id.":medida" ?>" value="<?php echo $u_m->sigla ?>"> 
+                                    <input readonly style="width: 10%; margin-left:5px" type="text" name="<?php echo $id_material.":estado" ?>" id="<?php echo $estado->id.":estado" ?>" value="<?php echo $estado->uf ?>"> 
+                                    <input readonly type="text" style="width: 25%; margin-left: 5px;" name="<?php echo $id_material.":cidade" ?>" id="<?php echo $cidade->id.":cidade" ?>"  value="<?php echo $cidade->nome ?>">
+                                    <?php                                         
+                                         $valor_custo = $custo_regiao->get_valor_regiao($id_material, $cidade->id, $_SESSION['id_empresa']);                                         
+                                         if($valor_custo[0][0]){
+                                             $v_c = $v_c->get_valor_custo_id($valor_custo[0][0]);  
+                                             echo $v_c->valor;
+                                            }
+                                     ?>
+                                    <input style="width: 15%; margin-left: 5px; text-align: left;"type="text" id="<?php echo $id_material.":valor_custo" ?>" name="<?php echo $id_material.":valor_custo" ?>" value="<?php  if($v_c != ""){echo $v_c->valor;}?>"> 
                                     
+                                    <select style="width: 12%; margin-left: 5px;" name="<?php echo $id_material.":tipo_custo" ?>" id="<?php echo $id_material.":tipo_custo" ?>">
+                                        <?php                                        
+                                            foreach ($t_c as $key => $value) {
+                                               
+                                               echo '<option value="' . $value[0] . '">' . $value[1] . '</option>';
+                                            }
+                                        ?>
+                                    </select>
 
                                 </div>        
                             </div>
 
                             <?php
+                            $v_c->valor = "";
                         }
                         ?>
 
@@ -98,8 +119,8 @@
             </div>
 
         <?php }
-        if($_GET['axestado'] == "no_sel" && $_GET['cidade'] == "no_sel" ){
-            echo '<div id="erro">Não foi selecionado nenhuma região</div>';
+        if(!isset($_GET['axestado']) || $_GET['axestado'] == "no_sel" ){
+            
             echo '<script>ocultaTabela(4)</script>';
         }
         ?>      

@@ -111,7 +111,7 @@ class Material{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$aux=0;
-		$query = mysql_query("SELECT * FROM materiais WHERE id_empresa = '".$_SESSION['id_empresa']."'");
+		$query = mysql_query("SELECT * FROM materiais WHERE oculto=0 && id_empresa = '".$_SESSION['id_empresa']."'");
 
 		while($result = mysql_fetch_array($query)){
 			$return[$aux][0] = $result['id'];

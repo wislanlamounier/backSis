@@ -47,6 +47,8 @@ function verificaValor($valor){
     
     return $valor;
 }
+    
+    
  ?>
 
 <html>
@@ -205,8 +207,107 @@ function verificaValor($valor){
           mascara( this, mtel );
       }
       
-      
    }
+    
+    function carregaUf(uf){
+         data = uf.split(" ");
+          var aux = data[0];
+         
+          var aux2 = data[1];
+        
+        
+      var combo = document.getElementById(aux2+"xestado");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == aux)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }
+      buscar_cidades(aux2+"xestado");
+    } 
+    
+    function buscar_cidades(x){ 
+          
+          var estado = document.getElementById(x).value;  //codigo do estado escolhido
+          data = x.split("x");
+          var aux = data[0];
+          var aux2 = data[1];
+         
+          //se encontrou o estado
+          if(estado){
+            var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+            $.get(url, function(dataReturn) {
+              $('#'+aux+'load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
+            });
+          }
+    }
+    
+    function carregaCidade(){
+                
+                
+                var combo = document.getElementById("cidade");
+                var cidade = document.getElementById("id_cidade").value;
+                
+                for (var i = 0; i < combo.length; i++)
+                {
+
+                  if (combo.options[i].value == cidade)
+                  {
+                    combo.options[i].selected = true;
+                    break;
+                  }
+                }      
+    }
+          function hideall(x){
+            if(document.getElementById(x).hidden == true){
+                document.getElementById(x).hidden = false;
+            }else{
+                document.getElementById(x).hidden = true;
+                document.getElementById(1).hidden = true;
+                document.getElementById(2).hidden = true;
+                document.getElementById(3).hidden = true;
+                document.getElementById(4).hidden = true;
+                document.getElementById("opcoes-materiais").hidden = true;
+            }
+        }
+     
+     function ocultaTabela(x){
+          if(document.getElementById(x).hidden == true){
+                document.getElementById(x).hidden = false;
+            }else{
+                document.getElementById(x).hidden = true;
+            }
+     }
+     function mostraTabela1(x){
+            
+            if(document.getElementById(2).hidden == false){
+                document.getElementById(2).hidden = true;
+            }
+            
+            
+            if(document.getElementById(x).hidden == true){
+                document.getElementById(x).hidden = false;
+            }else{
+                document.getElementById(x).hidden = true;
+            }
+            
+     }
+   
+     function mostraTabela2(x){
+            if(document.getElementById(1).hidden == false){
+                document.getElementById(1).hidden = true;
+            }
+            
+            if(document.getElementById(x).hidden == true){
+                document.getElementById(x).hidden = false;
+            }else{
+                document.getElementById(x).hidden = true;
+            }
+            
+     }
 </script>
 
 <body>	
@@ -329,7 +430,8 @@ function verificaValor($valor){
 	           	
 		 		?>
 	 	    </div> 
-	 	   <?php include_once("informacoes_material.php") ?> 
-	 		</div> 
+                         <?php include_once("informacoes_material.php") ?> 
+                    </div> 
+
 </body>
 </html>

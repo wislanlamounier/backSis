@@ -283,10 +283,7 @@ include_once("config.php");
                   
         <div>
         <?php include_once("../view/ponto.php")?> 
-        </div>
-        <div>
-         <?php include_once("../view/material_valor.php")?>
-        </div>       
+        </div>            
         <div>
         <?php include_once("../view/unidade_medida.php")?> <!--DEIXAR SEMPRE POR ULTIMO NO MENU-->
         </div>
