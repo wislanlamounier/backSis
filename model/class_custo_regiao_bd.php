@@ -31,7 +31,22 @@ class Custo_regiao{
         }                    
     }
     
-   
+    public function atualiza_custo_regiao_bd($id_valor_custo, $id_material, $id_cidade ){
+        $sql = new Sql();
+	$sql->conn_bd();
+	$g = new Glob();
+        $query = "UPDATE custo_regiao SET id_valor_custo = '%s' WHERE id_material = '%s' && id_cidade = '%s'";
+        
+         if($g->tratar_query($query, $id_valor_custo, $id_material, $id_cidade)){
+                    return true;
+                        }else{
+                          return false;
+                        }
+        
+    }
+
+
+    
         public function get_valor_regiao($id_material, $id_cidade, $id_empresa){
 		$sql = new Sql();
 		$sql->conn_bd();
