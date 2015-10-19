@@ -84,15 +84,16 @@
                                     <input readonly style="width: 20%" type="text" name="<?php echo $id_material.":material" ?>" id="<?php echo $id_material.":material" ?>" value="<?php echo $value[1]; ?>"> 
                                     <input readonly style="width: 10%; margin-left:5px" type="text" name="<?php echo $id_material.":medida" ?>" id="<?php echo $u_m->id.":medida" ?>" value="<?php echo $u_m->sigla ?>"> 
                                     <input readonly style="width: 10%; margin-left:5px" type="text" name="<?php echo $id_material.":estado" ?>" id="<?php echo $estado->id.":estado" ?>" value="<?php echo $estado->uf ?>"> 
-                                    <input readonly type="text" style="width: 25%; margin-left: 5px;" name="<?php echo $id_material.":cidade" ?>" id="<?php echo $cidade->id.":cidade" ?>"  value="<?php echo $cidade->nome ?>">
-                                    <?php                                         
-                                         $valor_custo = $custo_regiao->get_valor_regiao($id_material, $cidade->id, $_SESSION['id_empresa']);                                         
+                                    <input readonly type="text" style="width: 25%; margin-left: 5px;" name="<?php echo $id_material.":cidade:".$cidade->id; ?>" id="<?php echo $cidade->id.":cidade" ?>"  value="<?php echo $cidade->nome ?>">
+                                    <?php
+                                     
+                                         $valor_custo = $custo_regiao->get_valor_regiao($id_material, $cidade->id, $_SESSION['id_empresa']); 
+                                         
                                          if($valor_custo[0][0]){
-                                             $v_c = $v_c->get_valor_custo_id($valor_custo[0][0]);  
-                                             echo $v_c->valor;
+                                             $v_c = $v_c->get_valor_custo_id($valor_custo[0][0]);                                               
                                             }
                                      ?>
-                                    <input style="width: 15%; margin-left: 5px; text-align: left;"type="text" id="<?php echo $id_material.":valor_custo" ?>" name="<?php echo $id_material.":valor_custo" ?>" value="<?php  if($v_c != ""){echo $v_c->valor;}?>"> 
+                                    <input style="width: 15%; margin-left: 5px; text-align: left;"type="text" id="<?php echo $id_material.":valor_custo" ?>" name="<?php echo $id_material.":valor_custo" ?>" value="<?php echo $v_c->valor; ?>"> 
                                     
                                     <select style="width: 12%; margin-left: 5px;" name="<?php echo $id_material.":tipo_custo" ?>" id="<?php echo $id_material.":tipo_custo" ?>">
                                         <?php                                        
@@ -113,6 +114,7 @@
 
                     </div> 
                     <div class="salvar-editar"> 
+                        <input type="submit" value="" class="button-tabela-unidade-deletar">    
                     <input type="submit" value="" class="button-tabela-material-salvar"> 
                     </div>
                 </form>

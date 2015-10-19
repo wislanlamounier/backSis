@@ -42,7 +42,23 @@ class Cidade{
 		}
 		return $this;
 	}
+	public function get_city_by_nome($nome){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
 
+		$query = $g->tratar_query("SELECT * FROM cidade WHERE nome = %s", $nome);
+
+		if(@mysql_num_rows($query) == 0){
+			return false;
+		}else{
+			$row = mysql_fetch_array($query, MYSQL_ASSOC);
+			$this->id = $row['id'];
+			$this->nome = $row['nome'];
+			$this->estado = $row['estado'];		
+		}
+		return $this;
+	}
 	
 
 }

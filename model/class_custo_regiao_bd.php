@@ -41,7 +41,7 @@ class Custo_regiao{
 		$query_tra = $g->tratar_query($query, $id_material, $id_cidade, $id_empresa);
 		if($query_tra)
 			while($result =  mysql_fetch_array($query_tra)){
-				$return[$aux][0] = $result['id_valor_custo'];
+				$return[$aux][0] = $result['id_valor_custo'];                                
 				$aux++;
 			}
 		if($aux == 0){

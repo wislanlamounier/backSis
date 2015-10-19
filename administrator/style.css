@@ -959,7 +959,18 @@ form-input select{
     outline: 0;
     -webkit-appearance: none;
 }
-
+.button-tabela-material-deletar{
+   
+    float:right;  margin-top: 10px; background-position: center;  background-image: url('../images/apply.png'); width: 60px; background-repeat: no-repeat;    
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 2px 2px 3px #666;
+    -webkit-box-shadow: 2px 2px 3px #666;
+    box-shadow: 2px 2px 3px #666;
+    outline: 0;
+    -webkit-appearance: none;
+}
 .button-tabela-material-salvar{
     float:right;  margin-top: 10px; background-position: center;  background-image: url('../images/apply.png'); width: 60px; background-repeat: no-repeat;    
      -moz-border-radius: 10px;
