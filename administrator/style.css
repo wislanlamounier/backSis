@@ -961,7 +961,7 @@ form-input select{
 }
 .button-tabela-material-deletar{
    
-    float:right;  margin-top: 10px; background-position: center;  background-image: url('../images/apply.png'); width: 60px; background-repeat: no-repeat;    
+    float:right;  margin-top: 10px; background-position: center;  background-image: url('../images/revoke.png'); width: 60px; background-repeat: no-repeat;    
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;

@@ -114,8 +114,9 @@
 
                     </div> 
                     <div class="salvar-editar"> 
-                        <input type="submit" value="" class="button-tabela-unidade-deletar">    
+                       
                     <input type="submit" value="" class="button-tabela-material-salvar"> 
+                       <input type="submit" value="" class="button-tabela-material-deletar">  
                     </div>
                 </form>
             </div>
