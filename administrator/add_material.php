@@ -117,6 +117,21 @@ function verificaValor($valor){
             }
           }
         }
+    function carregaEmp(emp){
+        alert("chamou")
+    
+        
+          var combo = document.getElementById("2:empresa");
+          for (var i = 0; i < combo.options.length; i++)
+          {
+            if (combo.options[i].value == 2)
+            {
+              combo.options[i].selected = true;
+
+              break;
+            }
+          }
+        }    
     function carregaTipo_custo(tc){
            
       var combo = document.getElementById("tipo_custo");
@@ -352,13 +367,46 @@ function verificaValor($valor){
                            <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Editar"> <input type="button" name="button" class="button" onclick="window.location.href='add_material.php'" id="button" value="Cancelar"></td></tr>  
                             </table>                            
                        </form>              
-            <?php }else{ ?>              
+            <?php }else{ ?>       
+                
+                
+               
+                
                        <form method="POST" class="add_material" id="add_material" name="add_material" action="add_material.php" onsubmit="return valida(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">MATERIAIS</span></div></div>
-                        <input type="hidden" id="tipo" name="tipo" value="cadastrar">
+                         <div id="menu-materiais" name="menu-materiais" class="menu-materiais">
+                    <span style="margin-left: 15%;"><b>Nome</span>
+                    <span style="margin-left: 4%;">Unidade</span>
+                    <span style="margin-left: 2%;">Empresa</span>
+                    
+                    
+
+                </div>
+                         <input type="hidden" id="tipo" name="tipo" value="cadastrar">
+                        <?php 
+                        $limite = 1;
+                        if(isset($_POST['quantidade'])){
+                            $limite = $_POST['quantidade'];
+                        }
+                       
+                        ?> 
+                         
+                         <div><span style='margin-top:20px;'>Quantos materias deseja adicionar ?</span>
+                            <select name="quantidade" style='margin-top:20px; margin-left: 20px;'>
+                                <option value='5'>5</option>
+                                <option value='10'>10</option>
+                                <option value='15'>15</option>
+                            </select>
+                             <input type="submit" value="ir">
+                        </div>
+                        <?php
+                        
+                       for($j = 0 ; $j<$limite; $j++){
+                             ?>
+                         
                           <table border="0">                          
-                            <tr><td><span>Nome:</span></td> <td><input type="text" name="nome" id="nome"></td><td><span>Unidade de medida:</span></td><td>
-                                  <select id="medida" name="medida"  style="width:100%">
+                            <tr><td><input type="text" name="<?php echo $j.":nome" ?>" id="<?php echo $j.":nome" ?>"></td><td>
+                                  <select id="<?php echo $j.":medida" ?>" name="<?php echo $j.":medida" ?>"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
                                     <?php 
                                        $medida = new Unidade_medida();
@@ -367,30 +415,84 @@ function verificaValor($valor){
                                           echo '<option value="'.$medida[$i][0].'">'.$medida[$i][2].'</option>';
                                        }
                                      ?>
-                                 </select><td></tr>
-  
-                              <tr><td><span>Empresa:</span></td><td>
-                                  <select id="empresa" name="empresa"  style="width:100%">
+                                     
+                                 </select></td>
+                                 
+                              <td>
+                                  <select id="<?php echo $j.":empresa" ?>" name="<?php echo $j.":empresa" ?>"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
                                     <?php 
                                        $empresa = new Empresa();
                                        $empresa = $empresa->get_all_empresa();
                                        for ($i=0; $i < count($empresa) ; $i++) { 
                                           echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
-                                       }
-                                     ?>
+                                       }                                       
+                                     ?>                                      
                                  </select>
+                                   
                               </td>
                               </tr>
                               
                           </table>
-                          <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Cadastrar"> <input type="button" name="button" class="button" onclick="window.location.href='add_material.php'" id="button" value="Cancelar"></td></tr>
-                       </form>          
+                            <?php
+                        }
+                        ?>
+                      
+                          <div colspan="3" style=" margin-top: 10px;"><input type="submit" name="button" class="button" id="button" value="Cadastrar">
+                          <input type="button" name="button" class="button" onclick="window.location.href='add_material.php'" id="button" value="Cancelar"></div>
+                       </form>      
+                
+                
+                
+                
+                
+                
+                
+                
+                
                        
             <?php }?>               
 			
 			<?php 
+                        
                 if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
+                    
+                    $i = 0; $adicionados=0;
+                    foreach ($_POST as $key => $value){
+                        
+                        if($key != "quantidade" && $key != "tipo" && $key != "button" ){
+                         
+                         $data = explode(":",$key);
+                                                    
+                          if($data[1] == "nome"){
+                              
+                             $nome = $value;
+                             $i++;
+                          }
+                           if($data[1] == "medida"){
+                               $medida = $value;
+                             $i++;
+                          }
+                           if($data[1] == "empresa"){                              
+                               $empresa = $value."<br>";
+                              $i++;
+                          }
+                          if($i == 3){
+                              if($nome != "" && $medida != "no_sel" && $empresa != "no_sel"){
+                                $material = new Material();
+                                $material->add_material($nome, $medida, $empresa);
+                                if($material->add_material_bd()){
+                                    $adicionados++;
+                                }
+                                }
+                            $i = 0;
+                          }                          
+                         }
+                        }
+                        if($adicionados != 0){
+                            echo '<script>alert("Adicionado com sucesso!")</script>';
+                        }
+                    }
                    if(validate()){
 
                     if($_POST['medida']!= "no_sel" && $_POST['empresa']!="no_sel"){
@@ -407,7 +509,7 @@ function verificaValor($valor){
                         echo '<div class="msg">Erro ao cadastrar!</div>';
                      } 
                      }                 
-                }
+                
                 if(isset($_POST['tipo']) && $_POST['tipo'] == "editar"){
                     
                 	if(isset($_POST['id'])){
