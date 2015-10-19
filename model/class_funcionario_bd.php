@@ -157,15 +157,18 @@ class Funcionario{
 		 $sql = new Sql();
 		 $sql->conn_bd();
 		 $g = new Glob();
+		 // date_default_timezone_set('America/Sao_Paulo');
+		 $data = date('Y-m-d 00:00:00');
+		 $query = "SELECT * FROM funcionario WHERE id = '%s' && (('%s' >= data_ini && '%s' < data_fim) || data_fim = '0000-00-00 00:00:00')";
+		 $result = $g->tratar_query($query, $id, $data, $data);
 
-		 $query = "SELECT * FROM funcionario WHERE id= '%s' && oculto = 0";
-		 $result = $g->tratar_query($query, $id);
 		 $func = new Funcionario();
 		 if(@mysql_num_rows($result) == 0){
-     
             return false;
 	     }else{
+
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	     	
 	     	$func->id = $row['id'];
 	     	$func->cod_serie = $row['cod_serie'];
 	     	$func->id_tabela = $row['id_tabela'];
@@ -190,7 +193,7 @@ class Funcionario{
 			$func->email_empresa = $row['email_empresa'];
 			$func->data_adm = $row['data_adm'];
 			$func->salario_base = $row['salario_base'];
-                        $func->id_valor_custo = $row['id_valor_custo'];
+            $func->id_valor_custo = $row['id_valor_custo'];
 			$func->qtd_horas_sem = $row['qtd_horas_sem'];
 			$func->num_cart_trab = $row['num_cart_trab'];
 			$func->num_serie_cart_trab = $row['num_serie_cart_trab'];
@@ -199,9 +202,110 @@ class Funcionario{
 			$func->id_supervisor = $row['id_supervisor'];
 			$func->data_ini = $row['data_ini'];
 			$func->data_fim = $row['data_fim'];
+	     	
 	     	return $func;
 	     }
 	}
+
+	public function get_func_historico_id($id, $data){
+		 $sql = new Sql();
+		 $sql->conn_bd();
+		 $g = new Glob();
+		 $data = date('Y-m-d 00:00:00');
+		 $query = "SELECT * FROM funcionario WHERE id= '%s' ";
+
+		 $result = $g->tratar_query($query, $id);
+		 
+		 if(@mysql_num_rows($result) == 0){
+            echo 'Nenhum funcionário encontrado';
+            return false;
+	     }else{
+	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	     	$this->id_tabela = $row['id_tabela'];
+	     	$this->id = $row['id'];
+	     	$this->nome = $row['nome'];
+	     	$this->cpf = $row['cpf'];
+	     	$this->email = $row['email'];
+	     	$this->telefone = $row['telefone'];
+	     	$this->data_nasc = $row['data_nasc'];
+	     	$this->senha = $row['senha'];
+	     	$this->id_cbo = $row['id_cbo'];
+	     	$this->id_endereco = $row['id_endereco'];
+	     	$this->id_empresa = $row['id_empresa'];
+	     	$this->id_empresa_filial = $row['id_empresa_filial'];
+	     	$this->telefone = $row['telefone'];
+	     	$this->id_turno = $row['id_turno'];
+	     	$this->is_admin = $row['is_admin'];
+	     	$this->rg = $row['rg'];
+			$this->data_em_rg = $row['data_em_rg'];
+			$this->org_em_rg = $row['org_em_rg'];
+			$this->num_tit_eleitor = $row['num_tit_eleitor'];
+			$this->email_empresa = $row['email_empresa'];
+			$this->data_adm = $row['data_adm'];
+			$this->salario_base = $row['salario_base'];
+			$this->qtd_horas_sem = $row['qtd_horas_sem'];
+			$this->num_cart_trab = $row['num_cart_trab'];
+			$this->num_serie_cart_trab = $row['num_serie_cart_trab'];
+			$this->uf_cart_trab = $row['id_uf_cart_trab'];
+			$this->num_pis = $row['num_pis'];
+			$this->id_supervisor = $row['id_supervisor'];
+			$this->estagiario = $row['estagiario'];
+			$this->data_ini = $row['data_ini'];
+			$this->data_fim = $row['data_fim'];
+
+	     	return $this;
+	     }
+	}
+
+	public function get_func_cpf($cpf){
+		 $sql = new Sql();
+		 $sql->conn_bd();
+		 $g = new Glob();
+		 $data = date('Y-m-d 00:00:00');
+		 $query = "SELECT * FROM funcionario WHERE cpf = '%s' && (('%s' >= data_ini && '%s' < data_fim) || data_fim = '0000-00-00 00:00:00')";
+		 $result = $g->tratar_query($query, $cpf, $data, $data);
+		 
+		 if(@mysql_num_rows($result) == 0){
+            echo 'Nenhum funcionário encontrado';
+            return false;
+	     }else{
+	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	     	$this->id_tabela = $row['id_tabela'];
+	     	$this->id = $row['id'];
+	     	$this->nome = $row['nome'];
+	     	$this->cpf = $row['cpf'];
+	     	$this->email = $row['email'];
+	     	$this->telefone = $row['telefone'];
+	     	$this->data_nasc = $row['data_nasc'];
+	     	$this->senha = $row['senha'];
+	     	$this->id_cbo = $row['id_cbo'];
+	     	$this->id_endereco = $row['id_endereco'];
+	     	$this->id_empresa = $row['id_empresa'];
+	     	$this->id_empresa_filial = $row['id_empresa_filial'];
+	     	$this->telefone = $row['telefone'];
+	     	$this->id_turno = $row['id_turno'];
+	     	$this->is_admin = $row['is_admin'];
+	     	$this->rg = $row['rg'];
+			$this->data_em_rg = $row['data_em_rg'];
+			$this->org_em_rg = $row['org_em_rg'];
+			$this->num_tit_eleitor = $row['num_tit_eleitor'];
+			$this->email_empresa = $row['email_empresa'];
+			$this->data_adm = $row['data_adm'];
+			$this->salario_base = $row['salario_base'];
+			$this->qtd_horas_sem = $row['qtd_horas_sem'];
+			$this->num_cart_trab = $row['num_cart_trab'];
+			$this->num_serie_cart_trab = $row['num_serie_cart_trab'];
+			$this->uf_cart_trab = $row['id_uf_cart_trab'];
+			$this->num_pis = $row['num_pis'];
+			$this->id_supervisor = $row['id_supervisor'];
+			$this->estagiario = $row['estagiario'];
+			$this->data_ini = $row['data_ini'];
+			$this->data_fim = $row['data_fim'];
+
+	     	return $this;
+	     }
+	}
+
 	public function get_admin(){
 		$sql = new Sql();
 		$sql->conn_bd();
@@ -238,7 +342,8 @@ class Funcionario{
 
 		return $return;
 	}
-	public function verifica_func($id, $pass){
+
+	public function verifica_func($cpf, $pass){
 		
 		$sql = new Sql();
 		$sql->conn_bd();
@@ -246,12 +351,12 @@ class Funcionario{
 		$g = new Glob();
 		
 		//criptografia md5() no campo senha
-		$query = "SELECT * FROM funcionario WHERE id='%s' && senha = '%s' && oculto = 0";
+		$query = "SELECT id FROM funcionario WHERE cpf='%s' && senha = md5('%s') && oculto = 0";
 		
-		$result = $g->tratar_query($query,$id,$pass);// recebe query tratada
+		$result = $g->tratar_query($query,$cpf,$pass);// recebe query tratada
 		
 		if(@mysql_num_rows($result) == 0){
-           echo 'não encontrou';
+           
             return false;
             
         }else{
@@ -259,23 +364,28 @@ class Funcionario{
         	return true;
         }
 	}
+
 	public function verifica_func_admin($id, $pass){
 		
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
 		//criptografia md5() no campo senha
-		$query = "SELECT * FROM funcionario WHERE id = '%s' && senha = '%s' && is_admin = 1 && oculto = 0";
+		$query = "SELECT COUNT(id) as cont FROM funcionario WHERE id = %s && senha = md5('%s') && is_admin = 1 && oculto = 0";
 
-		$result = $g->tratar_query($query,$id,$pass);// recebe query tratada
+		$result = $g->tratar_query($query, $id, $pass);// recebe query tratada
 
-		if(@mysql_num_rows($result) == 0){
-			echo 'não encontrou';
+		$row = mysql_fetch_array($result);
+
+		if($row['cont'] == 0){
             return false;
         }else{
         	return true;
         }
 	}
+	
+
+
 	public function get_ultimos_func($qtd){
 		$sql = new Sql();
 		$sql->conn_bd();
@@ -366,7 +476,27 @@ class Funcionario{
 	// 	["quantidade"]=> string(1) "3" 
 	// }
         
-        
+    public function get_all_id_func(){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$funcionarios = array();
+		$aux=0;
+		$query = "SELECT id FROM funcionario WHERE oculto = 0";
+		$query_tra = $g->tratar_query($query);
+
+		if($query_tra)
+			while($result =  mysql_fetch_array($query_tra)){
+				$return[$aux][0] = $result['id'];
+				$aux++;
+			}
+		if($aux == 0){
+			echo '<div class="msg">Nenhum funcionário encontrado!</div>';
+		}else{
+			return $return;
+		}
+
+	}    
 	
 	public function get_func_by_name($name){
 		$sql = new Sql();
@@ -556,22 +686,27 @@ class Funcionario{
 	}
 
 	public function get_nome_by_id($id){
+		
 		$sql = new Sql();
 		$sql->conn_bd();
 		$aux = 0;
-		$query = "SELECT nome FROM funcionario WHERE id = ".$id;
+		$return = array();
+		$query = "SELECT nome, id_turno FROM funcionario WHERE id = ".$id." && oculto = 0";
 
-		$result= mysql_query($query);
+		$result = mysql_query($query);
 
 		if(@mysql_num_rows($result) == 0){
+            echo 'Nenhum funcionário encontrado';
             return false;
 	     }else{
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$return = $row['nome'];
+	     	$return[0] = $row['nome'];
+	     	$return[1] = $row['id_turno'];
 	     }
 		return $return;
 
 	}
+	
 	function verificaValor($valor){
         
 	    if(!strpos($valor, '.')){// se não existe . na string (EX R$ 15) tem que adicionar .00 para ficar (R$ 15.00)

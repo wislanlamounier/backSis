@@ -424,7 +424,7 @@ h2{
 
 .box-aniversariantes, .box-atrasos{
 	float:left;
-	width: 260px;
+	width: 400px;
 	padding:10px; font-size:12px;
 	box-shadow: 1.5px 1.5px 10px #888;
 	background-color:rgba(255,255,255,0.6);
@@ -655,8 +655,7 @@ h2{
 	width:30%;
 	padding: 10px;
 	padding-left: 2%;
-	
-	
+
 }
 
 .colum{

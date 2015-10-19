@@ -2,9 +2,12 @@
 include("restrito.php");
 include_once("../model/class_horarios_bd.php");
 include_once("../model/class_funcionario_bd.php");
+include_once("../model/class_turno_bd.php");
 include_once("../model/class_maquinario_bd.php");
 include_once("../model/class_patrimonio_geral_bd.php");
-include_once("../model/class_veiculo_bd.php")
+include_once("../model/class_veiculo_bd.php");
+include_once("../model/class_obs_superv_bd.php");
+include_once("../config.php");
  ?>
  <html>
  <head>
@@ -15,7 +18,8 @@ include_once("../model/class_veiculo_bd.php")
  	<script src="../javascript/jquery-2.1.4.min.js"></script>
  	<!--<script src="../javascript/jquery_mobile/jquery.mobile-1.4.5.min.js"></script>-->
  	<!-- <link rel="stylesheet" type="text/css" href="../javascript/jquery_mobile/jquery.mobile-1.4.5.min.css"> -->
- 	<link rel="stylesheet" type="text/css" href="style1.css">
+ 	<link rel="stylesheet" type="text/css" href="style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="../sistemaponto/style.css"> -->
  </head> 
  <script type="text/javascript">
    function hidden(id){
@@ -123,6 +127,37 @@ include_once("../model/class_veiculo_bd.php")
       });
      
     }
+    function validate(f){
+      var erro = 0;
+      var msg;
+      for(i=0; i < f.length ; i++){
+        if(f[i].name == "observacao"){
+          if(f[i].value == ''){
+            f[i].style.border = "1px solid #FF0000";
+            msg = "Por favor! Preencha os campos obrigatórios";
+            erro++;
+          }else{
+            f[i].style.border = "0px";
+          }
+        }
+        if(f[i].name == "hora"){
+          if(f[i].value == ''){
+            f[i].style.border = "1px solid #FF0000";
+            msg = "Por favor! Preencha os campos obrigatórios";
+            erro++;
+          }else{
+            f[i].style.border = "0px";
+          }
+        }
+      }
+      if(erro > 0){
+        alert(msg);
+        return false;
+      }else{
+        return true;  
+      }
+      
+    }
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap" async defer></script>
@@ -135,13 +170,21 @@ include_once("../model/class_veiculo_bd.php")
                          <div class="formulario" style="width:93%">
    		<?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 2){
    			
-   			include("../view/painel_info_obra.php");
+   			        include_once("../view/painel_info_obra.php");
 
    		}?>
+      <?php 
+          if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 1){
+                include_once("../view/box-atrasos.php");
+                
+                
+                include_once("../view/box_sem_registros.php");
+          }
+       ?>
                    
     </div>
-                     <div id="fundo" hidden="on" style="background-color:rgba(0,0,0,0.8); margin-top: -9px; margin-left: -9px; width:100%; height: 100%; position: absolute; z-index: 1" >
-                            <span  onclick="fechar()" style="cursor:pointer; color:floralwhite; float:right; margin-top:10px; margin-right:10px; z-index: 1"> Fechar</span>
-                    </div>  	
+    <div id="fundo" hidden="on" style="background-color:rgba(0,0,0,0.8); margin-top: -9px; margin-left: -9px; width:100%; height: 100%; position: absolute; z-index: 1" >
+             <span  onclick="fechar()" style="cursor:pointer; color:floralwhite; float:right; margin-top:10px; margin-right:10px; z-index: 1"> Fechar</span>
+     </div>  	
  </body>
  </html>

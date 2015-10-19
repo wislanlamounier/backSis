@@ -1,5 +1,6 @@
 <?php 
-      if(isset($_POST['observacao'])){
+      // error_reporting(E_ALL);
+      if(isset($_POST['observacao']) && isset($_POST['atualiza']) && $_POST['atualiza'] == 'box_atrasos'){// salva observação no banco de dados
          
             $id = $_POST['id_horario'];
             $observacao = $_POST['observacao'];
@@ -15,16 +16,23 @@
 
             $g->tratar_query("UPDATE horarios SET id_obs_supervisor = '%s' WHERE id = '%s'", $id_obs, $id);
 
+             echo "<script>window.location='logado.php';</script>";
+
       }
 
       if(isset($_GET['id_horario']) && $_GET['id_horario'] != ""){
           $horario = new Horarios();
           $horario = $horario->get_horario_by_id($_GET['id_horario'] );
           
+          $data_inicio = date('Y-m').'-01';
+          $data_final = date('Y-m-d');
+          $id_funcionario = $horario->id_funcionario;
+          $historico_atrasos =  $horario->get_atrasos_intervalo_func($data_inicio, $data_final, $id_funcionario);
           
           $funcionario = new Funcionario();
           $funcionario = $funcionario->get_func_id($horario->id_funcionario);
-          $string .= $funcionario->nome.', ';
+          
+          $string = $funcionario->nome.', ';
           if($horario->tipo == 1){
               $string .= ' iniciou o expediente ';
           }else if($horario->tipo == 2){
@@ -35,80 +43,115 @@
               $string .= ' encerrou o expediente ';
           }
           $string .= substr($horario->situacao, 1). " atrasado";
+          echo '<div class="content-right" >
+                <div class="box-atrasos" style="">';
           echo '<form method="POST" action="logado.php" onsubmit="return validate(this)">';
+              echo '<input type="hidden" name="atualiza" value="box_atrasos">';
               echo '<input type="hidden" id="id_horario" name="id_horario" value="'.$_GET['id_horario'].'">';
-              echo '<table class="table-aniversariantes">';
-                   echo '<tr><td colspan="4"><img src="../images/rel.png"></td></tr>';
-                   echo '<tr><td colspan="4">'.date("d/m/Y").'</td></tr>';
-                   echo '<tr><td colspan="4"><b>Justificar atraso</b></td></tr>';
-                   echo '<tr><td colspan="4">'.$string.'</td></tr>';
-                   echo '<tr><td> <textarea id="observacao" name="observacao" style="width: 520px; height:50px; resize:none;"></textarea> </td></tr>';
-                   echo '<tr><td style="padding-top:5px"> <input type="submit" value="Salvar"> <input type="button" value="Cancelar" onclick="window.location.href=\'logado.php\'"> </td></tr>';
+              echo '<table class="table-aniversariantes" border="0" style="background-color:#dedede; box-shadow:0px 0px 5px #ccc; border: 1px solid#cecece">';
+                  echo '<tr><td colspan="5"><b>HISTÓRICO DE ATRASOS</b></td></tr>';
+                  echo '<tr><td>Data</td> <td>Hora</td> <td>Tipo</td><td>Tempo de atraso</td><td style="max-width:200px">Observacao</td> </tr>';
+                  echo '<tr><td colspan="5" ><div style="border: 1px solid#cdcdcd; height: 150px; overflow-y: scroll">';
+                        echo '<table style="width:100%">';
+                        $total_reg = 0;
+                        if(count($historico_atrasos) > 0){
+                            for ($i=0; $i < count($historico_atrasos); $i++) {
+                                $data = explode('-', $historico_atrasos[$i][6]);
+                                $data = $data[2].'/'.$data[1].'/'.$data[0];
+                                if($i%2 == 0)
+                                  echo '<tr style="background-color:#eee;">';
+                                else
+                                  echo '<tr style="background-color:#ddd">';
+                                  echo '<td style="padding:0px 3px 0px 3px"><span>'.$data.'</span></td><td><span>'.$historico_atrasos[$i][1].'</span></td><td><span>'.$historico_atrasos[$i][4].'</span></td><td><span>'.$historico_atrasos[$i][2].'</span></td><td><span><a onclick="exibe(\'popup'.$i.'\')" style="cursor:pointer">'.((strlen($historico_atrasos[$i][7]) > 17) ? substr($historico_atrasos[$i][7], 0,17).'...' : $historico_atrasos[$i][7]).'</a></span></td></tr>';
+                               
+                              echo '<div id="popup'.$i.'" class="popup" style="float:left">
+                                      <div class="formulario" style="width:500px;">
+                                          <div style="float:right"><a onclick="fechar(\'popup'.$i.'\')" style=""><img src="../images/icon-fechar.png"></a></div>
+                                          <div><b>Data: </b>'.$data.' <b>Hora do registro: </b>'.$historico_atrasos[$i][1].'</div>
+                                          <div>'.$historico_atrasos[$i][4].' '.$historico_atrasos[$i][2].' atrasado</div><br />
+                                          <b>Observação do funcionário:</b><br />
+                                          '.$historico_atrasos[$i][7].'<br />
+                                          
+                                      </div>
+                                    </div>';
+                                $total_reg++;
+                             }
+                         }
+                         echo '</table>';
+                   echo '</div></td></tr>';
+                   echo '<tr><td colspan="5" style="text-align:right; color: #9a9a9a"><span>Total de registros: '.$total_reg.'</span></td></tr>';
+                   echo '</table>';
+                   echo '<table  class="table-aniversariantes" border="0">';
+                   echo '<tr><td colspan="5"><b>Hoje</b><br /><span>'.date("d/m/Y").'</span></td></tr>';
+                   // echo '<tr><td colspan="4"><b>Justificar atraso</b></td></tr>';
+                   echo '<tr><td colspan="5">'.$string.'</td></tr>';
+                   echo '<tr><td colspan="5" style="text-align:left; padding-left:10px; padding-top: 10px;"><b>Motivo do atraso:</b></td></tr>';
+                   echo '<tr><td colspan="5" style="text-align:left; padding-left:30px; color:#454545">'.$horario->observacao_funcionario.'</td></tr>';
+                   echo '<tr><td colspan="5" style="text-align:left; padding-left:10px; padding-top: 10px;"><b>Justifique esse atraso:*</b></td></tr>';
+                   echo '<tr><td colspan="5"> <textarea id="observacao" name="observacao" style="width: 500px; height:50px; resize:none;"></textarea> </td></tr>';
+                   echo '<tr><td colspan="5" style="padding-top:5px"> <input type="submit" class="button" value="Salvar"> <input class="button" type="button" value="Cancelar" onclick="window.location.href=\'logado.php\'"> </td></tr>';
                echo '</table>';
           echo '</form>';
+          echo '</div>
+            </div> ';
+          
       }else{
           $horario = new Horarios();
           $array = $horario->get_atrasos(date("Y-m-d"));
-          echo '<table class="table-aniversariantes" border="0">';
-          switch(count($array)){
-            case 0:
-              echo '<tr><td colspan="4" style="text-align:left"><img class="cont" src="../images/0.png"></td></tr>';
-              break;
-            case 1:
-              echo '<img class="cont" src="../images/1.png">';
-              break;
-            case 2:
-              echo '<img class="cont" src="../images/2.png">';
-              break;
-            case 3:
-              echo '<img class="cont" src="../images/3.png">';
-              break;
-            case 4:
-              echo '<img class="cont" src="../images/4.png">';
-              break;
-            case 5:
-              echo '<img class="cont" src="../images/5.png">';
-              break;
-            case 6:
-              echo '<img class="cont" src="../images/6.png">';
-              break;
-            case 7:
-              echo '<img class="cont" src="../images/7.png">';
-              break;
-            case 8:
-              echo '<img class="cont" src="../images/8.png">';
-              break;
-            case 9:
-              echo '<img class="cont" src="../images/9.png">';
-              break;
-            default:
-              echo '<img class="cont" src="../images/10.png">';
-              break;
-      }
 
-           
-                     
-           echo '<tr><td colspan="4" style="height:10px"><span>'.date("d/m/Y").'</span></td></tr>';
-           echo '<tr><td colspan="4"><input type="text" readonly="true" id="txtRelogio"></td></tr>';
-           echo '<tr><td colspan="4" style="padding-top:20px;"><b>Atrasos</b></td></tr>';
-           echo '<tr><td>Funcionário</td><td>Tipo</td><td>Hora</td><td>Tempo de atraso</td></tr>';
-           $title = 'Clique para justificar o atraso';
-           for($aux = 0; $aux < count($array); $aux++){
-              if($array[$aux][5] == 0){
-                 echo '<tr>';
-                   echo '<td class="rows-content"><a title="'.$title.'" href="logado.php?id_horario='.$array[$aux][0].'"><b>'.$array[$aux][3].'</b></a></td><td class="rows-content"><a title="'.$title.'" href="logado.php?id_horario='.$array[$aux][0].'"><b>'.$array[$aux][4].'</b></a></td><td class="rows-content"><a title="'.$title.'" href="logado.php?id_horario='.$array[$aux][0].'"><b>'.$array[$aux][1] .'</b></a></td><td class="rows-content"> <a title="'.$title.'" href="logado.php?id_horario='.$array[$aux][0].'"><b>'. $array[$aux][2].'</b></a></td>';
-                 echo '</tr>';
-              }else{
-                 echo '<tr>';
-                   echo '<td class="rows-content">'.$array[$aux][3].'</td><td class="rows-content">'.$array[$aux][4].'</td><td class="rows-content">'.$array[$aux][1] .'</td><td class="rows-content"> '. $array[$aux][2].'</td>';
-                 echo '</tr>';
-              }
-           }
-           if(count($array) > 0){
-              echo '<tr><td colspan="4" style="text-align: right; padding-top: 5px; color:#555; font-size: 12px;">Clique para justificar o atraso </td></tr>';
-           }else{
-              echo '<tr><td colspan="4" style="padding-top: 15px; color:#555; font-size: 12px;">Nenhum horário registrado!</td></tr>';
-           }
-           echo '</table>';
+          if(count($array) > 0){
+              echo '<div class="content-right" >
+                <div class="box-atrasos" style="">';
+                 echo '<div class="cont" style="color:#f33;font-size:15px;  text-align:left"><b>'.count($array).'</b></div>';
+                 
+                 echo '<table class="table-atrasos" style="box-shadow:0px 0px 5px #ccc;">';
+                 echo '<tr>
+                          <td colspan="4">
+                            <div class="time">
+                                  <input type="text" id="txtRelogio" disabled name="relogio" size="10" style="font-size:26px;height:45px;"> 
+                            </div>
+                          </td>
+                      </tr>';
+                 echo '<tr><td colspan="4">'.date("d/m/Y").'</td></tr>';
+                 echo '<tr><td colspan="4"><b>Atrasos</b></td></tr>';
+                 echo '</table>';
+                 if(count($array) > 6){// exibe com scroll
+                    echo '<div  style="height: 165px; overflow-x: hidden; overflow-y: scroll;">';
+                 }else{//exibe sem scroll
+                    echo '<div class="table-atrasos"  style="height: 165px;">';
+                 }
+                 
+                 echo '<table class="table-atrasos scroll" style="box-shadow:0px 0px 5px #ccc;">';
+                 echo '<tr><td>Funcionário</td><td>Tipo</td><td>Hora</td><td>Tempo de atraso</td></tr>';
+                 $title = 'Clique para justificar o atraso';
+                 for($aux = 0; $aux < count($array); $aux++){
+                    if($array[$aux][5] == 0){// se não existe observação do supervisor
+                      if($aux%2 == 0){
+                          echo '<tr style="background-color:#eee">';
+                      }else{
+                          echo '<tr style="background-color:#dedede">';
+                      }
+                         echo '<td class="rows-content"><a title="'.$title.'" href="logado.php?id_horario='.$array[$aux][0].'"><b>'.$array[$aux][3][0].'</b></a></td><td class="rows-content"><a title="'.$title.'" href="logado.php?id_horario='.$array[$aux][0].'"><b>'.$array[$aux][4].'</b></a></td><td class="rows-content"><a title="'.$title.'" href="logado.php?id_horario='.$array[$aux][0].'"><b>'.$array[$aux][1] .'</b></a></td><td class="rows-content"> <a title="'.$title.'" href="logado.php?id_horario='.$array[$aux][0].'"><b>'. substr($array[$aux][2], 1).'</b></a></td><td><img title="Não justificado" width="20px;" src="../images/aviso.png"></td>';
+                       echo '</tr>';
+                    }else{ // se existe observação do supervisor
+                       if($aux%2 == 0){
+                          echo '<tr style="background-color:#eee">';
+                        }else{
+                            echo '<tr style="background-color:#dedede">';
+                        }
+                         echo '<td class="rows-content">'.$array[$aux][3][0].'</td><td class="rows-content">'.$array[$aux][4].'</td><td class="rows-content">'.$array[$aux][1] .'</td><td class="rows-content"> '. substr($array[$aux][2], 1).'</td><td><a><img title="Justificado" width="20px;" src="../images/check.png"><a></td>';
+                       echo '</tr>';
+                    }
+                 }
+                 echo '</table>';
+                 echo '</div>';
+                 if(count($array) > 0){
+                    echo '<div style="text-align: right; padding-top: 5px; color:#555; font-size: 12px;">Clique para justificar o atraso </div>';
+                 }else{
+                    echo '<div style="text-align: right; padding-top: 5px; color:#555; font-size: 12px;">Nenhum horário registrado </div>';
+                 }
+                 echo '</div>
+            </div> ';
+            }
       }
 ?>

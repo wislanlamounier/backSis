@@ -10,7 +10,9 @@
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li>
-                                <a href="administrator/" class="btn btn-default btn-lg"><span class="network-name">Acesse agora</span></a>
+                                <a href="administrator/" class="btn btn-default btn-lg"><span class="network-name">Acesse agora</span></a> <br />ou <br />
+                                <!-- <a href="#cadastro" class="btn btn-default btn-lg" style="color:#000; background-color:rgba(70,200,70,0.8); height:35px; padding:4px;"><span>Cadastre-se</span></a> -->
+                                <a href="#cadastro" ><span style="font-size:16px; text-shadow:1px 1px 2px #fff;">Cadastre-se</span></a>
                             </li>
                             <!-- <li>
                                 <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>

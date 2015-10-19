@@ -11,38 +11,45 @@ class Turno{
 	public $ini_alm;
 	public $fim_alm;
 	public $fim_exp;
+	public $sem_hor_almoco;
 
-	public function cadTurno($nome, $desc, $ini_exp, $ini_alm, $fim_alm, $fim_exp){
+	public function cadTurno($nome, $desc, $ini_exp, $ini_alm, $fim_alm, $fim_exp, $sem_hor_almoco){
 		$this->nome = $nome;
 		$this->desc = $desc;
 		$this->ini_exp = $ini_exp;
 		$this->ini_alm = $ini_alm;
 		$this->fim_alm = $fim_alm;
 		$this->fim_exp = $fim_exp;
+		$this->sem_hor_almoco = $sem_hor_almoco;
 	}
 	
 	public function add_turno_bd(){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		
 
-		$query = "INSERT INTO turno (nome, descricao, ini_exp, ini_alm, fim_alm, fim_exp, id_empresa) VALUES ('%s','%s', '%s', '%s', '%s', '%s', '%s')";
+		$query = "INSERT INTO turno (nome, descricao, ini_exp, ini_alm, fim_alm, fim_exp, oculto, sem_hor_almoco) VALUES ('%s','%s', '%s', '%s', '%s', '%s', '0', %d)";
 
-		$g->tratar_query($query, $this->nome, $this->desc, $this->ini_exp, $this->ini_alm, $this->fim_alm, $this->fim_exp, $_SESSION['id_empresa']);
-	}
-	public function atualiza_turno($nome, $id, $descricao, $ini_exp, $ini_alm, $fim_alm, $fim_exp){
-		$sql = new Sql();
-		$sql->conn_bd();
-		$g = new Glob();
-
-		$query = "UPDATE turno SET nome = '%s', descricao = '%s', ini_exp = '%s', ini_alm = '%s', fim_alm = '%s', fim_exp = '%s' WHERE id = '%s'";
-		if($g->tratar_query($query, $nome, $descricao, $ini_exp, $ini_alm, $fim_alm, $fim_exp, $id)){
+		if($g->tratar_query($query, $this->nome, $this->desc, $this->ini_exp, $this->ini_alm, $this->fim_alm, $this->fim_exp, $this->sem_hor_almoco)){
 			return true;
 		}else{
 			return false;
 		}
 	}
+
+	public function atualiza_turno($nome, $id, $descricao, $ini_exp, $ini_alm, $fim_alm, $fim_exp, $sem_hor_almoco){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+
+		$query = "UPDATE turno SET nome = '%s', descricao = '%s', ini_exp = '%s', ini_alm = '%s', fim_alm = '%s', fim_exp = '%s', sem_hor_almoco = '%s' WHERE id = '%s'";
+		if($g->tratar_query($query, $nome, $descricao, $ini_exp, $ini_alm, $fim_alm, $fim_exp, $sem_hor_almoco, $id)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	public function getTurno(){
 		return $this;
 	}
@@ -50,7 +57,6 @@ class Turno{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$return = array();
 
 		$query = "SELECT * FROM turno WHERE id='%s' && oculto = 0";
 		
@@ -65,6 +71,7 @@ class Turno{
 		$this->ini_alm = $row['ini_alm'];
 		$this->fim_alm = $row['fim_alm'];
 		$this->fim_exp = $row['fim_exp'];
+		$this->sem_hor_almoco = $row['sem_hor_almoco'];
 		return $this;
 
 	}

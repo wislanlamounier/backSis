@@ -13,17 +13,38 @@ class Horarios{
 	public $observacao_funcionario;
 	public $id_obs_supervisor;
 	public $situacao;
+	public $tipo_1;
+	public $tipo_2;
+	public $tipo_3;
+	public $tipo_0;
 
-	// public function converterHora($total_segundos){
-	// 		$hora = sprintf("%02s",floor($total_segundos / (60*60)));
-	// 		$total_segundos = ($total_segundos % (60*60));
-			
-	// 		$minuto = sprintf("%02s",floor ($total_segundos / 60 ));
-	// 		$total_segundos = ($total_segundos % 60);
-			
-	// 		$hora_minuto = $hora.":".$minuto;
-	// 		return $hora_minuto;
-	// }
+	//retorna a diferenca entr um intervalo de horas
+	public function dif_horario($horario1, $horario2) {
+	    $horario1 = strtotime("1/1/1980 $horario1");
+	    $horario2 = strtotime("1/1/1980 $horario2");
+	         
+		if ($horario2 < $horario1) {
+		   $horario2 = $horario2 + 86400;
+		}
+	  
+		$hora = ($horario2 - $horario1) / 3600;
+
+		$hora_minutos = explode('.', $hora);
+		
+		$return = '';
+		// if(isset($hora_minutos[0])){
+			$return .= isset($hora_minutos[0])?$hora_minutos[0]:'0';
+			$return .= 'h';
+		// }
+		// if(isset($hora_minutos[1])){
+			$minuto = '0.';
+			$minuto .= isset($hora_minutos[1]) ? $hora_minutos[1] : '0';
+			$minuto_final = $minuto * 60;
+			$return .= (round($minuto_final)).'m'	;
+		// }
+
+		return $return;
+	}
 
 	public function cadHorario($hora, $data, $tipo, $id_funcionario, $observacao_funcionario, $situacao){
 		// $this->id = $id;
@@ -35,11 +56,30 @@ class Horarios{
 		$this->observacao_funcionario = $observacao_funcionario;
 
 	}
+
+	public function cadHorariosEsquecidos($data, $id_funcionario){
+		
+	    $this->data = $data;
+		$this->id_funcionario = $id_funcionario;
+
+	}
+
 	public function insertHorarioBd(){//insere um horario no banco
-		// $this->id = $id;
 		$sql = new Sql();
 		$sql->conn_bd();
 		
+		//atualiza a tabela horarios registrados
+		if($this->tipo == 1){
+			mysql_query("update horarios_registrados set  data = '".$this->data."' , id_funcionario = '".$this->id_funcionario."', tipo_1 = true where id_funcionario = '".$this->id_funcionario."' && data = '".$this->data."'") or print(mysql_error());
+		}else  if($this->tipo == 2){
+			mysql_query("update horarios_registrados set  data = '".$this->data."' , id_funcionario = '".$this->id_funcionario."', tipo_2 = true where id_funcionario = '".$this->id_funcionario."' && data = '".$this->data."'") or print(mysql_error());
+		}else  if($this->tipo == 3){
+			mysql_query("update horarios_registrados set  data = '".$this->data."' , id_funcionario = '".$this->id_funcionario."', tipo_3 = true where id_funcionario = '".$this->id_funcionario."' && data = '".$this->data."'") or print(mysql_error());
+		}else{
+			mysql_query("update horarios_registrados set  data = '".$this->data."' , id_funcionario = '".$this->id_funcionario."', tipo_0 = true where id_funcionario = '".$this->id_funcionario."' && data = '".$this->data."'") or print(mysql_error());
+		}
+
+		//insere o registro na tabela horario
 		mysql_query("INSERT INTO horarios (hora, data, tipo, situacao, id_funcionario, observacao_funcionario) 
 			VALUES ('".$this->hora."',
 					'".$this->data."',
@@ -48,17 +88,94 @@ class Horarios{
 				    '".$this->id_funcionario."',
 				    '".$this->observacao_funcionario."')") or print(mysql_error());
 	}
-	public function getTipoUltimoHorarioFunc($id_func){//retorna o ultimo tipo cadastrado
+	//adiciona os horarios esquecidos
+	public function add_horario_bd(){
 		$sql = new Sql();
 		$sql->conn_bd();
-		$query = "SELECT * FROM horarios WHERE id_funcionario = ".$id_func." ORDER BY id DESC";
-		$result = mysql_query($query);
-		$row = mysql_fetch_array($result, MYSQL_ASSOC);
-		
-		return $row['tipo'];
+
+		$sucesso = mysql_query("INSERT INTO horarios (hora, data, tipo, situacao, id_funcionario, id_obs_supervisor, observacao_funcionario) 
+					VALUES ('".$this->hora."',
+							'".$this->data."',
+						    '".$this->tipo."',
+						    '".$this->situacao."',
+						    '".$this->id_funcionario."',
+						    '".$this->id_obs_supervisor."',
+						    '".$this->observacao_funcionario."')") or print(mysql_error());
+		return $sucesso;
 	}
-	public function get_horario_by_func_and_data($id_func, $data){
+	public function insertHorariosEsquecidosBd(){//insere um horario no banco
+		$sql = new Sql();
+		$sql->conn_bd();
 		
+		mysql_query("INSERT INTO horarios_registrados (data, id_funcionario, tipo_1, tipo_2, tipo_3, tipo_0) 
+					VALUES ('".$this->data."',
+						    '".$this->id_funcionario."',
+						    '0','0','0','0')") or (print mysql_error());
+		
+	}
+	public function corrige_horario($data, $tipo, $hora, $id_funcionario, $observacao_supervisor, $situacao){
+		$sql = new Sql();
+		$sql->conn_bd();
+
+		$query = 'UPDATE horarios_registrados SET ';
+
+		if($tipo == 1){
+			$query .= 'tipo_1';
+		}else if($tipo == 2){
+			$query .= 'tipo_2';
+		}else if($tipo == 3){
+			$query .= 'tipo_3';
+		}else{
+			$query .= 'tipo_0';
+		}
+
+		$query .= ' = 1 WHERE id_funcionario = "'.$id_funcionario.'" && data = "'.$data.'"';
+
+		mysql_query($query);
+
+		$this->cadHorario($hora, $data, $tipo, $id_funcionario, '', $situacao);
+		$this->id_obs_supervisor = $observacao_supervisor;
+		$sucesso = $this->add_horario_bd();
+
+		if($sucesso){
+			return true;
+		}else{
+			return false;
+		}
+
+	}
+
+
+	public function not_exists($data, $id_funcionario){
+		
+		$query = "SELECT id FROM horarios_registrados WHERE id_funcionario = '".$id_funcionario."' && data = '".$data."'";
+		$result = mysql_query($query);
+		
+		$num_row = mysql_num_rows($result);
+
+		if($num_row == 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public function getTipoUltimoHorarioFunc($id_func, $data){//retorna o ultimo tipo cadastrado
+		$sql = new Sql();
+		$sql->conn_bd();
+		$query = "SELECT * FROM horarios WHERE id_funcionario = ".$id_func." && data = '".$data."' ORDER BY id DESC";
+		$result = mysql_query($query);
+		if(mysql_num_rows($result) > 0){// se não tem nenhum registro no dia retorna 0 que significa o fim do expediente
+			$row = mysql_fetch_array($result, MYSQL_ASSOC);
+			
+			return $row['tipo'];
+		}else{
+			return 0;
+		}
+	}
+
+
+	public function get_horario_by_func_and_data($id_func, $data){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
@@ -80,6 +197,7 @@ class Horarios{
 		}
 		return $return;
 	}
+
 	public function get_horario_by_id($id){
 		$sql = new Sql();
 		$sql->conn_bd();
@@ -105,173 +223,83 @@ class Horarios{
 
 
 	}
-	// public function get_horario_atraso($hora_turno, $hora_login){
-	// 	$h_turno  = strtotime($hora_turno);
- // 		$h_login    = strtotime($hora_login);
 
- // 		$time = $h_login - $h_turno;
-
- // 		$return = $this->converterHora($time);
-
- // 		return $return;
-	// }
 	
 	public function verifica_atraso($hora_turno, $hora_login){
-		$horas_adiantado = 0;
-        $minutos_adiantado = 0;
-        $atrasou;
-		if(date('H', $hora_turno) <= date('H', $hora_login)){
-			if(date('H', $hora_turno) < date('H', $hora_login)){// hora de entrada for menor que hora login quer dizer que ele esta 1 hora ou mais atrasado
-				$horas_atraso = date('H', $hora_login) - date('H', $hora_turno);
-				$atraso .= $horas_atraso; // atraso recebe hora login - hora turno
-				$atraso .= "h";
+		$hora_login = strtotime($hora_login);
+		$hora_turno = strtotime($hora_turno);
 
-				$atrasou = true;
-			}else{ //hora turno = hora login, verifica os minutos
-				// $horas_atraso = date('H', $hora_turno) - date('H', $hora_login); 
-				// $atraso .= $horas_atraso; // atraso recebe hora turno - hora login
-				// $atraso .= "h";
-				if(date('i', $hora_turno) < date('i', $hora_login)){// se minuto de entrada determinada for menor que
-					// $minutos_atraso = (date('i', $hora_login) - date('i', $hora_turno));
-					// $atraso .= $minutos_atraso;
-					// $atraso .= "s";
-					$atrasou = true;
-				// if($atraso < 0) $atraso * -1;// se atraso for negativo, multiplica por -1 para virar positivo
-				}else{
-					$atrasou = false;
-				}
-			}
-			
-			
-			return $atrasou;
+		if($hora_login > $hora_turno){
+			return true;
+		}
+	}
+
+	public function verifica_antecedencia($hora_turno, $hora_login){
+		$hora_login = strtotime($hora_login);
+		$hora_turno = strtotime($hora_turno);
+
+		if($hora_turno > $hora_login){
+			return true;
 		}
 	}
 
 	public function get_hora_atraso($hora_turno, $hora_login){//
-		if(date('H', $hora_turno) < date('H', $hora_login)){// hora de entrada for menor que hora login quer dizer que ele esta 1 hora ou mais atrasado
-				// echo '<script> alert("entrou aqui"); </script>';
-				if((60-date('i', $hora_turno)) + date('i', $hora_login) > 60){
-					// echo '<script> alert("aqui tambem"); </script>';
-					$hora_atraso = date('H', $hora_login) - date('H', $hora_turno);
-					$atraso .= $hora_atraso;
-				}else if(date('H', $hora_turno) < date('H', $hora_login)){
-					// echo '<script> alert("aqui tambem"); </script>';
-					$hora_atraso = date('H', $hora_login) - date('H', $hora_turno);
-					$atraso .= $hora_atraso;
-				}else{
-					$horas_atraso = 0;
-					$atraso .= $horas_atraso; // atraso recebe hora login - hora turno
-				}
-					//$atraso .= "h";
-				 // echo '<script> alert("caiu 1"); </script>';
+		//0 h 11m
+		$horario = new Horarios();
 
-		}else{ //hora turno = hora login
-				$horas_atraso = date('H', $hora_login) - date('H', $hora_turno); 
-				$atraso .= $horas_atraso; // atraso recebe hora turno - hora login
-				//$atraso .= "h";
-			    // echo '<script> alert("caiu 3"); </script>';
-		}
-		return $atraso;
+		$atraso = $horario->dif_horario($hora_turno, $hora_login);//retorna a diferença de horario
+		
+		$hora = explode("h", $atraso);// explode string para pegar somente a hora
+		
+		$hora_atraso = $hora[0];
+		
+		return $hora_atraso;
 	}
 
 	public function get_min_atraso($hora_turno, $hora_login){//
-		if(date('i', $hora_turno) < date('i', $hora_login)){// se minuto de entrada determinada for menor que
-			$minutos_atraso = (date('i', $hora_login) - date('i', $hora_turno));
-			$atraso .= $minutos_atraso;
-			//$atraso .= "m";
-			 // echo '<script> alert("aqui1"); </script>';
-			// if($atraso < 0) $atraso * -1;// se atraso for negativo, multiplica por -1 para virar positivo
-		}else if(date('i', $hora_turno) == 0){
-			// echo '<script> alert("aqui2"); </script>';
-			$minutos_atraso = 60-date('i', $hora_login);
-			$atraso .= $minutos_atraso;;
-		}else{
-			 // echo '<script> alert("aqui3"); </script>';
-			$minutos_atraso = ( (60-date('i', $hora_turno) ) + date('i', $hora_login) );
-			$atraso .= $minutos_atraso;
-			//$atraso .= "m";
-		}
-		return $atraso;
-	}
-
-
-	public function verifica_antecedencia($hora_turno, $hora_login){
-		$horas_adiantado = 0;
-        $minutos_adiantado = 0;
-        $adiantado;
-		if(date('H', $hora_turno) >= date('H', $hora_login)){// se hora turno for maior ou igual hora login
-			if(date('H', $hora_turno) > date('H', $hora_login)){// hora turno for maior que hora login quer dizer que o funcionario esta adiantado
-				$horas_ad = date('H', $hora_turno) - date('H', $hora_login);
-				$ad .= $horas_ad; // adiantado recebe hora login - hora turno
-				//$ad .= "h";
-				$adiantado = true;
-
-			}else{ //hora turno = hora login, verifica os minutos
-				// $horas_atraso = date('H', $hora_turno) - date('H', $hora_login); 
-				// $atraso .= $horas_atraso; // atraso recebe hora turno - hora login
-				// $atraso .= "h";
-				if(date('i', $hora_turno) > date('i', $hora_login)){// se minuto de entrada determinada for maior que minuto que func esta entrando
-					// $minutos_atraso = (date('i', $hora_login) - date('i', $hora_turno));
-					// $atraso .= $minutos_atraso;
-					// $atraso .= "s";
-					$adiantado = true;
-				// if($atraso < 0) $atraso * -1;// se atraso for negativo, multiplica por -1 para virar positivo
-				}else{
-					$adiantado = false;
-				}
-			}
+		//0 h 11m
+		$horario = new Horarios();
 		
-			return $adiantado;
-		}
+		$atraso = $horario->dif_horario($hora_turno, $hora_login);//retorna a diferença de horario
+		
+		$hora = explode("h", $atraso);// explode string para pegar somente o minuto
+		
+		$hora_atraso = $hora[1];
+
+		$minuto = explode("m", $hora_atraso);
+		
+		
+		return $minuto[0];
 	}
+
+
 
 	public function get_hora_ant($hora_turno, $hora_login){
-		if(date('H', $hora_turno) > date('H', $hora_login)){// hora de entrada for maior que hora login quer dizer que func está 1 hora ou mais adiantado
-			
-			//se ( minuto da hora turno ) + (60 - ( minuto hora login) ) for maior que 60 
+		//0 h 11m
+		$horario = new Horarios();
 
-			if(((date('i', $hora_turno) + (60-date('i', $hora_login) )) > 60 )){
-				$horas_ant = date('H', $hora_turno) - date('H', $hora_login);
-				$ant .= $horas_ant; // atraso recebe hora login - hora turno
-				//$ant .= "h";
-			}else if( (date('H', $hora_login)+1 < date('H', $hora_turno) ) && date('i', $hora_login) < 1 ){
-				$horas_ant = date('H', $hora_turno) - date('H', $hora_login);
-				$ant .= $horas_ant; // atraso recebe hora login - hora turno
-				//$ant .= "h";
-			}else{
-				$horas_ant = (date('H', $hora_turno) - date('H', $hora_login))-1;
-				$ant .= $horas_ant; 
-				//$ant .= "h";
-			}
-		}
-		// else{ //hora turno = hora login
-		// 		$horas_ant = date('H', $hora_login) - date('H', $hora_turno); 
-		// 		$ant .= $horas_ant; // atraso recebe hora turno - hora login
-		// 		$ant .= "h";
-		// }
-		return $ant;
+		$ant = $horario->dif_horario($hora_login, $hora_turno); //retorna a diferença de horario
+		
+		$hora = explode("h", $ant); // explode string para pegar hora
+		
+		$hora_ant = $hora[0];
+		
+		return $hora_ant;
 	}
 
 	public function get_minutos_ant($hora_turno, $hora_login){
 			
-			if(date('i', $hora_turno) > date('i', $hora_login)){// minuto hora de entrada for maior que minuto hora login quer dizer que func está adiantado
-					// echo "<script> alert('Entrou aqui'); </script>";
-					$horas_ant = date('i', $hora_turno) - date('i', $hora_login);//com
-					$ant .= $horas_ant; // atraso recebe hora login - hora turno
-					//$ant .= "m";
-			}else if(date('i', $hora_turno) == 00){ //hora turno = hora login
-				// echo "<script> alert('Entrou aqui 2'); </script>";
-					$horas_ant = date('i', $hora_login) - 60;
-					$ant .= $horas_ant*(-1); // atraso recebe hora turno - hora login
-					//$ant .= "m";
-			}else{
-				// echo "<script> alert('Entrou aqui 3'); </script>";
-				$horas_ant = (60-date('i', $hora_login)) + date('i', $hora_turno);//com
+		$horario = new Horarios();
+		
+		$atraso = $horario->dif_horario($hora_login, $hora_turno);//retorna a diferença de horario
+		
+		$hora = explode("h", $atraso);// explode string para pegar minuto
+		
+		$hora_atraso = $hora[1];
 
-				$ant .= $horas_ant; // atraso recebe hora turno - hora login
-				//$ant .= "m";
-			}
-			return $ant;
+		$minuto = explode("m", $hora_atraso);
+		
+		return $minuto[0];
 	}
 	public function get_atrasos($data){
 		$sql = new Sql();
@@ -279,11 +307,9 @@ class Horarios{
 		$g = new Glob();
 		$func = new Funcionario();
 		$aux=0;
-		$query = "SELECT * FROM horarios WHERE data = '".$data."' && situacao LIKE '%+%' ORDER BY hora ASC";
 		$return = array();
-		 // echo '<script> alert("'.$query.'") </script>';
+		$query = "SELECT * FROM horarios WHERE data = '".$data."' && situacao LIKE '%+%' ORDER BY id_funcionario, hora ASC";
 
-		// $query_tra = $g->tratar_query($query, $data);
 		$query_ex = mysql_query($query);
 		
 		while($result =  mysql_fetch_array($query_ex) ){
@@ -313,6 +339,81 @@ class Horarios{
 			
 		}
 		return $return;
+	}
+	public function get_atrasos_intervalo_func($data_inicio, $data_final, $id_funcionario){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+		$func = new Funcionario();
+		$aux=0;
+		$return = array();
+
+		$query = "SELECT * FROM horarios WHERE data >= '".$data_inicio."' && data <= '".$data_final."' && id_funcionario = '".$id_funcionario."' && situacao LIKE '%+%' ORDER BY data, hora ASC";
+		 // echo '<script> alert("'.$query.'") </script>';
+
+		// $query_tra = $g->tratar_query($query, $data);
+		$query_ex = mysql_query($query);
+		
+		while($result =  mysql_fetch_array($query_ex) ){
+			// echo '<script> alert("'.$query.'") </script>';
+			$hora = $result['situacao'];
+			$minuto = $hora[3];
+			if(preg_match("/^([0-9]+)$/i", $hora[4])){
+				$minuto.=$hora[4];
+			}
+			if($hora[1] > 0 || $minuto > $_SESSION['temp_limit_atraso']){
+				$return[$aux][0] = $result['id'];
+				$return[$aux][1] = $result['hora'];
+				$return[$aux][2] = $result['situacao'];
+				$return[$aux][3] = $func->get_nome_by_id($result['id_funcionario']);
+				if($result['tipo'] == 1){
+					$return[$aux][4] = "Iniciou o expediente";
+				}else if($result['tipo'] == 2){
+					$return[$aux][4] = "Saiu para almoço";
+				}else if($result['tipo'] == 3){
+					$return[$aux][4] = "Encerrou o almoço";
+				}else{
+					$return[$aux][4] = "Encerrou o expediente";
+				}
+				$return[$aux][5] = $result['id_obs_supervisor'];
+				$return[$aux][6] = $result['data'];
+				$return[$aux][7] = $result['observacao_funcionario'];
+				$aux++;
+			}
+			
+		}
+		return $return;
+	}
+	public function get_registros_esquecidos($data, $tipo){
+			$sql = new Sql();
+			$sql->conn_bd();
+			$g = new Glob();
+			$func = new Funcionario();
+			$return = array();
+			$aux = 0;
+			// $query = "SELECT * FROM horarios_registrados WHERE data = '".$data."' and (tipo_1 = 0 or tipo_2 = 0 or tipo_3 = 0 or tipo_0 = 0)";
+			if($tipo == 0){//busca uma data
+					$query = "SELECT horarios.* FROM horarios_registrados as horarios inner join funcionario as func WHERE horarios.data = '".$data.
+						"' and (horarios.tipo_1 = 0 or horarios.tipo_2 = 0 or horarios.tipo_3 = 0 or horarios.tipo_0 = 0) and func.oculto = 0 and horarios.id_funcionario = func.id ORDER BY data ASC";
+			}else{//busca um mes
+					$query = "SELECT horarios.* FROM horarios_registrados as horarios inner join funcionario as func WHERE horarios.data LIKE '%".$data."%' and data <= '".date('Y-m-d')."' and (horarios.tipo_1 = 0 or horarios.tipo_2 = 0 or horarios.tipo_3 = 0 or horarios.tipo_0 = 0) and func.oculto = 0 and horarios.id_funcionario = func.id ORDER BY data ASC";
+			}
+
+			$query_ex = mysql_query($query);
+			
+			while( $row = mysql_fetch_array($query_ex) ){
+				$return[$aux][0] = $row['id'];
+				$return[$aux][1] = $row['data'];
+				$return[$aux][2] = $row['id_funcionario'];
+				$return[$aux][3] = $row['tipo_1'];
+				$return[$aux][4] = $row['tipo_2'];
+				$return[$aux][5] = $row['tipo_3'];
+				$return[$aux][6] = $row['tipo_0'];
+				$aux++;
+			}
+			
+			return $return;
+
 	}
 	
 
