@@ -92,9 +92,10 @@
                                          if($valor_custo[0][0]){
                                              $v_c = $v_c->get_valor_custo_id($valor_custo[0][0]);                                               
                                             }
+                                            
                                      ?>
-                                    <input style="width: 15%; margin-left: 5px; text-align: left;"type="text" id="<?php echo $id_material.":valor_custo" ?>" name="<?php echo $id_material.":valor_custo" ?>" value="<?php echo $v_c->valor; ?>"> 
-                                    
+                                    <input style="width: 15%; margin-left: 5px; text-align: left;" type="text" id="<?php echo $id_material.":valor_custo" ?>" name="<?php echo $id_material.":valor_custo" ?>" onkeyup="mascara(this, mvalor);" value="<?php if($v_c->valor!= ""){ echo 'R$' . number_format($v_c->valor, 2, ',', '.');}?>"> 
+                                   
                                     <select style="width: 12%; margin-left: 5px;" name="<?php echo $id_material.":tipo_custo" ?>" id="<?php echo $id_material.":tipo_custo" ?>">
                                         <?php                                        
                                             foreach ($t_c as $key => $value) {
