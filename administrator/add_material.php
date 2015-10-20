@@ -395,13 +395,13 @@ function verificaValor($valor){
                             <select name="quantidade" style='margin-top:20px; margin-left: 20px;'>
                                 <option value='5'>5</option>
                                 <option value='10'>10</option>
-                                <option value='15'>15</option>
+                                <option value='15'>15</option>                                
                             </select>
                              <input type="submit" value="ir">
                         </div>
                         <?php
                         
-                       for($j = 0 ; $j<$limite; $j++){
+                       for($j = 0 ; $j<$limite; $j++){ //* Dentro deste for os J e contador para deixar os names e ids de input *//
                              ?>
                          
                           <table border="0">                          
@@ -441,26 +441,17 @@ function verificaValor($valor){
                           <div colspan="3" style=" margin-top: 10px;"><input type="submit" name="button" class="button" id="button" value="Cadastrar">
                           <input type="button" name="button" class="button" onclick="window.location.href='add_material.php'" id="button" value="Cancelar"></div>
                        </form>      
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                       
+     
             <?php }?>               
 			
 			<?php 
                         
-                if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
+                if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){ //* Recebendo comando POST e verificando condição para adição
                     
                     $i = 0; $adicionados=0;
                     foreach ($_POST as $key => $value){
                         
-                        if($key != "quantidade" && $key != "tipo" && $key != "button" ){
+                        if($key != "quantidade" && $key != "tipo" && $key != "button" ){ /* Comando para não ajudar o array sem entrtar quantidade tipo e button**/
                          
                          $data = explode(":",$key);
                                                     
@@ -477,7 +468,7 @@ function verificaValor($valor){
                                $empresa = $value."<br>";
                               $i++;
                           }
-                          if($i == 3){
+                          if($i == 3){                                                                  /*condição de adição, quando naa estiver vazio*/
                               if($nome != "" && $medida != "no_sel" && $empresa != "no_sel"){
                                 $material = new Material();
                                 $material->add_material($nome, $medida, $empresa);
@@ -493,23 +484,7 @@ function verificaValor($valor){
                             echo '<script>alert("Adicionado com sucesso!")</script>';
                         }
                     }
-                   if(validate()){
-
-                    if($_POST['medida']!= "no_sel" && $_POST['empresa']!="no_sel"){
-                     $material = new Material();
-                     $material->add_material($_POST['nome'],$_POST['medida'], $_POST['empresa']); 
-                      
-                     if($material->add_material_bd()){
-                        echo '<div class="msg">Cadastrado com sucesso!</div>';
-                     }else{
-                        echo '<div class="msg">Erro ao cadastrar!</div>';
-                     }
-                  	}else{
-                
-                        echo '<div class="msg">Erro ao cadastrar!</div>';
-                     } 
-                     }                 
-                
+                   
                 if(isset($_POST['tipo']) && $_POST['tipo'] == "editar"){
                     
                 	if(isset($_POST['id'])){

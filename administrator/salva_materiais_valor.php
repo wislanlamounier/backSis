@@ -5,6 +5,16 @@ include_once("../model/class_custo_regiao_bd.php");
 include_once("../model/class_tipo_custo_bd.php");
 include_once("../model/class_cidade_bd.php");
 
+
+function moeda($get_valor){    
+
+$source = array('.', ',','R$');
+$replace = array('', '.','');
+
+$valor = str_replace($source, $replace, $get_valor); //remove os pontos e substitui a virgula pelo ponto
+return $valor; //retorna o valor formatado para gravar no banco
+}
+
 $cont = 0; $contforeach = 0;
 $id_cidade = "";
 foreach ($_POST as $key => $value) {
@@ -25,7 +35,7 @@ foreach ($_POST as $key => $value) {
         $cont++;
     }
     if($tipo[1] == "valor_custo"){
-       
+        $value = moeda($value);        
         $valor_custo = $value;
         $cont++;
         
