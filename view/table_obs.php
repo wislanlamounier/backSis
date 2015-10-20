@@ -12,7 +12,7 @@ echo '<div class="observacao">';
       echo '<input type="hidden" id="atrasado_ou_adiantado" name="atrasado_ou_adiantado" value="'.$atrasado_ou_adiantado.'">';
       echo '<div style="border: 1px solid; padding: 10px; width: 600px; background-color:rgba(255,255,255,0.7); margin: 0 auto">'. $msg. '</div><br />';
    	echo "<table border='0' style='margin: 0 auto'>";
-   		echo '<tr><td style="text-align:center" ><span class="alerta-msg">Motivo do atraso</span> <span class="alerta-msg" style="color:#565656;">(Em 10 minutos essa mensagem sera fechada)</span>:</td><td style="text-align:center"> </td></tr>';
+   		echo '<tr><td style="text-align:center" ><span class="alerta-msg">Motivo do '; if($atrasado_ou_adiantado == 'atrasado') { echo 'atraso'; }else{ echo 'adiantamento'; }echo '</span> <span class="alerta-msg" style="color:#565656;">(Em 10 minutos essa mensagem sera fechada)</span>:</td><td style="text-align:center"> </td></tr>';
    		echo '<tr><td colspan="2" style="text-align:center"><textarea id="observacao" name="observacao"></textarea> </td></tr>';
    		
    		// echo '<textarea id="obs"></textarea><br />';

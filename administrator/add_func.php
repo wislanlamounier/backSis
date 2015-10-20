@@ -742,6 +742,17 @@ function carregaUf_CartTrab(uf){
         }, 500);
       }
 
+  function mudaValor(){
+        if(document.getElementById("estagiario").value == 0){
+          $('#salario').html("Bolsa: ");
+          document.getElementById("estagiario").value = 1;
+          document.getElementById("cpf").required = false;
+        }else{
+          $('#salario').html("Salário Base: ");
+          document.getElementById("estagiario").value = 0;
+          document.getElementById("cpf").required = true;
+        }
+    }
 </script>
 <body onload="disparaLoadCidade()">
 
@@ -815,6 +826,7 @@ function carregaUf_CartTrab(uf){
                   <input type="hidden" id="id_custo" name="id_custo" value="<?php echo $valor_custo->id ?>">
                   <table border='0'>
                     <tr><td colspan="4" style="padding-top:10px; padding-bottom:10px;"><span style="color:#565656">Atenção: Se o campo senha ficar em branco a senha não sera alterada</span></td></tr>
+                     <tr> <td><span>Estagiario:</span></td> <td colspan="3"><input class="checkbox" type="checkbox" value="<?php ($func->estagiario == 1)?print '1': print '0' ?>" id="estagiario" onclick="mudaValor()" name="estagiario"></td></tr> <!-- estagiario -->
                      <tr> <td><span>Código:*</span></td> <td colspan="3"><input autofocus style="width:100%; text-transform: uppercase" type="text" id="codigo" name="codigo" value="<?php echo $func->cod_serie; ?>"></td></tr> <!-- cod_serie -->
                      <tr> <td><span>Nome:*</span></td> <td colspan="3"><input style="width:100%" type="text" id="nome" name="nome" value="<?php echo $func->nome; ?>"></td></tr> <!-- nome -->
                      <tr> <td><span>CPF:*</span></td> <td colspan="3"><input style="width:100%" type="text" id="cpf" name="cpf" value="<?php echo $func->cpf; ?>"></td></tr> <!-- CPF -->
@@ -857,7 +869,7 @@ function carregaUf_CartTrab(uf){
                      </tr>
                      
                      <tr> <td colspan="4"><span><a title="Clique aqui para cadastrar dados bancários" onclick="exibe()" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/icon-edita.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Editar dados bancários</div></a></span></td> </tr>
-                     <tr> <td><span>Salário Base:</span></td> <td><input type="text" id="sal_base" name="sal_base"  value="<?php echo $func->salario_base; ?>" ></td></tr> <!-- Salário base -->
+                     <tr> <td><span><div id="salario">Salário Base:</div></span></td> <td><input type="text" id="sal_base" name="sal_base" value="<?php echo verificaValor($func->salario_base); ?>" required></td></tr> <!-- Salário base -->
                      <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo" value="<?php echo  $valor_custo->valor; ?>"></td>
                                   <td>
                                       <select id="tipo_custo" name="tipo_custo"  style="width:100%">
@@ -1060,6 +1072,7 @@ function carregaUf_CartTrab(uf){
                 </div>
                 <input type="hidden" id="tipo" name="tipo" value="cadastrar">
                   <table border="0">
+                    <tr> <td><span>Estagiário:</span></td> <td colspan="3"><input class="checkbox" type="checkbox" value="0" id="estagiario" onclick="mudaValor()" name="estagiario"></td></tr> <!-- estagiario -->
                     <tr> <td><span>Código:*</span></td> <td colspan="3"><input autofocus style="width:100%; text-transform: uppercase" type="text" id="codigo" name="codigo"></td></tr> <!-- cod_serie -->
                      <tr>
                         <td>
@@ -1109,7 +1122,7 @@ function carregaUf_CartTrab(uf){
                         </td>
                      </tr>
                      <tr> <td colspan="4"><span><a onclick="exibe()" title="Clique aqui para editar dados bancários" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/add.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Cadastrar dados bancários</div></a></span></td> </tr>
-                     <tr> <td><span>Salário Base:*</span></td> <td><input type="text" id="sal_base" name="sal_base" ></td></tr> <!-- Salário base -->
+                     <tr> <td><span><div id="salario">Salário Base:</div></span></td> <td><input type="text" id="sal_base" name="sal_base" required></td></tr> <!-- Salário base -->
                      
                      <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo"></td>
                                   <td>
@@ -1325,8 +1338,9 @@ function carregaUf_CartTrab(uf){
                            $is_admin = (isset($_POST['is_admin']))?(($_POST['is_admin'])?1:0):0;
                            $data_ini = date("Y-m-d H:i:s");
                            $data_fim = "0000-00-00";
+                           $estagiario = ($_POST['estagiario'])?1:0;
 
-                           $func->add_func($id_banco, $cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $id_valor_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $data_ini, $data_fim);
+                           $func->add_func($id_banco, $cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $id_valor_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $data_ini, $data_fim, $estagiario);
                            // echo $func->printFunc();
                            if($func->add_func_bd()){
                                echo '<div class="msg">Funcionário cadastrado com sucesso!</div>';
@@ -1376,7 +1390,8 @@ function carregaUf_CartTrab(uf){
                            
                            $salario_base = formata_salario($_POST['sal_base']);  // retorna salario formatado
                            
-                            $id_custo = $_POST['id_custo'];
+                           $id_custo = $_POST['id_custo'];
+                           $estagiario = ($_POST['estagiario'])?1:0;
                                
                                 if(isset($_POST['valor_custo'])!= ""){
                                    
@@ -1430,9 +1445,9 @@ function carregaUf_CartTrab(uf){
                            
                            //************** FIM ATUALIZA DADOS BANCáRIOS ******************
 
-                           if($func->atualiza_func($id, $id_dados_bancarios, $cod_serie, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $id_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor)){
-                              echo '<div class="msg">Funcionário atualizado com sucesso</div>';
-                              echo '<script>alert("Funcionário atualizado com sucesso")</script>';
+                           if($func->atualiza_func($id, $id_dados_bancarios, $cod_serie, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $id_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $estagiario)){
+                              echo '<div class="msg">Funcionário atualizado com sucesso : '. $estagiario.'</div>';
+                              echo '<script>alert("Funcionário atualizado com sucesso : '. $estagiario.'")</script>';
                               echo '<script>window.location.href=\'principal.php\'</script>';
                            }else{
                               echo '<div class="msg">Falha ao atualizar funcionário</div>';
