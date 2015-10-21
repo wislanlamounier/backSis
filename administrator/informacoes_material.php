@@ -88,6 +88,26 @@ include_once("../model/class_custo_regiao_bd.php");
             }
             
      }
+        function carregaTipoCusto(tp){
+         data = tp.split(":");
+          var aux = data[0];
+          
+          var aux3 = data[2];
+       
+          
+        
+      var combo = document.getElementById(aux+":tipo_custo");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == aux3)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }     
+    } 
+     
     function carregaUf(uf){
          data = uf.split(" ");
           var aux = data[0];
@@ -125,8 +145,6 @@ include_once("../model/class_custo_regiao_bd.php");
     }
     
     function carregaCidade(){
-                
-                
                 var combo = document.getElementById("cidade");
                 var cidade = document.getElementById("id_cidade").value;
                 
@@ -140,6 +158,7 @@ include_once("../model/class_custo_regiao_bd.php");
                   }
                 }      
     }
+    
    
 	function buscar_materiais(param){
         if(param == 0){//EDITAR
