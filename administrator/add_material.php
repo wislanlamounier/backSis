@@ -52,6 +52,7 @@ function verificaValor($valor){
  ?>
 
 <html>
+    
 <head>
 	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 	 <link rel="stylesheet" type="text/css" href="style.css">
@@ -93,6 +94,7 @@ function verificaValor($valor){
                     return true;
 			}
                      }
+                 }
 	function confirma(id,nome){
             
        if(confirm("Excluir Material "+nome+" , tem certeza?") ){
@@ -117,14 +119,11 @@ function verificaValor($valor){
             }
           }
         }
-    function carregaEmp(emp){
-        alert("chamou")
-    
-        
-          var combo = document.getElementById("2:empresa");
+    function carregaEmp(emp,j){
+          var combo = document.getElementById(j+":empresa");
           for (var i = 0; i < combo.options.length; i++)
           {
-            if (combo.options[i].value == 2)
+            if (combo.options[i].value == emp)
             {
               combo.options[i].selected = true;
 
@@ -223,6 +222,7 @@ function verificaValor($valor){
       }
       
    }
+
     
     function carregaUf(uf){
          data = uf.split(" ");
@@ -426,13 +426,14 @@ function verificaValor($valor){
                                        $empresa = $empresa->get_all_empresa();
                                        for ($i=0; $i < count($empresa) ; $i++) { 
                                           echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
-                                       }                                       
+                                       }      
                                      ?>                                      
                                  </select>
-                                   
+                                          <?php echo "<script>carregaEmp(".$_SESSION['id_empresa'].','.$j.")</script>"; ?>
                               </td>
                               </tr>
                               
+                             
                           </table>
                             <?php
                         }

@@ -1,11 +1,11 @@
-        <div style="float:left; width: 100%; margin-top:20px; padding-top: 5px; padding-bottom: 5px; text-align: center; background:url(../images/footer_lodyas.png); " ><span style="color: #ddd;" class="title">VALORES MATERIAIS X REGIÃO</span> <input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="hideall('opcoes-materiais')" ></div> <!-- HIDEALL PARA MOSTRAR OPÇÕES ACAO ESTA EM CONFIGURACOES -->
+        <div style="float:left; width: 100%; margin-top:20px; padding-top: 5px; padding-bottom: 5px; text-align: center; background:url(../images/footer_lodyas.png); " ><span style="color: #ddd;" class="title">VALORES MATERIAIS X REGIÃO</span> <input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Editar" onclick="hideall('opcoes-materiais')" ></div> <!-- HIDEALL PARA MOSTRAR OPÇÕES ACAO ESTA EM CONFIGURACOES -->
         
         <div id="opcoes" style="float:left; width: 100%;">
             <div class="opcoes-materiais" id="opcoes-materiais" hidden="on">
                 <div class="materiais"><span>Cadastrar por...</span>
                     <select id="add_valor" name="3" value="Adicionar valor" onchange="mostraTabela1(this.name)">
                         <option value="1">Selecione</option>
-                        <option value="2">Cidade</option>
+                        <option value="2">Região</option>
                     </select>
                 </div>
             </div>
@@ -90,7 +90,8 @@
                                          $valor_custo = $custo_regiao->get_valor_regiao($id_material, $cidade->id, $_SESSION['id_empresa']); 
                                          
                                          if($valor_custo[0][0]){
-                                             $v_c = $v_c->get_valor_custo_id($valor_custo[0][0]);                                               
+                                             $v_c = $v_c->get_valor_custo_id($valor_custo[0][0]);
+                                             
                                             }
                                             
                                      ?>
@@ -101,10 +102,12 @@
                                             foreach ($t_c as $key => $value) {
                                                
                                                echo '<option value="' . $value[0] . '">' . $value[1] . '</option>';
-                                            }
+                                            }                                            
                                         ?>
+                                       
                                     </select>
-
+                                         <?php echo "<script> carregaTipoCusto('".$id_material.":tipo_custo:".$v_c->id_tipo_custo."') </script>"; $v_c->id_tipo_custo = ""; ?>
+                                    
                                 </div>        
                             </div>
 
