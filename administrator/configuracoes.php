@@ -17,7 +17,7 @@ include_once("config.php");
 <?php 
 
 
-	function validade(){
+	function validateUniMed(){
 		if(isset($_POST['nome'])){return true;}else{return false;}
 		if(isset($_POST['grandeza'])){return true;}else{return false;}
 		if(isset($_POST['sigla'])){return true;}else{return false;}
@@ -56,7 +56,6 @@ include_once("config.php");
 </head>
  <script type="text/javascript">
      
- 
      
     function confirma(teste){
         data = teste.split(" ");
@@ -93,6 +92,15 @@ include_once("config.php");
     function valida(f){ 
       var erros=0;   
       for(i=0; i<f.length; i++){
+        
+         if(f[i].name == "temp_limit_atraso"){
+            if(f[i].value == ""){
+               f[i].style.border = "1px solid #f00";
+               erros++;
+            }else{
+              f[i].style.border = "1px solid #898989";
+            }
+         }
          if(f[i].name == "nome"){
             if(f[i].value == ""){
                f[i].style.border = "1px solid #f00";
@@ -279,16 +287,18 @@ include_once("config.php");
     <div class="formulario">
                
                
-                  <div class="title-box"><div style="float:left"><img src="../images/config.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Configurações</span></div></div>
+        <div class="title-box"><div style="float:left"><img src="../images/config.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Configurações</span></div></div>
                   
         <div>
-        <?php include_once("../view/ponto.php")?> 
-        </div>            
-        <div>
-        <?php include_once("../view/unidade_medida.php")?> <!--DEIXAR SEMPRE POR ULTIMO NO MENU-->
+        <?php include_once("../view/ponto.php"); ?> 
         </div>
-        
-         
+
+        <div>
+        <?php include_once("../view/unidade_medida.php"); ?> <!--DEIXAR SEMPRE POR ULTIMO NO MENU-->
+        </div>
+        <div>
+        <?php include_once("../view/layout.php"); ?>
+        </div>
                    
      </div>
 </body>

@@ -20,16 +20,16 @@ class Config{
         }
       }
   }
-  public function atualizaTempLimitAtraso($valor){
+  public function atualizaConfig($campo, $valor){
     $sql = new Sql();
     $sql->conn_bd();
     $g = new Glob();
-    $query = "UPDATE config SET valor = '%s' WHERE descricao = 'temp_limit_atraso'";
+    $query = "UPDATE config SET valor = '%s' WHERE descricao = '$campo'";
     if($g->tratar_query($query, $valor)){
       $_SESSION['temp_limit_atraso'] = $valor;
-      echo '<div class="msg">Configurações alteradas com sucesso!</div>';
+      return true;
     }else{
-      echo '<div class="msg">Falha ao alterar configurações!</div>';
+      return false;
     }
     $sql->close_conn();
 

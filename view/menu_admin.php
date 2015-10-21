@@ -12,6 +12,7 @@
                   <li><a href="/viacampos/administrator/add_patrimonio.php">Patrimonio</a></li>
                   <li><a href="/viacampos/administrator/add_produto.php">Produto</a></li>
                   <li><a href="/viacampos/administrator/add_material.php">Material</a></li>
+                  <li><a href="/viacampos/administrator/pesquisa_epi.php">Equipamentos</a></li>
         <?php } ?>
         <li><a href="/viacampos/administrator/add_turno.php">Turno</a></li>
         <li><a href="/viacampos/administrator/add_cbo.php">CBO</a></li>
@@ -32,7 +33,7 @@
           <li><a href="/viacampos/administrator/pesquisa_patrimonio.php">Patrimonio</a></li>
         <?php } ?>
         <li><a href="/viacampos/administrator/pesquisa_filial.php">Filial</a></li>
-        <li><a href="/viacampos/administrator/pesquisa_epi.php">Equipamentos</a></li>
+        
         <li><a href="/viacampos/administrator/pesquisa_exames.php">Exames</a></li>
       </ul>
     </li>

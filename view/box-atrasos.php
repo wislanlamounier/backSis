@@ -16,7 +16,7 @@
 
             $g->tratar_query("UPDATE horarios SET id_obs_supervisor = '%s' WHERE id = '%s'", $id_obs, $id);
 
-             echo "<script>window.location='logado.php';</script>";
+             echo "<script>window.location='principal.php';</script>";
 
       }
 
@@ -45,14 +45,14 @@
           $string .= substr($horario->situacao, 1). " atrasado";
           echo '<div class="content-right" >
                 <div class="box-atrasos" style="">';
-          echo '<form method="POST" action="logado.php" onsubmit="return validate(this)">';
+          echo '<form method="POST" action="principal.php" onsubmit="return validate(this)">';
               echo '<input type="hidden" name="atualiza" value="box_atrasos">';
               echo '<input type="hidden" id="id_horario" name="id_horario" value="'.$_GET['id_horario'].'">';
               echo '<table class="table-aniversariantes" border="0" style="background-color:#dedede; box-shadow:0px 0px 5px #ccc; border: 1px solid#cecece">';
                   echo '<tr><td colspan="5"><b>HISTÓRICO DE ATRASOS</b></td></tr>';
-                  echo '<tr><td>Data</td> <td>Hora</td> <td>Tipo</td><td>Tempo de atraso</td><td style="max-width:200px">Observacao</td> </tr>';
-                  echo '<tr><td colspan="5" ><div style="border: 1px solid#cdcdcd; height: 150px; overflow-y: scroll">';
-                        echo '<table style="width:100%">';
+                  echo '<tr><td colspan="5" ><div style="border: 1px solid#cdcdcd; height: 100px; overflow-y: scroll">';
+                        echo '<table style="width:100%; text-align:center">';
+                        echo '<tr><td>Data</td> <td>Hora</td> <td>Tipo</td><td>Atrasado</td><td>Observacao</td> </tr>';
                         $total_reg = 0;
                         if(count($historico_atrasos) > 0){
                             for ($i=0; $i < count($historico_atrasos); $i++) {
@@ -62,15 +62,15 @@
                                   echo '<tr style="background-color:#eee;">';
                                 else
                                   echo '<tr style="background-color:#ddd">';
-                                  echo '<td style="padding:0px 3px 0px 3px"><span>'.$data.'</span></td><td><span>'.$historico_atrasos[$i][1].'</span></td><td><span>'.$historico_atrasos[$i][4].'</span></td><td><span>'.$historico_atrasos[$i][2].'</span></td><td><span><a onclick="exibe(\'popup'.$i.'\')" style="cursor:pointer">'.((strlen($historico_atrasos[$i][7]) > 17) ? substr($historico_atrasos[$i][7], 0,17).'...' : $historico_atrasos[$i][7]).'</a></span></td></tr>';
+                                  echo '<td style="padding:0px 3px 0px 3px"><span>'.$data.'</span></td><td><span>'.$historico_atrasos[$i][1].'</span></td><td><span>'.$historico_atrasos[$i][4].'</span></td><td><span>'.$historico_atrasos[$i][2].'</span></td><td><span><a onclick="exibePopAtrasos(\'popup2'.$i.'\')" style="cursor:pointer">'.((strlen($historico_atrasos[$i][7]) > 17) ? substr($historico_atrasos[$i][7], 0, 17).'...' : $historico_atrasos[$i][7]).'</a></span></td></tr>';
                                
-                              echo '<div id="popup'.$i.'" class="popup" style="float:left">
-                                      <div class="formulario" style="width:500px;">
-                                          <div style="float:right"><a onclick="fechar(\'popup'.$i.'\')" style=""><img src="../images/icon-fechar.png"></a></div>
+                              echo '<div id="popup2'.$i.'" class="popup2" style="float:left">
+                                      <div class="formulario" style="width:385px; min-width:385px">
+                                          <div style="float:right"><a onclick="fecharPopAtrasos(\'popup2'.$i.'\')" style="cursor:pointer"><img src="../images/icon-fechar.png"></a></div>
                                           <div><b>Data: </b>'.$data.' <b>Hora do registro: </b>'.$historico_atrasos[$i][1].'</div>
-                                          <div>'.$historico_atrasos[$i][4].' '.$historico_atrasos[$i][2].' atrasado</div><br />
+                                          <div>'.$historico_atrasos[$i][4].' '.substr($historico_atrasos[$i][2],1).' atrasado</div><br />
                                           <b>Observação do funcionário:</b><br />
-                                          '.$historico_atrasos[$i][7].'<br />
+                                          <div style="max-height:140px; overflow-y: scroll">'.$historico_atrasos[$i][7].'</div>
                                           
                                       </div>
                                     </div>';
@@ -86,10 +86,10 @@
                    // echo '<tr><td colspan="4"><b>Justificar atraso</b></td></tr>';
                    echo '<tr><td colspan="5">'.$string.'</td></tr>';
                    echo '<tr><td colspan="5" style="text-align:left; padding-left:10px; padding-top: 10px;"><b>Motivo do atraso:</b></td></tr>';
-                   echo '<tr><td colspan="5" style="text-align:left; padding-left:30px; color:#454545">'.$horario->observacao_funcionario.'</td></tr>';
+                   echo '<tr><td colspan="5" style="text-align:left; padding-left:30px; color:#454545; "><div style="max-height:50px; height:50px; overflow-y:scroll">'.$horario->observacao_funcionario.'</div></td></tr>';
                    echo '<tr><td colspan="5" style="text-align:left; padding-left:10px; padding-top: 10px;"><b>Justifique esse atraso:*</b></td></tr>';
-                   echo '<tr><td colspan="5"> <textarea id="observacao" name="observacao" style="width: 500px; height:50px; resize:none;"></textarea> </td></tr>';
-                   echo '<tr><td colspan="5" style="padding-top:5px"> <input type="submit" class="button" value="Salvar"> <input class="button" type="button" value="Cancelar" onclick="window.location.href=\'logado.php\'"> </td></tr>';
+                   echo '<tr><td colspan="5"> <textarea id="observacao" name="observacao" style="width: 450px; height:50px; resize:none;"></textarea> </td></tr>';
+                   echo '<tr><td colspan="5" style="padding-top:5px"> <input type="submit" class="button" value="Salvar"> <input class="button" type="button" value="Cancelar" onclick="window.location.href=\'principal.php\'"> </td></tr>';
                echo '</table>';
           echo '</form>';
           echo '</div>
@@ -131,7 +131,7 @@
                       }else{
                           echo '<tr style="background-color:#dedede">';
                       }
-                         echo '<td class="rows-content"><a title="'.$title.'" href="logado.php?id_horario='.$array[$aux][0].'"><b>'.$array[$aux][3][0].'</b></a></td><td class="rows-content"><a title="'.$title.'" href="logado.php?id_horario='.$array[$aux][0].'"><b>'.$array[$aux][4].'</b></a></td><td class="rows-content"><a title="'.$title.'" href="logado.php?id_horario='.$array[$aux][0].'"><b>'.$array[$aux][1] .'</b></a></td><td class="rows-content"> <a title="'.$title.'" href="logado.php?id_horario='.$array[$aux][0].'"><b>'. substr($array[$aux][2], 1).'</b></a></td><td><img title="Não justificado" width="20px;" src="../images/aviso.png"></td>';
+                         echo '<td class="rows-content"><a title="'.$title.'" href="principal.php?id_horario='.$array[$aux][0].'"><b>'.$array[$aux][3][0].'</b></a></td><td class="rows-content"><a title="'.$title.'" href="principal.php?id_horario='.$array[$aux][0].'"><b>'.$array[$aux][4].'</b></a></td><td class="rows-content"><a title="'.$title.'" href="principal.php?id_horario='.$array[$aux][0].'"><b>'.$array[$aux][1] .'</b></a></td><td class="rows-content"> <a title="'.$title.'" href="principal.php?id_horario='.$array[$aux][0].'"><b>'. substr($array[$aux][2], 1).'</b></a></td><td><img title="Não justificado" width="20px;" src="../images/aviso.png"></td>';
                        echo '</tr>';
                     }else{ // se existe observação do supervisor
                        if($aux%2 == 0){

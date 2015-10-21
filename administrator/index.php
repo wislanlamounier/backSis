@@ -23,7 +23,7 @@ if(isset($_SESSION["id"]) && isset($_SESSION["user"]) && isset($_SESSION["id_emp
 						<td><input class="form-control" style="text-align:center" placeholder="Senha" type="password" name="pass" id="pass"></td>
 					</tr>
 					<tr>
-						<td><input id="btn_entrar" style="width:100px; margin: 0 auto;" class="form-control" name="btn_entrar" type="submit" value="Entrar"></td>
+						<td><input id="btn_entrar" style="width:100px; margin: 0 auto;" class="form-control" name="btn_entrar" type="submit" value="Entrar"><div style="font-size:11px; margin-top:5px;"><a href="../#cadastro">ou Cadastre-se</a><div></td>
 					</tr>
 				</table>
 			</form>

@@ -48,11 +48,11 @@
     }
     function fecha_error(){
     	document.getElementById("back-popup").style.display = "none";
-        document.getElementById("popup-erro").style.marginLeft = "-600px";
+        document.getElementById("popup-erro").style.marginLeft = "-700px";
     }
  </script>
 
-<div style="width:100%; float:left;" >
+<div class="topo" style="width:100%; float:left; min-width:600px;">
         <?php echo '<input type="hidden" value='.$id_empresa = $_SESSION['id_empresa'].'>'?>
     
 	<div class="img" style="float:left"><img src="../images/logo75mm.png"></div>
@@ -60,14 +60,14 @@
 		<div style="float:left"><img src="../images/user.png" width="40px"></div>
 		<div class="nome-box-login" style=""><span style="">Usuário:<br /></span><?php echo $_SESSION["user"]; ?><br /><span style="">Empresa:<br /></span><?php echo $_SESSION['empresa']."<span> (".$nivel_acesso.")</span>" ?></div>
 		<div style="float:right;"><a title="Clique para sair" href="logout.php"><img src="../images/fechar.png" width="20px"></a></div>
-                <div style="clear:right;"><a title="Clique para editar" <?php echo 'href="add_empresa.php?tipo=editar&id='.$id_empresa.'"' ?>><img src="../images/edit2.png" width="20px"></a></div>
+                <div style="clear:right;"><a title="Clique para editar a empresa" <?php echo 'href="add_empresa.php?tipo=editar&id='.$id_empresa.'"' ?>><img src="../images/edit2.png" width="20px"></a></div>
 	</div>
     <?php include_once("finalizarcadastro.php");?>
 </div>
-<div style="float:right; padding-right:10px;">
+<div style="float:right; padding-right:10px; ">
     <a onclick="exibe_error()" style="cursor:pointer"><span>Reportar um Erro</span></a>
 </div>
-<div style="float:left; width:100%">
+<div style="float:left; width:100%; min-width:630px;">
  	<div class="menu">
 		<div class="menu">
 	         <?php include_once("../view/menu_admin.php"); ?>
@@ -76,7 +76,7 @@
 </div>
 <div class="back-popup" id="back-popup" style="position:absolute; z-index: 1">
 </div>
-<div id="popup-erro" class="popup-erro" style=" position: fixed; margin-top:100px;margin-left: -600px; width:500px; z-index: 5">
+<div id="popup-erro" class="popup-erro" style=" position: fixed; margin-top:100px; margin-left: -700px; width:500px; z-index: 5">
 	<?php include_once("reportError.php"); ?>
 </div>
 

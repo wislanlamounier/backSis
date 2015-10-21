@@ -299,6 +299,7 @@ h2{
 	transition: all 0.5s;
 }
 .formulario{
+	/*min-width: 550px;*/
 	padding:20px;
         box-shadow: 0px 0px 10px #aaa;
 	float: left;
@@ -347,8 +348,12 @@ h2{
 	cursor:pointer;
 }
 .popup{
-  display:block; clear:both; padding: 10px; position:fixed; width:370px; /*height:280px;*/ margin-left:-450px; float:left;  background-color:#eee; box-shadow: 0px 0px 10px #333; border-radius:10px;
+  display:block; clear:both; padding: 10px; position:fixed; width:420px; /*height:280px;*/ margin-left:-600px; float:left;  background-color:#eee; box-shadow: 0px 0px 10px #333; border-radius:10px;
   transition: all 1s;
+}
+.popup2{
+	     padding: 10px; position:absolute;  z-index: 100; width:450px; margin-top: -800px; height:290px; margin-left:0px; float:left;  background-color:#eee; box-shadow: 0px 0px 10px #000; border-radius:10px;
+	    transition: all 1s;
 }
 .popup-erro{
 	transition: all 1s;
@@ -753,14 +758,7 @@ form-input select{
 }
 /********************************* FIM PESQUISAR PESQUISAR_FUNC**********************************/
 
-/********************************* CONFIGURAÇÕES ******************************************/
-.configuracoes{
-    float: left;
-    margin: 20px;
-    border: solid 1px;
-    
-}
-/********************************* FIM CONFIGURAÇÕES ******************************/
+
 
 
 /********************************* UNIDADE DE MEDIDA**********************************/
@@ -1118,3 +1116,39 @@ form-input select{
 }
 
 /******************************************************/
+
+/********************************* CONFIGURAÇÕES ******************************************/
+
+.configuracoes{
+    float: left;
+    margin: 20px;
+    border: solid 1px;
+    
+}
+.input-config{
+	background-color:#ddd;
+	width: 50px;
+	box-shadow: 2px 2px 3px #666;
+}
+
+.pop{
+	width:200px;
+	border-radius: 5px;
+	/*height:100px;*/
+	border:1px solid #aaa;
+	box-shadow: 2px 2px 5px #aaa;
+	position:absolute;
+	background-color:rgba(230,230,230,0.7);
+	padding: 5px;
+	font-size:12px;
+}
+.title-info-config{
+	background-color:#b2b2b2; 
+	text-align:center
+}
+.content-info{
+	margin-top: 5px;
+	text-align: justify;
+}
+
+/********************************* FIM CONFIGURAÇÕES ******************************/

@@ -61,7 +61,7 @@
                 $hora_turno = $turno->fim_exp;
             } 
             echo '<div class="content-right" >
-                    <div class="box-atrasos" style="width:96%">';
+                    <div class="box-atrasos" style="">';
                 echo '<table style="width:100%" border="0" >';
                 echo '<tr><td style="text-align:center"><b>CORRIGIR HORÁRIO ESQUECIDO</b></td></tr>';
                 echo '<tr>';

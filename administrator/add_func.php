@@ -18,7 +18,7 @@ include_once("../model/class_valor_custo_bd.php");
 include_once("../model/class_tipo_custo_bd.php");
 
 function validate(){
-  if(!isset($_POST['codigo']) || $_POST['codigo'] == ""){
+   if(!isset($_POST['codigo']) || $_POST['codigo'] == ""){
          return false;
    }
    if(!isset($_POST['nome']) || $_POST['nome'] == ""){
@@ -59,6 +59,10 @@ function validate(){
    }
    if(!isset($_POST['estado']) || $_POST['estado'] == "Selecione um estado"){
        return false;
+   }
+   if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar" && Funcionario::verificaCodDup($_POST['codigo'])){
+      echo "<script>alert('Codigo Duplicado');</script>";
+      return false;
    }
 
    return true;
@@ -137,7 +141,7 @@ function verificaValor($valor){
     }
     function fechar(){
 
-        document.getElementById("popup").style.marginLeft = "-450px";
+        document.getElementById("popup").style.marginLeft = "-500px";
     }
     function confirma(id,nome){
        if(confirm("Excluir funcionario "+nome+" , tem certeza?")){
@@ -807,7 +811,7 @@ function carregaUf_CartTrab(uf){
                   <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="60px" style="margin-left:-20px; margin-top:-20px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR FUNCIONÁRIO</span></div></div>
                   <form method="POST" id="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
                     <div id="popup" class="popup" style="float:left">
-                      <div class="formulario" style="width:300px;">
+                      <div class="formulario" style="width:350px; min-width:350px;">
                         <table style="width:100%; text-align:center;" border="0">
                             <input type="hidden" id="id_banco" name="id_banco" value="<?php echo $banco->id ?>">
                            <tr><td colspan='2'><b>Dados Bancários</b></td></tr>
@@ -1059,7 +1063,7 @@ function carregaUf_CartTrab(uf){
                
                <form method="POST" class="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
                 <div id="popup" class="popup" style="float:left">
-                      <div class="formulario" style="width:300px;">
+                      <div class="formulario" style="width:350px; min-width:350px;">
                         <table style="width:100%; text-align:center" border="0">
                            <tr><td colspan='2'><b>Dados Bancários</b></td></tr>
                            <tr><td><label>Banco:</label></td><td><input type="text" name="banco"></td></tr>

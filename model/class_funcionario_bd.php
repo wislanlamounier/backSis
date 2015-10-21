@@ -31,7 +31,7 @@ class Funcionario{
 	public $email_empresa;
 	public $data_adm;
 	public $salario_base;
-        public $id_valor_custo;
+    public $id_valor_custo;
 	public $qtd_horas_sem;
 	public $num_cart_trab;
 	public $num_serie_cart_trab;
@@ -729,8 +729,26 @@ class Funcionario{
 		return $return;
 
 	}
-	
-	function verificaValor($valor){
+	public function verificaCodDup($cod){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$aux = 0;
+		$return = array();
+		$query = "SELECT COUNT(id) as cont FROM funcionario WHERE cod_serie = '".$cod."'";
+
+		$result = mysql_query($query);
+
+		$row = mysql_fetch_array($result);
+
+		if($row['cont'] == 0){// se não existe duplicado
+			return false;
+		}else{// se existe duplicado
+			return true;
+		}
+
+
+	}
+	public function verificaValor($valor){
         
 	    if(!strpos($valor, '.')){// se não existe . na string (EX R$ 15) tem que adicionar .00 para ficar (R$ 15.00)
 	       $valor .= '.00';
@@ -753,6 +771,7 @@ class Funcionario{
 	    
 	    return $valor;
 	}
+
 	public function printFunc(){
         $empresa = new Empresa();
         $empresa = $empresa->get_empresa_by_id($this->id_empresa);

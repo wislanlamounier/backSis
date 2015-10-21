@@ -13,6 +13,7 @@ include_once("../config.php");
  <head>
 
  	<meta charset="UTF-8">
+  <meta HTTP-EQUIV="refresh" CONTENT="59">
  	<title>Principal</title>
  	
  	<script src="../javascript/jquery-2.1.4.min.js"></script>
@@ -24,6 +25,15 @@ include_once("../config.php");
  <script type="text/javascript">
    function hidden(id){
      document.getElementById(id).style.display = "none";
+  }
+  function fecharPopAtrasos(comp){
+       document.getElementById(comp).style.marginTop = "-800px";
+       document.getElementById('background-popup').style.display = 'none';
+  }
+   function exibePopAtrasos(popup){
+      
+      document.getElementById(popup).style.marginTop = "0%";
+        
   }
   function exibe(popup){
   	var p = popup;
@@ -43,12 +53,12 @@ include_once("../config.php");
           document.getElementById(p).style.marginLeft = "20%";
         }else{
           document.getElementById(p).style.marginLeft = "0%";
-        }
-    }
-    function fechar_patrimonio(popup){
-    	p = popup;
-        document.getElementById(p).style.marginLeft = "-450px";
-    }
+      }
+  }
+  function fechar_patrimonio(popup){
+  	p = popup;
+      document.getElementById(p).style.marginLeft = "-450px";
+  }
 
  function moveRelogio(){
 
@@ -165,20 +175,26 @@ include_once("../config.php");
  		
  		
 
- 		<?php include_once("../view/topo.php"); ?>
-                         <div style="margin-left: -800px; transition-duration: 0.8s; position: absolute; width:700px; height: 500px; z-index: 2; border: 1px solid#fff"id="map"></div>  
-                         <div class="formulario" style="width:93%">
-   		<?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 2){
+ 		  <?php include_once("../view/topo.php"); ?>
+      <div style="margin-left: -800px; transition-duration: 0.8s; position: absolute; width:700px; height: 500px; z-index: 2; border: 1px solid#fff"id="map"></div>  
+      <div class="formulario" style="width:93%; min-width:550px;">
+   		<?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 1){
    			
    			        include_once("../view/painel_info_obra.php");
 
    		}?>
       <?php 
-          if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 1){
-                include_once("../view/box-atrasos.php");
+          if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 2){
+                if(Config::get_config("exibe_box_atrasos") == 1 ){
+                    include_once("../view/box-atrasos.php");
+                }
+                if(Config::get_config("exibe_box_sem_registros") == 1){
+                    include_once("../view/box_sem_registros.php");  
+                }
                 
                 
-                include_once("../view/box_sem_registros.php");
+                
+                
           }
        ?>
                    
