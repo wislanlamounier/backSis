@@ -1,4 +1,4 @@
-<div style="float:left; width: 100%; margin-top:20px; padding-top: 5px; padding-bottom: 5px; text-align: center; background:url(../images/footer_lodyas.png); " ><span style="color: #ddd;" class="title">UNIDADE DE MEDIDA</span> <input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="hideall('opcoes-unidade-medida')" ></div> <!-- HIDEALL PARA MOSTRAR OPÇÕES ACAO ESTA EM CONFIGURACOES -->
+<div class="separador" ><span style="color: #ddd;" class="title">UNIDADE DE MEDIDA</span> <input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="hideall('opcoes-unidade-medida')" ></div> <!-- HIDEALL PARA MOSTRAR OPÇÕES ACAO ESTA EM CONFIGURACOES -->
 <div id="opcoes-unidade" style="float:left; width: 100%;">
     <div class="opcoes-unidade-medida" id="opcoes-unidade-medida" hidden="on">
         <div class="nova_unidade"><input class="button" type="button" id="nova_unidade" name="1" value="Nova" onclick="mostraTabela1(this.name)"> </div>
