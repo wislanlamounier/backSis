@@ -185,6 +185,7 @@ include_once("../config.php");
    		}?>
       <?php 
           if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 2){
+                // echo "<script>alert('".Config::get_config("exibe_box_atrasos")."');</script>";
                 if(Config::get_config("exibe_box_atrasos") == 1 ){
                     include_once("../view/box-atrasos.php");
                 }

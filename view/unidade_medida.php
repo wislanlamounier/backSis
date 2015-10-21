@@ -12,7 +12,7 @@
         <div class="atributos-novo"><span><b>Nome: </b></span><input style="background-color:#ddd; margin-bottom: 5px; box-shadow: 2px 2px 3px #666;" type="text" name="nome" id="nome"></div>
         <div class="atributos-novo"><span><b>Grandeza: </b></span><input style="background-color:#ddd; margin-bottom: 5px; box-shadow: 2px 2px 3px #666;" type="text" name="grandeza" id="grandeza"></div>
         <div class="atributos-novo"><span><b>Sigla: </b></span><input style="background-color:#ddd; width: 50px; box-shadow: 2px 2px 3px #666;" type="text" name="sigla" id="sigla" style="width:45px;"></div>
-        <div style="margin-top:20px; margin-left: 25%; float:left;"><input type="submit" class="button" value="Salvar"><input type="button" class="button" value="Cancelar"> </div>
+        <div style="margin-top:20px; margin-left: 25%; float:left;"><input type="submit" class="button" value="Salvar"><input type="button" class="button" value="Cancelar" onclick="window.location='configuracoes.php'"> </div>
     </form>
      <?php 
      if(isset($_POST['cadastrar']) && $_POST['cadastrar'] == "cadastrar" ){

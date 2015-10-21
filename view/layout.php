@@ -18,7 +18,7 @@
              
           }
        ?>
-<div style="float:left; width: 100%; margin-top:20px; padding-top: 5px; padding-bottom: 5px; text-align: center; background:url(../images/footer_lodyas.png); " ><span style="color: #ddd;" class="title">LAYOUT</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="mostraTabela1('style')" ></div>
+<div class="separador" ><span style="color: #ddd;" class="title">LAYOUT</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="mostraTabela1('style')" ></div>
 <div id="style" hidden="on" style="float:left; width:100%">
       <form method="POST" action="configuracoes.php">
           <input name="aux" type="hidden" value="atualizar">
@@ -60,7 +60,7 @@
                 </td><!-- <td><span style="color:#565656"> (Máximo permitido: 59 minutos)</span></td> -->
               </tr>
               <tr>
-                <td colspan="3" style="padding-top:20px; text-align:center"><input type="submit" class="button" value="Salvar"> <input type="button" class="button" value="Cancelar"></td>
+                <td colspan="3" style="padding-top:20px; text-align:center"><input type="submit" class="button" value="Salvar"> <input type="button" class="button" value="Cancelar" onclick="window.location='configuracoes.php'"></td>
               </tr>
           
           </table>

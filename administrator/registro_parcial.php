@@ -2,6 +2,7 @@
 <?php
 include_once("../global.php");
 include_once("../model/class_sql.php");
+include_once("../model/class_config.php");
 include_once("../model/class_funcionario_bd.php");
 include_once("../model/class_empresa_bd.php");
 require_once("../phpmailer/phpmailer.class.php");
@@ -60,7 +61,12 @@ require_once("../phpmailer/phpmailer.class.php");
 			$empresa = new Empresa();
 		    
 		    $id_empresa = $empresa->busca_ultimo_id_empresa(); /*resgata o ultimo id para cirar novo id de empresa*/
-		
+			
+			$config = new Config();
+		   	$config->add_config($id_empresa, 10, 1, 1); // inicia as configurações para essa empresa
+		    $config->add_config_bd(); // inicia as configurações para essa empresa
+
+
 		    $funcionario->add_func_parcial($nome, $email, $cpf, $telefone, $senha, $id_empresa);
 		    $funcionario->add_func_parcial_bd();
 		    
