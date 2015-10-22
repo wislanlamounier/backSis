@@ -17,14 +17,20 @@ include_once("../model/class_unidade_medida_bd.php");
 		echo '<div class="formulario" style="width:300px;">
            <table style="width:100%; text-align:center;" border="0">
               <input type="hidden" id="id_banco" name="id_banco" value="<?php echo $banco->id ?>">
-              <tr><td colspan="2"><b>Materiais usados para '.$produto->nome.'</b></td></tr>';
-              echo '<tr><td><b>Nome</b></td><td><b>Quantidade</b></td></tr>';
+              <tr><td colspan="3"><b>Materiais usados para '.$produto->nome.'</b></td></tr>';
+              echo '<tr><td><b>Nome</b></td><td><b>Quantidade</b></td><td><b>Preço por regiao</b></td></tr>';
               for($aux = 0; $aux < count($materiais); $aux++){
               	$id_material = explode(':', $materiais[$aux][1]);
+              	
               	if($id_material[1] == 'm'){//buscar materiais
+
 					$res = Material::get_material_id($id_material[0]);
 					$uni = new Unidade_medida();
 					$uni = $uni->get_unidade_medida_by_id($res->id_unidade_medida);
+
+
+
+
 				}else if($id_material[1] == 'p'){// buscar produtos
 					$res = Produto::get_produto_id($id_material[0]);
 				}
@@ -34,9 +40,9 @@ include_once("../model/class_unidade_medida_bd.php");
 			        else
 			               echo '<tr style="background-color:#ddd;">';
 
-              	echo '<td >'.$res->nome.'</td><td>'.$materiais[$aux][2].' '.( isset($uni) ?$uni->sigla:'').'</td></tr>';
+              	echo '<td >'.$res->nome.'</td><td>'.$materiais[$aux][2].' '.( isset($uni) ?$uni->sigla:'').'</td><td><b>Quantidade</b></td></tr>';
               }
-        echo '<tr><td colspan="2"><input onclick="fechar()" type="button"  class="button" value="Concluir" ></td></tr>
+        echo '<tr><td colspan="3"><input onclick="fechar()" type="button"  class="button" value="Concluir" ></td></tr>
             </table>
          </div>';
 	}else{
