@@ -24,14 +24,14 @@
           <input name="aux" type="hidden" value="atualizar">
           <table border="0" style="width:100%">
               <tr>
-                <td colspan="3"><span><b>Tela inicial </b></span></td>
+                <td colspan="3"><span><b>TELA INICIAL </b></span></td>
               </tr>
               <tr>
-                <td ><span><b>Box Atrasos: </b></span></td>
+                <td style="width:150px;"><span><b>Box Atrasos: </b></span></td>
                 <td style="padding: 0">
                   <select style="width:100%" name="exibe_box_atrasos">
                     <option value="1">Exibir</option>
-                    <option value="0" <?php (Config::get_config("exibe_box_atrasos")) == 0 ? print "selected" : print "" ?> >Ocultar</option>
+                    <option value="0" <?php (Config::get_config("exibe_box_atrasos", $_SESSION['id_empresa'])) == 0 ? print "selected" : print "" ?> >Ocultar</option>
                   </select>
                 </td>
                 <td style="width:150px;"><div class="box_atrasos_ico" id="box_atrasos_ico" ><img onmouseover="info('pop1')" onmouseout="fechar('pop1')" width='15px' src="../images/info-icon.png"></div>
@@ -48,7 +48,7 @@
                 <td style="padding: 0">
                     <select style="width:100%" name="exibe_box_sem_registros">
                          <option value="1">Exibir</option>
-                         <option value="0" <?php (Config::get_config("exibe_box_sem_registros")) == 0 ? print "selected" : print "" ?> >Ocultar</option>
+                         <option value="0" <?php (Config::get_config("exibe_box_sem_registros", $_SESSION['id_empresa'])) == 0 ? print "selected" : print "" ?> >Ocultar</option>
                     </select>
                 </td>
                 <td ><div ><img onmouseover="info('pop2')" onmouseout="fechar('pop2')" width='15px' src="../images/info-icon.png"></div>

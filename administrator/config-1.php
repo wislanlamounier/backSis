@@ -1,5 +1,6 @@
 <?php
-// include_once(dirname(__FILE__)."/model/class_sql.php");
+// session_start();
+// include_once(dirname(__FILE__)."/class_sql.php");
 include_once("../model/class_config.php");
 
 $config = new Config();

@@ -378,7 +378,7 @@ h2{
 	border-radius:5px;
 }
 .table-atrasos{
-	text-align:center;
+	text-align: center;
 	width:100%;
 }
 
@@ -1002,11 +1002,11 @@ form-input select{
 	
 	/*background-color:#ccc;*/
 	float:left;
-	padding:10px;
+	/*padding:10px;*/
 	text-align: justify;
 	margin-top: 20px;
     margin-left: 15px;
-    width: 550px;
+    /*width: 550px;*/
 	
 }
 

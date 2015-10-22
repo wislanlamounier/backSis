@@ -37,10 +37,13 @@ class Config{
   }
 
 
-  public function get_config($desc){
+  public function get_config($desc, $id_empresa){
       $sql = new Sql();
       $sql->conn_bd();
-      $query = mysql_query("SELECT $desc FROM config WHERE id_empresa = ".$_SESSION['id_empresa']);
+
+      
+      $query = mysql_query("SELECT $desc FROM config WHERE id_empresa = ".$id_empresa);
+      
 
       $result = mysql_fetch_array($query);
 

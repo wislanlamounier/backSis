@@ -26,8 +26,9 @@ function validate(){
 
 </head>
 <script type="text/javascript">
-    function novo_produto(){             
-        window.open("add_produto.php");
+    function novo_produto(){
+                    
+        window.open("add_produto.php", 'janela','width=800, height=800, scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
     }
     
     function carregaF_O(f_o){
@@ -483,7 +484,7 @@ function validate(){
                                   <div class="body-bloco">
                                       <div class="form-input left">
                                           <div class="form-input">
-                                              <span><b>Nome: </b></span><br /><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:65%"> <input type="button" value="Buscar" onclick="buscarProdutos()"> <span><b>Novo: </b></span><img style="width:15px; cursor: pointer;" onclick="novo_produto()" src="../images/add.png">
+                                              <span><b>Nome: </b></span><br /><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:60%"> <input type="button" value="Buscar" onclick="buscarProdutos()"> <span><b>Novo: </b></span><img style="width:15px; cursor: pointer;" onclick="novo_produto()" src="../images/add.png">
                                           </div>
                                           <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
                                               <select size="10" style="height: 100%; width: 100%">

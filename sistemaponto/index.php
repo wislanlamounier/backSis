@@ -394,9 +394,7 @@ include_once("../global.php");
 
 
 				<?php
-					$config = new Config();
 					
-					$TEMP_LIMIT_ATRASO = $config->get_config("temp_limit_atraso");// tempo limite de atraso ou adiantamento aceito
 					// $INTERVALO_MIN = 10;// tempo minimo entre um registro e outro
 					
 					if(isset($_POST['cpf']) && isset($_POST['pass'])){
@@ -414,9 +412,10 @@ include_once("../global.php");
 						
 						if( $func->verifica_func($cpf, $pass) ) {  // verificando se senha e usuario correspondem
 							// echo "<script>alert('verificou');</script>";
-							
 							$funcAux = $func->get_func_cpf($cpf);
-							
+							$config = new Config();
+							$TEMP_LIMIT_ATRASO = $config->get_config("temp_limit_atraso", $funcAux->id_empresa);// tempo limite de atraso ou adiantamento aceito
+							echo "<script>alert('$TEMP_LIMIT_ATRASO');</script>";
 							$id = $funcAux->id;
 							//verificar horarios
 							$turno = new Turno();//instanciando um novo turno

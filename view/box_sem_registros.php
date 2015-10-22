@@ -130,16 +130,16 @@
                   $array = $horario->get_registros_esquecidos($data, $tipo);
 
                   $config = new Config();
-                  $TEMP_LIMIT_ATRASO = $config->get_config("temp_limit_atraso");// tempo limite de atraso ou adiantamento aceito
+                  $TEMP_LIMIT_ATRASO = $config->get_config("temp_limit_atraso", $_SESSION['id_empresa']);// tempo limite de atraso ou adiantamento aceito
                  // echo "<script>alert('".count($array)."');</script>";
 
                   if(count($array) > 0){ // verifica se existe registro
                      echo '<div class="content-right" id="content-right">
                     <div class="box-atrasos" style="">';
-                         echo '<div class="cont" style="margin-left:480px;"><a name="box_sem_registros" onclick="oculta(this.name)"><img width="20px" src="../images/icon-fechar.png" onmouseover="info(\'pop1\')" onmouseout="fechar(\'pop1\')"></a>
+                         echo '<div class="cont" style="margin-left:480px;"><a name="exibe_box_sem_registros" onclick="oculta(this.name)"><img width="20px" src="../images/icon-fechar.png" onmouseover="info(\'pop1\')" onmouseout="fechar(\'pop1\')"></a>
                               <div id="pop1" class="pop" style="display:none">
                                   <div id="titulo1" class="title-info-config"><span>Informações</span></div>
-                                  <div id="content1" class="content-info">Exibe um bloco com dados dos funcionários que registraram o ponto com atraso.</div>   
+                                  <div id="content1" class="content-info">Clique para ocultar esse bloco, você pode exibi-lo novamente a qualquer momento em:<br /><b>Configurações > Layout</b></div>   
                               </div>
                          </div>';
 

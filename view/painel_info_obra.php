@@ -1,6 +1,6 @@
 <?php if(isset($_SESSION['obra']['dados'])){ ?>
 <div class="content-right">
-         <div class="colum">
+         <div class="box-atrasos">
           <div style="float:left;width:100%"><div style="float:left"><img src="../images/info.png" width="50px" style="margin-left:5px; margin-top:-20px;margin-left:-20px; "></div><div style="float:left; margin-top:10px; margin-left:10px; "><span style="width:120px" class="title"><b>Informações Obra</b></span></div></div>
 <?php    // print_r($_SESSION['obra']['cliente']);
 

@@ -13,7 +13,7 @@ include_once("../config.php");
  <head>
 
  	<meta charset="UTF-8">
-  <meta HTTP-EQUIV="refresh" CONTENT="59">
+  <meta HTTP-EQUIV="refresh" CONTENT="590">
  	<title>Principal</title>
  	
  	<script src="../javascript/jquery-2.1.4.min.js"></script>
@@ -177,8 +177,10 @@ include_once("../config.php");
       // a pagina box_sem_registros.php chama a pagina principal enviando esses parametros caso o usuario clique no botão ocultar
       if(isset($_GET['oculta']) && $_GET['oculta'] == 'yes'){// se verdadeiro oculta o bloco
           $campo = $_GET['bloco'];
-          Config::atualizaConfig($campo, 0);//oculta o box_sem_registros
-          // echo "<script>window.location = 'principal.php'</script>"; // recarrega a pagina
+          if(Config::atualizaConfig($campo, '0')){//oculta o box_sem_registros
+              echo "<script>window.location = 'principal.php'; </script>"; // recarrega a pagina
+          }
+          
       }
 
 
@@ -197,10 +199,10 @@ include_once("../config.php");
       <?php 
           if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 2){
                 // echo "<script>alert('".Config::get_config("exibe_box_atrasos")."');</script>";
-                if(Config::get_config("exibe_box_atrasos") == 1 ){
+                if(Config::get_config("exibe_box_atrasos", $_SESSION['id_empresa']) == 1 ){
                     include_once("../view/box-atrasos.php");
                 }
-                if(Config::get_config("exibe_box_sem_registros") == 1){
+                if(Config::get_config("exibe_box_sem_registros", $_SESSION['id_empresa']) == 1){
                     include_once("../view/box_sem_registros.php");  
                 }
                 

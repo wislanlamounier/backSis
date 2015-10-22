@@ -9,7 +9,7 @@ include_once("../model/class_config.php");
 include_once("../model/class_cidade_bd.php");
 include_once("../model/class_estado_bd.php");
 include_once("../model/class_material_bd.php");
-include_once("config.php");
+include_once("../config.php");
 
 
 ?>
