@@ -748,40 +748,28 @@ class Funcionario{
 
 
 	}
-	public function verificaValor($valor){
+	function verificaValor($get_valor){    // função para transformar o dado do input igual o do banco
+
+        $source = array('.', ',','R$');
+        $replace = array('', '.','');
+
+        $valor = str_replace($source, $replace, $get_valor); //remove os pontos e substitui a virgula pelo ponto
         
-	    if(!strpos($valor, '.')){// se não existe . na string (EX R$ 15) tem que adicionar .00 para ficar (R$ 15.00)
-	       $valor .= '.00';
-
-	    /**** Comments else if ****
-	      se (tamanho da string) - (posisão do ponto) for < 3 
-	      EX:
-	      len ->  12345
-	      str ->  100.5
-	      pos ->  01234
-	      
-	      len == 5; pos == 3;
-
-	      (5-3) == 2; 2 < 3
-
-	    */
-	    }else if(strlen($valor) - strpos($valor, '.') < 3){
-	        $valor .= '0';
-	    }
-	    
-	    return $valor;
-	}
+        return $valor; //retorna o valor formatado para gravar no banco
+        }
 
 	public function printFunc(){
         $empresa = new Empresa();
-        $empresa = $empresa->get_empresa_by_id($this->id_empresa);
+        $empresa->get_empresa_by_id($this->id_empresa);
         $valor_custo = new Valor_custo();
-        $valor_custo = $valor_custo->get_valor_custo_id($this->id_valor_custo);
+        $valor_custo->get_valor_custo_id($this->id_valor_custo);
+        $vlr = $this->verificaValor($valor_custo->valor);
+        $sal = $this->verificaValor($this->salario_base);
         $filial = Filial::get_filial_id($this->id_empresa_filial);
         $cbo = new Cbo();
-        $cbo = $cbo->get_cbo_by_id($this->id_cbo);
+        $cbo->get_cbo_by_id($this->id_cbo);
         $turno = new Turno();
-        $turno = $turno->getTurnoById($this->id_turno);
+        $turno->getTurnoById($this->id_turno);
         $u = new Epi();
 		$epi_func = $u->get_epi_func($this->id);
 
@@ -814,10 +802,10 @@ class Funcionario{
 			$texto .= "</tr>";
 		}
 		$texto .= "<tr>";
-		$texto .= "<td colspan='2'><b><span>Salário base: <span></b></td><td colspan='3'><span>R$ ".$this->verificaValor($this->salario_base)."</span></td>";
+		$texto .= "<td colspan='2'><b><span>Salário base: <span></b></td><td colspan='3'><span>R$ ".number_format($sal, 2,',','.')."</span></td>";
 		$texto .= "</tr>";
                 $texto .= "<tr>";
-		$texto .= "<td colspan='2'><b><span>Valor de Custo: <span></b></td><td colspan='3'><span>R$ ".$this->verificaValor($valor_custo->valor)."</span></td>";;
+		$texto .= "<td colspan='2'><b><span>Valor de Custo: <span></b></td><td colspan='3'><span>R$".number_format($vlr, 2, ',', '.')."</span></td>";;
 		$texto .= "</tr>";
 		$texto .= "<tr>";
                 if(isset($cbo->descricao)){
