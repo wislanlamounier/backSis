@@ -171,7 +171,18 @@ include_once("../config.php");
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap" async defer></script>
- <body onload="moveRelogio(),initMap()"> 
+<body onload="moveRelogio(),initMap()">
+
+  <?php
+      // a pagina box_sem_registros.php chama a pagina principal enviando esses parametros caso o usuario clique no botão ocultar
+      if(isset($_GET['oculta']) && $_GET['oculta'] == 'yes'){// se verdadeiro oculta o bloco
+          $campo = $_GET['bloco'];
+          Config::atualizaConfig($campo, 0);//oculta o box_sem_registros
+          // echo "<script>window.location = 'principal.php'</script>"; // recarrega a pagina
+      }
+
+
+   ?>
  		
  		
 

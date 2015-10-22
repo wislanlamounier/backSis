@@ -35,12 +35,10 @@ body span, body table tr td span{
 	padding: 10 5 10 5;
 	
 	background-color:rgb(230, 245, 235);
-
-        
-	border: 1px solid#999;
+	border: 1px solid#bcbcbc;
 	box-shadow: 0px 5px 3px #9a9a9a;
-		border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 #table-search, #table-search input{
 	width:100%;
@@ -261,10 +259,10 @@ h2{
 	border-radius: 5px;
 }
 .formulario table{
-       	padding:20px;
+    /*padding:20px;
 	margin: 0 auto;
 	width:100%;
-	margin-top: 10px;
+	margin-top: 10px;*/
 
 }
 .formulario table td{
@@ -274,7 +272,7 @@ h2{
 }
 
 .formulario table input{
-	background-color: #cecece;
+	background-color: rgba(255,255,255,0.7);
 	/*margin-top: 5px;*/
 	/*margin-bottom: 10px;	*/
 	/*text-align: center;*/
@@ -562,7 +560,7 @@ h2{
 }
 #txtRelogio{
 	height: 50px;
-	border: 1px solid#bbb;
+	/*border: 1px solid#bbb;*/
 	width:200px;
 	font-size: 30px;
 	text-align:center;
@@ -1144,6 +1142,7 @@ form-input select{
 	width:200px;
 	border-radius: 5px;
 	/*height:100px;*/
+	color:#333;
 	border:1px solid #aaa;
 	box-shadow: 2px 2px 5px #aaa;
 	position:absolute;
@@ -1161,3 +1160,6 @@ form-input select{
 }
 
 /********************************* FIM CONFIGURAÇÕES ******************************/
+.cont{
+	margin-left: 5px; position:absolute; color:#f33;font-size:15px;  text-align:left;
+}

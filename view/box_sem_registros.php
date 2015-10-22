@@ -1,4 +1,22 @@
+<script>
+    function info(id){
+      
+      var divPop = document.getElementById(id);
+      divPop.style.display = "";
+    }
+    function fechar(id){
+      var divPop = document.getElementById(id);
+      divPop.style.display = "none";
+    }
+    function oculta(t){
+        var opc = confirm("Ocultar esse bloco, tem certeza?");
+        if(opc){
+            window.location = 'principal.php?oculta=yes&bloco='+t;
+        }
+    }
+</script>
 <?php
+
       // falta calcular a diferença de horario para colocar na coluna situação na tabela horarios
       
       if(isset($_POST['atualiza']) && $_POST['atualiza'] == 'box_sem_registros'){
@@ -73,7 +91,7 @@
                 echo '<tr>';
                 echo '<td><b>Turno: </b>'.$turno->desc.'</td>';
                 echo '</tr>';
-                echo '<tr style=""><td style="background-color:rgba(200,200,200,0.5); text-align:center; padding:5px; border: 1px solid#cdcdcd;">Preencha o horário correto e adicione uma observação para o registro nos campos abaixo</td></tr>';
+                echo '<tr><td style="background-color:rgba(200,200,200,0.5); text-align:center; padding:5px; border: 1px solid#cdcdcd;">Preencha o horário correto e adicione uma observação para o registro nos campos abaixo</td></tr>';
                 
 
                 echo '<form method="post" action="principal.php" onsubmit="return validate(this)">';
@@ -86,7 +104,7 @@
 
                 echo '<tr>';
                 echo '<td><b>Hora:* </b>';
-                        echo '<input type="time" name="hora">';
+                        echo '<input type="time" name="hora" style="border: 1px solid#cdcdcd; border-radius: 5px; padding-left:10px">';
                 echo '</td>';
                 echo '</tr>';
                 echo '<tr>';
@@ -118,6 +136,14 @@
                   if(count($array) > 0){ // verifica se existe registro
                      echo '<div class="content-right" id="content-right">
                     <div class="box-atrasos" style="">';
+                         echo '<div class="cont" style="margin-left:480px;"><a name="box_sem_registros" onclick="oculta(this.name)"><img width="20px" src="../images/icon-fechar.png" onmouseover="info(\'pop1\')" onmouseout="fechar(\'pop1\')"></a>
+                              <div id="pop1" class="pop" style="display:none">
+                                  <div id="titulo1" class="title-info-config"><span>Informações</span></div>
+                                  <div id="content1" class="content-info">Exibe um bloco com dados dos funcionários que registraram o ponto com atraso.</div>   
+                              </div>
+                         </div>';
+
+
                          echo '<table class="table-atrasos" border="0" style="box-shadow:0px 0px 5px #ccc;">';
                          // echo '<tr><td colspan="4"><img src="../images/rel.png"></td></tr>';
                          if($tipo == 0){
