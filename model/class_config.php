@@ -5,21 +5,20 @@ include_once("../global.php");
 
 class Config{
 
- 
-  
-  
   public $id;
   public $id_empresa;
   public $temp_limit_atraso;
   public $exibe_box_atrasos;
   public $exibe_box_sem_registros;
+  public $caminho_logo;
 
 
-  public function add_config($id_empresa, $temp_limit_atraso, $exibe_box_atrasos, $exibe_box_sem_registros){
+  public function add_config($id_empresa, $temp_limit_atraso, $exibe_box_atrasos, $exibe_box_sem_registros, $caminho_logo){
       $this->id_empresa = $id_empresa;
       $this->temp_limit_atraso = $temp_limit_atraso;
       $this->exibe_box_atrasos = $exibe_box_atrasos;
       $this->exibe_box_sem_registros = $exibe_box_sem_registros;
+      $this->caminho_logo = $caminho_logo;
   }
 
   public function add_config_bd(){

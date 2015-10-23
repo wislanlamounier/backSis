@@ -299,6 +299,7 @@ include_once("../config.php");
         <div>
         <?php include_once("../view/layout.php"); ?>
         </div>
+       
                    
      </div>
 </body>

@@ -10,6 +10,58 @@
     }
 </script>
 <?php 
+        
+           if(isset($_FILES["logo_upload"]["name"])){
+                    
+                    $target_dir = "../images/".$_SESSION['id_empresa']."/";
+                    mkdir($target_dir, 0777);
+                    
+                    
+                    $target_file = $target_dir . basename($_FILES["logo_upload"]["name"]);
+                    
+                    $uploadOk = 1;
+                    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+                    
+                    // Check if image file is a actual image or fake image
+                    if(isset($_POST["submit"])) {
+                        
+                        $check = getimagesize($_FILES["logo_upload"]["tmp_name"]);
+                        if($check !== false) {                          
+                            $uploadOk = 1;
+                        } else {
+                            echo '<script>alert("Arquivo nao suportado")</script>';
+                            
+                            $uploadOk = 0;
+                        }
+                    }
+                    // Check if file already exists
+                    if (file_exists($target_file)) {
+                        echo '<script>alert("Este arquivo ja existe, voce pode renomear o arquivo")</script>';
+                        $uploadOk = 0;
+                    }
+                    // Check file size
+                    if ($_FILES["logo_upload"]["size"] > 500000) {
+                       echo '<script>alert("Tamanho não suportado")</script>';
+                        $uploadOk = 0;
+                    }
+                    // Allow certain file formats
+                    if($imageFileType != "jpg" && $imageFileType != "JPG" && $imageFileType != "PNG" && $imageFileType != "png" && $imageFileType != "jpeg" &&$imageFileType != "JPEG"
+                    && $imageFileType != "gif" ) {
+                        echo '<script>alert("Formato invalido")</script>';
+                        $uploadOk = 0;
+                    }
+                    // Check if $uploadOk is set to 0 by an error
+                   else {
+                        if (move_uploaded_file($_FILES["logo_upload"]["tmp_name"], $target_file)){
+                                
+                                 require_once("../model/class_config.php");
+                                 $config = new Config();
+                                 $config->atualizaConfig("caminho_logo", $_FILES["logo_upload"]["name"]);
+                                 echo '<script>window.location="configuracoes.php"</script>';
+                        } 
+                    }
+                }
+
         if(isset($_POST['aux']) && $_POST['aux'] == 'atualizar'){
              $config = new Config();
              $config->atualizaConfig('exibe_box_atrasos', $_POST['exibe_box_atrasos']);
@@ -20,9 +72,23 @@
        ?>
 <div class="separador" ><span style="color: #ddd;" class="title">LAYOUT</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="mostraTabela1('style')" ></div>
 <div id="style" hidden="on" style="float:left; width:100%">
+    
+                    <div>
+
+                          
+                              
+                            <form action="configuracoes.php" method="post" enctype="multipart/form-data">
+                                    <div class="upload-logo">
+                                    <span><b>Logo:</b></span>
+                                    <input type="file" name="logo_upload" id="logo-upload">
+                                    <input type="submit" value="Enviar" name="submit">
+                                    </div>
+                                </form> 
+                            
+       <table border="0" style="width:100%">  
       <form method="POST" action="configuracoes.php">
           <input name="aux" type="hidden" value="atualizar">
-          <table border="0" style="width:100%">
+         
               <tr>
                 <td colspan="3"><span><b>TELA INICIAL </b></span></td>
               </tr>
@@ -59,6 +125,7 @@
                     </div>
                 </td><!-- <td><span style="color:#565656"> (Máximo permitido: 59 minutos)</span></td> -->
               </tr>
+            
               <tr>
                 <td colspan="3" style="padding-top:20px; text-align:center"><input type="submit" class="button" value="Salvar"> <input type="button" class="button" value="Cancelar" onclick="window.location='configuracoes.php'"></td>
               </tr>
@@ -66,7 +133,5 @@
           </table>
           
       </form>
-      <div>
-      
-      </div>
+
 </div>

@@ -54,8 +54,12 @@
 
 <div class="topo" style="width:100%; float:left; min-width:600px;">
         <?php echo '<input type="hidden" value='.$id_empresa = $_SESSION['id_empresa'].'>'?>
-    
-	<div class="img" style="float:left"><img src="../images/logo75mm.png"></div>
+        <?php 
+        require_once("../model/class_config.php");
+        $config = new Config();        
+                $logo = $config->get_config("caminho_logo", $_SESSION['id_empresa']);                       
+                ?>
+    <div class="img" style="float:left"><img style="height: 90px;" src=<?php echo '../images/'.$_SESSION['id_empresa'].'/'.$logo.'' ?>></div>
 	<div class="box-login" style="">
 		<div style="float:left"><img src="../images/user.png" width="40px"></div>
 		<div class="nome-box-login" style=""><span style="">Usuário:<br /></span><?php echo $_SESSION["user"]; ?><br /><span style="">Empresa:<br /></span><?php echo $_SESSION['empresa']."<span> (".$nivel_acesso.")</span>" ?></div>

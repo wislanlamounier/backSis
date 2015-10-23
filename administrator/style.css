@@ -1159,6 +1159,10 @@ form-input select{
 	text-align: justify;
 }
 
+.upload-logo{
+    float:left;
+}
+
 /********************************* FIM CONFIGURAÇÕES ******************************/
 .cont{
 	margin-left: 5px; position:absolute; color:#f33;font-size:15px;  text-align:left;
