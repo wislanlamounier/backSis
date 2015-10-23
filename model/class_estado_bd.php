@@ -45,6 +45,42 @@ class Estado{
 		}
 		return $this;
 	}
+
+	public function get_name_estado_by_id($id_estado){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+
+		$query = $g->tratar_query("SELECT nome FROM estado WHERE id = %d", $id_estado);
+
+		if(@mysql_num_rows($query) == 0){
+			return false;
+		}else{
+			$row = mysql_fetch_array($query, MYSQL_ASSOC);
+			
+			$nome = $row['nome'];
+			
+		}
+		return $nome;
+	}
+
+	public function get_uf_estado_by_id($id_estado){
+		$sql = new Sql();
+		$sql->conn_bd();
+		$g = new Glob();
+
+		$query = $g->tratar_query("SELECT uf FROM estado WHERE id = %d", $id_estado);
+
+		if(@mysql_num_rows($query) == 0){
+			return false;
+		}else{
+			$row = mysql_fetch_array($query, MYSQL_ASSOC);
+			
+			$uf = $row['uf'];
+			
+		}
+		return $uf;
+	}
 }
 	
  ?>

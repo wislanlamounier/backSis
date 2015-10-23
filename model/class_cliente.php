@@ -117,7 +117,7 @@ class Cliente {
 		 $sql->conn_bd();
 		 $g = new Glob();
                  
-		 $query = 'SELECT * FROM clientes WHERE id= "%s" && oculto=0 && id_empresa= "%s" && tipo = 1' ;
+		 $query = 'SELECT * FROM clientes WHERE id= "%s" && oculto=0 && id_empresa= "%s"' ;
 		 $result = $g->tratar_query($query, $id ,$id_empresa);
 		 
 		 if(@mysql_num_rows($result) == 0){
@@ -125,6 +125,7 @@ class Cliente {
 	     }else{
 	     	$cliente = new Cliente();
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+
 	     	$cliente->id = $row['id'];
 	     	$cliente->nome_razao_soc = $row['nome_razao_soc'];
 	     	$cliente->data_nasc_data_fund = $row['data_nasc_data_fund'];
@@ -142,7 +143,7 @@ class Cliente {
 	     	$cliente->site = $row['site'];
 	     	$cliente->fornecedor = $row['fornecedor'];
 	     	$cliente->id_empresa = $row['id_empresa'];
-
+	     	
 	     	return $cliente;
 	     }
 

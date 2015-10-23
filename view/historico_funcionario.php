@@ -71,10 +71,14 @@
                             $data_ini = $expl_date_ini[2].'/'.$expl_date_ini[1].'/'.$expl_date_ini[0];
                             $data_ini .= '</b> às <b>'.$data_hora_ini[1];
                             
-                            $data_hora_fim = explode(' ', $alterados[8]);
-                            $expl_date_fim = explode('-', $data_hora_fim[0]);
-                            $data_fim = $expl_date_fim[2].'/'.$expl_date_fim[1].'/'.$expl_date_fim[0];
-                            $data_fim .= '</b> às <b>'.$data_hora_fim[1];
+                            if($alterados[8] != '0000-00-00 00:00:00'){
+                                $data_hora_fim = explode(' ', $alterados[8]);
+                                $expl_date_fim = explode('-', $data_hora_fim[0]);
+                                $data_fim = $expl_date_fim[2].'/'.$expl_date_fim[1].'/'.$expl_date_fim[0];
+                                $data_fim .= '</b> às <b>'.$data_hora_fim[1];
+                            }else{
+                                $data_fim = 'Indeterminado';
+                            }
 
 
 

@@ -563,14 +563,14 @@ function verificaValor($valor){
      return document.getElementById( el );
    }
    window.onload = function(){
-      mascara( id('sal_base'), mmoney );
+      // mascara( id('sal_base'), mmoney );
       
       id('sal_base').onkeypress = function(){ 
           mascara( this, mmoney );
       }
-      id('custo').onkeypress = function(){ 
-          mascara( this, mmoney );
-      }
+      // id('custo').onkeypress = function(){ 
+      //     mascara( this, mmoney );
+      // }
       id('cpf').onkeypress = function(){ 
           mascara( this, mcpf );
       }

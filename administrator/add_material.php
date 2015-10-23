@@ -330,6 +330,9 @@ function verificaValor($valor){
 
 			<div id="content">                                               
             <div class="formulario">
+            <?php if(isset($_GET['backto'])){ // se essa variavel estiver setada quer dizer que o arquivo foi chamado da pagina add_obra
+                echo '<input type="hidden" name="backto" value="'.$_GET['backto'].'">';// armazena o endereço para o redirecinamento no final
+            } ?>
             <?php if(isset($_GET['tipo']) && $_GET['tipo'] == 'editar'){?>
             	<?php 
                      $id = $_GET['id'];

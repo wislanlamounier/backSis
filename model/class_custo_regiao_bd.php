@@ -33,21 +33,21 @@ class Custo_regiao{
     
     public function atualiza_custo_regiao_bd($id_valor_custo, $id_material, $id_cidade ){
         $sql = new Sql();
-	$sql->conn_bd();
-	$g = new Glob();
+    	$sql->conn_bd();
+    	$g = new Glob();
         $query = "UPDATE custo_regiao SET id_valor_custo = '%s' WHERE id_material = '%s' && id_cidade = '%s'";
         
          if($g->tratar_query($query, $id_valor_custo, $id_material, $id_cidade)){
-                    return true;
-                        }else{
-                          return false;
-                        }
+            return true;
+         }else{
+           return false;
+         }
         
     }
 
 
     
-        public function get_valor_regiao($id_material, $id_cidade, $id_empresa){
+    public function get_valor_regiao($id_material, $id_cidade, $id_empresa){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
@@ -61,14 +61,29 @@ class Custo_regiao{
 			}
 		if($aux == 0){
 			$sql->close_conn();
-			echo '';
 		}else{
 			$sql->close_conn();
 			return $return;
 		}
-            }
+   }
 
+    public function get_valor($id_material, $id_cidade, $id_empresa){
+        $sql = new Sql();
+        $sql->conn_bd();
+        $g = new Glob();
+        $aux=0;
+        //$query = "SELECT * FROM custo_regiao WHERE id_material = '54' && id_cidade = '54' && id_empresa = '3'";
+        $query = 'SELECT vc.valor FROM custo_regiao as cr INNER JOIN valor_custo as vc WHERE id_material = "%s" && id_cidade = "%s" && id_empresa = "%s" && vc.id = cr.id_valor_custo';
+        
+        $query_tra = $g->tratar_query($query, $id_material, $id_cidade, $id_empresa);
+        if($query_tra){
+            $result =  mysql_fetch_array($query_tra);
+            return $result['valor'];                                
         }
+        
+   }
+
+}
 
     
 

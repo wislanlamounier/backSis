@@ -550,7 +550,7 @@ class Funcionario{
 				$g = new Glob();                
                 $result = array();
                 $aux =0;
-                $query = "SELECT * FROM funcionario WHERE oculto = 1 && id='%s' ORDER BY id_tabela ASC"; 
+                $query = "SELECT * FROM funcionario WHERE id='%s' ORDER BY id_tabela ASC"; 
                 
 			$query_tra = $g->tratar_query($query, $id);
 

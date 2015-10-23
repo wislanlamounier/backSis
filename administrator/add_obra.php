@@ -10,6 +10,7 @@ include_once("../model/class_patrimonio_geral_bd.php");
 include_once("../model/class_funcionario_bd.php");
 include_once("../model/class_produto_bd.php");
 include_once("../model/class_cbo_bd.php");
+include_once("../model/class_estado_bd.php");
 
 function validate(){
    if(!isset($_POST['desc']) || $_POST['desc'] == ""){
@@ -26,6 +27,22 @@ function validate(){
 
 </head>
 <script type="text/javascript">
+    function info(id){
+      
+      var divPop = document.getElementById(id);
+      divPop.style.display = "";
+    }
+    function fecharInfo(id){
+      var divPop = document.getElementById(id);
+      divPop.style.display = "none";
+    }
+    function oculta(t){
+        var opc = confirm("Ocultar esse bloco, tem certeza?");
+        if(opc){
+            window.location = 'principal.php?oculta=yes&bloco='+t;
+        }
+    }
+
     function novo_produto(){
                     
         window.open("add_produto.php", 'janela','width=800, height=800, scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
@@ -150,6 +167,7 @@ function validate(){
             });
          
     }
+
     function buscarPatrimonios(){
       
         if(document.getElementById("veiculo").checked == true){
@@ -170,9 +188,9 @@ function validate(){
           });
     }
     function selecionaCliente(retorno){
-        var id = retorno.split(",");
+          var id = retorno;
         
-          var url = '../ajax/ajax_buscar_dados_cliente.php?id='+id[0]+'&id_empresa='+id[1];  
+          var url = '../ajax/ajax_buscar_dados_cliente.php?id='+id;  
           
           $.get(url, function(dataReturn) {
             
@@ -270,7 +288,15 @@ function validate(){
       });
      
     }
+    function buscar_cidades(estado){    
 
+      if(estado){
+        var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;
+        $.get(url, function(dataReturn) {
+          $('#load_cidades').html(dataReturn);
+        });
+      }
+    }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap" async defer></script>
 <body onload="initMap()">	
@@ -283,8 +309,8 @@ function validate(){
             <div class="formulario" style="width:43%;">
               <div class="title-box" style="float:left;width:100%"><div style="float:left"><img src="../images/add.png" width="35px" style="margin-left:5px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">NOVA OBRA</span></div></div>
               
-              <div id="popup" class="popup" style="float:left">
-                   <div class="formulario" style="width:300px;">
+              <div id="popup" class="popup" style="float:left; width:380px">
+                   <div class="formulario" style="width:300px; min-width:300px;">
                      <table style="width:100%; text-align:center;" border="0">
                         <!-- <input type="hidden" id="id_banco" name="id_banco" value="<?php echo $banco->id ?>"> -->
                         <tr><td colspan='2'><b>Materiais</b></td></tr>
@@ -292,6 +318,7 @@ function validate(){
                       </table>
                    </div>
               </div>
+              
               <?php 
                     if(isset($_GET['t']) && $_GET['t'] == 'c'){
                         unset($_SESSION['obra']);
@@ -384,7 +411,7 @@ function validate(){
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
                                   <div class="title-bloco">
-                                      <ul class="menu_obra">
+                                      <ul class="menu_obra" style="display:block">
                                           <li ><a href="add_obra.php?t=a_c_o">Cliente</a></li><li class="ativo"><a href="add_obra.php?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra.php?t=a_pr_o">Produtos</a></li><li><a href="add_obra.php?t=a_p_o">Patrimonios</a></li><li><a href="add_obra.php?t=a_f_o">Funcionários</a></li>
                                       </ul> 
                                   </div>
@@ -428,8 +455,32 @@ function validate(){
                                       <div class="form-input" style="width:45%">
                                           <span>Bairro:</span><br /><input  type="text" placeholder="Bairro" name="bairro" id="bairro" value="<?php (isset($_SESSION['obra']['dados']['bairro']))?print $_SESSION['obra']['dados']['bairro']:''; ?>" style="width:100%; text-transform: capitalize">
                                       </div>
-                                      <div class="form-input" style="width:40%; margin-left: 10px;">
-                                          <span>Cidade:</span><br /><input type="text" name="cidade" placeholder="Cidade" id="cidade" value="<?php (isset($_SESSION['obra']['dados']['cidade']))?print $_SESSION['obra']['dados']['cidade']:''; ?>" style="width:100%; text-transform: capitalize">
+                                      <div class="form-input" style="width:15%; margin-left: 10px;">
+                                          <span>Estado:</span><br />
+                                          <?php
+                                              $estados = Estado::get_name_all_uf();
+
+                                          ?>
+                                          <select id="estado" name="estado" onchange="buscar_cidades(this.value)" style="width:90%">
+                                                <option value="no_sel">Selecione</option>
+                                                <?php for($aux = 0 ; $aux < count($estados) ; $aux++){ ?>
+                                                    <option <?php ( isset($_SESSION['obra']['dados']['estado']) && $_SESSION['obra']['dados']['estado'] == $estados[$aux][0] ) ? print 'selected' : '' ?> value="<?php echo $estados[$aux][0]; ?>"><?php echo $estados[$aux][1]; ?></option>
+                                                <?php } ?>
+                                                <?php if(isset($_SESSION['obra']['dados']['estado'])){ //se existir estado selecionado, carrega as cidades
+                                                    echo "<script>buscar_cidades('".$_SESSION['obra']['dados']['estado']."');</script>";
+
+                                                } ?>
+                                          </select>
+                                          <!-- <input type="text" name="cidade" placeholder="Cidade" id="cidade" value="<?php (isset($_SESSION['obra']['dados']['cidade']))?print $_SESSION['obra']['dados']['cidade']:''; ?>" style="width:100%; text-transform: capitalize"> -->
+                                      </div>
+                                      <div class="form-input" style="width:25%; margin-left: 10px;">
+                                          <span>Cidade:</span><br />
+                                          <div id="load_cidades">
+                                             <select name="cidade" id="cidade" style="width:90%">
+                                               <option value="0">Selecione um estado</option>
+                                             </select>
+                                           </div>
+                                          <!-- <input type="text" name="cidade" placeholder="Cidade" id="cidade" value="<?php (isset($_SESSION['obra']['dados']['cidade']))?print $_SESSION['obra']['dados']['cidade']:''; ?>" style="width:100%; text-transform: capitalize"> -->
                                       </div>
                                       <div class="form-input" style="width:60%">
                                           <span>Rua:</span><br /><input type="text" placeholder="" name="rua" id="rua" style="width:100%" value="<?php (isset($_SESSION['obra']['dados']['rua']))?print $_SESSION['obra']['dados']['rua']:'' ?>">
@@ -467,6 +518,7 @@ function validate(){
                                   isset($_GET['long']) ? $_SESSION['obra']['dados']['long'] = $_GET['long'] : ''; /* GET PARA PEGAR O VALOR DA SESSION DADA PELA PAGINA ANTERIOR */
                                   isset($_GET['bairro']) ? $_SESSION['obra']['dados']['bairro'] = $_GET['bairro'] : '';
                                   isset($_GET['cidade']) ? $_SESSION['obra']['dados']['cidade'] = $_GET['cidade'] : '';
+                                  isset($_GET['estado']) ? $_SESSION['obra']['dados']['estado'] = $_GET['estado'] : '';
                                   isset($_GET['responsavel_obra']) ? $_SESSION['obra']['dados']['responsavel_obra'] = $_GET['responsavel_obra'] : '';
                                   
                                ?>
@@ -744,7 +796,7 @@ function validate(){
                                             <span><b>Bairro: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['bairro']))?print $_SESSION['obra']['dados']['bairro']:''?>"><br />
                                             
                                              <?php }if(isset($_SESSION['obra']['dados']['cidade']) && $_SESSION['obra']['dados']['cidade'] != ''){ ?>
-                                            <span><b>Cidade: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['cidade']))?print $_SESSION['obra']['dados']['cidade']:''?>"><br />
+                                            <span><b>Cidade: </b></span><span><?php (isset($_SESSION['obra']['dados']['cidade']))?print Cidade::get_name_city_by_id($_SESSION['obra']['dados']['cidade']).' - '.Estado::get_uf_estado_by_id($_SESSION['obra']['dados']['estado']) : ''?></span>
                                             
                                             <?php }if(isset($_SESSION['obra']['dados']['lat']) && $_SESSION['obra']['dados']['lat'] != '' && isset($_SESSION['obra']['dados']['long']) && $_SESSION['obra']['dados']['lat'] != ''  ){ ?> <!-- CONDIÇÃO PARA VER SE EXISTE DADOS DE LATITUDE NA SESSION -->
                                             <span><b>Coordenadas: </b></span><input readonly   type="text" style="border: 0" id="lat" value="<?php (isset($_SESSION['obra']['dados']['lat']))?print $_SESSION['obra']['dados']['lat']:''?>"> <input id="long" readonly   type="text" style="border: 0" id="lat" value="<?php (isset($_SESSION['obra']['dados']['long']))?print $_SESSION['obra']['dados']['long']:''?>"><input  style="margin-left: 10px;"type="button" onclick="mostraLocal()" value="Ver local"><br /> <!-- MONSTRA A DIV PARA VISUALIZAÇÃO DO MAPA -->

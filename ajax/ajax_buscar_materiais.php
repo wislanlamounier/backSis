@@ -4,6 +4,7 @@ include_once("../model/class_sql.php");
 include_once("../model/class_material_bd.php");
 include_once("../model/class_produto_bd.php");
 include_once("../model/class_unidade_medida_bd.php");
+include_once("../model/class_custo_regiao_bd.php");
 
 
 	$sql = new Sql();
@@ -27,7 +28,19 @@ include_once("../model/class_unidade_medida_bd.php");
 					$res = Material::get_material_id($id_material[0]);
 					$uni = new Unidade_medida();
 					$uni = $uni->get_unidade_medida_by_id($res->id_unidade_medida);
+					
+					$custo = Custo_regiao::get_valor($id_material[0], $_SESSION['obra']['dados']['cidade'], $_SESSION['id_empresa']);
 
+					if($custo){
+						$custo = 'R$ '.$custo;
+					}else{
+						$custo = '<a href="add_material.php?backto=a_pr_o&axestado='.$_SESSION['obra']['dados']['estado'].'&cidade='.$_SESSION['obra']['dados']['cidade'].'" onmouseover="info(\'pop1\')" onmouseout="fecharInfo(\'pop1\')">Defina um valor custo</a>
+							<div id="pop1" class="pop" style="display:none">
+                                  <div id="titulo1" class="title-info-config"><span>Informações</span></div>
+                                  <div id="content1" class="content-info">Clique para definir um valor custo para esse material nessa região</div>   
+                              </div>
+						';
+					}
 
 
 
@@ -40,7 +53,7 @@ include_once("../model/class_unidade_medida_bd.php");
 			        else
 			               echo '<tr style="background-color:#ddd;">';
 
-              	echo '<td >'.$res->nome.'</td><td>'.$materiais[$aux][2].' '.( isset($uni) ?$uni->sigla:'').'</td><td><b>Quantidade</b></td></tr>';
+              	echo '<td >'.$res->nome.'</td><td>'.$materiais[$aux][2].' '.( isset($uni) ?$uni->sigla:'').'</td><td><b>'.$custo.'</b></td></tr>';
               }
         echo '<tr><td colspan="3"><input onclick="fechar()" type="button"  class="button" value="Concluir" ></td></tr>
             </table>

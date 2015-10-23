@@ -1,4 +1,5 @@
 <?php
+include_once('../administrator/restrito.php');
 include_once("../model/class_sql.php");
 
 	$sql = new Sql();
@@ -20,12 +21,13 @@ include_once("../model/class_sql.php");
 ?>
 
 
-<select name="cidade" id="cidade">
+<select name="cidade" id="cidade"  style="width:90%">
   <?php
   	if($dados) 
 	    foreach($arrCidades as $value => $nome){
-	      echo "<option value='{$value}'>{$nome}</option>";
-	     // echo "<option>teste</option>";
+	      ?> 
+	      <option  <?php ( isset($_SESSION['obra']['dados']['cidade']) && $_SESSION['obra']['dados']['cidade'] == $value ) ? print 'selected' : '' ?> value='<?php echo $value ?>'><?php echo $nome ?></option>;
+	     <?php 
 	  	}
 	else
 		echo "<option value='no_sel'>Selecione um estado</option>";

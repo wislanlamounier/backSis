@@ -2,15 +2,15 @@
 /**
 * Class retorna os dados do cliente selecionado no cadastro de obras Cliente/obra
 */
+include_once('../administrator/restrito.php');
 include_once("../model/class_sql.php");
 include_once("../model/class_cliente.php");
 include_once("../model/class_endereco_bd.php");
 
 	
 	$id = $_GET['id'];  //codigo do cliente passado por parametro
-        $id_empresa = $_GET['id_empresa'];
         
-	$cliente = Cliente::get_cliandjur_id($id,$id_empresa);
+	$cliente = Cliente::get_cliandjur_id($id, $_SESSION['id_empresa']);
        
 	$endereco = Endereco::get_endereco($cliente->id_endereco);
   	if($cliente)

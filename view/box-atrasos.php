@@ -103,7 +103,7 @@
           if(count($array) > 0){
               echo '<div class="content-right" >
                 <div class="box-atrasos" style="">';
-                  echo '<div class="cont" style="margin-left:480px;"><a name="exibe_box_atrasos" onclick="oculta(this.name)"><img width="20px" src="../images/icon-fechar.png" onmouseover="info(\'pop2\')" onmouseout="fechar(\'pop2\')"></a>
+                  echo '<div class="cont" style="margin-left:480px;"><a name="exibe_box_atrasos" onclick="oculta(this.name)"><img width="20px" src="../images/icon-fechar.png" onmouseover="info(\'pop2\')" onmouseout="fecharInfo(\'pop2\')"></a>
                               <div id="pop2" class="pop" style="display:none">
                                   <div id="titulo2" class="title-info-config"><span>Informações</span></div>
                                   <div id="content2" class="content-info">Clique para ocultar esse bloco, você pode exibi-lo novamente a qualquer momento em:<br /><b>Configurações > Layout</b></div>   

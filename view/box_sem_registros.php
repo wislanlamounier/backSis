@@ -1,20 +1,4 @@
-<script>
-    function info(id){
-      
-      var divPop = document.getElementById(id);
-      divPop.style.display = "";
-    }
-    function fechar(id){
-      var divPop = document.getElementById(id);
-      divPop.style.display = "none";
-    }
-    function oculta(t){
-        var opc = confirm("Ocultar esse bloco, tem certeza?");
-        if(opc){
-            window.location = 'principal.php?oculta=yes&bloco='+t;
-        }
-    }
-</script>
+
 <?php
 
       // falta calcular a diferença de horario para colocar na coluna situação na tabela horarios
@@ -136,7 +120,7 @@
                   if(count($array) > 0){ // verifica se existe registro
                      echo '<div class="content-right" id="content-right">
                     <div class="box-atrasos" style="">';
-                         echo '<div class="cont" style="margin-left:480px;"><a name="exibe_box_sem_registros" onclick="oculta(this.name)"><img width="20px" src="../images/icon-fechar.png" onmouseover="info(\'pop1\')" onmouseout="fechar(\'pop1\')"></a>
+                         echo '<div class="cont" style="margin-left:480px;"><a name="exibe_box_sem_registros" onclick="oculta(this.name)"><img width="20px" src="../images/icon-fechar.png" onmouseover="info(\'pop1\')" onmouseout="fecharInfo(\'pop1\')"></a>
                               <div id="pop1" class="pop" style="display:none">
                                   <div id="titulo1" class="title-info-config"><span>Informações</span></div>
                                   <div id="content1" class="content-info">Clique para ocultar esse bloco, você pode exibi-lo novamente a qualquer momento em:<br /><b>Configurações > Layout</b></div>   
