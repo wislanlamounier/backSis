@@ -68,39 +68,13 @@ function validate(){
    return true;
 }
 
-function formata_salario($valor){
-    $replace = array(".","R$ ");
-    $string = str_replace($replace, "", $valor);
+function moeda($get_valor){    // função para desmembrar e guardar no banco
 
-    $replace = array(",");
-    $string = str_replace($replace, ".", $string);
-    
-    $return = $string;
-    return $return;
-}
+$source = array('.', ',','R$');
+$replace = array('', '.','');
 
-function verificaValor($valor){
-        
-    if(!strpos($valor, '.')){// se não existe . na string (EX R$ 15) tem que adicionar .00 para ficar (R$ 15.00)
-       $valor .= '.00';
-
-    /**** Comments else if ****
-      se (tamanho da string) - (posisão do ponto) for < 3 
-      EX:
-      len ->  12345
-      str ->  100.5
-      pos ->  01234
-      
-      len == 5; pos == 3;
-
-      (5-3) == 2; 2 < 3
-
-    */
-    }else if(strlen($valor) - strpos($valor, '.') < 3){
-        $valor .= '0';
-    }
-    
-    return $valor;
+$valor = str_replace($source, $replace, $get_valor); //remove os pontos e substitui a virgula pelo ponto
+return $valor; //retorna o valor formatado para gravar no banco
 }
 
 ?>
@@ -208,42 +182,7 @@ function verificaValor($valor){
                 }
                
               }
-              // if(f[i].name == "rg"){
-              //   if(f[i].value == ""){
-              //     msg += "Insira um RG!\n";
-              //     f[i].style.border = "1px solid #FF0000";
-              //     erros++;
-              //   }else{
-              //     f[i].style.border = "1px solid #898989"; 
-              //   }
-              // }
-              // if(f[i].name == "org_em_rg"){
-              //   if(f[i].value == ""){
-              //     msg += "Preencha o campo Órgão Emissor!\n";
-              //     f[i].style.border = "1px solid #FF0000";
-              //     erros++;
-              //   }else{
-              //     f[i].style.border = "1px solid #898989"; 
-              //   }
-              // }
-              // if(f[i].name == "data_em_rg"){
-              //   if(f[i].value == ""){
-              //     msg += "Preencha o campo Data Emissão!\n";
-              //     f[i].style.border = "1px solid #FF0000";
-              //     erros++;
-              //   }else{
-              //     f[i].style.border = "1px solid #898989"; 
-              //   }
-              // }
-              // if(f[i].name == "titu_eleitoral"){
-              //   if(f[i].value == ""){
-              //     msg += "Preencha o campo Título Eleitoral!\n";
-              //     f[i].style.border = "1px solid #FF0000";
-              //     erros++;
-              //   }else{
-              //     f[i].style.border = "1px solid #898989"; 
-              //   }
-              // }
+
               if(f[i].name == "email_emp"){
                 if(f[i].value == ""){
                   msg += "Preencha o campo Email empresarial!\n";
@@ -296,42 +235,7 @@ function verificaValor($valor){
                 }
                 
               }
-              // if(f[i].name == "pis"){
-              //   if(f[i].value == ""){
-              //     msg += "Preencha o campo PIS!\n";
-              //     f[i].style.border = "1px solid #FF0000";
-              //     erros++;
-              //   }else{
-              //     f[i].style.border = "1px solid #898989"; 
-              //   }
-              // }
-              // if(f[i].name == "num_cart_trab"){
-              //   if(f[i].value == ""){
-              //     msg += "Preencha o campo Nº Car. Trabalho!\n";
-              //     f[i].style.border = "1px solid #FF0000";
-              //     erros++;
-              //   }else{
-              //     f[i].style.border = "1px solid #898989"; 
-              //   }
-              // }
-              // if(f[i].name == "uf_cart_trab"){
-              //   if(f[i].value == "Selecione UF"){
-              //     msg += "Selecione um Estado Para Carteira de Trab.!\n";
-              //     f[i].style.border = "1px solid #FF0000";
-              //     erros++;
-              //   }else{
-              //     f[i].style.border = "1px solid #898989"; 
-              //   }
-              // }
-              // if(f[i].name == "num_serie_cart_trab"){
-              //   if(f[i].value == ""){
-              //     msg += "Preencha o campo Nº de. Série!\n";
-              //     f[i].style.border = "1px solid #FF0000";
-              //     erros++;
-              //   }else{
-              //     f[i].style.border = "1px solid #898989"; 
-              //   }
-              // }
+
 
               if(f[i].name == "data_nasc" && f[i].value == ""){
                 msg += "Insira uma Data de Nascimento!\n";
@@ -453,15 +357,7 @@ function verificaValor($valor){
                      f[i].style.border = "1px solid #898989";
                   }
                }
-               // if(f[i].name == "cep"){
-               //    if(f[i].value == ""){
-               //        msg += "Selecione um cep\n";
-               //       f[i].style.border = "1px solid #FF0000";
-               //       erros++;
-               //    }else{
-               //       f[i].style.border = "1px solid #898989";
-               //    }
-               // }
+
           }
           if(erros>0){            
               alert(msg);
@@ -510,21 +406,21 @@ function verificaValor($valor){
       function execmascara(){
           v_obj.value=v_fun(v_obj.value)
       }
-    function mmoney(v){
-       if(v.length >=18){                                          // alert("mtel")
-         v = v.substring(0,(v.length - 1));
-         return v;
+      function mnum(v){
+                v=v.replace(/\D/g,"");                                      //Remove tudo o que não é dígito
+                return v;
+            }
+      function mvalor(v){
+                v=v.replace(/\D/g,"");//Remove tudo o que não é dígito
+                v=v.replace(/(\d)(\d{8})$/,"$1.$2");//coloca o ponto dos milhões
+                v=v.replace(/(\d)(\d{5})$/,"$1.$2");//coloca o ponto dos milhares
+
+                v=v.replace(/(\d)(\d{2})$/,"$1,$2");//coloca a virgula antes dos 2 últimos dígitos
+             return v;
        }
-       v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
-       v=v.replace(/(\d)(\d{11})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
-       v=v.replace(/(\d)(\d{8})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
-       v=v.replace(/(\d)(\d{5})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
-       v=v.replace(/(\d)(\d{2})$/,"$1,$2");    //Coloca hífen entre o quarto e o quinto dígitos
-       
-       return 'R$ '+v;
-    }
+
    function mtel(v){
-       if(v.length >=15){
+       if(v.length >=16){
          v = v.substring(0,(v.length - 1));
          return v;
        }
@@ -563,21 +459,14 @@ function verificaValor($valor){
      return document.getElementById( el );
    }
    window.onload = function(){
-      mascara( id('sal_base'), mmoney );
-      
-      id('sal_base').onkeypress = function(){ 
-          mascara( this, mmoney );
-      }
-      id('custo').onkeypress = function(){ 
-          mascara( this, mmoney );
-      }
+    
+
       id('cpf').onkeypress = function(){ 
           mascara( this, mcpf );
-      }
-      
+      };      
       id('telefone').onkeypress = function(){
           mascara( this, mtel );
-      }
+      };
       
       
    }
@@ -873,8 +762,8 @@ function carregaUf_CartTrab(uf){
                      </tr>
                      
                      <tr> <td colspan="4"><span><a title="Clique aqui para cadastrar dados bancários" onclick="exibe()" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/icon-edita.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Editar dados bancários</div></a></span></td> </tr>
-                     <tr> <td><span><div id="salario">Salário Base:</div></span></td> <td><input type="text" id="sal_base" name="sal_base" value="<?php echo verificaValor($func->salario_base); ?>" required></td></tr> <!-- Salário base -->
-                     <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo" value="<?php echo  $valor_custo->valor; ?>"></td>
+                     <tr> <td><span><div id="salario">Salário Base:</div></span></td> <td><input type="text" id="sal_base" onkeyup="mascara(this, mvalor);" name="sal_base" value="<?php if($func->salario_base!= ""){ echo'R$ ' . number_format($func->salario_base, 2, ',', '.');}?>" required></td></tr> <!-- Salário base -->
+                     <tr><td><span>Valor de Custo:</span></td> <td><input type="text" onkeyup="mascara(this, mvalor);" name="valor_custo" id="valor_custo" value="<?php if($valor_custo->valor != ""){ echo'R$ ' . number_format($valor_custo->valor, 2, ',', '.');}?>"></td>
                                   <td>
                                       <select id="tipo_custo" name="tipo_custo"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
@@ -1126,9 +1015,9 @@ function carregaUf_CartTrab(uf){
                         </td>
                      </tr>
                      <tr> <td colspan="4"><span><a onclick="exibe()" title="Clique aqui para editar dados bancários" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/add.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Cadastrar dados bancários</div></a></span></td> </tr>
-                     <tr> <td><span><div id="salario">Salário Base:</div></span></td> <td><input type="text" id="sal_base" name="sal_base" required></td></tr> <!-- Salário base -->
+                     <tr> <td><span><div id="salario">Salário Base:</div></span></td> <td><input type="text" onkeyup="mascara(this, mvalor);" id="sal_base" name="sal_base" required></td></tr> <!-- Salário base -->
                      
-                     <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo"></td>
+                     <tr><td><span>Valor de Custo:</span></td> <td><input onkeyup="mascara(this, mvalor);" type="text" name="valor_custo" id="valor_custo"></td>
                                   <td>
                                       <select id="tipo_custo" name="tipo_custo"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
@@ -1319,12 +1208,13 @@ function carregaUf_CartTrab(uf){
                            $data_adm = $_POST['data_admissao'];
 
 
-                           $salario_base = formata_salario($_POST['sal_base']);
+                           $salario_base = moeda($_POST['sal_base']);
                            
                            $valor_custo = new Valor_custo();                                        
                            if(isset($_POST['valor_custo'])!= ""){
                             $id_tipo_custo = $_POST['tipo_custo'];
                             $valor = $_POST['valor_custo'];
+                            $valor = moeda($valor);
                             $valor_custo->add_valor_custo($valor, $id_tipo_custo);
                             $id_valor_custo = $valor_custo->add_valor_custo_bd();
                                 }
@@ -1392,7 +1282,7 @@ function carregaUf_CartTrab(uf){
                            
                            $data_adm = $_POST['data_admissao'];
                            
-                           $salario_base = formata_salario($_POST['sal_base']);  // retorna salario formatado
+                           $salario_base = moeda($_POST['sal_base']);  // retorna salario formatado
                            
                            $id_custo = $_POST['id_custo'];
                            $estagiario = ($_POST['estagiario'])?1:0;
@@ -1401,6 +1291,8 @@ function carregaUf_CartTrab(uf){
                                    
                                      $id_tipo_custo = $_POST['tipo_custo'];
                                      $valor = $_POST['valor_custo'];
+                                     $valor = moeda($valor);
+                                     
                                      $id_custo = $valor_custo->atualiza_valor_custo($valor, $id_tipo_custo, $id_custo);
                                    
                                 };
