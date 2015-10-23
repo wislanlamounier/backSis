@@ -459,19 +459,19 @@ return $valor; //retorna o valor formatado para gravar no banco
      return document.getElementById( el );
    }
    window.onload = function(){
-<<<<<<< HEAD
-      // mascara( id('sal_base'), mmoney );
+// <<<<<<< HEAD
+//       // mascara( id('sal_base'), mmoney );
       
-      id('sal_base').onkeypress = function(){ 
-          mascara( this, mmoney );
-      }
-      // id('custo').onkeypress = function(){ 
-      //     mascara( this, mmoney );
-      // }
-=======
+//       id('sal_base').onkeypress = function(){ 
+//           mascara( this, mmoney );
+//       }
+//       // id('custo').onkeypress = function(){ 
+//       //     mascara( this, mmoney );
+//       // }
+// =======
     
 
->>>>>>> 5fe2ad9570909c5428db36337cb7e025a465b412
+// >>>>>>> 5fe2ad9570909c5428db36337cb7e025a465b412
       id('cpf').onkeypress = function(){ 
           mascara( this, mcpf );
       };      
