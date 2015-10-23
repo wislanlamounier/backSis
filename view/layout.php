@@ -14,7 +14,10 @@
            if(isset($_FILES["logo_upload"]["name"])){
                     
                     $target_dir = "../images/".$_SESSION['id_empresa']."/";
-                    mkdir($target_dir, 0777);
+                    
+                    if(!is_dir($target_dir)){
+                        mkdir($target_dir, 0777);
+                    }
                     
                     
                     $target_file = $target_dir . basename($_FILES["logo_upload"]["name"]);
