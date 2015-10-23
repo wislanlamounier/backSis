@@ -18,7 +18,13 @@ function validate(){
          return true;
    
     }
-         
+    
+function moeda($get_valor){    // função para transformar o dado do input igual o do banco
+$source = array('.', ',','R$');
+$replace = array('', '.','');
+$valor = str_replace($source, $replace, $get_valor); //remove os pontos e substitui a virgula pelo ponto
+return $valor; //retorna o valor formatado para gravar no banco
+}         
 
 
     
@@ -87,18 +93,12 @@ function validate(){
       }
 
    
-    function mmoney(v){
-       if(v.length >=18){                                          // alert("mtel")
-         v = v.substring(0,(v.length - 1));
-         return v;
-       }
-       v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
-       v=v.replace(/(\d)(\d{11})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
-       v=v.replace(/(\d)(\d{8})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
-       v=v.replace(/(\d)(\d{5})$/,"$1.$2");    //Coloca hífen entre o quarto e o quinto dígitos
-       v=v.replace(/(\d)(\d{2})$/,"$1,$2");    //Coloca hífen entre o quarto e o quinto dígitos
-       
-       return 'R$ '+v;
+    function mvalor(v){
+            v=v.replace(/\D/g,"");//Remove tudo o que não é dígito
+            v=v.replace(/(\d)(\d{8})$/,"$1.$2");//coloca o ponto dos milhões
+            v=v.replace(/(\d)(\d{5})$/,"$1.$2");//coloca o ponto dos milhares
+            v=v.replace(/(\d)(\d{2})$/,"$1,$2");//coloca a virgula antes dos 2 últimos dígitos
+            return v;
     }
 
     function mplaca(v){
@@ -121,14 +121,7 @@ function validate(){
      return document.getElementById( el );
    }
    window.onload = function(){
-      mascara( id('valor'), mmoney );
-
-      // id('valor').onclick = function(){ 
-      //     mascara( this, mmoney );
-      // }
-      id('valor').onkeypress = function(){ 
-          mascara( this, mmoney );
-      }
+   
       id('placa').onkeypress = function(){
         mascara(this, mplaca);
       }
@@ -433,12 +426,12 @@ function validate(){
                            $data_ini_seg = "0000-00-00";
                            $data_fim_seg = "0000-00-00";
                        }
-                       $valor = formataMoney($_POST['valor']);
+                       $valor = moeda($_POST['valor']);
                        
                        $valor_custo = new Valor_custo();                                        
                             if(isset($_POST['valor_custo'])!= ""){
                                 $id_tipo_custo = $_POST['tipo_custo'];
-                                $valor2 = $_POST['valor_custo'];
+                                $valor2 = moeda($_POST['valor_custo']);
                                 $valor_custo->add_valor_custo($valor2, $id_tipo_custo);
                                 $id_valor_custo = $valor_custo->add_valor_custo_bd();
                             }
@@ -479,12 +472,12 @@ function validate(){
                          $modelo = $_POST['modelo'];
                          $ano = $_POST['ano'];
                          $id_cor = $_POST['cor'];
-                         $valor = formataMoney($_POST['valor']);
+                         $valor = moeda($_POST['valor']);
                          
                          $valor_custo = new Valor_custo();                                        
                             if(isset($_POST['valor_custo'])!= ""){
                                 $id_tipo_custo = $_POST['tipo_custo'];
-                                $valor2 = $_POST['valor_custo'];
+                                $valor2 = moeda($_POST['valor_custo']);
                                 $valor_custo->add_valor_custo($valor2, $id_tipo_custo);
                                 $id_valor_custo = $valor_custo->add_valor_custo_bd();
                             }
@@ -535,12 +528,12 @@ function validate(){
                          $marca = $_POST['marca'];
                          $descricao = $_POST['descricao'];
                          $quantidade = $_POST['quantidade'];
-                         $valor = formataMoney($_POST['valor']); 
+                         $valor = moeda($_POST['valor']); 
                          
                          $valor_custo = new Valor_custo();                                        
                             if(isset($_POST['valor_custo'])!= ""){
                                 $id_tipo_custo = $_POST['tipo_custo'];
-                                $valor2 = $_POST['valor_custo'];
+                                $valor2 = moeda($_POST['valor_custo']);
                                 $valor_custo->add_valor_custo($valor2, $id_tipo_custo);
                                 $id_valor_custo = $valor_custo->add_valor_custo_bd();
                             }
@@ -586,12 +579,12 @@ function validate(){
                       $marca = $_POST['marca'];
                       $descricao = $_POST['descricao'];
                       $quantidade = $_POST['quantidade'];
-                      $valor = formataMoney($_POST['valor']);
+                      $valor = moeda($_POST['valor']);
                       
                       $valor_custo = new Valor_custo();                                        
                             if(isset($_POST['valor_custo'])!= ""){
                                 $id_tipo_custo = $_POST['tipo_custo'];
-                                $valor2 = $_POST['valor_custo'];
+                                $valor2 = moeda($_POST['valor_custo']);
                                 $valor_custo->add_valor_custo($valor2, $id_tipo_custo);
                                 $id_valor_custo = $valor_custo->add_valor_custo_bd();
                             }
@@ -634,14 +627,14 @@ function validate(){
                      $modelo = $_POST['modelo'];
                      $ano = $_POST['ano'];
                      $cor = $_POST['cor'];
-                     $valor = formataMoney($_POST['valor']);
+                     $valor = moeda($_POST['valor']);
                      
                      $id_custo = $_POST['id_custo'];
                                
                                    if(isset($_POST['valor_custo'])!= ""){
                                    
                                      $id_tipo_custo = $_POST['tipo_custo'];
-                                     $valor2 = $_POST['valor_custo'];
+                                     $valor2 = moeda($_POST['valor_custo']);
                                      $id_custo = $valor_custo->atualiza_valor_custo($valor2, $id_tipo_custo, $id_custo);
                                     };
                      
@@ -701,14 +694,15 @@ function validate(){
                     $data_fim_seg = "0000-00-00";
                 }
 
-                $valor = formataMoney($_POST['valor']);
+                $valor = moeda($_POST['valor']);
                 
                 $id_custo = $_POST['id_custo'];
                                
                                    if(isset($_POST['valor_custo'])!= ""){
                                      
                                      $id_tipo_custo = $_POST['tipo_custo'];
-                                     $valor2 = $_POST['valor_custo'];
+                                     $valor2 = moeda($_POST['valor_custo']);
+                                     echo '<script>alert('.$valor2.')</script>';
                                      $id_custo = $valor_custo->atualiza_valor_custo($valor2, $id_tipo_custo, $id_custo);
                                     };
                 
@@ -813,9 +807,9 @@ function validate(){
                                       <span>Data fim:</span><input title="Data Final do seguro" id="data_fim_seg" name="data_fim_seg" disabled  type="date" style="width:135px">
                                   </td>
                               </tr>   
-                              <tr><td><span>Valor: </span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Horimetro:</span></td><td><input title="Horimetro inicial do maquinário" type="number" name="hr_inicial" id="hr_inicial"></td></tr>
+                              <tr><td><span>Valor: </span></td><td><input onkeyup="mascara(this, mvalor);" type="numeric" name="valor" id="valor"></td><td><span>Horimetro:</span></td><td><input title="Horimetro inicial do maquinário" type="number" name="hr_inicial" id="hr_inicial"></td></tr>
                               
-                               <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo"></td>
+                               <tr><td><span>Valor de Custo:</span></td> <td><input onkeyup="mascara(this, mvalor);" type="text" name="valor_custo" id="valor_custo"></td>
                                   <td>
                                       <select id="tipo_custo" name="tipo_custo"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
@@ -963,9 +957,9 @@ function validate(){
                                       <span>Data fim:</span><input title="Data Final do seguro" id="data_fim_seg" name="data_fim_seg" disabled  type="date" style="width:135px">
                                   </td>
                               </tr>   
-                             	<tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor"></td><td><span>Quilometragem:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial"></td></tr>
+                             	<tr><td><span>Valor:</span></td><td><input onkeyup="mascara(this, mvalor);" type="numeric" name="valor" id="valor"></td><td><span>Quilometragem:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial"></td></tr>
                                  
-                                <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo"></td>
+                                <tr><td><span>Valor de Custo:</span></td> <td><input onkeyup="mascara(this, mvalor);" type="text" name="valor_custo" id="valor_custo"></td>
                                   <td>
                                       <select id="tipo_custo" name="tipo_custo"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
@@ -1036,9 +1030,21 @@ function validate(){
               <table border="0">
                   <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula"></td></tr>                               
                   <tr><td><span>Nome:</span></td><td><input type="text" name="nome" id="nome"><td><span> Marca:</span></td><td><input type="text" name="marca" id="marca"></td></td></tr>
-                  <tr><td><span>Quantidade:</span></td><td><input type="text" name="quantidade" id="quantidade"> <td><span> Descricao:</span></td><td><input type="text" name="descricao" id="descricao"></td></td></tr>
-                  <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor"></td><td></tr>
-                   <tr><td><span>Valor de custo:</span></td><td><input type="valor_custo" name="valor_custo" id="valor"></td></tr>
+                  <tr><td><span>Quantidade:</span></td><td><input type="numeric" name="quantidade" id="quantidade"> <td><span> Descricao:</span></td><td><input type="text" name="descricao" id="descricao"></td></td></tr>
+                  <tr><td><span>Valor:</span></td><td><input onkeyup="mascara(this, mvalor);" type="numeric" name="valor" id="valor"></td><td></tr>
+                   <tr><td><span>Valor de custo:</span></td><td><input onkeyup="mascara(this, mvalor);" type="valor_custo" name="valor_custo" id="valor"></td</tr>
+                    <td><span>Tipo do custo:</span></td><td><select style="width: 50%; margin-left: 5px;" name="tipo_custo" id="tipo_custo">
+                                        <?php
+                                        $t_c = new Tipo_custo();
+                                             $t_c = $t_c->get_all_tipo_custo();
+                                            foreach ($t_c as $key => $value) {
+                                               
+                                               echo '<option value="' . $value[0] . '">' . $value[1] . '</option>';
+                                            }                                            
+                                        ?>
+                                       
+                                    </select>
+                   </td> </tr>
                   <tr><td><span>Empresa:</span></td><td>
                                   <select id="empresa" name="empresa"  style="width:100%" onchange="buscar_responsavel()">
                                     <option value="no_sel">Selecione</option>
@@ -1084,7 +1090,7 @@ function validate(){
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR MAQUINÁRIO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
                         <input type="hidden" id="atualiza_maquinario" name="atualiza_maquinario" value="editar_maquinario">
                         <input type="hidden" id="id" name="id" value="<?php echo $maquinario->id ?>">
-                        <input type="hidden" id="id_custo" name="id_custo" value="<?php echo $valor_custo->id ?>">
+                        <input type="hidden" id="id_custo" name="id_custo" onkeyup="mascara(this, mvalor);" value="<?php echo $valor_custo->id ?>">
                           <table border="0">                          
                               <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula" value="<?php echo $maquinario->matricula ?>" ></td><td><span> N° Série / Chassi:</span></td> <td><input class="uppercase" type="text" name="chassi_nserie" id="chassi_nserie" value="<?php echo $maquinario->chassi_nserie ?>" ></td></tr>
                               <tr><td><span>Fabricante:</span></td><td><input type="text" name="fabricante" id="fabricante" value="<?php echo $maquinario->fabricante ?>" > <td><span> Modelo:</span></td><td><input type="text" name="modelo" id="modelo" value="<?php echo $maquinario->modelo ?>"></td></td></tr>            
@@ -1147,9 +1153,9 @@ function validate(){
                               </tr>
 
                               
-                            <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor" value="<?php echo verificaValor($maquinario->valor) ?>"></td><td><span>Horimetro:</span></td><td><input type="numeric" name="hr_inicial" id="hr_inicial" value="<?php echo $maquinario->horimetro_inicial ?>"></td></tr>
+                            <tr><td><span>Valor:</span></td><td><input onkeyup="mascara(this, mvalor);" type="numeric" name="valor" id="valor" value="<?php echo 'R$' . number_format($maquinario->valor, 2, ',', '.'); ?>"></td><td><span>Horimetro:</span></td><td><input type="numeric" name="hr_inicial" id="hr_inicial" value="<?php echo $maquinario->horimetro_inicial ?>"></td></tr>
                             
-                             <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo" value="<?php echo  $valor_custo->valor; ?>"></td>
+                             <tr><td><span>Valor de Custo:</span></td> <td><input onkeyup="mascara(this, mvalor);" type="text" name="valor_custo" id="valor_custo" value="<?php echo  'R$' . number_format($valor_custo->valor, 2, ',', '.'); ?>"></td>
                                   <td>
                                       <select id="tipo_custo" name="tipo_custo"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
@@ -1236,7 +1242,7 @@ function validate(){
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR VEÍCULO</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
                         <input type="hidden" id="atualiza_veiculo" name="atualiza_veiculo" value="editar_veiculo">
                         <input type="hidden" id="id" name="id" value="<?php echo $veiculo->id ?>">
-                        <input type="hidden" id="id_custo" name="id_custo" value="<?php echo $valor_custo->id ?>">
+                        <input type="hidden" id="id_custo" name="id_custo" onkeyup="mascara(this, mvalor);" value="<?php echo $valor_custo->id ?>">
                           <table border="0">                          
                               <tr><td><span>Matricula:</span></td> <td><input class="uppercase" type="text" name="matricula" id="matricula" value="<?php echo $veiculo->matricula ?>"></td><td><span>Renavam:</span></td> <td><input type="text" name="renavam" id="renavam" value="<?php echo $veiculo->renavam ?>"></td></tr>                               
                               <tr><td><span>Placa:</span></td><td><input class="uppercase" type="text" name="placa" id="placa" value="<?php echo $veiculo->placa ?>"><td><span> Chassi:</span></td><td><input type="text" name="chassi" id="chassi" class="uppercase" value="<?php echo $veiculo->chassi ?>"></td></td></tr>
@@ -1302,8 +1308,8 @@ function validate(){
 
                                   </td>
                               </tr>
-                              <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor" value="<?php echo verificaValor($veiculo->valor) ?>"></td><td><span>Quilometragem:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial" value="<?php echo $veiculo->km_inicial ?>"></td></tr>                              
-                             <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo" value="<?php echo  $valor_custo->valor; ?>"></td>
+                              <tr><td><span>Valor:</span></td><td><input onkeyup="mascara(this, mvalor);" type="numeric" name="valor" id="valor" value="<?php echo'R$' . number_format($veiculo->valor, 2, ',', '.'); ?>"></td><td><span>Quilometragem:</span></td><td><input type="numeric" name="km_inicial" id="km_inicial" value="<?php echo $veiculo->km_inicial ?>"></td></tr>                              
+                             <tr><td><span>Valor de Custo:</span></td> <td><input type="text" onkeyup="mascara(this, mvalor);"name="valor_custo" id="valor_custo" value="<?php echo  'R$' . number_format($valor_custo->valor, 2, ',', '.'); ?>"></td>
                                   <td>
                                       <select id="tipo_custo" name="tipo_custo"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
@@ -1385,14 +1391,14 @@ function validate(){
               <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR PATRIMONIO EM GERAL</span></div><input type="button" style="margin-top: 5px;" onclick="window.location.href='add_patrimonio.php'" id="button" class="button" name="button"value="Voltar"></div>
                <input type="hidden" id="atualiza_patrimonio_geral" name="atualiza_patrimonio_geral" value="editar_patrimonio_geral">
                <input type="hidden" id="id" name="id" value="<?php echo $patrimonio_geral->id ?>">
-               <input type="hidden" id="id_custo" name="id_custo" value="<?php echo $valor_custo->id ?>">
+               <input type="hidden" id="id_custo" name="id_custo"  value="<?php echo $valor_custo->id ?>">
               <table border="0">
                   <tr><td><span>Matricula:</span></td> <td><input class="uppercase" value="<?php echo $patrimonio_geral->matricula ?>" type="text" name="matricula" id="matricula"></td></tr>                               
                   <tr><td><span>Nome:</span></td><td><input type="text" name="nome" id="nome" value="<?php echo $patrimonio_geral->nome ?>"><td><span> Marca:</span></td><td><input type="text" name="marca" id="marca"value="<?php echo $patrimonio_geral->marca ?>"></td></td></tr>
                   <tr><td><span>Quantidade:</span></td><td><input type="text" name="quantidade" id="quantidade" value="<?php echo $patrimonio_geral->quantidade ?>"> <td><span> Descricao:</span></td><td><input type="text" name="descricao" id="descricao" value="<?php echo $patrimonio_geral->descricao?>"></td></td></tr>
-                  <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" id="valor" value="<?php echo verificaValor($patrimonio_geral->valor) ?>"></td><td></tr>
+                  <tr><td><span>Valor:</span></td><td><input type="numeric" name="valor" onkeyup="mascara(this, mvalor);" id="valor" value="<?php echo 'R$' . number_format($patrimonio_geral->valor, 2, ',', '.'); ?>"></td><td></tr>
                   
-                  <tr><td><span>Valor de Custo:</span></td> <td><input type="text" name="valor_custo" id="valor_custo" value="<?php echo  $valor_custo->valor; ?>"></td>
+                  <tr><td><span>Valor de Custo:</span></td> <td><input type="text" onkeyup="mascara(this, mvalor);"name="valor_custo" id="valor_custo" value="<?php echo  'R$' . number_format($valor_custo->valor, 2, ',', '.') ?>"></td>
                                   <td>
                                       <select id="tipo_custo" name="tipo_custo"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
