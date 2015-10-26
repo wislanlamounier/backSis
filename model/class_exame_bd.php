@@ -30,7 +30,7 @@ class Exame{
 		 $sql->conn_bd();
 		 $g = new Glob();
 
-		 $query = "SELECT * FROM exames WHERE id = '%s'  && oculto = 0";
+		 $query = "SELECT * FROM exames WHERE id = '%s' && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0";
 		 $result = $g->tratar_query($query, $id);
 		 
 		 if(@mysql_num_rows($result) == 0){
@@ -98,7 +98,7 @@ class Exame{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$aux=0;
-		$query = mysql_query("SELECT * FROM exames WHERE oculto = 0");
+		$query = mysql_query("SELECT * FROM exames WHERE && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0");
 		$return = array();
 		while($result = mysql_fetch_array($query)){
 			$return[$aux][0] = $result['id'];

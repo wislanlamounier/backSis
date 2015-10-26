@@ -18,7 +18,7 @@
         <li><a href="/viacampos/administrator/add_cbo.php">CBO</a></li>
         <li><a href="/viacampos/administrator/add_exames.php">Exames</a></li>
         <?php //echo '<li><a href="/viacampos/administrator/add_empresa.php?tipo=editar&id='.$_SESSION['id_empresa'].'">Empresa</a></li>'; ?>
-        <li><a href="/viacampos/administrator/add_filial.php">Filial</a></li>
+        <li><a href="/viacampos/administrator/add_filial.php">Posto de Trabalho</a></li>
       </ul>
     </li>
     <li>
@@ -32,7 +32,7 @@
           <li><a href="/viacampos/administrator/pesquisa_cli.php">Cliente</a></li>
           <li><a href="/viacampos/administrator/pesquisa_patrimonio.php">Patrimonio</a></li>
         <?php } ?>
-        <li><a href="/viacampos/administrator/pesquisa_filial.php">Filial</a></li>
+        <li><a href="/viacampos/administrator/pesquisa_filial.php">Posto de Trabalho</a></li>
         
         <li><a href="/viacampos/administrator/pesquisa_exames.php">Exames</a></li>
       </ul>

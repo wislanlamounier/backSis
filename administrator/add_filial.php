@@ -396,7 +396,7 @@ function validate(){
                         <?php echo "<script> buscar_cid('".$endereco[0][3]."'); </script>";  ?>
                       </tr>
 
-                     <tr> <td ><span>CEP:</span></td> <td colspan="2"><input type="text" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>" style="width:100%"></td></tr> <!-- cep -->                     
+                     <tr> <td ><span>CEP:</span></td> <td colspan="2"><input type="text" id="cep" name="cep" value="<?php echo $endereco[0][5]; ?>" style="width:50%"></td></tr> <!-- cep -->                     
                      <tr> 
                         <td ><span>Empresa:</span></td>
                         <td colspan="2">
@@ -480,7 +480,7 @@ function validate(){
                         </td>
                      </tr>
 
-                     <tr> <td ><span>CEP:</span></td> <td colspan="2"><input type="text" id="cep" name="cep" style="width:100%"></td></tr> <!-- cep -->
+                     <tr> <td ><span>CEP:</span></td> <td colspan="2"><input type="text" id="cep" name="cep" style="width:50%"></td></tr> <!-- cep -->
                      
                      <tr> 
                         <td ><span>Empresa:</span></td>
