@@ -79,7 +79,7 @@ table tr td{
 		    </form>
 		    <div style="text-align:center">
 		    	<?php 
-		    	  if(isset($_POST['email'])){	
+		    	  if(isset($_POST['email']) && Token::verifica_email($_POST['email'])){	
 			    		$sql = new Sql();
 			    		$sql->conn_bd();
 
@@ -112,6 +112,8 @@ table tr td{
 			    		// echo '<br />';
 			    		// echo md5($_POST['email'].date('Y-m-d')).' - '.$_POST['email'].date('Y-m-d');echo '<br />';
 			    		// echo md5('andre_matos13@hotmail.com2015-10-23'). ' - '. 'andre_matos13@hotmail.com2015-10-23';
+					}else{
+						echo '<p style="color:#933">Atenção! Esse email não esta cadastrado em nosso banco de dados</p>';
 					}
 			     ?>
 		    </div>

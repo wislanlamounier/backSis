@@ -130,7 +130,18 @@ table tr td{
 
 
 				<?php
-	    }
+	    }else{ ?>
+	    		<div style="margin-top:200px;">
+			    	<div style="width:35%;  min-width:300px; border: 1px solid #cdcdcd; padding: 20px; margin: 0 auto; box-shadow:1px 1px 10px #898989; border-radius:5px;">
+			    		<form action="redefinir_senha.php" method="POST" onsubmit="return valida(this)">
+					    	<input type="hidden" name="token" value="<?php echo $token ?>">
+					    	<table style="margin: 0 auto; width: 100%; ">
+					    		<tr><td style="color:#787878">Esse link não é mais valido</td></tr>
+ 							</table>
+					    </form>
+			    	</div>
+			    </div>
+	    <?php }
 	}
 	if(isset($_POST['senha1']) && isset($_POST['senha2'])){
 		if($_POST['senha1'] == $_POST['senha2']){
