@@ -88,7 +88,7 @@ table tr td{
 
 	$g = new Glob();
 
-	if(isset($_GET['token'])){
+	if(isset($_GET['token']) && $_GET['token'] != ''){
         $sql = new Sql();
 		$sql->conn_bd();
 		$token = $_GET['token'];
@@ -136,7 +136,7 @@ table tr td{
 			    		<form action="redefinir_senha.php" method="POST" onsubmit="return valida(this)">
 					    	<input type="hidden" name="token" value="<?php echo $token ?>">
 					    	<table style="margin: 0 auto; width: 100%; ">
-					    		<tr><td style="color:#787878">Esse link não é mais valido</td></tr>
+					    		<tr><td style="color:#787878">O link de redefinição de sua senha não é válido ou já foi usado.</td></tr>
  							</table>
 					    </form>
 			    	</div>

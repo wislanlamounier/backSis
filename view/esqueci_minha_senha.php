@@ -79,41 +79,44 @@ table tr td{
 		    </form>
 		    <div style="text-align:center">
 		    	<?php 
-		    	  if(isset($_POST['email']) && Token::verifica_email($_POST['email'])){	
-			    		$sql = new Sql();
-			    		$sql->conn_bd();
+		    	  if(isset($_POST['email'])){
+		    	  			if(Token::verifica_email($_POST['email'])){
+							    		$sql = new Sql();
+							    		$sql->conn_bd();
 
-			    		$email = new Email();
-			    		$token = md5($_POST['email'].date('Y-m-d'));
-			    		
-			    		$class_token = new Token();
-			    		$class_token->add_token($token, date('Y-m-d h:i:s'), '0');
-			    		if($class_token->add_token_bd()){
-			    			// echo "<script>alert('Token adicionado no banco');</script>";
-			    		}
-			    		
-			    		$msg = 'Clique no link abaixo para redefinir sua senha<br />';
-			    		$msg .= '<a href="http://localhost/viacampos/redefinir_senha.php?token='.$token.'">Clique aqui</a>';
+							    		$email = new Email();
+							    		$token = md5($_POST['email'].date('Y-m-d'));
+							    		
+							    		$class_token = new Token();
+							    		$class_token->add_token($token, date('Y-m-d h:i:s'), '0');
+							    		if($class_token->add_token_bd()){
+							    			// echo "<script>alert('Token adicionado no banco');</script>";
+							    		}
+							    		
+							    		$msg = 'Clique no link abaixo para redefinir sua senha<br />';
+							    		$msg .= '<a href="http://localhost/viacampos/redefinir_senha.php?token='.$token.'">Clique aqui</a>';
 
-			    		$headers = "MIME-Version: 1.1\r\n";
-						$headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
-						$headers .= "From: andre_matos13@hotmail.com\r\n"; // remetente
-						$headers .= 'Bcc: andre_matos13@hotmail.com' . "\r\n";
+							    		$headers = "MIME-Version: 1.1\r\n";
+										$headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+										$headers .= "From: andre_matos13@hotmail.com\r\n"; // remetente
+										$headers .= 'Bcc: andre_matos13@hotmail.com' . "\r\n";
 
-						$enviado = $email->send($_POST['email'], $msg, 'Redefinição de senha');
+										$enviado = $email->send($_POST['email'], $msg, 'Redefinição de senha');
 
-						if($enviado){
-							echo 'Um email foi enviado com sucesso para '.$_POST['email'].'<br />Verifique seu email para mais informações';
-						}else{
-							echo 'Falha ao enviar email';
-						}
-			    		
-			    		// // echo $token;
-			    		// echo '<br />';
-			    		// echo md5($_POST['email'].date('Y-m-d')).' - '.$_POST['email'].date('Y-m-d');echo '<br />';
-			    		// echo md5('andre_matos13@hotmail.com2015-10-23'). ' - '. 'andre_matos13@hotmail.com2015-10-23';
-					}else{
-						echo '<p style="color:#933">Atenção! Esse email não esta cadastrado em nosso banco de dados</p>';
+										if($enviado){
+											echo 'Um email foi enviado com sucesso para '.$_POST['email'].'<br />Verifique seu email para mais informações';
+										}else{
+											echo 'Falha ao enviar email';
+										}
+
+								}else{
+									echo '<p style="color:#933">Atenção! Esse email não esta cadastrado em nosso banco de dados</p>';
+								}
+						    		
+						    		// // echo $token;
+						    		// echo '<br />';
+						    		// echo md5($_POST['email'].date('Y-m-d')).' - '.$_POST['email'].date('Y-m-d');echo '<br />';
+						    		// echo md5('andre_matos13@hotmail.com2015-10-23'). ' - '. 'andre_matos13@hotmail.com2015-10-23';
 					}
 			     ?>
 		    </div>
