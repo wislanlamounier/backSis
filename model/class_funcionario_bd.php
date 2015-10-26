@@ -639,6 +639,11 @@ class Funcionario{
 			// $prox_mes = strtotime('+1 Month', $mes_atual);
 			$data_ini = date('Y').'-'.date('m', strtotime("+1 Month", strtotime(date('Y-m-d 00:00:00')) ) ).'-01 00:00:00';
 			// echo "<script>alert('data ini ->".$data_ini." ');</script>";
+			
+			/*
+				Verifica se ja existe essa data ini pra esse funcionario, se ja existe atualiza o registro existente
+			*/
+
 			echo "<script>alert('Atenção, essa alteração só será valida à partir do dia ".date('d/m/Y',strtotime($data_ini))."');</script>";
 
 

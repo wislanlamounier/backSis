@@ -709,7 +709,7 @@ function carregaUf_CartTrab(uf){
                      // echo $func->printFunc();
                    ?>
                   <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="60px" style="margin-left:-20px; margin-top:-20px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR FUNCIONÁRIO</span></div></div>
-                  <form method="POST" id="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
+                  <form method="POST" id="ad_func" name="ad_func" action="add_func" onsubmit="return valida(this)">
                     <div id="popup" class="popup" style="float:left">
                       <div class="formulario" style="width:350px; min-width:350px;">
                         <table style="width:100%; text-align:center;" border="0">
@@ -922,7 +922,7 @@ function carregaUf_CartTrab(uf){
                           </td> </tr>
                      <tr> 
                            <td colspan="4" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Salvar">
-                             <input class="button" type="button" name="button" onclick="window.location.href='add_func.php'" id="button" value="Cancelar">
+                             <input class="button" type="button" name="button" onclick="window.location.href='add_func'" id="button" value="Cancelar">
                            </td>
                       </tr>
                   </table>
@@ -936,9 +936,9 @@ function carregaUf_CartTrab(uf){
                       $u = new Epi();
                       $epi_func = $u->get_epi_func($func->id);
                       $aux=0;
-                      echo '<div style="float:right; margin-top:-10px;"><a title="Clique para adicionar ou alterar equipamentos desse funcionário" href="add_epiXfunc.php?tipo=cadastrar&id='.$func->id.'"> <div style="float:left"><img style="height:20px;" src="../images/icon-edita.png" ></div><div style="padding-botton:10px; float:left;padding-top:5px;"><span>Editar</span></div></a></div>';
+                      echo '<div style="float:right; margin-top:-10px;"><a title="Clique para adicionar ou alterar equipamentos desse funcionário" href="add_epiXfunc?tipo=cadastrar&id='.$func->id.'"> <div style="float:left"><img style="height:20px;" src="../images/icon-edita.png" ></div><div style="padding-botton:10px; float:left;padding-top:5px;"><span>Editar</span></div></a></div>';
                       echo '<table class="exibe_equipamentos" border="0">';
-                      echo '<tr><td colspan="4" style="padding:10px;"><span><b><a title="Clique para adicionar ou alterar equipamentos desse funcionário" href="add_epiXfunc.php?tipo=cadastrar&id='.$func->id.'">EQUIPAMENTOS CADASTRADOS PARA '.strtoupper($func->nome).'</a></b></span></td></tr>';
+                      echo '<tr><td colspan="4" style="padding:10px;"><span><b><a title="Clique para adicionar ou alterar equipamentos desse funcionário" href="add_epiXfunc?tipo=cadastrar&id='.$func->id.'">EQUIPAMENTOS CADASTRADOS PARA '.strtoupper($func->nome).'</a></b></span></td></tr>';
                       echo '<tr> <td><span><b>ID</b></span></td> <td><span><b>Nome</b></span></td> <td><span><b>Data da entrega</b></span></td><td><span><b>Quantidade</b></span></td></tr>';
                       foreach ($epi_func as $key => $value) {
                          if($aux%2 == 0)//verifica se o numero é par ou impar, para imprimir a tabela zebrada
@@ -961,7 +961,7 @@ function carregaUf_CartTrab(uf){
                 
                <div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="60px" style="margin-left:-20px; margin-top:-20px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE FUNCIONÁRIOS</span></div></div>
                
-               <form method="POST" class="ad_func" name="ad_func" action="add_func.php" onsubmit="return valida(this)">
+               <form method="POST" class="ad_func" name="ad_func" action="add_func" onsubmit="return valida(this)">
                 <div id="popup" class="popup" style="float:left">
                       <div class="formulario" style="width:350px; min-width:350px;">
                         <table style="width:100%; text-align:center" border="0">
@@ -1164,7 +1164,7 @@ function carregaUf_CartTrab(uf){
                             <span>Tornar adiministrador:</span></td><td><input type="checkbox" name="is_admin" id="is_admin"></td> </tr>
                      <tr> 
                            <td colspan="4" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Cadastrar">
-                             <input class="button" type="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
+                             <input class="button" type="button" name="button" onclick="window.location.href='principal'" id="button" value="Cancelar">
                            </td>
                       </tr>
                   </table>
@@ -1355,7 +1355,7 @@ function carregaUf_CartTrab(uf){
                            if($func->atualiza_func($id, $id_dados_bancarios, $cod_serie, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $id_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $estagiario)){
                               echo '<div class="msg">Funcionário atualizado com sucesso : '. $estagiario.'</div>';
                               echo '<script>alert("Funcionário atualizado com sucesso : '. $estagiario.'")</script>';
-                              echo '<script>window.location.href=\'principal.php\'</script>';
+                              echo '<script>window.location.href=\'principal\'</script>';
                            }else{
                               echo '<div class="msg">Falha ao atualizar funcionário</div>';
                            }

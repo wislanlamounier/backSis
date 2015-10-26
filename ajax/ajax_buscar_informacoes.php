@@ -29,7 +29,7 @@ include_once("../model/class_funcionario_bd.php");
 		  	$cont=0;
 		  	if($funcionario) 
 			    foreach($arrFuncionario as $value => $nome){
-			      echo "<tr><td style='padding-left:20px;'><a href='add_func.php?tipo=editar&id=".$arrFuncionario[$value][0]."'>".$arrFuncionario[$value][1]."</a></td></tr>";
+			      echo "<tr><td style='padding-left:20px;'><a href='add_func?tipo=editar&id=".$arrFuncionario[$value][0]."'>".$arrFuncionario[$value][1]."</a></td></tr>";
 			     	$cont++;
 			  	}
 			  	echo '<tr><td style="padding-left:20px; font-size: 12px; color:#777;">'.$cont. " registro(s) encontrado(s)</td></tr>";

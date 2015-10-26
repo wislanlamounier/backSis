@@ -56,8 +56,8 @@ include_once("../global.php");
 
         $_SESSION['id_funcionario'] = $id_funcionario;
 
-        header("location:principal.php"); // pagina que sera redirecionada após login
+        header("location:principal"); // pagina que sera redirecionada após login
     }else{
-      header("location:index.php?falha=login");
+      header("location:index?falha=login");
     }
  ?>

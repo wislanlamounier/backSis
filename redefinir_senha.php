@@ -69,7 +69,7 @@ table tr td{
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#">SGO - Sistema de Gerenciamento de Obras / Redefinir senha</a>
+                <a class="navbar-brand topnav" href="index.php#about">SGO - Sistema de Gerenciamento de Obras / Redefinir senha</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
