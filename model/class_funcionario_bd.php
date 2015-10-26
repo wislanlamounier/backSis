@@ -57,7 +57,6 @@ class Funcionario{
 			$this->id_empresa_filial = $id_empresa_filial;
 			$this->id_turno = $id_turno;
 			$this->is_admin = $is_admin;
-
 			$this->rg = $rg;
 			$this->data_em_rg = $data_em_rg;
 			$this->org_em_rg = $org_em_rg;
@@ -534,14 +533,19 @@ class Funcionario{
 	}
 
 	public function ocultar_by_id($id){
+                
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
+                if($_SESSION['id_funcionario'] != $id){
 		$query = "UPDATE funcionario SET oculto = 1 WHERE id = %s";
 		$result = $g->tratar_query($query, $id);
 		if($result){
 			echo '<div class="msg">Funcionário excluido com sucesso!</div>';
-		}
+                    }
+                }else{
+                    echo '<script>alert("Você não excluír este funcionário")</script>';
+                }
 	}
         
         public function get_historico_func_by_id($id){
@@ -768,7 +772,8 @@ class Funcionario{
         $empresa->get_empresa_by_id($this->id_empresa);
         $valor_custo = new Valor_custo();
         $valor_custo->get_valor_custo_id($this->id_valor_custo);
-        $vlr = $this->verificaValor($valor_custo->valor);
+        $vlr = $this->verificaValor($valor_custo->valor);        
+        if($vlr == ""){$vlr = 0.0;}
         $sal = $this->verificaValor($this->salario_base);
         $filial = Filial::get_filial_id($this->id_empresa_filial);
         $cbo = new Cbo();
@@ -810,7 +815,7 @@ class Funcionario{
 		$texto .= "<td colspan='2'><b><span>Salário base: <span></b></td><td colspan='3'><span>R$ ".number_format($sal, 2,',','.')."</span></td>";
 		$texto .= "</tr>";
                 $texto .= "<tr>";
-		$texto .= "<td colspan='2'><b><span>Valor de Custo: <span></b></td><td colspan='3'><span>R$".number_format($vlr, 2, ',', '.')."</span></td>";;
+		$texto .= "<td colspan='2'><b><span>Valor de Custo: <span></b></td><td colspan='3'><span>R$ ".number_format($vlr, 2, ',', '.')."</span></td>";;
 		$texto .= "</tr>";
 		$texto .= "<tr>";
                 if(isset($cbo->descricao)){
