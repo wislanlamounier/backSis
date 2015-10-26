@@ -285,7 +285,7 @@ include_once("../config.php");
 
             <?php include_once("../view/topo.php"); ?>
     <div class="formulario">
-               
+             
                
         <div class="title-box"><div style="float:left"><img src="../images/config.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Configurações</span></div></div>
                   

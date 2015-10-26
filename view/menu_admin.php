@@ -14,11 +14,13 @@
                   <li><a href="/viacampos/administrator/add_material">Material</a></li>
                   <li><a href="/viacampos/administrator/pesquisa_epi">Equipamentos</a></li>
         <?php } ?>
+
         <li><a href="/viacampos/administrator/add_turno">Turno</a></li>
         <li><a href="/viacampos/administrator/add_cbo">CBO</a></li>
         <li><a href="/viacampos/administrator/add_exames">Exames</a></li>
-        <?php //echo '<li><a href="/viacampos/administrator/add_empresa?tipo=editar&id='.$_SESSION['id_empresa'].'">Empresa</a></li>'; ?>
-        <li><a href="/viacampos/administrator/add_filial">Filial</a></li>
+        <?php //echo '<li><a href="/viacampos/administrator/add_empresa.php?tipo=editar&id='.$_SESSION['id_empresa'].'">Empresa</a></li>'; ?>
+        <li><a href="/viacampos/administrator/add_filial">Posto de Trabalho</a></li>
+
       </ul>
     </li>
     <li>
@@ -32,8 +34,9 @@
           <li><a href="/viacampos/administrator/pesquisa_cli">Cliente</a></li>
           <li><a href="/viacampos/administrator/pesquisa_patrimonio">Patrimonio</a></li>
         <?php } ?>
-        <li><a href="/viacampos/administrator/pesquisa_filial">Filial</a></li>
-        
+
+        <li><a href="/viacampos/administrator/pesquisa_filial">Posto de Trabalho</a></li>
+
         <li><a href="/viacampos/administrator/pesquisa_exames">Exames</a></li>
       </ul>
     </li>

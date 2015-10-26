@@ -208,16 +208,19 @@ class Empresa{
         }
     }
 
-    public function ocultar_by_id($id){
+    public function ocultar_by_id($id){        
         $sql = new Sql();
         $sql->conn_bd();
         $g = new Glob();
+        if($_SESSION['id_empresa'] != $id){
         $query = "UPDATE empresa SET oculto = 1 WHERE id = %s";
         $result = $g->tratar_query($query, $id);
         if($result){
-          echo '<div class="msg">Cliente excluido com sucesso!</div>';
+          echo '<div class="msg"> Empresa excluída com sucesso!</div>';
+        }}else{
+                    echo '<script>alert("Você não pode excluír esta empresa")</script>';
         }
-    }
+        }
 
     public function printEmpresa(){
       
