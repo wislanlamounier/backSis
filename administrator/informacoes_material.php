@@ -204,6 +204,6 @@ include_once("../model/class_custo_regiao_bd.php");
 	<div id="result">
 	</div>
                      <div>
-                        <?php include_once("../view/material_valor.php")?>
+                        <?php include_once("../view/material_valor.php"); ?>
                     </div>  
 </div>

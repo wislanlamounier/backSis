@@ -18,8 +18,12 @@ return $valor; //retorna o valor formatado para gravar no banco
  $cont = 0;
 $id_cidade = "";
 foreach ($_POST as $key => $value) { // for each que alimenta as variaveis que precisa adicionar no banco
-     
-    $tipo = explode(":",$key);
+   
+   if($key == 'backto'){
+        continue;
+   }
+
+   $tipo = explode(":",$key);
    
     
    $id_material = $tipo[0];
@@ -99,6 +103,11 @@ foreach ($_POST as $key => $value) { // for each que alimenta as variaveis que p
         $cont = 0;
     }
 }
-   echo '<script>window.location = "add_material.php?axestado='.$id_estado->estado.'&cidade='.$id_cidade.'"</script>';
+    if(isset($_POST['backto'])){
+        echo '<script>window.location = "add_obra?t='.$_POST['backto'].'"</script>';
+    }else{
+        echo '<script>window.location = "add_material.php?axestado='.$id_estado->estado.'&cidade='.$id_cidade.'"</script>';
+    }
+   
 
 ?>

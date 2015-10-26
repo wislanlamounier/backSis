@@ -199,7 +199,7 @@ function validate(){
     }
     function selecionaPatrimonio(id){
           var tipo = document.getElementById("tipo").value;
-            
+          
           var url = '../ajax/ajax_montar_patrimonio.php?id='+id+'&tipo='+tipo;  
 
           $.get(url, function(dataReturn) {
@@ -296,6 +296,9 @@ function validate(){
           $('#load_cidades').html(dataReturn);
         });
       }
+    }
+    function mudaTipo(t){
+        document.getElementById("tipo").value = t;
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap" async defer></script>
@@ -617,7 +620,7 @@ function validate(){
                                               <div class="form-input" style="background-color:rgba(200,200,200,0.5); padding: 10px 0px 10px 0px;">
                                                   <input type="hidden" id="tipo" value="2">
                                                   <span><b>Tipo: </b></span>
-                                                  <input type="radio" name="tipo" id="veiculo" style="height:12px;" value="veiculo" checked><span>Veículo</span><input type="radio" name="tipo" value="maquinario" id="maquinario" style="height:12px;"><span>Maquinario</span><input style="height:12px;" value="geral" name="tipo" id="geral" type="radio"><span>Geral</span><br />
+                                                  <input type="radio" name="tipo" id="veiculo" style="height:12px;" value="veiculo" checked onclick="mudaTipo('2')"><span>Veículo</span><input onclick="mudaTipo('1')" type="radio" name="tipo" value="maquinario" id="maquinario" style="height:12px;"><span>Maquinario</span><input onclick="mudaTipo('0')" style="height:12px;" value="geral" name="tipo" id="geral" type="radio"><span>Geral</span><br />
                                               </div>
                                               <span><b>Nome: </b></span><br /><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:65%"> <input type="button" value="Buscar" onclick="buscarPatrimonios()">
                                           </div>
@@ -787,21 +790,28 @@ function validate(){
                             </div>
                             <div class="form-input" id="ex_dados_obra" style="padding: 0px 0px 10px 10px; padding-left:20px;">
                                 <?php if(isset($_SESSION['obra']['dados']['nome']) && $_SESSION['obra']['dados']['nome'] != ''){ ?>
-                                            <span><b>Nome: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['nome']))?print $_SESSION['obra']['dados']['nome']:''; ?>"><br />
+                                            <span><b>Nome: </b></span><span><?php (isset($_SESSION['obra']['dados']['nome']))?print $_SESSION['obra']['dados']['nome']:''; ?></span>
+                                
+                                <?php }if(isset($_SESSION['obra']['dados']['responsavel_obra']) && $_SESSION['obra']['dados']['responsavel_obra'] != ''){ 
+                                            $resp_obra = Funcionario::get_nome_by_id($_SESSION['obra']['dados']['responsavel_obra']);
+                                  ?>
+                                            &nbsp&nbsp&nbsp&nbsp<span><b>Responsavel pela obra: </b></span><span><?php (isset($_SESSION['obra']['dados']['responsavel_obra']))?print $resp_obra[0]:''; ?></span><br />
+                                
                                 <?php }if(isset($_SESSION['obra']['dados']['data_inicio_previsto']) && $_SESSION['obra']['dados']['data_inicio_previsto'] != ''){ ?>
-                                            <span><b>Data Inicio: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['data_inicio_previsto']))?print $_SESSION['obra']['dados']['data_inicio_previsto']:''; ?>"><br />
+                                            <span><b>Data Inicio: </b></span><span><?php (isset($_SESSION['obra']['dados']['data_inicio_previsto']))?print Date('d/m/Y',strtotime($_SESSION['obra']['dados']['data_inicio_previsto'])):''; ?></span><br />
+                                
                                 <?php }if(isset($_SESSION['obra']['dados']['rua']) && $_SESSION['obra']['dados']['rua'] != ''){ ?>
-                                            <span><b>Endereço: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['rua']))?print $_SESSION['obra']['dados']['rua']:''.(isset($_SESSION['obra']['dados']['num']))?print ', '.$_SESSION['obra']['dados']['num']:''; ?>"><br />
+                                            <span><b>Endereço: </b></span><span><?php (isset($_SESSION['obra']['dados']['rua']))?print $_SESSION['obra']['dados']['rua']:''.(isset($_SESSION['obra']['dados']['num']))?print ', '.$_SESSION['obra']['dados']['num']:''; ?></span><br />
+                                
                                 <?php }if(isset($_SESSION['obra']['dados']['bairro']) && $_SESSION['obra']['dados']['bairro'] != ''){ ?>
-                                            <span><b>Bairro: </b></span><input readonly   type="text" style="border: 0" value="<?php (isset($_SESSION['obra']['dados']['bairro']))?print $_SESSION['obra']['dados']['bairro']:''?>"><br />
-                                            
-                                             <?php }if(isset($_SESSION['obra']['dados']['cidade']) && $_SESSION['obra']['dados']['cidade'] != ''){ ?>
-                                            <span><b>Cidade: </b></span><span><?php (isset($_SESSION['obra']['dados']['cidade']))?print Cidade::get_name_city_by_id($_SESSION['obra']['dados']['cidade']).' - '.Estado::get_uf_estado_by_id($_SESSION['obra']['dados']['estado']) : ''?></span>
-                                            
-                                            <?php }if(isset($_SESSION['obra']['dados']['lat']) && $_SESSION['obra']['dados']['lat'] != '' && isset($_SESSION['obra']['dados']['long']) && $_SESSION['obra']['dados']['lat'] != ''  ){ ?> <!-- CONDIÇÃO PARA VER SE EXISTE DADOS DE LATITUDE NA SESSION -->
-                                            <span><b>Coordenadas: </b></span><input readonly   type="text" style="border: 0" id="lat" value="<?php (isset($_SESSION['obra']['dados']['lat']))?print $_SESSION['obra']['dados']['lat']:''?>"> <input id="long" readonly   type="text" style="border: 0" id="lat" value="<?php (isset($_SESSION['obra']['dados']['long']))?print $_SESSION['obra']['dados']['long']:''?>"><input  style="margin-left: 10px;"type="button" onclick="mostraLocal()" value="Ver local"><br /> <!-- MONSTRA A DIV PARA VISUALIZAÇÃO DO MAPA -->
-                                            <!-- LINHA DE CIMA PARA PRINTAR NA TELA AS CORDENADAS COM ID DE LAT E LONG POR QUE O ONCLICK CHAMA A INITMAP() E A INITMAP() PRECISA DE CAMPOS LAT E LONG COM VALORES SETADOS CONDIÇÃO PARA VER SE EXISTE DADOS DE LATITUDE NA SESSION -->
-                                            
+                                        <span><b>Bairro: </b></span><span><?php (isset($_SESSION['obra']['dados']['bairro']))?print $_SESSION['obra']['dados']['bairro']:''?></span><br />
+                                
+                                <?php }if(isset($_SESSION['obra']['dados']['cidade']) && $_SESSION['obra']['dados']['cidade'] != ''){ ?>
+                                        <span><b>Cidade: </b></span><span><?php (isset($_SESSION['obra']['dados']['cidade']))?print Cidade::get_name_city_by_id($_SESSION['obra']['dados']['cidade']).' - '.Estado::get_uf_estado_by_id($_SESSION['obra']['dados']['estado']) : ''?></span>
+                                        
+                                <?php }if(isset($_SESSION['obra']['dados']['lat']) && $_SESSION['obra']['dados']['lat'] != '' && isset($_SESSION['obra']['dados']['long']) && $_SESSION['obra']['dados']['lat'] != ''  ){ ?> <!-- CONDIÇÃO PARA VER SE EXISTE DADOS DE LATITUDE NA SESSION -->
+                                        <br /><span><b>Coordenadas: </b></span><span><?php (isset($_SESSION['obra']['dados']['lat']))?print 'Lat.: '.$_SESSION['obra']['dados']['lat']:''?></span> <span><?php (isset($_SESSION['obra']['dados']['long']))?print 'Long.: '.$_SESSION['obra']['dados']['long']:''?></span><input  style="margin-left: 10px;"type="button" onclick="mostraLocal()" value="Ver local"><br /> <!-- MONSTRA A DIV PARA VISUALIZAÇÃO DO MAPA -->
+                                        <!-- LINHA DE CIMA PARA PRINTAR NA TELA AS CORDENADAS COM ID DE LAT E LONG POR QUE O ONCLICK CHAMA A INITMAP() E A INITMAP() PRECISA DE CAMPOS LAT E LONG COM VALORES SETADOS CONDIÇÃO PARA VER SE EXISTE DADOS DE LATITUDE NA SESSION -->
                                 <?php }if(isset($_SESSION['obra']['dados']['desc']) && $_SESSION['obra']['dados']['desc'] != ''){// se existe descrição ?>
                                             <span><b>Descrição: </b></span><br />
                                                 <textarea style="padding: 1px 0px 2px 10px;width:90%; min-width: 90%; max-width:95%; max-height:15%; height: 5%; border: 0" readonly><?php (isset($_SESSION['obra']['dados']['desc']))?print $_SESSION['obra']['dados']['desc']:''; ?></textarea>
@@ -862,12 +872,15 @@ function validate(){
                                                     $res = Maquinario::get_maquinario_id($tipo_id_qtd[1]);
                                                     $func_res = Funcionario::get_nome_by_id($res->id_responsavel);
                                                     // echo '<li style="margin-left:10px;"><span>'.$res->modelo.': </span><input readonly style="width:30%; border: 0" type="number" value="'.$tipo_id_qtd[2].'"></li>';
-                                                    echo '<td style="padding: 3 10 3 10px;"><span>'.$res->modelo.' / '.$func_res.' </span></td><td style="padding: 3 10 3 10px;"><span>'.$tipo_id_qtd[2].'</span></td>';
+                                                    echo '<td style="padding: 3 10 3 10px;"><span>'.$res->modelo.' / '.$func_res[0].' </span></td><td style="padding: 3 10 3 10px;"><span>'.$tipo_id_qtd[2].'</span></td>';
                                                  }else{
                                                     $res = Veiculo::get_veiculo_id($tipo_id_qtd[1]);
+                                                    // echo "<script>alert('".$res->id_responsavel."');</script>";
                                                     $func_res = Funcionario::get_nome_by_id($res->id_responsavel);
-                                                    // echo '<li style="margin-left:10px;"><span>'.$res->modelo.': </span><input readonly style="width:30%; border: 0" type="number" value="'.$tipo_id_qtd[2].'"></li>';
-                                                    echo '<td style="padding: 3 10 3 10px;"><span>'.$res->modelo.' / '.$func_res.' </span></td><td style="padding: 3 10 3 10px;"><span>'.$tipo_id_qtd[2].'</span></td>';
+                                                    // if($func_res !=){
+                                                      // echo '<li style="margin-left:10px;"><span>'.$res->modelo.': </span><input readonly style="width:30%; border: 0" type="number" value="'.$tipo_id_qtd[2].'"></li>';
+                                                      echo '<td style="padding: 3 10 3 10px;"><span>'.$res->modelo.' / '.$func_res[0].' </span></td><td style="padding: 3 10 3 10px;"><span>'.$tipo_id_qtd[2].'</span></td>';
+                                                    // }
                                                  }
                                                  echo '</tr>';
                                                  

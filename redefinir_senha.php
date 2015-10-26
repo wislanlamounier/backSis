@@ -115,10 +115,10 @@ table tr td{
 					    	<table style="margin: 0 auto; width: 100%; ">
 					    		<tr><td style="color:#787878">Insira a nova senha</td></tr>
 					    		<tr>
-					    			<td><input placeholder="Nova senha" name="senha1" class="form-control" type="text" required></td>
+					    			<td><input placeholder="Nova senha" name="senha1" class="form-control" type="password" required></td>
 					    		</tr>
 					    		<tr>
-					    			<td><input placeholder="Repita a senha" name="senha2" class="form-control" type="text" required></td>
+					    			<td><input placeholder="Repita a senha" name="senha2" class="form-control" type="password" required></td>
 					    		</tr>
 					    		<tr>
 					    			<td><input class="form-control" type="submit" value="Enviar"></td>
@@ -136,7 +136,7 @@ table tr td{
 			    		<form action="redefinir_senha.php" method="POST" onsubmit="return valida(this)">
 					    	<input type="hidden" name="token" value="<?php echo $token ?>">
 					    	<table style="margin: 0 auto; width: 100%; ">
-					    		<tr><td style="color:#787878">O link de redefinição de sua senha não é válido ou já foi usado.</td></tr>
+					    		<tr><td style="color:#787878; text-align:center"><b>Atenção</b><br />O link de redefinição de sua senha não é válido ou já foi usado.</td></tr>
  							</table>
 					    </form>
 			    	</div>
