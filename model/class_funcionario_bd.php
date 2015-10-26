@@ -643,6 +643,42 @@ class Funcionario{
 			/*
 				Verifica se ja existe essa data ini pra esse funcionario, se ja existe atualiza o registro existente
 			*/
+			$sql = "SELECT id_tabela FROM funcionario WHERE data_ini = '".$data_ini."' && id = '".$id."' && oculto = 0";// busca se esse funcionario ja foi atualizado esse mes
+			$result = mysql_query($sql);
+
+			$row = mysql_fetch_array($result);
+
+			if($row['id_tabela'] != 0 && $row['id_tabela'] != null){ // se ja existe uma alteração, deve ser atualizado esse registro e não criar um novo
+				$id_tabela = $row['id_tabela'];
+				$aux=0;
+			
+				$query = "UPDATE funcionario SET nome='%s', id_dados_bancarios = %d, cod_serie = '%s', cpf='%s', data_nasc='%s', id_endereco = '%s', telefone = '%s', email = '%s', id_empresa = '%s', id_empresa_filial = '%s', id_turno = '%s', id_cbo = '%s', is_admin = '%s', rg = '%s', data_em_rg = '%s' , org_em_rg = '%s', num_tit_eleitor = '%s', email_empresa = '%s', data_adm = '%s', salario_base = '%s', id_valor_custo = '%s', qtd_horas_sem = '%s', num_cart_trab = '%s', num_serie_cart_trab = '%s', id_uf_cart_trab = '%s', num_pis = '%s', id_supervisor = '%s', estagiario = '%s'";
+												     // $nome,    $cpf,       $data_nasc,       $telefone,      $email,       $id_empresa_filial,        $id_turno,    $id_cbo,        $is_admin,        $data_em_rg ,     $org_em_rg,          $num_tit_eleitor,    $email_empresa,       $data_adm,        $salario_base,     $qtd_horas_sem,       $num_cart_trab,       $num_serie_cart_trab,        $uf_cart_trab,   $num_pis, $id
+
+				if($senha != ""){
+					$query .= ", senha = '%s' ";
+					$aux++;
+				}
+
+				$query .= "WHERE id_tabela = '%s' and oculto = 0";
+				
+				if($aux == 0){// se aux == 0 a senha não foi alterada então não precisa enviar o parametro $senha
+					$query_tra = $g->tratar_query($query, $nome, $id_dados_bancarios, $cod_serie, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $id_valor_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,$estagiario,          $id_tabela);
+				}else{
+					$query_tra = $g->tratar_query($query, $nome, $id_dados_bancarios, $cod_serie, $cpf, $data_nasc, $id_endereco, $telefone, $email, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg , $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $id_valor_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor,$estagiario,         $senha, $id_tabela);
+				}
+
+				if($true){// se true, é a primeira alteração então é necessario adicionar a data_ini do registro
+					$query = "UPDATE funcionario SET data_ini='%s' WHERE id_tabela = '%s' and oculto = 0";
+					$g->tratar_query($query, date("Y-m-d H:i:s"), $id_tabela);
+				}
+				echo "<script>alert('Atenção, essa alteração só será valida à partir do dia ".date('d/m/Y',strtotime($data_ini))."');</script>";
+				return $query_tra;
+
+			}
+			/* 
+				Fim
+			*/
 
 			echo "<script>alert('Atenção, essa alteração só será valida à partir do dia ".date('d/m/Y',strtotime($data_ini))."');</script>";
 

@@ -6,7 +6,7 @@ require_once("../global.php");
 class Valor_custo{
 	public $id;
 	public $valor;
-        public $id_tipo_custo;
+    public $id_tipo_custo;
       
 	public function add_valor_custo($valor, $id_tipo_custo)
 	{		
@@ -71,13 +71,13 @@ class Valor_custo{
      
             return false;            
 	     }else{
-
+	     	$valor_custo = new Valor_custo();
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$this->id = $row['id'];
-	     	$this->valor = $row['valor'];  
-                $this->id_tipo_custo = $row['id_tipo_custo'];
+	     	$valor_custo->id = $row['id'];
+	     	$valor_custo->valor = $row['valor'];  
+            $valor_custo->id_tipo_custo = $row['id_tipo_custo'];
 
-	     	return $this;
+	     	return $valor_custo;
 	     }
 
 	}

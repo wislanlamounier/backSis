@@ -774,7 +774,7 @@ function carregaUf_CartTrab(uf){
                      
                      <tr> <td colspan="4"><span><a title="Clique aqui para cadastrar dados bancários" onclick="exibe()" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/icon-edita.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Editar dados bancários</div></a></span></td> </tr>
                      <tr> <td><span><div id="salario">Salário Base:</div></span></td> <td><input type="text" id="sal_base" onkeyup="mascara(this, mvalor);" name="sal_base" value="<?php if($func->salario_base!= ""){ echo'R$ ' . number_format($func->salario_base, 2, ',', '.');}?>" required></td></tr> <!-- Salário base -->
-                     <tr><td><span>Valor de Custo:</span></td> <td><input type="text" onkeyup="mascara(this, mvalor);" name="valor_custo" id="valor_custo" value="<?php if($valor_custo->valor != ""){ echo'R$ ' . number_format($valor_custo->valor, 2, ',', '.');}?>"></td>
+                     <tr><td><span>Valor de Custo:</span></td> <td><input type="text" onkeyup="mascara(this, mvalor);" name="valor_custo" id="valor_custo" value="<?php if($valor_custo->valor != ""){ echo 'R$ ' . number_format($valor_custo->valor, 2, ',' , '.'); }?>"></td>
                                   <td>
                                       <select id="tipo_custo" name="tipo_custo"  style="width:100%">
                                     <option value="no_sel">Selecione</option>

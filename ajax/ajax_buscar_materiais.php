@@ -28,18 +28,25 @@ include_once("../model/class_custo_regiao_bd.php");
 					$res = Material::get_material_id($id_material[0]);
 					$uni = new Unidade_medida();
 					$uni = $uni->get_unidade_medida_by_id($res->id_unidade_medida);
-					
-					$custo = Custo_regiao::get_valor($id_material[0], $_SESSION['obra']['dados']['cidade'], $_SESSION['id_empresa']);
+					if(isset($_SESSION['obra']['dados'])){
+						$custo = Custo_regiao::get_valor($id_material[0], $_SESSION['obra']['dados']['cidade'], $_SESSION['id_empresa']);
 
-					if($custo){
-						$custo = 'R$ '.$custo;
+						if($custo){
+							$custo = 'R$ '.$custo;
+						}else{
+							$custo = '<a href="add_material.php?backto=a_pr_o&axestado='.$_SESSION['obra']['dados']['estado'].'&cidade='.$_SESSION['obra']['dados']['cidade'].'" onmouseover="info(\'pop1\')" onmouseout="fecharInfo(\'pop1\')">Defina um valor custo</a>
+								<div id="pop1" class="pop" style="display:none">
+	                                  <div id="titulo1" class="title-info-config"><span>Informações</span></div>
+	                                  <div id="content1" class="content-info">Clique para definir um valor custo para esse material nessa região</div>   
+	                              </div>
+							';
+						}
 					}else{
-						$custo = '<a href="add_material.php?backto=a_pr_o&axestado='.$_SESSION['obra']['dados']['estado'].'&cidade='.$_SESSION['obra']['dados']['cidade'].'" onmouseover="info(\'pop1\')" onmouseout="fecharInfo(\'pop1\')">Defina um valor custo</a>
-							<div id="pop1" class="pop" style="display:none">
-                                  <div id="titulo1" class="title-info-config"><span>Informações</span></div>
-                                  <div id="content1" class="content-info">Clique para definir um valor custo para esse material nessa região</div>   
-                              </div>
-						';
+						$custo = ' <a onmouseover="info(\'pop2\')" onmouseout="fecharInfo(\'pop2\')">Nenhuma cidade foi definida</a>
+								<div id="pop2" class="pop" style="display:none">
+	                                  <div id="titulo2" class="title-info-config"><span>Informações</span></div>
+	                                  <div id="content2" class="content-info">Para exibir o valor custo definido para essa região, primeiro selecione uma cidade na aba <b>Dados da Obra</b></div>   
+	                              </div>';
 					}
 
 
