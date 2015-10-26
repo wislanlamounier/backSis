@@ -323,10 +323,10 @@ function validate(){
                     if(isset($_GET['t']) && $_GET['t'] == 'c'){
                         unset($_SESSION['obra']);
                         echo '<div class="msg">
-                                  <form  action="add_obra.php">
+                                  <form  action="add_obra">
                                     <input type="hidden" id="t" name="t" value="a_c_o">
                                     Cadastramento cancelado!<br /><br />
-                                    <input type="submit"  value="Nova Obra" class="button"> <input type="button" onclick="window.location.href=\'principal.php\'" value="Início" class="button">
+                                    <input type="submit"  value="Nova Obra" class="button"> <input type="button" onclick="window.location.href=\'principal\'" value="Início" class="button">
                                   </form> 
                               </div>';
                     }
@@ -336,7 +336,7 @@ function validate(){
                           $_SESSION['obra']['status'] = 0; 
                           $_SESSION['obra']['situacao_cadastramento'] = 'a_c_o';
                         ?>
-                       <form  action="add_obra.php" onsubmit="return validate(this)">
+                       <form  action="add_obra" onsubmit="return validate(this)">
 
                         
                               <input type="hidden" id="t" name="t" value="a_d_o">
@@ -345,7 +345,7 @@ function validate(){
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
                               		<div class="title-bloco" >
                                       <ul class="menu_obra">
-                                          <li class="ativo"><a href="add_obra.php?t=a_c_o">Cliente</a></li><li><a href="add_obra.php?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra.php?t=a_pr_o">Produtos</a></li><li><a href="add_obra.php?t=a_p_o">Patrimonios</a></li><li><a href="add_obra.php?t=a_f_o">Funcionários</a></li>
+                                          <li class="ativo"><a href="add_obra?t=a_c_o">Cliente</a></li><li><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra?t=a_pr_o">Produtos</a></li><li><a href="add_obra?t=a_p_o">Patrimonios</a></li><li><a href="add_obra?t=a_f_o">Funcionários</a></li>
                                       </ul> 
                                        
                                   </div>
@@ -395,7 +395,7 @@ function validate(){
                       <?php
                         $_SESSION['obra']['situacao_cadastramento'] = 'a_d_o';
                       ?>
-                      <form  action="add_obra.php" onsubmit="return validate(this)">
+                      <form  action="add_obra" onsubmit="return validate(this)">
                                <input type="hidden" id="t" name="t" value="a_pr_o">
                               <?php
                                   isset($_GET['id_cli']) ? $_SESSION['obra']['cliente']['id_cli'] = $_GET['id_cli'] : '';
@@ -412,7 +412,7 @@ function validate(){
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
                                   <div class="title-bloco">
                                       <ul class="menu_obra" style="display:block">
-                                          <li ><a href="add_obra.php?t=a_c_o">Cliente</a></li><li class="ativo"><a href="add_obra.php?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra.php?t=a_pr_o">Produtos</a></li><li><a href="add_obra.php?t=a_p_o">Patrimonios</a></li><li><a href="add_obra.php?t=a_f_o">Funcionários</a></li>
+                                          <li ><a href="add_obra?t=a_c_o">Cliente</a></li><li class="ativo"><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra?t=a_pr_o">Produtos</a></li><li><a href="add_obra?t=a_p_o">Patrimonios</a></li><li><a href="add_obra?t=a_f_o">Funcionários</a></li>
                                       </ul> 
                                   </div>
                                   <div class="desc-bloco">
@@ -506,7 +506,7 @@ function validate(){
                         <?php
                           $_SESSION['obra']['situacao_cadastramento'] = 'a_pr_o';
                         ?>
-                        <form  action="add_obra.php" onsubmit="return validate(this)">
+                        <form  action="add_obra" onsubmit="return validate(this)">
                                <input type="hidden" id="t" name="t" value="a_p_o">
                               <?php
                                   isset($_GET['nome']) ? $_SESSION['obra']['dados']['nome'] = $_GET['nome'] : '';
@@ -527,7 +527,7 @@ function validate(){
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
                                   <div class="title-bloco">
                                       <ul class="menu_obra">
-                                          <li ><a href="add_obra.php?t=a_c_o">Cliente</a></li><li ><a href="add_obra.php?t=a_d_o">Dados da Obra</a></li><li class="ativo"><a href="add_obra.php?t=a_pr_o">Produtos</a></li><li><a href="add_obra.php?t=a_p_o">Patrimonios</a></li><li><a href="add_obra.php?t=a_f_o">Funcionários</a></li>
+                                          <li ><a href="add_obra?t=a_c_o">Cliente</a></li><li ><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li class="ativo"><a href="add_obra?t=a_pr_o">Produtos</a></li><li><a href="add_obra?t=a_p_o">Patrimonios</a></li><li><a href="add_obra?t=a_f_o">Funcionários</a></li>
                                       </ul> 
                                   </div>
                                   <div class="desc-bloco">
@@ -591,7 +591,7 @@ function validate(){
                       <?php
                         $_SESSION['obra']['situacao_cadastramento'] = 'a_p_o';
                       ?>
-                      <form  action="add_obra.php" onsubmit="return validate(this)">
+                      <form  action="add_obra" onsubmit="return validate(this)">
                                <input type="hidden" id="t" name="t" value="a_f_o">
                               <?php
                                   // $_SESSION['obra']['dados']['nome'] = $_GET['nome'];
@@ -605,7 +605,7 @@ function validate(){
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
                                   <div class="title-bloco">
                                       <ul class="menu_obra">
-                                          <li ><a href="add_obra.php?t=a_c_o">Cliente</a></li><li><a href="add_obra.php?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra.php?t=a_pr_o">Produtos</a></li><li class="ativo"><a href="add_obra.php?t=a_p_o">Patrimonios</a></li><li><a href="add_obra.php?t=a_f_o">Funcionários</a></li>
+                                          <li ><a href="add_obra?t=a_c_o">Cliente</a></li><li><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra?t=a_pr_o">Produtos</a></li><li class="ativo"><a href="add_obra?t=a_p_o">Patrimonios</a></li><li><a href="add_obra?t=a_f_o">Funcionários</a></li>
                                       </ul> 
                                   </div>
                                   <div class="desc-bloco">
@@ -679,7 +679,7 @@ function validate(){
                       <?php
                         $_SESSION['obra']['situacao_cadastramento'] = 'a_f_o';
                       ?>
-                        <form  action="add_obra.php" onsubmit="return validate(this)">
+                        <form  action="add_obra" onsubmit="return validate(this)">
                                <input type="hidden" id="t" name="t" value="final">
                               <?php
                                   // $_SESSION['obra']['dados']['nome'] = $_GET['nome'];
@@ -700,7 +700,7 @@ function validate(){
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
                                   <div class="title-bloco">
                                     <ul class="menu_obra">
-                                          <li ><a href="add_obra.php?t=a_c_o">Cliente</a></li><li ><a href="add_obra.php?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra.php?t=a_pr_o">Produtos</a></li><li><a href="add_obra.php?t=a_p_o">Patrimonios</a></li><li class="ativo"><a href="add_obra.php?t=a_f_o">Funcionários</a></li>
+                                          <li ><a href="add_obra?t=a_c_o">Cliente</a></li><li ><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra?t=a_pr_o">Produtos</a></li><li><a href="add_obra?t=a_p_o">Patrimonios</a></li><li class="ativo"><a href="add_obra?t=a_f_o">Funcionários</a></li>
                                       </ul> </div>
                                   <div class="desc-bloco">
                                       <span>Selecione os Funcionarios que trabalharão nessa obra</span>
