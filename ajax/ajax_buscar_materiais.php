@@ -20,9 +20,10 @@ include_once("../model/class_custo_regiao_bd.php");
 		}
 		echo '<div class="formulario" style="width:300px;">
            <table style="width:100%; text-align:center;" border="0">
-              <input type="hidden" id="id_banco" name="id_banco" value="<?php echo $banco->id ?>">
               <tr><td colspan="3"><b>Materiais usados para '.$produto->nome.'</b></td></tr>';
-              echo '<tr><td><b>Nome</b></td><td><b>Quantidade</b></td><td><b>Preço por regiao</b></td></tr>';
+              echo '<tr><td colspan="3"><div style="overflow-y:scroll; max-height:200px;">';
+              echo '<table style="text-align:center">';
+              echo '<tr><td><b><span>Nome</span></b></td><td><b><span>Quantidade</span></b></td><td><b><span>Preço por regiao</span></b></td></tr>';
               for($aux = 0; $aux < count($materiais); $aux++){
               	$id_material = explode(':', $materiais[$aux][1]);
               	
@@ -37,7 +38,7 @@ include_once("../model/class_custo_regiao_bd.php");
 						if($custo){
 							$custo = 'R$ '.number_format(Custo_regiao::get_valor($id_material[0], $_SESSION['obra']['dados']['cidade'], $_SESSION['id_empresa']), 2, ',', '.');
 						}else{
-							$custo = '<a href="add_material.php?backto=a_pr_o&axestado='.$_SESSION['obra']['dados']['estado'].'&cidade='.$_SESSION['obra']['dados']['cidade'].'" onmouseover="info(\'pop'.$aux.'\')" onmouseout="fecharInfo(\'pop'.$aux.'\')">Defina um valor custo</a>
+							$custo = '<a href="add_material.php?backto=a_pr_o&axestado='.$_SESSION['obra']['dados']['estado'].'&cidade='.$_SESSION['obra']['dados']['cidade'].'" onmouseover="info(\'pop'.$aux.'\')" onmouseout="fecharInfo(\'pop'.$aux.'\')"><span>Defina um valor custo</span></a>
 								<div id="pop'.$aux.'" class="pop" style="display:none">
 	                                  <div id="titulo'.$aux.'" class="title-info-config"><span>Informações</span></div>
 	                                  <div id="content'.$aux.'" class="content-info">Clique para definir um valor custo para esse material nessa região</div>   
@@ -45,7 +46,7 @@ include_once("../model/class_custo_regiao_bd.php");
 							';
 						}
 					}else{
-						$custo = ' <a href="add_obra?t=a_d_o" onmouseover="info(\'pop'.$aux.'\')" onmouseout="fecharInfo(\'pop'.$aux.'\')">Nenhuma cidade foi definida</a>
+						$custo = ' <a href="add_obra?t=a_d_o" onmouseover="info(\'pop'.$aux.'\')" onmouseout="fecharInfo(\'pop'.$aux.'\')"><span>Nenhuma cidade foi definida</span></a>
 								<div id="pop'.$aux.'" class="pop" style="display:none">
 	                                  <div id="titulo'.$aux.'" class="title-info-config"><span>Informações</span></div>
 	                                  <div id="content'.$aux.'" class="content-info">Para exibir o valor custo definido para essa região, primeiro selecione uma cidade na aba <b>Dados da Obra</b></div>   
@@ -63,11 +64,20 @@ include_once("../model/class_custo_regiao_bd.php");
 			        else
 			               echo '<tr style="background-color:#ddd;">';
 
-              	echo '<td >'.$res->nome.'</td><td>'.$materiais[$aux][2].' '.( isset($uni) ?$uni->sigla:'').'</td><td><b>'.$custo.'</b></td></tr>';
+              	echo '<td ><span>'.$res->nome.'</span></td><td><span>'.$materiais[$aux][2].' '.( isset($uni) ?$uni->sigla:'').'</span></td><td >'.$custo.'</td></tr>';
               }
+
+              echo '</table>';
+              echo '</div></td></tr>';
         echo '<tr><td colspan="3"><input onclick="fechar()" type="button"  class="button" value="Concluir" ></td></tr>
             </table>
-         </div>';
+
+         </div>
+         <table class="table_geral" style="width:100%; text-align:center; border: 1px solid #cdcdcd; padding: 5px;">
+            	<tr><td colspan="4"><span><b>Mais Informações sobre '.$produto->nome.'</b></span></td></tr>
+            	<tr><td><span><b>Altura</b></span></td><td><span><b>Comprimento</b></span></td><td><span><b>Largura</b></span></td><td title="Tempo estimado de conclusão"><span><b>Tempo</b></span></td></tr>
+            	<tr><td><span>'.$produto->altura.'m</span></td><td><span>'.$produto->comprimento.'m</span></td><td><span>'.$produto->largura.'m</span></td><td><span>'.$produto->tempo_estimado_conclusao.' dias</span></td></tr>
+         </table>';
 	}else{
 		$nome = $_GET['nome'];  //codigo do estado passado por parametro
 		$tipo = $_GET['tipo'];

@@ -28,6 +28,15 @@ function validate(){
 
 </head>
 <script type="text/javascript">
+    function info(id){
+      
+      var divPop = document.getElementById(id);
+      divPop.style.display = "";
+    }
+    function fecharInfo(id){
+      var divPop = document.getElementById(id);
+      divPop.style.display = "none";
+    }
     function increment(nome, acao){//chama a pagina que vai incrementar a quantidade no patrimonio
             // alert("chamou: "+acao)
             var parametros = nome.split(":");
@@ -101,7 +110,12 @@ function validate(){
                         // print_r($_SESSION['produto']['material']);
                         $nome = $_POST['nome'];
                         $id_empresa = $_SESSION['id_empresa'];
-                        $produto->add_produtos($nome, $id_empresa);//inserindo dados no objeto
+                        $altura = $_POST['altura'];
+                        $comprimento = $_POST['comprimento'];
+                        $largura = $_POST['largura'];
+                        $tempo_estimado_conclusao = $_POST['dias'];
+
+                        $produto->add_produtos($nome, $id_empresa, $altura, $largura, $comprimento, $tempo_estimado_conclusao);//inserindo dados no objeto
                         $id_produto = $produto->add_produto_bd();
                         
                         if($id_produto){
@@ -136,7 +150,11 @@ function validate(){
                         
                         $nome = $_POST['nome'];
                         $id_produto = $_POST['id_produto'];
-                        $produto = $produto->atualiza_produto($nome, $id_produto);
+                        $altura = $_POST['altura'];
+                        $comprimento = $_POST['comprimento'];
+                        $largura = $_POST['largura'];
+                        $tempo_estimado_conclusao = $_POST['dias'];
+                        $produto = $produto->atualiza_produto($nome, $id_produto, $altura, $largura, $comprimento, $tempo_estimado_conclusao);
                         
                         if($id_produto){
                           $sucesso = 'Atualizado';
@@ -162,7 +180,7 @@ function validate(){
                     
                 }
            ?>
-      
+         <script>alert('Tratar os campos altura, comprimento, largura e tempo estimado de conclusão');</script>
             <div class="formulario" style="width:500px;">
               <div class="title-box" style="float:left;width:100%"><div style="float:left"><img src="../images/add.png" width="35px" style="margin-left:5px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">ADICIONAR PRODUTO</span></div></div>
               <?php 
@@ -180,18 +198,21 @@ function validate(){
                                     $produto = $produto->get_produto_id($_GET['id']);
                                     $aux = 0;
                                     $materiais = $produto->get_materiais_produto($produto->id);
-                                    foreach ($materiais as $key => $value) {
-                                        foreach ($value as $key => $material) {
-                                            if($key == 1){
-                                                $id_tipo = explode(':', $material);                                             
+                                    
+                                    if($materiais){
+                                        foreach ($materiais as $key => $value) {
+                                            foreach ($value as $key => $material) {
+                                                if($key == 1){
+                                                    $id_tipo = explode(':', $material);                                             
+                                                }
+                                                if($key == 2){
+                                                    $quantidade = $material;                                             
+                                                }
                                             }
-                                            if($key == 2){
-                                                $quantidade = $material;                                             
-                                            }
-                                        }
-                                        $_SESSION['produto']['editar']['material'][$aux] = $id_tipo[0].':'.$quantidade.':'.$id_tipo[1];
-                                        $aux++;
-                                    }                                  
+                                            $_SESSION['produto']['editar']['material'][$aux] = $id_tipo[0].':'.$quantidade.':'.$id_tipo[1];
+                                            $aux++;
+                                        }          
+                                    }                        
                                ?>
                               <input type="hidden" id="t" name="t" value="editar">
                                <input type="hidden" id="id_produto" name="id_produto" value="<?php echo $produto->id ?>">
@@ -199,7 +220,15 @@ function validate(){
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
                                   
                                   <div class="desc-bloco">
-                                      <span>Selecione os Materiais necessários para esse produto </span>
+                                      <span style="float:left; margin-left: 10px;"><a href="#" onmouseover="info('pop2')" onmouseout="fecharInfo('pop2')"><img width='15px' src="../images/info-icon.png"> Dica</a></span> <span> Selecione os Materiais necessários para esse produto </span>
+                                      <!-- <div class="cont" style="margin-left:480px;"><a name="exibe_box_atrasos" onclick="oculta(this.name)"><img width="20px" src="../images/icon-fechar.png" ></a> -->
+                                      <div id="pop2" class="pop" style="display:none">
+                                          <div id="titulo2" class="title-info-config"><span>Dicas útil</span></div>
+                                          <div id="content2" class="content-info">Cadastre um produto com medidas padrões, que possa ser usado em varias obras.<br /> <b>Ex: </b>Parede 1m x 1m x 0,20m<br />
+                                            Essa parede possui 1m², no cadastramento de obras pode ser definido qual a quantidade desse produto será usado<br />
+                                            <b>Ex: </b>5 Paredes = 5m²</div>   
+                                      </div>
+                                     <!-- </div> -->
                                   </div>
                                   <div class="body-bloco">
                                       <div class="form-input left">
@@ -207,15 +236,15 @@ function validate(){
                                               <div class="form-input" style="background-color:rgba(210,210,210,0.5); padding: 10px 0px 10px 5px; border: 1px solid#bbb;">
                                                   <span><b>Nome: </b></span><input type="text" placeholder="Digite o nome do produto" id="nome" name="nome" style="width:75%" value="<?php echo $produto->nome ?>">    
                                                   <table>
-                                                      <tr><td><span><b>Altura</b></span></td><td><span><b>Largura</b></span></td><td><span><b>Comprimento</b></span></td></tr>
+                                                      <tr><td><span><b>Altura</b></span></td><td><span><b>Comprimento</b></span></td><td><span><b>Largura</b></span></td></tr>
                                                       <tr>
-                                                          <td><input type="number" id="altura" name="altura" style="width:100%" placeholder="Metros" title="Digite a altura em metros"></td>
-                                                          <td><input type="number" id="largura" name="largura" style="width:100%" placeholder="Metros" title="Digite a largura em metros"></td>
-                                                          <td><input type="number" id="comprimento" name="comprimento" style="width:100%" placeholder="Metros" title="Digite o comprimento em metros"></td>
+                                                          <td><input type="text" id="altura" name="altura" style="width:100%" placeholder="Metros" title="Digite a altura em metros" value="<?php echo $produto->altura ?>"></td>
+                                                          <td><input type="text" id="comprimento" name="comprimento" style="width:100%" placeholder="Metros" title="Digite o comprimento em metros" value="<?php echo $produto->comprimento ?>"></td>
+                                                          <td><input type="text" id="largura" name="largura" style="width:100%" placeholder="Metros" title="Digite a largura em metros" value="<?php echo $produto->largura ?>"></td>
                                                       </tr>
                                                       <tr><td colspan="3"><span><b>Tempo estimado de conclusão</b></span></td></tr>
                                                       <tr>
-                                                          <td colspan="3"><input type="number" id="dias" name="dias" style="width:50%" placeholder="Dias" title="Digite o tempo de conclusão estimado para esse produto"><span> dias</span></td>
+                                                          <td colspan="3"><input type="text" id="dias" name="dias" style="width:50%" placeholder="Dias" title="Digite o tempo de conclusão estimado para esse produto" value="<?php echo $produto->tempo_estimado_conclusao ?>"><span> dias</span></td>
                                                       </tr>
                                                     
                                                   </table>
@@ -300,7 +329,15 @@ function validate(){
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
                                   
                                   <div class="desc-bloco">
-                                      <span>Selecione os Materiais necessários para esse produto </span>
+                                      <span style="float:left; margin-left: 10px;"><a href="#" onmouseover="info('pop2')" onmouseout="fecharInfo('pop2')"><img width='15px' src="../images/info-icon.png"> Dica</a></span> <span> Selecione os Materiais necessários para esse produto </span>
+                                      <!-- <div class="cont" style="margin-left:480px;"><a name="exibe_box_atrasos" onclick="oculta(this.name)"><img width="20px" src="../images/icon-fechar.png" ></a> -->
+                                      <div id="pop2" class="pop" style="display:none">
+                                          <div id="titulo2" class="title-info-config"><span>Dicas útil</span></div>
+                                          <div id="content2" class="content-info">Cadastre um produto com medidas padrões, que possa ser usado em varias obras.<br /> <b>Ex: </b>Parede 1m x 1m x 0,20m<br />
+                                            Essa parede possui 1m², no cadastramento de obras pode ser definido qual a quantidade desse produto será usado<br />
+                                            <b>Ex: </b>5 Paredes = 5m²</div>   
+                                      </div>
+                                     <!-- </div> -->
                                   </div>
                                   <div class="body-bloco">
                                       <div class="form-input left">
@@ -308,15 +345,15 @@ function validate(){
                                               <div class="form-input" style="background-color:rgba(210,210,210,0.5); padding: 10px 5px 10px 5px; border: 1px solid#bbb;">
                                                   <span><b>Nome: </b></span><input type="text" placeholder="Digite o nome do produto" id="nome" name="nome" style="width:75%">    
                                                    <table>
-                                                      <tr><td><span><b>Altura</b></span></td><td><span><b>Largura</b></span></td><td><span><b>Comprimento</b></span></td></tr>
+                                                      <tr><td><span><b>Altura</b></span></td><td><span><b>Comprimento</b></span></td><td><span><b>Largura</b></span></td></tr>
                                                       <tr>
-                                                          <td><input type="number" id="altura" name="altura" style="width:100%" placeholder="Metros" title="Digite a altura em metros"></td>
-                                                          <td><input type="number" id="largura" name="largura" style="width:100%" placeholder="Metros" title="Digite a largura em metros"></td>
-                                                          <td><input type="number" id="comprimento" name="comprimento" style="width:100%" placeholder="Metros" title="Digite o comprimento em metros"></td>
+                                                          <td><input type="text" id="altura" name="altura" style="width:100%" placeholder="Metros" title="Digite a altura em metros"></td>
+                                                          <td><input type="text" id="comprimento" name="comprimento" style="width:100%" placeholder="Metros" title="Digite o comprimento em metros"></td>
+                                                          <td><input type="text" id="largura" name="largura" style="width:100%" placeholder="Metros" title="Digite a largura em metros"></td>
                                                       </tr>
                                                       <tr><td colspan="3"><span><b>Tempo estimado de conclusão</b></span></td></tr>
                                                       <tr>
-                                                          <td colspan="3"><input type="number" id="dias" name="dias" style="width:50%" placeholder="Dias" title="Digite o tempo de conclusão estimado para esse produto"><span> dias</span></td>
+                                                          <td colspan="3"><input type="text" id="dias" name="dias" style="width:50%" placeholder="Dias" title="Digite o tempo de conclusão estimado para esse produto"><span> dias</span></td>
                                                       </tr>
                                                     
                                                   </table>
