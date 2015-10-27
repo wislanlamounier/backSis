@@ -4,6 +4,7 @@ include_once("../model/class_sql.php");
 include_once("../model/class_maquinario_bd.php");
 include_once("../model/class_veiculo_bd.php");
 include_once("../model/class_patrimonio_geral_bd.php");
+include_once("../model/class_funcionario_bd.php");
 
 
 	
@@ -16,6 +17,44 @@ include_once("../model/class_patrimonio_geral_bd.php");
 	if(!isset($_SESSION['obra']['patrimonio'])){
   		//obra recebe a concatenação do tipo:id:quantidade
   		$_SESSION['obra']['patrimonio'][0] = $tipo.':'.$id.':1';
+      if($tipo == 1){ //maquinario
+            $res = Maquinario::get_maquinario_id($id);
+            
+            if(Funcionario::verifica_func_id($res->id_responsavel)){ //verifica se existe esse responsavel cadastrado
+                $verifica = 0;
+                if(isset($_SESSION['obra']['funcionario'])){//verifica se existe algum funcionario cadastrado
+                    for($aux = 0; $aux < count($_SESSION['obra']['funcionario']) ; $aux++ ){
+                        if($res->id_responsavel == $_SESSION['obra']['funcionario'][$aux]){// percorre o vetor e verifica se existe um igual
+                          $verifica++;
+                        }
+                    }
+                    if($verifica == 0){                    
+                        $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
+                    }
+                }else{
+                    $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
+                }
+            }
+      }else if($tipo == 2){ //veiculos
+            $res = Veiculo::get_veiculo_id($id);
+            if(Funcionario::verifica_func_id($res->id_responsavel)){//verifica se existe esse responsavel cadastrado
+                $verifica = 0;
+                if(isset($_SESSION['obra']['funcionario'])){//verifica se existe algum funcionario cadastrado
+                    for($aux = 0; $aux < count($_SESSION['obra']['funcionario']) ; $aux++ ){
+                        if($res->id_responsavel == $_SESSION['obra']['funcionario'][$aux]){
+                          $verifica++;
+                        }
+                    }
+                    if($verifica == 0){
+
+                        $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
+                        
+                    }
+                }else{
+                    $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
+                }
+            }
+      }
 	}else{
   		$total = count( $_SESSION['obra']['patrimonio'] );
       $verifica = 0;// verificará se existe um
@@ -32,28 +71,39 @@ include_once("../model/class_patrimonio_geral_bd.php");
           //verifica se é maquinario ou veiculo para adicionar seus respectivos responsaveis à obra
           if($tipo == 1){// maquinario
                 $res = Maquinario::get_maquinario_id($id);
-                $verifica = 0;
-                if(isset($_SESSION['obra']['funcionario']))//verifica se existe algum funcionario cadastrado
-                    for($aux = 0; $aux < count($_SESSION['obra']['funcionario']) ; $aux++ ){
-                        if($res->id_responsavel == $_SESSION['obra']['funcionario'][$aux]){// percorre o vetor e verifica se existe um igual
-                          $verifica++;
+                if(Funcionario::verifica_func_id($res->id_responsavel)){//verifica se existe esse responsavel cadastrado
+                    $verifica = 0;
+                    if(isset($_SESSION['obra']['funcionario'])){ //verifica se existe algum funcionario cadastrado
+                        for($aux = 0; $aux < count($_SESSION['obra']['funcionario']) ; $aux++ ){
+                            if($res->id_responsavel == $_SESSION['obra']['funcionario'][$aux]){// percorre o vetor e verifica se existe um igual
+                              $verifica++;
+                            }
                         }
+                        if($verifica == 0){
+                            
+                            $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
+                        }
+                    }else{
+                        $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
                     }
-                if($verifica == 0){
-                    $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
                 }
           }else if($tipo == 2){//veiculos
                 $res = Veiculo::get_veiculo_id($id);
-                $verifica = 0;
+                if(Funcionario::verifica_func_id($res->id_responsavel)){//verifica se existe esse responsavel cadastrado
+                    $verifica = 0;
 
-                if(isset($_SESSION['obra']['funcionario']))//verifica se existe algum funcionario cadastrado
-                    for($aux = 0; $aux < count($_SESSION['obra']['funcionario']) ; $aux++ ){
-                        if($res->id_responsavel == $_SESSION['obra']['funcionario'][$aux]){
-                          $verifica++;
+                    if(isset($_SESSION['obra']['funcionario'])){//verifica se existe algum funcionario cadastrado
+                        for($aux = 0; $aux < count($_SESSION['obra']['funcionario']) ; $aux++ ){
+                            if($res->id_responsavel == $_SESSION['obra']['funcionario'][$aux]){
+                              $verifica++;
+                            }
                         }
+                        if($verifica == 0){
+                            $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
+                        }
+                    }else{
+                          $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
                     }
-                if($verifica == 0){
-                    $_SESSION['obra']['funcionario'][(isset($_SESSION['obra']['funcionario']))?count($_SESSION['obra']['funcionario']):0] = $res->id_responsavel;//adicionando na obra o funcionario responsavel pelo patrimonio
                 }
           }
       }

@@ -253,14 +253,21 @@ class Patrimonio{
 			$fornecedor = $cliente->get_cli_by_id($maquinario->id_fornecedor);
                         
 			$func = new Funcionario();
+<<<<<<< HEAD
+            $func = $func->get_nome_by_id($maquinario->id_responsavel); 
+
+            $empresa = new Empresa();
+            $empresa = $empresa->get_empresa_by_id($maquinario->id_empresa);
+=======
                         
                         $func = $func->get_func_id($maquinario->id_responsavel); 
                         echo $func->nome;
                         $empresa = new Empresa();
                         $empresa = $empresa->get_empresa_by_id($maquinario->id_empresa);
+>>>>>>> cf04be7f7d34595f6db544d2c5bdd1b8034f75ad
 
-                        $cor = new Cor();
-                        $cor = $cor->get_cor_id($maquinario->id_cor);
+            $cor = new Cor();
+            $cor = $cor->get_cor_id($maquinario->id_cor);
                         
 			echo "<table class='table_pesquisa'>";
 			echo "<tr><td><span><b>Matricula <b/></span></td><td><span>".$maquinario->matricula."</span></td></tr>";

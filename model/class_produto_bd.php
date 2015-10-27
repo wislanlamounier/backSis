@@ -105,7 +105,7 @@ class Produto{
 		}
 		if($aux == 0){
 			$sql->close_conn();
-			echo '<div class="msg">Nenhum produto encontrado!</div>';
+			return false;
 		}else{
 			$sql->close_conn();
 			return $return;

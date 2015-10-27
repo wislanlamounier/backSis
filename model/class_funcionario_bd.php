@@ -367,6 +367,28 @@ class Funcionario{
         }
 	}
 
+	public function verifica_func_id($id){
+		
+		$sql = new Sql();
+		$sql->conn_bd();
+
+		$g = new Glob();
+		
+		//criptografia md5() no campo senha
+		$query = "SELECT id FROM funcionario WHERE id = '%s' && oculto = 0";
+		
+		$result = $g->tratar_query($query,$id);// recebe query tratada
+		
+		if(@mysql_num_rows($result) == 0){
+           
+            return false;
+            
+        }else{
+        	
+        	return true;
+        }
+	}
+
 	public function verifica_func_admin($id, $pass){
 		
 		$sql = new Sql();
@@ -764,7 +786,7 @@ class Funcionario{
 		$result = mysql_query($query);
 
 		if(@mysql_num_rows($result) == 0){
-            echo 'Nenhum funcionário encontrado';
+            // echo 'Nenhum funcionário encontrado';
             return false;
 	     }else{
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
