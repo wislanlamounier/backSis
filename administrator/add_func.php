@@ -1263,6 +1263,7 @@ function carregaUf_CartTrab(uf){
                            $endereco = new Endereco();
                            $valor_custo = new Valor_custo();
                            
+
                            $cod_serie = $_POST['codigo'];
                            $id = $_POST['id_func'];
                            $id_tabela = $_POST['id_tabela'];
@@ -1298,15 +1299,21 @@ function carregaUf_CartTrab(uf){
                            $id_custo = $_POST['id_custo'];
                            $estagiario = ($_POST['estagiario'])?1:0;
                                
-                                if(isset($_POST['valor_custo'])!= ""){
-                                   
-                                     $id_tipo_custo = $_POST['tipo_custo'];
-                                     $valor = $_POST['valor_custo'];
-                                     $valor = moeda($valor);
-                                     
-                                     $id_custo = $valor_custo->atualiza_valor_custo($valor, $id_tipo_custo, $id_custo);
-                                   
-                                };
+                           if(isset($_POST['valor_custo']) != ""){
+                                $Ftemp = Funcionario::get_func_id($id);
+                                $valorCustoTemp = Valor_custo::get_valor_custo_id($Ftemp->id_valor_custo);
+                                
+                                if(moeda($valorCustoTemp->valor) != moeda($_POST['valor_custo'])){ // valor custo só é atualizado se o valor alterado for diferente do valor atual
+                                    $id_tipo_custo = $_POST['tipo_custo'];
+                                    $valor = $_POST['valor_custo'];
+                                    $valor = moeda($valor);
+                                    
+                                    $id_custo = $valor_custo->atualiza_valor_custo($valor, $id_tipo_custo, $id_custo);
+                                }else{
+                                    $id_custo = $Ftemp->id_valor_custo;
+                                }
+                              
+                           };
                            
                            $qtd_horas_sem = $_POST['qtd_horas_sem'];
                            $num_cart_trab = $_POST['num_cart_trab'];
@@ -1353,8 +1360,8 @@ function carregaUf_CartTrab(uf){
                            //************** FIM ATUALIZA DADOS BANCáRIOS ******************
 
                            if($func->atualiza_func($id, $id_dados_bancarios, $cod_serie, $id_tabela, $nome, $cpf, $data_nasc, $id_endereco, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $rg, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa, $data_adm, $salario_base, $id_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $estagiario)){
-                              echo '<div class="msg">Funcionário atualizado com sucesso : '. $estagiario.'</div>';
-                              echo '<script>alert("Funcionário atualizado com sucesso : '. $estagiario.'")</script>';
+                              echo '<div class="msg">Funcionário atualizado com sucesso</div>';
+                              echo '<script>alert("Funcionário atualizado com sucesso")</script>';
                               echo '<script>window.location.href=\'principal\'</script>';
                            }else{
                               echo '<div class="msg">Falha ao atualizar funcionário</div>';

@@ -1,0 +1,580 @@
+
+<!-- saved from url=(0058)http://localhost/viacampos/administrator/add_obra?t=a_pr_o -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script type="text/javascript" language="javascript" src="./add_obra_files/jquery-2.1.4.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="./add_obra_files/style.css">
+
+<script type="text/javascript">
+    function info(id){
+      
+      var divPop = document.getElementById(id);
+      divPop.style.display = "";
+    }
+    function fecharInfo(id){
+      var divPop = document.getElementById(id);
+      divPop.style.display = "none";
+    }
+    function oculta(t){
+        var opc = confirm("Ocultar esse bloco, tem certeza?");
+        if(opc){
+            window.location = 'principal.php?oculta=yes&bloco='+t;
+        }
+    }
+
+    function novo_produto(){
+                    
+        window.open("add_produto.php", 'janela','width=800, height=800, scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
+    }
+    
+    function carregaF_O(f_o){
+          
+      var combo = document.getElementById("responsavel_obra");
+      for (var i = 0; i < combo.options.length; i++)
+      {
+        if (combo.options[i].value == f_o)
+        {
+          combo.options[i].selected = true;
+          
+          break;
+        }
+      }
+    }
+
+    function mostraLocal(){ // FUNCAO QUE MOSTRA OCULTA OU MOSTRA A DIV DO MAPA
+        document.getElementById('fundo').hidden = false;
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+        var screenWidth = screen.width;        
+        var screenHeight = screen.height;
+        
+            if(windowWidth > 1200){
+         
+          document.getElementById("map").style.marginLeft = "28%";
+          document.getElementById("map").style.marginTop = "12%";
+           
+            }else if(windowWidth > 1000){
+          document.getElementById("map").style.marginLeft = "10%";
+             }else if(windowWidth > 500){
+          document.getElementById("map").style.marginLeft = "10%";
+             }else{
+          document.getElementById("map").style.marginLeft = "10%";
+        }
+             // INICIA O INTMAP DE NOVO POR QUE SE NAO FICA PAGINA EM BRANCO
+     }
+
+    
+    
+    
+    function expand(id_obg, id_btn){
+        if(document.getElementById(id_obg).className == 'form-input colapse'){
+            // document.getElementById(id_obg).style.display = 'none';
+            document.getElementById(id_obg).className = 'form-input expand';
+            document.getElementById(id_btn).text = '(Ocultar)';
+            document.getElementById(id_btn).style.color = "#773333";
+        }else{
+            // document.getElementById(id_obg).style.display = 'block';
+            document.getElementById(id_obg).className = 'form-input colapse';
+            document.getElementById(id_btn).text = '(Expandir)';
+            document.getElementById(id_btn).style.color = "#337733";
+        }
+        
+    }
+    function exibe(id){
+        
+        var url = '../ajax/ajax_buscar_materiais.php?id_produto='+id; 
+            
+         $.get(url, function(dataReturn) {
+              
+              $('#popup').html(dataReturn);  
+         });
+
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+      
+        var screenWidth = screen.width;
+        var screenHeight = screen.height;
+        // alert(windowWidth+" x "+windowHeight)
+        if(windowWidth > 1200){
+          document.getElementById("popup").style.marginLeft = "35%";
+        }else if(windowWidth > 1000){
+          document.getElementById("popup").style.marginLeft = "30%";
+        }else if(windowWidth > 500){
+          document.getElementById("popup").style.marginLeft = "20%";
+        }else{
+          document.getElementById("popup").style.marginLeft = "0%";
+        }
+    }
+    function fechar(){
+        document.getElementById("fundo").hidden = "false";
+        document.getElementById("map").style.marginLeft = "-800px";
+        document.getElementById("popup").style.marginLeft = "-450px";
+    }
+    function increment(nome, whatarray){//chama a pagina que vai incrementar a quantidade no patrimonio
+           var parametros = nome.split(":");
+                
+           var quantidade = document.getElementById(nome).value;
+
+           if(quantidade > 0){
+               if(whatarray == 'patrimonio'){
+                    
+                    var url = '../ajax/ajax_incrementa_quantidade.php?id='+parametros[1]+'&qtd='+quantidade+'&tipo='+parametros[2]+'&whatarray='+whatarray; 
+                    
+                    $.get(url, function(dataReturn) {
+                      
+                    });
+                }else if(whatarray == 'produto'){
+                    
+                    var url = '../ajax/ajax_incrementa_quantidade.php?id='+parametros[0]+'&qtd='+quantidade+'&whatarray='+whatarray; 
+                    
+                    $.get(url, function(dataReturn) {
+                      
+                    });
+                }
+          }else{
+             alert("Insira um valor maior que 0")
+          }
+    }
+  	function buscarClientes(){
+
+            var nome = document.getElementById("nome").value;
+            var url = '../ajax/ajax_buscar_clientes.php?nome='+nome; 
+            
+            $.get(url, function(dataReturn) {
+            	
+              $('#form-input-select').html(dataReturn);  
+            });
+         
+    }
+
+    function buscarPatrimonios(){
+      
+        if(document.getElementById("veiculo").checked == true){
+            tipo = 2;
+            document.getElementById("tipo").value = "2";
+        }else if(document.getElementById("maquinario").checked == true){
+            tipo = 1;
+            document.getElementById("tipo").value = "1";
+        }else{
+            tipo = 0;
+            document.getElementById("tipo").value = "0";
+        }
+        var nome = document.getElementById("nome").value;
+        var url = '../ajax/ajax_buscar_patrimonios.php?nome='+nome+'&tipo='+tipo;  
+
+         $.get(url, function(dataReturn) {
+            $('#form-input-select').html(dataReturn);
+          });
+    }
+    function selecionaCliente(retorno){
+          var id = retorno;
+        
+          var url = '../ajax/ajax_buscar_dados_cliente.php?id='+id;  
+          
+          $.get(url, function(dataReturn) {
+            
+            $('#form-input-dados').html(dataReturn); 
+          });
+    }
+    function selecionaPatrimonio(id){
+          var tipo = document.getElementById("tipo").value;
+          
+          var url = '../ajax/ajax_montar_patrimonio.php?id='+id+'&tipo='+tipo;  
+
+          $.get(url, function(dataReturn) {
+            
+            $('#form-input-dados').html(dataReturn); 
+          });
+    }
+    function buscarFuncionario(){
+        var nome = document.getElementById("nome").value;
+        var url = "../ajax/ajax_buscar_funcionarios.php?nome="+nome;
+
+        $.get(url, function(dataReturn) {
+            
+            $('#form-input-select').html(dataReturn);
+        });
+    }
+    function selecionaFuncionarios(id){
+      
+        var url = '../ajax/ajax_montar_funcionarios.php?id='+id; 
+        
+        $.get(url, function(dataReturn) {
+          
+          $('#form-input-dados').html(dataReturn);  
+        });
+    }
+    function apagar(id, whatarray){
+
+        var url = '../ajax/ajax_apagar.php?id='+id+'&whatarray='+whatarray; 
+        
+        $.get(url, function(dataReturn) {
+          
+          $('#form-input-dados').html(dataReturn);  
+        });
+    }
+    function buscarProdutos(){
+        var nome = document.getElementById("nome").value;
+        
+        var url = '../ajax/ajax_buscar_materiais.php?nome='+nome+'&tipo=p';  
+        $.get(url, function(dataReturn) {
+            $('#form-input-select').html(dataReturn);
+        });
+    }
+    function selecionaProduto(id){
+            
+          var url = '../ajax/ajax_montar_material.php?id='+id+'&whatarray=obra';
+          
+          $.get(url, function(dataReturn) {
+            
+            $('#form-input-dados').html(dataReturn); 
+          });
+    }
+    function cancel(){
+      opc = confirm("Tem certeza que deseja cancelar?");
+      if(opc)
+        window.location.href='add_obra.php?t=c';
+    }
+
+    var map;
+    function initMap() {
+      
+      var zoom = 4; // zoom original para aparecer o mapa longe 
+      var originalMapCenter = new google.maps.LatLng(-14.2392976, -53.1805017) // PONTO iNICIAL COM A LAT E LONG DO BRASIL
+      var lat = document.getElementById('lat').value;  //RECEBE O VALOR DA LAT PELO INPUT
+      var long = document.getElementById('long').value;// RECEBE O VALOR DA LONG PELO INPUT      
+      
+      if(lat !== "" && long !==""){
+        var originalMapCenter = new google.maps.LatLng(lat, long);
+        zoom = 16;
+      }
+      var map = new google.maps.Map(document.getElementById('map'),{
+        mapTypeId: google.maps.MapTypeId.SATELLITE,/*ROADMAP*/
+        scrollwheel: false,
+        zoom: zoom,
+        center: originalMapCenter
+      });
+      
+
+      var infowindow = new google.maps.InfoWindow({
+        content: 'Aqui é sua Obra',
+        position: originalMapCenter
+      });
+      infowindow.open(map);
+
+      map.addListener('zoom_changed', function() {
+        infowindow.setContent('Zoom: ' + map.getZoom());
+      });
+     
+    }
+    function buscar_cidades(estado){    
+
+      if(estado){
+        var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;
+        $.get(url, function(dataReturn) {
+          $('#load_cidades').html(dataReturn);
+        });
+      }
+    }
+    function mudaTipo(t){
+        document.getElementById("tipo").value = t;
+    }
+</script><script src="./add_obra_files/js" async="" defer=""></script><script type="text/javascript" charset="UTF-8" src="./add_obra_files/common.js"></script><script type="text/javascript" charset="UTF-8" src="./add_obra_files/util.js"></script><script type="text/javascript" charset="UTF-8" src="./add_obra_files/stats.js"></script></head>
+
+
+<body onload="initMap()">	
+			 <script type="text/javascript">
+
+ 	function submitForm(form){
+
+ 		var url = 'reportMailError.php?pag='+form[0].value+'&descricao='+form[1].value; 
+ 		$.get(url, function(dataReturn) {
+            alert("Erro reportado com sucesso, Obrigado");
+            document.getElementById("back-popup").style.display = "none";
+        	document.getElementById("popup-erro").style.marginLeft = "-600px";
+        });
+  	}
+    function desabilitaDiv1(){        
+        document.getElementById("box-login1").style.display = "none";
+        alert("chamouDIV1");
+        } 
+    function desabilitaDiv2(){
+        document.getElementById("box-login2").style.display = "none";
+        alert("chamouDIV2");
+        }
+	function exibe_error(){
+        // document.getElementById("popup").style.display = "block";
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+      
+        var screenWidth = screen.width;
+        var screenHeight = screen.height;
+        // alert(windowWidth+" x "+windowHeight)
+		document.getElementById("back-popup").style.display = "block";
+        if(windowWidth > 1200){
+          document.getElementById("popup-erro").style.marginLeft = "35%";
+        }else if(windowWidth > 1000){
+          document.getElementById("popup-erro").style.marginLeft = "30%";
+        }else if(windowWidth > 500){
+          document.getElementById("popup-erro").style.marginLeft = "20%";
+        }else{
+          document.getElementById("popup-erro").style.marginLeft = "0%";
+        }
+
+    }
+    function fecha_error(){
+    	document.getElementById("back-popup").style.display = "none";
+        document.getElementById("popup-erro").style.marginLeft = "-700px";
+    }
+ </script>
+
+<div class="topo" style="width:100%; float:left; min-width:600px;">
+        <input type="hidden" value="3">            <div class="img" style="float:left">   <img style="height: 90px;" src="./add_obra_files/logo75mm.png"> </div>
+	<div class="box-login" style="">
+		<div style="float:left"><img src="./add_obra_files/user.png" width="40px"></div>
+		<div class="nome-box-login" style=""><span style="">Usuário:<br></span>Andre Matos<br><span style="">Empresa:<br></span>HomeConst<span> (Acesso Total)</span></div>
+		<div style="float:right;"><a title="Clique para sair" href="http://localhost/viacampos/administrator/logout"><img src="./add_obra_files/fechar.png" width="20px"></a></div>
+                <div style="clear:right;"><a title="Clique para editar a empresa" href="http://localhost/viacampos/administrator/add_empresa?tipo=editar&id=3%3E"><img src="./add_obra_files/edit2.png" width="20px"></a></div>
+	</div>
+     <script type="text/javascript">
+ 	function submitForm(form){
+ 		var url = 'reportMailError.php?pag='+form[0].value+'&descricao='+form[1].value; 
+ 		$.get(url, function(dataReturn) {
+            alert("Erro reportado com sucesso, Obrigado");
+            document.getElementById("back-popup").style.display = "none";
+        	document.getElementById("popup-erro").style.marginLeft = "-600px";
+        });
+
+ </script>
+ <!-- Código para verificação se a empresa ja foi totalmente cadastrada -->
+            
+	<!-- Janela do topo referente a empresa -->
+	
+
+
+    <!-- janela do topo referente ao usuario -->
+
+
+
+
+
+     
+
+
+
+
+
+
+
+    
+
+
+</div>
+<div style="float:right; padding-right:10px; ">
+    <a onclick="exibe_error()" style="cursor:pointer"><span>Reportar um Erro</span></a>
+</div>
+<div style="float:left; width:100%; min-width:630px;">
+ 	<div class="menu">
+		<div class="menu">
+	         <ul class="menu-list">  
+    <li style="border-left: 1px solid#565656;"><a href="http://localhost/viacampos/administrator/principal">Início</a></li>
+    <li>
+      <!-- color:#000; text-shadow: 0px 0px 5px #000; font-size: 13px; padding-left:3px;padding-right:3px; background-color:rgba(255,255,255,0.5) -->
+      <a style=""><span style="float:left">Cadastrar </span><img style="float:left; margin-top:-2px; margin-left:2px;" src="./add_obra_files/downarrow_1246.png" width="15px;"></a>
+       <ul class="sub-menu">
+        <li><a href="http://localhost/viacampos/administrator/add_func">Funcionário</a></li>
+                          <li><a href="http://localhost/viacampos/administrator/add_cliente">Cliente / Fornecedor</a></li>
+                  <li><a href="http://localhost/viacampos/administrator/add_epi">Equipamentos</a></li>                  
+                  <li><a href="http://localhost/viacampos/administrator/add_epiXfunc">Equipamentos por funcionario</a></li>
+                  <li><a href="http://localhost/viacampos/administrator/add_patrimonio">Patrimonio</a></li>
+                  <li><a href="http://localhost/viacampos/administrator/add_produto">Produto</a></li>
+                  <li><a href="http://localhost/viacampos/administrator/add_material">Material</a></li>
+                  <li><a href="http://localhost/viacampos/administrator/pesquisa_epi">Equipamentos</a></li>
+        
+        <li><a href="http://localhost/viacampos/administrator/add_turno">Turno</a></li>
+        <li><a href="http://localhost/viacampos/administrator/add_cbo">CBO</a></li>
+        <li><a href="http://localhost/viacampos/administrator/add_exames">Exames</a></li>
+                <li><a href="http://localhost/viacampos/administrator/add_filial">Posto de Trabalho</a></li>
+
+      </ul>
+    </li>
+    <li>
+      <a style=""><span style="float:left">Pesquisar </span><img style="float:left; margin-left:2px; margin-top:-2px;" src="./add_obra_files/downarrow_1246.png" width="15px;"></a>
+       <ul class="sub-menu">
+        <li><a href="http://localhost/viacampos/administrator/pesquisa_func">Funcionário</a></li>
+        <li><a href="http://localhost/viacampos/administrator/pesquisa_empresa">Empresa</a></li>
+        <li><a href="http://localhost/viacampos/administrator/pesquisa_turno">Turno</a></li>
+        <li><a href="http://localhost/viacampos/administrator/pesquisa_cbo">CBO</a></li>
+                   <li><a href="http://localhost/viacampos/administrator/pesquisa_cli">Cliente</a></li>
+          <li><a href="http://localhost/viacampos/administrator/pesquisa_patrimonio">Patrimonio</a></li>
+        
+        <li><a href="http://localhost/viacampos/administrator/pesquisa_filial">Posto de Trabalho</a></li>
+
+        <li><a href="http://localhost/viacampos/administrator/pesquisa_exames">Exames</a></li>
+      </ul>
+    </li>
+          <li>
+        <a style=""><span style="float:left">Obras </span><img style="float:left; margin-left:2px; margin-top:-2px;" src="./add_obra_files/downarrow_1246.png" width="15px;"></a>
+         <ul class="sub-menu">
+          <li><a href="http://localhost/viacampos/administrator/add_obra?t=a_c_o">Nova</a></li>
+        </ul>
+      </li>
+        <li><a href="http://localhost/viacampos/administrator/define_relatorio">Relatórios</a></li>
+    <li><a href="http://localhost/viacampos/administrator/configuracoes">Configurações</a></li>
+</ul>
+
+
+	    </div>
+	</div>
+</div>
+<div class="back-popup" id="back-popup" style="position:absolute; z-index: 1">
+</div>
+<div id="popup-erro" class="popup-erro" style=" position: fixed; margin-top:100px; margin-left: -700px; width:500px; z-index: 5">
+	
+<div class="formulario" style="background-color:rgba(200,200,200,0.8); box-shadow: 5px 5px 10px #333; border: 5px solid#ababab; border-radius:5px;">
+
+	<h1 style="text-align:center; font-family:Arial; font-size:20px">Reportar erro</h1>	
+
+
+
+	<form method="post" action="http://localhost/viacampos/administrator/reportMailError.php" id="form_error" name="form_error">
+
+		<hr style="margin-top:-10px">
+		<div class="form-input" style="text-align:left"><b>Página</b>: <input type="text" placeholder="Digite o endereço da pagina..." value="/viacampos/administrator/add_obra?t=a_pr_o" title="Endereço da pagina onde se encontra o erro" name="pag" id="pag" style="width:100%; color:#9a9a9a"></div><div class="form-input" style="text-align:left"><b>Descrição do erro</b></div><br><div class="form-input" style="text-align:left"><textarea name="descricao" id="descricao" style="border-radius: 5px; width:100%; max-width:100%; height:100px; max-height:150px" placeholder="Descreva o erro encontrado..."></textarea></div><table>
+			<tbody><tr><td></td></tr>
+			
+
+		
+
+		</tbody></table>
+		<br><br>
+
+		<input class="button" name="submit" value="Enviar" onclick="submitForm(this.form)" type="button"> <input class="button" type="button" value="Cancelar" onclick="fecha_error()"> <br>
+
+	</form>
+
+
+
+</div>
+</div>
+
+
+
+            <div style="margin-left: -800px; transition-duration: 0.8s; position: absolute; width:700px; height: 500px; z-index: 2; border: 1px solid#fff" id="map"></div>    
+  
+
+            <div class="formulario" style="width:43%;">
+              <div class="title-box" style="float:left;width:100%"><div style="float:left"><img src="./add_obra_files/add.png" width="35px" style="margin-left:5px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">NOVA OBRA</span></div></div>
+              
+              <div id="popup" class="popup" style="float:left; width:380px">
+                   <div class="formulario" style="width:300px; min-width:300px;">
+                     <table style="width:100%; text-align:center;" border="0">
+                        <!-- <input type="hidden" id="id_banco" name="id_banco" value="<br />
+<b>Notice</b>:  Undefined variable: banco in <b>C:\xampp\htdocs\viacampos\administrator\add_obra.php</b> on line <b>318</b><br />
+<br />
+<b>Notice</b>:  Trying to get property of non-object in <b>C:\xampp\htdocs\viacampos\administrator\add_obra.php</b> on line <b>318</b><br />
+"> -->
+                        <tbody><tr><td colspan="2"><b>Materiais</b></td></tr>
+                        <tr><td colspan="2"><input onclick="fechar()" type="button" class="button" value="Concluir"></td></tr>
+                      </tbody></table>
+                   </div>
+              </div>
+              
+                                                                          <form action="http://localhost/viacampos/administrator/add_obra" onsubmit="return validate(this)">
+                               <input type="hidden" id="t" name="t" value="a_p_o">
+                                                      
+                              <div class="bloco-1" id="dados_obra">            
+                                  <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
+                                  <div class="title-bloco">
+                                      <ul class="menu_obra">
+                                          <li><a href="http://localhost/viacampos/administrator/add_obra?t=a_c_o">Cliente</a></li><li><a href="http://localhost/viacampos/administrator/add_obra?t=a_d_o">Dados da Obra</a></li><li class="ativo"><a href="./add_obra_files/add_obra.html">Produtos</a></li><li><a href="http://localhost/viacampos/administrator/add_obra?t=a_p_o">Patrimonios</a></li><li><a href="http://localhost/viacampos/administrator/add_obra?t=a_f_o">Funcionários</a></li>
+                                      </ul> 
+                                  </div>
+                                  <div class="desc-bloco">
+                                      <span>Selecione os Produtos </span>
+                                  </div>
+                                  <div class="body-bloco">
+                                      <div class="form-input left">
+                                          <div class="form-input">
+                                              <span><b>Nome: </b></span><br><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:60%"> <input type="button" value="Buscar" onclick="buscarProdutos()"> <span><b>Novo: </b></span><img style="width:15px; cursor: pointer;" onclick="novo_produto()" src="./add_obra_files/add.png">
+                                          </div>
+                                          <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
+					<select name="clientes" id="clientes" size="10" style="height: 100%; width: 100%" ondblclick="selecionaProduto(this.value,&#39;&#39;)">
+			  <option value="p:13">Parede</option><option value="p:20">Parede</option><option value="p:21">fdsafdsa</option>				
+			</select>
+	</div>
+                                          <div class="form-input">
+                                              <span style="color:#787878; font-size:12px;">(Duplo clique para selecionar)</span>
+                                          </div>
+                                      </div>
+                                      <div class="form-input right">
+                                          <div class="form-input">
+                                              <span><b>Produtos selecionados: </b></span>
+                                          </div>
+                                          <div class="form-input" id="form-input-dados" style="border: 1px solid#bbb;  padding: 10px;"><table style="width:50%"><tbody><tr style="background-color:#ccc;"><td><span>Parede: </span></td><td><input id="20:1" onchange="increment(this.id,&#39;produto&#39;)" style="background-color: rgba(230,230,230,0.5); width:100px;" type="number" value="1"></td><td><a name="20" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span>Ver materiais</span></a></td><td><a name="20:1" style="cursor:pointer" onclick="apagar(this.name,&#39;produto&#39;)"><img style="width:15px" src="./add_obra_files/delete.png"></a></td></tr><tr style="background-color:#ddd;"><td><span>fdsafdsa: </span></td><td><input id="21:1" onchange="increment(this.id,&#39;produto&#39;)" style="background-color: rgba(230,230,230,0.5)" type="number" value="1"></td><td><a name="21" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span>Ver materiais</span></a></td><td><a name="21:1" style="cursor:pointer" onclick="apagar(this.name,&#39;produto&#39;)"><img style="width:15px" src="./add_obra_files/delete.png"></a></td></tr></tbody></table>
+
+
+</div>
+                                      </div>
+                                      
+                                      <div class="form-input" style="margin: 10px; text-align:center;  width:97%">
+                                         <input type="button" onclick="javascript:window.history.back()" class="voltar" value="Voltar"> <input class="avancar" type="submit" value="Avançar">
+                                      </div>
+                                  </div>
+                              </div>
+                             
+                              <div class="buttons" style="text-align:center;">
+                                  <input type="submit" name="button" class="button" id="button" value="Cadastrar"> <input type="button" name="button" class="button" onclick="cancel()" id="button" value="Cancelar">
+                              </div>
+                       </form>
+
+			      
+	 	    </div><script src="./add_obra_files/main.js"></script>
+         <div class="formulario" style="width:43%;">
+            <div class="bloco-1">
+                <div class="form-input">
+                    <div class="form-input"><b>DADOS DO CADASTRAMENTO</b></div>
+                    <div class="form-input">(ORÇAMENTO)</div>
+                </div>
+                <div class="body-bloco">
+                                          <div class="form-input" style="border-bottom: 1px solid#aaa">
+                              <span style="margin-left:10px;"><b>Cliente</b></span> <span><a name="btn_cli" id="btn_cli" onclick="expand(&#39;dados_cli&#39;,this.id)" style="cursor: pointer; color:#773333"> (Ocultar)</a></span>
+                        </div>
+                        <div class="form-input" id="dados_cli" style="padding: 0px 0px 5px 10px; padding-left:20px;">
+                                                                    <span><b>Nome/Razão Social: </b></span><input readonly="" type="text" style="border: 0" value="Pedro"><br>
+                                                                    <span><b>CPF/CNPJ: </b></span><input readonly="" type="text" style="border: 0" value="077.765.229-37"><br>
+                                                                    <span><b>Endereço: </b></span><input readonly="" type="text" style="border: 0" value="Rua, 123"><br>
+                                                                    <span><b>Telefone: </b></span><input readonly="" type="text" style="border: 0" value="(41) 3265-3007"><br>
+                                                    </div>
+                                                                    <div class="form-input" style="border-bottom: 1px solid#aaa">
+                                  <span style="margin-left:10px;"><b>Dados da Obra</b></span> <span><a name="btn_dados_obra" id="btn_dados_obra" onclick="expand(&#39;ex_dados_obra&#39;,this.id)" style="cursor: pointer; color:#773333">(Ocultar)</a></span>
+                            </div>
+                            <div class="form-input" id="ex_dados_obra" style="padding: 0px 0px 10px 10px; padding-left:20px;">
+                                                                            &nbsp;&nbsp;&nbsp;&nbsp;<span><b>Responsavel pela obra: </b></span><span></span><br>
+                                
+                                                                        <span><b>Cidade: </b></span><span>Amapá - AP</span>
+                                        
+                                                            </div>
+                                                                  <div class="form-input" style="border-bottom: 1px solid#aaa">
+                                  <span style="margin-left:10px;"><b>Produtos/Obra</b></span> <span><a name="btn_prod_obra" id="btn_prod_obra" onclick="expand(&#39;prod_obra&#39;,this.id)" style="cursor: pointer; color:#773333">(Ocultar)</a></span>
+                            </div>
+                            <div class="form-input" id="prod_obra" style="padding: 0px 0px 10px 10px; padding-left:20px;">
+                                <table style="text-align:center; width:90%"><tbody><tr style="background-color:#ddd;"><td><span><b>Nome</b></span></td><td><span><b>Quantidade</b></span></td></tr><tr style="background-color:#ccc;"><td style="padding: 3 10 3 10px;"><span>Parede </span><a name="20" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span> (ver materiais)</span></a></td><td style="padding: 3 10 3 10px;"><span>1</span></td></tr><tr style="background-color:#ddd; "><td style="padding: 3 10 3 10px;"><span>fdsafdsa </span><a name="21" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span> (ver materiais)</span></a></td><td style="padding: 3 10 3 10px;"><span>1</span></td></tr><tr style="background-color:#ccc;"><td style="padding: 3 10 3 10px;"><span>Parede </span><a name="20" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span> (ver materiais)</span></a></td><td style="padding: 3 10 3 10px;"><span>1</span></td></tr></tbody></table>                            </div>
+                                                                  <div class="form-input" style="border-bottom: 1px solid#aaa">
+                                  <span style="margin-left:10px;"><b>Patrimonios/Obra</b></span> <span><a name="btn_pat_obra" id="btn_pat_obra" onclick="expand(&#39;pat_obra&#39;,this.id)" style="cursor: pointer; color:#773333">(Ocultar)</a></span>
+                            </div>
+                            <div class="form-input" id="pat_obra" style="padding: 0px 0px 10px 10px; padding-left:20px; ">
+                                <table style="text-align:center; width:90%"><tbody><tr style="background-color:#ddd;"><td><span><b>Nome / Responsável</b></span></td><td><span><b>Quantidade</b></span></td></tr><tr style="background-color:#ccc;"><td style="padding: 3 10 3 10px;"><span>Piccanto / Andre Matos </span></td><td style="padding: 3 10 3 10px;"><span>1</span></td></tr></tbody></table>                            </div>
+                                                      </div>
+            </div>
+         </div>
+   <div id="fundo" hidden="on" style="background-color:rgba(0,0,0,0.8); margin-top: -9px; margin-left: -9px; width:100%; height: 100%; position: absolute; z-index: 1">
+       <span onclick="fechar()" style="cursor:pointer; color:floralwhite; float:right; margin-top:10px; margin-right:10px; z-index: 1"> Fechar</span>
+   </div>  
+    
+    
+	 	     
+    
+  
+
+
+</body></html>

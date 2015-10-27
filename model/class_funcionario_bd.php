@@ -637,15 +637,14 @@ class Funcionario{
 				$cont++;
 			}else if($key == 'qtd_horas_sem' && $temp->$key != $qtd_horas_sem){// verifica se turno foi alterado
 				$cont++;
-                        }else if($key == 'id_valor_custo' && $temp->$key != $id_valor_custo){
-                                $cont++;
+            }else if($key == 'id_valor_custo' && $temp->$key != $id_valor_custo){
+                $cont++;
 			}else if($key == 'data_ini' && $temp->$key == '0000-00-00 00:00:00'){// se data_ini for 0000-00-00 é a primeira alteração e não precisa gerar historico
-				// echo "<script>alert('é a primeira alteração');</script>";
 				$true = true;
 			}
 		}
 		
-		if($cont > 0 && !$true){//se cont > 0 um dos dados importantes foi alterado e necessita gerar histórico, e se true for verdadeiro quer dizer que é a primeira alteração e não precisa gerar historico
+		if($cont > 0 && !$true){ //se cont > 0 um dos dados importantes foi alterado e necessita gerar histórico, e se true for verdadeiro quer dizer que é a primeira alteração e não precisa gerar historico
 			$sql = new Sql();
 			$sql->conn_bd();
 			$g = new Glob();
@@ -653,6 +652,8 @@ class Funcionario{
 			
 			$mes_alteracao = date('m');
 			
+			// verifica quantos dias tem no mes de alteração (28 30 31) para setar a data fim do registro
+
 			if($mes_alteracao == '01' || $mes_alteracao == '03' || $mes_alteracao == '05' || $mes_alteracao == '07' || $mes_alteracao == '08' || $mes_alteracao == '10' || $mes_alteracao == '12'){// meses com 31 dias
 					$data_fim = date('Y').'-'.$mes_alteracao.'-31 23:59:00';
 			}else if($mes_alteracao == '04' || $mes_alteracao == '06' || $mes_alteracao == '09' || $mes_alteracao == '11'){// meses com 30 dias
@@ -660,13 +661,12 @@ class Funcionario{
 			}else if($mes_alteracao == '02'){// meses com 28 dias
 					$data_fim = date('Y').'-'.$mes_alteracao.'-28 23:59:00';
 			}
-			// $mes_atual = strtotime(date('Y-m-d 00:00:00'));
-			// echo "<script>alert('mes atual $mes_atual');</script>";
-			// $prox_mes = strtotime('+1 Month', $mes_atual);
-			$data_ini = date('Y').'-'.date('m', strtotime("+1 Month", strtotime(date('Y-m-d 00:00:00')) ) ).'-01 00:00:00';
-			// echo "<script>alert('data ini ->".$data_ini." ');</script>";
 			
-			/*
+			//data inicial do novo registro deve ser dia primeiro do proximo mes
+			$data_ini = date('Y').'-'.date('m', strtotime("+1 Month", strtotime(date('Y-m-d 00:00:00')) ) ).'-01 00:00:00';
+			
+			
+			/* 
 				Verifica se ja existe essa data ini pra esse funcionario, se ja existe atualiza o registro existente
 			*/
 			$sql = "SELECT id_tabela FROM funcionario WHERE data_ini = '".$data_ini."' && id = '".$id."' && oculto = 0";// busca se esse funcionario ja foi atualizado esse mes
@@ -761,7 +761,7 @@ class Funcionario{
 	}
 
 	public function get_all_func_emp(){
-	$sql = new Sql();
+		$sql = new Sql();
 		$sql->conn_bd();
 		$aux=0;
 		$query = mysql_query("SELECT * FROM funcionario WHERE oculto = 0 && id_empresa = '".$_SESSION['id_empresa']."'");

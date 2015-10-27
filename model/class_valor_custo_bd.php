@@ -39,22 +39,24 @@ class Valor_custo{
 
 	 public function atualiza_valor_custo($valor, $id_tipo_custo, $id){
              
-		$sql = new Sql();	
-		$sql->conn_bd();
-		$g = new Glob();
-                $query = "UPDATE valor_custo SET oculto = 1 WHERE id = $id ";                
-		mysql_query($query);               
-                $query = "INSERT INTO valor_custo (valor, id_tipo_custo) VALUES ($valor, $id_tipo_custo)";
-               
-                mysql_query($query); 
-                
-                $query = "SELECT * FROM valor_custo order by id desc";
-		$result = mysql_query($query); 
-                $return  = @mysql_fetch_array($result);
-                 
-                 $id = $return['id'];
+			$sql = new Sql();	
+			$sql->conn_bd();
+			$g = new Glob();
+
+	        $query = "UPDATE valor_custo SET oculto = 1 WHERE id = $id ";                
+			mysql_query($query);               
+	        
+	        $query = "INSERT INTO valor_custo (valor, id_tipo_custo) VALUES ($valor, $id_tipo_custo)";
+	        mysql_query($query); 
+	                
+	        $query = "SELECT id FROM valor_custo order by id desc";
+			$result = mysql_query($query); 
+	        
+	        $return  = @mysql_fetch_array($result);
+	                 
+	        $id = $return['id'];
                                       
-                        return $id;
+            return $id;
                      
                 
 	}

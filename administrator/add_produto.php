@@ -164,7 +164,7 @@ function validate(){
            ?>
       
             <div class="formulario" style="width:500px;">
-              <div class="title-box" style="float:left;width:100%"><div style="float:left"><img src="../images/add.png" width="35px" style="margin-left:5px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR PRODUTO</span></div></div>
+              <div class="title-box" style="float:left;width:100%"><div style="float:left"><img src="../images/add.png" width="35px" style="margin-left:5px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">ADICIONAR PRODUTO</span></div></div>
               <?php 
                     if(isset($_GET['t']) && $_GET['t'] == 'c'){
                         unset($_SESSION['produto']);
@@ -206,6 +206,19 @@ function validate(){
                                           <div class="form-input">
                                               <div class="form-input" style="background-color:rgba(210,210,210,0.5); padding: 10px 0px 10px 5px; border: 1px solid#bbb;">
                                                   <span><b>Nome: </b></span><input type="text" placeholder="Digite o nome do produto" id="nome" name="nome" style="width:75%" value="<?php echo $produto->nome ?>">    
+                                                  <table>
+                                                      <tr><td><span><b>Altura</b></span></td><td><span><b>Largura</b></span></td><td><span><b>Comprimento</b></span></td></tr>
+                                                      <tr>
+                                                          <td><input type="number" id="altura" name="altura" style="width:100%" placeholder="Metros" title="Digite a altura em metros"></td>
+                                                          <td><input type="number" id="largura" name="largura" style="width:100%" placeholder="Metros" title="Digite a largura em metros"></td>
+                                                          <td><input type="number" id="comprimento" name="comprimento" style="width:100%" placeholder="Metros" title="Digite o comprimento em metros"></td>
+                                                      </tr>
+                                                      <tr><td colspan="3"><span><b>Tempo estimado de conclusão</b></span></td></tr>
+                                                      <tr>
+                                                          <td colspan="3"><input type="number" id="dias" name="dias" style="width:50%" placeholder="Dias" title="Digite o tempo de conclusão estimado para esse produto"><span> dias</span></td>
+                                                      </tr>
+                                                    
+                                                  </table>
                                               </div>
                                               <span><b>Pesquisar materiais: </b></span><br />
                                               <input type="radio" style="height:12px" checked name="tipo_material" id="m"><span>Materiais</span><input type="radio" name="tipo_material" id="p" style="height:12px"><span>Produtos</span>
@@ -292,14 +305,27 @@ function validate(){
                                   <div class="body-bloco">
                                       <div class="form-input left">
                                           <div class="form-input">
-                                              <div class="form-input" style="background-color:rgba(210,210,210,0.5); padding: 10px 0px 10px 5px; border: 1px solid#bbb;">
+                                              <div class="form-input" style="background-color:rgba(210,210,210,0.5); padding: 10px 5px 10px 5px; border: 1px solid#bbb;">
                                                   <span><b>Nome: </b></span><input type="text" placeholder="Digite o nome do produto" id="nome" name="nome" style="width:75%">    
+                                                   <table>
+                                                      <tr><td><span><b>Altura</b></span></td><td><span><b>Largura</b></span></td><td><span><b>Comprimento</b></span></td></tr>
+                                                      <tr>
+                                                          <td><input type="number" id="altura" name="altura" style="width:100%" placeholder="Metros" title="Digite a altura em metros"></td>
+                                                          <td><input type="number" id="largura" name="largura" style="width:100%" placeholder="Metros" title="Digite a largura em metros"></td>
+                                                          <td><input type="number" id="comprimento" name="comprimento" style="width:100%" placeholder="Metros" title="Digite o comprimento em metros"></td>
+                                                      </tr>
+                                                      <tr><td colspan="3"><span><b>Tempo estimado de conclusão</b></span></td></tr>
+                                                      <tr>
+                                                          <td colspan="3"><input type="number" id="dias" name="dias" style="width:50%" placeholder="Dias" title="Digite o tempo de conclusão estimado para esse produto"><span> dias</span></td>
+                                                      </tr>
+                                                    
+                                                  </table>
                                               </div>
                                               <span><b>Pesquisar materiais: </b></span><br />
                                               <input type="radio" style="height:12px" checked name="tipo_material" id="m"><span>Materiais</span><input type="radio" name="tipo_material" id="p" style="height:12px"><span>Produtos</span>
                                               <input type="text" placeholder="Digite para pesquisar..." title="Digite o nome do material para pesquisar" id="nome_pesquisa" style="width:65%"> <input type="button" value="Buscar" onclick="buscarMateriais('addproduto')">
                                           </div>
-                                          <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
+                                          <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:120px;">
                                               <select size="10" style="height: 100%; width: 100%">
                                               </select>
                                           </div>
@@ -309,7 +335,7 @@ function validate(){
                                           <div class="form-input">
                                               <span><b>Materiais selecionados: </b></span>
                                           </div>
-                                          <div class="form-input" id="form-input-dados" style="border: 1px solid#bbb;  padding: 10px;">
+                                          <div class="form-input" id="form-input-dados" style="border: 1px solid#bbb;  padding: 10px; ">
                                                 <?php 
                                                 if(isset($_SESSION['produto']['material'])){
                                                   echo '<table>';

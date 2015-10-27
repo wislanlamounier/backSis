@@ -23,7 +23,7 @@ include_once("../model/class_produto_bd.php");
 						$_SESSION['obra']['produto'][$total] = $id.':1';
 					}
 
-				echo '<table style="width:100%">';
+				echo '<table style="width:95%">';
 				//percorre o array de produto
 			  	for($aux = 0; $aux < count($_SESSION['obra']['produto']); $aux++){
 			  		$id_qtd = explode(':', $_SESSION['obra']['produto'][$aux]);
@@ -35,7 +35,7 @@ include_once("../model/class_produto_bd.php");
 			          	
 			  		$res = new Produto();
 				  	$res = $res->get_produto_id($id_qtd[0]);
-				  	echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd[1].'" onchange="increment(this.id,\'produto\')" style="background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd[1].'"></td><td><a name="'.$res->id.'" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span>Ver materiais</span></a></td><td><a name="'.$res->id.':'.$id_qtd[1].'" style="cursor:pointer"  onclick="apagar(this.name,\'produto\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+				  	echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd[1].'" onchange="increment(this.id,\'produto\')" style="background-color: rgba(230,230,230,0.5); width:70px" type="number" value="'.$id_qtd[1].'"></td><td><a name="'.$res->id.'" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span>Ver materiais</span></a></td><td><a name="'.$res->id.':'.$id_qtd[1].'" style="cursor:pointer"  onclick="apagar(this.name,\'produto\')"><img style="width:15px" src="../images/delete.png"></a></td>';
 			  			
 			  		echo '</tr>';
 			  	}
@@ -66,7 +66,7 @@ include_once("../model/class_produto_bd.php");
 					}
 				}
 
-				echo '<table style="width:100%">';
+				echo '<table style="width:95%">';
 			  	for($aux = 0; $aux < count($_SESSION['produto']['material']); $aux++){
 			  		
 			  		$id_qtd_tipo = explode(':', $_SESSION['produto']['material'][$aux]);
@@ -81,11 +81,11 @@ include_once("../model/class_produto_bd.php");
 				  			 $res = Material::get_material_id($id_qtd_tipo[0]);
 				         	 $uni = new Unidade_medida();
 							 $uni = $uni->get_unidade_medida_by_id($res->id_unidade_medida);
-				  			 echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" onchange="increment(this.id)" style="width:30%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd_tipo[1].'"> <span>'.$uni->sigla.'</span></td><td><a name="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\',\'cadastrar\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+				  			 echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" onchange="increment(this.id)" style="width:70%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd_tipo[1].'"> <span>'.$uni->sigla.'</span></td><td><a name="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\',\'cadastrar\')"><img style="width:15px" src="../images/delete.png"></a></td>';
 			  			}else if($id_qtd_tipo[2] == 'p'){// se for produto
 			  				 $res = new Produto();
 				  			 $res = $res->get_produto_id($id_qtd_tipo[0]);
-				  			 echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" onchange="increment(this.id)" style="width:30%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd_tipo[1].'"></td><td><a name="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\',\'cadastrar\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+				  			 echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" onchange="increment(this.id)" style="width:70%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd_tipo[1].'"></td><td><a name="'.$res->id.':'.$id_qtd_tipo[1].':'.$id_qtd_tipo[2].'" style="cursor:pointer"  onclick="apagar(this.name,\'material\',\'cadastrar\')"><img style="width:15px" src="../images/delete.png"></a></td>';
 			  			}
 			  		echo '</tr>';
 			  		// if(count($patrimonio)>1)

@@ -8,22 +8,27 @@ class Produto{
 	public $id;
 	public $nome;
 	public $id_empresa;
+	public $altura;
+	public $largura;
+	public $comprimento;
 
 
-	public function add_produtos($nome, $id_empresa)
+	public function add_produtos($nome, $id_empresa, $altura, $largura, $comprimento)
 	{		
 		$this->nome = $nome;
 		$this->id_empresa = $id_empresa;
-		return true;
+		$this->altura = $altura;
+		$this->largura = $largura;
+		$this->comprimento = $comprimento;
 	}
 
 	public function add_produto_bd(){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "INSERT INTO produtos (nome, id_empresa) VALUES ('%s','%s')";
+		$query = "INSERT INTO produtos (nome, id_empresa, altura, largura, comprimento) VALUES ('%s','%s','%s','%s','%s')";
 
-		$result = $g->tratar_query($query, $this->nome, $this->id_empresa); //inserindo no banco de dados
+		$result = $g->tratar_query($query, $this->nome, $this->id_empresa, $this->altura, $this->largura, $this->comprimento); //inserindo no banco de dados
 		
 		$query = "SELECT * FROM produtos order by id desc";
 		$result = $g->tratar_query($query); //pegando id da ultima insersão
