@@ -312,8 +312,8 @@ function validate(){
             <div class="formulario" style="width:43%;">
               <div class="title-box" style="float:left;width:100%"><div style="float:left"><img src="../images/add.png" width="35px" style="margin-left:5px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">NOVA OBRA</span></div></div>
               
-              <div id="popup" class="popup" style="float:left; width:380px">
-                   <div class="formulario" style="width:300px; min-width:300px;">
+              <div id="popup" class="popup" style="float:left; width:380px; position:absolute">
+                   <div class="formulario" style="width:300px; min-width:300px; max-height:450px; overflow-y:scroll">
                      <table style="width:100%; text-align:center;" border="0">
                         <!-- <input type="hidden" id="id_banco" name="id_banco" value="<?php echo $banco->id ?>"> -->
                         <tr><td colspan='2'><b>Materiais</b></td></tr>
@@ -568,7 +568,7 @@ function validate(){
                                                                 
                                                          $res = new Produto();
                                                          $res = $res->get_produto_id($id_qtd[0]);
-                                                         echo '<td ><span>'.$res->nome.': </span></td><td><input  id="'.$res->id.':'.$id_qtd[1].'" onchange="increment(this.id,\'produto\')" style="width:100%; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd[1].'"></td><td><a name="'.$res->id.'" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span>Ver materiais</span></a></td><td><a name="'.$res->id.':'.$id_qtd[1].'" style="cursor:pointer"  onclick="apagar(this.name,\'produto\')"><img style="width:15px" src="../images/delete.png"></a></td>';
+                                                         echo '<td ><div><span>'.$res->nome.'<br />'.$res->altura.'m x '.$res->comprimento.'m x '.$res->largura.'m </span></div></td><td><input  id="'.$res->id.':'.$id_qtd[1].'" onchange="increment(this.id,\'produto\')" style="width:70px; background-color: rgba(230,230,230,0.5)" type="number" value="'.$id_qtd[1].'"></td><td><a name="'.$res->id.'" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span>Ver materiais</span></a></td><td><a name="'.$res->id.':'.$id_qtd[1].'" style="cursor:pointer"  onclick="apagar(this.name,\'produto\')"><img style="width:15px" src="../images/delete.png"></a></td>';
                                                             
                                                           echo '</tr>';
                                                       }

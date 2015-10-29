@@ -11,24 +11,26 @@ class Produto{
 	public $altura;
 	public $largura;
 	public $comprimento;
+	public $tempo_estimado_conclusao;
 
 
-	public function add_produtos($nome, $id_empresa, $altura, $largura, $comprimento)
+	public function add_produtos($nome, $id_empresa, $altura, $largura, $comprimento, $tempo_estimado_conclusao)
 	{		
 		$this->nome = $nome;
 		$this->id_empresa = $id_empresa;
 		$this->altura = $altura;
 		$this->largura = $largura;
 		$this->comprimento = $comprimento;
+		$this->tempo_estimado_conclusao = $tempo_estimado_conclusao;
 	}
 
 	public function add_produto_bd(){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "INSERT INTO produtos (nome, id_empresa, altura, largura, comprimento) VALUES ('%s','%s','%s','%s','%s')";
+		$query = "INSERT INTO produtos (nome, id_empresa, altura, largura, comprimento, tempo_estimado_conclusao) VALUES ('%s','%s','%s','%s','%s','%s')";
 
-		$result = $g->tratar_query($query, $this->nome, $this->id_empresa, $this->altura, $this->largura, $this->comprimento); //inserindo no banco de dados
+		$result = $g->tratar_query($query, $this->nome, $this->id_empresa, $this->altura, $this->largura, $this->comprimento, $this->tempo_estimado_conclusao); //inserindo no banco de dados
 		
 		$query = "SELECT * FROM produtos order by id desc";
 		$result = $g->tratar_query($query); //pegando id da ultima insersão
@@ -41,13 +43,13 @@ class Produto{
 	     	return $id;
 	     }
 	}
-	public function atualiza_produto($nome, $id_produto){
+	public function atualiza_produto($nome, $id_produto, $altura, $largura, $comprimento, $tempo_estimado_conclusao){
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "UPDATE produtos SET nome = '%s' WHERE id = '%s'";
+		$query = "UPDATE produtos SET nome = '%s', altura = '%s', largura = '%s', comprimento = '%s', tempo_estimado_conclusao = '%s' WHERE id = '%s'";
 
-		$result = $g->tratar_query($query, $nome, $id_produto); //inserindo no banco de dados
+		$result = $g->tratar_query($query, $nome, $altura, $largura, $comprimento, $tempo_estimado_conclusao, $id_produto); //inserindo no banco de dados
 
 	}
 	public function get_produto_by_name($name){
@@ -88,6 +90,10 @@ class Produto{
 	     	$produto->id = $row['id'];
 	     	$produto->nome = $row['nome'];
             $produto->id_empresa = $row['id_empresa'];
+            $produto->altura = $row['altura'];
+            $produto->largura = $row['largura'];
+            $produto->comprimento = $row['comprimento'];
+            $produto->tempo_estimado_conclusao = $row['tempo_estimado_conclusao'];
 
 	     	return $produto;
 	     }
@@ -105,7 +111,7 @@ class Produto{
 			$return[$aux][0] = $result['id_produto'];
 			$return[$aux][1] = $result['id_material'];
 			$return[$aux][2] = $result['quantidade'];
-                        $return[$aux][3] = $result['id'];
+            $return[$aux][3] = $result['id'];
 			$aux++;
 		}
 		if($aux == 0){
@@ -115,6 +121,10 @@ class Produto{
 			$sql->close_conn();
 			return $return;
 		}
+	}
+
+	public function get_valor_custo($id_produto){
+		// calcular o valor custo baseado nos materiais vinculados ao produto
 	}
 	
 

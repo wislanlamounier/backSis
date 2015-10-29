@@ -766,7 +766,10 @@ form-input select{
 	border: 2px solid#EBCCFF;
 }
 /********************************* FIM PESQUISAR PESQUISAR_FUNC**********************************/
-
+.table_geral tr td{
+	border: 1px solid #bcbcbc;
+	padding: 0px;
+}
 
 
 
@@ -1152,7 +1155,7 @@ form-input select{
 	border:1px solid #aaa;
 	box-shadow: 2px 2px 5px #aaa;
 	position:absolute;
-	background-color:rgba(230,230,230,0.7);
+	background-color:rgba(255,255,255,0.9);
 	padding: 5px;
 	font-size:12px;
 }
