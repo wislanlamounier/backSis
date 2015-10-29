@@ -9,6 +9,7 @@ include_once("../model/class_config.php");
 include_once("../model/class_cidade_bd.php");
 include_once("../model/class_estado_bd.php");
 include_once("../model/class_material_bd.php");
+include_once("../model/class_regiao_bd.php");
 include_once("../config.php");
 
 
@@ -74,6 +75,7 @@ include_once("../config.php");
           });
        }
     }
+    
    
     function busca(){
         
@@ -259,6 +261,18 @@ include_once("../config.php");
             var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
             $.get(url, function(dataReturn) {
               $('#'+aux+'load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
+            });
+          }
+    }
+       function buscar_cidades(){ 
+          
+          var estado = document.getElementById("estado").value;  //codigo do estado escolhido
+          
+          //se encontrou o estado
+          if(estado){
+            var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+            $.get(url, function(dataReturn) {
+              $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
             });
           }
     }

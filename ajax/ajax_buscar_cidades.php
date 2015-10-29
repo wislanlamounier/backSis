@@ -23,13 +23,14 @@ include_once("../model/class_sql.php");
 
 <select name="cidade" id="cidade"  style="width:90%">
   <?php
-  	if($dados) 
+  	if($dados) {
+            echo "<option value='no_sel'></option>";
 	    foreach($arrCidades as $value => $nome){
 	      ?> 
 	      <option  <?php ( isset($_SESSION['obra']['dados']['cidade']) && $_SESSION['obra']['dados']['cidade'] == $value ) ? print 'selected' : '' ?> value='<?php echo $value ?>'><?php echo $nome ?></option>;
 	     <?php 
 	  	}
-	else
+        }else
 		echo "<option value='no_sel'>Selecione um estado</option>";
 ?>
 </select>
