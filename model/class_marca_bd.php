@@ -25,13 +25,11 @@ class Marca{
 		$query = "SELECT * FROM marca order by id desc";
 		$result = $g->tratar_query($query); //pegando id da ultima insersão
 		 
-		 if(@mysql_num_rows($result) == 0){
-            return false;
-	     }else{
-	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$id = $row['id'];
-	     	return $id;
-	     }
+	if($g->tratar_query($query, $this->nome, $this->id_unidade_medida,  $this->id_empresa)){
+					return true; 
+		}else{
+				return false;
+		} 
 	}
 
 
