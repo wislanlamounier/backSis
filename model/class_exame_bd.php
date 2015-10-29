@@ -98,7 +98,7 @@ class Exame{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$aux=0;
-		$query = mysql_query("SELECT * FROM exames WHERE && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0");
+		$query = mysql_query("SELECT * FROM exames WHERE id_empresa = ".$_SESSION['id_empresa']." && oculto = 0");
 		$return = array();
 		while($result = mysql_fetch_array($query)){
 			$return[$aux][0] = $result['id'];

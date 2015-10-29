@@ -22,46 +22,47 @@
                     
                     $target_file = $target_dir . basename($_FILES["logo_upload"]["name"]);
                     
-                    $uploadOk = 1;
+                    $error = 0;
                     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-                    
+                    $msg = '';
                     // Check if image file is a actual image or fake image
                     if(isset($_POST["submit"])) {
                         
                         $check = getimagesize($_FILES["logo_upload"]["tmp_name"]);
                         if($check !== false) {                          
-                            $uploadOk = 1;
-                        } else {
-                            echo '<script>alert("Arquivo nao suportado")</script>';
                             
-                            $uploadOk = 0;
+                        } else {
+                            $msg .= "Arquivo não suportado\\n";
+                            $error++;
                         }
                     }
                     // Check if file already exists
-                    if (file_exists($target_file)) {
-                        echo '<script>alert("Este arquivo ja existe, voce pode renomear o arquivo")</script>';
-                        $uploadOk = 0;
-                    }
+                    // if (file_exists($target_file)) {
+                    //     $msg .= "Arquivo já existe\\n";
+                    //     $error++;
+                    // }
                     // Check file size
                     if ($_FILES["logo_upload"]["size"] > 500000) {
-                       echo '<script>alert("Tamanho não suportado")</script>';
-                        $uploadOk = 0;
+                        $msg .= "Tamanho não suportado\\n";
+                        $error++;
                     }
                     // Allow certain file formats
                     if($imageFileType != "jpg" && $imageFileType != "JPG" && $imageFileType != "PNG" && $imageFileType != "png" && $imageFileType != "jpeg" &&$imageFileType != "JPEG"
-                    && $imageFileType != "gif" ) {
-                        echo '<script>alert("Formato invalido")</script>';
-                        $uploadOk = 0;
-                    }
-                    // Check if $uploadOk is set to 0 by an error
-                   else {
+                    && $imageFileType != "gif") {
+                        $error++;
+                         $msg .= "Formato de arquivo não suportado\\n";
+                    }   
+
+                                    // Check if $error is set to 0 by an error
+                    if($error == 0) {
                         if (move_uploaded_file($_FILES["logo_upload"]["tmp_name"], $target_file)){
-                                
                                  require_once("../model/class_config.php");
                                  $config = new Config();
                                  $config->atualizaConfig("caminho_logo", $_FILES["logo_upload"]["name"]);
-                                 echo '<script>window.location="configuracoes.php"</script>';
+                                 echo '<script>window.location="configuracoes"</script>';
                         } 
+                    }else{
+                        echo "<script>alert('Por favor, verifique os seguintes erros: \\n".$msg."');</script>";
                     }
                 }
 

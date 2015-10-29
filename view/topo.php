@@ -57,9 +57,17 @@
         <?php 
         require_once("../model/class_config.php");
         $config = new Config();        
-                $logo = $config->get_config("caminho_logo", $_SESSION['id_empresa']);                       
-                ?>
-    <div class="img" style="float:left">  <?php if($logo != ""){ ?> <img style="height: 90px;" src=<?php echo '../images/'.$_SESSION['id_empresa'].'/'.$logo.'' ?>> <?php  } ?></div>
+        $logo = $config->get_config("caminho_logo", $_SESSION['id_empresa']);                       
+        $dir_logo = '../images/'.$_SESSION['id_empresa'].'/'.$logo;
+        ?>
+    <div class="img" style="float:left">  
+        <?php if($logo != "" && file_exists($dir_logo)){ ?> 
+                <img style="height: 90px;" src=<?php echo '../images/'.$_SESSION['id_empresa'].'/'.$logo.'' ?>> 
+        <?php  }else{ ?>
+                <img style="height: 90px;" src=<?php echo '../images/logo-sgo.png' ?>> 
+        <?php } ?>
+
+    </div>
 	<div class="box-login" style="">
 		<div style="float:left"><img src="../images/user.png" width="40px"></div>
 		<div class="nome-box-login" style=""><span style="">Usuário:<br /></span><?php echo $_SESSION["user"]; ?><br /><span style="">Empresa:<br /></span><?php echo $_SESSION['empresa']."<span> (".$nivel_acesso.")</span>" ?></div>

@@ -12,8 +12,8 @@ if(isset($_SESSION["id"]) && isset($_SESSION["user"]) && isset($_SESSION["id_emp
 </head>
 <body class="body-login">
 	<!-- <div class='container'> -->
-		<div class='content' style="height:350px">
-			<img src="../images/logo75mm.png" style="margin: 0 auto; width:350px;">
+		<div class='content' style="height:390px; padding: 5">
+			<img src="../images/logo-sgo.png" style="margin: 0 auto; width:350px;">
 			<form type="submit" method="POST" action="loggar.php"> 
 				<table class="tabelapadrao" id="table_login" border="0" style="width:250px;">
 					<tr>

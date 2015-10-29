@@ -14,6 +14,7 @@ include_once("../model/class_endereco_bd.php");
 include_once("../model/class_exame_bd.php");
 include_once("../model/class_cboXexames.php");
 include_once("../model/class_rend_double_select.php");
+include_once("../includes/functions.php");
 
 function validate(){
    if(!isset($_POST['codigo']) || $_POST['codigo'] == ""){
@@ -28,42 +29,7 @@ function validate(){
 ?>
 <html>
 
-<script type="text/javascript">
-     
-   function selectAll(){
-      var select = document.getElementById("selecionados");
-      for(i=0; i<select.length; i++){
-         select[i].selected = true;
-      }
-   }
-   function validate(f){ 
-      var erros=0;   
-      for(i=0; i<f.length; i++){
-         if(f[i].name == "codigo"){
-            if(f[i].value == ""){
-               f[i].style.border = "1px solid #f00";
-               erros++;
-            }else{
-              f[i].style.border = "1px solid #898989";
-            }
-         }
-         if(f[i].name == "descricao"){
-            if(f[i].value == ""){
-               f[i].style.border = "1px solid #f00";
-               erros++;
-            }else{
-              f[i].style.border = "1px solid #898989";
-            }
-         }
-      }
-      if(erros>0){
-         return false;
-      }else{
-         return true;
-      }
 
-   }
-</script>
 
 <head>
    <title>Adicionar</title>
@@ -73,7 +39,7 @@ function validate(){
    <link rel="stylesheet" type="text/css" href="style.css">
    
 </head>
-
+<?php  Functions::getScriptCBO(); //carrega funções javascript da pagina ?>
 <body>
    
    <?php include_once("../view/topo.php"); ?>
