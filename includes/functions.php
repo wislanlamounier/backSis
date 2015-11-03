@@ -1,9 +1,3 @@
-<script type="text/javascript">
-	
-
-
-
-</script>
 <?php 
 /**
 * Scripts
@@ -12,7 +6,7 @@
 Class Functions{
 	function getHead($title){
 		echo '<head>
-			 	<meta charset="UTF-8">
+			 	  <meta charset="UTF-8">
 				  <link rel="icon" href="../images/ico-sgo.png" type="image/x-icon">
 				  <meta HTTP-EQUIV="refresh" CONTENT="590">
 				 	<title>'.$title.'</title>

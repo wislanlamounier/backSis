@@ -86,7 +86,7 @@ function verificaValor($valor){
             	 ?>
 
                 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">EDITAR MATERIAL</span></div></div>
-                       <form method="POST" id="add_material" action="add_material.php" onsubmit="return validate(this)">
+                       <form method="POST" id="add_material" action="add_material" onsubmit="return validate(this)">
                             
                             <input type="hidden" id="tipo" name="tipo" value="editar">
                             <input type="hidden" id="id" name="id" value="<?php echo $id ?>">                             
@@ -105,7 +105,7 @@ function verificaValor($valor){
                                        <?php echo "<script> carregaU_M('".$u_m->id."'); </script>" ?> 
                                  </select><td></tr>
                             
-                           <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Editar"> <input type="button" name="button" class="button" onclick="window.location.href='add_material.php'" id="button" value="Cancelar"></td></tr>  
+                           <tr><td colspan="3" style="text-align:center"><input type="submit" name="button" class="button" id="button" value="Editar"> <input type="button" name="button" class="button" onclick="window.location.href='add_material'" id="button" value="Cancelar"></td></tr>  
                             </table>                            
                        </form>              
             <?php }else{ ?>       
@@ -113,7 +113,7 @@ function verificaValor($valor){
                 
                
                 
-                       <form method="POST" class="add_material" id="add_material" name="add_material" action="add_material.php" onsubmit="return valida(this)">
+                       <form method="POST" class="add_material" id="add_material" name="add_material" action="add_material" onsubmit="return valida(this)">
                         <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">MATERIAIS</span></div></div>
                          <div id="menu-materiais" name="menu-materiais" class="menu-materiais">
                     <span style="margin-left: 15%;"><b>Nome</span>
@@ -181,7 +181,7 @@ function verificaValor($valor){
                         ?>
                       
                           <div colspan="3" style=" margin-top: 10px;"><input type="submit" name="button" class="button" id="button" value="Cadastrar">
-                          <input type="button" name="button" class="button" onclick="window.location.href='add_material.php'" id="button" value="Cancelar"></div>
+                          <input type="button" name="button" class="button" onclick="window.location.href='add_material'" id="button" value="Cancelar"></div>
                        </form>      
      
             <?php }?>               

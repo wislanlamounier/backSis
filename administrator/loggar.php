@@ -30,6 +30,7 @@ include_once("../global.php");
         $empresa = mysql_fetch_array($result);
         $_SESSION["id"] = $row['id']; // nomeia id da sessão
         $_SESSION["user"] = $row['nome'];
+        $_SESSION['logado'] = md5($row['id']);
         $_SESSION['id_empresa'] = $empresa['id'];
         $_SESSION['empresa'] = $empresa['nome_fantasia'];
         $_SESSION['nivel_acesso'] = $empresa['nivel_acesso'];

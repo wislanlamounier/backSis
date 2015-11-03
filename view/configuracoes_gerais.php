@@ -1,5 +1,5 @@
 <div class="separador" ><span style="color: #ddd;" class="title">CONFIGURAÇÕES GERAIS</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="mostraTabela1('config_gerais')" ></div>
-<div id="config_gerais" style="float:left; width:100%">    
+<div id="config_gerais" hidden="on" style="float:left; width:100%">    
     <div class="formulario-regiao"> 
         <?php if(isset($_POST['cadastrar'])){
             $codigo = $_POST['codigo'];

@@ -7,12 +7,12 @@
 </div>
 
 <div id="1" hidden="on">
-    <form method="POST" action="configuracoes.php" onsubmit="return valida(this)">
+    <form method="POST" action="configuracoes" onsubmit="return valida(this)">
         <input type="hidden" value="cadastrar" name="cadastrar" id="cadastrar">
         <div class="atributos-novo"><span><b>Nome: </b></span><input style="background-color:#ddd; margin-bottom: 5px; box-shadow: 2px 2px 3px #666;" type="text" name="nome" id="nome"></div>
         <div class="atributos-novo"><span><b>Grandeza: </b></span><input style="background-color:#ddd; margin-bottom: 5px; box-shadow: 2px 2px 3px #666;" type="text" name="grandeza" id="grandeza"></div>
         <div class="atributos-novo"><span><b>Sigla: </b></span><input style="background-color:#ddd; width: 50px; box-shadow: 2px 2px 3px #666;" type="text" name="sigla" id="sigla" style="width:45px;"></div>
-        <div style="margin-top:20px; margin-left: 25%; float:left;"><input type="submit" class="button" value="Salvar"><input type="button" class="button" value="Cancelar" onclick="window.location='configuracoes.php'"> </div>
+        <div style="margin-top:20px; margin-left: 25%; float:left;"><input type="submit" class="button" value="Salvar"><input type="button" class="button" value="Cancelar" onclick="window.location='configuracoes'"> </div>
     </form>
      <?php 
      if(isset($_POST['cadastrar']) && $_POST['cadastrar'] == "cadastrar" ){
@@ -34,7 +34,7 @@
 </div>
 
  <div id="2" hidden="on">
-    <form method="POST" action="configuracoes.php">
+    <form method="POST" action="configuracoes">
         <input type="hidden" value="editar" name="editar" id="editar" >
         <div class="atributos-novo" ><span><b>Nome: </b></span><input style="background-color:#ddd; padding-top: 6px;  box-shadow: 2px 2px 3px #666;" type="text" name="nome_e" id="nome_e"><input  style="margin-left: 10px;"type="button" class="button" value="Buscar" onclick="busca()"></div>
         
@@ -51,7 +51,7 @@
                      
                      if($id != "" && $nome != "" && $grandeza != "" && $sigla != ""  ){
                      $unidade_medida->atualiza_unidade_medida($nome, $grandeza, $sigla, $id);
-                     echo "<script>window.location='configuracoes.php?nome=".$_GET['nome']."'</scrpit>";
+                     echo "<script>window.location='configuracoes?nome=".$_GET['nome']."'</scrpit>";
                      }                        
      }?>
      
@@ -63,7 +63,7 @@
                     
                      if($id != "" && $nome != "" && $grandeza != "" && $sigla != ""  ){
                      $unidade_medida->ocultar_unidade_medida($id);
-                     echo "<script>window.location='configuracoes.php?nome=".$_GET['nome']."'</scrpit>";
+                     echo "<script>window.location='configuracoes?nome=".$_GET['nome']."'</scrpit>";
                      }                        
      }?>
      

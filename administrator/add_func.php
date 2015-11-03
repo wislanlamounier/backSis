@@ -169,7 +169,7 @@ return $valor; //retorna o valor formatado para gravar no banco
                   <input type="hidden" id="id_custo" name="id_custo" value="<?php echo $valor_custo->id ?>">
                   <table border='0'>
                     <tr><td colspan="4" style="padding-top:10px; padding-bottom:10px;"><span style="color:#565656">Atenção: Se o campo senha ficar em branco a senha não sera alterada</span></td></tr>
-                     <tr> <td><span>Estagiario:</span></td> <td colspan="3"><input class="checkbox" type="checkbox" value="<?php ($func->estagiario == 1)?print '1': print '0' ?>" id="estagiario" onclick="mudaValor()" name="estagiario"></td></tr> <!-- estagiario -->
+                     <tr> <td><span>Estagiario:</span></td> <td colspan="3"><input class="checkbox" type="checkbox" <?php ($func->estagiario == 1) ? print 'checked': print '' ?> value="<?php ($func->estagiario == 1)?print '1': print '0' ?>" id="estagiario" onclick="mudaValor()" name="estagiario"></td></tr> <!-- estagiario -->
                      <tr> <td><span>Código:*</span></td> <td colspan="3"><input autofocus style="width:100%; text-transform: uppercase" type="text" id="codigo" name="codigo" value="<?php echo $func->cod_serie; ?>"></td></tr> <!-- cod_serie -->
                      <tr> <td><span>Nome:*</span></td> <td colspan="3"><input style="width:100%" type="text" id="nome" name="nome" value="<?php echo $func->nome; ?>"></td></tr> <!-- nome -->
                      <tr> <td><span>CPF:*</span></td> <td colspan="3"><input style="width:100%" type="text" id="cpf" name="cpf" value="<?php echo $func->cpf; ?>"></td></tr> <!-- CPF -->
@@ -736,13 +736,13 @@ return $valor; //retorna o valor formatado para gravar no banco
                            $salario_base = moeda($_POST['sal_base']);  // retorna salario formatado
                            
                            $id_custo = $_POST['id_custo'];
-                           $estagiario = ($_POST['estagiario'])?1:0;
+                           $estagiario = $_POST['estagiario'];
                                
                            if(isset($_POST['valor_custo']) != ""){
                                 $Ftemp = Funcionario::get_func_id($id);
                                 $valorCustoTemp = Valor_custo::get_valor_custo_id($Ftemp->id_valor_custo);
                                 
-                                if(moeda($valorCustoTemp->valor) != moeda($_POST['valor_custo'])){ // valor custo só é atualizado se o valor alterado for diferente do valor atual
+                                if(moeda(number_format($valorCustoTemp->valor, 2, ',' , '.')) != moeda($_POST['valor_custo'])){ // valor custo só é atualizado se o valor alterado for diferente do valor atual
                                     $id_tipo_custo = $_POST['tipo_custo'];
                                     $valor = $_POST['valor_custo'];
                                     $valor = moeda($valor);

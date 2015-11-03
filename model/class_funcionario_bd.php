@@ -616,12 +616,13 @@ class Funcionario{
 		$sql->conn_bd();
 		$g = new Glob();
 		
-		
+		echo "<script>alert('atualiza: ".$estagiario."');</script>";
 		$temp = Funcionario::get_func_id($id);
 		$cont = 0; //conta se algum dado importante foi alterado
 		$true = false;
 		foreach ($temp as $key => $value) {
 			if($key == 'estagiario' && $temp->$key != $estagiario){// verifica se data_nascimento foi alterado
+				echo "<script>alert('aqui');</script>";
 				$cont++;
 			}else if($key == 'data_nasc' && $temp->$key != $data_nasc){// verifica se data_nascimento foi alterado
 				$cont++;

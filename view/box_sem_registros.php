@@ -28,7 +28,7 @@
 
 
           if($horario->corrige_horario($data, $tipo, $hora, $id_funcionario, $id_obs, $situacao)){
-                echo "<script>window.location='principal.php';</script>";
+                echo "<script>window.location='principal';</script>";
           }else{
                 // echo "<script>alert('Falha');</script>";
           }
@@ -78,7 +78,7 @@
                 echo '<tr><td style="background-color:rgba(200,200,200,0.5); text-align:center; padding:5px; border: 1px solid#cdcdcd;">Preencha o horário correto e adicione uma observação para o registro nos campos abaixo</td></tr>';
                 
 
-                echo '<form method="post" action="principal.php" onsubmit="return validate(this)">';
+                echo '<form method="post" action="principal" onsubmit="return validate(this)">';
                 echo '<input type="hidden" name="tipo" value="'.$_GET['tipo'].'">';
                 echo '<input type="hidden" name="id_funcionario" value="'.$funcionario->id.'">';
                 echo '<input type="hidden" name="id_supervisor" value="'.$funcionario->id_supervisor.'">';
@@ -97,7 +97,7 @@
                 echo '<tr>';
                 echo '<td style="text-align:center"><textarea id="observacao" name="observacao" style="width: 500px; height:50px; resize:none;"></textarea></td>';
                 echo '</tr>';
-                echo '<tr><td style="text-align:center"><input type="submit" class="button" value="Salvar"> <input class="button" type="button" value="Cancelar" onclick="window.location.href=\'principal.php\'"></td></tr>';
+                echo '<tr><td style="text-align:center"><input type="submit" class="button" value="Salvar"> <input class="button" type="button" value="Cancelar" onclick="window.location.href=\'principal\'"></td></tr>';
                 echo '</form>';
                 echo '</table>';
                 
@@ -131,9 +131,9 @@
                          echo '<table class="table-atrasos" border="0" style="box-shadow:0px 0px 5px #ccc;">';
                          // echo '<tr><td colspan="4"><img src="../images/rel.png"></td></tr>';
                          if($tipo == 0){
-                              echo '<tr><td colspan="4">'.date("d/m/Y").'<br />'. '<a href="principal.php?desc=mes" style="font-size:12px">Ver mês inteiro</a>'.'</td></tr>';
+                              echo '<tr><td colspan="4">'.date("d/m/Y").'<br />'. '<a href="principal?desc=mes" style="font-size:12px">Ver mês inteiro</a>'.'</td></tr>';
                          }else{
-                              echo '<tr><td colspan="4">'.date("m/Y").'<br />'. '<a href="principal.php" style="font-size:12px">Ver hoje</a>'.'</td></tr>';
+                              echo '<tr><td colspan="4">'.date("m/Y").'<br />'. '<a href="principal" style="font-size:12px">Ver hoje</a>'.'</td></tr>';
                          }
                          echo '<tr><td colspan="4"><b>Atenção</b></td></tr>';
                          echo '<tr><td colspan="4"><span>Os funcionários abaixo esqueceram ou não bateram o ponto</span></td></tr>';
@@ -185,9 +185,9 @@
                                       }else{
                                               echo '<tr style="background-color:rgba(250,10,10,0.3)">'; 
                                       }
-                                      echo '<td class="rows-content"><a href="principal.php?desc=sem_registros&tipo=1&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.$nome_turno_funcionario[0].'</b></a></td><td class="rows-content"><a href="principal.php?desc=sem_registros&tipo=1&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>Inicio expediente</b></a></td>';
+                                      echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=1&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.$nome_turno_funcionario[0].'</b></a></td><td class="rows-content"><a href="principal?desc=sem_registros&tipo=1&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>Inicio expediente</b></a></td>';
                                       if($tipo == 1){
-                                          echo '<td class="rows-content"><a href="principal.php?desc=sem_registros&tipo=1&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.date('d/m/Y',strtotime($array[$aux][1])).'</b></a></td>';
+                                          echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=1&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.date('d/m/Y',strtotime($array[$aux][1])).'</b></a></td>';
                                       }
                                       echo '</tr>';
                                       $total_registros++;
@@ -202,9 +202,9 @@
                                       }else{
                                               echo '<tr style="background-color:rgba(250,10,10,0.3)">'; 
                                       }
-                                      echo '<td class="rows-content"><a href="principal.php?desc=sem_registros&tipo=2&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.$nome_turno_funcionario[0].'</b></a></td><td class="rows-content"><a href="principal.php?desc=sem_registros&tipo=2&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>Inicio Almoço</b></a></td>';
+                                      echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=2&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.$nome_turno_funcionario[0].'</b></a></td><td class="rows-content"><a href="principal?desc=sem_registros&tipo=2&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>Inicio Almoço</b></a></td>';
                                       if($tipo == 1){
-                                          echo '<td class="rows-content"><a href="principal.php?desc=sem_registros&tipo=2&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.date('d/m/Y',strtotime($array[$aux][1])).'</b></a></td>';
+                                          echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=2&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.date('d/m/Y',strtotime($array[$aux][1])).'</b></a></td>';
                                       }
                                       echo '</tr>';
                                       $total_registros++;
@@ -219,9 +219,9 @@
                                       }else{
                                               echo '<tr style="background-color:rgba(250,10,10,0.3)">'; 
                                       }
-                                      echo '<td class="rows-content"><a href="principal.php?desc=sem_registros&tipo=3&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.$nome_turno_funcionario[0].'</b></a></td><td class="rows-content"><a href="principal.php?desc=sem_registros&tipo=3&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>Fim Almoço</b></a></td>';
+                                      echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=3&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.$nome_turno_funcionario[0].'</b></a></td><td class="rows-content"><a href="principal?desc=sem_registros&tipo=3&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>Fim Almoço</b></a></td>';
                                       if($tipo == 1){
-                                          echo '<td class="rows-content"><a href="principal.php?desc=sem_registros&tipo=3&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.date('d/m/Y',strtotime($array[$aux][1])).'</b></a></td>';
+                                          echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=3&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.date('d/m/Y',strtotime($array[$aux][1])).'</b></a></td>';
                                       }
                                       echo '</tr>';
                                       $total_registros++;
@@ -236,9 +236,9 @@
                                       }else{
                                               echo '<tr style="background-color:rgba(250,10,10,0.3)">'; 
                                       }
-                                      echo '<td class="rows-content"><a href="principal.php?desc=sem_registros&tipo=0&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.$nome_turno_funcionario[0].'</b></a></td><td class="rows-content"><a href="principal.php?desc=sem_registros&tipo=0&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>Fim expediente</b></a></td>';
+                                      echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=0&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.$nome_turno_funcionario[0].'</b></a></td><td class="rows-content"><a href="principal?desc=sem_registros&tipo=0&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>Fim expediente</b></a></td>';
                                       if($tipo == 1){
-                                          echo '<td class="rows-content"><a href="principal.php?desc=sem_registros&tipo=0&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.date('d/m/Y',strtotime($array[$aux][1])).'</b></a></td>';
+                                          echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=0&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.date('d/m/Y',strtotime($array[$aux][1])).'</b></a></td>';
                                       }
                                       echo '</tr>';
                                       $total_registros++;

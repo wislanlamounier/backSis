@@ -194,37 +194,11 @@ include_once("../global.php");
 <body onload="moveRelogio(), verificaHora()">
 	<?php 
 
-		$horarios_esquecidos = new Horarios();
-		//echo '<script> del(); limCamp();</script>';//limpando campos login e senha							
-		$date = strtotime('+30 days');
-		// echo "<script>alert('".date('d/m/Y', $date)."');</script>";
-		$data_30 = date('Y/m/d', $date);
-		$dias = explode('/', $data_30);
-		$funcionarios = new Funcionario();
-		$funcionarios = $funcionarios->get_all_id_func();
+		// inicia a tabela de horarios esquecidos, a tabela de horarios esquecidos controla quem registrou ou não registrou o ponto eletronico,
+		// essa tabela mantem os registros sempre 10 dias a mais iniciando na data atual
+		// esse metodo verifica se existe um registro faltando nessa tabela e atualiza
+		Horarios::inicia_horarios_esquecidos();
 		
-		$data = date('Y-m-d');
-
-		for($dia=0; $dia <= 10; $dia++){// conta 10 dias pra frente, e adiciona os registros na tabela
-			$date_mais_um = strtotime($data.'+'.$dia.' days');
-			
-			$data_atual = date('Y-m-d', $date_mais_um);
-
-			for($aux = 0 ; $aux < count($funcionarios) ; $aux++){
-				if( $horarios_esquecidos->not_exists($data_atual, $funcionarios[$aux][0])){
-					$horarios_esquecidos->cadHorariosEsquecidos($data_atual,  $funcionarios[$aux][0]);
-					$horarios_esquecidos->insertHorariosEsquecidosBd();
-					// echo "<script>alert('Não Existe,\\n****** ATENÇÃO ******\\nAVISAR CASO APAREÇA ESSA MENSAGEM!!!!');</script>";
-				}else{
-					// echo "<script>alert('existe: ".$data_atual."');</script>";
-				}
-			}
-			// echo "<script>alert('".$dia."');</script>";
-			
-		}
-		
-
-
 	 ?>
 
 	<div class="container">

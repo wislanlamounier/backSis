@@ -31,14 +31,14 @@ include_once("../includes/functions.php");
                 <div class="title-box" style="float:left"><div style="float:left"><img src="../images/icon-reports.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">RELATÓRIOS</span></div></div>
                 <div class="box">
                      <table class="define-relatorio">
-                         <!-- <tr>
-                           <td><a href="reports/folha_ponto.php">Folha ponto<span style="font-size: 12px; color:#898989;"> (Imprimir folha ponto do funcionário)</span></a></td>
-                         </tr> -->
                          <tr>
-                           <td><a href="../reports/funcionario.php">Dados do funcionário<span style="font-size: 12px; color:#898989;"> (Imprimir informações de um funcionário)</span></a></td>
+                           <td><a href="../reports/folha_ponto">Folha ponto<span style="font-size: 12px; color:#898989;"> (Imprimir folha ponto do funcionário)</span></a></td>
                          </tr>
                          <tr>
-                          <td><a href="../reports/relatorio.php?rel=listafunc" title="Gerar PDF" target="_self">Lista de Funcionários<span style="font-size: 12px; color:#898989;"> (Gera uma lista com informações de todos os funcionários)</span></a></td>
+                           <td><a href="../reports/funcionario">Dados do funcionário<span style="font-size: 12px; color:#898989;"> (Imprimir informações de um funcionário)</span></a></td>
+                         </tr>
+                         <tr>
+                          <td><a href="../reports/relatorio?rel=listafunc" title="Gerar PDF" target="_self">Lista de Funcionários<span style="font-size: 12px; color:#898989;"> (Gera uma lista com informações de todos os funcionários)</span></a></td>
                          </tr>
                      </table>
                 <div>

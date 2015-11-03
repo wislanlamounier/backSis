@@ -77,27 +77,45 @@
 <div class="separador" ><span style="color: #ddd;" class="title">LAYOUT</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="mostraTabela1('style')" ></div>
 <div id="style" hidden="on" style="float:left; width:100%">
     
-                    <div>
+      <div>   
+            
+      </div>
+              
+      <table border="0" style="width:100%">
+      <form action="configuracoes" method="post" enctype="multipart/form-data">
+                
+          <tr >
+                <td colspan="3" style="border-bottom: 1px solid #aaa"><span><b>GERAL</b></span></td>
+          </tr>
+          <tr >
+                <td style="padding-left:10px;"><span>Logo: </span></td>
+                <td><span><input type="file" name="logo_upload" id="logo-upload"></span></td>
+                <td>
+                    <span><input type="submit" value="Enviar" name="submit" style="background-color:#3a3; border-radius:5px; cursor: pointer"></span><img onmouseover="info('pop4')" onmouseout="fechar('pop4')" width='15px' src="../images/info-icon.png">
+                    <div id="pop4" class="pop" style="display:none">
+                        <div id="titulo4" class="title-info-config"><span>Atenção</span></div>
+                        <div id="content4" class="content-info">
+                              &bull; Os arquivos não devem ultra- passar 500Kb<br />
+                              &bull; Os formatos aceitos são jpg, jpeg, png e gif<br />
+                        </div>   
+                    </div>
+                </td>
+          </tr>
+                <!-- <span><b>Logo:</b></span>
+                <input type="file" name="logo_upload" id="logo-upload">
+                <input type="submit" value="Enviar" name="submit">
+                </div> -->
+      </form>
 
-                          
-                              
-                            <form action="configuracoes.php" method="post" enctype="multipart/form-data">
-                                    <div class="upload-logo">
-                                    <span><b>Logo:</b></span>
-                                    <input type="file" name="logo_upload" id="logo-upload">
-                                    <input type="submit" value="Enviar" name="submit">
-                                    </div>
-                                </form> 
-                            
-       <table border="0" style="width:100%">  
-      <form method="POST" action="configuracoes.php">
+
+      <form method="POST" action="configuracoes">
           <input name="aux" type="hidden" value="atualizar">
          
               <tr>
-                <td colspan="3"><span><b>TELA INICIAL </b></span></td>
+                <td colspan="3" style="border-bottom: 1px solid #aaa"><span><b>TELA INICIAL </b></span></td>
               </tr>
               <tr>
-                <td style="width:150px;"><span><b>Box Atrasos: </b></span></td>
+                <td style="width:150px; padding-left:10px;"><span>Box Atrasos: </span></td>
                 <td style="padding: 0">
                   <select style="width:100%" name="exibe_box_atrasos">
                     <option value="1">Exibir</option>
@@ -114,7 +132,7 @@
                 </td>
               </tr>
               <tr>
-                <td><span><b>Box Sem Registros: </b></span></td>
+                <td style="padding-left:10px;"><span>Box Sem Registros: </span></td>
                 <td style="padding: 0">
                     <select style="width:100%" name="exibe_box_sem_registros">
                          <option value="1">Exibir</option>
@@ -131,7 +149,7 @@
               </tr>
             
               <tr>
-                <td colspan="3" style="padding-top:20px; text-align:center"><input type="submit" class="button" value="Salvar"> <input type="button" class="button" value="Cancelar" onclick="window.location='configuracoes.php'"></td>
+                <td colspan="3" style="padding-top:20px; text-align:center"><input type="submit" class="button" value="Salvar"> <input type="button" class="button" value="Cancelar" onclick="window.location='configuracoes'"></td>
               </tr>
           
           </table>

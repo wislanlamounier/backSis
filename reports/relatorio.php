@@ -227,7 +227,10 @@ function select_mes($i){
 		//por final forçamos o download do documento, coloquei a nomenclatura com a data e mais um string no final.
 		$dompdf->stream(date('d/m/Y').'_lista_funcionario.pdf');
 	}else if($_GET['rel'] == 'folhaponto'){
+
 		$id_func = $_POST['id_func'];
+
+
 		if(($_POST['mes']+1) < 10){
 			$mes = '0'.($_POST['mes']+1);
 		}else{
@@ -235,9 +238,12 @@ function select_mes($i){
 		}
 		$ano = $_POST['ano'];
 		$string_mes = select_mes($_POST['mes']);
-		$ano = $_POST['ano'];
+		// $ano = $_POST['ano'];
+
+		$data = $ano.'-'.$mes.'-01 00:00:00';//busca o registro do mes referente
+
 		$funcionario = new Funcionario();
-		$funcionario = $funcionario->get_func_id($id_func);
+		$funcionario = $funcionario->get_func_historico_id($id_func, $data);
 		$empresa = new Empresa();
 		$empresa = $empresa->get_empresa_by_id($funcionario->id_empresa);
 		$endereco = new Endereco();
@@ -250,8 +256,13 @@ function select_mes($i){
 		$cbo = $cbo->get_cbo_by_id($funcionario->id_cbo);
 		$turno = new Turno();
 		$turno = $turno->getTurnoById($funcionario->id_turno);
+		$inicio_exp = '';
+		$inicio_alm = '';
+		$fim_alm = '';
+		$fim_exp = '';
+		$total_horas_normais = '';
 		
-		$html .= '<html>
+		$html = '<html>
 				<head>
 				</head>
 				<body>
@@ -299,6 +310,8 @@ function select_mes($i){
 						$data = $ano.'-'.$mes; // Ex: 2015-07
 						$horarios = $horario->get_horario_by_func_and_data($funcionario->id, $data);
 						//0123-56-89
+						$array = array();
+
 						for($aux=0; $aux < count($horarios); $aux++){
 							
 							for($dia = 1; $dia <= 31; $dia++){
@@ -323,22 +336,63 @@ function select_mes($i){
 							}
 						}
 
+						$total_horas_am = '';
+						$total_horas_pm = '';
 						for($dia = 1; $dia <= 31; $dia++){
-								$inicio_exp  = strtotime($array[$dia][1]);
- 								$inicio_alm    = strtotime($array[$dia][2]);
+								if(isset($array[$dia][1]))
+									$inicio_exp  = strtotime($array[$dia][1]);
+								if(isset($array[$dia][2]))
+ 									$inicio_alm    = strtotime($array[$dia][2]);
 
-								$fim_alm = strtotime($array[$dia][3]);
-								$fim_exp = strtotime($array[$dia][0]);
+ 								if(isset($array[$dia][3]))
+									$fim_alm = strtotime($array[$dia][3]);
+								if(isset($array[$dia][0]))
+									$fim_exp = strtotime($array[$dia][0]);
 
-								$total_horas_am = ($inicio_alm - $inicio_exp);
-								$total_horas_pm = ($fim_exp - $fim_alm);
+								$cont = 0;// se os tipos foram preenchidos cont++
+								
+								if(isset($inicio_alm) && $inicio_alm != '' && isset($inicio_exp) && $inicio_exp != ''){
+									$total_horas_am = ($inicio_alm - $inicio_exp);
+									$cont++;
+								}
+								if(isset($fim_exp) && $fim_exp != '' && isset($fim_alm) && $fim_alm != ''){
+									$total_horas_pm = ($fim_exp - $fim_alm);	
+									$cont++;
+								}
+								
+								echo $total_horas_am.' : '.$total_horas_pm;;
+								
 
-								$time = $total_horas_am + $total_horas_pm;
+								if($cont == 2){//se todos os horarios foram preenchidos
+									$time = $total_horas_am + $total_horas_pm;
+									$total_horas_normais = converterHora($time);
+								}else{
+									$total_horas_normais = '';
+									
+								}
+								
+								
+								if(isset($array[$dia][1]))
+									$inicio_exp = date('H:i:s', $inicio_exp);
+								if(isset($array[$dia][2]))
+									$inicio_alm = date('H:i:s', $inicio_alm);
+								if(isset($array[$dia][3]))
+									$fim_alm = date('H:i:s', $fim_alm);
+								if(isset($array[$dia][0]))
+									$fim_exp = date('H:i:s', $fim_exp);
 
-								$total_horas_normais[0] = converterHora($time);
 
-
-								$html .= "<tr><td>".$dia."</td><td>".$array[$dia][1]."</td><td>".$array[$dia][2]."</td><td>".$array[$dia][3]."</td><td>".$array[$dia][0]."</td><td>".$total_horas_normais[0]."</td><td> </td><td> </td><td> </td><td></td></tr>";
+								$html .= "<tr><td>".$dia.
+										 "</td><td>".$inicio_exp.
+										 "</td><td>".$inicio_alm.
+										 "</td><td>".$fim_alm.
+										 "</td><td>".$fim_exp.
+										 "</td><td>". $total_horas_normais.
+										 "</td><td> </td><td> </td><td> </td><td></td></tr>";
+								$inicio_exp = '';
+								$inicio_alm = '';
+								$fim_alm = '';
+								$fim_exp = '';
 						}
 						
 					$html .= '
