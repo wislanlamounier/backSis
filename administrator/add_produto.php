@@ -1,3 +1,4 @@
+<html>
 <?php
 //CLIENTE > DADOS DA OBRA > PRODUTOS > MATERIAIS > PATRIMONIOS > FUNCIONARIOS
 include("restrito.php"); 
@@ -12,6 +13,7 @@ include_once("../model/class_material_bd.php");
 include_once("../model/class_unidade_medida_bd.php");
 include_once("../model/class_produto_bd.php");
 include_once("../model/class_produto_materiais_bd.php");
+include_once("../includes/functions.php");
 
 function validate(){
    if(!isset($_POST['nome']) || $_POST['nome'] == ""){
@@ -24,77 +26,12 @@ function validate(){
 
 <head>
    <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-   <link rel="stylesheet" type="text/css" href="style.css">
+   <link rel="stylesheet" type="text/css" href="styles/style.css">
 
 </head>
-<script type="text/javascript">
-    function info(id){
-      
-      var divPop = document.getElementById(id);
-      divPop.style.display = "";
-    }
-    function fecharInfo(id){
-      var divPop = document.getElementById(id);
-      divPop.style.display = "none";
-    }
-    function increment(nome, acao){//chama a pagina que vai incrementar a quantidade no patrimonio
-            // alert("chamou: "+acao)
-            var parametros = nome.split(":");
-            
-            var quantidade = document.getElementById(nome).value;
-            
-            var url = '../ajax/ajax_incrementa_quantidade_material.php?id='+parametros[0]+'&qtd='+quantidade+'&tipo='+parametros[2]+'&acao='+acao; 
-            
-            $.get(url, function(dataReturn) {
-                $('#apagar').html(dataReturn);  
-            });
-    }
-    
-    function buscarMateriais(acao){
-      
-        var nome = document.getElementById("nome_pesquisa").value;
-        if(document.getElementById("m").checked == true){
-            var url = '../ajax/ajax_buscar_materiais.php?nome='+nome+'&tipo=m&acao='+acao;  
-            $.get(url, function(dataReturn) {
-                $('#form-input-select').html(dataReturn);
-            });
-        }else if(document.getElementById("p").checked == true){
-            var url = '../ajax/ajax_buscar_materiais.php?nome='+nome+'&tipo=p&acao='+acao;  
-            $.get(url, function(dataReturn) {
-                $('#form-input-select').html(dataReturn);
-            });
-        }
-        
-        
-    }
 
-    function selecionaProduto(id, whatarray){
-            
-          var url = '../ajax/ajax_montar_material.php?id='+id+'&whatarray='+whatarray;  
-          
-          $.get(url, function(dataReturn) {
-            
-            $('#form-input-dados').html(dataReturn); 
-          });
-    }
-
-    function apagar(id, whatarray, acao){
-        
-        var url = '../ajax/ajax_apagar.php?id='+id+'&whatarray='+whatarray+'&acao='+acao; 
-        
-        $.get(url, function(dataReturn) {
-          
-          $('#form-input-dados').html(dataReturn);  
-        });
-    }
-    function cancel(){
-      opc = confirm("Tem certeza que deseja cancelar?");
-      if(opc)
-        window.location.href='add_produto.php?t=c';
-
-    }
-</script>
-
+<?php Functions::getScriptProduto(); ?>
+<body>
   
       <?php include_once("../view/topo.php"); ?>
               <div id="apagar" style="float:left"></div>
@@ -431,4 +368,5 @@ function validate(){
          
         <?php include_once("informacoes_produto.php"); ?>
       
-
+</body>
+</html>

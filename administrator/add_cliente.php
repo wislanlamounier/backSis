@@ -20,11 +20,6 @@ include_once("../includes/functions.php");
  ?>
 
 <html>
-<head>
-	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-	 <script type="text/javascript" language="javascript" src="../includes/functionsPadroes.js"></script>
-	 <link rel="stylesheet" type="text/css" href="style.css">
-</head>
 
 <?php 
 
@@ -41,11 +36,14 @@ include_once("../includes/functions.php");
 		if(isset($_POST['cep'])){return true;}else{return false;}
 
 	}
-
-
-	Functions::getScriptCliente();
  ?>
 
+<head>
+	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
+	 <link rel="stylesheet" type="text/css" href="styles/style.css">
+</head>
+
+<?php Functions::getScriptCliente(); ?>
 
 <body onload="disparaLoadCidade()">			
 

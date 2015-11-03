@@ -7,7 +7,7 @@ if(isset($_SESSION["id"]) && isset($_SESSION["user"]) && isset($_SESSION["id_emp
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
 	
 </head>
 <body class="body-login">

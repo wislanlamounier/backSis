@@ -4,6 +4,7 @@ require_once("../model/class_cliente.php");
 require_once("../model/class_endereco_bd.php");
 require_once("../model/class_estado_bd.php");
 require_once("../model/class_cidade_bd.php");
+include_once("../includes/functions.php");
 
 	function validade(){
    if(!isset($_POST['nome_fantasia']) || $_POST['nome_fantasia'] == ""){
@@ -49,298 +50,10 @@ require_once("../model/class_cidade_bd.php");
  	<meta charset="UTF-8">
  	<title>Principal</title>
  	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-	 <link rel="stylesheet" type="text/css" href="style.css"> 	
+	 <link rel="stylesheet" type="text/css" href="styles/style.css"> 	
  </head>
  
-
- 
- <script type="text/javascript"> 
- function confirma(id,nome){
-
-       if(confirm("Excluir Empresa "+nome+" , tem certeza?")){
-          var url = '../ajax/ajax_excluir_Empresa.php?id='+id+'&nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
-          $.get(url, function(dataReturn) {
-            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
-          });
-       }
-    }
-
-
-    function valida(f){
-        var erros = 0;
-        var msg = "";
-          for (var i = 0; i < f.length; i++) {
-              if(f[i].name == "nome_fantasia" && f[i].value == ""){
-                msg += "Insira um Nome Fantasia para add_empresa_bd!\n";
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "nome Fantasia" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }
-
-              if(f[i].name == "tel"){
-                if(f[i].value == ""){
-                  msg += "Preencha o campo de telefone!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
-              if(f[i].name == "cnpj"){
-                if(f[i].value == ""){
-                  msg += "Preencha o do cnpj!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
-              if(f[i].name == "numero"){
-                if(f[i].value == ""){
-                  msg += "Preencha o campo de telefone!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }if(f[i].value <= 0){
-                        msg += "Insira um valor acima de 0 no campo Número!\n";
-                        f[i].style.border = "1px solid #FF0000";
-                        erros++;
-                    }else{
-                        f[i].style.border = "1px solid #898989";
-                    }
-                  }
-              if(f[i].name == "razao_social"){
-                if(f[i].value == ""){
-                  msg += "Preencha o campo de Razão Social!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
-              if(f[i].name == "responsavel"){
-                if(f[i].value == "no_res"){
-                  msg += "Escolha uma opção no campo Responsavel!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
-               if(f[i].name == "estado" && f[i].value == "Selecione um estado"){
-                msg += "Selecione um Estado\n";
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "estado" && f[i].value != "Selecione um estado"){
-                f[i].style.border = "1px solid #898989";
-              }
-
-              if(f[i].name == "cidade"){
-                if(f[i].value == ""){
-                  msg += "Escolha uma cidade!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989"; 
-                }
-              }
-              if(f[i].name == "telefone" && f[i].value == ""){
-                msg += "Insíra um Telefone!\n";
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "telefone" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }
-
-              if(f[i].name == "rua" && f[i].value == ""){
-                msg += "Preencha o campo Rua\n";
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "rua" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }
-
-              if(f[i].name == "bairro"){
-                  if(f[i].value == ""){
-                     f[i].style.border = "1px solid #FF0000";
-                     msg += "Selecione um bairro\n";
-                     erros++;
-                  }else{
-                     f[i].style.border = "1px solid #898989";
-                  }
-               }
-               if(f[i].name == "cep"){
-                  if(f[i].value == ""){
-                      msg += "Selecione um cep\n";
-                     f[i].style.border = "1px solid #FF0000";
-                     erros++;
-                  }else{
-                     f[i].style.border = "1px solid #898989";
-                  }
-               }
-          }
-          if(erros>0){
-            
-              alert(msg);
-            
-            return false;
-          }
-      }
-	// mascaras
-      function mascara(o,f){
-          v_obj=o
-          v_fun=f
-          setTimeout("execmascara()",1)
-      }
-      function execmascara(){
-          v_obj.value=v_fun(v_obj.value)
-      }
-
-      function mcpf(v){
-       if(v.length >=15){  
-         v = v.substring(0,(v.length - 1));
-         return v;
-       }
-       v=v.replace(/\D/g,""); 
-       v=v.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4");
-       return v;
-    }
-       function mtel(v){
-           if(v.length >=15){                                          // alert("mtel")
-             v = v.substring(0,(v.length - 1));
-             return v;
-           }
-           v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
-           v=v.replace(/^(\d{2})(\d)/g,"($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
-           v=v.replace(/(\d)(\d{4})$/,"$1-$2");    //Coloca hífen entre o quarto e o quinto dígitos
-           
-           return v;
-       }
-        function mcpf(v){
-           if(v.length >=15){  
-             v = v.substring(0,(v.length - 1));
-             return v;
-           }
-           v=v.replace(/\D/g,""); 
-           v=v.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4");
-           return v;
-        }
-        function mcnpj(v){
-           if(v.length >=19){                                          // alert("mtel")
-             v = v.substring(0,(v.length - 1));
-             return v;
-           }
-           v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
-           v=v.replace(/^(\d{2})(\d{3})/g,"$1.$2."); 
-           v=v.replace(/(\d{3})(\d{4})/,"$1/$2"); 
-           v=v.replace(/(\d)(\d{2})$/,"$1-$2"); 
-           
-           return v;
-       }
-       function mnum(v){
-          if(v.length >=19){                                          // alert("mtel")
-             v = v.substring(0,(v.length - 1));
-             return v;
-          }
-          v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
-          return v;
-       }
-        
-       function id( el ){
-         // alert("id")
-         return document.getElementById( el );
-       }
-       function mcep(v){
-          if(v.length >= 10){
-            v=v.substring(0,(v.length - 1));
-            return v;
-          }
-          v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
-          v=v.replace(/^(\d{5})(\d{3})$/,"$1-$2");
-
-          return v;
-       }
-       window.onload = function(){
-          
-          id('tel').onkeypress = function(){
-              mascara( this, mtel );
-          }
-          id('cnpj').onkeypress = function(){
-              mascara( this, mcnpj );
-          }
-          id('numero').onkeypress = function(){
-              mascara( this, mnum );
-          }
-          id('cep').onkeypress = function(){
-            mascara( this, mcep );
-          }         
-        }
-      //fim mascaras
-
-function buscar_cidades(){
-		      
-		var estado = document.getElementById("estado").value;  //codigo do estado escolhido
-		//se encontrou o estado
-
-		if(estado){
-
-		  var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
-
-		  $.get(url, function(dataReturn) {
-		    $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
-		  });
-		}
-	}
-	    function carregaCidade(){
-        var combo = document.getElementById("cidade");
-        var cidade = document.getElementById("id_cidade").value;
-  
-        for (var i = 0; i < 1000; i++)
-         {
-           if (combo.options[i].value == cidade)
-               {
-               combo.options[i].selected = true;
-               break;
-             }
-           } 
-      }
-  function disparaLoadCidade(){
-      setTimeout(function() {
-         carregaCidade();
-        }, 500);
-      }
-
-    function carregaUf(uf){
-      var combo = document.getElementById("estado");
-      for (var i = 0; i < combo.options.length; i++)
-      {
-        if (combo.options[i].value == uf)
-        {
-          combo.options[i].selected = true;
-          
-          break;
-        }
-      }
-      buscar_cidades();
-    } 
-    function carregaResponsavel(id_resp){
-      var combo = document.getElementById("responsavel");
-      for (var i = 0; i < combo.options.length; i++)
-      {
-        if (combo.options[i].value == id_resp)
-        {
-          combo.options[i].selected = true;
-          
-          break;
-        }
-      }
-    }
-   
- </script>
+ <?php  Functions::getScriptEmpresa(); //carrega funções javascript da pagina?>
 
  <body onload="disparaLoadCidade()">  		
  		<?php include_once("../view/topo.php"); ?>
@@ -418,7 +131,7 @@ function buscar_cidades(){
               		   <tr>
                           <td colspan="2" style="text-align:center">
                               <input  class="button" type="submit" value="Salvar" >
-                              <input class="button" name="button" onclick="window.location.href='add_empresa.php'" id="button" value="Cancelar">
+                              <input class="button" name="button" type="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
                           </td>
                       </tr> 
                 	 </table>
@@ -570,6 +283,6 @@ function buscar_cidades(){
                    	}
                    	?>
             </div>   
- 			<?php include("informacoes_empresa.php");?> 
+ 			<?php //include("informacoes_empresa.php");?> 
  </body>
  </html>

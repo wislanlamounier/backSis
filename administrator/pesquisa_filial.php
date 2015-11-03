@@ -18,7 +18,7 @@ include("../model/class_filial_bd.php");
    <meta charset="UTF-8">
    <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
    <script src="../javascript/selectbox.js" type="text/javascript"></script>
-   <link rel="stylesheet" type="text/css" href="style.css">
+   <link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 
 <body>   

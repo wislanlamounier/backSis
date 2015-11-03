@@ -51,7 +51,7 @@ include_once("../config.php");
      <meta charset="UTF-8">
      <script src="../javascript/angular.min.js" type="text/javascript"></script>
      <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-     <link rel="stylesheet" type="text/css" href="style.css"> 
+     <link rel="stylesheet" type="text/css" href="styles/style.css"> 
      <link rel="stylesheet" type="text/css" href="Styles/config_gerais.css"> 
      <link href='http://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
      <link href='http://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet' type='text/css'>

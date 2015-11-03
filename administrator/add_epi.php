@@ -4,6 +4,7 @@ include("restrito.php");
 include_once("../model/class_sql.php");
 include_once("../model/class_epi_bd.php");
 include_once("../model/class_empresa_bd.php");
+include_once("../includes/functions.php");
 
 function validade(){
   
@@ -22,77 +23,13 @@ function validade(){
 ?>
 <html>
 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-<script type="text/javascript">
 
-     function confirma(id,nome){
-          
-          if(confirm("Excluir EPI "+nome+" , tem certeza?")){
-             var url = '../ajax/ajax_excluir_epi.php?id='+id+'&nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
-             $.get(url, function(dataReturn) {
-               $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
-             });
-          }
-       }
-           
-    function carregaEmpresa(empresa){
-      
-      var combo = document.getElementById("empresa");
-      for (var i = 0; i < combo.options.length; i++)
-      {
-        if (combo.options[i].value == empresa)
-        {
-          combo.options[i].selected = true;
-          break;
-        }
-      }
-    }
-     function validate(f){
-        var erros = 0;
-        var msg = "";
+<?php  Functions::getScriptEPI(); ?>
 
-              for (var i = 0; i < f.length; i++) {
-               
-                  if(f[i].name == "codigo"){
-                  if(f[i].value == ""){
-                      msg += "Digite um codigo para o equipamento\n";
-                     f[i].style.border = "1px solid #FF0000";
-                     erros++;
-                  }else{
-                     f[i].style.border = "1px solid #898989";
-                  }
-               }
-               if(f[i].name == "nome" && f[i].value == ""){
-                msg += "Insira um Nome!\n";
-                f[i].style.border = "1px solid #FF0000";
-                erros++;
-              }
-              if(f[i].name == "nome" && f[i].value != ""){
-                f[i].style.border = "1px solid #898989";
-              }
-                if(f[i].name == "empresa"){
-                if(f[i].value == "no_sel"){
-                  msg += "Selecione uma empresa!\n";
-                  f[i].style.border = "1px solid #FF0000";
-                  erros++;
-                }else{
-                  f[i].style.border = "1px solid #898989";
-                }
-
-              }
-              
-             if(erros>0){
-                    
-                      alert(msg);
-                    
-                    return false;
-                  }
-                 }
-               }
-</script>
 <head>
    <title>Adicionar</title>
    <meta charset="UTF-8">
-   <link rel="stylesheet" type="text/css" href="../administrator/style.css">   
+   <link rel="stylesheet" type="text/css" href="../administrator/styles/style.css">   
 </head>
 <body>
      

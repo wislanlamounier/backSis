@@ -13,6 +13,7 @@ include("restrito.php");
  include_once("../model/class_endereco_bd.php");
  include_once("../model/class_periodicidade_bd.php");
  include_once("../model/class_exame_bd.php");
+ include_once("../includes/functions.php");
 
 function validate(){
    if(!isset($_POST['descricao']) || $_POST['descricao'] == ""){
@@ -27,61 +28,11 @@ function validate(){
 ?>
 <html>
 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-<script type="text/javascript">
-    function confirma(id,nome){
-       if(confirm("Excluir cliente "+nome+" , tem certeza?") ){
-          var url = '../ajax/ajax_excluir_exame.php?id='+id+'&nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
-          
-          $.get(url, function(dataReturn) {
-            
-            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
-          });
-       }
-    }
-
-    function carregaPeriodo(per){
-      var combo = document.getElementById("periodo");
-      for (var i = 0; i < combo.options.length; i++)
-      {
-        if (combo.options[i].value == per)
-        {
-          combo.options[i].selected = true;
-          break;
-        }
-      }
-    }
-
-   function validate(f){
-      var erros=0;
-      for(i=0; i < f.length; i++){
-        if(f[i].name == "descricao"){
-            if(f[i].value == ""){
-               f[i].style.border = "1px solid #f00";
-               erros++;
-            }else{
-              f[i].style.border = "1px solid #898989";
-            }
-        }
-        if(f[i].name == "periodo"){
-            if(f[i].value == "no_sel"){
-               f[i].style.border = "1px solid #f00";
-               erros++;
-            }else{
-              f[i].style.border = "1px solid #898989";
-            }
-        }
-      }
-      if(erros>0){
-         return false;
-      }else{
-         return true;
-      }
-   }
-</script>
+<?php Functions::getScriptExames(); ?>
 <head>
    <title>Adicionar</title>
    <meta charset="UTF-8">
-   <link rel="stylesheet" type="text/css" href="../administrator/style.css">
+   <link rel="stylesheet" type="text/css" href="../administrator/styles/style.css">
 
    
 </head>
@@ -127,7 +78,7 @@ function validate(){
                              <tr>
                                 <td colspan="3" style="text-align:center">
                                     <input class="button" type="submit" name="button" id="button" value="Editar">
-                                    <input class="button" name="button" onclick="window.location.href='add_exame.php'" id="button" value="Cancelar">
+                                    <input class="button" name="button" type="button" onclick="window.location.href='add_exame.php'" id="button" value="Cancelar">
                                 </td>
                               </tr>
                           </table>
@@ -160,7 +111,7 @@ function validate(){
                      <tr>
                         <td colspan="3" style="text-align:center">
                            <input class="button" type="submit" name="button" id="button" value="Cadastrar">
-                           <input class="button" name="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
+                           <input class="button" name="button" type="button" onclick="window.location.href='principal.php'" id="button" value="Cancelar">
                          </td>
                       </tr>
                   </table>

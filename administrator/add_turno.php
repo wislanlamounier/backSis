@@ -11,6 +11,7 @@ include("restrito.php");
  include_once("../model/class_cidade_bd.php");
  include_once("../model/class_estado_bd.php");
  include_once("../model/class_endereco_bd.php");
+ include_once("../includes/functions.php");
 
 function validate(){
    if(!isset($_POST['ini_exp_h']) || $_POST['ini_exp_m'] == ""){
@@ -31,147 +32,15 @@ function validate(){
 ?>
 <html>
 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-<script type="text/javascript">
-     function validate(f){
-      var erros=0;
-      for(i=0; i < f.length; i++){
-         if(f[i].name == "nome"){
-            if(f[i].value == ""){
-               f[i].style.border = "1px solid #f00";
-               erros++;
-            }else{
-              f[i].style.border = "1px solid #898989";
-            }
-        }
-        if(f[i].name == "ini_exp_h"){
-            if(f[i].value == ""){
-               f[i].style.border = "1px solid #f00";
-               erros++;
-            }else{
-              f[i].style.border = "1px solid #898989";
-            }
-        }
-        if(f[i].name == "ini_exp_m"){
-            if(f[i].value == ""){
-               f[i].style.border = "1px solid #f00";
-               erros++;
-            }else{
-              f[i].style.border = "1px solid #898989";
-            }
-        }
-        if(f[i].name == "ini_alm_h"){
-            if(f[i].value == ""){
-               f[i].style.border = "1px solid #f00";
-               erros++;
-            }else{
-              f[i].style.border = "1px solid #898989";
-            }
-        }
-        if(f[i].name == "ini_alm_m"){
-            if(f[i].value == ""){
-               f[i].style.border = "1px solid #f00";
-               erros++;
-            }else{
-              f[i].style.border = "1px solid #898989";
-            }
-        }
-        if(f[i].name == "fim_alm_m"){
-            if(f[i].value == ""){
-               f[i].style.border = "1px solid #f00";
-               erros++;
-            }else{
-              f[i].style.border = "1px solid #898989";
-            }
-        }
-        if(f[i].name == "fim_alm_h"){
-            if(f[i].value == ""){
-               f[i].style.border = "1px solid #f00";
-               erros++;
-            }else{
-              f[i].style.border = "1px solid #898989";
-            }
-        }
-        if(f[i].name == "fim_exp_h"){
-            if(f[i].value == ""){
-               f[i].style.border = "1px solid #f00";
-               erros++;
-            }else{
-              f[i].style.border = "1px solid #898989";
-            }
-        }
-        if(f[i].name == "fim_exp_m"){
-            if(f[i].value == ""){
-               f[i].style.border = "1px solid #f00";
-               erros++;
-            }else{
-              f[i].style.border = "1px solid #898989";
-            }
-        }
-      }
-      if(erros>0){
-         return false;
-      }else{
-         return true;
-      }
-   }
 
-   //mascaras
-      function mascara(o,f){
-          v_obj=o
-          v_fun=f
-          setTimeout("execmascara()",1)
-      }
-      function execmascara(){
-          v_obj.value=v_fun(v_obj.value)
-      }
-       function id( el ){
-         // alert("id")
-         return document.getElementById( el );
-       }
-      function mnum(v){
-           if(v.length >=19){
-              v = v.substring(0,(v.length - 1));
-              return v;
-           }
-           v=v.replace(/\D/g,"");
-           return v;
-       }
-       
-      window.onload = function(){
-         id('ini_exp_h').onkeypress = function(){
-             mascara( this, mnum );
-         }
-         id('ini_exp_m').onkeypress = function(){
-             mascara( this, mnum );
-         }
-         id('ini_alm_h').onkeypress = function(){
-             mascara( this, mnum );
-         }
-         id('ini_alm_m').onkeypress = function(){
-             mascara( this, mnum );
-         }
-         id('fim_alm_h').onkeypress = function(){
-             mascara( this, mnum );
-         }
-         id('fim_alm_m').onkeypress = function(){
-             mascara( this, mnum );
-         }
-         id('fim_exp_h').onkeypress = function(){
-             mascara( this, mnum );
-         }
-         id('fim_exp_m').onkeypress = function(){
-             mascara( this, mnum );
-         }
-      }
-   //fim mascaras
-
-</script>
 
 <head>
    <title>Adicionar</title>
    <meta charset="UTF-8">
-   <link rel="stylesheet" type="text/css" href="style.css">   
+   <link rel="stylesheet" type="text/css" href="styles/style.css">   
 </head>
+
+<?php Functions::getScriptTurno(); ?>
 
 <body>
    

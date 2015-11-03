@@ -1,9 +1,10 @@
 <?php
  include("restrito.php");
- include("../model/class_epi_bd.php");
+ include_once("../model/class_epi_bd.php");
  include_once("../model/class_rend_double_select.php");
- include("../model/class_funcionario_bd.php");
- include("../model/class_epiXfunc_bd.php");
+ include_once("../model/class_funcionario_bd.php");
+ include_once("../model/class_epiXfunc_bd.php");
+ include_once("../includes/functions.php");
  ?>
 
 <?php 
@@ -17,69 +18,14 @@ function validate(){
 
  ?>
 
-<script type="text/javascript">
-      function validate(f){ 
-            var erros=0;   
-            for(i=0; i<f.length; i++){
-               if(f[i].name == "data"){
-                  if(f[i].value == ""){
-                     f[i].style.border = "1px solid #f00";
-                     erros++;
-                  }else{
-                    f[i].style.border = "1px solid #898989";
-                  }
-               }
-
-               if(f[i].name == "selecionados[]"){
-                  if(f[i].selectedIndex == -1){
-                     f[i].style.border = "1px solid #f00";
-                     erros++;
-                  }else{
-                    f[i].style.border = "1px solid #898989";
-                  }
-               }
-            }
-            if(erros>0){
-               return false;
-            }else{
-               return true;
-            }
-
-         }
-
-    // function avanca(tipo){
-    //       html = '<td>Preencha a quantidade dos equipamentos<br />';
-    //       for(i=0; i<document.getElementById("selecionados").options.length; i++)
-            
-    //         html += document.getElementById("selecionados").options[i].text+": <input type='text' name="+document.getElementById("selecionados").options[i].value+"><br />";
-    //       html += "</td>";
-              
-        
-    //       $('#equipamentos').html(html);  //coloco na div o retorno da requisicao
-    //       $('#btnAvancar').html('<input style="width:80px;" type="button" name="button" class="button" id="buttonAvancar" onclick="selectAll(), submit()" value="Cadastrar">');  //coloco na div o retorno da requisicao
-          
-          
-    //       // document.getElementById("add_epiXfunc").submit();
-    // }
-    // function submit(){
-    //     document.getElementById("add_epiXfunc").submit(); 
-    // }
-    function selectAll(){
-        var select = document.getElementById("selecionados");
-        for(i=0; i<select.length; i++){
-          
-           select[i].selected = true;
-        }
-    }
-   
-</script>
+<?php Functions::getScriptEPI_FUNC(); ?>
 
 <head>
    <title>Adicionar</title>
    <meta charset="UTF-8">
    <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
    <script src="../javascript/selectbox.js" type="text/javascript"></script>
-   <link rel="stylesheet" type="text/css" href="style.css">
+   <link rel="stylesheet" type="text/css" href="styles/style.css">
    
 </head>
 

@@ -19,8 +19,8 @@ include_once("../config.php");
  	<script src="../javascript/jquery-2.1.4.min.js"></script>
  	<!--<script src="../javascript/jquery_mobile/jquery.mobile-1.4.5.min.js"></script>-->
  	<!-- <link rel="stylesheet" type="text/css" href="../javascript/jquery_mobile/jquery.mobile-1.4.5.min.css"> -->
- 	<link rel="stylesheet" type="text/css" href="style.css">
-  <!-- <link rel="stylesheet" type="text/css" href="../sistemaponto/style.css"> -->
+ 	<link rel="stylesheet" type="text/css" href="styles/style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="../sistemaponto/styles/style.css"> -->
  </head>
  <script>
     function info(id){

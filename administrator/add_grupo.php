@@ -15,7 +15,7 @@ function validate(){
 <html>
 <head>
 	 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-	 <link rel="stylesheet" type="text/css" href="style.css">
+	 <link rel="stylesheet" type="text/css" href="styles/style.css">
 
 </head>
 <script type="text/javascript">
