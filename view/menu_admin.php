@@ -12,7 +12,6 @@
                   <li><a href="/viacampos/administrator/add_patrimonio">Patrimonio</a></li>
                   <li><a href="/viacampos/administrator/add_produto">Produto</a></li>
                   <li><a href="/viacampos/administrator/add_material">Material</a></li>
-                  <li><a href="/viacampos/administrator/pesquisa_epi">Equipamentos</a></li>
         <?php } ?>
 
         <li><a href="/viacampos/administrator/add_turno">Turno</a></li>
@@ -33,6 +32,7 @@
          <?php if($_SESSION['nivel_acesso'] == 0 || $_SESSION['nivel_acesso'] == 1){ ?>
           <li><a href="/viacampos/administrator/pesquisa_cli">Cliente</a></li>
           <li><a href="/viacampos/administrator/pesquisa_patrimonio">Patrimonio</a></li>
+          <li><a href="/viacampos/administrator/pesquisa_epi">Equipamentos</a></li>
         <?php } ?>
 
         <li><a href="/viacampos/administrator/pesquisa_filial">Posto de Trabalho</a></li>

@@ -10,6 +10,21 @@
 *
 */
 Class Functions{
+	function getHead($title){
+		echo '<head>
+			 	<meta charset="UTF-8">
+				  <link rel="icon" href="../images/ico-sgo.png" type="image/x-icon">
+				  <meta HTTP-EQUIV="refresh" CONTENT="590">
+				 	<title>'.$title.'</title>
+				 	
+				 	<script src="../javascript/jquery-2.1.4.min.js"></script>
+				 	<script src="../javascript/selectbox.js" type="text/javascript"></script>
+				 	<link rel="stylesheet" type="text/css" href="styles/style.css">
+				 	<!--<script src="../javascript/jquery_mobile/jquery.mobile-1.4.5.min.js"></script>-->
+				 	<!-- <link rel="stylesheet" type="text/css" href="../javascript/jquery_mobile/jquery.mobile-1.4.5.min.css"> -->
+				    <!-- <link rel="stylesheet" type="text/css" href="../sistemaponto/styles/style.css"> -->
+				 </head>';
+	}
 
 	function getScriptFuncionario(){
 			?>
@@ -2948,11 +2963,250 @@ Class Functions{
 		}//fim getScriptTurno()
 
 		//Modelo
-		function getScriptModelo4(){
+		function getScriptConfiguracoes(){
 		?>
-			<!-- Code -->
+			<script type="text/javascript">
+     
+				     
+				    function confirma(teste){
+				        data = teste.split(" ");
+				        id = data[0];
+				        nome = data[1];
+				        pesq = data[2];
+				        
+				        
+				       if(confirm("Excluir unidade "+nome+" , tem certeza?") ){
+				          var url = '../ajax/ajax_excluir_unidade_medida.php?id='+id+'&nome='+nome;  //caminho do arquivo php que irá buscar as cidades no BD
+				          
+				          $.get(url, function(dataReturn) {
+				            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+				            window.location.href='configuracoes.php?nome='+pesq;
+				          });
+				       }
+				    }
+				    
+				   
+				    function busca(){
+				        
+				       if(document.getElementById('nome_e').value !=0 ){
+				           var nome = document.getElementById('nome_e').value;
+				         
+				       }
+				       window.location = 'configuracoes.php?nome='+nome;
+
+				    }
+				    function atualizar(unidade){
+				        data = unidade.split(" ");
+				       
+				        alert("A unidade de medida "+ data[1] +" será alterada");
+				               
+				    }
+				    function valida(f){ 
+				      var erros=0;   
+				      for(i=0; i<f.length; i++){
+				        
+				         if(f[i].name == "temp_limit_atraso"){
+				            if(f[i].value == ""){
+				               f[i].style.border = "1px solid #f00";
+				               erros++;
+				            }else{
+				              f[i].style.border = "1px solid #898989";
+				            }
+				         }
+				         if(f[i].name == "nome"){
+				            if(f[i].value == ""){
+				               f[i].style.border = "1px solid #f00";
+				               erros++;
+				            }else{
+				              f[i].style.border = "1px solid #898989";
+				            }
+				         }
+				         if(f[i].name == "sigla"){
+				            if(f[i].value == ""){
+				               f[i].style.border = "1px solid #f00";
+				               erros++;
+				            }else{
+				              f[i].style.border = "1px solid #898989";
+				            }
+				         }
+				         if(f[i].name == "grandeza"){
+				            if(f[i].value == ""){
+				               f[i].style.border = "1px solid #f00";
+				               erros++;
+				            }else{
+				              f[i].style.border = "1px solid #898989";
+				            }
+				         }
+				      }
+				      if(erros>0){
+				         return false;
+				      }else{
+				         return true;
+				      }
+
+				   }
+				     
+				     function carregaU_M(um){
+				          data = um.split(":");
+				          var aux = data[0];          
+				          var aux2 = data[1];
+				         
+				          var combo = document.getElementById(aux2+":medida");
+				          for (var i = 0; i < combo.options.length; i++)
+				          {
+				            if (combo.options[i].value == aux)
+				            {
+				              combo.options[i].selected = true;
+
+				              break;
+				            }
+				          }
+				        }
+				        
+				      function hideall(x){
+				            if(document.getElementById(x).hidden == true){
+				                document.getElementById(x).hidden = false;
+				            }else{
+				                document.getElementById(x).hidden = true;
+				                document.getElementById(1).hidden = true;
+				                document.getElementById(2).hidden = true;
+				                document.getElementById(3).hidden = true;
+				                document.getElementById(4).hidden = true;
+				                document.getElementById("opcoes-materiais").hidden = true;
+				            }
+				        }
+				     
+				     function ocultaTabela(x){
+				          if(document.getElementById(x).hidden == true){
+				                document.getElementById(x).hidden = false;
+				            }else{
+				                document.getElementById(x).hidden = true;
+				            }
+				     }
+				     function mostraTabela1(x){
+				            
+				            if(document.getElementById(2).hidden == false){
+				                document.getElementById(2).hidden = true;
+				            }
+				            
+				            
+				            if(document.getElementById(x).hidden == true){
+				                document.getElementById(x).hidden = false;
+				            }else{
+				                document.getElementById(x).hidden = true;
+				            }
+				            
+				     }
+				   
+				     function mostraTabela2(x){
+				            if(document.getElementById(1).hidden == false){
+				                document.getElementById(1).hidden = true;
+				            }
+				            
+				            if(document.getElementById(x).hidden == true){
+				                document.getElementById(x).hidden = false;
+				            }else{
+				                document.getElementById(x).hidden = true;
+				            }
+				            
+				     }
+				     
+				     function mascara(o,f){
+				              v_obj=o
+				              v_fun=f
+				              setTimeout("execmascara()",1)
+				      }
+				      function execmascara(){
+				          v_obj.value=v_fun(v_obj.value)
+				      }
+				       function id( el ){
+				         // alert("id")
+				         return document.getElementById( el );
+				       }
+				      function mnum(v){
+				           if(v.length >=19){
+				              v = v.substring(0,(v.length - 1));
+				              return v;
+				           }
+				           v=v.replace(/\D/g,"");
+				           return v;
+				       }
+				       
+				        window.onload = function(){
+				          id('temp_limit_atraso').onkeypress = function(){
+				              mascara( this, mnum );
+				          }
+				       }
+				       
+				    function carregaUf(uf){
+				         data = uf.split(" ");
+				          var aux = data[0];
+				         
+				          var aux2 = data[1];
+				        
+				        
+				      var combo = document.getElementById(aux2+"xestado");
+				      for (var i = 0; i < combo.options.length; i++)
+				      {
+				        if (combo.options[i].value == aux)
+				        {
+				          combo.options[i].selected = true;
+				          
+				          break;
+				        }
+				      }
+				      buscar_cidades(aux2+"xestado");
+				    } 
+				    
+				    function buscar_cidades(x){ 
+				          
+				          var estado = document.getElementById(x).value;  //codigo do estado escolhido
+				          data = x.split("x");
+				          var aux = data[0];
+				          var aux2 = data[1];
+				         
+				          //se encontrou o estado
+				          if(estado){
+				            var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+				            $.get(url, function(dataReturn) {
+				              $('#'+aux+'load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
+				            });
+				          }
+				    }
+				       function buscar_cidades(){ 
+				          
+				          var estado = document.getElementById("estado").value;  //codigo do estado escolhido
+				          
+				          //se encontrou o estado
+				          if(estado){
+				            var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;  //caminho do arquivo php que irá buscar as cidades no BD
+				            $.get(url, function(dataReturn) {
+				              $('#load_cidades').html(dataReturn);  //coloco na div o retorno da requisicao
+				            });
+				          }
+				    }
+				    
+				    function carregaCidade(){
+				                
+				                
+				                var combo = document.getElementById("cidade");
+				                var cidade = document.getElementById("id_cidade").value;
+				                
+				                for (var i = 0; i < combo.length; i++)
+				                {
+
+				                  if (combo.options[i].value == cidade)
+				                  {
+				                    combo.options[i].selected = true;
+				                    break;
+				                  }
+				                }      
+				    }
+				   
+				   
+				 </script>
 		<?php
-		}//fim getScript()
+		}//fim getScriptConfiguracoes()
 
 		//Modelo
 		function getScriptModelo5(){

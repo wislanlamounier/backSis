@@ -5,17 +5,21 @@ include_once("../model/class_funcionario_bd.php");
 include_once("../model/class_horarios_bd.php");
 include_once("../model/class_turno_bd.php");
 include_once("../model/class_sql.php");
+include_once("../includes/functions.php");
 
 ?>
 <html>
 
-<head>
+
+<?php Functions::getHead('Relatórios'); //busca <head></head> da pagina, $title é o titulo da pagina ?>
+
+<!-- <head>
    <title>Relatórios</title>
    <meta charset="UTF-8">
    <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
    <script src="../javascript/selectbox.js" type="text/javascript"></script>
    <link rel="stylesheet" type="text/css" href="styles/style.css">
-</head>
+</head> -->
 
 <body>
 

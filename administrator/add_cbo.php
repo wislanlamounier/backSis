@@ -29,14 +29,16 @@ function validate(){
 ?>
 <html>
 
-<head>
+
+<?php Functions::getHead('Adicionar'); //busca <head></head> da pagina, $title é o titulo da pagina ?>
+<!-- <head>
    <title>Adicionar</title>
    <meta charset="UTF-8">
    <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
    <script src="../javascript/selectbox.js" type="text/javascript"></script>
    <link rel="stylesheet" type="text/css" href="styles/style.css">
    
-</head>
+</head> -->
 <?php  Functions::getScriptCBO(); //carrega funções javascript da pagina ?>
 <body>
    

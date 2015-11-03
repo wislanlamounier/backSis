@@ -7,21 +7,14 @@ include_once("../model/class_maquinario_bd.php");
 include_once("../model/class_patrimonio_geral_bd.php");
 include_once("../model/class_veiculo_bd.php");
 include_once("../model/class_obs_superv_bd.php");
+include_once("../includes/functions.php");
 include_once("../config.php");
+
  ?>
  <html>
- <head>
 
- 	<meta charset="UTF-8">
-  <meta HTTP-EQUIV="refresh" CONTENT="590">
- 	<title>Principal</title>
- 	
- 	<script src="../javascript/jquery-2.1.4.min.js"></script>
- 	<!--<script src="../javascript/jquery_mobile/jquery.mobile-1.4.5.min.js"></script>-->
- 	<!-- <link rel="stylesheet" type="text/css" href="../javascript/jquery_mobile/jquery.mobile-1.4.5.min.css"> -->
- 	<link rel="stylesheet" type="text/css" href="styles/style.css">
-  <!-- <link rel="stylesheet" type="text/css" href="../sistemaponto/styles/style.css"> -->
- </head>
+<?php Functions::getHead('Principal'); //busca <head></head> da pagina, $title é o titulo da pagina ?>
+
  <script>
     function info(id){
       

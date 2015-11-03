@@ -2,24 +2,18 @@
 <?php
 include("restrito.php");
 include("../model/class_patrimonio_bd.php");
-
-
-
+include_once("../includes/functions.php");
 ?>
 <html>
-<script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
-<script type="text/javascript">
-      
-      
-</script>
 
-<head>
+<?php Functions::getHead('Pesquisar Patrimonio Geral'); //busca <head></head> da pagina, $title é o titulo da pagina ?>
+<!-- <head>
    <title>Pesquisar Patrimonio</title>
    <meta charset="UTF-8">
    <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
    <script src="../javascript/selectbox.js" type="text/javascript"></script>
    <link rel="stylesheet" type="text/css" href="styles/style.css">
-</head>
+</head> -->
 
 <body>   
 <?php include_once("../view/topo.php"); ?>

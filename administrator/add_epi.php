@@ -24,13 +24,16 @@ function validade(){
 <html>
 <script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 
-<?php  Functions::getScriptEPI(); ?>
 
-<head>
+
+<?php Functions::getHead('Adicionar'); //busca <head></head> da pagina, $title é o titulo da pagina ?>
+<!-- <head>
    <title>Adicionar</title>
    <meta charset="UTF-8">
    <link rel="stylesheet" type="text/css" href="../administrator/styles/style.css">   
-</head>
+</head> -->
+
+<?php  Functions::getScriptEPI(); ?>
 <body>
      
     <div id="content">

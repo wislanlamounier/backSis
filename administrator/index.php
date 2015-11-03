@@ -1,15 +1,20 @@
 <?php
 session_start();
+
 if(isset($_SESSION["id"]) && isset($_SESSION["user"]) && isset($_SESSION["id_empresa"])){
 	header("location:principal.php");
-}?>
+}
+include_once("../includes/functions.php");
+?>
 <html>
-<head>
+
+<?php Functions::getHead('Administrator'); //busca <head></head> da pagina, $title é o titulo da pagina ?>
+<!-- <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="styles/style.css">
 	
-</head>
+</head> -->
 <body class="body-login">
 	<!-- <div class='container'> -->
 		<div class='content' style="height:390px; padding: 5">

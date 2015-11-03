@@ -81,9 +81,9 @@ return $valor; //retorna o valor formatado para gravar no banco
 ?>
 <html>
 
-<?php  Functions::getScriptFuncionario(); //carrega funções javascript da pagina?>
+<?php Functions::getHead('Adicionar'); //busca <head></head> da pagina, $title é o titulo da pagina ?>
 
-<head>
+<!-- <head>
    <title>Adicionar</title>
    <meta charset="UTF-8">
    
@@ -93,8 +93,9 @@ return $valor; //retorna o valor formatado para gravar no banco
    <link href='http://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
    <link href='http://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet' type='text/css'>
 
-</head>
+</head> -->
 
+<?php  Functions::getScriptFuncionario(); //carrega funções javascript da pagina?>
 
 <body onload="disparaLoadCidade()">
 
