@@ -384,7 +384,7 @@ class Horarios{
 		}
 		return $return;
 	}
-	public function get_registros_esquecidos($data, $tipo){
+	public function get_registros_esquecidos($data, $tipo, $data2){
 			$sql = new Sql();
 			$sql->conn_bd();
 			$g = new Glob();
@@ -394,9 +394,19 @@ class Horarios{
 			// $query = "SELECT * FROM horarios_registrados WHERE data = '".$data."' and (tipo_1 = 0 or tipo_2 = 0 or tipo_3 = 0 or tipo_0 = 0)";
 			if($tipo == 0){//busca uma data
 					$query = "SELECT horarios.* FROM horarios_registrados as horarios inner join funcionario as func WHERE horarios.data = '".$data.
-						"' and (horarios.tipo_1 = 0 or horarios.tipo_2 = 0 or horarios.tipo_3 = 0 or horarios.tipo_0 = 0) and func.oculto = 0 and horarios.id_funcionario = func.id ORDER BY data ASC";
-			}else{//busca um mes
-					$query = "SELECT horarios.* FROM horarios_registrados as horarios inner join funcionario as func WHERE horarios.data LIKE '%".$data."%' and data <= '".date('Y-m-d')."' and (horarios.tipo_1 = 0 or horarios.tipo_2 = 0 or horarios.tipo_3 = 0 or horarios.tipo_0 = 0) and func.oculto = 0 and horarios.id_funcionario = func.id ORDER BY data ASC";
+						"' and (horarios.tipo_1 = 0 or horarios.tipo_2 = 0 or horarios.tipo_3 = 0 or horarios.tipo_0 = 0) and func.oculto = 0 and
+						 horarios.id_funcionario = func.id ORDER BY data ASC";
+			}else if($tipo == 1){//busca um mes
+					$query = "SELECT horarios.* FROM horarios_registrados as horarios inner join funcionario as func WHERE horarios.data LIKE '%".$data.
+					"%' and data <= '".date('Y-m-d')."' and (horarios.tipo_1 = 0 or horarios.tipo_2 = 0 or horarios.tipo_3 = 0 or horarios.tipo_0 = 0) 
+					and func.oculto = 0 and horarios.id_funcionario = func.id ORDER BY data ASC";
+			}else if($tipo == 2){//busca por funcionario
+					$query = "SELECT horarios.* FROM horarios_registrados as horarios inner join funcionario as func WHERE func.nome LIKE '%".$data."%' and (horarios.tipo_1 = 0 or horarios.tipo_2 = 0 or horarios.tipo_3 = 0 or horarios.tipo_0 = 0) 
+					and func.oculto = 0 and horarios.id_funcionario = func.id ORDER BY data ASC";
+			}else{// busca por intervalo de datas
+					$query = "SELECT horarios.* FROM horarios_registrados as horarios inner join funcionario as func WHERE horarios.data BETWEEN date('".$data."') 
+					AND date('".$data2."') AND horarios.data <= '".date('Y-m-d')."' AND (horarios.tipo_1 = 0 or horarios.tipo_2 = 0 or horarios.tipo_3 = 0 or horarios.tipo_0 = 0) 
+					and func.oculto = 0 and horarios.id_funcionario = func.id ORDER BY data ASC";
 			}
 
 			$query_ex = mysql_query($query);

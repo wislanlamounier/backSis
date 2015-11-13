@@ -17,6 +17,7 @@ include_once("../model/class_banco.php");
 include_once("../model/class_valor_custo_bd.php");
 include_once("../model/class_tipo_custo_bd.php");
 include_once("../includes/functions.php");
+include_once("../includes/util.php");
 
 function validate(){
    if(!isset($_POST['codigo']) || $_POST['codigo'] == ""){
@@ -97,7 +98,7 @@ return $valor; //retorna o valor formatado para gravar no banco
 
 <?php  Functions::getScriptFuncionario(); //carrega funções javascript da pagina?>
 
-<body onload="disparaLoadCidade()">
+<body onload="disparaLoadCidade(), carregaMascaras()">
 
 
             <?php include_once("../view/topo.php"); ?>
@@ -639,7 +640,7 @@ return $valor; //retorna o valor formatado para gravar no banco
                            $cpf = $_POST['cpf'];
                            $rg = $_POST['rg'];
                            
-                           $data_nasc = $_POST['data_nasc'];
+                           $data_nasc = data_padrao_americano($_POST['data_nasc']);
                            
                            $telefone = $_POST['telefone'];
                            $email = $_POST['email'];
@@ -648,14 +649,14 @@ return $valor; //retorna o valor formatado para gravar no banco
                            $id_empresa_filial = $_POST['empresa_filial'];
                            $id_turno = $_POST['turno'];
                            
-                           $data_em_rg = $_POST['data_em_rg'];
+                           $data_em_rg = data_padrao_americano($_POST['data_em_rg']);
 
 
                            $org_em_rg = strtoupper($_POST['org_em_rg']);
                            $num_tit_eleitor = $_POST['titu_eleitoral'];
                            $email_empresa_filial = $_POST['email_emp'];
                            
-                           $data_adm = $_POST['data_admissao'];
+                           $data_adm = data_padrao_americano($_POST['data_admissao']);
 
 
                            $salario_base = moeda($_POST['sal_base']);
@@ -709,7 +710,7 @@ return $valor; //retorna o valor formatado para gravar no banco
                            $nome = $_POST['nome'];
                            $cpf = $_POST['cpf'];
 
-                           $data_nasc = $_POST['data_nasc'];
+                           $data_nasc = data_padrao_americano($_POST['data_nasc']);
 
                            $telefone = $_POST['telefone'];
                            $email = $_POST['email'];
@@ -725,13 +726,13 @@ return $valor; //retorna o valor formatado para gravar no banco
 
                            $rg = $_POST['rg'];
                            
-                           $data_em_rg = $_POST['data_em_rg'];
+                           $data_em_rg = data_padrao_americano($_POST['data_em_rg']);
 
                            $org_em_rg = strtoupper($_POST['org_em_rg']);
                            $num_tit_eleitor = $_POST['titu_eleitoral'];
                            $email_empresa = $_POST['email_emp'];
                            
-                           $data_adm = $_POST['data_admissao'];
+                           $data_adm = data_padrao_americano($_POST['data_admissao']);
                            
                            $salario_base = moeda($_POST['sal_base']);  // retorna salario formatado
                            
@@ -813,13 +814,8 @@ return $valor; //retorna o valor formatado para gravar no banco
 
              </div>
              <?php include_once("informacoes_func.php"); ?>
-               <?php }?>
-             
-              
-            
-            
-         
-      
-   
+          <?php }?>
+  
+          
 </body>
 </html>

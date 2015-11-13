@@ -1,4 +1,16 @@
-
+<script type="text/javascript">
+    function exibe_oculta(id){
+        if(id == 'funcionario'){
+          document.getElementById('intervalo_datas').style.display = 'none';
+        }else{
+          document.getElementById('funcionario').style.display = 'none';
+        }
+        if(document.getElementById(id).style.display == 'none')
+            document.getElementById(id).style.display = '';
+        else
+            document.getElementById(id).style.display = 'none';
+    }
+</script>
 <?php
 
       // falta calcular a diferença de horario para colocar na coluna situação na tabela horarios
@@ -34,11 +46,23 @@
           }
           
       }
+      if(isset($_GET['funcionario']) && $_GET['funcionario'] != ''){
 
-      if(isset($_GET['desc']) && $_GET['desc'] == 'mes'){
+            $nome = $_GET['funcionario'];
+            get_esquecidos($nome, 2, $nome);
+                    
+                    
+      }else if(isset($_GET['ini']) && $_GET['ini'] != '' && isset($_GET['fim']) && $_GET['fim'] != ''){
+            
+            $data = $_GET['ini'];
+            $data2 = $_GET['fim'];
+            get_esquecidos($data, 3, $data2);
+                    
+                    
+      }else if(isset($_GET['desc']) && $_GET['desc'] == 'mes'){
             
             $data = date('Y-m');
-            get_esquecidos($data, 1);
+            get_esquecidos($data, 1, $data);
                     
                     
       }else if(isset($_GET['desc']) && $_GET['desc'] == 'sem_registros'){
@@ -104,14 +128,14 @@
             echo '</div></div>';
         }else{
               $data = date('Y-m-d');
-              get_esquecidos($data, 0);
+              get_esquecidos($data, 0, $data);
         }//fim else
 
-        function get_esquecidos($data, $tipo){
+        function get_esquecidos($data, $tipo, $data2){
                   // echo 'Aguarde...';
                   $horario = new Horarios();
                   
-                  $array = $horario->get_registros_esquecidos($data, $tipo);
+                  $array = $horario->get_registros_esquecidos($data, $tipo, $data2);
 
                   $config = new Config();
                   $TEMP_LIMIT_ATRASO = $config->get_config("temp_limit_atraso", $_SESSION['id_empresa']);// tempo limite de atraso ou adiantamento aceito
@@ -130,11 +154,35 @@
 
                          echo '<table class="table-atrasos" border="0" style="box-shadow:0px 0px 5px #ccc;">';
                          // echo '<tr><td colspan="4"><img src="../images/rel.png"></td></tr>';
-                         if($tipo == 0){
-                              echo '<tr><td colspan="4">'.date("d/m/Y").'<br />'. '<a href="principal?desc=mes" style="font-size:12px">Ver mês inteiro</a>'.'</td></tr>';
-                         }else{
-                              echo '<tr><td colspan="4">'.date("m/Y").'<br />'. '<a href="principal" style="font-size:12px">Ver hoje</a>'.'</td></tr>';
-                         }
+                         // if($tipo == 0){
+                              echo '<tr><td colspan="4">';
+                              echo '<a href="principal" style="font-size:12px">Ver hoje</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="principal?desc=mes" style="font-size:12px">Ver mês inteiro</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="exibe_oculta(\'intervalo_datas\')" style="cursor: pointer; font-size:12px">Ver por período</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="exibe_oculta(\'funcionario\')" style="cursor: pointer;font-size:12px">Ver por funcionário</a>';
+                              echo '<br />';
+                              if($tipo == 0)
+                                  echo '<span style="color:#aaa">Exibindo registros de hoje '.date("d/m/Y").'</span><br />';
+                              else if($tipo == 1)
+                                  echo '<span style="color:#aaa">Exibindo registros para o mês '.date("m/Y").'</span><br />';
+                              else
+                                  echo '<span style="color:#aaa">Exibindo registros de '.date("d/m/Y",strtotime($data)).' até '.date("d/m/Y",strtotime($data2)).'</span><br />';
+                              echo '</td></tr>';
+
+                         // }else{
+                         //      echo '<tr><td colspan="4">'.date("m/Y").'<br />'. '<a href="principal" style="font-size:12px">Ver hoje</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="exibe_oculta(\'intervalo_datas\')" style="font-size:12px">Ver por período</a>'.'</td></tr>';
+                         // }
+                         echo '<tr id="intervalo_datas" style="display:none; ">
+                                <td colspan="4">
+                                    <form action="principal">
+                                      <span>Inicio: </span> <input type="date" name="ini" style="border: 1px solid#cdcdcd; border-radius: 5px">&nbsp;&nbsp;<span>Fim: </span><input name="fim" style="border: 1px solid#cdcdcd; border-radius: 5px" type="date"> <input type="submit" value="Buscar">
+                                    <form>
+                                </td>
+                              </tr>';
+                         echo '<tr id="funcionario" style="display:none; ">
+                                <td colspan="4">
+                                    <form action="principal">
+                                      <span>Nome: </span> <input type="text" name="funcionario" style="padding-left:5px;border: 1px solid#cdcdcd; border-radius: 5px"> <input type="submit" value="Buscar">
+                                    <form>
+                                </td>
+                              </tr>';
                          echo '<tr><td colspan="4"><b>Atenção</b></td></tr>';
                          echo '<tr><td colspan="4"><span>Os funcionários abaixo esqueceram ou não bateram o ponto</span></td></tr>';
                          
@@ -186,7 +234,7 @@
                                               echo '<tr style="background-color:rgba(250,10,10,0.3)">'; 
                                       }
                                       echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=1&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.$nome_turno_funcionario[0].'</b></a></td><td class="rows-content"><a href="principal?desc=sem_registros&tipo=1&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>Inicio expediente</b></a></td>';
-                                      if($tipo == 1){
+                                      if($tipo == 1 || $tipo == 3){
                                           echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=1&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.date('d/m/Y',strtotime($array[$aux][1])).'</b></a></td>';
                                       }
                                       echo '</tr>';
@@ -203,7 +251,7 @@
                                               echo '<tr style="background-color:rgba(250,10,10,0.3)">'; 
                                       }
                                       echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=2&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.$nome_turno_funcionario[0].'</b></a></td><td class="rows-content"><a href="principal?desc=sem_registros&tipo=2&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>Inicio Almoço</b></a></td>';
-                                      if($tipo == 1){
+                                      if($tipo == 1 || $tipo == 3){
                                           echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=2&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.date('d/m/Y',strtotime($array[$aux][1])).'</b></a></td>';
                                       }
                                       echo '</tr>';
@@ -220,7 +268,7 @@
                                               echo '<tr style="background-color:rgba(250,10,10,0.3)">'; 
                                       }
                                       echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=3&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.$nome_turno_funcionario[0].'</b></a></td><td class="rows-content"><a href="principal?desc=sem_registros&tipo=3&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>Fim Almoço</b></a></td>';
-                                      if($tipo == 1){
+                                      if($tipo == 1 || $tipo == 3){
                                           echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=3&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.date('d/m/Y',strtotime($array[$aux][1])).'</b></a></td>';
                                       }
                                       echo '</tr>';
@@ -237,7 +285,7 @@
                                               echo '<tr style="background-color:rgba(250,10,10,0.3)">'; 
                                       }
                                       echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=0&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.$nome_turno_funcionario[0].'</b></a></td><td class="rows-content"><a href="principal?desc=sem_registros&tipo=0&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>Fim expediente</b></a></td>';
-                                      if($tipo == 1){
+                                      if($tipo == 1 || $tipo == 3){
                                           echo '<td class="rows-content"><a href="principal?desc=sem_registros&tipo=0&id_func='.$array[$aux][2].'&data='.$array[$aux][1].'"><b>'.date('d/m/Y',strtotime($array[$aux][1])).'</b></a></td>';
                                       }
                                       echo '</tr>';
@@ -263,7 +311,32 @@
                          }
                          echo '<div class="cont" style="color:#f33;font-size:15px;  text-align:left"><b>'.$total_registros.'</b></div>';
                          echo '</table>';
-                }//fim if count($array) > 0
+                }else{//fim if count($array) > 0
+                  echo '<div class="content-right" id="content-right">
+                    <div class="box-atrasos" style="">';
+                    echo '<table class="table-atrasos" border="0" style="box-shadow:0px 0px 5px #ccc;">';
+                         // echo '<tr><td colspan="4"><img src="../images/rel.png"></td></tr>';
+                         // if($tipo == 0){
+                              echo '<tr><td colspan="4">';
+                              echo '<a href="principal" style="font-size:12px">Ver hoje</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="principal?desc=mes" style="font-size:12px">Ver mês inteiro</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="exibe_oculta(\'intervalo_datas\')" style="cursor: pointer;font-size:12px">Ver por período</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="exibe_oculta(\'intervalo_datas\')" style="cursor: pointer;font-size:12px">Ver por funcionário</a>';
+                              echo '<br />';
+                              if($tipo == 0)
+                                  echo '<span style="color:#aaa">Exibindo registros de hoje '.date("d/m/Y").'</span><br />';
+                              else if($tipo == 1)
+                                  echo '<span style="color:#aaa">Exibindo registros para o mês '.date("m/Y").'</span><br />';
+                              else
+                                  echo '<span style="color:#aaa">Exibindo registros de '.date("d/m/Y",strtotime($data)).' até '.date("d/m/Y",strtotime($data2)).'</span><br />';
+                              echo '</td></tr>';
+
+                         $total_registros = 0;
+                         echo '<tr>
+                         <td colspan="4">';
+                        echo 'NENHUM REGISTRO FOI ENCONTRADO NESSE PERÍODO';
+                         echo '</td></tr>';
+                         echo '<div class="cont" style="color:#f33;font-size:15px;  text-align:left"><b>'.$total_registros.'</b></div>';
+                         echo '</table>';
+                  echo '</div></div>';
+                }
             echo'</div>
             </div>';
         }

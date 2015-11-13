@@ -1,5 +1,12 @@
 <?php
-
+session_start();
+include_once("../model/class_token.php");
+if(!isset($_SESSION['ac_lib_a_cp']) && $_SESSION['ac_lib_a_cp'] != true){
+	if(!Token::validar($_POST['ToSPo'], $_POST['MaSPo'])){
+		header('location:../view/erro.php');
+	}
+}
+Token::invalidar_token($_POST['ToSPo']); // invalida o token usado
 include_once("../model/class_funcionario_bd.php");
 include_once("../model/class_empresa_bd.php");
 include_once("../model/class_filial_bd.php");
@@ -162,13 +169,20 @@ include_once("../global.php");
        return v;
     }
     
-    window.onload = function(){
-      document.getElementById("cpf").onkeypress = function(){ 
-          mascara( this, mcpf );
-      }
+    // window.onload = function(){
       
-   }
+    //   document.getElementById("cpf").onkeypress = function(){ 
+    //       mascara( this, mcpf );
+    //   }
+      
+    // }
    // fim mascaras
+
+   function maskCPF(){
+   		document.getElementById("cpf").onkeypress = function(){ 
+          mascara( this, mcpf );
+        }
+   }
 
 	function desabilita(){
 		
@@ -191,7 +205,7 @@ include_once("../global.php");
 <style type="text/css">
 	
 </style>
-<body onload="moveRelogio(), verificaHora()">
+<body onload="moveRelogio(), verificaHora(), maskCPF()">
 	<?php 
 
 		// inicia a tabela de horarios esquecidos, a tabela de horarios esquecidos controla quem registrou ou não registrou o ponto eletronico,

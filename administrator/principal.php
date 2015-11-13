@@ -9,6 +9,7 @@ include_once("../model/class_veiculo_bd.php");
 include_once("../model/class_obs_superv_bd.php");
 include_once("../includes/functions.php");
 include_once("../config.php");
+include_once("../model/class_solicita_acesso.php");
 
  ?>
  <html>
@@ -216,8 +217,7 @@ include_once("../config.php");
                     include_once("../view/box_sem_registros.php");  
                 }
                 
-                
-                
+                include_once("../view/box-solicitacoes-acesso.php");
                 
           }
        ?>

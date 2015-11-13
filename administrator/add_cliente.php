@@ -16,6 +16,7 @@ require_once("../model/class_endereco_bd.php");
 require_once("../model/class_estado_bd.php");
 require_once("../model/class_cidade_bd.php");
 include_once("../includes/functions.php");
+include_once("../includes/util.php");
 
  ?>
 
@@ -46,7 +47,7 @@ include_once("../includes/functions.php");
 
 <?php Functions::getScriptCliente(); ?>
 
-<body onload="disparaLoadCidade()">			
+<body onload="disparaLoadCidade(), carregaMascaras()">			
 
 	
 			<?php include_once("../view/topo.php"); ?>
@@ -128,7 +129,7 @@ include_once("../includes/functions.php");
 					                <tr>
 					                    	 <td colspan="2" style="text-align:center">
 					                    	 	<input  class="button" type="submit" value="Salvar">
-					                    	 	<input class="button" type="button" name="button" onclick="window.location.href='add_cliente.php'" id="button" value="Cancelar">
+					                    	 	<input class="button" type="button" name="button" onclick="window.location.href='add_cliente.php'" id="button" value="Cancomar">
 					                    	 </td>
 					                    </tr> 
 					           	 </table>
@@ -292,7 +293,7 @@ include_once("../includes/functions.php");
 	                        $cliente = new Cliente();
 	                        $id = $_POST['id_cli'];
 	                        $nome_razao_soc = $_POST['nome'];
-	                        $data_nasc_data_fund = $_POST['data_nasc']; 
+	                        $data_nasc_data_fund = data_padrao_americano($_POST['data_nasc']); 
 	                        $cpf_cnpj = $_POST['cpf']; 
 	                        $telefone_cel = $_POST['cel'];
 	                        $telefone_com = $_POST['com'];                        
@@ -300,7 +301,7 @@ include_once("../includes/functions.php");
 	                        $tipo= 0;
 	                        $responsavel = $_POST['nome_resp'];
 	                        $cpf_responsavel = $_POST['cpf_resp'];
-	                        $data_nasc_resp = $_POST['datanasc_resp'];
+	                        $data_nasc_resp = data_padrao_americano($_POST['datanasc_resp']);
 	                        $email_resp = $_POST['email_resp'];
 	                        $site = $_POST['site'];
 	                        $observacao = $_POST['observacao'];
@@ -344,7 +345,7 @@ include_once("../includes/functions.php");
                         $cliente = new Cliente();
                         $id = $_POST['id_cli'];
                         $nome_razao_soc = $_POST['nome'];
-                        $data_nasc_data_fund = $_POST['data_nasc']; 
+                        $data_nasc_data_fund = data_padrao_americano($_POST['data_nasc']); 
                         $cpf_cnpj = $_POST['cnpj']; 
                         $telefone_cel = $_POST['cel'];
                         $telefone_com = $_POST['com'];                        
@@ -353,7 +354,7 @@ include_once("../includes/functions.php");
                         $tipo = 1;
                         $responsavel = $_POST['nome_resp'];
                         $cpf_responsavel = $_POST['cpf_resp'];
-                        $data_nasc_resp = $_POST['datanasc_resp'];
+                        $data_nasc_resp = data_padrao_americano($_POST['datanasc_resp']);
                         $email_resp = $_POST['email_resp'];
                         $site = $_POST['site'];
                         $observacao = $_POST['observacao'];
@@ -395,7 +396,7 @@ include_once("../includes/functions.php");
 							//dados com logica
 							if($_POST['tipo'] == 0){
 								$cpf_cnpj = $_POST['cpf'];
-								$data_nasc_data_fund = (isset($_POST['data_nasc'])) ? $_POST['data_nasc'] : '';
+								$data_nasc_data_fund = (isset($_POST['data_nasc'])) ? data_padrao_americano($_POST['data_nasc']) : '';
 							}else if($_POST['tipo'] == 1){		
 								$cpf_cnpj = $_POST['cnpj'];
 								$data_nasc_data_fund = Date('Y-m-d');
@@ -417,7 +418,7 @@ include_once("../includes/functions.php");
 							$inscricao_municipal = $_POST['inscricao_municipal'];
 							$responsavel = $_POST['nome_resp'];
 							$cpf_responsavel = $_POST['cpf_resp'];
-							$data_nasc_resp = $_POST['datanasc_resp'];
+							$data_nasc_resp = data_padrao_americano($_POST['datanasc_resp']);
 							$email_resp = $_POST['email_resp'];
 							$site = $_POST['site'];
 							$observacao = $_POST['observacao'];					

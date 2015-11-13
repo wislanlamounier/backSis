@@ -240,20 +240,29 @@ Class Functions{
 				              }
 
 				              if(f[i].name == "num"){
-				                if(f[i].value == ""){
-				                  msg += "Preencha o campo Número!\n";
-				                  f[i].style.border = "1px solid #FF0000";
-				                  erros++;
-				                }else{
-				                    if(f[i].value <= 0){
-				                        msg += "Insira um valor acima de 0 no campo Número!\n";
-				                        f[i].style.border = "1px solid #FF0000";
-				                        erros++;
-				                    }else{
-				                        f[i].style.border = "1px solid #898989";
-				                    }
-				                }
-				                
+					                if(f[i].value == ""){
+					                  msg += "Preencha o campo Número!\n";
+					                  f[i].style.border = "1px solid #FF0000";
+					                  erros++;
+					                }else{
+					                    if(f[i].value <= 0){
+					                        msg += "Insira um valor acima de 0 no campo Número!\n";
+					                        f[i].style.border = "1px solid #FF0000";
+					                        erros++;
+					                    }else{
+					                        f[i].style.border = "1px solid #898989";
+					                    }
+					                }
+				              }
+
+				              if(f[i].name == "cidade"){
+					                if(f[i].value == "no_sel"){
+					                  msg += "Escolha uma cidade!\n";
+					                  f[i].style.border = "1px solid #FF0000";
+					                  erros++;
+					                }else{
+					                   f[i].style.border = "1px solid #898989";                  
+					                }
 				              }
 
 				              if(f[i].name == "estado" && f[i].value == "no_sel"){
@@ -336,7 +345,7 @@ Class Functions{
 
 				              v=v.replace(/(\d)(\d{2})$/,"$1,$2");//coloca a virgula antes dos 2 últimos dígitos
 				           return v;
-				     }
+				    }
 
 				   function mtel(v){
 				       if(v.length >=16){
@@ -377,30 +386,28 @@ Class Functions{
 				   function id( el ){
 				     return document.getElementById( el );
 				   }
-				   window.onload = function(){
-				// <<<<<<< HEAD
-				//       // mascara( id('sal_base'), mmoney );
-				      
-				//       id('sal_base').onkeypress = function(){ 
-				//           mascara( this, mmoney );
-				//       }
-				//       // id('custo').onkeypress = function(){ 
-				//       //     mascara( this, mmoney );
-				//       // }
-				// =======
-				    
-
-				// >>>>>>> 5fe2ad9570909c5428db36337cb7e025a465b412
+				   function carregaMascaras(){
+				
 				      id('cpf').onkeypress = function(){ 
 				          mascara( this, mcpf );
 				      };      
 				      id('telefone').onkeypress = function(){
 				          mascara( this, mtel );
 				      };
-				      
+				      id('data_em_rg').onkeypress = function(){
+				          mascara( this, dnasc );
+				      };
+				      id('data_nasc').onkeypress = function(){
+				          mascara( this, dnasc );
+				      };
+				      id('data_admissao').onkeypress = function(){
+				          mascara( this, dnasc );
+				      };
 				      
 				   }
+				   
 				   // fim Mask
+
 				   function validarCPF(cpf) {  
 				    cpf = cpf.replace(/[^\d]+/g,'');    
 				    if(cpf == '') return false; 
@@ -964,15 +971,16 @@ Class Functions{
 			    return true;   
 			}
 
-			   window.onload = function(){ 
+			   function carregaMascaras(){ 
 
-			   	     		
-			   	  id('cnpj').onkeypress = function(){
-			              mascara( this, mcnpj );
-			      }
-			      id('cpf').onkeypress = function(){
-			           mascara( this, mcpf );
-			      }
+			   	  if($("#cnpj").length)  		
+				   	  id('cnpj').onkeypress = function(){
+				              mascara( this, mcnpj );
+				      }
+			      if($("#cpf").length)
+				      id('cpf').onkeypress = function(){
+				           mascara( this, mcpf );
+				      }
 			      id('cpf_resp').onkeypress = function(){
 			          mascara( this, mcpf );
 			      }
@@ -981,7 +989,10 @@ Class Functions{
 			      }
 			      id('cel').onkeypress = function(){
 			          mascara( this, mtel );
-			      }      
+			      }
+			      id('datanasc_resp').onkeypress = function(){
+			          mascara( this, dnasc );
+			      }  
 			     
 			   }
 			   	function buscar_cidades(){
