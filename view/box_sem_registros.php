@@ -59,7 +59,6 @@
             $data = data_padrao_americano($_POST['ini']);
             $data2 = data_padrao_americano($_POST['fim']);
 
-            echo "<script>alert('$data - $data2');</script>";
             get_esquecidos($data, 3, $data2);
                     
                     
