@@ -3,6 +3,7 @@ include_once("../model/class_sql.php");
 require_once("../global.php");
 
 class Regiao{
+    public $id;
     public $codigo;
     public $nome;
     public $id_estado;
@@ -57,12 +58,13 @@ class Regiao{
 	     }else{
 
 	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$regiao = new Regiao();	     
+	     	$regiao = new Regiao();
+                $regiao->id = $row['id'];
                 $regiao->codigo = $row['codigo'];
 		$regiao->nome = $row['nome'];
                 $regiao->id_estado = $row['id_estado'];
                 $regiao->id_cidade = $row['id_cidade'];
-                $regiao->bairro_zona = $row['id_bairro_zona'];
+                $regiao->bairro_zona = $row['bairro_zona'];
                 $regiao->descricao = $row['descricao'];
                 $regiao->id_empresa = $row['id_empresa'];
 
@@ -75,7 +77,7 @@ class Regiao{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$aux=0;
-		$query = mysql_query("SELECT * FROM regiao_estado WHERE oculto=0 && id_empresa = '".$_SESSION['id_empresa']."'");
+		$query = mysql_query("SELECT * FROM regiao_trabalho WHERE oculto=0 && id_empresa = '".$_SESSION['id_empresa']."'");
                 $return = array();
 		while($result = mysql_fetch_array($query)){
 			$return[$aux][0] = $result['codigo'];
@@ -83,6 +85,7 @@ class Regiao{
 			$return[$aux][2] = $result['id_estado'];
                         $return[$aux][3] = $result['id_cidade'];
                         $return[$aux][4] = $result['bairro_zona'];
+                        $return[$aux][5] = $result['descricao'];
 			$aux++;
 		}
 		return $return;
