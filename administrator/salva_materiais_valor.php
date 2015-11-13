@@ -66,7 +66,7 @@ foreach ($_POST as $key => $value) { // for each que alimenta as variaveis que p
                        
                    }
                    if($valor_custo != "" && $id_valor_custo[0][0] =="" ){ // condição para adição se não houver materiais para essa cidade                   
-                    $vlr_custo->add_valor_custo($valor_custo, 6);
+                    $vlr_custo->add_valor_custo($valor_custo, 0);
                         $id_vlr_custo = $vlr_custo->add_valor_custo_bd();
                         if($id_material != "" && $id_vlr_custo != "" && $id_empresa != ""){
                             $custo_regiao->add_custo_regiao($id_material, $id_vlr_custo, $regiao[1], $id_empresa);
@@ -76,7 +76,7 @@ foreach ($_POST as $key => $value) { // for each que alimenta as variaveis que p
                   }
                  
                   if($valor_custo != $valor_comparacao &&  $natualiza == 0){ // condição para atualizar o valor custo                      
-                    $vlr_custo->add_valor_custo($valor_custo, 6);
+                    $vlr_custo->add_valor_custo($valor_custo, 0);
                     $id_valor_custo = $vlr_custo->add_valor_custo_bd(); 
                     $custo_regiao->atualiza_custo_regiao_bd($id_valor_custo, $id_material, $regiao[1]);
                     $natualiza = 1;
