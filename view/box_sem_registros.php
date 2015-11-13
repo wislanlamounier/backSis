@@ -10,6 +10,8 @@
         else
             document.getElementById(id).style.display = 'none';
     }
+
+
 </script>
 <?php
 
@@ -52,10 +54,12 @@
             get_esquecidos($nome, 2, $nome);
                     
                     
-      }else if(isset($_GET['ini']) && $_GET['ini'] != '' && isset($_GET['fim']) && $_GET['fim'] != ''){
+      }else if(isset($_POST['ini']) && $_POST['ini'] != '' && isset($_POST['fim']) && $_POST['fim'] != ''){
             
-            $data = $_GET['ini'];
-            $data2 = $_GET['fim'];
+            $data = data_padrao_americano($_POST['ini']);
+            $data2 = data_padrao_americano($_POST['fim']);
+
+            echo "<script>alert('$data - $data2');</script>";
             get_esquecidos($data, 3, $data2);
                     
                     
@@ -171,14 +175,14 @@
                          // }
                          echo '<tr id="intervalo_datas" style="display:none; ">
                                 <td colspan="4">
-                                    <form action="principal">
-                                      <span>Inicio: </span> <input type="date" name="ini" style="border: 1px solid#cdcdcd; border-radius: 5px">&nbsp;&nbsp;<span>Fim: </span><input name="fim" style="border: 1px solid#cdcdcd; border-radius: 5px" type="date"> <input type="submit" value="Buscar">
+                                    <form name="dataini_datafim" action="principal" method="POST">
+                                      <span>Inicio: </span> <input  onclick="carregaMascaras()" type="date" name="ini" id="ini" style="border: 1px solid#cdcdcd; border-radius: 5px">&nbsp;&nbsp;<span>Fim: </span><input  onclick="carregaMascaras()" id="fim" name="fim" style="border: 1px solid#cdcdcd; border-radius: 5px" type="date"> <input type="submit" value="Buscar">
                                     <form>
                                 </td>
                               </tr>';
                          echo '<tr id="funcionario" style="display:none; ">
                                 <td colspan="4">
-                                    <form action="principal">
+                                    <form name="nome_func" action="principal" method="POST">
                                       <span>Nome: </span> <input type="text" name="funcionario" style="padding-left:5px;border: 1px solid#cdcdcd; border-radius: 5px"> <input type="submit" value="Buscar">
                                     <form>
                                 </td>
@@ -291,10 +295,7 @@
                                       echo '</tr>';
                                       $total_registros++;
                                 }
-
-
-                               
-                            
+ 
                          }
                          echo '</table>';
                          echo '</div>';

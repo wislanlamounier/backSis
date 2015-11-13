@@ -144,9 +144,9 @@ foreach ($_POST as $key => $value) { // for each que alimenta as variaveis que p
     }
 }
     if(isset($_POST['backto'])){
-        echo '<script>window.location = "add_obra?t='.$_POST['backto'].'"</script>';
+        // echo '<script>window.location = "add_obra?t='.$_POST['backto'].'"</script>';
     }else{
-        echo '<script>window.location = "add_material.php?regiao='.$regiao[0].'"</script>';
+        // echo '<script>window.location = "add_material.php?regiao='.$regiao[0].'"</script>';
     }
    
 

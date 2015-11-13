@@ -8,6 +8,7 @@ include_once("../model/class_patrimonio_geral_bd.php");
 include_once("../model/class_veiculo_bd.php");
 include_once("../model/class_obs_superv_bd.php");
 include_once("../includes/functions.php");
+include_once("../includes/util.php");
 include_once("../config.php");
 include_once("../model/class_solicita_acesso.php");
 
@@ -179,7 +180,40 @@ include_once("../model/class_solicita_acesso.php");
       }
       
     }
+    // Mask
+            function mascara(o,f){
+                v_obj=o
+                v_fun=f
+                setTimeout("execmascara()",1)
+            }
+            function execmascara(){
+                v_obj.value=v_fun(v_obj.value)
+            }
 
+
+            function dnasc(v){
+               if(v.length >=10){      
+                 v = v.substring(0,(v.length - 1));
+                 return v;
+               }
+               v=v.replace(/\D/g,""); 
+               v=v.replace(/^(\d{2})(\d{2})(\d{4})/,"$1/$2/$3");  
+               return v;
+           }
+           function id( el ){
+             return document.getElementById( el );
+           }
+           function carregaMascaras(){
+            
+              id('ini').onkeypress = function(){
+                  mascara( this, dnasc );
+              };
+              id('fim').onkeypress = function(){
+                  mascara( this, dnasc );
+              };              
+           }
+           
+           // fim Mask
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap" async defer></script>
 <body onload="moveRelogio(),initMap()">
