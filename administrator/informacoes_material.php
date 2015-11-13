@@ -11,6 +11,7 @@ include_once("../model/class_cidade_bd.php");
 include_once("../model/class_tipo_custo_bd.php");
 include_once("../model/class_valor_custo_bd.php");
 include_once("../model/class_estado_bd.php");
+include_once("../model/class_regiao_bd.php");
 include_once("../model/class_custo_regiao_bd.php");
 
 ?>
@@ -53,7 +54,7 @@ include_once("../model/class_custo_regiao_bd.php");
         }
      
      function ocultaTabela(x){
-        
+       
           if(document.getElementById(x).hidden == true){
                 document.getElementById(x).hidden = false;
             }else{
@@ -187,6 +188,12 @@ include_once("../model/class_custo_regiao_bd.php");
               });
             }
         }
+    }
+    function infoRegiao(id){        
+        document.getElementById(id).style.margin = "0";       
+    }
+    function fechaInfo(id){
+        document.getElementById(id).style.margin = "-500";  
     }
     function buscar_editar(tipo){
         var url = '../ajax/ajax_editar_material.php?tipo='+tipo;  //caminho do arquivo php que irá buscar as cidades no BD

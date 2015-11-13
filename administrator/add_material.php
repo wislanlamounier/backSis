@@ -77,10 +77,6 @@ function verificaValor($valor){
                      $material = $material->get_material_id($id);
                      $id = $material->id;
                      $nome = $material->nome;
-                   
-                     
-                     
-                     
                      $u_m = new Unidade_medida(); //u_m UNIDADE DE MEDIDA
                      $u_m = $u_m->get_unidade_medida_by_id($material->id_unidade_medida);
             	 ?>

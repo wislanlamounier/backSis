@@ -999,8 +999,16 @@ form-input select{
 .master-materiais{
     box-shadow: 2px 2px 3px #666; clear:left; width: 100%; transition-delay: 1s;  height: 240px; overflow: scroll; overflow-x: hidden; border-bottom: solid 1px; border-bottom-color: #bcbcbc;
 }
+.material-valor-regioes{
+    width: 100%;
+    float: left;
 
-.tipo-cadastro{
+}
+.material-valor-regioes span{
+    text-align: left;
+    float: left;
+    width: 200px;
+    padding: 5px;
     
 }
 /******************************** FIM MATERIAIS POR REGIAO ***********************************/
