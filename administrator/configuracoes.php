@@ -68,9 +68,7 @@ include_once("../includes/functions.php");
              
                
         <div class="title-box"><div style="float:left"><img src="../images/config.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">Configurações</span></div></div>
-        <div>
-        <?php include_once("../view/configuracoes_gerais.php"); ?>
-        </div>          
+                  
         <div>
         <?php include_once("../view/ponto.php"); ?> 
         </div>
@@ -83,7 +81,9 @@ include_once("../includes/functions.php");
         <?php include_once("../view/layout.php"); ?>
         </div>
         
-      
+        <div>
+        <?php include_once("../view/configuracoes_gerais.php"); ?>
+        </div>
        
                    
      </div>
