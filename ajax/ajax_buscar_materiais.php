@@ -5,6 +5,7 @@ include_once("../model/class_material_bd.php");
 include_once("../model/class_produto_bd.php");
 include_once("../model/class_unidade_medida_bd.php");
 include_once("../model/class_custo_regiao_bd.php");
+include_once("../model/class_regiao_bd.php");
 
 
 	$sql = new Sql();
@@ -33,12 +34,13 @@ include_once("../model/class_custo_regiao_bd.php");
 					$uni = new Unidade_medida();
 					$uni = $uni->get_unidade_medida_by_id($res->id_unidade_medida);
 					if(isset($_SESSION['obra']['dados'])){
-						$custo = Custo_regiao::get_valor($id_material[0], $_SESSION['obra']['dados']['cidade'], $_SESSION['id_empresa']);
 
+						$custo = Custo_regiao::get_valor($id_material[0], $_SESSION['obra']['dados']['regioes'], $_SESSION['id_empresa']);
+						
 						if($custo){
-							$custo = 'R$ '.number_format(Custo_regiao::get_valor($id_material[0], $_SESSION['obra']['dados']['cidade'], $_SESSION['id_empresa']), 2, ',', '.');
+							$custo = 'R$ '.number_format($custo, 2, ',', '.');
 						}else{
-							$custo = '<a href="add_material.php?backto=a_pr_o&axestado='.$_SESSION['obra']['dados']['estado'].'&cidade='.$_SESSION['obra']['dados']['cidade'].'" onmouseover="info(\'pop'.$aux.'\')" onmouseout="fecharInfo(\'pop'.$aux.'\')"><span>Defina um valor custo</span></a>
+							$custo = '<a href="add_material.php?backto=a_pr_o&regiao='.Regiao::get_cod_regiao_by_id($_SESSION['obra']['dados']['regioes']).'" onmouseover="info(\'pop'.$aux.'\')" onmouseout="fecharInfo(\'pop'.$aux.'\')"><span>Defina um valor custo</span></a>
 								<div id="pop'.$aux.'" class="pop" style="display:none">
 	                                  <div id="titulo'.$aux.'" class="title-info-config"><span>Informações</span></div>
 	                                  <div id="content'.$aux.'" class="content-info">Clique para definir um valor custo para esse material nessa região</div>   
