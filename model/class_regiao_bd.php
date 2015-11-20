@@ -95,10 +95,10 @@ class Regiao{
 		$sql = new Sql();
 		$sql->conn_bd();
 		$g = new Glob();
-		$query = "UPDATE regiao_trabalho SET oculto = 1 WHERE codigo = %s";
+		$query = "UPDATE regiao_trabalho SET oculto = 1 WHERE codigo = '%s'";
 		$result = $g->tratar_query($query, $codigo);
 		if($result){
-			echo '<div class="msg" id="msg">Você não atenderá amis esata região!</div>';
+			echo '<div class="msg" id="msg">Você não atenderá mais está região !</div>';
 		}
     }
 
