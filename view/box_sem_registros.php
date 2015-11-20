@@ -48,9 +48,9 @@
           }
           
       }
-      if(isset($_GET['funcionario']) && $_GET['funcionario'] != ''){
+      if(isset($_POST['funcionario']) && $_POST['funcionario'] != ''){
 
-            $nome = $_GET['funcionario'];
+            $nome = $_POST['funcionario'];
             get_esquecidos($nome, 2, $nome);
                     
                     
