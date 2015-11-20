@@ -1,8 +1,14 @@
+<script src="../css/bootstrap.css" type="text/javascript"></script>
+<script src="../css/bootstrap.min.css" type="text/javascript"></script>
+<script src="../css/landing-page.css" type="text/javascript"></script>
 <div class="separador" ><span style="color: #ddd;" class="title">CONFIGURAÇÕES GERAIS</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="mostraTabela1('config_gerais')" ></div>
 
 <div id="config_gerais" hidden="on" style="float:left; width:100%">   
     
-    <div id="cadastrar" class="formulario-regiao"> 
+    <div  style="padding:10px;"class="formulario-regiao-titulo">
+                <div class="separador" style="padding: 0; padding-top: 5px; margin: 0 auto; float:left; margin-left:25%;  width: 50%;" ><span style="color: #ddd;  font-size: 15px;">Cadastro de Região</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000; padding-bottom: 5px;" value="Configurar" onclick="mostraTabela1('form')" ></div>
+    </div>
+   
         <?php if(isset($_POST['cadastrar'])){
             $codigo = $_POST['codigo'];
             $nome = $_POST['nome'];
@@ -31,15 +37,9 @@
                  echo "<div class='msg'>Você precisa uma regiao.</div>";
             }
            
-        } ?>
-        <form method="POST" action="configuracoes">
-            
-            <div  class="formulario-regiao-titulo">
-<div class="separador" style="padding: 0; margin: 0 auto; float:left; margin-left:25%; height: 25px; width: 50%;" ><span style="color: #ddd; font-size: 15px;">Cadastro de Região</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="mostraTabela1('config_gerais')" ></div>
-             
-                <input type="hidden" name="cadastrar" value="cadastrar">
-            </div>
-            <div hidden="on" id="cadastrar">
+        } ?>      
+            <div id="form" hidden="on" id="cadastrar">
+            <form method="POST" action="configuracoes">
             <div class="formulario-regiao-dados">
                 <span>Código</span><input type="text" id="codigo" name="codigo">
             </div>
@@ -75,12 +75,12 @@
             <div class="formulario-regiao-dados">
                 <span>Descrição</span><textarea cols="3" id="desccricao" width="300px;" name="descricao"></textarea>
             </div>
+                     <input type="hidden" name="cadastrar" value="cadastrar">
             <div class="formulario-regiao-cadastrar">
                 <input class="button" type="submit" id="cadastrar" name="cadastrar" value="Cadastrar">
             </div>
         </form> 
-        </div>
-    </div>
+        </div>    
 </div>
 
 
