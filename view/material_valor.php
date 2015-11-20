@@ -24,9 +24,8 @@
             
                         foreach ($regiao as $key => $value) { 
                             $nomeestado = $estado->get_name_estado_by_id($regiao[$key][2]);
-                            $nomecidade = $cidade->get_city_by_id($regiao[$key][3]);
-                           
-                            
+                            $cidade->get_city_by_id($regiao[$key][3]);
+                            $nomecidade = $cidade->nome;
                             ?>
                 
                 <div class="material-valor-regioes" name="regiao" id="regiao">
@@ -45,41 +44,14 @@
                                 <tr><td><span>Bairro/Zona:</span></td><td><span><?php echo $regiao[$key][4]?></span></td></tr>
                                 <tr><td><span>Descricao:</span></td><td><span><?php echo $regiao[$key][5]?></span></td></tr>                                
                             </table>
-                        </div>
+                        </div>   
                 
-                        
-                            
-                                                       <?php } ?>
+                <?php $cidade->nome = ""; } ?>
                
                 <input style="float:right; width: 80px; margin-right: 50px "type="submit">
             </form>
         </div>
         
-<!--        <div class="materiais" id="3" hidden="on"> 
-            <div><span >UF:</span></div> 
-            <form method="GET" action="../administrator/add_material.php">
-                <?php
-                //buscar array de CBO
-                $estado = new Estado();
-                $estados = $estado->get_name_all_uf();
-                ?>
-
-                <select style="width: 10%; margin-left: 30px;" id="axestado" name="axestado"  onchange="buscar_cidades(this.id)">
-                    <option value="no_sel">UF</option>
-                    <?php
-                    foreach ($estados as $key => $estado) {
-                        echo '<option value="' . $estados[$key][0] . '">' . $estados[$key][1] . '</option>';
-                    }
-                    ?>
-                </select>
-                <div id="aload_cidades">
-                    <select style="width: 20%; margin-left: 20px" name="cidade" id="cidade" >
-                        <option style="width: 20%" value="no_sel">Selecione um estado</option>
-                    </select>                                        
-                </div>
-                <input style="float:right; width: 80px; margin-right: 50px "type="submit">
-            </form>
-        </div>-->
 
         <?php
         if (isset($_GET['regiao']))  {
@@ -126,7 +98,7 @@
                                     <input type="hidden" name="<?php echo $id_material.":regiao" ?>" id="<?php echo $id_material.":regiao" ?>" value="<?php echo $regiao->codigo.':'.$regiao->id; ?>">
                                     <input readonly style="width: 20%" type="text" name="<?php echo $id_material.":material" ?>" id="<?php echo $id_material.":material" ?>" value="<?php echo $value[1]; ?>"> 
                                     <input readonly style="width: 10%; margin-left:5px" type="text" name="<?php echo $id_material.":medida" ?>" id="<?php echo $u_m->id.":medida" ?>" value="<?php echo $u_m->sigla ?>"> 
-                                    <input style="width: 15%; margin-left: 5px; text-align: left;" type="text" id="<?php echo $id_material.":valor_custo" ?>" name="<?php echo $id_material.":valor_custo" ?>" onkeyup="mascara(this, mvalor);" value="<?php if($valor!= ""){ echo 'R$' . number_format($valor, 2, ',', '.');}?>"> 
+                                    <input style="width: 25%; margin-left: 5px; text-align: left;" type="text" id="<?php echo $id_material.":valor_custo" ?>" name="<?php echo $id_material.":valor_custo" ?>" onkeyup="mascara(this, mvalor);" value="<?php if($valor!= ""){ echo 'R$' . number_format($valor, 2, ',', '.');}?>"> 
                               
                                 </div>        
                             </div>
