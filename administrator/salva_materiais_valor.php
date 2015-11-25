@@ -20,6 +20,7 @@ return $valor; //retorna o valor formatado para gravar no banco
 foreach ($_POST as $key => $value) { // for each que alimenta as variaveis que precisa adicionar no banco
 
    if($key == 'backto'){
+    // echo "<script>alert('backto');</script>";
         continue;
    }
    
@@ -59,6 +60,7 @@ foreach ($_POST as $key => $value) { // for each que alimenta as variaveis que p
               
                    if($id_valor_custo[0][0] != ""){
                        $v_c = new Valor_custo();
+                       // echo "<script>alert('".$id_valor_custo[0][0]."');</script>";
                        $v_c = $v_c->get_valor_custo_id($id_valor_custo[0][0]);
                        $tipo_comparacao = $v_c->id_tipo_custo;
                        $valor_comparacao = number_format($v_c->valor, 2, ',', '.');
@@ -144,9 +146,9 @@ foreach ($_POST as $key => $value) { // for each que alimenta as variaveis que p
     }
 }
     if(isset($_POST['backto'])){
-        // echo '<script>window.location = "add_obra?t='.$_POST['backto'].'"</script>';
+        echo '<script>window.location = "add_obra?t='.$_POST['backto'].'"</script>';
     }else{
-        // echo '<script>window.location = "add_material.php?regiao='.$regiao[0].'"</script>';
+        echo '<script>window.location = "add_material.php?regiao='.$regiao[0].'"</script>';
     }
    
 
