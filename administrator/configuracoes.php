@@ -61,6 +61,8 @@ include_once("../includes/functions.php");
 
 <?php Functions::getScriptConfiguracoes(); ?>
 
+
+
 <body>
 
             <?php include_once("../view/topo.php"); ?>
@@ -74,14 +76,14 @@ include_once("../includes/functions.php");
         </div>
 
         <div>
-        <?php include_once("../view/unidade_medida.php"); ?> <!--DEIXAR SEMPRE POR ULTIMO NO MENU-->
+        <?php include_once("../view/unidade_medida.php"); ?> 
         </div>
         
         <div>
         <?php include_once("../view/layout.php"); ?>
         </div>
         
-        <div>
+        <div>            
         <?php include_once("../view/configuracoes_gerais.php"); ?>
         </div>
        

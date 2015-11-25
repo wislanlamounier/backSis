@@ -1,8 +1,4 @@
-<script src="../css/bootstrap.css" type="text/javascript"></script>
-<script src="../css/bootstrap.min.css" type="text/javascript"></script>
-<script src="../css/landing-page.css" type="text/javascript"></script>
 <div class="separador" ><span style="color: #ddd;" class="title">CONFIGURAÇÕES GERAIS</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="mostraTabela1('config_gerais')" ></div>
-
 <div id="config_gerais" hidden="on" style="float:left; width:100%">   
     
     <div  style="padding:10px;"class="formulario-regiao-titulo">
@@ -75,9 +71,9 @@
             <div class="formulario-regiao-dados">
                 <span>Descrição</span><textarea cols="3" id="desccricao" width="300px;" name="descricao"></textarea>
             </div>
-                     <input type="hidden" name="cadastrar" value="cadastrar">
-            <div class="formulario-regiao-cadastrar">
-                <input class="button" type="submit" id="cadastrar" name="cadastrar" value="Cadastrar">
+                     <input   type="hidden" name="cadastrar" value="cadastrar">
+            <div>
+                <input style="margin: 20px;"  class="button" type="submit" id="cadastrar" name="cadastrar" value="Cadastrar">
             </div>
         </form> 
         </div>    
