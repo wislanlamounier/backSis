@@ -402,6 +402,83 @@ function validate(){
                         $_SESSION['obra']['situacao_cadastramento'] = 'a_f_o';
                       ?>
                         <form  action="add_obra" onsubmit="return validate(this)">
+                               <input type="hidden" id="t" name="t" value="a_cr_o">
+                              <?php
+                                  // $_SESSION['obra']['dados']['nome'] = $_GET['nome'];
+                                  // $_SESSION['obra']['dados']['data_inicio_previsto'] = $_GET['data_inicio_previsto'];
+                                  // $_SESSION['obra']['dados']['rua'] = $_GET['rua'];
+                                  // $_SESSION['obra']['dados']['num'] = $_GET['num'];
+                                  // $_SESSION['obra']['dados']['desc'] = $_GET['desc'];
+                                  
+                               ?>
+                              
+                              <!-- <div class="situacao">                                  
+                                      <div class="situacao-box"><div>Dados da obra</div></div>
+                                      <div class="situacao-box"><div>Dados da obra</div></div>
+                                      <div class="situacao-box"><div>Dados da obra</div></div>
+                                      <div class="situacao-box"><div>Dados da obra</div></div>
+                              </div> -->
+                              <div class="bloco-1" id="dados_obra">            
+                                  <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
+                                  <div class="title-bloco">
+                                    <ul class="menu_obra">
+                                          <li ><a href="add_obra?t=a_c_o">Cliente</a></li><li ><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra?t=a_pr_o">Produtos</a></li><li><a href="add_obra?t=a_p_o">Patrimonios</a></li><li class="ativo"><a href="add_obra?t=a_f_o">Funcionários</a></li><li><a href="add_obra?t=a_cr_o">Cronograma</a></li>
+                                      </ul> </div>
+                                  <div class="desc-bloco">
+                                      <span>Selecione os Funcionarios que trabalharão nessa obra</span>
+                                  </div>
+                                  <div class="body-bloco">
+                                      <div class="form-input left">
+                                          <div class="form-input">
+                                              <span><b>Nome: </b></span><br /><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:65%"> <input type="button" value="Buscar" onclick="buscarFuncionario()">
+                                          </div>
+                                          <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
+                                              <select size="10" style="height: 100%; width: 100%">
+                                              </select>
+                                          </div>
+                                          <div class="form-input">
+                                              <span style="color:#787878; font-size:12px;">(Duplo clique para selecionar)</span>
+                                          </div>
+                                      </div>
+                                      <div class="form-input right">
+                                          <div class="form-input">
+                                              <span><b>Funcionarios selecionados: </b></span>
+                                          </div>
+                                          <div class="form-input" id="form-input-dados" style="border: 1px solid#bbb;  padding: 10px;">
+                                                <?php
+                                                     if(isset($_SESSION['obra']['funcionario'])){ 
+                                                          echo '<table style="width:100%" >';
+                                                          for($aux = 0; $aux < count($_SESSION['obra']['funcionario']); $aux++){
+                                                              if($aux%2==0)
+                                                                 echo '<tr style="background-color:#ccc;">';
+                                                              else
+                                                                echo '<tr style="background-color:#ddd;">';
+                                                                   $res = Funcionario::get_func_id($_SESSION['obra']['funcionario'][$aux]);
+                                                                   echo '<td ><span>'.$res->nome.': </span></td><td style="text-align:center"><a style="cursor:pointer" id="'.$res->id.'" onclick="apagar(this.id,\'funcionario\')"><img style="width:15px" src="../images/delete.png"></a></td>';         
+                                                                echo '</tr>';
+                                                          }
+                                                          echo '</table>';
+                                                      }
+                                                 ?>
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="form-input" style="margin: 10px; text-align:center;  width:97%">
+                                         <input type="button"  onclick="javascript:window.history.back()" class="voltar" value="Voltar"> <input class="avancar" type="submit" value="Avançar">
+                                      </div>
+                                  </div>
+                              </div>
+                             
+                              <div class="buttons" style="text-align:center">
+                                  <input type="submit" name="button" class="button" id="button" value="Cadastrar"> <input type="button" name="button" class="button" onclick="cancel()" id="button" value="Cancelar">
+                              </div>
+                       </form>
+              
+              <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_cr_o'){ //add funcionarios da obra?>
+                      <?php
+                        $_SESSION['obra']['situacao_cadastramento'] = 'a_cr_o';
+                      ?>
+                        <form  action="add_obra" onsubmit="return validate(this)">
                                <input type="hidden" id="t" name="t" value="final">
                               <?php
                                   // $_SESSION['obra']['dados']['nome'] = $_GET['nome'];
@@ -422,13 +499,13 @@ function validate(){
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
                                   <div class="title-bloco">
                                     <ul class="menu_obra">
-                                          <li ><a href="add_obra?t=a_c_o">Cliente</a></li><li ><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra?t=a_pr_o">Produtos</a></li><li><a href="add_obra?t=a_p_o">Patrimonios</a></li><li class="ativo"><a href="add_obra?t=a_f_o">Funcionários</a></li>
+                                          <li ><a href="add_obra?t=a_c_o">Cliente</a></li><li ><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra?t=a_pr_o">Produtos</a></li><li><a href="add_obra?t=a_p_o">Patrimonios</a></li><li><a href="add_obra?t=a_f_o">Funcionários</a></li><li class="ativo"><a href="add_obra?t=a_p_o">Cronograma</a></li>
                                       </ul> </div>
                                   <div class="desc-bloco">
-                                      <span>Selecione os Funcionarios que trabalharão nessa obra</span>
+                                      <span>Cadastramento para variáveis de tempo</span>
                                   </div>
                                   <div class="body-bloco">
-                                      <div class="form-input left">
+                                      <div style="border: solid 1px"class="form-input left">
                                           <div class="form-input">
                                               <span><b>Nome: </b></span><br /><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:65%"> <input type="button" value="Buscar" onclick="buscarFuncionario()">
                                           </div>
@@ -440,7 +517,7 @@ function validate(){
                                               <span style="color:#787878; font-size:12px;">(Duplo clique para selecionar)</span>
                                           </div>
                                       </div>
-                                      <div class="form-input right">
+                                      <div style="border: solid 1px;"class="form-input right">
                                           <div class="form-input">
                                               <span><b>Funcionarios selecionados: </b></span>
                                           </div>
