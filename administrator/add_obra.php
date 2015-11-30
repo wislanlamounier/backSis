@@ -31,7 +31,71 @@ function validate(){
 
 </head> -->
 
+<script type="text/javascript">
+    function removeBackground(id_produto){
+
+    }
+    function preencheCronograma(id_produto){
+        
+        var data_i = document.getElementById("dateini-"+id_produto).value;
+        var data_f = document.getElementById("datefim-"+id_produto).value;
+
+        data_fim = data_f.split('-');
+        data_ini = data_i.split('-');
+
+        date_comp_fim = new Date(data_fim[0], data_fim[1], data_fim[2]);
+        date_comp_ini = new Date(data_ini[0], data_ini[1], data_ini[2]);
+
+        var verdadeiro = true;
+        var cont = 0;
+        while(verdadeiro){
+            if(date_comp_ini.getTime() <= date_comp_fim.getTime()){
+
+                date_id = date_comp_ini.getFullYear();
+                
+                if(date_comp_ini.getMonth() < 10){
+                    date_id += '-0'+date_comp_ini.getMonth();
+                }else{
+                    date_id += '-'+date_comp_ini.getMonth();
+                }
+
+                if(date_comp_ini.getDate() < 10){
+                    date_id += '-0'+date_comp_ini.getDate();
+                }else{
+                    date_id += '-'+date_comp_ini.getDate();
+                }
+
+                document.getElementById(id_produto+'-'+date_id).style.backgroundColor = '';
+                document.getElementById(id_produto+'-'+date_id).style.borderRadius = '';
+
+                document.getElementById(id_produto+'-'+date_id).style.backgroundColor = 'rgba(0, 100, 0, 0.71)';
+                
+                if(cont == 0){
+                    document.getElementById(id_produto+'-'+date_id).style.borderRadius = "8px 0px 0px 8px";
+                }
+
+                cont++;
+                date_comp_ini.setDate(date_comp_ini.getDate() + 1);
+            }else{
+                verdadeiro = false;
+                document.getElementById('tr-'+id_produto).title = "INFORMAÇÕES DA TAREFA\nData de inicio: " + data_i + "\nData Final: "+data_f+" \nEssa tarefa levará "+cont+" dia(s) para ficar pronta";
+                
+                document.getElementById(id_produto+'-'+date_id).style.borderRadius = "0px 8px 8px 0px";
+
+                if(cont == 1){
+                    document.getElementById(id_produto+'-'+date_id).style.borderRadius = "8px 8px 8px 8px"; 
+                }
+            }
+        }
+        
+
+    }
+
+</script>
+
 <?php  Functions::getScriptObra(); ?>
+
+
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap" async defer></script>
 <body onload="initMap()">	
@@ -489,90 +553,101 @@ function validate(){
                                       <span>Cadastramento para variáveis de tempo</span>
                                   </div>
                                   <div class="body-bloco">
+                                      <?php if(isset($_SESSION['obra']['dados']['data_inicio_previsto']) && $_SESSION['obra']['dados']['data_inicio_previsto'] != ''){ // verifica se a data inicio da obra foi cadastrada
+                                                
+                                                if(isset($_SESSION['obra']['produto']) && count($_SESSION['obra']['produto']) > 0){// verifica se existe algum produto cadastrado
+                                              
+                                              ?>
+                                            
+                                                      <div class="form-input" style="border-bottom:1px solid#cdcdcd">
+                                                          <table style="margin-left:10px; margin-bottom:10px; ">
+                                                                <tr><td><span><b>Produto</b></span></td><td><span><b>Quantidade</b></span></td><td style="text-align:center"><span><b>Inicio</b></span></td><td style="text-align:center"><span><b>Fim</b></span></td></tr>
+                                                            <?php //busca todos os produtos da obra 
 
-                                      <div class="form-input" style="border-bottom:1px solid#cdcdcd">
-                                          <table style="margin-left:10px; margin-bottom:10px; ">
-                                                <tr><td><span><b>Produto</b></span></td><td><span><b>Quantidade</b></span></td><td style="text-align:center"><span><b>Inicio</b></span></td><td style="text-align:center"><span><b>Fim</b></span></td></tr>
-                                            <?php //busca todos os produtos da obra 
+                                                                for($aux = 0; $aux < count($_SESSION['obra']['produto']); $aux++){
+                                                                  $id_qtd = explode(':', $_SESSION['obra']['produto'][$aux]);
 
-                                                for($aux = 0; $aux < count($_SESSION['obra']['produto']); $aux++){
-                                                  $id_qtd = explode(':', $_SESSION['obra']['produto'][$aux]);
+                                                                   echo '<tr>';
+                                                                          
+                                                                   $res = new Produto();
+                                                                   $res = $res->get_produto_id($id_qtd[0]);
+                                                                   echo '<td style="width:200px;"><div style="width:100%">
+                                                                              <a name="'.$res->id.'" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span>'.$res->nome.' '.$res->altura.'m x '.$res->comprimento.'m x '.$res->largura.'m </span></a></div></td>
+                                                                              <td style="text-align:center"><span>'.$id_qtd[1].'</span></td>
+                                                                              <td><input type="date" name="data_ini" id="dateini-'.$res->id.'"></td>
+                                                                              <td><input type="date" name="data_fim" id="datefim-'.$res->id.'" onchange="preencheCronograma(\''.$res->id.'\')"></td>';
+                                                                      
+                                                                    echo '</tr>';
+                                                                }
 
-                                                   echo '<tr>';
-                                                          
-                                                   $res = new Produto();
-                                                   $res = $res->get_produto_id($id_qtd[0]);
-                                                   echo '<td style="width:200px;"><div style="width:100%">
-                                                              <a name="'.$res->id.'" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span>'.$res->nome.' '.$res->altura.'m x '.$res->comprimento.'m x '.$res->largura.'m </span></a></div></td>
-                                                              <td style="text-align:center"><span>'.$id_qtd[1].'</span></td>
-                                                              <td><input type="date"></td>
-                                                              <td><input type="date"></td>';
-                                                      
-                                                    echo '</tr>';
+                                                            ?>
+                                                          </table>
+                                                      </div>
+
+                                                      <div class="form-input">
+                                                          <div style="overflow-x: scroll; ">
+                                                              <table cellpadding="0" cellspacing="0" border="0" style="width:100%; text-align:center; margin-bottom:20px;">
+                                                                    <tr>
+                                                                          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                                          <?php
+                                                                            
+                                                                            
+                                                                                 $data = $_SESSION['obra']['dados']['data_inicio_previsto'];
+                                                                                 $arrayData = explode("-", $data);
+                                                                                 // echo "<script>alert('$data');</script>";
+                                                                                 $dia = $arrayData[2];
+                                                                                 $mes = $arrayData[1];
+                                                                                 $ano = $arrayData[0];
+                                                                                 for($aux = 0; $aux <= 100; $aux++) {
+                                                                                     echo '<td  style="padding:5px; border-right: 1px solid #cdcdcd"><span><b>'.date('d/m/Y', strtotime("$data +$aux days")).'</b></span></td>';
+                                                                                 }
+                                                                            
+                                                                          ?>
+                                                                    </tr>
+                                                                    
+                                                                    <?php 
+                                                                      
+                                                                          for($p = 0; $p < count($_SESSION['obra']['produto']); $p++){
+                                                                              $id_qtd = explode(':', $_SESSION['obra']['produto'][$p]);
+                                                                              $res = new Produto();
+                                                                              $res = $res->get_produto_id($id_qtd[0]);
+                                                                              ?>
+                                                                                <tr <?php echo 'id="tr-'.$res->id.'"'; ?> class="row-table" title="">
+                                                                                    <td><span><?php echo $res->nome ?> </span></td>
+                                                                                    
+
+                                                                                    <?php
+                                                                                    
+                                                                                         $data = $_SESSION['obra']['dados']['data_inicio_previsto'];
+                                                                                         $arrayData = explode("-", $data);
+                                                                                         // echo "<script>alert('$data');</script>";
+                                                                                         $dia = $arrayData[2];
+                                                                                         $mes = $arrayData[1];
+                                                                                         $ano = $arrayData[0];
+                                                                                         for($aux = 0; $aux <= 100; $aux++) {
+                                                                                             echo '<td id="'.$res->id.'-'.date('Y-m-d', strtotime("$data +$aux days")).'" style="';
+                                                                                             echo 'padding:0px; margin: 0; border-right: 1px solid #cdcdcd"><span style="color:#cdcdcd; font-size: 10px">'.date('d/m/Y', strtotime("$data +$aux days")).'</span></td>';
+                                                                                         }
+                                                                                    
+                                                                                    ?>
+                                                                                </tr>
+                                                                        <?php }//fim for 
+
+                                                                      ?>
+                                                                    
+                                                              </table>
+                                                              
+                                                          </div>
+
+                                                      </div>
+                                      <?php 
+                                                }else{// else produtos
+                                                    echo '<div style="text-align:center; padding: 10px">Atenção, você precisa selecionar pelo menos um produto para poder adicionar um cronograma<br /><a href="add_obra?t=a_pr_o">Você pode adicionar um produto clicando aqui!</a>!</div>';
                                                 }
+                                          }else{// else inicio da obra
+                                                echo '<div style="text-align:center; padding: 10px">Atenção, você precisa definir o início da obra para poder adicionar um cronograma<br /><a href="add_obra?t=a_d_o">Você pode definir a data de início clicando aqui</a>!</div>';
 
-                                            ?>
-                                          </table>
-                                      </div>
-
-                                      <div class="form-input">
-                                          <div style="overflow-x: scroll; ">
-                                              <table border="0" style="width:100%; text-align:center; margin-bottom:20px;">
-                                                    <tr>
-                                                          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                          <?php
-                                                            
-                                                            if(!isset($_SESSION['obra']['produto']['data_inicio_previsto']) || $_SESSION['obra']['produto']['data_inicio_previsto'] != ''){
-                                                                 $data = $_SESSION['obra']['dados']['data_inicio_previsto'];
-                                                                 $arrayData = explode("-", $data);
-                                                                 // echo "<script>alert('$data');</script>";
-                                                                 $dia = $arrayData[2];
-                                                                 $mes = $arrayData[1];
-                                                                 $ano = $arrayData[0];
-                                                                 for($aux = 0; $aux <= 100; $aux++) {
-                                                                     echo '<td style="padding:5px; border-right: 1px solid #cdcdcd"><span>'.date('d/m/Y', strtotime("$data +$aux days")).'</span></td>';
-                                                                 }
-                                                            }
-                                                          ?>
-                                                    </tr>
-                                                    
-                                                    <?php 
-                                                      if(!isset($_SESSION['obra']['produto']['data_inicio_previsto']) || $_SESSION['obra']['produto']['data_inicio_previsto'] != ''){
-                                                          for($p = 0; $p < count($_SESSION['obra']['produto']); $p++){
-                                                              $id_qtd = explode(':', $_SESSION['obra']['produto'][$p]);
-                                                              $res = new Produto();
-                                                              $res = $res->get_produto_id($id_qtd[0]);
-                                                              ?>
-                                                                <tr class="row-table">
-                                                                    <td><span><?php echo $res->nome ?> </span></td>
-                                                                    
-
-                                                                    <?php
-                                                                    
-                                                                         $data = $_SESSION['obra']['dados']['data_inicio_previsto'];
-                                                                         $arrayData = explode("-", $data);
-                                                                         // echo "<script>alert('$data');</script>";
-                                                                         $dia = $arrayData[2];
-                                                                         $mes = $arrayData[1];
-                                                                         $ano = $arrayData[0];
-                                                                         for($aux = 0; $aux <= 100; $aux++) {
-                                                                             echo '<td style="';
-                                                                             echo 'padding:0px; margin: 0; border-right: 1px solid #cdcdcd"><span style="color:#cdcdcd">'.date('d/m/Y', strtotime("$data +$aux days")).'</span></td>';
-                                                                         }
-                                                                    
-                                                                    ?>
-                                                                </tr>
-                                                        <?php }//fim for 
-
-                                                      }else{// fim if
-                                                        echo 'Por favor, selecione a data de inicio da obra';
-                                                      }?>
-                                                    
-                                              </table>
-                                          </div>
-
-                                      </div>
-                                      
+                                          } ?>
                                       <div class="form-input" style="margin: 10px; text-align:center;  width:97%">
                                          <input type="button"  onclick="javascript:window.history.back()" class="voltar" value="Voltar"> <input class="avancar" type="submit" value="Avançar">
                                       </div>
