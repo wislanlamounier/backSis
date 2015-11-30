@@ -301,8 +301,9 @@ h2{
 }
 .formulario{
 	/*min-width: 550px;*/
+	transition: all 2s;
 	padding:20px;
-        box-shadow: 0px 0px 10px #aaa;
+       box-shadow: 0px 0px 10px #aaa;
 	float: left;
 	margin-top: 20px;
 	margin-left: 15px;
@@ -694,7 +695,9 @@ form-input select{
 .ativo-text{
 	padding-top: 5px; 
 }
-
+.row-table:hover{
+	background-color:rgba(150,150,150,0.8);
+}
 /********************************* FIM ADD_OBRA**********************************/
 
 /********************************* MENU ADD_OBRA ****************************************************/

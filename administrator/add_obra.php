@@ -41,7 +41,7 @@ function validate(){
             <div style="margin-left: -800px; transition-duration: 0.8s; position: absolute; width:700px; height: 500px; z-index: 2; border: 1px solid#fff"id="map"></div>    
   
 
-            <div class="formulario" style="width:43%;">
+            <div class="formulario" style="width:43%;" id="form_obra">
               <div class="title-box" style="float:left;width:100%"><div style="float:left"><img src="../images/add.png" width="35px" style="margin-left:5px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">NOVA OBRA</span></div></div>
               
               <div id="popup" class="popup" style="float:left; width:380px; position:absolute">
@@ -78,12 +78,8 @@ function validate(){
 
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
-                              		<div class="title-bloco" >
-                                      <ul class="menu_obra">
-                                          <li class="ativo"><a href="add_obra?t=a_c_o">Cliente</a></li><li><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra?t=a_pr_o">Produtos</a></li><li><a href="add_obra?t=a_p_o">Patrimonios</a></li><li><a href="add_obra?t=a_f_o">Funcionários</a></li>
-                                      </ul> 
-                                       
-                                  </div>
+                              		<?php include_once("../view/sub-menu-obra.php"); ?>
+
                                   <div class="desc-bloco">
                                       <span>Selecione o cliente </span>
                                   </div>
@@ -145,11 +141,8 @@ function validate(){
                               
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
-                                  <div class="title-bloco">
-                                      <ul class="menu_obra" style="display:block">
-                                          <li ><a href="add_obra?t=a_c_o">Cliente</a></li><li class="ativo"><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra?t=a_pr_o">Produtos</a></li><li><a href="add_obra?t=a_p_o">Patrimonios</a></li><li><a href="add_obra?t=a_f_o">Funcionários</a></li>
-                                      </ul> 
-                                  </div>
+                                  <?php include_once("../view/sub-menu-obra.php"); ?>
+
                                   <div class="desc-bloco">
                                       <span>Preencha os principais dados da obra</span>
                                   </div>
@@ -247,11 +240,8 @@ function validate(){
                         
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
-                                  <div class="title-bloco">
-                                      <ul class="menu_obra">
-                                          <li ><a href="add_obra?t=a_c_o">Cliente</a></li><li ><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li class="ativo"><a href="add_obra?t=a_pr_o">Produtos</a></li><li><a href="add_obra?t=a_p_o">Patrimonios</a></li><li><a href="add_obra?t=a_f_o">Funcionários</a></li>
-                                      </ul> 
-                                  </div>
+                                  <?php include_once("../view/sub-menu-obra.php"); ?>
+
                                   <div class="desc-bloco">
                                       <span>Selecione os Produtos </span>
                                   </div>
@@ -325,11 +315,8 @@ function validate(){
                               
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
-                                  <div class="title-bloco">
-                                      <ul class="menu_obra">
-                                          <li ><a href="add_obra?t=a_c_o">Cliente</a></li><li><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra?t=a_pr_o">Produtos</a></li><li class="ativo"><a href="add_obra?t=a_p_o">Patrimonios</a></li><li><a href="add_obra?t=a_f_o">Funcionários</a></li>
-                                      </ul> 
-                                  </div>
+                                  <?php include_once("../view/sub-menu-obra.php"); ?>
+
                                   <div class="desc-bloco">
                                       <span>Selecione os Patrimonios</span>
                                   </div>
@@ -420,12 +407,10 @@ function validate(){
                               </div> -->
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
-                                  <div class="title-bloco">
-                                    <ul class="menu_obra">
-                                          <li ><a href="add_obra?t=a_c_o">Cliente</a></li><li ><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra?t=a_pr_o">Produtos</a></li><li><a href="add_obra?t=a_p_o">Patrimonios</a></li><li class="ativo"><a href="add_obra?t=a_f_o">Funcionários</a></li><li><a href="add_obra?t=a_cr_o">Cronograma</a></li>
-                                      </ul> </div>
+                                  <?php include_once("../view/sub-menu-obra.php"); ?>
+
                                   <div class="desc-bloco">
-                                      <span>Selecione os Funcionarios que trabalharão nessa obra</span>
+                                      <span>Selecione os Funcionarios que trabalharam nessa obra</span>
                                   </div>
                                   <div class="body-bloco">
                                       <div class="form-input left">
@@ -477,6 +462,8 @@ function validate(){
               <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_cr_o'){ //add funcionarios da obra?>
                       <?php
                         $_SESSION['obra']['situacao_cadastramento'] = 'a_cr_o';
+
+                        echo "<script>ajusta('form_obra','+');</script>";
                       ?>
                         <form  action="add_obra" onsubmit="return validate(this)">
                                <input type="hidden" id="t" name="t" value="final">
@@ -497,47 +484,93 @@ function validate(){
                               </div> -->
                               <div class="bloco-1" id="dados_obra">            
                                   <!-- <div class="ativo"><div class="ativo-text">Cadastre os dados da obra</div></div> -->
-                                  <div class="title-bloco">
-                                    <ul class="menu_obra">
-                                          <li ><a href="add_obra?t=a_c_o">Cliente</a></li><li ><a href="add_obra?t=a_d_o">Dados da Obra</a></li><li><a href="add_obra?t=a_pr_o">Produtos</a></li><li><a href="add_obra?t=a_p_o">Patrimonios</a></li><li><a href="add_obra?t=a_f_o">Funcionários</a></li><li class="ativo"><a href="add_obra?t=a_p_o">Cronograma</a></li>
-                                      </ul> </div>
+                                  <?php include_once("../view/sub-menu-obra.php"); ?>
                                   <div class="desc-bloco">
                                       <span>Cadastramento para variáveis de tempo</span>
                                   </div>
                                   <div class="body-bloco">
-                                      <div style="border: solid 1px"class="form-input left">
-                                          <div class="form-input">
-                                              <span><b>Nome: </b></span><br /><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:65%"> <input type="button" value="Buscar" onclick="buscarFuncionario()">
-                                          </div>
-                                          <div class="form-input" id="form-input-select" style="border: 1px solid#bbb; height:200px;">
-                                              <select size="10" style="height: 100%; width: 100%">
-                                              </select>
-                                          </div>
-                                          <div class="form-input">
-                                              <span style="color:#787878; font-size:12px;">(Duplo clique para selecionar)</span>
-                                          </div>
+
+                                      <div class="form-input" style="border-bottom:1px solid#cdcdcd">
+                                          <table style="margin-left:10px; margin-bottom:10px; ">
+                                                <tr><td><span><b>Produto</b></span></td><td><span><b>Quantidade</b></span></td><td style="text-align:center"><span><b>Inicio</b></span></td><td style="text-align:center"><span><b>Fim</b></span></td></tr>
+                                            <?php //busca todos os produtos da obra 
+
+                                                for($aux = 0; $aux < count($_SESSION['obra']['produto']); $aux++){
+                                                  $id_qtd = explode(':', $_SESSION['obra']['produto'][$aux]);
+
+                                                   echo '<tr>';
+                                                          
+                                                   $res = new Produto();
+                                                   $res = $res->get_produto_id($id_qtd[0]);
+                                                   echo '<td style="width:200px;"><div style="width:100%">
+                                                              <a name="'.$res->id.'" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span>'.$res->nome.' '.$res->altura.'m x '.$res->comprimento.'m x '.$res->largura.'m </span></a></div></td>
+                                                              <td style="text-align:center"><span>'.$id_qtd[1].'</span></td>
+                                                              <td><input type="date"></td>
+                                                              <td><input type="date"></td>';
+                                                      
+                                                    echo '</tr>';
+                                                }
+
+                                            ?>
+                                          </table>
                                       </div>
-                                      <div style="border: solid 1px;"class="form-input right">
-                                          <div class="form-input">
-                                              <span><b>Funcionarios selecionados: </b></span>
+
+                                      <div class="form-input">
+                                          <div style="overflow-x: scroll; ">
+                                              <table border="0" style="width:100%; text-align:center; margin-bottom:20px;">
+                                                    <tr>
+                                                          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                          <?php
+                                                            
+                                                            if(!isset($_SESSION['obra']['produto']['data_inicio_previsto']) || $_SESSION['obra']['produto']['data_inicio_previsto'] != ''){
+                                                                 $data = $_SESSION['obra']['dados']['data_inicio_previsto'];
+                                                                 $arrayData = explode("-", $data);
+                                                                 // echo "<script>alert('$data');</script>";
+                                                                 $dia = $arrayData[2];
+                                                                 $mes = $arrayData[1];
+                                                                 $ano = $arrayData[0];
+                                                                 for($aux = 0; $aux <= 100; $aux++) {
+                                                                     echo '<td style="padding:5px; border-right: 1px solid #cdcdcd"><span>'.date('d/m/Y', strtotime("$data +$aux days")).'</span></td>';
+                                                                 }
+                                                            }
+                                                          ?>
+                                                    </tr>
+                                                    
+                                                    <?php 
+                                                      if(!isset($_SESSION['obra']['produto']['data_inicio_previsto']) || $_SESSION['obra']['produto']['data_inicio_previsto'] != ''){
+                                                          for($p = 0; $p < count($_SESSION['obra']['produto']); $p++){
+                                                              $id_qtd = explode(':', $_SESSION['obra']['produto'][$p]);
+                                                              $res = new Produto();
+                                                              $res = $res->get_produto_id($id_qtd[0]);
+                                                              ?>
+                                                                <tr class="row-table">
+                                                                    <td><span><?php echo $res->nome ?> </span></td>
+                                                                    
+
+                                                                    <?php
+                                                                    
+                                                                         $data = $_SESSION['obra']['dados']['data_inicio_previsto'];
+                                                                         $arrayData = explode("-", $data);
+                                                                         // echo "<script>alert('$data');</script>";
+                                                                         $dia = $arrayData[2];
+                                                                         $mes = $arrayData[1];
+                                                                         $ano = $arrayData[0];
+                                                                         for($aux = 0; $aux <= 100; $aux++) {
+                                                                             echo '<td style="';
+                                                                             echo 'padding:0px; margin: 0; border-right: 1px solid #cdcdcd"><span style="color:#cdcdcd">'.date('d/m/Y', strtotime("$data +$aux days")).'</span></td>';
+                                                                         }
+                                                                    
+                                                                    ?>
+                                                                </tr>
+                                                        <?php }//fim for 
+
+                                                      }else{// fim if
+                                                        echo 'Por favor, selecione a data de inicio da obra';
+                                                      }?>
+                                                    
+                                              </table>
                                           </div>
-                                          <div class="form-input" id="form-input-dados" style="border: 1px solid#bbb;  padding: 10px;">
-                                                <?php
-                                                     if(isset($_SESSION['obra']['funcionario'])){ 
-                                                          echo '<table style="width:100%" >';
-                                                          for($aux = 0; $aux < count($_SESSION['obra']['funcionario']); $aux++){
-                                                              if($aux%2==0)
-                                                                 echo '<tr style="background-color:#ccc;">';
-                                                              else
-                                                                echo '<tr style="background-color:#ddd;">';
-                                                                   $res = Funcionario::get_func_id($_SESSION['obra']['funcionario'][$aux]);
-                                                                   echo '<td ><span>'.$res->nome.': </span></td><td style="text-align:center"><a style="cursor:pointer" id="'.$res->id.'" onclick="apagar(this.id,\'funcionario\')"><img style="width:15px" src="../images/delete.png"></a></td>';         
-                                                                echo '</tr>';
-                                                          }
-                                                          echo '</table>';
-                                                      }
-                                                 ?>
-                                          </div>
+
                                       </div>
                                       
                                       <div class="form-input" style="margin: 10px; text-align:center;  width:97%">

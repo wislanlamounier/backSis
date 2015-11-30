@@ -2132,6 +2132,14 @@ Class Functions{
 		function getScriptObra(){
 		?>
 			<script type="text/javascript">
+					function ajusta(id, tipo){
+
+						if(tipo == '+'){//aumenta
+							document.getElementById(id).style.width = '95%';
+						}else{
+							document.getElementById(id).style.width = '43%';
+						}
+					}
 				    function info(id){
 				      
 				      var divPop = document.getElementById(id);
