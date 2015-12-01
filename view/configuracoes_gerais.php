@@ -1,8 +1,21 @@
 <div class="separador" ><span style="color: #ddd;" class="title">CONFIGURAÇÕES GERAIS</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="mostraTabela1('config_gerais')" ></div>
 <div id="config_gerais" hidden="on" style="float:left; width:100%">   
     
-    <div  style="padding:10px;"class="formulario-regiao-titulo">
-                <div class="separador" style="padding: 0; padding-top: 5px; margin: 0 auto; float:left; margin-left:25%;  width: 50%;" ><span style="color: #ddd;  font-size: 15px;">Cadastro de Região</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000; padding-bottom: 5px;" value="Configurar" onclick="mostraTabela1('form')" ></div>
+<!--<p>Demonstrate fadeToggle() with different speed parameters.</p>;
+
+<button>Click to fade in/out boxes</button><br><br>
+
+<div id="div1" style="width:80px;height:80px;background-color:red;"></div>
+<br>
+<div id="div2" style="width:80px;height:80px;background-color:green;"></div>
+<br>
+<div id="div3" style="width:80px;height:80px;background-color:blue;"></div>-->
+
+
+
+
+    <div  style="padding:10px;" class="formulario-regiao-titulo">
+                <div class="separador" style="padding: 0; padding-top: 5px; margin: 0 auto; float:left; margin-left:25%;  width: 50%;" ><span style="color: #ddd;  font-size: 15px;">Cadastro de Região</span><input id='mostraForm'type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000; padding-bottom: 5px;" value="Configurar" ></div>
     </div>
    
         <?php if(isset($_POST['cadastrar'])){
@@ -78,5 +91,6 @@
         </form> 
         </div>    
 </div>
+
 
 
