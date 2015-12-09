@@ -46,6 +46,18 @@ OBSERVA��ES TABELA BANCO{
 		}
 		
 	}
+        TABELA(CONTAS){
+		CAMPO: TIPO{			
+			1 -> À PAGAR
+			2 -> À RECEBER 
+		}
+                CAMPO: FORNECEDOR_CLIENTE{
+                        1 -> FORNECEDOR
+                        2 -> CLIENTE
+                        SEM FORNECEDOR OU CLIENTE 
+                }
+		
+	}
 }
 
 
@@ -54,4 +66,3 @@ SIGLAS{
 	CBO: CADASTRO BRASILEIRO DE OCUPA��ES
         TIPO_CUSTO: TIPO DE CONTROLE DE VALORES EX: VALOR HR, VALOR SEMANAL, VALOR MENSAL, VALOR ANUAL.
 }
-?>

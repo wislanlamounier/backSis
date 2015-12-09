@@ -1,16 +1,6 @@
 <div class="separador" ><span style="color: #ddd;" class="title">CONFIGURAÇÕES GERAIS</span><input type="button" style="background-color: rgba(000,000,000,0.1); border:0; float:right; color:#cc0000" value="Configurar" onclick="mostraTabela1('config_gerais')" ></div>
 <div id="config_gerais" hidden="on" style="float:left; width:100%">   
     
-<!--<p>Demonstrate fadeToggle() with different speed parameters.</p>;
-
-<button>Click to fade in/out boxes</button><br><br>
-
-<div id="div1" style="width:80px;height:80px;background-color:red;"></div>
-<br>
-<div id="div2" style="width:80px;height:80px;background-color:green;"></div>
-<br>
-<div id="div3" style="width:80px;height:80px;background-color:blue;"></div>-->
-
 
 
 

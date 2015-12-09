@@ -320,7 +320,7 @@ class Cliente {
         $g = new Glob();
         $aux=0;
       
-        $query = $g->tratar_query("SELECT * FROM clientes WHERE oculto = 0 && id_empresa = ".$_SESSION['id_empresa']."");
+        $query = $g->tratar_query("SELECT * FROM clientes WHERE oculto = 0 && fornecedor = 0 && id_empresa = ".$_SESSION['id_empresa']."");
 
         while($result = mysql_fetch_array($query)){
           $return[$aux][0] = $result['id'];

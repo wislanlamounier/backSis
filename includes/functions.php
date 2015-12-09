@@ -3232,9 +3232,93 @@ Class Functions{
 		}//fim getScriptConfiguracoes()
 
 		//Modelo
-		function getScriptModelo5(){
+		function getScriptContas(){
 		?>
-			<!-- Code -->
+                                 <script>
+                                    function mascara(o,f){
+				        v_obj=o
+				        v_fun=f
+				        setTimeout("execmascara()",1)
+				    }
+				    function execmascara(){
+				        v_obj.value=v_fun(v_obj.value)
+				    }
+				    function mnum(v){
+				              v=v.replace(/\D/g,"");                                      //Remove tudo o que não é dígito
+				              return v;
+				    }
+				    function mvalor(v){
+				              v=v.replace(/\D/g,"");//Remove tudo o que não é dígito
+				              v=v.replace(/(\d)(\d{8})$/,"$1.$2");//coloca o ponto dos milhões
+				              v=v.replace(/(\d)(\d{5})$/,"$1.$2");//coloca o ponto dos milhares
+
+				              v=v.replace(/(\d)(\d{2})$/,"$1,$2");//coloca a virgula antes dos 2 últimos dígitos
+				           return v;
+				    }
+
+				   function mtel(v){
+				       if(v.length >=16){
+				         v = v.substring(0,(v.length - 1));
+				         return v;
+				       }
+				       v=v.replace(/\D/g,"");
+				       v=v.replace(/^(\d{2})(\d)/g,"($1) $2");
+				       v=v.replace(/(\d)(\d{4})$/,"$1-$2");
+				       return v;
+				   }
+				    function mcpf(v){
+				       if(v.length >=15){  
+				         v = v.substring(0,(v.length - 1));
+				         return v;
+				       }
+				       v=v.replace(/\D/g,""); 
+				       v=v.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4");
+				       return v;
+				    }
+				    function dnasc(v){
+				       if(v.length >=10){      
+				         v = v.substring(0,(v.length - 1));
+				         return v;
+				       }
+				       v=v.replace(/\D/g,""); 
+				       v=v.replace(/^(\d{2})(\d{2})(\d{4})/,"$1/$2/$3");  
+				       return v;
+				   }
+				    function mrg(v){
+				       if(v.length >=13){
+				         v = v.substring(0,(v.length - 1));
+				         return v;
+				       }
+				       v=v.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})/,"$1.$2.$3-$4");
+				       return v;
+				   }
+				   function id( el ){
+				     return document.getElementById( el );
+				   }
+				   function carregaMascaras(){
+				
+				      id('cpf').onkeypress = function(){ 
+				          mascara( this, mcpf );
+				      };      
+				      id('telefone').onkeypress = function(){
+				          mascara( this, mtel );
+				      };
+				      id('data_em_rg').onkeypress = function(){
+				          mascara( this, dnasc );
+				      };
+				      id('data_nasc').onkeypress = function(){
+				          mascara( this, dnasc );
+				      };
+				      id('data_admissao').onkeypress = function(){
+				          mascara( this, dnasc );
+				      };
+				      
+				   }
+                                   
+                                   
+                                   
+                       
+                                 </script>
 		<?php
 		}//fim getScript()
 
