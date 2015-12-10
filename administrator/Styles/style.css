@@ -333,8 +333,8 @@ h2{
 }
 .button{
 	background: url("../../images/footer_lodyas.png");
-	width: 100px;
-	height: 25px;
+	width: 100px;	
+        padding: 5px;
 	color:#ddd;
 	border: 1px solid#bbb;
 	border-radius: 5px;
@@ -344,7 +344,7 @@ h2{
 }
 .button:hover{
 	width: 100px;
-	height: 25px;
+	padding: 5px;
 	color:#ddd;
 	border: 1px solid#bbb;
 	border-radius: 3px;
@@ -1187,3 +1187,91 @@ form-input select{
 .cont{
 	margin-left: 5px; position:absolute; color:#f33;font-size:15px;  text-align:left;
 }
+
+/********************************* ADD COTNAS  ******************************/
+
+.tabela-contas-apagar{
+    float: left;
+    width: 100%;  
+}
+.center{
+    width: 98%;
+    margin-left: 1%;
+    margin-right: 1%;   
+    float:left;
+}
+.row{    
+    width: 100%;    
+}
+.col-1{
+    position: relative;
+    height: 6%;
+    float:left;
+    width: 10%;
+    word-wrap: break-word;    
+}
+
+.item{
+    float:left;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.col-2{
+    
+    height: 6%;
+    float:left;
+    width: 20%;
+   word-wrap: break-word;
+}
+.col-3{
+     height: 6%;
+     float:left;
+    width: 30%;
+    word-wrap: break-word;
+}
+.col-4{
+    height: 6%;
+    float:left;
+    width: 40%;
+   word-wrap: break-word;
+    }
+.col-5{
+    height: 6%;
+    float:left;
+    width: 50%;
+     word-wrap: break-word; 
+}
+.col-6{
+   height: 6%;
+    float:left;
+    width: 60%;
+    word-wrap: break-word;
+}
+.col-7{
+     height: 6%;
+    float:left;
+    width: 70%;
+   word-wrap: break-word;
+}
+.col-8{
+    height: 6%;
+    float:left;
+    width: 80%;
+   word-wrap: break-word;
+}
+.col-9{
+    height: 6%;
+    float:left;
+    width: 90%;
+  word-wrap: break-word;
+  
+}
+.col-10{
+     height: 6%;
+    float:left;
+    width: 100%;   
+    word-wrap: break-word;
+}
+
+/********************************* FIM CONTAS ******************************/

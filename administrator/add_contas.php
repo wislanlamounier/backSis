@@ -9,6 +9,7 @@ include_once("../model/class_conta_bd.php");
         float: left;
         clear: left;
     }
+    
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
@@ -25,8 +26,6 @@ $(document).ready(function(){
     });
     
     
-    
-    
      $("#vr").click(function(){
         $("#visualizar-areceber").fadeToggle();
         $("#vp").fadeToggle();
@@ -39,10 +38,13 @@ $(document).ready(function(){
     });
 });
 </script>
+
+
 <html>
     <?php Functions::getHead('Adicionar');?>
     <?php Functions::getScriptContas();?>
-    
+    <?php Functions::getPaginacao();?>
+  
 
     <body>
         <?php include_once("../view/topo.php"); ?>
@@ -282,8 +284,77 @@ $(document).ready(function(){
                <Nav style="padding:20px;">
                    <a hidden="on" id="voltar3"  href="add_contas.php">Voltar</a> <a id="vp" href="#ver_contas">À pagar</a> | <a id="vr" href="#ver_contas">À receber</a><a hidden="on" id="voltar4" href="add_contas.php">Voltar</a>                  
                </nav>
-               
+               <div id="visualizar-apagar" hidden>
+                    <?php
+                    $contas = new Contas();
+                    
+                     $contas_apagar = $contas->ver_contas_apagar();                     
+                     $style1 = 'background-color: rgba(50,200,50,0.3);';
+                     $i = 0;
+                     ?>
+                   <div class="title"><h3>À Pagar</h3></div>
+                   <?php foreach ($contas_apagar as $key => $value) { 
+                    $i++;
+                    $clis = new Cliente();
+                    $cli = $clis->get_all_cli_by_id($value->fornecedor_cliente);
+                    if($cli[1]== ""){
+                        $cli[1]= 'Fornecedor não cadastrado';
+                    }
+                   ?>
+                   
+                    
+                   
+                    <div id="contas" class="tabela-contas-apagar" style="<?php if($i % 2 == 1){echo $style1;}?>">
+                        <div id="<?php echo $i ?>" >
+                                <div class="row">                                     
+                                    <div class="center">
+                                         <div class="col-5">
+                                             <div class="item"><label>Cod:</label>  <label><?php echo $value->codigo  ?></label></div>
+                                         </div>
+                                         <div class="col-5">
+                                             <div class="item"><label>Fornecedor: </label> <label><?php echo $cli[1]; ?></label></div>
+                                         </div>
+                                         <div class="col-5">
+                                             <div class="item"><label>Valor: </label> <label><?php echo $value->valor ?></label> </div>
+                                         </div>                           
+                                    </div>
+                                </div>
+                                 <div class="row">
+                                     <div class="center">
+                                         <div class="col-5">
+                                             <div class="item"><label>Data de vencimento: </label> <label><?php echo $value->data_vencimento ?></label></div>
+                                        </div>
+                                         <div class="col-5">
+                                             <div class="item"><label>Banco: </label> <label><?php echo $value->banco ?></label></div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="item"><label>Descrição: </label></div>
+                                        </div>  
+                                        <div class="col-10">
+                                            <div class="item"><textarea style="position:absolute; z-index: 200;" row="2" cols="50"> <?php echo $value->descricao ?> </textarea></div>
+                                        </div>
+                                     </div>
+                                 </div>                        
+                                 <div class="row">
+                                     <div class="center">
+                                         <br>
+                                         <div class="col-3">Adicionar à contas pagas</div><div class="col-3"><div class="button" onclick="">Salvar</div></div>
+                                     </div>
+                                </div>
+                            
+                            </div>                        
+                        </div>
+                   
+                       <?php } ?>
+                   <input type="button" class="button" value="Voltar" style="color: floralwhite" id="back"><input type="button" style="color: floralwhite" class="button" value="proximo" id="next">
+                   <?php 
+                        if ($i > 2) {
+                            echo '<script>paginar('.$i.','.'3'.')</script>';
+                    } ?>
+                   
+               </div>              
+              
                </div>
-        
+
     </body>
 </html>

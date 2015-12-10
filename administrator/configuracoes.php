@@ -45,6 +45,7 @@ include_once("../includes/functions.php");
  ?>
 
 <?php Functions::getHead('Configurações'); //busca <head></head> da pagina, $title é o titulo da pagina ?>
+   
     <head>
         <script>
                

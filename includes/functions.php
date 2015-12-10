@@ -27,6 +27,8 @@ Class Functions{
                                     </script>
 				 </head>';
 	}
+        
+        
 
 	function getScriptFuncionario(){
 			?>
@@ -3323,9 +3325,83 @@ Class Functions{
 		}//fim getScript()
 
 		//Modelo
-		function getScriptModelo6(){
+		function getPaginacao(){
 		?>
-			<!-- Code -->
+    <script>
+                function paginar(aux,max){                    
+                    var ultimov = 0; // ultima div mostrada na tela
+                    var primeirov = 0; // primeira div mostrada na tela
+                                       // quantidade de div por paginação
+                    if(aux > max){
+                    document.getElementById('back').hidden = true;   // inicia com next desativado 
+                    var ocultos = new Array(); // array para guardar valores das divs ocultas
+                    var visiveis = new Array(); // array para guardar valores das divs visiveis
+                    var y = 0;                  // contador das divs ocultas
+                        for(var i = 1 ; i < aux+1 ; i++){ // condição que varre todas divs e verifica se ultrapassou o numero maximo de valores na tela para ocultar
+                            if(i <= max ){
+                            visiveis[i] = i ;
+                            }
+
+                            if(i > max){                    
+                             document.getElementById(i).hidden = true; // ocultando divs fora do valor maximo
+                                        ocultos[y] = i; 
+                                         y++;                        
+                             }
+                         }
+
+                       ultimov  = visiveis[max]; // recebe qual é A PRIMEIRA  ultima div visivel
+
+
+                        $(document).ready(function(){
+                            $("#next").click(function(){
+                              
+                                    document.getElementById('back').hidden = false; 
+                                    
+                                    for(i = 1 ; i < aux+1; i++){ // array que varre doas as divs
+                                
+                                        prox = ultimov + max;      // prox é o valor até onde deve ser mostradas as divs                               
+                                        if(i > ultimov && i <= prox ){                            
+                                                document.getElementById(i).hidden = false;                    // mostando as divs                   
+                                        }else if(i <= ultimov){
+                                                document.getElementById(i).hidden = true;                       // mostrando as divs               
+                                        }
+                                    }      
+                                    
+                                    if(document.getElementById(aux).hidden === false){                          // condição que verifica se a ultima div esta sendo mostrada na tela para ocultar o botao next
+                                                document.getElementById('next').hidden = true;
+                                    }
+                                    
+                                    ultimov = ultimov + max;                                                    // mantendo na variavel ultimo valor, o ultimo valor mostrado
+                            });
+
+                            $("#back").click(function(){
+
+                                    document.getElementById('next').hidden = false;                             // mostrando botao next quando voltar
+                                    
+                                     for(i = 1 ; i < aux+1; i++){
+
+                                        primeirov = ultimov - max;
+                                        ant = primeirov - max;
+
+                                        if(i <= primeirov && i > ant){                                  
+                                                document.getElementById(i).hidden = false;                                       
+                                        }else{
+                                                document.getElementById(i).hidden = true;  
+                                        }
+                                    }       
+                                    
+                                    if(document.getElementById(1).hidden === false){
+                                            document.getElementById('back').hidden = true;
+                                    }
+                                     ultimov = primeirov;
+                            });
+
+                        });
+
+                    }
+
+                }                                                                            
+    </script>
 		<?php
 		}//fim getScript()
 
