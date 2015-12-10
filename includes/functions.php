@@ -12,6 +12,7 @@ Class Functions{
 				 	<title>'.$title.'</title>
 				 	
 				 	<script src="../javascript/jquery-2.1.4.min.js"></script>
+				 	<script src="../javascript/moment.js"></script>
 				 	<script src="../javascript/selectbox.js" type="text/javascript"></script>
 				 	<link rel="stylesheet" type="text/css" href="styles/style.css">
 				 	<!--<script src="../javascript/jquery_mobile/jquery.mobile-1.4.5.min.js"></script>-->

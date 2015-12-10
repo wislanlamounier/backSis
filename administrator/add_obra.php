@@ -32,65 +32,78 @@ function validate(){
 </head> -->
 
 <script type="text/javascript">
-    function removeBackground(id_produto){
-
-    }
+    
     function preencheCronograma(id_produto){
-        
         var data_i = document.getElementById("dateini-"+id_produto).value;
         var data_f = document.getElementById("datefim-"+id_produto).value;
+        var etapa = document.getElementById("etapa-"+id_produto).value;
+        // alert(etapa)
+        var url = '../ajax/ajax_cronograma.php?id_produto='+id_produto+'&data_ini='+data_i+'&data_fim='+data_f+'&etapa='+etapa;
+                  $.get(url, function(dataReturn) {
+                    $('#result-ajax').html(dataReturn);
+                        // window.location.href='add_func.php';
+                  });
 
-        data_fim = data_f.split('-');
-        data_ini = data_i.split('-');
+        // var data_i = document.getElementById("dateini-"+id_produto).value;
+        // var data_f = document.getElementById("datefim-"+id_produto).value;
 
-        date_comp_fim = new Date(data_fim[0], data_fim[1], data_fim[2]);
-        date_comp_ini = new Date(data_ini[0], data_ini[1], data_ini[2]);
+        // data_fim = data_f.split('-');
+        // data_ini = data_i.split('-');
 
-        var verdadeiro = true;
-        var cont = 0;
-        while(verdadeiro){
-            if(date_comp_ini.getTime() <= date_comp_fim.getTime()){
+        // date_comp_fim = new Date(data_fim[0], data_fim[1], data_fim[2]);
+        // date_comp_ini = new Date(data_ini[0], data_ini[1], data_ini[2]);
 
-                date_id = date_comp_ini.getFullYear();
+        // var verdadeiro = true;
+        // var cont = 0;
+        // while(verdadeiro){
+        //     if(date_comp_ini.getTime() <= date_comp_fim.getTime()){
+
+        //         date_id = date_comp_ini.getFullYear();
                 
-                if(date_comp_ini.getMonth() < 10){
-                    date_id += '-0'+date_comp_ini.getMonth();
-                }else{
-                    date_id += '-'+date_comp_ini.getMonth();
-                }
+        //         if(date_comp_ini.getMonth() < 10){
+        //             date_id += '-0'+date_comp_ini.getMonth();
+        //         }else{
+        //             date_id += '-'+date_comp_ini.getMonth();
+        //         }
 
-                if(date_comp_ini.getDate() < 10){
-                    date_id += '-0'+date_comp_ini.getDate();
-                }else{
-                    date_id += '-'+date_comp_ini.getDate();
-                }
+        //         if(date_comp_ini.getDate() < 10){
+        //             date_id += '-0'+date_comp_ini.getDate();
+        //         }else{
+        //             date_id += '-'+date_comp_ini.getDate();
+        //         }
 
-                document.getElementById(id_produto+'-'+date_id).style.backgroundColor = '';
-                document.getElementById(id_produto+'-'+date_id).style.borderRadius = '';
+        //         document.getElementById(id_produto+'-'+date_id).style.backgroundColor = '';
+        //         document.getElementById(id_produto+'-'+date_id).style.borderRadius = '';
 
-                document.getElementById(id_produto+'-'+date_id).style.backgroundColor = 'rgba(0, 100, 0, 0.71)';
+        //         document.getElementById(id_produto+'-'+date_id).style.backgroundColor = 'rgba(0, 100, 0, 0.71)';
                 
-                if(cont == 0){
-                    document.getElementById(id_produto+'-'+date_id).style.borderRadius = "8px 0px 0px 8px";
-                }
-
-                cont++;
-                date_comp_ini.setDate(date_comp_ini.getDate() + 1);
-            }else{
-                verdadeiro = false;
-                document.getElementById('tr-'+id_produto).title = "INFORMAÇÕES DA TAREFA\nData de inicio: " + data_i + "\nData Final: "+data_f+" \nEssa tarefa levará "+cont+" dia(s) para ficar pronta";
+        //         if(cont == 0){
+        //             document.getElementById(id_produto+'-'+date_id).style.borderRadius = "8px 0px 0px 8px";
+        //         }
+        //         // alert(date_id)
+        //         cont++;
+        //         // date_comp_ini.setDate(SomarData(date_comp_ini,1));
+        //         // alert(date_comp_ini +' ' +date_comp_ini.getTime()+(86400*1000));
+        //         date_comp_ini.setTime(date_comp_ini.getTime()+(86400*1000));
+        //     }else{
+        //         verdadeiro = false;
+        //         document.getElementById('tr-'+id_produto).title = "INFORMAÇÕES DA TAREFA\nData de inicio: " + data_i + "\nData Final: "+data_f+" \nEssa tarefa levará "+cont+" dia(s) para ficar pronta";
                 
-                document.getElementById(id_produto+'-'+date_id).style.borderRadius = "0px 8px 8px 0px";
+        //         document.getElementById(id_produto+'-'+date_id).style.borderRadius = "0px 8px 8px 0px";
 
-                if(cont == 1){
-                    document.getElementById(id_produto+'-'+date_id).style.borderRadius = "8px 8px 8px 8px"; 
-                }
-            }
-        }
+        //         if(cont == 1){
+        //             document.getElementById(id_produto+'-'+date_id).style.borderRadius = "8px 8px 8px 8px"; 
+        //         }
+        //     }
+        // }
         
 
     }
-
+    
+    function submeter(){
+      qtd = document.getElementById('etapas').value;
+      window.location = 'add_obra.php?t=a_cr_o&etapas=' + qtd;
+    }
 </script>
 
 <?php  Functions::getScriptObra(); ?>
@@ -553,14 +566,24 @@ function validate(){
                                       <span>Cadastramento para variáveis de tempo</span>
                                   </div>
                                   <div class="body-bloco">
+                                      <?php 
+                                        if(isset($_GET['etapas']) && $_GET['etapas'] > 0){
+                                            $_SESSION['obra']['etapas'] = $_GET['etapas'];
+                                        }
+
+                                       ?>
                                       <?php if(isset($_SESSION['obra']['dados']['data_inicio_previsto']) && $_SESSION['obra']['dados']['data_inicio_previsto'] != ''){ // verifica se a data inicio da obra foi cadastrada
                                                 
-                                                if(isset($_SESSION['obra']['produto']) && count($_SESSION['obra']['produto']) > 0){// verifica se existe algum produto cadastrado
-                                              
+                                                if(isset($_SESSION['obra']['produto']) && count($_SESSION['obra']['produto']) > 0){ // verifica se existe algum produto cadastrado
+    
+                                                            if(isset($_SESSION['obra']['etapas']) && $_SESSION['obra']['etapas'] > 0){ // verifica se ja foi definido a quantidade de etapas
+  
                                               ?>
                                             
                                                       <div class="form-input" style="border-bottom:1px solid#cdcdcd">
+
                                                           <table style="margin-left:10px; margin-bottom:10px; ">
+                                                            <tr><td>Defina a quantidade de etapas </td><td colspan = '3'><input type="number" name="etapas" id="etapas" value="<?php (isset($_SESSION['obra']['etapas'])) ? print $_SESSION['obra']['etapas'] : '' ?>"> <a onclick="submeter()">Definir</a></td></tr>
                                                                 <tr><td><span><b>Produto</b></span></td><td><span><b>Quantidade</b></span></td><td style="text-align:center"><span><b>Inicio</b></span></td><td style="text-align:center"><span><b>Fim</b></span></td></tr>
                                                             <?php //busca todos os produtos da obra 
 
@@ -576,6 +599,11 @@ function validate(){
                                                                               <td style="text-align:center"><span>'.$id_qtd[1].'</span></td>
                                                                               <td><input type="date" name="data_ini" id="dateini-'.$res->id.'"></td>
                                                                               <td><input type="date" name="data_fim" id="datefim-'.$res->id.'" onchange="preencheCronograma(\''.$res->id.'\')"></td>';
+                                                                          echo '<td><select id="etapa-'.$res->id.'" onchange="preencheCronograma(\''.$res->id.'\')">';
+                                                                          for($i = 0 ; $i < $_SESSION['obra']['etapas'] ; $i++){
+                                                                              echo '<option name="data_fim"  value="'.($i+1).'" >Etapa '.($i+1).'</option>';
+                                                                          }
+                                                                          echo '</select></td>';
                                                                       
                                                                     echo '</tr>';
                                                                 }
@@ -584,8 +612,11 @@ function validate(){
                                                           </table>
                                                       </div>
 
-                                                      <div class="form-input">
+                                                      <div class="form-input" id="result-ajax">
                                                           <div style="overflow-x: scroll; ">
+                                                            <?php //for($e = 0; $e < $_SESSION['obra']['etapas']; $e++){ 
+                                                              //echo '<div style="text-align:center"><b>ETAPA '.($e+1).'</b></div>';
+                                                              ?>
                                                               <table cellpadding="0" cellspacing="0" border="0" style="width:100%; text-align:center; margin-bottom:20px;">
                                                                     <tr>
                                                                           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -636,11 +667,13 @@ function validate(){
                                                                       ?>
                                                                     
                                                               </table>
-                                                              
+                                                              <?php //} ?>
                                                           </div>
-
                                                       </div>
                                       <?php 
+                                                        }else{
+                                                              echo '<div style="text-align:center; padding: 10px">Por favor, defina em quantas etapas você deseja realizar essa obra<br /><input type="number" name="etapas" id="etapas"> <a onclick="submeter()">Definir</a> </div>';      
+                                                        }
                                                 }else{// else produtos
                                                     echo '<div style="text-align:center; padding: 10px">Atenção, você precisa selecionar pelo menos um produto para poder adicionar um cronograma<br /><a href="add_obra?t=a_pr_o">Você pode adicionar um produto clicando aqui!</a>!</div>';
                                                 }
