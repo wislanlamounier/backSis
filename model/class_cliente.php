@@ -320,7 +320,7 @@ class Cliente {
         $g = new Glob();
         $aux=0;
       
-        $query = $g->tratar_query("SELECT * FROM clientes WHERE oculto = 0 && id_empresa = ".$_SESSION['id_empresa']."");
+        $query = $g->tratar_query("SELECT * FROM clientes WHERE oculto = 0 && fornecedor = 0 && id_empresa = ".$_SESSION['id_empresa']."");
 
         while($result = mysql_fetch_array($query)){
           $return[$aux][0] = $result['id'];
@@ -369,6 +369,21 @@ class Cliente {
 	     	$this->nome_fornecedor = $row['nome_razao_soc'];	     	
 	     	return $this;
 	     }
+
+	}    
+        
+    public function get_all_cli_by_id($id){
+		 $sql = new Sql();
+		 $sql->conn_bd();
+		 $g = new Glob();
+
+		 $query = "SELECT * FROM clientes where id = '$id'" ;		
+		 $result = mysql_query($query);
+		
+                 
+                 while ($row = mysql_fetch_row($result)) {                     
+                     return $row;
+                }
 
 	}
 

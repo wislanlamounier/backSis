@@ -18,12 +18,23 @@ Class Functions{
 				 	<!--<script src="../javascript/jquery_mobile/jquery.mobile-1.4.5.min.js"></script>-->
 				 	<!-- <link rel="stylesheet" type="text/css" href="../javascript/jquery_mobile/jquery.mobile-1.4.5.min.css"> -->
 				    <!-- <link rel="stylesheet" type="text/css" href="../sistemaponto/styles/style.css"> -->
+                                    <script>
+                                               $(document).ready(function(){
+                                                    $("#mostraForm").click(function(){
+                                                        $("#form").fadeToggle("slow");
+                                //                      
+                                                    });
+                                                });
+                                    </script>
 				 </head>';
 	}
+        
+        
 
 	function getScriptFuncionario(){
 			?>
 			<script type="text/javascript">
+                            
 				    function exibe(){
 				        // document.getElementById("popup").style.display = "block";
 				        var windowWidth = window.innerWidth;
@@ -2125,6 +2136,7 @@ Class Functions{
 			            }
 			            
 			     }
+                  
 			</script>
 		<?php
 		}//fim getScriptMaterial()
@@ -3223,16 +3235,174 @@ Class Functions{
 		}//fim getScriptConfiguracoes()
 
 		//Modelo
-		function getScriptModelo5(){
+		function getScriptContas(){
 		?>
-			<!-- Code -->
+                                 <script>
+                                    function mascara(o,f){
+				        v_obj=o
+				        v_fun=f
+				        setTimeout("execmascara()",1)
+				    }
+				    function execmascara(){
+				        v_obj.value=v_fun(v_obj.value)
+				    }
+				    function mnum(v){
+				              v=v.replace(/\D/g,"");                                      //Remove tudo o que não é dígito
+				              return v;
+				    }
+				    function mvalor(v){
+				              v=v.replace(/\D/g,"");//Remove tudo o que não é dígito
+				              v=v.replace(/(\d)(\d{8})$/,"$1.$2");//coloca o ponto dos milhões
+				              v=v.replace(/(\d)(\d{5})$/,"$1.$2");//coloca o ponto dos milhares
+
+				              v=v.replace(/(\d)(\d{2})$/,"$1,$2");//coloca a virgula antes dos 2 últimos dígitos
+				           return v;
+				    }
+
+				   function mtel(v){
+				       if(v.length >=16){
+				         v = v.substring(0,(v.length - 1));
+				         return v;
+				       }
+				       v=v.replace(/\D/g,"");
+				       v=v.replace(/^(\d{2})(\d)/g,"($1) $2");
+				       v=v.replace(/(\d)(\d{4})$/,"$1-$2");
+				       return v;
+				   }
+				    function mcpf(v){
+				       if(v.length >=15){  
+				         v = v.substring(0,(v.length - 1));
+				         return v;
+				       }
+				       v=v.replace(/\D/g,""); 
+				       v=v.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4");
+				       return v;
+				    }
+				    function dnasc(v){
+				       if(v.length >=10){      
+				         v = v.substring(0,(v.length - 1));
+				         return v;
+				       }
+				       v=v.replace(/\D/g,""); 
+				       v=v.replace(/^(\d{2})(\d{2})(\d{4})/,"$1/$2/$3");  
+				       return v;
+				   }
+				    function mrg(v){
+				       if(v.length >=13){
+				         v = v.substring(0,(v.length - 1));
+				         return v;
+				       }
+				       v=v.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})/,"$1.$2.$3-$4");
+				       return v;
+				   }
+				   function id( el ){
+				     return document.getElementById( el );
+				   }
+				   function carregaMascaras(){
+				
+				      id('cpf').onkeypress = function(){ 
+				          mascara( this, mcpf );
+				      };      
+				      id('telefone').onkeypress = function(){
+				          mascara( this, mtel );
+				      };
+				      id('data_em_rg').onkeypress = function(){
+				          mascara( this, dnasc );
+				      };
+				      id('data_nasc').onkeypress = function(){
+				          mascara( this, dnasc );
+				      };
+				      id('data_admissao').onkeypress = function(){
+				          mascara( this, dnasc );
+				      };
+				      
+				   }
+                                   
+                                   
+                                   
+                       
+                                 </script>
 		<?php
 		}//fim getScript()
 
 		//Modelo
-		function getScriptModelo6(){
+		function getPaginacao(){
 		?>
-			<!-- Code -->
+    <script>
+                function paginar(aux,max){                    
+                    var ultimov = 0; // ultima div mostrada na tela
+                    var primeirov = 0; // primeira div mostrada na tela
+                                       // quantidade de div por paginação
+                    if(aux > max){
+                    document.getElementById('back').hidden = true;   // inicia com next desativado 
+                    var ocultos = new Array(); // array para guardar valores das divs ocultas
+                    var visiveis = new Array(); // array para guardar valores das divs visiveis
+                    var y = 0;                  // contador das divs ocultas
+                        for(var i = 1 ; i < aux+1 ; i++){ // condição que varre todas divs e verifica se ultrapassou o numero maximo de valores na tela para ocultar
+                            if(i <= max ){
+                            visiveis[i] = i ;
+                            }
+
+                            if(i > max){                    
+                             document.getElementById(i).hidden = true; // ocultando divs fora do valor maximo
+                                        ocultos[y] = i; 
+                                         y++;                        
+                             }
+                         }
+
+                       ultimov  = visiveis[max]; // recebe qual é A PRIMEIRA  ultima div visivel
+
+
+                        $(document).ready(function(){
+                            $("#next").click(function(){
+                              
+                                    document.getElementById('back').hidden = false; 
+                                    
+                                    for(i = 1 ; i < aux+1; i++){ // array que varre doas as divs
+                                
+                                        prox = ultimov + max;      // prox é o valor até onde deve ser mostradas as divs                               
+                                        if(i > ultimov && i <= prox ){                            
+                                                document.getElementById(i).hidden = false;                    // mostando as divs                   
+                                        }else if(i <= ultimov){
+                                                document.getElementById(i).hidden = true;                       // mostrando as divs               
+                                        }
+                                    }      
+                                    
+                                    if(document.getElementById(aux).hidden === false){                          // condição que verifica se a ultima div esta sendo mostrada na tela para ocultar o botao next
+                                                document.getElementById('next').hidden = true;
+                                    }
+                                    
+                                    ultimov = ultimov + max;                                                    // mantendo na variavel ultimo valor, o ultimo valor mostrado
+                            });
+
+                            $("#back").click(function(){
+
+                                    document.getElementById('next').hidden = false;                             // mostrando botao next quando voltar
+                                    
+                                     for(i = 1 ; i < aux+1; i++){
+
+                                        primeirov = ultimov - max;
+                                        ant = primeirov - max;
+
+                                        if(i <= primeirov && i > ant){                                  
+                                                document.getElementById(i).hidden = false;                                       
+                                        }else{
+                                                document.getElementById(i).hidden = true;  
+                                        }
+                                    }       
+                                    
+                                    if(document.getElementById(1).hidden === false){
+                                            document.getElementById('back').hidden = true;
+                                    }
+                                     ultimov = primeirov;
+                            });
+
+                        });
+
+                    }
+
+                }                                                                            
+    </script>
 		<?php
 		}//fim getScript()
 
