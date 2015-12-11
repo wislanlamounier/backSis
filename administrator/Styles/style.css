@@ -1204,8 +1204,7 @@ form-input select{
     width: 100%;    
 }
 .col-1{
-    position: relative;
-    height: 6%;
+    
     float:left;
     width: 10%;
     word-wrap: break-word;    
@@ -1219,56 +1218,56 @@ form-input select{
 }
 .col-2{
     
-    height: 6%;
+    
     float:left;
     width: 20%;
    word-wrap: break-word;
 }
 .col-3{
-     height: 6%;
+    
      float:left;
     width: 30%;
     word-wrap: break-word;
 }
 .col-4{
-    height: 6%;
+    
     float:left;
     width: 40%;
    word-wrap: break-word;
     }
 .col-5{
-    height: 6%;
+   
     float:left;
     width: 50%;
      word-wrap: break-word; 
 }
 .col-6{
-   height: 6%;
+   
     float:left;
     width: 60%;
     word-wrap: break-word;
 }
 .col-7{
-     height: 6%;
+     
     float:left;
     width: 70%;
    word-wrap: break-word;
 }
 .col-8{
-    height: 6%;
+   
     float:left;
     width: 80%;
    word-wrap: break-word;
 }
 .col-9{
-    height: 6%;
+    
     float:left;
     width: 90%;
   word-wrap: break-word;
   
 }
 .col-10{
-     height: 6%;
+    
     float:left;
     width: 100%;   
     word-wrap: break-word;

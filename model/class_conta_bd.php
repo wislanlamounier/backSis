@@ -1,7 +1,7 @@
 <?php
 include_once("class_sql.php");
 include_once("../global.php");
-    
+   
     class Contas{
         public $id;
 	public $codigo;
@@ -14,10 +14,12 @@ include_once("../global.php");
 	public $data_vencimento;
 	public $parcelas;
 	public $juros;
+        public $periodo_juros;
         public $tipo;
 	public $oculto;
+        public $id_empresa;
 	
-        public function add_contas($codigo, $desc, $fornecedor_cliente, $id_obra, $banco, $valor, $multa, $data_vencimento, $parcelas, $juros, $tipo){
+        public function add_contas($codigo, $desc, $fornecedor_cliente, $id_obra, $banco, $valor, $multa, $data_vencimento, $parcelas, $juros, $periodo_juros, $tipo, $id_empresa){
             
             $this->codigo = $codigo;
             $this->descricao = $desc;
@@ -29,19 +31,20 @@ include_once("../global.php");
             $this->data_vencimento = $data_vencimento;
             $this->parcelas = $parcelas;
             $this->juros = $juros;
-            $this->tipo = $tipo;            
+            $this->periodo_juros = $periodo_juros;
+            $this->tipo = $tipo;    
+            $this->id_empresa = $id_empresa;
         }
         
         public function add_contas_bd(){            
                 $sql= new Sql();
 		$sql->conn_bd();
 
-		$g = new Glob();
-
-		$query = "INSERT INTO contas (codigo, descricao, fornecedor_cliente, obra, banco, valor, multa, data_vencimento, parcelas, juros, tipo) 
-		                     VALUES ( '%s',   '%s',     '%s',     '%s',     '%s',  '%s',  '%s',      '%s',        '%s',    '%s', '%s')";
+		$g = new Glob();                
+		$query = "INSERT INTO contas (codigo, descricao, fornecedor_cliente, obra, banco, valor, multa, data_vencimento, parcelas, juros, periodo_juros, tipo, id_empresa) 
+		                     VALUES ( '%s',   '%s',             '%s',        '%s',   '%s',  '%s',  '%s',      '%s',        '%s',    '%s', '%s',         '%s',       '%s')";
 		
-		if($g->tratar_query($query,  $this->codigo, $this->descricao, $this->fornecedor_cliente, $this->id_obra, $this->banco, $this->valor, $this->multa, $this->data_vencimento, $this->parcelas, $this->juros, $this->tipo)){
+		if($g->tratar_query($query,  $this->codigo, $this->descricao, $this->fornecedor_cliente, $this->id_obra, $this->banco, $this->valor, $this->multa, $this->data_vencimento, $this->parcelas, $this->juros, $this->periodo_juros, $this->tipo, $this->id_empresa)){
 			return true; 
 		}else{
 			return false;
@@ -53,7 +56,7 @@ include_once("../global.php");
             $sql->conn_bd();
             $g = new Glob();
             
-            $query = "SELECT * FROM contas WHERE tipo = 1";
+            $query = "SELECT * FROM contas WHERE tipo = 1 && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0 && status = 0";
             
             $result = $g->tratar_query($query);
             
@@ -61,18 +64,118 @@ include_once("../global.php");
             
             while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
                 $conta = new Contas();
+                $conta->id = $row['id'];
                 $conta->codigo = $row['codigo'];
                 $conta->valor = $row['valor'];
+                $conta->juros = $row['juros'];
+                $conta->periodo_juros = $row ['periodo_juros'];
                 $conta->fornecedor_cliente = $row['fornecedor_cliente'];
                 $conta->data_vencimento = $row['data_vencimento'];
                 $conta->descricao = $row['descricao'];
-                $conta->banco = $row['banco'];  
+                $conta->banco = $row['banco'];
+                $conta->status = $row['status']; 
                 $lista[] = $conta; 
             }
             return $lista;
         }
-    
         
+        public function ver_contas_areceber(){
+            $sql= new Sql();
+            $sql->conn_bd();
+            $g = new Glob();
+            
+            $query = "SELECT * FROM contas WHERE tipo = 2 && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0 && status = 0";
+            
+            $result = $g->tratar_query($query);
+            
+            $lista = array();
+            
+            while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+                $conta = new Contas();
+                $conta->id = $row['id'];
+                $conta->codigo = $row['codigo'];
+                $conta->valor = $row['valor'];
+                $conta->juros = $row['juros'];
+                $conta->periodo_juros = $row ['periodo_juros'];
+                $conta->fornecedor_cliente = $row['fornecedor_cliente'];
+                $conta->data_vencimento = $row['data_vencimento'];
+                $conta->descricao = $row['descricao'];
+                $conta->banco = $row['banco']; 
+                $conta->status = $row['status']; 
+                $lista[] = $conta; 
+            }
+            return $lista;
+        }
+        
+        public function ver_contas_recebidas(){
+            $sql= new Sql();
+            $sql->conn_bd();
+            $g = new Glob();
+            
+            $query = "SELECT * FROM contas WHERE tipo = 2 && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0 && status = 1";
+            
+            $result = $g->tratar_query($query);
+            
+            $lista = array();
+            
+            while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+                $conta = new Contas();
+                $conta->id = $row['id'];
+                $conta->codigo = $row['codigo'];
+                $conta->valor = $row['valor'];
+                $conta->juros = $row['juros'];
+                $conta->periodo_juros = $row ['periodo_juros'];
+                $conta->fornecedor_cliente = $row['fornecedor_cliente'];
+                $conta->data_vencimento = $row['data_vencimento'];
+                $conta->descricao = $row['descricao'];
+                $conta->banco = $row['banco'];  
+                $conta->status = $row['status']; 
+                $lista[] = $conta; 
+            }
+            return $lista;
+        }
+        
+        public function ver_contas_pagas(){
+            $sql= new Sql();
+            $sql->conn_bd();
+            $g = new Glob();
+            
+            $query = "SELECT * FROM contas WHERE tipo = 1 && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0 && status = 1";
+            
+            $result = $g->tratar_query($query);
+            
+            $lista = array();
+            
+            while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+                $conta = new Contas();
+                $conta->id = $row['id'];
+                $conta->codigo = $row['codigo'];
+                $conta->valor = $row['valor'];
+                $conta->juros = $row['juros'];
+                $conta->periodo_juros = $row ['periodo_juros'];
+                $conta->fornecedor_cliente = $row['fornecedor_cliente'];
+                $conta->data_vencimento = $row['data_vencimento'];
+                $conta->descricao = $row['descricao'];
+                $conta->banco = $row['banco']; 
+                $conta->status = $row['status']; 
+                $lista[] = $conta; 
+            }
+            return $lista;
+        }
+        
+    public function set_conta_paga($id,$data){
+            echo '<script>alert('.$data.')</script>';
+            $sql= new Sql();
+            $sql->conn_bd();
+            $g = new Glob();
+            
+            $query = 'UPDATE contas SET status = 1, data_pagamento = '.$data.' WHERE id = '.$id.' && id_empresa ='.$_SESSION['id_empresa'].'';            
+            $result = $g->tratar_query($query);
+         
+           
+    }
+    
+       
     }
 
 ?>

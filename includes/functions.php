@@ -3329,10 +3329,13 @@ Class Functions{
 		function getPaginacao(){
 		?>
     <script>
-                function paginar(aux,max){                    
+                function paginar(aux,max){                     
                     var ultimov = 0; // ultima div mostrada na tela
                     var primeirov = 0; // primeira div mostrada na tela
-                                       // quantidade de div por paginação
+                    if(aux <= max){
+                        document.getElementById('back').hidden = true;
+                        document.getElementById('next').hidden = true;
+                    }                   // quantidade de div por paginação
                     if(aux > max){
                     document.getElementById('back').hidden = true;   // inicia com next desativado 
                     var ocultos = new Array(); // array para guardar valores das divs ocultas

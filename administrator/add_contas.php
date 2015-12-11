@@ -27,16 +27,57 @@ $(document).ready(function(){
     
     
      $("#vr").click(function(){
-        $("#visualizar-areceber").fadeToggle();
+        var url = '../ajax/ajax_editar_conta?tipo=areceber';  //caminho do arquivo php que irá buscar as cidades no BD
+			          $.get(url, function(dataReturn) {
+			            $('#visualizar-conta').html(dataReturn);  //coloco na div o retorno da requisicao
+			          });
+        
         $("#vp").fadeToggle();
         $("#voltar3").fadeToggle();
     });
         $("#vp").click(function(){
-        $("#visualizar-apagar").fadeToggle();
+              var url = '../ajax/ajax_editar_conta?tipo=apagar';  //caminho do arquivo php que irá buscar as cidades no BD
+			          $.get(url, function(dataReturn) {
+			            $('#visualizar-conta').html(dataReturn);  //coloco na div o retorno da requisicao
+			          });
+       
         $("#vr").fadeToggle();
         $("#voltar4").fadeToggle();
     });
+    
+    
+    
+         $("#vrecebidas").click(function(){
+        var url = '../ajax/ajax_editar_conta?tipo=buscarrecebidias';  //caminho do arquivo php que irá buscar as cidades no BD
+			          $.get(url, function(dataReturn) {
+			            $('#visualizar-conta').html(dataReturn);  //coloco na div o retorno da requisicao
+			          });
+        
+        $("#vpagas").fadeToggle();
+        $("#voltar5").fadeToggle();
+    });
+        $("#vpagas").click(function(){
+              var url = '../ajax/ajax_editar_conta?tipo=buscarapagas';  //caminho do arquivo php que irá buscar as cidades no BD
+			          $.get(url, function(dataReturn) {
+			            $('#visualizar-conta').html(dataReturn);  //coloco na div o retorno da requisicao
+			          });
+       
+        $("#vrecebidas").fadeToggle();
+        $("#voltar6").fadeToggle();
+    });
+    
+    
+    
+  
 });
+
+    function addContaPaga(id){        
+        var data = document.getElementById(id+'data_pagamento').value;        
+        var url = '../ajax/ajax_editar_conta?id='+id+'&pago='+1+'&data_pagamento='+data;  //caminho do arquivo php que irá buscar as cidades no BD
+			          $.get(url, function(dataReturn) {
+			            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+			          });
+    }
 </script>
 
 
@@ -45,11 +86,11 @@ $(document).ready(function(){
     <?php Functions::getScriptContas();?>
     <?php Functions::getPaginacao();?>
   
-
+    
     <body>
         <?php include_once("../view/topo.php"); ?>
 
-
+        <div id="result"></div>
             <div class='formulario' style="width:50%;">                
                <div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="60px" style="margin-left:-20px; margin-top:-20px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE CONTAS</span></div></div>
                
@@ -60,7 +101,7 @@ $(document).ready(function(){
             if(isset($_POST['apagar_areceber']) && $_POST['apagar_areceber'] != "" ){
                 
                 foreach ($_POST as $key => $value) {                          
-
+                    
                              if($key == 'cod' && isset($value)){
                                 $cod = $value;                                 
                              }
@@ -98,9 +139,14 @@ $(document).ready(function(){
                                 if($key == 'juros' && isset($value)){
                                 $juros = $value;                                
                              } 
+                             
+                            if($key == 'periodo_juros' && isset($value)){
+                                $periodo_juros = $value;                                 
+                             } 
                                if($key == 'apagar_areceber' && isset($value)){
                                 $tipo = $value;                                
-                             }                              
+                             } 
+                             $id_empresa = $_SESSION['id_empresa'];
                          } 
                          
                          if(isset($sem_fornecedor_cliente) && $sem_fornecedor_cliente != ""){
@@ -112,7 +158,9 @@ $(document).ready(function(){
                          
                         
                          if(isset($cod) && $cod != "" && isset($valor) && $valor != "" && isset($data) && $data != "" && isset($banco) && $banco != ""){
-                         $contas->add_contas($cod, $desc, $id_fornecedor, $obra, $banco, $valor, $multa, $data, $num_parcelas, $juros, $tipo);                          
+               
+                         $contas->add_contas($cod, $desc, $id_fornecedor, $obra, $banco, $valor, $multa, $data, $num_parcelas, $juros, $periodo_juros, $tipo, $id_empresa);
+                        
                          $contas->add_contas_bd();
                          }else {
                              
@@ -190,8 +238,8 @@ $(document).ready(function(){
                        </tr>
                        <tr>
                            <td><span>Multa por Atraso:</span></td><td><input onkeyup="mascara(this, mvalor);" type="text" id="multa" name="multa"></td>
-                           <td><span>Juros:</span></td><td><input type="number" id="juros" name="juros"></td><td>
-                                                                                            <select style="width: 100px;">
+                           <td><span>Juros:</span></td><td><input type="text" id="juros" name="juros"></td><td>
+                                                                                            <select id="periodo_juros" name="periodo_juros" style="width: 100px;">
                                                                                                 <option value="mensal">Mensal</option>
                                                                                                 <option value="anual">Anual</option>
                                                                                             </select></td>
@@ -265,9 +313,10 @@ $(document).ready(function(){
                        <tr>
                            <td><span>Multa por Atraso:</span></td><td><input onkeyup="mascara(this, mvalor);" type="number" id="multa" name="multa"></td>
                            <td><span>Juros:</span></td><td><input type="number" id="juros" name="juros"></td><td>
-                                                                                            <select style="width: 100px;">
+                                                                                            <select id="periodo_juros" name="periodo_juros" style="width: 100px;">
                                                                                                 <option value="mensal">Mensal</option>
                                                                                                <option value="anual">Anual</option>
+                                                                                                <option value="anual">Ao dia</option>
                                                                                             </select></td>
                             
                        </tr>
@@ -279,82 +328,30 @@ $(document).ready(function(){
                          </div>
                         <div id="adicionar" style="margin:0 auto; margin-top:30px;"><input type="button" class="button" value="Cancelar"><input class="button" type="submit" value="Guardar"></div>
                    </form>
-               </div>  
-               <div id="ver_contas" style="background-color:rgba(50,200,50,0.3); "><span style="font-family: sans-serif; font-size: 20pt;">Ver Contas</span></div>
-               <Nav style="padding:20px;">
-                   <a hidden="on" id="voltar3"  href="add_contas.php">Voltar</a> <a id="vp" href="#ver_contas">À pagar</a> | <a id="vr" href="#ver_contas">À receber</a><a hidden="on" id="voltar4" href="add_contas.php">Voltar</a>                  
-               </nav>
-               <div id="visualizar-apagar" hidden>
-                    <?php
-                    $contas = new Contas();
-                    
-                     $contas_apagar = $contas->ver_contas_apagar();                     
-                     $style1 = 'background-color: rgba(50,200,50,0.3);';
-                     $i = 0;
-                     ?>
-                   <div class="title"><h3>À Pagar</h3></div>
-                   <?php foreach ($contas_apagar as $key => $value) { 
-                    $i++;
-                    $clis = new Cliente();
-                    $cli = $clis->get_all_cli_by_id($value->fornecedor_cliente);
-                    if($cli[1]== ""){
-                        $cli[1]= 'Fornecedor não cadastrado';
-                    }
-                   ?>
-                   
-                    
-                   
-                    <div id="contas" class="tabela-contas-apagar" style="<?php if($i % 2 == 1){echo $style1;}?>">
-                        <div id="<?php echo $i ?>" >
-                                <div class="row">                                     
-                                    <div class="center">
-                                         <div class="col-5">
-                                             <div class="item"><label>Cod:</label>  <label><?php echo $value->codigo  ?></label></div>
-                                         </div>
-                                         <div class="col-5">
-                                             <div class="item"><label>Fornecedor: </label> <label><?php echo $cli[1]; ?></label></div>
-                                         </div>
-                                         <div class="col-5">
-                                             <div class="item"><label>Valor: </label> <label><?php echo $value->valor ?></label> </div>
-                                         </div>                           
-                                    </div>
-                                </div>
-                                 <div class="row">
-                                     <div class="center">
-                                         <div class="col-5">
-                                             <div class="item"><label>Data de vencimento: </label> <label><?php echo $value->data_vencimento ?></label></div>
-                                        </div>
-                                         <div class="col-5">
-                                             <div class="item"><label>Banco: </label> <label><?php echo $value->banco ?></label></div>
-                                        </div>
-                                        <div class="col-5">
-                                            <div class="item"><label>Descrição: </label></div>
-                                        </div>  
-                                        <div class="col-10">
-                                            <div class="item"><textarea style="position:absolute; z-index: 200;" row="2" cols="50"> <?php echo $value->descricao ?> </textarea></div>
-                                        </div>
-                                     </div>
-                                 </div>                        
-                                 <div class="row">
-                                     <div class="center">
-                                         <br>
-                                         <div class="col-3">Adicionar à contas pagas</div><div class="col-3"><div class="button" onclick="">Salvar</div></div>
-                                     </div>
-                                </div>
-                            
-                            </div>                        
-                        </div>
-                   
-                       <?php } ?>
-                   <input type="button" class="button" value="Voltar" style="color: floralwhite" id="back"><input type="button" style="color: floralwhite" class="button" value="proximo" id="next">
-                   <?php 
-                        if ($i > 2) {
-                            echo '<script>paginar('.$i.','.'3'.')</script>';
-                    } ?>
-                   
-               </div>              
-              
-               </div>
+               </div> 
+               
+                <div class="col-5">
+                    <div class="center">
+                        <div id="ver_contas" style="background-color:rgba(50,200,50,0.3); "><span style="font-family: sans-serif; font-size: 20pt;">Ver Contas</span></div>
+                        <nav>
+                            <a hidden="on" id="voltar3"  href="add_contas.php">Voltar</a> <a id="vp" href="#ver_contas">À pagar</a> | <a id="vr" href="#ver_contas">À receber</a><a hidden="on" id="voltar4" href="add_contas.php">Voltar</a>                  
+                        </nav>
+                    </div>
+                 </div>
+                <div class="col-5">
+                   <div class="center">
+                        <div id="finalizadas" style="background-color:rgba(50,200,50,0.3); "><span style="font-family: sans-serif; font-size: 20pt;">Ver Contas Finalizadas</span></div>
+                        <nav >
+                           <a hidden="on" id="voltar5"  href="add_contas.php">Voltar</a> <a id="vpagas" href="#ver_pagas">Pagas</a> | <a id="vrecebidas" href="#ver_recebidas">Recebidas</a><a hidden="on" id="voltar6" href="add_contas.php">Voltar</a>                  
+                        </nav>
+                    </div>
+                </div>
 
+               </div>
+                <div class="center" >
+                    <div class="col-8">
+                     <div id="visualizar-conta"></div>
+                     </div>
+                </div>
     </body>
 </html>
