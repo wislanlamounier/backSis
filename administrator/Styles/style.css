@@ -333,8 +333,8 @@ h2{
 }
 .button{
 	background: url("../../images/footer_lodyas.png");
-	width: 100px;	
-        padding: 5px;
+	width: 100px;
+	height: 25px;
 	color:#ddd;
 	border: 1px solid#bbb;
 	border-radius: 5px;
@@ -344,7 +344,7 @@ h2{
 }
 .button:hover{
 	width: 100px;
-	padding: 5px;
+	height: 25px;
 	color:#ddd;
 	border: 1px solid#bbb;
 	border-radius: 3px;

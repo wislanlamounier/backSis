@@ -1,7 +1,33 @@
 <?php
 include_once("class_sql.php");
 include_once("../global.php");
-   
+
+function carregalista($result){ 
+    
+     $lista = array();
+    
+                while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+                $conta = new Contas();
+                $conta->id = $row['id'];
+                $conta->codigo = $row['codigo'];
+                $conta->tipo = $row['tipo'];
+                $conta->valor = $row['valor'];
+                $conta->juros = $row['juros'];
+                $conta->periodo_juros = $row ['periodo_juros'];
+                $conta->fornecedor_cliente = $row['fornecedor_cliente'];
+                $conta->data_vencimento = $row['data_vencimento'];
+                $conta->data_pagamento = $row['data_pagamento'];
+                $conta->descricao = $row['descricao'];
+                $conta->obra = $row['obra'];
+                $conta->banco = $row['banco'];
+                $conta->status = $row['status'];  
+                
+                $lista[] = $conta; 
+            }
+            return $lista;
+}
+
+
     class Contas{
         public $id;
 	public $codigo;
@@ -62,20 +88,9 @@ include_once("../global.php");
             
             $lista = array();
             
-            while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-                $conta = new Contas();
-                $conta->id = $row['id'];
-                $conta->codigo = $row['codigo'];
-                $conta->valor = $row['valor'];
-                $conta->juros = $row['juros'];
-                $conta->periodo_juros = $row ['periodo_juros'];
-                $conta->fornecedor_cliente = $row['fornecedor_cliente'];
-                $conta->data_vencimento = $row['data_vencimento'];
-                $conta->descricao = $row['descricao'];
-                $conta->banco = $row['banco'];
-                $conta->status = $row['status']; 
-                $lista[] = $conta; 
-            }
+            $lista = carregalista($result);
+            
+
             return $lista;
         }
         
@@ -90,20 +105,8 @@ include_once("../global.php");
             
             $lista = array();
             
-            while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-                $conta = new Contas();
-                $conta->id = $row['id'];
-                $conta->codigo = $row['codigo'];
-                $conta->valor = $row['valor'];
-                $conta->juros = $row['juros'];
-                $conta->periodo_juros = $row ['periodo_juros'];
-                $conta->fornecedor_cliente = $row['fornecedor_cliente'];
-                $conta->data_vencimento = $row['data_vencimento'];
-                $conta->descricao = $row['descricao'];
-                $conta->banco = $row['banco']; 
-                $conta->status = $row['status']; 
-                $lista[] = $conta; 
-            }
+            $lista = carregalista($result);
+            
             return $lista;
         }
         
@@ -118,20 +121,8 @@ include_once("../global.php");
             
             $lista = array();
             
-            while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-                $conta = new Contas();
-                $conta->id = $row['id'];
-                $conta->codigo = $row['codigo'];
-                $conta->valor = $row['valor'];
-                $conta->juros = $row['juros'];
-                $conta->periodo_juros = $row ['periodo_juros'];
-                $conta->fornecedor_cliente = $row['fornecedor_cliente'];
-                $conta->data_vencimento = $row['data_vencimento'];
-                $conta->descricao = $row['descricao'];
-                $conta->banco = $row['banco'];  
-                $conta->status = $row['status']; 
-                $lista[] = $conta; 
-            }
+            $lista = carregalista($result);
+            
             return $lista;
         }
         
@@ -146,25 +137,12 @@ include_once("../global.php");
             
             $lista = array();
             
-            while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-                $conta = new Contas();
-                $conta->id = $row['id'];
-                $conta->codigo = $row['codigo'];
-                $conta->valor = $row['valor'];
-                $conta->juros = $row['juros'];
-                $conta->periodo_juros = $row ['periodo_juros'];
-                $conta->fornecedor_cliente = $row['fornecedor_cliente'];
-                $conta->data_vencimento = $row['data_vencimento'];
-                $conta->descricao = $row['descricao'];
-                $conta->banco = $row['banco']; 
-                $conta->status = $row['status']; 
-                $lista[] = $conta; 
-            }
+            $lista = carregalista($result);
+            
             return $lista;
         }
         
-    public function set_conta_paga($id,$data){
-            echo '<script>alert('.$data.')</script>';
+    public function set_conta_paga($id,$data){         
             $sql= new Sql();
             $sql->conn_bd();
             $g = new Glob();

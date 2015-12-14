@@ -3328,42 +3328,47 @@ Class Functions{
 		//Modelo
 		function getPaginacao(){
 		?>
-    <script>
-                function paginar(aux,max){                     
+            <script>
+                function paginar(max,limite){   
+                
                     var ultimov = 0; // ultima div mostrada na tela
                     var primeirov = 0; // primeira div mostrada na tela
-                    if(aux <= max){
+                    if(max <= limite){                       
                         document.getElementById('back').hidden = true;
                         document.getElementById('next').hidden = true;
                     }                   // quantidade de div por paginação
-                    if(aux > max){
+                    if(max > limite){
+                  
                     document.getElementById('back').hidden = true;   // inicia com next desativado 
                     var ocultos = new Array(); // array para guardar valores das divs ocultas
                     var visiveis = new Array(); // array para guardar valores das divs visiveis
                     var y = 0;                  // contador das divs ocultas
-                        for(var i = 1 ; i < aux+1 ; i++){ // condição que varre todas divs e verifica se ultrapassou o numero maximo de valores na tela para ocultar
-                            if(i <= max ){
+                        for(var i = 1 ; i < max+1 ; i++){ // condição que varre todas divs e verifica se ultrapassou o numero maximo de valores na tela para ocultar
+                            if(i <= limite ){
+                             
                             visiveis[i] = i ;
+                            
                             }
 
-                            if(i > max){                    
+                            if(i > limite){                                     
                              document.getElementById(i).hidden = true; // ocultando divs fora do valor maximo
                                         ocultos[y] = i; 
-                                         y++;                        
+                                         y++;
                              }
+                            
                          }
 
-                       ultimov  = visiveis[max]; // recebe qual é A PRIMEIRA  ultima div visivel
-
+                       ultimov  = visiveis[limite]; // recebe qual é A PRIMEIRA  ultima div visivel
+                       
 
                         $(document).ready(function(){
                             $("#next").click(function(){
                               
                                     document.getElementById('back').hidden = false; 
                                     
-                                    for(i = 1 ; i < aux+1; i++){ // array que varre doas as divs
+                                    for(i = 1 ; i < max+1; i++){ // array que varre doas as divs
                                 
-                                        prox = ultimov + max;      // prox é o valor até onde deve ser mostradas as divs                               
+                                        prox = ultimov + limite;      // prox é o valor até onde deve ser mostradas as divs                               
                                         if(i > ultimov && i <= prox ){                            
                                                 document.getElementById(i).hidden = false;                    // mostando as divs                   
                                         }else if(i <= ultimov){
@@ -3371,23 +3376,24 @@ Class Functions{
                                         }
                                     }      
                                     
-                                    if(document.getElementById(aux).hidden === false){                          // condição que verifica se a ultima div esta sendo mostrada na tela para ocultar o botao next
+                                    if(document.getElementById(max).hidden === false){                          // condição que verifica se a ultima div esta sendo mostrada na tela para ocultar o botao next
                                                 document.getElementById('next').hidden = true;
                                     }
                                     
-                                    ultimov = ultimov + max;                                                    // mantendo na variavel ultimo valor, o ultimo valor mostrado
+                                    ultimov = ultimov + limite;                                                    // mantendo na variavel ultimo valor, o ultimo valor mostrado
                             });
 
                             $("#back").click(function(){
 
                                     document.getElementById('next').hidden = false;                             // mostrando botao next quando voltar
                                     
-                                     for(i = 1 ; i < aux+1; i++){
+                                     for(i = 1 ; i < max+1; i++){
 
-                                        primeirov = ultimov - max;
-                                        ant = primeirov - max;
+                                        primeirov = ultimov - limite;
+                                        ant = primeirov - limite;
 
-                                        if(i <= primeirov && i > ant){                                  
+                                        if(i <= primeirov && i > ant){    
+                                            
                                                 document.getElementById(i).hidden = false;                                       
                                         }else{
                                                 document.getElementById(i).hidden = true;  
@@ -3402,8 +3408,7 @@ Class Functions{
 
                         });
 
-                    }
-
+                    }                     
                 }                                                                            
     </script>
 		<?php

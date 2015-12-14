@@ -6,8 +6,11 @@ include_once("../model/class_conta_bd.php");
 
 
     if(isset($_GET['pago']) && isset($_GET['id'])){
+       
+          $data = $_GET['ano'].$_GET['mes'].$_GET['dia'];
+        if(!isset($data)){ echo '<script>alert("Conta finalizada sem Data")</script>'; } 
         $conta = new Contas();  
-        $conta->set_conta_paga($_GET['id'], $_GET['data_pagamento']);
+        $conta->set_conta_paga($_GET['id'], $data);
             echo '<script>window.location = "../administrator/add_contas"</script>';
                 
     }
@@ -20,19 +23,25 @@ include_once("../model/class_conta_bd.php");
                     if($_GET['tipo'] == 'apagar'){
                     $contas = new Contas();                    
                     $conta = $contas->ver_contas_apagar(); 
+                    empty($conta)? print "<div class='msg' id='visualizar-conta'>Nâo foi encontado nenhum resultado para sua pesquisa</div>" : '';
                     }
+                    
                     if($_GET['tipo'] == 'areceber'){
                     $contas = new Contas();                    
-                    $conta = $contas->ver_contas_areceber();     
+                    $conta = $contas->ver_contas_areceber();
+                    empty($conta)? print "<div class='msg' id='visualizar-conta'>Nâo foi encontado nenhum resultado para sua pesquisa</div>" : '';
                     }
-                    if($_GET['tipo'] == 'buscarrecebidias'){                   
+                    
+                    if($_GET['tipo'] == 'buscarrecebidias'){                        
                     $contas = new Contas();                    
-                    $conta = $contas->ver_contas_recebidas();     
+                    $conta = $contas->ver_contas_recebidas();                   
+                    empty($conta)? print "<div class='msg' id='visualizar-conta'>Nâo foi encontado nenhum resultado para sua pesquisa</div>" : '';
                     }
-                    if($_GET['tipo'] == 'buscarapagas'){
-                       
+                    
+                    if($_GET['tipo'] == 'buscarapagas'){                       
                     $contas = new Contas();                    
-                    $conta = $contas->ver_contas_pagas();     
+                    $conta = $contas->ver_contas_pagas();
+                    empty($conta)? print "<div class='msg' id='visualizar-conta'>Nâo foi encontado nenhum resultado para sua pesquisa</div>" : '';
                     }
                     
                     $style1 = 'background-color: rgba(50,200,50,0.3);';
@@ -40,7 +49,7 @@ include_once("../model/class_conta_bd.php");
                     ?>
                    
                    <?php foreach ($conta as $key => $value) { 
-                    $i++;
+                    $i++;                 
                     $clis = new Cliente();
                     $cli = $clis->get_all_cli_by_id($value->fornecedor_cliente);
                     if($cli[1]== ""){
@@ -49,12 +58,13 @@ include_once("../model/class_conta_bd.php");
                    ?>
                     
                     <div id="contas" class="tabela-contas-apagar" style="<?php  if($i % 2 == 1){echo $style1;} ?> ">
+                               
                         <div  id="<?php echo $i ?>" >
                             <input type="hidden" id="id" name="id" value="<?php echo $value->id ?>">
                                 <div  class="row">                                     
                                     <div  class="center">
                                          <div class="col-5">
-                                             <div class="item"><label>Cod:</label>  <label><?php echo $value->codigo  ?></label></div>
+                                             <div class="item"><label>Cod: </label><label><?php echo $value->codigo  ?></label></div>
                                          </div>
                                          <div class="col-5">
                                              <div class="item"><label>Fornecedor: </label> <label><?php echo $cli[1]; ?></label></div>
@@ -76,6 +86,22 @@ include_once("../model/class_conta_bd.php");
                                          <div class="col-5">
                                              <div class="item"><label>Banco: </label> <label><?php echo $value->banco ?></label></div>
                                         </div>
+                                        <div class="col-5">
+                                             <div class="item"><label>Obra: </label> <label><?php echo $value->obra ?></label></div>
+                                        </div>
+                                         
+                                        <?php
+                                        if(isset($value->status) && $value->status == 1 && isset($value->tipo) && $value->tipo == 1){ ?> 
+                                        <div class="col-5">
+                                            <div class="item"><label>Pago em: </label><label><?php echo $value->data_pagamento ?></label></div>
+                                        </div>
+                                        <?php } if(isset($value->status) && $value->status == 1 && isset($value->tipo) && $value->tipo == 2){?> 
+                                        <div class="col-5">
+                                            <div class="item"><label>Recebida em: </label><label><?php echo $value->data_pagamento ?></label></div>
+                                        </div>
+                                        <?php } ?>   
+                                         
+                                         
                                          <div class="col-5">
                                             <div class="item"><label>Descrição: </label></div>
                                         </div>  
@@ -85,12 +111,20 @@ include_once("../model/class_conta_bd.php");
                                      </div>
                                  </div>
                                         <?php
-                                        if(isset($value->status) && $value->status == 0){ ?>
+                                        $data = $value->id.'data';
+                                        if(isset($value->status) && $value->status == 0 && isset($value->tipo) && $value->tipo == 1){?>
+                                            
                                              <div class="row">
                                                 <div class="center">                                                    
-                                                    <div class="col-3">Adicionar à contas pagas</div><div class="col-3">Data do pagamento: <input type="date" id="<?php echo $value->id.'data_pagamento' ?>"> </div><div class="col-3"><input type="button" class="button" id="salvar" value="salvar" onclick="addContaPaga(<?php echo $value->id ?>)"></div>
+                                                    <div class="col-3">Adicionar à contas pagas</div><div class="col-3">Data do pagamento: <input type="date"  id="<?php echo $data ?>"> </div><div class="col-3"><input type="button" class="button" id="salvar" value="salvar" onclick="addContaPaga(<?php echo $value->id ?>)"></div>
                                                 </div>
                                            </div>
+                                        <?php } if(isset($value->status) && $value->status == 0 && isset($value->tipo) && $value->tipo == 2){?>
+                                             <div class="row">
+                                                <div class="center">                                                    
+                                                    <div class="col-3">Adicionar à contas recebidas</div><div class="col-3">Data do recebimento: <input type="date" id="<?php echo $data ?>"> </div><div class="col-3"><input type="button" class="button" id="salvar" value="salvar" onclick="addContaPaga(<?php echo $value->id ?>)"></div>
+                                                </div>
+                                           </div>   
                                        <?php } ?>  
                                 
                             
@@ -101,7 +135,7 @@ include_once("../model/class_conta_bd.php");
                    <div style="float: left;"><input type="button" class="button" value="Voltar" style="color: floralwhite" id="back"></div><div style="float:right"><input type="button" style="color: floralwhite" class="button" value="proximo" id="next"></div>
                    <?php    
                             
-                            echo '<script>paginar('.$i.','.'4'.')</script>';
+                            echo '<script>paginar('.$i.','.'2'.')</script>';
                      ?>
     </div>
     <?php

@@ -71,9 +71,16 @@ $(document).ready(function(){
   
 });
 
-    function addContaPaga(id){        
-        var data = document.getElementById(id+'data_pagamento').value;        
-        var url = '../ajax/ajax_editar_conta?id='+id+'&pago='+1+'&data_pagamento='+data;  //caminho do arquivo php que irá buscar as cidades no BD
+    function addContaPaga(id){     
+      
+        var data = document.getElementById(id+'data').value;     
+      
+        var aux = data.split("-");
+        var ano = aux[0];
+        var mes = aux[1];
+        var dia = aux[2];
+    
+        var url = '../ajax/ajax_editar_conta?id='+id+'&pago='+1+'&ano='+ano+'&mes='+mes+'&dia='+dia;  //caminho do arquivo php que irá buscar as cidades no BD
 			          $.get(url, function(dataReturn) {
 			            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
 			          });
@@ -353,5 +360,8 @@ $(document).ready(function(){
                      <div id="visualizar-conta"></div>
                      </div>
                 </div>
+        <div style="height: 50px;" class="center">
+            
+            </div>
     </body>
 </html>
