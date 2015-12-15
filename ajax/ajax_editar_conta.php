@@ -5,16 +5,48 @@ include_once("../model/class_cliente.php");
 include_once("../model/class_conta_bd.php");
 
 
-    if(isset($_GET['pago']) && isset($_GET['id'])){
-       
-          $data = $_GET['ano'].$_GET['mes'].$_GET['dia'];
-        if(!isset($data)){ echo '<script>alert("Conta finalizada sem Data")</script>'; } 
-        $conta = new Contas();  
-        $conta->set_conta_paga($_GET['id'], $data);
-            echo '<script>window.location = "../administrator/add_contas"</script>';
-                
-    }
-   
+        if(isset($_FILES['arquivo']) && $_FILES['arquivo']['name'] != '' ){
+          $nome_comprovante = 'comprovante-' .$_FILES['arquivo']['name']; 
+          
+          if(isset($_FILES['arquivo'])){
+                        $uploaddir = "../images/".$_SESSION['id_empresa']."/comprovantes/comprovante-";
+                        $uploadfile = $uploaddir . basename($_FILES['arquivo']['name']);
+                        echo '<pre>';
+        if (move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploadfile)) {
+                                echo "Arquivo válido e enviado com sucesso.\n";                                
+                 }
+            }
+        }
+        
+        
+        if(isset($_POST['editar'])){
+        
+            $id = $_POST['id'];
+
+            $conta = new Contas();               
+            $conta->add_comprovante($id,$nome_comprovante);
+            echo '<script>window.location = "../administrator/add_contas"</script>'; 
+        }    
+    if(!isset($_POST['editar'])){        
+        foreach ($_POST as $key => $value) {                    
+                    if($key == 'data'){
+                        $data = $value;;
+                    }
+                    if($key == 'id'){
+                        $id = $value;
+                    }
+                    if($key == 'arquivo'){
+
+                      } 
+
+            }    
+              
+                if(isset($id) && isset($data)){
+                    $conta = new Contas();               
+                    $conta->set_conta_paga($id, $data, $nome_comprovante);
+                    echo '<script>window.location = "../administrator/add_contas"</script>';  
+                }
+    }            
     if(isset($_GET['tipo'])){
     ?> 
 <div id="visualizar-conta">
@@ -92,13 +124,37 @@ include_once("../model/class_conta_bd.php");
                                          
                                         <?php
                                         if(isset($value->status) && $value->status == 1 && isset($value->tipo) && $value->tipo == 1){ ?> 
-                                        <div class="col-5">
+                                        <div class="col-3">
                                             <div class="item"><label>Pago em: </label><label><?php echo $value->data_pagamento ?></label></div>
                                         </div>
+                                        
+                                           
+                                                        <?php if($value->nome_comprovante != ""){ ?>
+                                                        <div class="col-2"><input class="button" style="width: 100%;" type="button" value="Visualizar Comprovante" onclick="visualizaComprovante('<?php echo $value->nome_comprovante ?>','<?php echo $_SESSION['id_empresa'] ?>');"></div>
+                                                        <?php }?>
+                                                        <?php if($value->nome_comprovante == ""){ ?>
+                                                        <form action="../ajax/ajax_editar_conta.php" method='POST' enctype="multipart/form-data" >
+                                                            <input type="hidden" id="id" name="id" value="<?php echo $value->id ?>">
+                                                            <input type="hidden" id="editar" name="editar" value="editar">
+                                                                    <div class="item"><div class="col-3"><label>Adicionar comprovante: </label></div><div class="col-5"><input type="file" name="arquivo" id='arquivo'></div><div style="float:right" class="col-1"><input type="submit" class="button" id="salvar" value="salvar"></div></div>                    
+                                                        </form>
+                                                        <?php }?>
+                                            
+                         
                                         <?php } if(isset($value->status) && $value->status == 1 && isset($value->tipo) && $value->tipo == 2){?> 
-                                        <div class="col-5">
+                                        <div class="col-3">
                                             <div class="item"><label>Recebida em: </label><label><?php echo $value->data_pagamento ?></label></div>
                                         </div>
+                                                        <?php if($value->nome_comprovante != ""){ ?>
+                                                        <div class="col-2"><input class="button" style="width: 100%;" type="button" value="Visualizar Comprovante" onclick="visualizaComprovante('<?php echo $value->nome_comprovante ?>','<?php echo $_SESSION['id_empresa'] ?>');"></div>
+                                                        <?php }?>
+                                                        <?php if($value->nome_comprovante == ""){ ?>
+                                                        <form action="../ajax/ajax_editar_conta.php" method='POST' enctype="multipart/form-data" >
+                                                            <input type="hidden" id="id" name="id" value="<?php echo $value->id ?>">
+                                                            <input type="hidden" id="editar" name="editar" value="editar">
+                                                                    <div class="item"><div class="col-3"><label>Adicionar comprovante: </label></div><div class="col-5"><input type="file" name="arquivo" id='arquivo'></div><div style="float:right" class="col-1"><input type="submit" class="button" id="salvar" value="salvar"></div></div>                    
+                                                        </form>
+                                                        <?php }?>
                                         <?php } ?>   
                                          
                                          
@@ -111,20 +167,24 @@ include_once("../model/class_conta_bd.php");
                                      </div>
                                  </div>
                                         <?php
-                                        $data = $value->id.'data';
                                         if(isset($value->status) && $value->status == 0 && isset($value->tipo) && $value->tipo == 1){?>
-                                            
-                                             <div class="row">
-                                                <div class="center">                                                    
-                                                    <div class="col-3">Adicionar à contas pagas</div><div class="col-3">Data do pagamento: <input type="date"  id="<?php echo $data ?>"> </div><div class="col-3"><input type="button" class="button" id="salvar" value="salvar" onclick="addContaPaga(<?php echo $value->id ?>)"></div>
+                                        <form action="../ajax/ajax_editar_conta.php" method='POST' enctype="multipart/form-data" >
+                                            <input type="hidden" name="id" id="id" value="<?php echo $value->id; ?>">
+                                            <div class="row">                                                
+                                                <div style="margin-left: 0px; padding-top: 10px; padding-left: 20px; background-color: rgba(50,200,50,0.6);" class="center">                                                    
+                                                <div class="col-2"><label>Adicionar à contas pagas</label></div><div class="col-3">Data do pagamento: <input type="date" name='data' id="data"> </div><div class="col-4"><input type="file" name="arquivo" id='arquivo'></div><div class="col-1"><input type="submit" class="button" id="salvar" value="salvar"></div>  
                                                 </div>
-                                           </div>
+                                            </div>
+                                        </form>
                                         <?php } if(isset($value->status) && $value->status == 0 && isset($value->tipo) && $value->tipo == 2){?>
-                                             <div class="row">
-                                                <div class="center">                                                    
-                                                    <div class="col-3">Adicionar à contas recebidas</div><div class="col-3">Data do recebimento: <input type="date" id="<?php echo $data ?>"> </div><div class="col-3"><input type="button" class="button" id="salvar" value="salvar" onclick="addContaPaga(<?php echo $value->id ?>)"></div>
+                                             <form action="../ajax/ajax_editar_conta.php" method='POST' enctype="multipart/form-data" >
+                                                 <input type="hidden" name="id" id="id" value="<?php echo $value->id; ?>">
+                                            <div class="row">                                                
+                                                <div style="margin-left: 0px; padding-top: 10px; padding-left: 20px; background-color: rgba(50,200,50,0.6);" class="center">                                                    
+                                                    <div class="col-2"><label>Adicionar à contas recebidas</label></div><div class="col-3">Data do pagamento: <input type="date" name='data' id="data"> </div><div class="col-4"><input type="file" name="arquivo" id='arquivo'></div><div class="col-1"><input type="submit" class="button" id="salvar" value="salvar"></div>   
                                                 </div>
-                                           </div>   
+                                            </div>
+                                        </form>
                                        <?php } ?>  
                                 
                             

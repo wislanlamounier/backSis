@@ -3,6 +3,9 @@ include("restrito.php");
 include_once("../includes/functions.php");
 include_once("../model/class_cliente.php");
 include_once("../model/class_conta_bd.php");
+
+
+
 ?>
 <style>
     .divisoes{
@@ -13,6 +16,7 @@ include_once("../model/class_conta_bd.php");
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
+
 $(document).ready(function(){
     $("#fp").click(function(){
         $("#formulario-apagar").fadeToggle();
@@ -71,20 +75,28 @@ $(document).ready(function(){
   
 });
 
-    function addContaPaga(id){     
+    function visualizaComprovante(nome,id_empresa){
       
-        var data = document.getElementById(id+'data').value;     
-      
-        var aux = data.split("-");
-        var ano = aux[0];
-        var mes = aux[1];
-        var dia = aux[2];
-    
-        var url = '../ajax/ajax_editar_conta?id='+id+'&pago='+1+'&ano='+ano+'&mes='+mes+'&dia='+dia;  //caminho do arquivo php que irá buscar as cidades no BD
-			          $.get(url, function(dataReturn) {
-			            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
-			          });
+        window.open("../images/"+id_empresa+"/comprovantes/"+nome)
     }
+
+
+//    function addContaPaga(id){     
+//      
+//        var data = document.getElementById(id+'data').value;
+//        var aux = data.split("-");
+//        var ano = aux[0];
+//        var mes = aux[1];
+//        var dia = aux[2];
+//        
+//        var url = '../ajax/ajax_editar_conta?id='+id+'&pago='+1+'&ano='+ano+'&mes='+mes+'&dia='+dia;  //caminho do arquivo php que irá buscar as cidades no BD
+//			          $.get(url, function(dataReturn) {
+//			            $('#result').html(dataReturn);  //coloco na div o retorno da requisicao
+//			          });
+//    }
+//    
+ 
+
 </script>
 
 
@@ -98,6 +110,7 @@ $(document).ready(function(){
         <?php include_once("../view/topo.php"); ?>
 
         <div id="result"></div>
+        
             <div class='formulario' style="width:50%;">                
                <div class="title-box" style="float:left"><div style="float:left"><img src="../images/user_add.png" width="60px" style="margin-left:-20px; margin-top:-20px;"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE CONTAS</span></div></div>
                
@@ -189,6 +202,9 @@ $(document).ready(function(){
                          }
             }       
             ?>
+            <div hidden id="confirmar">
+            asdfadsf
+            </div>
         
                <div style="margin-top:50px; background-color:rgba(50,200,50,0.3); "><span style="font-family: sans-serif; font-size: 20pt;">Cadastrar Contas</span></div>
                <Nav style="padding:20px;">
@@ -348,7 +364,7 @@ $(document).ready(function(){
                 <div class="col-5">
                    <div class="center">
                         <div id="finalizadas" style="background-color:rgba(50,200,50,0.3); "><span style="font-family: sans-serif; font-size: 20pt;">Ver Contas Finalizadas</span></div>
-                        <nav >
+                        <nav>
                            <a hidden="on" id="voltar5"  href="add_contas.php">Voltar</a> <a id="vpagas" href="#ver_pagas">Pagas</a> | <a id="vrecebidas" href="#ver_recebidas">Recebidas</a><a hidden="on" id="voltar6" href="add_contas.php">Voltar</a>                  
                         </nav>
                     </div>
@@ -360,8 +376,7 @@ $(document).ready(function(){
                      <div id="visualizar-conta"></div>
                      </div>
                 </div>
-        <div style="height: 50px;" class="center">
-            
-            </div>
+                <div style="height: 50px;" class="center">
+                </div>  
     </body>
 </html>

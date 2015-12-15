@@ -20,6 +20,7 @@ function carregalista($result){
                 $conta->descricao = $row['descricao'];
                 $conta->obra = $row['obra'];
                 $conta->banco = $row['banco'];
+                $conta->nome_comprovante = $row['nome_comprovante'];
                 $conta->status = $row['status'];  
                 
                 $lista[] = $conta; 
@@ -41,6 +42,7 @@ function carregalista($result){
 	public $parcelas;
 	public $juros;
         public $periodo_juros;
+        public $nome_comprovante;
         public $tipo;
 	public $oculto;
         public $id_empresa;
@@ -142,17 +144,27 @@ function carregalista($result){
             return $lista;
         }
         
-    public function set_conta_paga($id,$data){         
+    public function set_conta_paga($id,$data,$nome_comprovante){
             $sql= new Sql();
             $sql->conn_bd();
             $g = new Glob();
             
-            $query = 'UPDATE contas SET status = 1, data_pagamento = '.$data.' WHERE id = '.$id.' && id_empresa ='.$_SESSION['id_empresa'].'';            
+            $query = 'UPDATE contas SET status = 1, data_pagamento = "'.$data.'", nome_comprovante = "'.$nome_comprovante.'"  WHERE id = "'.$id.'" && id_empresa = "'.$_SESSION['id_empresa'].'" ';
+
             $result = $g->tratar_query($query);
          
            
     }
     
+    public function  add_comprovante($id,$nome_comprovante){
+            $sql= new Sql();
+            $sql->conn_bd();
+            $g = new Glob();
+            
+            $query = 'UPDATE contas SET  nome_comprovante = "'.$nome_comprovante.'"  WHERE id = "'.$id.'" && id_empresa = "'.$_SESSION['id_empresa'].'" ';
+
+            $result = $g->tratar_query($query);
+    }
        
     }
 
