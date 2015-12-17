@@ -21,6 +21,8 @@ function carregalista($result){
                 $conta->obra = $row['obra'];
                 $conta->banco = $row['banco'];
                 $conta->nome_comprovante = $row['nome_comprovante'];
+                $conta->parcelas = $row['parcelas'];
+                $conta->pagas = $row['pagas'];
                 $conta->status = $row['status'];  
                 
                 $lista[] = $conta; 
@@ -40,6 +42,7 @@ function carregalista($result){
 	public $multa;
 	public $data_vencimento;
 	public $parcelas;
+        public $pagas;
 	public $juros;
         public $periodo_juros;
         public $nome_comprovante;
@@ -57,22 +60,22 @@ function carregalista($result){
             $this->valor = $valor;
             $this->multa = $multa;
             $this->data_vencimento = $data_vencimento;
-            $this->parcelas = $parcelas;
+            $this->parcelas = $parcelas;            
             $this->juros = $juros;
             $this->periodo_juros = $periodo_juros;
             $this->tipo = $tipo;    
             $this->id_empresa = $id_empresa;
         }
         
-        public function add_contas_bd(){            
+        public function add_contas_bd(){
                 $sql= new Sql();
 		$sql->conn_bd();
 
 		$g = new Glob();                
-		$query = "INSERT INTO contas (codigo, descricao, fornecedor_cliente, obra, banco, valor, multa, data_vencimento, parcelas, juros, periodo_juros, tipo, id_empresa) 
-		                     VALUES ( '%s',   '%s',       '%s',             '%s',   '%s',  '%s',  '%s',      '%s',        '%s',    '%s',     '%s',       '%s',    '%s')";
+		$query = "INSERT INTO contas (codigo, descricao, fornecedor_cliente, obra, banco, valor, multa, data_vencimento, parcelas, pagas, juros, periodo_juros, tipo, id_empresa) 
+		                     VALUES ( '%s',   '%s',       '%s',             '%s',   '%s',  '%s',  '%s',      '%s',        '%s',     '%s',  '%s',     '%s',       '%s',    '%s')";
 		
-		if($g->tratar_query($query,  $this->codigo, $this->descricao, $this->fornecedor_cliente, $this->id_obra, $this->banco, $this->valor, $this->multa, $this->data_vencimento, $this->parcelas, $this->juros, $this->periodo_juros, $this->tipo, $this->id_empresa)){
+		if($g->tratar_query($query,  $this->codigo, $this->descricao, $this->fornecedor_cliente, $this->id_obra, $this->banco, $this->valor, $this->multa, $this->data_vencimento, $this->parcelas, $this->pagas, $this->juros, $this->periodo_juros, $this->tipo, $this->id_empresa)){
 			return true; 
 		}else{
 			return false;
@@ -144,15 +147,19 @@ function carregalista($result){
             return $lista;
         }
         
-    public function set_conta_paga($id,$data,$nome_comprovante){
+    public function set_conta_paga($id,$qtd_pagas,$data,$nome_comprovante,$parcelas){
             $sql= new Sql();
             $sql->conn_bd();
             $g = new Glob();
             
-            $query = 'UPDATE contas SET status = 1, data_pagamento = "'.$data.'", nome_comprovante = "'.$nome_comprovante.'"  WHERE id = "'.$id.'" && id_empresa = "'.$_SESSION['id_empresa'].'"  ORDER BY contas.data_pagamento DESC';
-
+            
+            if($qtd_pagas == $parcelas){
+            $query = 'UPDATE contas SET status = 1, data_pagamento = "'.$data.'", nome_comprovante = "'.$nome_comprovante.'", pagas = "'.$qtd_pagas.'"  WHERE id = "'.$id.'" && id_empresa = "'.$_SESSION['id_empresa'].'" ';
             $result = $g->tratar_query($query);
-         
+            }else{
+            $query = 'UPDATE contas SET data_pagamento = "'.$data.'", nome_comprovante = "'.$nome_comprovante.'", pagas = "'.$qtd_pagas.'"  WHERE id = "'.$id.'" && id_empresa = "'.$_SESSION['id_empresa'].'" ';
+            $result = $g->tratar_query($query);
+            }
            
     }
     
@@ -161,7 +168,7 @@ function carregalista($result){
             $sql->conn_bd();
             $g = new Glob();
             
-            $query = 'UPDATE contas SET  nome_comprovante = "'.$nome_comprovante.'"  WHERE id = "'.$id.'" && id_empresa = "'.$_SESSION['id_empresa'].'" ORDER BY contas.data_pagamento DESC';
+            $query = 'UPDATE contas SET  nome_comprovante = "'.$nome_comprovante.'"  WHERE id = "'.$id.'" && id_empresa = "'.$_SESSION['id_empresa'].'"';
 
             $result = $g->tratar_query($query);
     }

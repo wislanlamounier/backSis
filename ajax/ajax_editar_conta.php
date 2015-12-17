@@ -5,28 +5,33 @@ include_once("../model/class_cliente.php");
 include_once("../model/class_conta_bd.php");
 
 
-        if(isset($_FILES['arquivo']) && $_FILES['arquivo']['name'] != '' ){
+    if(isset($_FILES['arquivo']) && $_FILES['arquivo']['name'] != '' ){
           $nome_comprovante = 'comprovante-' .$_FILES['arquivo']['name']; 
-          
+          $id = $_POST['id'];
+          $uploaddir = "../images/".$_SESSION['id_empresa']."/comprovantes/".$id."/comprovante-";
           if(isset($_FILES['arquivo'])){
-                        $uploaddir = "../images/".$_SESSION['id_empresa']."/comprovantes/comprovante-";
                         $uploadfile = $uploaddir . basename($_FILES['arquivo']['name']);
                         echo '<pre>';
-        if (move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploadfile)) {
-                                echo "Arquivo válido e enviado com sucesso.\n";                                
+            if(is_dir($uploaddir)){                
+                    move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploadfile);
+                 }else{
+                    mkdir($uploaddir); 
+                    move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploadfile);
+                     
                  }
-            }
+             }
         }
         
         
         if(isset($_POST['editar'])){
         
-            $id = $_POST['id'];
-
+            $id = $_POST['id'];            
             $conta = new Contas();               
             $conta->add_comprovante($id,$nome_comprovante);
             echo '<script>window.location = "../administrator/add_contas"</script>'; 
         }    
+        
+        
     if(!isset($_POST['editar'])){        
         foreach ($_POST as $key => $value) {                    
                     if($key == 'data'){
@@ -42,8 +47,10 @@ include_once("../model/class_conta_bd.php");
             }    
               
                 if(isset($id) && isset($data)){
-                    $conta = new Contas();               
-                    $conta->set_conta_paga($id, $data, $nome_comprovante);
+                    $conta = new Contas();  
+                    $qtd_pagas = $_POST['qtd_pagas'];
+                    $parcelas = $_POST['parcelas'];
+                    $conta->set_conta_paga($id,$qtd_pagas, $data, $nome_comprovante, $parcelas);
                     echo '<script>window.location = "../administrator/add_contas"</script>';  
                 }
     }            
@@ -156,9 +163,16 @@ include_once("../model/class_conta_bd.php");
                                                         </form>
                                                         <?php }?>
                                         <?php } ?>   
-                                         
-                                         
                                          <div class="col-5">
+                                            <div class="item"><label>Parcelas: <?php echo $value->parcelas ?></label></div>
+                                        </div> 
+                                        <div class="col-1">
+                                            <div class="item">
+                                                <label>Pagas: <?php echo $value->pagas ?></label>
+                                            </div>                
+                                        </div>
+                                                        
+                                        <div class="col-5">
                                             <div class="item"><label>Descrição: </label></div>
                                         </div>  
                                         <div class="col-10">
@@ -170,24 +184,76 @@ include_once("../model/class_conta_bd.php");
                                         if(isset($value->status) && $value->status == 0 && isset($value->tipo) && $value->tipo == 1){?>
                                         <form action="../ajax/ajax_editar_conta.php" method='POST' enctype="multipart/form-data" >
                                             <input type="hidden" name="id" id="id" value="<?php echo $value->id; ?>">
-                                            <div class="row">                                                
-                                                <div style="margin-left: 0px; padding-top: 10px; padding-left: 20px; background-color: rgba(50,200,50,0.6);" class="center">                                                    
-                                                <div class="col-2"><label>Adicionar à contas pagas</label></div><div class="col-3">Data do pagamento: <input type="date" name='data' id="data"> </div><div class="col-4"><input type="file" name="arquivo" id='arquivo'></div><div class="col-1"><input type="submit" class="button" id="salvar" value="salvar"></div>  
-                                                </div>
+                                            <input type="hidden" name="parcelas" id="parcelas" value="<?php echo $value->parcelas; ?>">
+                                            <div class="row">                                                 
+                                                <div style="margin-left: 0px; padding-top: 10px; padding-left: 20px; background-color: rgba(50,200,50,0.6);" class="center">   
+                                                    
+                                                     <div class="col-10"><div class="item"><label>Adicionar à contas pagas</label></div></div>
+                                                     
+                                                     <div class="col-3"><div class="item"><label>Data do pagamento:</label> <input type="date" name='data' id="data"></div></div>
+                                                        <div class="col-2" style="width: 15%;">                                                     
+                                                            <div class="item"><label>Parcelas: </label>                                                        
+                                                                <select id="qtd_pagas" name="qtd_pagas">
+                                                                            <?php
+                                                                            for ($index = $value->pagas; $index <= $value->parcelas; $index++){
+                                                                                    if($index > $value->pagas){
+                                                                                    echo '<option value='.$index.'>'.$index.'</option>';
+                                                                                     }
+                                                                                }                                                           
+                                                                            ?>
+                                                                </select>
+                                                                
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-1">
+                                                            <div class="item">
+                                                                <label>Pagas: <?php echo $value->pagas ?></label>
+                                                            </div>                
+                                                        </div>
+                                                     <div class="col-4"><div class="item"><label>Comprovante: </label><input type="file" name="arquivo" id='arquivo'></div></div>
+                                                        <div class="col-10">
+                                                            <div class="item">
+                                                                <input type="submit" class="button" id="salvar" value="salvar">
+                                                            </div>
+                                                        </div>  
+                                                     </div>
+                                                
                                             </div>
                                         </form>
                                         <?php } if(isset($value->status) && $value->status == 0 && isset($value->tipo) && $value->tipo == 2){?>
-                                             <form action="../ajax/ajax_editar_conta.php" method='POST' enctype="multipart/form-data" >
+                                       <form action="../ajax/ajax_editar_conta.php" method='POST' enctype="multipart/form-data" >
                                                  <input type="hidden" name="id" id="id" value="<?php echo $value->id; ?>">
                                             <div class="row">                                                
-                                                <div style="margin-left: 0px; padding-top: 10px; padding-left: 20px; background-color: rgba(50,200,50,0.6);" class="center">                                                    
-                                                    <div class="col-2"><label>Adicionar à contas recebidas</label></div><div class="col-3">Data do pagamento: <input type="date" name='data' id="data"> </div><div class="col-4"><input type="file" name="arquivo" id='arquivo'></div><div class="col-1"><input type="submit" class="button" id="salvar" value="salvar"></div>   
+                                                <div style="margin-left: 0px; padding-top: 10px; padding-left: 20px; background-color: rgba(50,200,50,0.6);" class="center">
+                                                    <div class="col-10">
+                                                        <div class="item">
+                                                            <label>Adicionar à contas recebidas</label>
+                                                        </div>
+                                                    </div>
+                                                   <div class="col-2">
+                                                       <div class="item">
+                                                           <label>Data do pagamento: </label>
+                                                       </div>
+                                                   </div>
+                                                   <div class="col-3">
+                                                       <div class="item">
+                                                           <input type="date" name='data' id="data">
+                                                       </div>
+                                                   </div>
+                                                   <div class="col-5">
+                                                       <div class="item">
+                                                           <input type="file" name="arquivo" id='arquivo'>
+                                                       </div>
+                                                   </div>
+                                                   <div class="col-10">
+                                                       <div class="item">
+                                                           <input type="submit" class="button" id="salvar" value="salvar">
+                                                       </div>
+                                                   </div>  
                                                 </div>
                                             </div>
                                         </form>
-                                       <?php } ?>  
-                                
-                            
+                                       <?php } ?>                                  
                             </div>                        
                         </div>
                    

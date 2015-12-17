@@ -66,7 +66,7 @@ $(document).ready(function(){
 			            $('#visualizar-conta').html(dataReturn);  //coloco na div o retorno da requisicao
 			          });
        
-        $("#vrecebidas").fadeToggle();
+        $("#vrecebidas").fadeToggle();        
         $("#voltar6").fadeToggle();
     });
     
@@ -180,7 +180,8 @@ $(document).ready(function(){
                          if(isset($cod) && $cod != "" && isset($valor) && $valor != "" && isset($data) && $data != "" && isset($banco) && $banco != ""){
                
                          $contas->add_contas($cod, $desc, $id_fornecedor, $obra, $banco, $valor, $multa, $data, $num_parcelas, $juros, $periodo_juros, $tipo, $id_empresa);
-                        
+                                            
+                         print_r($contas);
                          $contas->add_contas_bd();
                          }else {
                              
