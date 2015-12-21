@@ -3,57 +3,85 @@ session_start();
 include_once("../includes/functions.php");
 include_once("../model/class_cliente.php");
 include_once("../model/class_conta_bd.php");
+include_once("../model/class_parcelas_bd.php");
+
+function confere($num,$id){
+$parcelas = new Parcelas();
+$p = $parcelas->get_parcelas_pagas($id);
+    for($i = 0; $i< count($p); $i++){
+        if($p[$i] == $num){         
+            return $num;
+        }
+    }
+}
+$id = "";
+$qtd_pagas = "" ;
+$data = "";
+$parcela_n = "";
+$nome_comprovante  = "";
+
+     
 
 
     if(isset($_FILES['arquivo']) && $_FILES['arquivo']['name'] != '' ){
-          $nome_comprovante = 'comprovante-' .$_FILES['arquivo']['name']; 
+          $nome_comprovante = $_FILES['arquivo']['name'];
+        
           $id = $_POST['id'];
-          $uploaddir = "../images/".$_SESSION['id_empresa']."/comprovantes/".$id."/comprovante-";
           if(isset($_FILES['arquivo'])){
+                        $uploaddir = "../images/".$_SESSION['id_empresa']."/comprovantes/".$id."/";
                         $uploadfile = $uploaddir . basename($_FILES['arquivo']['name']);
                         echo '<pre>';
-            if(is_dir($uploaddir)){                
-                    move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploadfile);
-                 }else{
-                    mkdir($uploaddir); 
-                    move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploadfile);
-                     
-                 }
-             }
+                              if(!is_dir($uploaddir)){  
+                                 
+                                mkdir($uploaddir);
+                                }
+                        if (move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploadfile)) {
+                                    echo "Arquivo válido e enviado com sucesso.\n";                                
+                         }
+                       
+  
         }
-        
-        
-        if(isset($_POST['editar'])){
-        
-            $id = $_POST['id'];            
-            $conta = new Contas();               
-            $conta->add_comprovante($id,$nome_comprovante);
-            echo '<script>window.location = "../administrator/add_contas"</script>'; 
-        }    
-        
-        
-    if(!isset($_POST['editar'])){        
-        foreach ($_POST as $key => $value) {                    
-                    if($key == 'data'){
-                        $data = $value;;
-                    }
-                    if($key == 'id'){
-                        $id = $value;
-                    }
-                    if($key == 'arquivo'){
+    }
+    
+    if(isset($_POST['enviacomprovante'])){
+    
+    
+    $parcelas = new Parcelas(); 
+    $parcelas->updateComprovante($_POST['id'],$_POST['parcela'],$_POST['data'],$nome_comprovante);
+   
+}  
+    
+   if(isset($_POST['parcela'])){
+       
+        foreach ($_POST as $key => $value) {  
 
-                      } 
+                         if($key == 'data'){
+                           $data = $value;
 
-            }    
+                         }
+                         if($key == 'id'){
+                            $id_conta = $value;
+
+                         }
+                         if($key == 'parcela_n'){
+                            $parcela_n = $value;
+                         }
+
+                 }   
+                        
+                         $parcelas = new Parcelas(); 
+                         $parcelas->add_parcelas($id_conta, $data, $parcela_n, $nome_comprovante); 
+                         if($parcelas->add_parcelas_bd()){
+                             $contas = new Contas();
+                         }
+                         echo '<script>window.location = "../administrator/add_contas"</script>';  
+
+ }
+       
+     
               
-                if(isset($id) && isset($data)){
-                    $conta = new Contas();  
-                    $qtd_pagas = $_POST['qtd_pagas'];
-                    $parcelas = $_POST['parcelas'];
-                    $conta->set_conta_paga($id,$qtd_pagas, $data, $nome_comprovante, $parcelas);
-                    echo '<script>window.location = "../administrator/add_contas"</script>';  
-                }
-    }            
+                
+    
     if(isset($_GET['tipo'])){
     ?> 
 <div id="visualizar-conta">
@@ -96,9 +124,8 @@ include_once("../model/class_conta_bd.php");
                     }
                    ?>
                     
-                    <div id="contas" class="tabela-contas-apagar" style="<?php  if($i % 2 == 1){echo $style1;} ?> ">
-                               
-                        <div  id="<?php echo $i ?>" >
+                    <div id="contas" class="tabela-contas-apagar" style="<?php  if($i % 2 == 1){echo $style1;} ?> ">                               
+                        <div  id="<?php echo $i ?>" >                             
                             <input type="hidden" id="id" name="id" value="<?php echo $value->id ?>">
                                 <div  class="row">                                     
                                     <div  class="center">
@@ -131,48 +158,93 @@ include_once("../model/class_conta_bd.php");
                                          
                                         <?php
                                         if(isset($value->status) && $value->status == 1 && isset($value->tipo) && $value->tipo == 1){ ?> 
-                                        <div class="col-3">
-                                            <div class="item"><label>Pago em: </label><label><?php echo $value->data_pagamento ?></label></div>
-                                        </div>
-                                        
-                                           
-                                                        <?php if($value->nome_comprovante != ""){ ?>
-                                                        <div class="col-2"><input class="button" style="width: 100%;" type="button" value="Visualizar Comprovante" onclick="visualizaComprovante('<?php echo $value->nome_comprovante ?>','<?php echo $_SESSION['id_empresa'] ?>');"></div>
-                                                        <?php }?>
-                                                        <?php if($value->nome_comprovante == ""){ ?>
-                                                        <form action="../ajax/ajax_editar_conta.php" method='POST' enctype="multipart/form-data" >
-                                                            <input type="hidden" id="id" name="id" value="<?php echo $value->id ?>">
-                                                            <input type="hidden" id="editar" name="editar" value="editar">
-                                                                    <div class="item"><div class="col-3"><label>Adicionar comprovante: </label></div><div class="col-5"><input type="file" name="arquivo" id='arquivo'></div><div style="float:right" class="col-1"><input type="submit" class="button" id="salvar" value="salvar"></div></div>                    
-                                                        </form>
-                                                        <?php }?>
-                                            
-                         
+                                         <div class="row">
+                                             <div class="col-10">
+                                                 <div class="item">
+                                                     <div class="col-2">Parcelas: </div>
+                                                         <div class="col-8">    
+                                                            <?php                                                                        
+                                                                $parcelas = new Parcelas();
+                                                                $p = $parcelas->get_parcelas_pagas($value->id);
+                                                                    for($index = 1; $index <= $value->parcelas; $index++){
+                                                                        $num = confere($index, $value->id);                                                                       
+                                                                        if($num == $index){
+                                                                           $nome = $c = $parcelas->get_comprovante($value->id, $num);
+                                                                           $envia = $value->id.':'.$nome.':'.$_SESSION['id_empresa'];
+                                                                           ?>
+                                                                <?php if($nome!=""){ ?>                                                                  
+                                                                  <input type="button" id="1" value="<?php echo $index ?>" onclick="visualizaComprovante('<?php echo $envia; ?>')">
+                                                                <?php } ?>
+                                                                <?php if($nome==""){ ?>                                                                  
+                                                                  <input type="button" style="background-color: red;" id="1" value="<?php echo $index ?>" onclick="abreEnvio()">
+                                                                    <div hidden style="height: 150px; width: 500px" id="abreenvio">
+                                                                      <form action="../ajax/ajax_editar_conta.php" method='POST' enctype="multipart/form-data" >
+                                                                          <input type="hidden" name="enviacomprovante">
+                                                                          <input type="hidden" name="id" value="<?php echo $value->id; ?>">
+                                                                          <input type="hidden" name="parcela" value="<?php echo $index; ?>">
+                                                                            <div class="col-5">
+                                                                                <div class="item">
+                                                                                    <label>Data do pagamento: </label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-3">
+                                                                                <div class="item">
+                                                                                    <input type="date" name='data' id="data">
+                                                                                </div>
+                                                                            </div>
+                                                                           <div class="col-10">
+                                                                                <div class="item"><label>Enviar Comprovante: </label><input type="file" name="arquivo" id='arquivo'></div>                                                                                
+                                                                            </div>
+                                                                          <div class="col-10">
+                                                                                <div class="item">
+                                                                                    <input type="submit" class="button" id="salvar" value="Enviar">
+                                                                                </div>
+                                                                            </div>
+                                                                      </form>
+                                                                  
+                                                                  </div>
+                                                            
+                                                                <?php } ?>                                                             
+                                                                        
+                                                                           <?php                                                                           
+                                                                        }
+                                                                        
+                                                                    }
+       //                                                                   
+                                                            ?> 
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <label>Clique para visualizar o comprovante...</label>
+                                                        </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         
+                                         
+                                         
+                                         
+                                         
+                                         
+
                                         <?php } if(isset($value->status) && $value->status == 1 && isset($value->tipo) && $value->tipo == 2){?> 
                                         <div class="col-3">
                                             <div class="item"><label>Recebida em: </label><label><?php echo $value->data_pagamento ?></label></div>
-                                        </div>
-                                                        <?php if($value->nome_comprovante != ""){ ?>
-                                                        <div class="col-2"><input class="button" style="width: 100%;" type="button" value="Visualizar Comprovante" onclick="visualizaComprovante('<?php echo $value->nome_comprovante ?>','<?php echo $_SESSION['id_empresa'] ?>');"></div>
-                                                        <?php }?>
-                                                        <?php if($value->nome_comprovante == ""){ ?>
+                                        </div>   
+                                                        <div class="col-2"><input class="button" style="width: 100%;" type="button" value="Visualizar Comprovantes" onclick="visualizaComprovante('<?php echo $value->nome_comprovante ?>','<?php echo $_SESSION['id_empresa'] ?>');"></div>
+                                                      
                                                         <form action="../ajax/ajax_editar_conta.php" method='POST' enctype="multipart/form-data" >
                                                             <input type="hidden" id="id" name="id" value="<?php echo $value->id ?>">
                                                             <input type="hidden" id="editar" name="editar" value="editar">
-                                                                    <div class="item"><div class="col-3"><label>Adicionar comprovante: </label></div><div class="col-5"><input type="file" name="arquivo" id='arquivo'></div><div style="float:right" class="col-1"><input type="submit" class="button" id="salvar" value="salvar"></div></div>                    
+                                                                    <div class="item"><div class="col-3"><label>Adicionar comprovantes: </label></div><div class="col-5"><input type="file" name="arquivo" id='arquivo'></div><div style="float:right" class="col-1"><input type="submit" class="button" id="salvar" value="salvar"></div></div>                    
                                                         </form>
-                                                        <?php }?>
+                                                        
                                         <?php } ?>   
                                          <div class="col-5">
                                             <div class="item"><label>Parcelas: <?php echo $value->parcelas ?></label></div>
                                         </div> 
-                                        <div class="col-1">
-                                            <div class="item">
-                                                <label>Pagas: <?php echo $value->pagas ?></label>
-                                            </div>                
-                                        </div>
+                                       
                                                         
-                                        <div class="col-5">
+                                        <div class="col-10">
                                             <div class="item"><label>Descrição: </label></div>
                                         </div>  
                                         <div class="col-10">
@@ -183,41 +255,103 @@ include_once("../model/class_conta_bd.php");
                                         <?php
                                         if(isset($value->status) && $value->status == 0 && isset($value->tipo) && $value->tipo == 1){?>
                                         <form action="../ajax/ajax_editar_conta.php" method='POST' enctype="multipart/form-data" >
+                                            <input type="hidden" name="parcela" id="parcela" value="parcela">
                                             <input type="hidden" name="id" id="id" value="<?php echo $value->id; ?>">
-                                            <input type="hidden" name="parcelas" id="parcelas" value="<?php echo $value->parcelas; ?>">
+                                         
                                             <div class="row">                                                 
                                                 <div style="margin-left: 0px; padding-top: 10px; padding-left: 20px; background-color: rgba(50,200,50,0.6);" class="center">   
                                                     
                                                      <div class="col-10"><div class="item"><label>Adicionar à contas pagas</label></div></div>
-                                                     
-                                                     <div class="col-3"><div class="item"><label>Data do pagamento:</label> <input type="date" name='data' id="data"></div></div>
+                                                <div class="row"> 
+                                                    <div  class="row">
+                                                     <div><div class="item"><label>Data do pagamento:</label> <input type="date" name='data' id="data"></div></div>
                                                         <div class="col-2" style="width: 15%;">                                                     
-                                                            <div class="item"><label>Parcelas: </label>                                                        
-                                                                <select id="qtd_pagas" name="qtd_pagas">
-                                                                            <?php
-                                                                            for ($index = $value->pagas; $index <= $value->parcelas; $index++){
-                                                                                    if($index > $value->pagas){
-                                                                                    echo '<option value='.$index.'>'.$index.'</option>';
-                                                                                     }
-                                                                                }                                                           
-                                                                            ?>
-                                                                </select>
-                                                                
+                                                            <div class="item"><label>Pagar parcela: </label>                                                    
+                                                                <select id="parcela_n" name="parcela_n">       
+                                                                             <?php                                                                        
+                                                                        $parcelas = new Parcelas();
+                                                                        $p = $parcelas->get_parcelas_pagas($value->id);
+                                                                        for($index = 1; $index <= $value->parcelas; $index++){
+                                                                            $num = confere($index, $value->id);
+                                                                            if($num != $index){
+                                                                                echo '<option value='.$index.'>'.$index.'</option>';
+                                                                            }
+                                                                        }
+//                                                                   
+                                                                        ?> 
+                                                                </select> 
                                                             </div>
+                                                            
                                                         </div> 
-                                                        <div class="col-1">
-                                                            <div class="item">
-                                                                <label>Pagas: <?php echo $value->pagas ?></label>
-                                                            </div>                
+                                                      
+                                                     <div class="col-5">
+                                                         <div class="item"><label>Comprovante: </label><input type="file" name="arquivo" id='arquivo'></div>
+                                                     </div>
+                                                     </div>
+                                                     <div class="col-10"><div class="row"><div  class="col-2"><label>Parcelas pagas: </label></div>
+                                                 
+                                                        <div class="col-8">    
+                                                            <?php                                                                        
+                                                                $parcelas = new Parcelas();
+                                                                $p = $parcelas->get_parcelas_pagas($value->id);
+                                                                    for($index = 1; $index <= $value->parcelas; $index++){
+                                                                        $num = confere($index, $value->id);                                                                       
+                                                                        if($num == $index){
+                                                                           $nome = $c = $parcelas->get_comprovante($value->id, $num);
+                                                                           $envia = $value->id.':'.$nome.':'.$_SESSION['id_empresa'];
+                                                                           ?>
+                                                                <?php if($nome!=""){ ?>                                                                  
+                                                                  <input type="button" id="1" value="<?php echo $index ?>" onclick="visualizaComprovante('<?php echo $envia; ?>')">
+                                                                <?php } ?>
+                                                                <?php if($nome==""){ ?>                                                                  
+                                                                  <input type="button" style="background-color: red;" id="1" value="<?php echo $index ?>" onclick="abreEnvio()">
+                                                                    <div hidden style="height: 150px; width: 500px" id="abreenvio">
+                                                                      <form action="../ajax/ajax_editar_conta.php" method='POST' enctype="multipart/form-data" >
+                                                                          <input type="hidden" name="enviacomprovante">
+                                                                          <input type="hidden" name="id" value="<?php echo $value->id; ?>">
+                                                                          <input type="hidden" name="parcela" value="<?php echo $index; ?>">
+                                                                            <div class="col-5">
+                                                                                <div class="item">
+                                                                                    <label>Data do pagamento: </label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-3">
+                                                                                <div class="item">
+                                                                                    <input type="date" name='data' id="data">
+                                                                                </div>
+                                                                            </div>
+                                                                           <div class="col-10">
+                                                                                <div class="item"><label>Enviar Comprovante: </label><input type="file" name="arquivo" id='arquivo'></div>                                                                                
+                                                                            </div>
+                                                                          <div class="col-10">
+                                                                                <div class="item">
+                                                                                    <input type="submit" class="button" id="salvar" value="Enviar">
+                                                                                </div>
+                                                                            </div>
+                                                                      </form>
+                                                                  
+                                                                  </div>
+                                                            
+                                                                <?php } ?>                                                             
+                                                                        
+                                                                           <?php                                                                           
+                                                                        }
+                                                                        
+                                                                    }
+       //                                                                   
+                                                            ?> 
                                                         </div>
-                                                     <div class="col-4"><div class="item"><label>Comprovante: </label><input type="file" name="arquivo" id='arquivo'></div></div>
+                                                    </div>
+                                                     </div>
+                                                     </div>
+                                                     <div class="row">
                                                         <div class="col-10">
                                                             <div class="item">
                                                                 <input type="submit" class="button" id="salvar" value="salvar">
                                                             </div>
                                                         </div>  
-                                                     </div>
-                                                
+                                                    </div>
+                                                </div>
                                             </div>
                                         </form>
                                         <?php } if(isset($value->status) && $value->status == 0 && isset($value->tipo) && $value->tipo == 2){?>
@@ -263,7 +397,10 @@ include_once("../model/class_conta_bd.php");
                             
                             echo '<script>paginar('.$i.','.'2'.')</script>';
                      ?>
+                   
     </div>
     <?php
     }
    ?>
+
+

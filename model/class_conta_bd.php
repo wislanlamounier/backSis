@@ -15,14 +15,12 @@ function carregalista($result){
                 $conta->juros = $row['juros'];
                 $conta->periodo_juros = $row ['periodo_juros'];
                 $conta->fornecedor_cliente = $row['fornecedor_cliente'];
-                $conta->data_vencimento = $row['data_vencimento'];
-                $conta->data_pagamento = $row['data_pagamento'];
+                $conta->data_vencimento = $row['data_vencimento'];               
                 $conta->descricao = $row['descricao'];
                 $conta->obra = $row['obra'];
-                $conta->banco = $row['banco'];
-                $conta->nome_comprovante = $row['nome_comprovante'];
+                $conta->banco = $row['banco'];           
                 $conta->parcelas = $row['parcelas'];
-                $conta->pagas = $row['pagas'];
+                
                 $conta->status = $row['status'];  
                 
                 $lista[] = $conta; 
@@ -41,11 +39,9 @@ function carregalista($result){
 	public $valor;
 	public $multa;
 	public $data_vencimento;
-	public $parcelas;
-        public $pagas;
+	public $parcelas;   
 	public $juros;
-        public $periodo_juros;
-        public $nome_comprovante;
+        public $periodo_juros;      
         public $tipo;
 	public $oculto;
         public $id_empresa;
@@ -72,10 +68,10 @@ function carregalista($result){
 		$sql->conn_bd();
 
 		$g = new Glob();                
-		$query = "INSERT INTO contas (codigo, descricao, fornecedor_cliente, obra, banco, valor, multa, data_vencimento, parcelas, pagas, juros, periodo_juros, tipo, id_empresa) 
-		                     VALUES ( '%s',   '%s',       '%s',             '%s',   '%s',  '%s',  '%s',      '%s',        '%s',     '%s',  '%s',     '%s',       '%s',    '%s')";
+		$query = "INSERT INTO contas (codigo, descricao, fornecedor_cliente, obra, banco, valor, multa, data_vencimento, parcelas, juros, periodo_juros, tipo, id_empresa) 
+		                     VALUES ( '%s',   '%s',       '%s',             '%s',   '%s',  '%s',  '%s',      '%s',        '%s',    '%s',     '%s',       '%s',    '%s')";
 		
-		if($g->tratar_query($query,  $this->codigo, $this->descricao, $this->fornecedor_cliente, $this->id_obra, $this->banco, $this->valor, $this->multa, $this->data_vencimento, $this->parcelas, $this->pagas, $this->juros, $this->periodo_juros, $this->tipo, $this->id_empresa)){
+		if($g->tratar_query($query,  $this->codigo, $this->descricao, $this->fornecedor_cliente, $this->id_obra, $this->banco, $this->valor, $this->multa, $this->data_vencimento, $this->parcelas,  $this->juros, $this->periodo_juros, $this->tipo, $this->id_empresa)){
 			return true; 
 		}else{
 			return false;
@@ -87,7 +83,7 @@ function carregalista($result){
             $sql->conn_bd();
             $g = new Glob();
             
-            $query = "SELECT * FROM contas WHERE tipo = 1 && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0 && status = 0 ORDER BY contas.data_pagamento DESC";
+            $query = "SELECT * FROM contas WHERE tipo = 1 && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0 && status = 0";
             
             $result = $g->tratar_query($query);
             
@@ -104,7 +100,7 @@ function carregalista($result){
             $sql->conn_bd();
             $g = new Glob();
             
-            $query = "SELECT * FROM contas WHERE tipo = 2 && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0 && status = 0 ORDER BY contas.data_pagamento DESC";
+            $query = "SELECT * FROM contas WHERE tipo = 2 && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0 && status = 0";
             
             $result = $g->tratar_query($query);
             
@@ -120,7 +116,7 @@ function carregalista($result){
             $sql->conn_bd();
             $g = new Glob();
             
-            $query = "SELECT * FROM contas WHERE tipo = 2 && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0 && status = 1 ORDER BY contas.data_pagamento DESC";
+            $query = "SELECT * FROM contas WHERE tipo = 2 && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0 && status = 1";
             
             $result = $g->tratar_query($query);
             
@@ -136,7 +132,7 @@ function carregalista($result){
             $sql->conn_bd();
             $g = new Glob();
             
-            $query = "SELECT * FROM contas WHERE tipo = 1 && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0 && status = 1 ORDER BY contas.data_pagamento DESC";
+            $query = "SELECT * FROM contas WHERE tipo = 1 && id_empresa = ".$_SESSION['id_empresa']." && oculto = 0 && status = 1";
             
             $result = $g->tratar_query($query);
             
@@ -147,31 +143,14 @@ function carregalista($result){
             return $lista;
         }
         
-    public function set_conta_paga($id,$qtd_pagas,$data,$nome_comprovante,$parcelas){
+    public function set_conta_paga($id){
             $sql= new Sql();
             $sql->conn_bd();
             $g = new Glob();
-            
-            
-            if($qtd_pagas == $parcelas){
-            $query = 'UPDATE contas SET status = 1, data_pagamento = "'.$data.'", nome_comprovante = "'.$nome_comprovante.'", pagas = "'.$qtd_pagas.'"  WHERE id = "'.$id.'" && id_empresa = "'.$_SESSION['id_empresa'].'" ';
-            $result = $g->tratar_query($query);
-            }else{
-            $query = 'UPDATE contas SET data_pagamento = "'.$data.'", nome_comprovante = "'.$nome_comprovante.'", pagas = "'.$qtd_pagas.'"  WHERE id = "'.$id.'" && id_empresa = "'.$_SESSION['id_empresa'].'" ';
-            $result = $g->tratar_query($query);
-            }
+            $query = 'UPDATE contas SET status = 1 WHERE id = '.$id.' && id_empresa = '.$_SESSION['id_empresa'].'';
+            $result = $g->tratar_query($query);          
            
-    }
-    
-    public function  add_comprovante($id,$nome_comprovante){
-            $sql= new Sql();
-            $sql->conn_bd();
-            $g = new Glob();
-            
-            $query = 'UPDATE contas SET  nome_comprovante = "'.$nome_comprovante.'"  WHERE id = "'.$id.'" && id_empresa = "'.$_SESSION['id_empresa'].'"';
-
-            $result = $g->tratar_query($query);
-    }
+         }
        
     }
 

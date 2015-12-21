@@ -75,9 +75,18 @@ $(document).ready(function(){
   
 });
 
-    function visualizaComprovante(nome,id_empresa){
+
+    function abreEnvio(){
+        document.getElementById('abreenvio').hidden = false ;
+    }
+    
+    function visualizaComprovante(str){
       
-        window.open("../images/"+id_empresa+"/comprovantes/"+nome)
+      var aux = str.split(":")
+      var id_conta = aux[0]
+      var nome_comprovante = aux[1];
+      var id_empresa = aux[2];
+        window.open("../images/"+id_empresa+"/comprovantes/"+id_conta+"/"+nome_comprovante);
     }
 
 
@@ -180,8 +189,7 @@ $(document).ready(function(){
                          if(isset($cod) && $cod != "" && isset($valor) && $valor != "" && isset($data) && $data != "" && isset($banco) && $banco != ""){
                
                          $contas->add_contas($cod, $desc, $id_fornecedor, $obra, $banco, $valor, $multa, $data, $num_parcelas, $juros, $periodo_juros, $tipo, $id_empresa);
-                                            
-                         print_r($contas);
+                      
                          $contas->add_contas_bd();
                          }else {
                              
@@ -203,10 +211,7 @@ $(document).ready(function(){
                          }
             }       
             ?>
-            <div hidden id="confirmar">
-            asdfadsf
-            </div>
-        
+                  
                <div style="margin-top:50px; background-color:rgba(50,200,50,0.3); "><span style="font-family: sans-serif; font-size: 20pt;">Cadastrar Contas</span></div>
                <Nav style="padding:20px;">
                    <a hidden="on" id="voltar1" href="add_contas.php">Voltar</a> <a id="fp" href="#formulario-apagar">À pagar</a> | <a id="fr" href="#formulario-areceber">À receber</a><a hidden="on" id="voltar2" href="add_contas.php">Voltar</a>                  
