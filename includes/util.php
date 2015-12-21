@@ -17,5 +17,11 @@ function data_padrao_brasileiro($data){
           return $d[2] .'/'.$d[1].'/'.$d[0];
       }
 }
+//monta cabeçalho do cronograma em obras
+function montaCabecalho($data_ini, $dias){
+      for($aux = 0; $aux <= $dias; $aux++) {
+          echo '<td  style="padding:5px; border-right: 1px solid #cdcdcd"><span><b>'.date('d/m/Y', strtotime("$data_ini +$aux days")).'</b></span></td>';
+      }
 
+  }
  ?>
