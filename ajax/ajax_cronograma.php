@@ -1,17 +1,34 @@
 <?php 
   session_start();
   include_once("../model/class_produto_bd.php");
+  include_once("../includes/util.php");
 
   $id_produto = $_GET['id_produto'];
   $data_ini = $_GET['data_ini'];
   $data_fim = $_GET['data_fim'];
   $etapa = $_GET['etapa'];
 
+echo "<script>alert('$etapa');</script>";
 
   if(!isset($_SESSION['obra']['cronograma'][$etapa]))
-    $_SESSION['obra']['cronograma'][$etapa][0] = $id_produto.':'.$data_ini.':'.$data_fim;
-  else
-    $_SESSION['obra']['cronograma'][$etapa][count($_SESSION['obra']['cronograma'][$etapa])] = $id_produto.':'.$data_ini.':'.$data_fim;
+      $_SESSION['obra']['cronograma'][$etapa][0] = $id_produto.':'.$data_ini.':'.$data_fim;
+  else{
+      $val_array =  $id_produto.':'.$data_ini.':'.$data_fim;
+      echo "<script>alert('$val_array');</script>";
+      if(!in_array($val_array, $_SESSION['obra']['cronograma'][$etapa])){
+         foreach ($_SESSION['obra']['cronograma'][$etapa] as $key => $value) {
+              $exp = explode(':', $value);
+              if($exp[0] == $id_produto){
+                  $_SESSION['obra']['cronograma'][$etapa][$key] = $id_produto.':'.$data_ini.':'.$data_fim;
+                  return;
+              }
+          }  
+          $_SESSION['obra']['cronograma'][$etapa][count($_SESSION['obra']['cronograma'][$etapa])] = $id_produto.':'.$data_ini.':'.$data_fim;
+      }else{
+        echo "<script>alert('Ja existe');</script>";
+      }
+  }
+      
   
   count($_SESSION['obra']['cronograma'][$etapa]);
  ?>
@@ -26,20 +43,20 @@
                   
                   
                        $data = $_SESSION['obra']['dados']['data_inicio_previsto'];
-                       $arrayData = explode("-", $data);
-                       // echo "<script>alert('$data');</script>";
-                       $dia = $arrayData[2];
-                       $mes = $arrayData[1];
-                       $ano = $arrayData[0];
-                       for($aux = 0; $aux <= 100; $aux++) {
-                           echo '<td  style="padding:5px; border-right: 1px solid #cdcdcd"><span><b>'.date('d/m/Y', strtotime("$data +$aux days")).'</b></span></td>';
-                       }
+                       montaCabecalho($data, 10);
                   
                 ?>
           </tr>
           
           <?php 
-            for($i = 0; $i < count($_SESSION['obra']['cronograma'][$etapa]) ; $i++)
+            for($etapa = 0; $etapa < count($_SESSION['obra']['cronograma']) ; $etapa++){
+                echo 'Etapa'.($etapa+1);
+                for($y = 0; $y < count($_SESSION['obra']['cronograma'][$etapa+1]) ; $y++){
+                    $id_dataini_datafim = explode(':', $_SESSION['obra']['cronograma'][$etapa+1][$y]);  
+                }
+                // PAREI AQUI
+                
+
                 for($p = 0; $p < count($_SESSION['obra']['produto']); $p++){
                     $id_qtd = explode(':', $_SESSION['obra']['produto'][$p]);
                     $res = new Produto();
@@ -73,7 +90,7 @@
                           ?>
                       </tr>
               <?php }//fim for 
-
+              }//fim for
             ?>
           
     </table>

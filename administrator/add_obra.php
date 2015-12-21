@@ -12,6 +12,7 @@ include_once("../model/class_produto_bd.php");
 include_once("../model/class_cbo_bd.php");
 include_once("../model/class_estado_bd.php");
 include_once("../includes/functions.php");
+include_once("../includes/util.php");
 include_once("../model/class_regiao_bd.php");
 
 function validate(){
@@ -37,7 +38,6 @@ function validate(){
         var data_i = document.getElementById("dateini-"+id_produto).value;
         var data_f = document.getElementById("datefim-"+id_produto).value;
         var etapa = document.getElementById("etapa-"+id_produto).value;
-        // alert(etapa)
         var url = '../ajax/ajax_cronograma.php?id_produto='+id_produto+'&data_ini='+data_i+'&data_fim='+data_f+'&etapa='+etapa;
                   $.get(url, function(dataReturn) {
                     $('#result-ajax').html(dataReturn);
@@ -536,7 +536,7 @@ function validate(){
                               </div>
                        </form>
               
-              <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_cr_o'){ //add funcionarios da obra?>
+              <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_cr_o'){ //add cronograma da obra?>
                       <?php
                         $_SESSION['obra']['situacao_cadastramento'] = 'a_cr_o';
 
@@ -624,14 +624,7 @@ function validate(){
                                                                             
                                                                             
                                                                                  $data = $_SESSION['obra']['dados']['data_inicio_previsto'];
-                                                                                 $arrayData = explode("-", $data);
-                                                                                 // echo "<script>alert('$data');</script>";
-                                                                                 $dia = $arrayData[2];
-                                                                                 $mes = $arrayData[1];
-                                                                                 $ano = $arrayData[0];
-                                                                                 for($aux = 0; $aux <= 100; $aux++) {
-                                                                                     echo '<td  style="padding:5px; border-right: 1px solid #cdcdcd"><span><b>'.date('d/m/Y', strtotime("$data +$aux days")).'</b></span></td>';
-                                                                                 }
+                                                                                 montaCabecalho($data, 15);
                                                                             
                                                                           ?>
                                                                     </tr>
