@@ -52,12 +52,15 @@ echo "<script>alert('$etapa');</script>";
             for($etapa = 0; $etapa < count($_SESSION['obra']['cronograma']) ; $etapa++){
                 echo 'Etapa'.($etapa+1);
                 for($y = 0; $y < count($_SESSION['obra']['cronograma'][$etapa+1]) ; $y++){
-                    $id_dataini_datafim = explode(':', $_SESSION['obra']['cronograma'][$etapa+1][$y]);
-                    echo "<script>alert('explodiu');</script>";
-                    $id_qtd = explode(':', $id_dataini_datafim[0]);
+                    $id_dataini_datafim = explode(':', $_SESSION['obra']['cronograma'][$etapa+1][$y]);  
+                }
+                // PAREI AQUI
+                
+
+                for($p = 0; $p < count($_SESSION['obra']['produto']); $p++){
+                    $id_qtd = explode(':', $_SESSION['obra']['produto'][$p]);
                     $res = new Produto();
                     $res = $res->get_produto_id($id_qtd[0]);
-                    print_r($_SESSION['obra']['cronograma'][$etapa+1]);
                     ?>
                       <tr <?php echo 'id="tr-'.$res->id.'"'; ?> class="row-table" title="">
                           <td><span><?php echo $res->nome ?> </span></td>
@@ -66,6 +69,11 @@ echo "<script>alert('$etapa');</script>";
                           <?php
                           
                                $data = $_SESSION['obra']['dados']['data_inicio_previsto'];
+                               $arrayData = explode("-", $data);
+                               // echo "<script>alert('$data');</script>";
+                               $dia = $arrayData[2];
+                               $mes = $arrayData[1];
+                               $ano = $arrayData[0];
 
                                // $_SESSION['obra']['cronograma'][$res->id][count($_SESSION['obra']['cronograma'])] = $id_produto.':'.$data_ini.':'.$data_fim;
                                
@@ -79,15 +87,11 @@ echo "<script>alert('$etapa');</script>";
                                    echo 'padding:0px; margin: 0; border-right: 1px solid #cdcdcd"><span style="color:#cdcdcd; font-size: 10px">'.date('d/m/Y', strtotime("$data +$aux days")).'</span></td>';
                                }
                           
-                          
-                      echo '</tr>';
-                      
-
-                }
-                ?>
-                
+                          ?>
+                      </tr>
               <?php }//fim for 
-          ?>
+              }//fim for
+            ?>
           
     </table>
     <?php //} ?>
