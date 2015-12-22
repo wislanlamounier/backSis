@@ -163,10 +163,13 @@ $(document).ready(function(){
                                 $num_parcelas = $value;                                
                              }
                                if($key == 'data' && isset($value)){
+                                   
                                 $data = $value;                                
                              }
                                 if($key == 'juros' && isset($value)){
-                                $juros = $value;                                
+                                $source = array('.', ',','R$');
+                                $replace = array('', '.','');    
+                                $juros = str_replace($source, $replace, $value);                                
                              } 
                              
                             if($key == 'periodo_juros' && isset($value)){
@@ -267,8 +270,9 @@ $(document).ready(function(){
                        </tr>
                        <tr>
                            <td><span>Multa por Atraso:</span></td><td><input onkeyup="mascara(this, mvalor);" type="text" id="multa" name="multa"></td>
-                           <td><span>Juros:</span></td><td><input type="text" id="juros" name="juros"></td><td>
+                           <td><span>Juros:</span></td><td><input type="text" id="juros" name="juros" onkeyup="mascara(this, mvalor);"></td><td>
                                                                                             <select id="periodo_juros" name="periodo_juros" style="width: 100px;">
+                                                                                                <option value="anual">Diário</option>
                                                                                                 <option value="mensal">Mensal</option>
                                                                                                 <option value="anual">Anual</option>
                                                                                             </select></td>
@@ -340,13 +344,14 @@ $(document).ready(function(){
                            
                        </tr>
                        <tr>
-                           <td><span>Multa por Atraso:</span></td><td><input onkeyup="mascara(this, mvalor);" type="number" id="multa" name="multa"></td>
-                           <td><span>Juros:</span></td><td><input type="number" id="juros" name="juros"></td><td>
+                           <td><span>Multa por Atraso:</span></td><td><input onkeyup="mascara(this, mvalor);" type="text" id="multa" name="multa"></td>
+                           <td><span>Juros:</span></td><td><input onkeyup="mascara(this, mvalor);" type="text" id="juros" name="juros"></td><td>
                                                                                             <select id="periodo_juros" name="periodo_juros" style="width: 100px;">
                                                                                                 <option value="mensal">Mensal</option>
                                                                                                <option value="anual">Anual</option>
-                                                                                                <option value="anual">Ao dia</option>
-                                                                                            </select></td>
+                                                                                                <option value="diaria">Ao dia</option>
+                                                                                            </select>
+                           </td>
                             
                        </tr>
                        

@@ -174,6 +174,7 @@ return $valor; //retorna o valor formatado para gravar no banco
                      <tr> <td><span>Código:*</span></td> <td colspan="3"><input autofocus style="width:100%; text-transform: uppercase" type="text" id="codigo" name="codigo" value="<?php echo $func->cod_serie; ?>"></td></tr> <!-- cod_serie -->
                      <tr> <td><span>Nome:*</span></td> <td colspan="3"><input style="width:100%" type="text" id="nome" name="nome" value="<?php echo $func->nome; ?>"></td></tr> <!-- nome -->
                      <tr> <td><span>CPF:*</span></td> <td colspan="3"><input style="width:100%" type="text" id="cpf" name="cpf" value="<?php echo $func->cpf; ?>"></td></tr> <!-- CPF -->
+                     <tr> <td><span>CNH:</span></td> <td colspan="3"><input style="width:100%" type="text" id="cnh" name="cnh" value="<?php echo $func->cnh; ?>"></td></tr> <!-- CPF -->
                      <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg" value="<?php echo $func->rg; ?>"></td><td><span>Org.Em:</span></td><td><input style="width:100px; text-transform: uppercase;" type="text" id="org_em_rg" name="org_em_rg" value="<?php echo $func->org_em_rg; ?>"></td></tr> <!-- RG -->
                      <tr> <td><span>Data Em. RG:</span></td> <td colspan="3"><input type="date" id="data_em_rg" name="data_em_rg" value="<?php echo $func->data_em_rg; ?>" title="Data de emissão do RG"></td></tr> <!-- data de emissão do rg -->
                      <tr> <td><span>Título Eleitoral:</span></td> <td colspan="3"><input type="text" id="titu_eleitoral" name="titu_eleitoral" value="<?php echo $func->num_tit_eleitor; ?>"></td></tr> <!-- Numero do titulo eleitoral -->
@@ -429,6 +430,7 @@ return $valor; //retorna o valor formatado para gravar no banco
                      <!-- campo input com texto dentro -->
                      <!-- <tr> <td><span>CPF:*</span></td> <td colspan="3"><input style="width:100%;" type="text" id="cpf" name="cpf" value='Insira seu email aqui' onclick="this.value='';" onblur="javascript:if (this.value=='') {this.value='Insira seu email aqui'};"></td></tr> -->
                      <tr> <td><span>CPF:*</span></td> <td colspan="3"><input style="width:100%;" type="text" id="cpf" name="cpf"></td></tr> <!-- CPF -->
+                     <tr> <td><span>CNH:</span></td> <td colspan="3"><input style="width:100%;" type="text" id="cnh" name="cnh"></td></tr> <!-- CPF -->
                      <tr> <td><span>RG:</span></td> <td><input type="text" id="rg" name="rg"></td><td><span>Org.Emissor:</span></td><td><input style="width:100%; text-transform: uppercase" type="text" id="org_em_rg" name="org_em_rg" ></td></tr> <!-- RG -->
                      <tr> <td><span>Data Em. RG:</span></td> <td colspan="3"><input type="date" id="data_em_rg" name="data_em_rg"  title="Data de emissão do RG"></td></tr> <!-- data de emissão do rg -->
                      <tr> <td><span>Título Eleitoral:</span></td> <td colspan="3"><input type="text" id="titu_eleitoral" name="titu_eleitoral" ></td></tr> <!-- Numero do titulo eleitoral -->
@@ -626,6 +628,7 @@ return $valor; //retorna o valor formatado para gravar no banco
                            $cep = $_POST['cep'];
                            $complemento = $_POST['complemento'];
                            $is_admin = 0;
+                           $cnh = $_POST['cnh'];
                            $end->add_endereco($rua, $numero, $id_cidade, $bairro, $cep, $complemento);
                            
                            $id_endereco = $end->add_endereco_bd();
