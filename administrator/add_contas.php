@@ -74,6 +74,13 @@ $(document).ready(function(){
     
   
 });
+    function confereNegativos(){
+      var aux = document.getElementById('num_parcelas').value;
+      if(aux <= 0){
+        alert("Você não pode adicionar uma conta com menos de uma parcela !")
+        document.getElementById('num_parcelas').value = 1;
+      }
+    }
 
 
     function abreEnvio(){
@@ -266,7 +273,7 @@ $(document).ready(function(){
                            <td><span>Valor: </span></td>
                            <td><input onkeyup="mascara(this, mvalor);" type="text" name="valor" id="valor"></td>
                            <td><span>N° Parecelas: </span></td>
-                           <td><input type="number" name='num_parcelas' id="num_parcelas"></td>
+                           <td><input type="number" value="1" onchange="confereNegativos()" name='num_parcelas' id="num_parcelas"></td>
                        </tr>
                        <tr>
                            <td><span>Multa por Atraso:</span></td><td><input onkeyup="mascara(this, mvalor);" type="text" id="multa" name="multa"></td>
@@ -339,7 +346,7 @@ $(document).ready(function(){
                            <td><span>Valor: </span></td>
                            <td><input onkeyup="mascara(this, mvalor);" type="text" name="valor" id="valor"></td>
                            <td><span>N° Parecelas: </span></td>
-                           <td><input type="number" name='num_parcelas' id="num_parcelas"></td>
+                           <td><input type="number" value="1" onchange="confereNegativos()" name='num_parcelas' id="num_parcelas"></td>
                            
                            
                        </tr>
