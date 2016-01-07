@@ -129,6 +129,7 @@ function validate(){
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap" async defer></script>
+
 <body onload="initMap()">	
 			<?php include_once("../view/topo.php"); ?>
 
@@ -266,10 +267,10 @@ function validate(){
                                           <span>Site:</span><br /><input type="text" name="site" id="site" placeholder="INDEFINIDO..." value="<?php (isset($_SESSION['obra']['dados']['site']))?print $_SESSION['obra']['dados']['site']:''; ?>">
                                       </div>  
                                       <div class="form-input" style="width:45%">
-                                          <span>Latitude:</span><br /><input  type="text" placeholder="Digite a latitude..." id="latitude"  name="latitude"   onchange="initMap()"  value="<?php (isset($_SESSION['obra']['dados']['latitude']))?print $_SESSION['obra']['dados']['latitude']:''; ?>"> <!-- SE A SESSION JA TEM LATITUDE MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
+                                          <span>Latitude:</span><br /><input  type="text" placeholder="Digite a latitude..." id="lat"  name="latitude"   onchange="initMap()"  value="<?php (isset($_SESSION['obra']['dados']['latitude']))?print $_SESSION['obra']['dados']['latitude']:''; ?>"> <!-- SE A SESSION JA TEM LATITUDE MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
                                       </div>
                                       <div class="form-input" style="width:40%; margin-left: 10px;">
-                                          <span>Longitude:</span><br /><input type="text" placeholder="Digite a longitude..."id="longitude"  name="longitude" onchange="initMap()" value="<?php (isset($_SESSION['obra']['dados']['longitude']))?print $_SESSION['obra']['dados']['longitude']:''; ?>"><input style="margin-left:10px" type="button" value="Ver Local" onclick="mostraLocal()"> <!-- SE A SESSION JA TEM LONGITUDE E MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
+                                          <span>Longitude:</span><br /><input type="text" placeholder="Digite a longitude..."id="long"  name="longitude" onchange="initMap()" value="<?php (isset($_SESSION['obra']['dados']['longitude']))?print $_SESSION['obra']['dados']['longitude']:''; ?>"><input style="margin-left:10px" type="button" value="Ver Local" onclick="mostraLocal()"> <!-- SE A SESSION JA TEM LONGITUDE E MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
                                       </div>
                                       <div class="form-input" style="width:45%">
                                           <span>Bairro:</span><br /><input  type="text" placeholder="Bairro" name="bairro" id="bairro" value="<?php (isset($_SESSION['obra']['dados']['bairro']))?print $_SESSION['obra']['dados']['bairro']:''; ?>" style="width:100%; text-transform: capitalize">

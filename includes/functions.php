@@ -2195,7 +2195,7 @@ Class Functions{
 				        var screenWidth = screen.width;        
 				        var screenHeight = screen.height;
 				        
-				            if(windowWidth > 1200){
+				        if(windowWidth > 1200){
 				         
 				          document.getElementById("map").style.marginLeft = "28%";
 				          document.getElementById("map").style.marginTop = "12%";
