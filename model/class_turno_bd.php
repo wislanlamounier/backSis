@@ -28,9 +28,9 @@ class Turno{
 		$sql->conn_bd();
 		$g = new Glob();
 
-		$query = "INSERT INTO turno (nome, descricao, ini_exp, ini_alm, fim_alm, fim_exp, oculto, sem_hor_almoco) VALUES ('%s','%s', '%s', '%s', '%s', '%s', '0', %d)";
+		$query = "INSERT INTO turno (nome, descricao, ini_exp, ini_alm, fim_alm, fim_exp, oculto, sem_hor_almoco, id_empresa) VALUES ('%s','%s', '%s', '%s', '%s', '%s', '0', %d, '%s')";
 
-		if($g->tratar_query($query, $this->nome, $this->desc, $this->ini_exp, $this->ini_alm, $this->fim_alm, $this->fim_exp, $this->sem_hor_almoco)){
+		if($g->tratar_query($query, $this->nome, $this->desc, $this->ini_exp, $this->ini_alm, $this->fim_alm, $this->fim_exp, $this->sem_hor_almoco, $_SESSION['id_empresa'])){
 			return true;
 		}else{
 			return false;

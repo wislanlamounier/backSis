@@ -161,13 +161,16 @@ function validate(){
 
                  <?php 
               if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
-         
+                  
                  if(validate()){
                      
                      $cboXexames = new CboXexames();
                      $cbo = new Cbo();
                      $cbo->add_cbo($_POST['codigo'], $_POST['descricao'],$id = $_SESSION['id_empresa']);
                      $id_cbo = $cbo->add_cbo_bd();// id do registro cadastrado
+                      if(isset($_POST['voltar'])){
+                                echo '<script>window.history.back()</script>'; 
+                             }
                      $id_exames = isset($_POST['selecionados']) ? $_POST['selecionados'] : null;
 
                      if ($cboXexames->add_cbo_x_exames($id_exames, $id_cbo)){
@@ -198,9 +201,6 @@ function validate(){
                      }
                      }                
                   ?>
-
-            
-
             </div>
          
             <?php include ("informacoes_cbo.php") ?>

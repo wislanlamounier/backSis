@@ -2983,7 +2983,25 @@ Class Functions{
 				         }
 				      }
 				   //fim mascaras
+                                        $(document).ready(function(){
+                                          $("#mostracbo").click(function(){
+                                              $("#divcbo").fadeToggle();       
+                                          });  
+                                            $("#mostraturno").click(function(){
+                                              $("#divturno").fadeToggle();       
+                                          });  
 
+                                          $("#sem_hor_almoco").click(function(){
+                                              $("#almoco").fadeToggle();
+                                              $("#ini_alm_h").val("");
+                                              $("#ini_alm_m").val("");
+                                              $("#fim_alm_h").val("");
+                                              $("#fim_alm_m").val("");
+                                              $("#almoco2").fadeToggle();
+                                          });  
+
+                                      });
+ 
 				</script>
 		<?php
 		}//fim getScriptTurno()
