@@ -16,7 +16,7 @@ include_once("../model/class_produto_bd.php");
 	$cont = 0;
         
         if($whatarray == 'material'){// se for igual produto exclui os materiais do adicionar produto
-              if($acao == 'cadastrar'){// se for cadastrar exclui a session do cadastrar
+            if($acao == 'cadastrar'){// se for cadastrar exclui a session do cadastrar
                   for($aux = 0; $aux < count($_SESSION['produto'][$whatarray]); $aux++){//percorrendo array escolhido
                   
                     if($_SESSION['produto'][$whatarray][$aux] == $id){// quando encontrar o id escolhido
@@ -111,7 +111,7 @@ include_once("../model/class_produto_bd.php");
             if(isset($array) && count($array > 0))//se existir array
               $_SESSION['obra'][$whatarray] = $array;// session = array
 
-            echo '<table style="width:100%" >';
+              echo '<table style="width:100%" >';
               for($aux = 0; $aux < count($_SESSION['obra'][$whatarray]); $aux++){        
                   if($aux%2==0)
                      echo '<tr style="background-color:#ccc;">';

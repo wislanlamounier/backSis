@@ -14,6 +14,7 @@ include_once("../model/class_estado_bd.php");
 include_once("../includes/functions.php");
 include_once("../includes/util.php");
 include_once("../model/class_regiao_bd.php");
+include_once("../model/class_obra.php");
 
 function validate(){
    if(!isset($_POST['desc']) || $_POST['desc'] == ""){
@@ -33,7 +34,24 @@ function validate(){
 </head> -->
 
 <script type="text/javascript">
-    
+    function expandir_ocultar(id){
+      var id_box = 'id-'+id;
+      var campodateini = 'dateini-'+id;
+      var campodatefim = 'datefim-'+id;
+      var select = 'etapa-'+id;
+
+      if(document.getElementById(id_box).style.display == 'none'){
+        document.getElementById(id_box).style.display = '';
+        document.getElementById(campodateini).disabled = true;
+        document.getElementById(campodatefim).disabled = true;
+        document.getElementById(select).disabled = true;
+      }else{
+        document.getElementById(id_box).style.display = 'none';
+        document.getElementById(campodateini).disabled = false;
+        document.getElementById(campodatefim).disabled = false;
+        document.getElementById(select).disabled = false;
+      }
+    }
     function preencheCronograma(id_produto){
         var data_i = document.getElementById("dateini-"+id_produto).value;
         var data_f = document.getElementById("datefim-"+id_produto).value;
@@ -233,8 +251,7 @@ function validate(){
                                       <div class="form-input" style="width:45%">
                                           <span>Responsavel pela obra :</span><br />
                                           <select id="responsavel_obra" name="responsavel_obra"  style="background-color: #dedede;width:100%">
-                                            <option>Selecione</option>
-                                            
+                                            <option value="no_sel">Selecione</option>
                                                 <?php 
                                                    $func = new Funcionario();
                                                    $func = $func->get_all_func_emp();
@@ -244,18 +261,15 @@ function validate(){
                                                  ?>
                                              <?php echo "<script> carregaF_O('".$_SESSION['obra']['dados']['responsavel_obra']."'); </script>" ?>
                                              </select>
-                                          
-                                          
-                                          
                                       </div>
                                       <div class="form-input" style="width:40%; margin-left: 10px;">
-                                          <span>Site:</span><br /><input type="text" name="site" id="site" placeholder="INDEFINIDO...">
+                                          <span>Site:</span><br /><input type="text" name="site" id="site" placeholder="INDEFINIDO..." value="<?php (isset($_SESSION['obra']['dados']['site']))?print $_SESSION['obra']['dados']['site']:''; ?>">
                                       </div>  
                                       <div class="form-input" style="width:45%">
-                                          <span>Latitude:</span><br /><input  type="text" placeholder="Digite a latitude..." id="lat"  name="lat"   onchange="initMap()"  value="<?php (isset($_SESSION['obra']['dados']['lat']))?print $_SESSION['obra']['dados']['lat']:''; ?>"> <!-- SE A SESSION JA TEM LATITUDE MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
+                                          <span>Latitude:</span><br /><input  type="text" placeholder="Digite a latitude..." id="latitude"  name="latitude"   onchange="initMap()"  value="<?php (isset($_SESSION['obra']['dados']['latitude']))?print $_SESSION['obra']['dados']['latitude']:''; ?>"> <!-- SE A SESSION JA TEM LATITUDE MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
                                       </div>
                                       <div class="form-input" style="width:40%; margin-left: 10px;">
-                                          <span>Longitude:</span><br /><input type="text" placeholder="Digite a longitude..."id="long"  name="long" onchange="initMap()" value="<?php (isset($_SESSION['obra']['dados']['long']))?print $_SESSION['obra']['dados']['long']:''; ?>"><input style="margin-left:10px" type="button" value="Ver Local" onclick="mostraLocal()"> <!-- SE A SESSION JA TEM LONGITUDE E MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
+                                          <span>Longitude:</span><br /><input type="text" placeholder="Digite a longitude..."id="longitude"  name="longitude" onchange="initMap()" value="<?php (isset($_SESSION['obra']['dados']['longitude']))?print $_SESSION['obra']['dados']['longitude']:''; ?>"><input style="margin-left:10px" type="button" value="Ver Local" onclick="mostraLocal()"> <!-- SE A SESSION JA TEM LONGITUDE E MOSTRA A DA SESSION SE NAO MOSTRA VAZIO  ON CLICK PARA CHAMAR A FUNCAO DE MOSTRAR MAPA -->
                                       </div>
                                       <div class="form-input" style="width:45%">
                                           <span>Bairro:</span><br /><input  type="text" placeholder="Bairro" name="bairro" id="bairro" value="<?php (isset($_SESSION['obra']['dados']['bairro']))?print $_SESSION['obra']['dados']['bairro']:''; ?>" style="width:100%; text-transform: capitalize">
@@ -303,12 +317,13 @@ function validate(){
                                <input type="hidden" id="t" name="t" value="a_p_o">
                               <?php
                                   isset($_GET['nome']) ? $_SESSION['obra']['dados']['nome'] = $_GET['nome'] : '';
+                                  isset($_GET['site']) ? $_SESSION['obra']['dados']['site'] = $_GET['site'] : '';
                                   isset($_GET['data_inicio_previsto']) ? $_SESSION['obra']['dados']['data_inicio_previsto'] = $_GET['data_inicio_previsto'] : '';
                                   isset($_GET['rua']) ? $_SESSION['obra']['dados']['rua'] = $_GET['rua'] : '';
                                   isset($_GET['num']) ? $_SESSION['obra']['dados']['num'] = $_GET['num'] : '';
                                   isset($_GET['desc']) ? $_SESSION['obra']['dados']['desc'] = $_GET['desc'] : '';
-                                  isset($_GET['lat']) ? $_SESSION['obra']['dados']['lat'] = $_GET['lat'] : '';  /* GET PARA PEGAR O VALOR DA SESSION DADA PELA PAGINA ANTERIOR */
-                                  isset($_GET['long']) ? $_SESSION['obra']['dados']['long'] = $_GET['long'] : ''; /* GET PARA PEGAR O VALOR DA SESSION DADA PELA PAGINA ANTERIOR */
+                                  isset($_GET['latitude']) ? $_SESSION['obra']['dados']['latitude'] = $_GET['latitude'] : '';  /* GET PARA PEGAR O VALOR DA SESSION DADA PELA PAGINA ANTERIOR */
+                                  isset($_GET['longitude']) ? $_SESSION['obra']['dados']['longitude'] = $_GET['longitude'] : ''; /* GET PARA PEGAR O VALOR DA SESSION DADA PELA PAGINA ANTERIOR */
                                   isset($_GET['bairro']) ? $_SESSION['obra']['dados']['bairro'] = $_GET['bairro'] : '';
                                   isset($_GET['regioes']) ? $_SESSION['obra']['dados']['regioes'] = $_GET['regioes'] : '';
                                   isset($_GET['responsavel_obra']) ? $_SESSION['obra']['dados']['responsavel_obra'] = $_GET['responsavel_obra'] : '';
@@ -540,7 +555,7 @@ function validate(){
                       <?php
                         $_SESSION['obra']['situacao_cadastramento'] = 'a_cr_o';
 
-                        echo "<script>ajusta('form_obra','+');</script>";
+                        // echo "<script>ajusta('form_obra','+');</script>";
                       ?>
                         <form  action="add_obra" onsubmit="return validate(this)">
                                <input type="hidden" id="t" name="t" value="final">
@@ -570,20 +585,23 @@ function validate(){
                                         if(isset($_GET['etapas']) && $_GET['etapas'] > 0){
                                             $_SESSION['obra']['etapas'] = $_GET['etapas'];
                                         }
+                                        if(!isset($_SESSION['obra']['etapas'])){
+                                            $_SESSION['obra']['etapas'] = 1;
+                                        }
 
                                        ?>
                                       <?php if(isset($_SESSION['obra']['dados']['data_inicio_previsto']) && $_SESSION['obra']['dados']['data_inicio_previsto'] != ''){ // verifica se a data inicio da obra foi cadastrada
                                                 
                                                 if(isset($_SESSION['obra']['produto']) && count($_SESSION['obra']['produto']) > 0){ // verifica se existe algum produto cadastrado
     
-                                                            if(isset($_SESSION['obra']['etapas']) && $_SESSION['obra']['etapas'] > 0){ // verifica se ja foi definido a quantidade de etapas
+                                                            // if(isset($_SESSION['obra']['etapas']) && $_SESSION['obra']['etapas'] > 0){ // verifica se ja foi definido a quantidade de etapas
   
                                               ?>
                                             
                                                       <div class="form-input" style="border-bottom:1px solid#cdcdcd">
 
                                                           <table style="margin-left:10px; margin-bottom:10px; ">
-                                                            <tr><td>Defina a quantidade de etapas </td><td colspan = '3'><input type="number" name="etapas" id="etapas" value="<?php (isset($_SESSION['obra']['etapas'])) ? print $_SESSION['obra']['etapas'] : '' ?>"> <a onclick="submeter()">Definir</a></td></tr>
+                                                            <tr><td><span>Defina a quantidade de etapas</span></td><td colspan = '3'><input type="number" name="etapas" id="etapas" value="<?php (isset($_SESSION['obra']['etapas'])) ? print $_SESSION['obra']['etapas'] : print '1' ?>"> <span><a onclick="submeter()">Definir</a></span></td></tr>
                                                                 <tr><td><span><b>Produto</b></span></td><td><span><b>Quantidade</b></span></td><td style="text-align:center"><span><b>Inicio</b></span></td><td style="text-align:center"><span><b>Fim</b></span></td></tr>
                                                             <?php //busca todos os produtos da obra 
 
@@ -604,8 +622,33 @@ function validate(){
                                                                               echo '<option name="data_fim"  value="'.($i+1).'" >Etapa '.($i+1).'</option>';
                                                                           }
                                                                           echo '</select></td>';
+                                                                          if($id_qtd[1] > 1)
+                                                                            echo '<td><span><a onclick="expandir_ocultar(\''.$res->id.'\')">Expandir<a></span></td>';
                                                                       
                                                                     echo '</tr>';
+                                                                    if($id_qtd[1] > 1){
+                                                                      echo '<tr id="id-'.$res->id.'" style="display: none">';
+                                                                        echo '<td colspan="6">
+                                                                                <table border="0" style="background-color:#cdcdcd">';
+                                                                                     // echo '<tr><td><span><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span></td><td><span><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span></td><td style="text-align:center"><span><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span></td><td style="text-align:center"><span><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span></td></tr>';
+                                                                                      for($y = 0; $y < $id_qtd[1] ; $y++){
+                                                                                          
+                                                                                              echo '<tr><td style="width:200px;"><div style="width:100%">
+                                                                                                <a name="'.$res->id.'" title="Clique aqui para ver os materiais desse produto" onclick="exibe(this.name)" style="cursor:pointer"><span style="margin-left:10px;">'.$res->nome.' parte ' .($y+1). '</span></a></div></td>
+                                                                                                <td style="text-align:center; width:70px;" ><span>1</span></td>
+                                                                                                <td><input type="date" name="data_ini" id="dateini-'.$res->id.'"></td>
+                                                                                                <td><input type="date" name="data_fim" id="datefim-'.$res->id.'" onchange="preencheCronograma(\''.$res->id.'\')"></td>';
+                                                                                                echo '<td><select id="etapa-'.$res->id.'" onchange="preencheCronograma(\''.$res->id.'\')">';
+                                                                                                for($i = 0 ; $i < $_SESSION['obra']['etapas'] ; $i++){
+                                                                                                    echo '<option name="data_fim"  value="'.($i+1).'" >Etapa '.($i+1).'</option>';
+                                                                                                }
+                                                                                                echo '</select></td></tr>';
+                                                                                          
+                                                                                      }
+                                                                        echo '</table></td>';
+                                                                      echo '</tr>';
+                                                                    }
+                                                                            
                                                                 }
 
                                                             ?>
@@ -613,60 +656,14 @@ function validate(){
                                                       </div>
 
                                                       <div class="form-input" id="result-ajax">
-                                                          <div style="overflow-x: scroll; ">
-                                                            <?php //for($e = 0; $e < $_SESSION['obra']['etapas']; $e++){ 
-                                                              //echo '<div style="text-align:center"><b>ETAPA '.($e+1).'</b></div>';
-                                                              ?>
-                                                              <table cellpadding="0" cellspacing="0" border="0" style="width:100%; text-align:center; margin-bottom:20px;">
-                                                                    <tr>
-                                                                          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                                          <?php
-                                                                            
-                                                                            
-                                                                                 $data = $_SESSION['obra']['dados']['data_inicio_previsto'];
-                                                                                 montaCabecalho($data, 15);
-                                                                            
-                                                                          ?>
-                                                                    </tr>
-                                                                    
-                                                                    <?php 
-                                                                      
-                                                                          for($p = 0; $p < count($_SESSION['obra']['produto']); $p++){
-                                                                              $id_qtd = explode(':', $_SESSION['obra']['produto'][$p]);
-                                                                              $res = new Produto();
-                                                                              $res = $res->get_produto_id($id_qtd[0]);
-                                                                              ?>
-                                                                                <tr <?php echo 'id="tr-'.$res->id.'"'; ?> class="row-table" title="">
-                                                                                    <td><span><?php echo $res->nome ?> </span></td>
-                                                                                    
-
-                                                                                    <?php
-                                                                                    
-                                                                                         $data = $_SESSION['obra']['dados']['data_inicio_previsto'];
-                                                                                         $arrayData = explode("-", $data);
-                                                                                         // echo "<script>alert('$data');</script>";
-                                                                                         $dia = $arrayData[2];
-                                                                                         $mes = $arrayData[1];
-                                                                                         $ano = $arrayData[0];
-                                                                                         for($aux = 0; $aux <= 100; $aux++) {
-                                                                                             echo '<td id="'.$res->id.'-'.date('Y-m-d', strtotime("$data +$aux days")).'" style="';
-                                                                                             echo 'padding:0px; margin: 0; border-right: 1px solid #cdcdcd"><span style="color:#cdcdcd; font-size: 10px">'.date('d/m/Y', strtotime("$data +$aux days")).'</span></td>';
-                                                                                         }
-                                                                                    
-                                                                                    ?>
-                                                                                </tr>
-                                                                        <?php }//fim for 
-
-                                                                      ?>
-                                                                    
-                                                              </table>
-                                                              <?php //} ?>
-                                                          </div>
+                                                          <!-- <div style="overflow-x: scroll; ">
+                                                            
+                                                          </div> -->
                                                       </div>
                                       <?php 
-                                                        }else{
-                                                              echo '<div style="text-align:center; padding: 10px">Por favor, defina em quantas etapas você deseja realizar essa obra<br /><input type="number" name="etapas" id="etapas"> <a onclick="submeter()">Definir</a> </div>';      
-                                                        }
+                                                        // }else{
+                                                        //       echo '<div style="text-align:center; padding: 10px">Por favor, defina em quantas etapas você deseja realizar essa obra<br /><input type="number" name="etapas" id="etapas"> <a onclick="submeter()">Definir</a> </div>';      
+                                                        // }
                                                 }else{// else produtos
                                                     echo '<div style="text-align:center; padding: 10px">Atenção, você precisa selecionar pelo menos um produto para poder adicionar um cronograma<br /><a href="add_obra?t=a_pr_o">Você pode adicionar um produto clicando aqui!</a>!</div>';
                                                 }
@@ -694,6 +691,7 @@ function validate(){
                     <div class="form-input"><b>DADOS DO CADASTRAMENTO</b></div>
                     <?php if(isset($_SESSION['obra']['status']) && $_SESSION['obra']['status'] == 0 ){
                           echo '<div class="form-input">(ORÇAMENTO)</div>';
+                          
                     } ?>
 
                 </div>
@@ -739,8 +737,8 @@ function validate(){
                                 <?php }if(isset($_SESSION['obra']['dados']['regioes']) && $_SESSION['obra']['dados']['regioes'] != ''){ ?>
                                         <span><b>Região de trabalho: </b></span><span><?php echo Regiao::get_name_regiao_by_id($_SESSION['obra']['dados']['regioes']) ?></span>
                                         
-                                <?php }if(isset($_SESSION['obra']['dados']['lat']) && $_SESSION['obra']['dados']['lat'] != '' && isset($_SESSION['obra']['dados']['long']) && $_SESSION['obra']['dados']['lat'] != ''  ){ ?> <!-- CONDIÇÃO PARA VER SE EXISTE DADOS DE LATITUDE NA SESSION -->
-                                        <br /><span><b>Coordenadas: </b></span><span><?php (isset($_SESSION['obra']['dados']['lat']))?print 'Lat.: '.$_SESSION['obra']['dados']['lat']:''?></span> <span><?php (isset($_SESSION['obra']['dados']['long']))?print 'Long.: '.$_SESSION['obra']['dados']['long']:''?></span><input  style="margin-left: 10px;"type="button" onclick="mostraLocal()" value="Ver local"><br /> <!-- MONSTRA A DIV PARA VISUALIZAÇÃO DO MAPA -->
+                                <?php }if(isset($_SESSION['obra']['dados']['latitude']) && $_SESSION['obra']['dados']['latitude'] != '' && isset($_SESSION['obra']['dados']['longitude']) && $_SESSION['obra']['dados']['latitude'] != ''  ){ ?> <!-- CONDIÇÃO PARA VER SE EXISTE DADOS DE LATITUDE NA SESSION -->
+                                        <br /><span><b>Coordenadas: </b></span><span><?php (isset($_SESSION['obra']['dados']['latitude']))?print 'Lat.: '.$_SESSION['obra']['dados']['latitude']:''?></span> <span><?php (isset($_SESSION['obra']['dados']['longitude']))?print 'Long.: '.$_SESSION['obra']['dados']['longitude']:''?></span><input  style="margin-left: 10px;"type="button" onclick="mostraLocal()" value="Ver local"><br /> <!-- MONSTRA A DIV PARA VISUALIZAÇÃO DO MAPA -->
                                         <!-- LINHA DE CIMA PARA PRINTAR NA TELA AS CORDENADAS COM ID DE LAT E LONG POR QUE O ONCLICK CHAMA A INITMAP() E A INITMAP() PRECISA DE CAMPOS LAT E LONG COM VALORES SETADOS CONDIÇÃO PARA VER SE EXISTE DADOS DE LATITUDE NA SESSION -->
                                 <?php }if(isset($_SESSION['obra']['dados']['desc']) && $_SESSION['obra']['dados']['desc'] != ''){// se existe descrição ?>
                                             <span><b>Descrição: </b></span><br />

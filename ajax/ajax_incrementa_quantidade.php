@@ -17,7 +17,7 @@ include_once("../model/class_patrimonio_geral_bd.php");
             $tipo_id = explode(":", $_SESSION['obra']['patrimonio'][$aux]);
             
             if($tipo_id[1] == $id && $tipo_id[0] == $tipo){
-              echo $tipo.':'.$id.':'.$quantidade.' Incrementa<br>';
+              // echo $tipo.':'.$id.':'.$quantidade.' Incrementa<br>';
                $_SESSION['obra']['patrimonio'][$aux] = $tipo.':'.$id.':'.$quantidade;
             }
       }

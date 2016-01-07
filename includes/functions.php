@@ -8,7 +8,7 @@ Class Functions{
 		echo '<head>
 			 	  <meta charset="UTF-8">
 				  <link rel="icon" href="../images/ico-sgo.png" type="image/x-icon">
-				  <meta HTTP-EQUIV="refresh" CONTENT="590">
+				  <!-- <meta HTTP-EQUIV="refresh" CONTENT="590"> -->
 				 	<title>'.$title.'</title>
 				 	
 				 	<script src="../javascript/jquery-2.1.4.min.js"></script>
