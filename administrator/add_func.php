@@ -1,8 +1,9 @@
 <?php
 session_start();
 include("restrito.php");
-
-
+include_once("../model/class_exame_bd.php");
+include_once("../model/class_cboXexames.php");
+include_once("../model/class_rend_double_select.php");
 include_once("../model/class_funcionario_bd.php");
 include_once("../model/class_horarios_bd.php");
 include_once("../model/class_turno_bd.php");
@@ -98,6 +99,30 @@ return $valor; //retorna o valor formatado para gravar no banco
 
 <?php  Functions::getScriptFuncionario(); //carrega funções javascript da pagina?>
 
+
+<script>
+$(document).ready(function(){
+    $("#mostracbo").click(function(){
+        $("#divcbo").fadeToggle();       
+    });  
+      $("#mostraturno").click(function(){
+        $("#divturno").fadeToggle();       
+    });  
+    
+    $("#sem_hor_almoco").click(function(){
+        $("#almoco").fadeToggle();
+        $("#ini_alm_h").val("");
+        $("#ini_alm_m").val("");
+        $("#fim_alm_h").val("");
+        $("#fim_alm_m").val("");
+        $("#almoco2").fadeToggle();
+    });  
+    
+});
+ 
+
+</script>
+
 <body onload="disparaLoadCidade(), carregaMascaras()">
 
 
@@ -133,10 +158,13 @@ return $valor; //retorna o valor formatado para gravar no banco
                      $endereco = new Endereco();
                      $endereco = $endereco->get_endereco( $func->id_endereco );
                      $banco = Banco::get_banco_by_id($func->id_dados_bancarios);
-                     $id_valor_custo = $func->id_valor_custo;
                      
-                     $valor_custo = new Valor_custo();
-                     $valor_custo = $valor_custo->get_valor_custo_id($id_valor_custo);
+                     if($func->id_valor_custo != 0){                                            
+                        $valor_custo = new Valor_custo();
+                        $valor_custo = $valor_custo->get_valor_custo_id($func->id_valor_custo);
+                     }else{
+                          $valor_custo = new Valor_custo();                          
+                     }
                       // $endereco[0][0] Rua
                       // $endereco[0][1] Numero
                       // $endereco[0][2] Cidade
@@ -215,22 +243,22 @@ return $valor; //retorna o valor formatado para gravar no banco
                      
                      <tr> <td colspan="4"><span><a title="Clique aqui para cadastrar dados bancários" onclick="exibe()" style="cursor:pointer"><div style="float:left"><img width="20px;" src="../images/icon-edita.png"></div><div style="float:left; margin-top:3px; margin-left:5px;">Editar dados bancários</div></a></span></td> </tr>
                      <tr> <td><span><div id="salario">Salário Base:</div></span></td> <td><input type="text" id="sal_base" onkeyup="mascara(this, mvalor);" name="sal_base" value="<?php if($func->salario_base!= ""){ echo'R$ ' . number_format($func->salario_base, 2, ',', '.');}?>" required></td></tr> <!-- Salário base -->
-                     <tr><td><span>Valor de Custo:</span></td> <td><input type="text" onkeyup="mascara(this, mvalor);" name="valor_custo" id="valor_custo" value="<?php if($valor_custo->valor != ""){ echo 'R$ ' . number_format($valor_custo->valor, 2, ',' , '.'); }?>"></td>
+                     <tr><td><span>Valor de Custo:</span></td><td><input type="text" onkeyup="mascara(this, mvalor);" name="valor_custo" id="valor_custo" value="<?php if($valor_custo->valor != ""){ echo 'R$ ' . number_format($valor_custo->valor, 2, ',' , '.'); }?>"></td>
                                   <td>
-                                      <select id="tipo_custo" name="tipo_custo"  style="width:100%">
+                                    <select id="tipo_custo" name="tipo_custo"  style="width:100%">
                                     <option value="no_sel">Selecione</option>
-                                    <?php 
-                                       $tipo_custo = new Tipo_custo();
-                                       $tipo_custo = $tipo_custo->get_all_tipo_custo();                                       
-                                       foreach ($tipo_custo as $key => $value) {
-                                           echo '<option value="'.$value[0].'">'.$value[1].'</option>';
-                                       }
-//                                       for ($i=0; $i < count($empresa) ; $i++) { 
-//                                          echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
-//                                       }
-                                     ?>
-                                    <?php echo "<script> carregaTipo_custo('".$valor_custo->id_tipo_custo."'); </script>" ?> 
-                                 </select>
+                                        <?php 
+                                           $tipo_custo = new Tipo_custo();
+                                           $tipo_custo = $tipo_custo->get_all_tipo_custo();                                       
+                                           foreach ($tipo_custo as $key => $value) {
+                                               echo '<option value="'.$value[0].'">'.$value[1].'</option>';
+                                           }
+    //                                       for ($i=0; $i < count($empresa) ; $i++) { 
+    //                                          echo '<option value="'.$empresa[$i][0].'">'.$empresa[$i][2].'</option>';
+    //                                       }
+                                         ?>
+                                        <?php echo "<script> carregaTipo_custo('".$valor_custo->id_tipo_custo."'); </script>" ?> 
+                                    </select>
                                   </td>
                               </tr>
                      
@@ -273,8 +301,8 @@ return $valor; //retorna o valor formatado para gravar no banco
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
                         </td>
+                       <td><a href="#divturno" id="mostraturno"><img style="cursor: pointer" width="25px" height="25px"src="../images/add.png"></a></td>
                         <?php echo "<script>carregaTurno('".$func->id_turno."') </script>";  ?>
-
                      </tr>
                      <tr>
                         <td><span>CBO:*</span></td>
@@ -293,6 +321,7 @@ return $valor; //retorna o valor formatado para gravar no banco
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
                         </td>
+                        <td><a href="#divcbo" id="mostracbo"><img style="cursor: pointer" width="25px" height="25px"src="../images/add.png"></a></td>
                         <?php echo "<script> carregaCBO('".$func->id_cbo."') </script>";  ?>
                      </tr>
                      <tr>
@@ -305,7 +334,7 @@ return $valor; //retorna o valor formatado para gravar no banco
                      <tr>
                         <td><span>Estado:*</span></td>
                         <td>
-                           <?php //buscar array de CBO
+                           <?php 
                               $estado = new Estado();
                               $estados = $estado->get_name_all_uf();
                                 
@@ -336,7 +365,7 @@ return $valor; //retorna o valor formatado para gravar no banco
                      <tr>
                         <td><span>Supervisor:</span></td>
                         <td>
-                           <?php //buscar array de CBO
+                           <?php 
                               $admin = new Funcionario();
                               $supervisores = $admin->get_admin();
                            ?>
@@ -528,6 +557,7 @@ return $valor; //retorna o valor formatado para gravar no banco
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
                         </td>
+                        <td><a href="#divturno" id="mostraturno"><img style="cursor: pointer" width="25px" height="25px"src="../images/add.png"></a></td>
                      </tr>
                      <tr>
                         <td><span>CBO:*</span></td>
@@ -536,7 +566,7 @@ return $valor; //retorna o valor formatado para gravar no banco
                               $cbo = new Cbo();
                               $cbos = $cbo->get_name_all_cbo();
                            ?>
-                           <select name="cbo" id="cbo" style="width:100%">
+                           <select name="cbo" id="cbo" style="width:80%">
                               <option>Selecione um cbo</option>
                               <?php 
                                  foreach($cbos as $key => $cbo){
@@ -546,6 +576,7 @@ return $valor; //retorna o valor formatado para gravar no banco
                            </select>
                            <!-- <a href="">Pesquisar</a> -->
                         </td>
+                        <td><a href="#divcbo" id="mostracbo"><img style="cursor: pointer" width="25px" height="25px"src="../images/add.png"></a></td>
                      </tr>
                    
                      <tr>
@@ -817,7 +848,82 @@ return $valor; //retorna o valor formatado para gravar no banco
 
              </div>
              <?php include_once("informacoes_func.php"); ?>
+   
           <?php }?>
+              
+     
+              
+        <div hidden id="divcbo">
+            <div class="formulario">
+              
+                <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">ADICIONAR CBO - CLASSIFICAÇÃO BRASILEIRA <BR> DE OCUPAÇÕES</span></div></div>
+               <form method="POST" id="add_cbo" action="add_cbo.php" onsubmit="return validate(this)">
+                  <table border="0" style="width:100%">
+                      <input type="hidden" id="voltar" name="voltar" value="voltar"> 
+                      <input type="hidden" id="tipo" name="tipo" value="cadastrar">
+                     <!-- <tr> <td><span>Descrição:</span></td> <td ><input type="text" id="desc" name="desc" style="width:100px;"></td><td><span style="font-size:12px; color:#555;">(Ex. de descrição: Das 8:00 às 12:00 e das 13:00 às 18:00)</span></td></tr> <!- nome -->
+                     <tr> <td ><span>Codigo:</span></td> <td><input type="text" id="codigo" name="codigo"></td></tr> <!-- ini exp -->
+                     <tr> <td ><span>Descrição:</span></td> <td><input type="text" id="descricao" name="descricao"></td></tr> <!-- ini exp -->
+                     <tr><td colspan="2"><span>Selecione os exames necessários para essa função:</span></td></tr>
+                     <tr>
+                        <td colspan="2">
+                           <!-- <select id="exames" name="exames[]" size="5" multiple style="width:270px"> -->
+                              <?php
+                                 $exame = new Exame();
+                                 $exames = $exame->get_name_all_exames();
+                                 $data = array();
+                                 
+                                 for ($i=0; $i < count($exames); $i++) { 
+                                    $data[$i] = array("id"=>$exames[$i][0], "name"=>$exames[$i][1]);
+                                 }
+
+                                 $data_selected = array();  
+
+                                 RendDoubleSelect::showDoubleDropDown($data, $data_selected, "id", "name", "", 
+                                        "sel_exames1", "selecionados", "hd_exames", "130px", 
+                                       "Exames", "Selecionados");
+                               ?>
+                           <!-- </select> -->
+                        </td>
+                     </tr>
+                     <!-- <tr><td colspan="2"><span style="color:#898989">Segure Ctrl para múltiplas seleções</span></td></tr>   -->
+                     <tr>
+                        <td colspan="3" style="text-align:center">
+                          <input class="button" type="submit" onclick="selectAll()" name="button" id="button" value="Cadastrar">                          
+                        </td>
+                     </tr>
+                  </table>
+               </form>
+            
+
+
+            </div>
+                  </div>
+              <div hidden id="divturno">
+                  <div class="formulario">
+                  <div class="title-box" style="float:left"><div style="float:left"><img src="../images/edit-icon.png" width="35px"></div><div style="float:left; margin-top:10px; margin-left:10px;"><span class="title">CADASTRO DE TURNO</span></div></div>
+                  <div class="title">
+                  <span style="font-size:14px; color:#555;"><br>Atenção: use o formato de 24 horas para o preenchimento de um novo turno, de 0 à 24 horas e de 0 aos 59 minutos</br></span>
+               </div>
+                 <form method="POST" class="ad_turno" id="ad_turno" name="ad_turno" action="add_turno.php" onsubmit="return validate(this)">
+                <input type="hidden" id="voltar" name="voltar" value="voltar">     
+                <input type="hidden" id="tipo" name="tipo" value="cadastrar">
+                  <table border="0">
+                     <tr> <td ><span>Nome:</span></td> <td ><input style="width:100%" type="text" id="nome" name="nome" style="width:100px;" title="Digite um nome para esse turno"></td></tr> <!-- nome-->
+                     <tr> <td ><span>Início expediente:</span></td> <td><input type="text" id="ini_exp_h" name="ini_exp_h"><span>h</span><input type="text" id="ini_exp_m" name="ini_exp_m"><span>m</span></td></tr> <!-- ini exp -->
+                     <tr> <td ><span>Sem Almoço</span></td><td><input type="checkbox" name="sem_hor_almoco" id="sem_hor_almoco"></td></tr>
+                     <tr id="almoco"> <td><span>Início almoço:</span></td> <td><input type="text" id="ini_alm_h" name="ini_alm_h"><span>h</span><input type="text" id="ini_alm_m" name="ini_alm_m"><span>m</span></td></tr> <!-- ini alm -->
+                     <tr id="almoco2"> <td ><span>Fim almoço</span></td> <td><input type="text" id="fim_alm_h" name="fim_alm_h"><span>h</span><input type="text" id="fim_alm_m" name="fim_alm_m"><span>m</span></td></tr> <!-- fim alm -->
+                     <tr> <td ><span>Fim expediente:</span></td> <td><input type="text" id="fim_exp_h" name="fim_exp_h"><span>h</span><input type="text" id="fim_exp_m" name="fim_exp_m"><span>m</span></td></tr> <!-- fim exp -->                     
+                     <tr>
+                        <td colspan="3" style="text-align:center">
+                           <input class="button" type="submit" name="button" id="button" value="Cadastrar">                           
+                        </td>
+                     </tr>
+                  </table>
+               </form>
+                  </div>
+              </div>
   
           
 </body>

@@ -103,8 +103,9 @@ function validate(){
                   <table border="0">
                      <tr> <td><span>Nome:</span></td> <td ><input style="width:100%" type="text" id="nome" name="nome" style="width:100px;" title="Digite um nome para esse turno"></td></tr> <!-- nome-->
                      <tr> <td ><span>Início expediente:</span></td> <td><input type="text" id="ini_exp_h" name="ini_exp_h"><span>h</span><input type="text" id="ini_exp_m" name="ini_exp_m"><span>m</span></td></tr> <!-- ini exp -->
-                     <tr> <td ><span>Início almoço:</span></td> <td><input type="text" id="ini_alm_h" name="ini_alm_h"><span>h</span><input type="text" id="ini_alm_m" name="ini_alm_m"><span>m</span></td></tr> <!-- ini alm -->
-                     <tr> <td ><span>Fim almoço</span></td> <td><input type="text" id="fim_alm_h" name="fim_alm_h"><span>h</span><input type="text" id="fim_alm_m" name="fim_alm_m"><span>m</span></td></tr> <!-- fim alm -->
+                     <tr> <td ><span>Sem Almoço</span></td><td><input type="checkbox" name="sem_hor_almoco" id="sem_hor_almoco"></td></tr>
+                     <tr id="almoco"> <td><span>Início almoço:</span></td> <td><input type="text" id="ini_alm_h" name="ini_alm_h"><span>h</span><input type="text" id="ini_alm_m" name="ini_alm_m"><span>m</span></td></tr> <!-- ini alm -->
+                     <tr id="almoco2"> <td ><span>Fim almoço</span></td> <td><input type="text" id="fim_alm_h" name="fim_alm_h"><span>h</span><input type="text" id="fim_alm_m" name="fim_alm_m"><span>m</span></td></tr> <!-- fim alm -->
                      <tr> <td ><span>Fim expediente:</span></td> <td><input type="text" id="fim_exp_h" name="fim_exp_h"><span>h</span><input type="text" id="fim_exp_m" name="fim_exp_m"><span>m</span></td></tr> <!-- fim exp -->
                      
                      <tr>
@@ -119,21 +120,39 @@ function validate(){
                 <?php }?> 
 
                 <?php 
-                if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){                   
-                      if(validate()){
+                if(isset($_POST['tipo']) && $_POST['tipo'] == "cadastrar"){
+                      if(validate() || isset($_POST['sem_hor_almoco'])){
                          $turno = new Turno();
                          $nome = $_POST['nome'];
                          $ini_exp = $_POST['ini_exp_h'].":".$_POST['ini_exp_m'].":00";
                          $ini_alm = $_POST['ini_alm_h'].":".$_POST['ini_alm_m'].":00";
                          $fim_alm = $_POST['fim_alm_h'].":".$_POST['fim_alm_m'].":00";
                          $fim_exp = $_POST['fim_exp_h'].":".$_POST['fim_exp_m'].":00";
+                         
                          $desc = "Das ".$_POST['ini_exp_h'].":".$_POST['ini_exp_m']." às "
                                  .$_POST['ini_alm_h'].":".$_POST['ini_alm_m']." e das "
                                  .$_POST['fim_alm_h'].":".$_POST['fim_alm_m']." às "
                                  .$_POST['fim_exp_h'].":".$_POST['fim_exp_m'];
-
-                         $turno->cadTurno($nome, $desc, $ini_exp, $ini_alm, $fim_alm, $fim_exp);
+                         
+                        
+                        if(isset($_POST['sem_hor_almoco']) && $_POST['sem_hor_almoco'] == "on"){                             
+                             
+                             $sem_hor_almoco = 1;
+                             $ini_alm = '00:00:00';
+                             $fim_alm = '00:00:00';
+                             
+                             $desc = "Das ".$_POST['ini_exp_h'].":".$_POST['ini_exp_m']." às "                            
+                                 .$_POST['fim_exp_h'].":".$_POST['fim_exp_m'];
+                        }
+                        else{
+                           $sem_hor_almoco  = 0;
+                        }
+                         
+                         $turno->cadTurno($nome, $desc, $ini_exp, $ini_alm, $fim_alm, $fim_exp, $sem_hor_almoco);
                          if($turno->add_turno_bd() == true){
+                             if(isset($_POST['voltar'])){
+                                echo '<script>window.history.back()</script>'; 
+                             }
                           echo '<div class="msg">Turno editado com sucesso!</div>';
                         }else{
                            echo '<div class="msg">Adicionado com Sucesso!</div>';
@@ -141,7 +160,7 @@ function validate(){
                       }                 
                     }
                   if(isset($_POST['tipo']) && $_POST['tipo'] == "editar"){                    
-                           if(validate()){
+                         if(validate()){
                          $turno = new Turno();
                          $id = $_POST['id_turno'];
                          $nome = $_POST['nome'];
@@ -153,7 +172,7 @@ function validate(){
                                  .$_POST['ini_alm_h'].":".$_POST['ini_alm_m']." e das "
                                  .$_POST['fim_alm_h'].":".$_POST['fim_alm_m']." às "
                                  .$_POST['fim_exp_h'].":".$_POST['fim_exp_m'];
-
+                         
                         if($turno->atualiza_turno($nome, $id, $desc, $ini_exp, $ini_alm, $fim_alm, $fim_exp)){
                             echo '<div class="msg">Turno atualizado com sucesso!</div>';
                             echo '<script>alert("Turno atualizado com sucesso")</script>';
