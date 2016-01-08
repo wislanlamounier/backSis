@@ -4,6 +4,7 @@ include_once("../includes/functions.php");
 include_once("../model/class_cliente.php");
 include_once("../model/class_conta_bd.php");
 include_once("../model/class_parcelas_bd.php");
+include_once("../includes/util.php");
 
 function confere($num,$id){
 $parcelas = new Parcelas();
@@ -147,7 +148,7 @@ $nome_comprovante  = "";
                                  <div class="row">
                                      <div class="center">
                                          <div class="col-5">
-                                             <div class="item"><label>Data de vencimento: </label> <label><?php echo $value->data_vencimento ?></label></div>
+                                             <div class="item"><label>Data de vencimento: </label> <label><?php echo data_padrao_brasileiro($value->data_vencimento) ?></label></div>
                                         </div>
                                          <div class="col-5">
                                              <div class="item"><label>Banco: </label> <label><?php echo $value->banco ?></label></div>
