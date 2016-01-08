@@ -3,7 +3,7 @@ include("restrito.php");
 include_once("../includes/functions.php");
 include_once("../model/class_cliente.php");
 include_once("../model/class_conta_bd.php");
-
+include_once("../includes/util.php");
 
 
 ?>
@@ -169,8 +169,7 @@ $(document).ready(function(){
                                if($key == 'num_parcelas' && isset($value)){
                                 $num_parcelas = $value;                                
                              }
-                               if($key == 'data' && isset($value)){
-                                   
+                               if($key == 'data' && isset($value)){                                   
                                 $data = $value;                                
                              }
                                 if($key == 'juros' && isset($value)){
