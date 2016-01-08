@@ -558,7 +558,7 @@ function validate(){
 
                         // echo "<script>ajusta('form_obra','+');</script>";
                       ?>
-                        <form  action="add_obra" onsubmit="return validate(this)">
+                        <form  action="salva_obra" onsubmit="return validate(this)">
                                <input type="hidden" id="t" name="t" value="final">
                               <?php
                                   // $_SESSION['obra']['dados']['nome'] = $_GET['nome'];
@@ -739,7 +739,7 @@ function validate(){
                                         <span><b>Região de trabalho: </b></span><span><?php echo Regiao::get_name_regiao_by_id($_SESSION['obra']['dados']['regioes']) ?></span>
                                         
                                 <?php }if(isset($_SESSION['obra']['dados']['latitude']) && $_SESSION['obra']['dados']['latitude'] != '' && isset($_SESSION['obra']['dados']['longitude']) && $_SESSION['obra']['dados']['latitude'] != ''  ){ ?> <!-- CONDIÇÃO PARA VER SE EXISTE DADOS DE LATITUDE NA SESSION -->
-                                        <br /><span><b>Coordenadas: </b></span><span><?php (isset($_SESSION['obra']['dados']['latitude']))?print 'Lat.: '.$_SESSION['obra']['dados']['latitude']:''?></span> <span><?php (isset($_SESSION['obra']['dados']['longitude']))?print 'Long.: '.$_SESSION['obra']['dados']['longitude']:''?></span><input  style="margin-left: 10px;"type="button" onclick="mostraLocal()" value="Ver local"><br /> <!-- MONSTRA A DIV PARA VISUALIZAÇÃO DO MAPA -->
+                                        <br /><span><b>Coordenadas: </b></span><span><input type="hidden" id="long" value="<?php echo $_SESSION['obra']['dados']['longitude'] ?>"><input type="hidden" id="lat" value="<?php echo $_SESSION['obra']['dados']['latitude'] ?>"><?php (isset($_SESSION['obra']['dados']['latitude']))?print 'Lat.: '.$_SESSION['obra']['dados']['latitude']:''?></span> <span><?php (isset($_SESSION['obra']['dados']['longitude']))?print 'Long.: '.$_SESSION['obra']['dados']['longitude']:''?></span><input  style="margin-left: 10px;"type="button" onclick="mostraLocal()" value="Ver local"><br /> <!-- MONSTRA A DIV PARA VISUALIZAÇÃO DO MAPA -->
                                         <!-- LINHA DE CIMA PARA PRINTAR NA TELA AS CORDENADAS COM ID DE LAT E LONG POR QUE O ONCLICK CHAMA A INITMAP() E A INITMAP() PRECISA DE CAMPOS LAT E LONG COM VALORES SETADOS CONDIÇÃO PARA VER SE EXISTE DADOS DE LATITUDE NA SESSION -->
                                 <?php }if(isset($_SESSION['obra']['dados']['desc']) && $_SESSION['obra']['dados']['desc'] != ''){// se existe descrição ?>
                                             <span><b>Descrição: </b></span><br />

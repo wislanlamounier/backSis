@@ -25,7 +25,6 @@ class Obra{
  		$this->id_cliente = $_SESSION['obra']['cliente']['id_cli'];
  		$this->id_regiao_trabalho = $_SESSION['obra']['dados']['regioes'];
  		$this->id_responsavel_obra = $_SESSION['obra']['dados']['responsavel_obra'];
-
  	}
 
  	public function printObra(){

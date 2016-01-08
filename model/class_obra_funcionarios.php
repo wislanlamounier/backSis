@@ -6,4 +6,4 @@ class Obra_funcionario{
 	public $id_funcionario;
 }
 
- ?>
+?>
