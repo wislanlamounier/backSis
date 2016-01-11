@@ -25,7 +25,7 @@ include_once("../model/class_regiao_bd.php");
               <tr><td colspan="3"><b>Materiais usados para '.$produto->nome.'</b></td></tr>';
               echo '<tr><td colspan="3"><div style="overflow-y:scroll; max-height:200px;">';
               echo '<table style="text-align:center">';
-              echo '<tr><td><b><span>Nome</span></b></td><td><b><span>Quantidade</span></b></td><td><b><span>Preço por regiao</span></b></td></tr>';
+              echo '<tr><td><b><span>Nome</span></b></td><td><b><span>Quantidade</span></b></td><td><b><span>Custo por regiao</span></b></td></tr>';
               for($aux = 0; $aux < count($materiais); $aux++){
               	$id_material = explode(':', $materiais[$aux][1]);
               	
