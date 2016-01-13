@@ -111,7 +111,7 @@
                                        <input class="tabela-unidades-nome"     type="text" name="nome"                   value="<?php echo $nome ?>" id="<?php echo $nome ?>">
                                        <input class="tabela-unidades-grandeza" type="text" name="grandeza"               value="<?php echo $grandeza ?>" id="<?php echo $grandeza ?>">
                                        <input class="tabela-unidades-sigla"    type="text" name="sigla"                  value="<?php echo $sigla ?>" id="<?php echo $sigla ?>">                         
-                                       <input class="button-tabela-unidade-deletar"  value=""  type="submit" onclick="confirma('<?php echo $id." ".$nome." ".$_GET['nome']; ?>')">
+                                       <input class="button-tabela-unidade-deletar"  value=""  type="submit" onclick="confirma('<?php echo $id." ".$nome ?>')">
                                        <input class="button-tabela-unidade-salvar"   value=""  type="submit" onclick="atualizar('<?php echo $id." ".$nome." ".$grandeza." ".$sigla; ?>')">
                                  </div>
                                  </form>
