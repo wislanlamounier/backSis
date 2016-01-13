@@ -697,12 +697,12 @@ $(document).ready(function(){
                            
                            $valor_custo = new Valor_custo();                                        
                            if(isset($_POST['valor_custo'])!= ""){
-                            $id_tipo_custo = $_POST['tipo_custo'];
-                            $valor = $_POST['valor_custo'];
-                            $valor = moeda($valor);
-                            $valor_custo->add_valor_custo($valor, $id_tipo_custo);
-                            $id_valor_custo = $valor_custo->add_valor_custo_bd();
-                                }
+                                $id_tipo_custo = $_POST['tipo_custo'];
+                                $valor = $_POST['valor_custo'];
+                                $valor = moeda($valor);
+                                $valor_custo->add_valor_custo($valor, $id_tipo_custo);
+                                $id_valor_custo = $valor_custo->add_valor_custo_bd();
+                           }
                            
                            
                            
@@ -717,9 +717,9 @@ $(document).ready(function(){
                            $is_admin = (isset($_POST['is_admin']))?(($_POST['is_admin'])?1:0):0;
                            $data_ini = date("Y-m-d H:i:s");
                            $data_fim = "0000-00-00";
-                           $estagiario = ($_POST['estagiario'])?1:0;
+                           $estagiario = (isset($_POST['estagiario']))?1:0;
 
-                           $func->add_func($id_banco, $cod_serie, $nome, $cpf, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $id_valor_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $data_ini, $data_fim, $estagiario);
+                           $func->add_func($id_banco, $cod_serie, $nome, $cpf, $cnh, $rg, $data_nasc, $telefone, $email, $senha, $id_empresa, $id_empresa_filial, $id_turno, $id_cbo, $is_admin, $id_endereco, $data_em_rg, $org_em_rg, $num_tit_eleitor, $email_empresa_filial, $data_adm, $salario_base, $id_valor_custo, $qtd_horas_sem, $num_cart_trab, $num_serie_cart_trab, $uf_cart_trab, $num_pis, $id_supervisor, $data_ini, $data_fim, $estagiario);
                            // echo $func->printFunc();
                            if($func->add_func_bd()){
                                echo '<div class="msg">Funcionário cadastrado com sucesso!</div>';
@@ -771,7 +771,7 @@ $(document).ready(function(){
                            $salario_base = moeda($_POST['sal_base']);  // retorna salario formatado
                            
                            $id_custo = $_POST['id_custo'];
-                           $estagiario = $_POST['estagiario'];
+                           $estagiario = ($_POST['estagiario'])?1:0;
                                
                            if(isset($_POST['valor_custo']) != ""){
                                 $Ftemp = Funcionario::get_func_id($id);

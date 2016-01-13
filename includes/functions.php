@@ -3428,14 +3428,164 @@ Class Functions{
 
                     }                     
                 }                                                                            
-    </script>
+    	</script>
 		<?php
 		}//fim getScript()
 
 		//Modelo
-		function getScriptModelo7(){
+		function getScriptVisualizarObra(){
 		?>
-			<!-- Code -->
+			<script type="text/javascript">
+					
+
+				  	function buscarClientes(tipo, valor){
+				  			
+				            var nome = document.getElementById("nome").value;
+				            if(tipo == 1)
+				            	nome = valor;
+				            
+				            var url = '../ajax/ajax_buscar_obras.php?nome='+nome+'&tipo='+tipo; 
+				            
+				            $.get(url, function(dataReturn) {
+				            	
+				              $('#form-input-select').html(dataReturn);  
+				            });
+				         
+				    }
+
+				    function buscarPatrimonios(){
+				      
+				        if(document.getElementById("veiculo").checked == true){
+				            tipo = 2;
+				            document.getElementById("tipo").value = "2";
+				        }else if(document.getElementById("maquinario").checked == true){
+				            tipo = 1;
+				            document.getElementById("tipo").value = "1";
+				        }else{
+				            tipo = 0;
+				            document.getElementById("tipo").value = "0";
+				        }
+				        var nome = document.getElementById("nome").value;
+				        var url = '../ajax/ajax_buscar_patrimonios.php?nome='+nome+'&tipo='+tipo;  
+
+				         $.get(url, function(dataReturn) {
+				            $('#form-input-select').html(dataReturn);
+				          });
+				    }
+				    function selecionaCliente(retorno){
+				          var id = retorno;
+				        
+				          var url = '../ajax/ajax_buscar_dados_cliente.php?id='+id;  
+				          
+				          $.get(url, function(dataReturn) {
+				            
+				            $('#form-input-dados').html(dataReturn); 
+				          });
+				    }
+				    function selecionaPatrimonio(id){
+				          var tipo = document.getElementById("tipo").value;
+				          
+				          var url = '../ajax/ajax_montar_patrimonio.php?id='+id+'&tipo='+tipo;  
+
+				          $.get(url, function(dataReturn) {
+				            
+				            $('#form-input-dados').html(dataReturn); 
+				          });
+				    }
+				    function buscarFuncionario(){
+				        var nome = document.getElementById("nome").value;
+				        var url = "../ajax/ajax_buscar_funcionarios.php?nome="+nome;
+
+				        $.get(url, function(dataReturn) {
+				            
+				            $('#form-input-select').html(dataReturn);
+				        });
+				    }
+				    function selecionaFuncionarios(id){
+				      
+				        var url = '../ajax/ajax_montar_funcionarios.php?id='+id; 
+				        
+				        $.get(url, function(dataReturn) {
+				          
+				          $('#form-input-dados').html(dataReturn);  
+				        });
+				    }
+				    function apagar(id, whatarray){
+
+				        var url = '../ajax/ajax_apagar.php?id='+id+'&whatarray='+whatarray; 
+				        
+				        $.get(url, function(dataReturn) {
+				          
+				          $('#form-input-dados').html(dataReturn);  
+				        });
+				    }
+				    function buscarProdutos(){
+				        var nome = document.getElementById("nome").value;
+				        
+				        var url = '../ajax/ajax_buscar_materiais.php?nome='+nome+'&tipo=p';  
+				        $.get(url, function(dataReturn) {
+				            $('#form-input-select').html(dataReturn);
+				        });
+				    }
+				    function selecionaProduto(id){
+				            
+				          var url = '../ajax/ajax_montar_material.php?id='+id+'&whatarray=obra';
+				          
+				          $.get(url, function(dataReturn) {
+				            
+				            $('#form-input-dados').html(dataReturn); 
+				          });
+				    }
+				    function cancel(){
+				      opc = confirm("Tem certeza que deseja cancelar?");
+				      if(opc)
+				        window.location.href='add_obra.php?t=c';
+				    }
+
+				    var map;
+				    function initMap() {
+				      
+				      var zoom = 4; // zoom original para aparecer o mapa longe 
+				      var originalMapCenter = new google.maps.LatLng(-14.2392976, -53.1805017) // PONTO iNICIAL COM A LAT E LONG DO BRASIL
+				      var lat = document.getElementById('lat').value;  //RECEBE O VALOR DA LAT PELO INPUT
+				      var long = document.getElementById('long').value;// RECEBE O VALOR DA LONG PELO INPUT      
+				      
+				      if(lat !== "" && long !==""){
+				        var originalMapCenter = new google.maps.LatLng(lat, long);
+				        zoom = 16;
+				      }
+				      var map = new google.maps.Map(document.getElementById('map'),{
+				        mapTypeId: google.maps.MapTypeId.SATELLITE,/*ROADMAP*/
+				        scrollwheel: false,
+				        zoom: zoom,
+				        center: originalMapCenter
+				      });
+				      
+
+				      var infowindow = new google.maps.InfoWindow({
+				        content: 'Aqui é sua Obra',
+				        position: originalMapCenter
+				      });
+				      infowindow.open(map);
+
+				      map.addListener('zoom_changed', function() {
+				        infowindow.setContent('Zoom: ' + map.getZoom());
+				      });
+				     
+				    }
+				    function buscar_cidades(estado){    
+
+				      if(estado){
+				        var url = '../ajax/ajax_buscar_cidades.php?estado='+estado;
+				        $.get(url, function(dataReturn) {
+				          $('#load_cidades').html(dataReturn);
+				        });
+				      }
+				    }
+				    function mudaTipo(t){
+				        document.getElementById("tipo").value = t;
+				    }
+				</script>
 		<?php
 		}//fim getScript()
 

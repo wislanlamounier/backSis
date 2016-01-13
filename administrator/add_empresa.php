@@ -265,7 +265,7 @@ include_once("../includes/functions.php");
                                     $endereco->atualiza_endereco($rua, $num, $id_cidade, $_POST['id_endereco'], $bairro, $cep, $complemento);
                                     $id_endereco = $_POST['id_endereco'];
                                 }else{
-                                    $endereco->add_endereco($rua, $num, $id_cidade, $bairro, $cep);
+                                    $endereco->add_endereco($rua, $num, $id_cidade, $bairro, $cep, $complemento);
                                     $id_endereco = $endereco->add_endereco_bd();
                                 }
                                  

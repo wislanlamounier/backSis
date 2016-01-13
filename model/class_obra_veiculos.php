@@ -1,26 +1,25 @@
 <?php 
-include_once("class_funcionario_bd.php");
-
-class Obra_funcionario{
+	
+class Obra_veiculos{
 	public $id;
 	public $id_obra;
-	public $id_funcionario;
+	public $id_veiculo;
 
-	public function add_funcionarios_obra($id_obra){
-		$list = array();
-		foreach ($_SESSION['obra']['funcionario'] as $key => $value) {
-			$obra_funcionario = new Obra_funcionario();
-			$obra_funcionario->id_obra = $id_obra;
-			$obra_funcionario->id_funcionario = $value;
-			$list[] = $obra_funcionario;
+	public function add_veiculo($id_obra, $id_veiculo){
+		
+		
+		$obra_veiculos = new Obra_veiculos();
+		$obra_veiculos->id_obra = $id_obra;
+		$obra_veiculos->id_veiculo = $id_veiculo;
+		
+		return $obra_veiculos;
 
-		}
-		return $list;
+		
 	}
 
-	public function add_funcionarios_bd(){
-
-		$query = "INSERT INTO obra_funcionarios ";
+	public function add_veiculo_bd(){
+		
+		$query = "INSERT INTO obra_veiculos ";
  		$campos = '(';
  		foreach ($this as $key => $value) {
  			if(!empty($value))
@@ -42,14 +41,12 @@ class Obra_funcionario{
 		
 		$sql = new Sql();
 		$sql->conn_bd();
-		
+
  		if(mysql_query($query.$campos.$valores) or print (mysql_error()))
  			return true;
 
  		return false;
-
 	}
-
 }
 
-?>
+ ?>
