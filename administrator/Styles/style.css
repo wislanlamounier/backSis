@@ -5,6 +5,27 @@ body{
 body span, body table tr td span{
 	font-size: 13px;
 }
+
+.table_geral{
+	width: 100%;
+	text-align: center;
+}
+.table_geral a{
+	cursor: pointer;
+}
+.table_geral tr td{
+	border: 1px solid #cdcdcd;
+	padding: 2px;
+}
+
+.tr-2:hover, .tr-1:hover{
+	background-color:#cccccc;
+}
+.tr-cabecalho{
+	background-color:#bdbdbd;
+	font-weight: bold;	
+}
+
 .container{
 	background-color:#FAEBD7;
 	width: 80%;
@@ -312,7 +333,7 @@ h2{
         
 	margin-bottom: 20px;
 	width: 500px;
-        
+    min-width:650px;
 	text-align: center;
 	background-color: rgba(240, 245, 230, 0.5);	
 }
@@ -606,7 +627,7 @@ h2{
 	overflow-x: hidden;
 	height: 300px;
 }
-.form-input input, textarea{
+.form-input input, textarea, select{
 	border-radius: 5px;
 	border: 1px solid#bbb;
 	background-color: #dedede;
@@ -769,10 +790,7 @@ form-input select{
 	border: 2px solid#EBCCFF;
 }
 /********************************* FIM PESQUISAR PESQUISAR_FUNC**********************************/
-.table_geral tr td{
-	border: 1px solid #bcbcbc;
-	padding: 0px;
-}
+
 
 
 
@@ -1274,3 +1292,4 @@ form-input select{
 }
 
 /********************************* FIM CONTAS ******************************/
+

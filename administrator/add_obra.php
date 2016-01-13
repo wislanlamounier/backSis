@@ -683,7 +683,11 @@ function validate(){
                               </div>
                        </form>
 
-            <?php } ?>
+            <?php   }else if(isset($_GET['t']) && $_GET['t'] == 'sucess'){ //add cronograma da obra?>
+                          <h2>Obra cadastrada com sucesso</h2>
+
+
+            <?php   } ?>
 
 	 	    </div>
          <div class="formulario" style="width:43%;">

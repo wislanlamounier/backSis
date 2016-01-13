@@ -48,7 +48,7 @@
     }
     function fecha_error(){
     	document.getElementById("back-popup").style.display = "none";
-        document.getElementById("popup-erro").style.marginLeft = "-700px";
+        document.getElementById("popup-erro").style.marginLeft = "-800px";
     }
  </script>
 
@@ -88,7 +88,7 @@
 </div>
 <div class="back-popup" id="back-popup" style="position:absolute; z-index: 1">
 </div>
-<div id="popup-erro" class="popup-erro" style=" position: fixed; margin-top:100px; margin-left: -700px; width:500px; z-index: 5">
+<div id="popup-erro" class="popup-erro" style=" position: fixed; margin-top:100px; margin-left: -800px; width:500px; z-index: 5">
 	<?php include_once("reportError.php"); ?>
 </div>
 

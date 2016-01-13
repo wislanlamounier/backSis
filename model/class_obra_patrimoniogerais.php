@@ -1,26 +1,23 @@
 <?php 
-include_once("class_funcionario_bd.php");
-
-class Obra_funcionario{
+	
+class Obra_patrimoniogerais{
 	public $id;
 	public $id_obra;
-	public $id_funcionario;
+	public $id_patrimonioGeral;
 
-	public function add_funcionarios_obra($id_obra){
-		$list = array();
-		foreach ($_SESSION['obra']['funcionario'] as $key => $value) {
-			$obra_funcionario = new Obra_funcionario();
-			$obra_funcionario->id_obra = $id_obra;
-			$obra_funcionario->id_funcionario = $value;
-			$list[] = $obra_funcionario;
+	public function add_patrimoniogeral($id_obra, $id_patrimonio){
+		
+		$obra_patrimoniogerais = new Obra_patrimoniogerais();
+		$obra_patrimoniogerais->id_obra = $id_obra;
+		$obra_patrimoniogerais->id_patrimonioGeral = $id_patrimonio;
+		
+		return $obra_patrimoniogerais;
 
-		}
-		return $list;
 	}
 
-	public function add_funcionarios_bd(){
-
-		$query = "INSERT INTO obra_funcionarios ";
+	public function add_patrimoniogeral_bd(){
+		
+		$query = "INSERT INTO obra_patrimoniogerais ";
  		$campos = '(';
  		foreach ($this as $key => $value) {
  			if(!empty($value))
@@ -47,9 +44,8 @@ class Obra_funcionario{
  			return true;
 
  		return false;
-
 	}
 
 }
 
-?>
+ ?>

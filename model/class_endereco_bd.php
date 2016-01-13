@@ -64,7 +64,7 @@ class Endereco{
 		$this->id_cidade = $id_cidade;
 		$this->bairro = $bairro;
 		$this->cep = $cep;
-                $this->complemento = $complemento;
+        $this->complemento = $complemento;
 	}
 
 	public function add_endereco_bd(){
@@ -93,7 +93,7 @@ class Endereco{
 		$g = new Glob();
 		$query = "UPDATE endereco SET rua='%s', numero='%s', id_cidade='%s', bairro = '%s', cep = '%s', complemento = '%s' WHERE id='%s' ";
 
-		if($g->tratar_query($query, $rua, $numero, $id_cidade,$bairro, $cep, $complemento,$id_endereco )){
+		if($g->tratar_query($query, $rua, $numero, $id_cidade,$bairro, $cep, $complemento, $id_endereco )){
 			return true;
 		}else{
 			return false;

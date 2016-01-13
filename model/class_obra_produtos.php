@@ -10,7 +10,7 @@ class Obra_produtos{
 	public $data_fim_previsto;
 	public $data_fim_realizado;
 
-	function add_obra_produtos($id_obra){
+	public function add_obra_produtos($id_obra){
 		$lista = array();
 		foreach ($_SESSION['obra']['produto'] as $key => $value) {
 			//o value possui id:quantidade concatenados
@@ -22,6 +22,35 @@ class Obra_produtos{
 			$lista[] = $obra_produtos;
 		}
 		return $lista;
+	}
+	public function add_obra_produtos_bd(){
+		$query = "INSERT INTO obra_produtos ";
+ 		$campos = '(';
+ 		foreach ($this as $key => $value) {
+ 			if(!empty($value))
+ 				$campos .= "$key, ";
+ 		}
+ 		$campos = substr($campos, 0 ,-2);
+ 		$campos .= ')';
+		$valores = ' VALUES (';
+ 		
+ 		foreach ($this as $key => $value) {
+ 			$replace = array("'",'*','==', '<', '>', '||','/','\\');
+ 			$value = str_replace($replace, '', $value);
+ 			if(!empty($value)){
+ 				$valores .= "'$value', ";
+ 			}
+ 		}
+ 		$valores = substr($valores, 0 ,-2);
+ 		$valores .= ') ';
+		
+		$sql = new Sql();
+		$sql->conn_bd();
+		
+ 		if(mysql_query($query.$campos.$valores) or print (mysql_error()))
+ 			return true;
+
+ 		return false;
 	}
 
 }
