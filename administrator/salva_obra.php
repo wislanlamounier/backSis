@@ -41,5 +41,5 @@ include_once("../model/class_obra_funcionarios.php");
 
      // unset($_SESSION['obra']);
 
-     echo "<script>window.location='add_obra?t=sucess';</script>";
+     // echo "<script>window.location='add_obra?t=sucess';</script>";
  	

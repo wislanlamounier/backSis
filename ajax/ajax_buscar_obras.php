@@ -47,10 +47,10 @@ include_once("../global.php");
 		    		echo '<tr class="tr-1">';
 		    	else
 		    		echo '<tr class="tr-2">';
-	            echo "<td><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' style='width:100%'>{$obra->id}</a></td><td><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' 
-	                  style='width:100%'>{$obra->nome}</a></td><td><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' style='width:100%' title='$obra->descricao'>";
-	            echo  substr($obra->descricao,0,70); (strlen($obra->descricao) > 70) ? print '...' : ''; echo "</a></td>";
-	            echo "<td><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' style='width:100%'>".Obra::getStatus($obra->status)."</a></td>";
+	            echo "<td><span><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' style='width:100%'>{$obra->id}</a></span></td><td><span><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' 
+	                  style='width:100%'>{$obra->nome}</a></span></td><td><span><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' style='width:100%' title='$obra->descricao'>";
+	            echo  substr($obra->descricao,0,70); (strlen($obra->descricao) > 70) ? print '...' : ''; echo "</a></span></td>";
+	            echo "<td><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' style='width:100%'><span>".Obra::getStatus($obra->status)."</span></a></td>";
 	            echo '</tr>';
 		     // echo "<option>teste</option>";
 	            $contTab++;
