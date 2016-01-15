@@ -117,7 +117,34 @@ function validate(){
         
 
     }
-    
+     // mascaras
+          function mascara(o,f){
+              v_obj=o
+              v_fun=f
+              setTimeout("execmascara()",1) 
+          }
+          function execmascara(){
+              v_obj.value=v_fun(v_obj.value)
+          }
+          function date(v){
+               if(v.length >=10){      
+                 v = v.substring(0,(v.length - 1));
+                 return v;
+               }
+               v=v.replace(/\D/g,""); 
+               v=v.replace(/^(\d{2})(\d{2})(\d{4})/,"$3-$2-$1");  
+               return v;
+           }
+           
+           function id( el ){
+             return document.getElementById( el );
+           }
+           function exeMasc(){ 
+              id('data_inicio_previsto').onkeypress = function(){ 
+                  mascara( this, date );
+              }
+           }
+          // fim mascaras
     function submeter(){
       qtd = document.getElementById('etapas').value;
       window.location = 'add_obra.php?t=a_cr_o&etapas=' + qtd;
@@ -130,7 +157,7 @@ function validate(){
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap" async defer></script>
 
-<body onload="initMap()">	
+<body onload="initMap(),exeMasc()">	
 			<?php include_once("../view/topo.php"); ?>
 
 
