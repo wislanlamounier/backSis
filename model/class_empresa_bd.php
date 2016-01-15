@@ -196,6 +196,21 @@ class Empresa{
        }
     }
 
+    public function get_nome_by_id($id){
+        $sql = new Sql();
+        $sql->conn_bd();
+        $g = new Glob();
+        
+        $query = $g->tratar_query("SELECT nome_fantasia FROM empresa WHERE oculto = 0 && id = '%s'", $id);
+
+        if(@mysql_num_rows($query) == 0){
+            return false;
+       }else{
+          $row = mysql_fetch_array($query, MYSQL_ASSOC);
+          return $row['nome_fantasia'];
+       }
+    }
+
     public function ocultar(){
         $sql = new Sql();
         $sql->conn_bd();

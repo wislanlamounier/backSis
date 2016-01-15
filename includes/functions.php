@@ -2145,6 +2145,11 @@ Class Functions{
 		function getScriptObra(){
 		?>
 			<script type="text/javascript">
+
+
+
+
+
 					function ajusta(id, tipo){
 
 						if(tipo == '+'){//aumenta
@@ -3438,13 +3443,13 @@ Class Functions{
 			<script type="text/javascript">
 					
 
-				  	function buscarClientes(tipo, valor){
+				  	function buscarClientes(tipo, valor, acao){
 				  			
 				            var nome = document.getElementById("nome").value;
 				            if(tipo == 1)
 				            	nome = valor;
 				            
-				            var url = '../ajax/ajax_buscar_obras.php?nome='+nome+'&tipo='+tipo; 
+				            var url = '../ajax/ajax_buscar_obras.php?nome='+nome+'&tipo='+tipo+'&acao='+acao; 
 				            
 				            $.get(url, function(dataReturn) {
 				            	

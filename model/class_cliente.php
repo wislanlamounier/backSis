@@ -77,7 +77,7 @@ class Cliente {
 		while($result =  mysql_fetch_array($query_tra)){
 			$return[$aux][0] = $result['id'];
 			$return[$aux][1] = $result['nome_razao_soc'];
-                        $return[$aux][2] = $result['tipo'];
+            $return[$aux][2] = $result['tipo'];
 
 			$aux++;
 		}
@@ -112,7 +112,7 @@ class Cliente {
 			return $return;
 		}
 	}
-	public function get_cliandjur_id($id,$id_empresa){
+	public function get_cliandjur_id($id, $id_empresa){
 		 $sql = new Sql();
 		 $sql->conn_bd();
 		 $g = new Glob();
@@ -351,41 +351,54 @@ class Cliente {
 		 return $return;
 	}
     
-    public function get_cli_by_id($id){
-		 $sql = new Sql();
-		 $sql->conn_bd();
-		 $g = new Glob();
+ //    public function get_cli_by_id($id){
+	// 	 $sql = new Sql();
+	// 	 $sql->conn_bd();
+	// 	 $g = new Glob();
 
-		 $query = "SELECT * FROM clientes where id = '%s' && fornecedor = 1 && id_empresa = ".$_SESSION['id_empresa']."" ;
-		 $result = $g->tratar_query($query, $id);
+	// 	 $query = "SELECT * FROM clientes where id = '%s' && fornecedor = 1 && id_empresa = ".$_SESSION['id_empresa']."" ;
+	// 	 $result = $g->tratar_query($query, $id);
 		 
-		 if(@mysql_num_rows($result) == 0){
+	// 	 if(@mysql_num_rows($result) == 0){
      
-            return false;            
-	     }else{
+ //            return false;            
+	//      }else{
 
-	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$this->id = $row['id'];
-	     	$this->nome_fornecedor = $row['nome_razao_soc'];	     	
-	     	return $this;
-	     }
+	//      	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	//      	$this->id = $row['id'];
+	//      	$this->nome_fornecedor = $row['nome_razao_soc'];	     	
+	//      	return $this;
+	//      }
 
-	}    
-        
-    public function get_all_cli_by_id($id){
-		 $sql = new Sql();
-		 $sql->conn_bd();
-		 $g = new Glob();
+	// }    
+        public function get_name_by_id($id){
+        	$sql = new Sql();
+			$sql->conn_bd();
+			$g = new Glob();
+			$query = "SELECT nome_razao_soc FROM clientes where id = '%s' && id_empresa = ".$_SESSION['id_empresa'] ;
+			$result = $g->tratar_query($query, $id);
+			if(@mysql_num_rows($result) == 0){
+			      return false;            
+			}else{
+				$row = mysql_fetch_array($result, MYSQL_ASSOC);				
+				return $row['nome_razao_soc'];	     	
+			}
 
-		 $query = "SELECT * FROM clientes where id = '$id'" ;		
-		 $result = mysql_query($query);
+        }
+ //    public function get_all_cli_by_id($id){
+	// 	 $sql = new Sql();
+	// 	 $sql->conn_bd();
+	// 	 $g = new Glob();
+
+	// 	 $query = "SELECT * FROM clientes where id = '$id'" ;		
+	// 	 $result = mysql_query($query);
 		
                  
-                 while ($row = mysql_fetch_row($result)) {                     
-                     return $row;
-                }
+ //                 while ($row = mysql_fetch_row($result)) {                     
+ //                     return $row;
+ //                }
 
-	}
+	// }
 
 	public function printCli_Jur(){	
 	 	

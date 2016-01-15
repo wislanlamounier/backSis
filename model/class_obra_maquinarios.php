@@ -50,6 +50,26 @@ class Obra_maquinarios{
 
 	}
 
+	public function get_maquinarios_obra($id_obra){
+		$sql = new Sql();
+		$sql->conn_bd();
+
+		$query = "SELECT * FROM obra_maquinarios WHERE id_obra = $id_obra";
+
+		$result = mysql_query($query);
+		$return = array();
+		$aux = 0;
+		
+		while($row = mysql_fetch_array($result)){
+			//tipo:id:quantidade
+			$return[$aux] = '1:'.$row['id_maquinario'].':1';
+			$aux++;
+		}
+
+		return $return;
+
+	}
+
 }
 
  ?>

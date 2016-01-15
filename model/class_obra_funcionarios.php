@@ -49,6 +49,25 @@ class Obra_funcionario{
  		return false;
 
 	}
+	public function get_funcionarios_obra($id_obra){
+		$sql = new Sql();
+		$sql->conn_bd();
+
+		$query = "SELECT * FROM obra_funcionarios WHERE id_obra = $id_obra";
+
+		$result = mysql_query($query);
+		$return = array();
+		$aux = 0;
+		
+		while($row = mysql_fetch_array($result)){
+			//tipo:id:quantidade
+			$return[$aux] = $row['id_funcionario'];
+			$aux++;
+		}
+
+		return $return;
+
+	}
 
 }
 

@@ -20,7 +20,7 @@ class Obra_patrimonios{
 			$tipo_id_qtd = explode(':', $_SESSION['obra']['patrimonio'][$aux]);
 			if($tipo_id_qtd[0] == 0){
 				// $listPatrimonioGeral[] = Obra_patrimoniogerais::add_patrimoniogeral($id_obra, $tipo_id_qtd[1]);
-               	$patrimonioGeral = Obra_patrimoniogerais::add_patrimoniogeral($id_obra, $tipo_id_qtd[1]);
+               	$patrimonioGeral = Obra_patrimoniogerais::add_patrimoniogeral($id_obra, $tipo_id_qtd[1], $tipo_id_qtd[2]);
                	echo '<br />patrimonioGeral: '.$patrimonioGeral->add_patrimoniogeral_bd();
                //patrimonio geral
             }else if($tipo_id_qtd[0] == 1){
@@ -41,6 +41,18 @@ class Obra_patrimonios{
 		(count($listVeiculos) > 0) ? $lista[] = $listVeiculos : null;
 		
 		return $lista;
+	}
+
+	public function get_patrimonios($id_obra){
+		
+		$maquinarios = Obra_maquinarios::get_maquinarios_obra($id_obra);
+		$patrimonioGeral = Obra_patrimoniogerais::get_patrimoniosGerais($id_obra);
+		$veiculos = Obra_veiculos::get_veiculos($id_obra);
+		$return = array();
+		$return = array_merge($maquinarios, $patrimonioGeral, $veiculos);
+
+		return $return;
+
 	}
 	
 }

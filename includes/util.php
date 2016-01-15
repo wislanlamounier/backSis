@@ -24,4 +24,14 @@ function montaCabecalho($data_ini, $dias){
       }
 
   }
+function transformaLabel($text){
+  
+  $text = str_replace('_', ' ', $text);
+  $text = str_replace('-', ' ', $text);
+  $text = str_replace('id ', '', $text);
+  $text = str_replace('ID ', '', $text);
+
+  return ucfirst(strtolower($text));
+}
+
  ?>

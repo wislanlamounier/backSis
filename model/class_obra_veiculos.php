@@ -47,6 +47,27 @@ class Obra_veiculos{
 
  		return false;
 	}
+
+	public function get_veiculos($id_obra){
+		$sql = new Sql();
+		$sql->conn_bd();
+
+		$query = "SELECT * FROM obra_veiculos WHERE id_obra = $id_obra";
+
+		$result = mysql_query($query);
+		$return = array();
+		$aux = 0;
+		
+		while($row = mysql_fetch_array($result)){
+			//tipo:id:quantidade
+			$return[$aux] = '2:'.$row['id_veiculo'].':1';
+			$aux++;
+		}
+
+		return $return;
+
+	}
+
 }
 
  ?>

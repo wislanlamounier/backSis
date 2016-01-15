@@ -13,6 +13,7 @@ include_once("../global.php");
 
 	$nome = $_GET['nome'];  //codigo do estado passado por parametro
 	$tipo = $_GET['tipo'];
+	$acao = $_GET['acao'];
 
 	if($tipo == 0)
 		$query = "SELECT * FROM obras WHERE nome LIKE '%%%s%%' && id_empresa = '%s' && oculto = 0";
@@ -47,10 +48,18 @@ include_once("../global.php");
 		    		echo '<tr class="tr-1">';
 		    	else
 		    		echo '<tr class="tr-2">';
-	            echo "<td><span><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' style='width:100%'>{$obra->id}</a></span></td><td><span><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' 
-	                  style='width:100%'>{$obra->nome}</a></span></td><td><span><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' style='width:100%' title='$obra->descricao'>";
-	            echo  substr($obra->descricao,0,70); (strlen($obra->descricao) > 70) ? print '...' : ''; echo "</a></span></td>";
-	            echo "<td><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' style='width:100%'><span>".Obra::getStatus($obra->status)."</span></a></td>";
+
+		    	if($acao == 'edita'){
+		    		echo "<td><span><a href='edita_obra?t=a_c_o&id=".$obra->id."' value='{$obra->id}' style='width:100%'>{$obra->id}</a></span></td><td><span><a href='edita_obra?t=a_c_o&id=".$obra->id."' value='{$obra->id}' 
+					      style='width:100%'>{$obra->nome}</a></span></td><td><span><a href='edita_obra?t=a_c_o&id=".$obra->id."' value='{$obra->id}' style='width:100%' title='$obra->descricao'>";
+					echo  substr($obra->descricao,0,70); (strlen($obra->descricao) > 70) ? print '...' : ''; echo "</a></span></td>";
+					echo "<td><a href='edita_obra?t=a_c_o&id=".$obra->id."' value='{$obra->id}' style='width:100%'><span>".Obra::getStatus($obra->status)."</span></a></td>";
+			    }else{
+			        echo "<td><span><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' style='width:100%'>{$obra->id}</a></span></td><td><span><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' 
+			              style='width:100%'>{$obra->nome}</a></span></td><td><span><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' style='width:100%' title='$obra->descricao'>";
+			        echo  substr($obra->descricao,0,70); (strlen($obra->descricao) > 70) ? print '...' : ''; echo "</a></span></td>";
+			        echo "<td><a href='visualizar_obras?id=".$obra->id."' value='{$obra->id}' style='width:100%'><span>".Obra::getStatus($obra->status)."</span></a></td>";
+	            }
 	            echo '</tr>';
 		     // echo "<option>teste</option>";
 	            $contTab++;

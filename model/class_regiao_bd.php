@@ -28,7 +28,7 @@ class Regiao{
 		$g = new Glob();
                
                         
-		$query = "INSERT INTO regiao_trabalho(codigo, nome, id_estado, id_cidade, bairro_zona, descricao, id_empresa) VALUES ('%s','%s','%s','%s','%s','%s','%s')";
+		$query = "INSERT INTO regiao_trabalho (codigo, nome, id_estado, id_cidade, bairro_zona, descricao, id_empresa) VALUES ('%s','%s','%s','%s','%s','%s','%s')";
                
                 if($g->tratar_query($query, $this->codigo , $this->nome, $this->id_estado, $this->id_cidade, $this->bairro_zona, $this->descricao, $this->id_empresa)){
                    return true; 

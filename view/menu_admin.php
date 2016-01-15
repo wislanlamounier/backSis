@@ -46,6 +46,7 @@
         <a style=""><span style="float:left">Obras </span><img style="float:left; margin-left:2px; margin-top:-2px;" src="../images/downarrow_1246.png" width="15px;"></a>
          <ul class="sub-menu">
           <li><a href="/viacampos/administrator/add_obra?t=a_c_o">Nova</a></li>
+          <li><a href="/viacampos/administrator/visualizar_obras?action=edita">Editar</a></li>
           <li><a href="/viacampos/administrator/visualizar_obras">Exibir</a></li>
         </ul>
       </li>

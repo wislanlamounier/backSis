@@ -53,5 +53,24 @@ class Obra_produtos{
  		return false;
 	}
 
+	public function get_produtos_obra($id_obra){
+		$sql = new Sql();
+		$sql->conn_bd();
+
+		$query = "SELECT * FROM obra_produtos WHERE id_obra = $id_obra";
+
+		$result = mysql_query($query);
+		$return = array();
+		$aux = 0;
+
+		while($row = mysql_fetch_array($result)){
+			$return[$aux] = $row['id_produto'].':'.$row['quantidade_produto'];
+			$aux++;
+		}
+
+		return $return;
+
+	}
+
 }
 ?>

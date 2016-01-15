@@ -4,12 +4,14 @@ class Obra_patrimoniogerais{
 	public $id;
 	public $id_obra;
 	public $id_patrimonioGeral;
+	public $quantidade;
 
-	public function add_patrimoniogeral($id_obra, $id_patrimonio){
+	public function add_patrimoniogeral($id_obra, $id_patrimonio, $quantidade){
 		
 		$obra_patrimoniogerais = new Obra_patrimoniogerais();
 		$obra_patrimoniogerais->id_obra = $id_obra;
 		$obra_patrimoniogerais->id_patrimonioGeral = $id_patrimonio;
+		$obra_patrimoniogerais->quantidade = $quantidade;
 		
 		return $obra_patrimoniogerais;
 
@@ -44,6 +46,26 @@ class Obra_patrimoniogerais{
  			return true;
 
  		return false;
+	}
+
+	public function get_patrimoniosGerais($id_obra){
+		$sql = new Sql();
+		$sql->conn_bd();
+
+		$query = "SELECT * FROM obra_patrimoniogerais WHERE id_obra = $id_obra";
+
+		$result = mysql_query($query);
+		$return = array();
+		$aux = 0;
+		
+		while($row = mysql_fetch_array($result)){
+			//tipo:id:quantidade
+			$return[$aux] = '0:'.$row['id_patrimonioGeral'].':'.$row['quantidade'];
+			$aux++;
+		}
+
+		return $return;
+
 	}
 
 }

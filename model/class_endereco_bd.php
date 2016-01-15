@@ -43,19 +43,28 @@ class Endereco{
 	     	$endereco[0][1] = $row['numero'];
 	     	$endereco[0][4] = $row['bairro'];
 	     	$endereco[0][5] = $row['cep'];
-                $endereco[0][6] = $row['complemento'];
-
-	     	$query = 'SELECT * FROM cidade WHERE id = '.$row['id_cidade'];
-	     	$result = mysql_query($query);
-	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	     	$endereco[0][2] = $row['id']; //id cidade
-	     	
-	     	$query = 'SELECT * FROM estado WHERE id = '.$row['estado'];
-	     	$result = mysql_query($query);
-	     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-			$endereco[0][3] = $row['id'];// id estado
+            $endereco[0][6] = $row['complemento'];
+            if(!empty($row['id_cidade'])){
+		     	$query = 'SELECT * FROM cidade WHERE id = '.$row['id_cidade'];
+		     	$result = mysql_query($query);
+		     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+		     	$endereco[0][2] = $row['id']; //id cidade
+		    }
+	     	if(!empty($row['estado'])){
+		     	$query = 'SELECT * FROM estado WHERE id = '.$row['estado'];
+		     	$result = mysql_query($query);
+		     	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+				$endereco[0][3] = $row['id'];// id estado
+			}
 	     	return $endereco;
 	     }
+	}
+	public function get_endereco_formatado($id){
+		$end = new Endereco();
+		$endereco = $end->get_endereco($id);
+
+		return "Rua: {$endereco[0][0]}, {$endereco[0][1]}";
+
 	}
 
 	public function add_endereco($rua, $numero, $id_cidade, $bairro, $cep, $complemento){
@@ -123,7 +132,7 @@ class Endereco{
 	     	$this->cep = $row['cep'];
 	     	$this->bairro = $row['bairro'];
 	     	$this->id_cidade = $row['id_cidade'];
-                $this->complemento = $row['complemento'];
+            $this->complemento = $row['complemento'];
 
 	     	return $this;
 	     }

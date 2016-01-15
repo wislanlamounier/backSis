@@ -11,7 +11,6 @@ include_once("../model/class_obra_funcionarios.php");
      $id_obra = $obra_dados->add_dados_obra_bd();
      if($id_obra) echo 'Sucesso<br />';
      //adiciona obra no banco e pega id_obra
-     $id_obra = 2;
      echo '<hr>';
      echo '<br />';
      echo 'Produtos Obra: ';

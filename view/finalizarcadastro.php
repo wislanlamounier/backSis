@@ -17,7 +17,7 @@ include_once("../model/class_empresa_bd.php");
             document.getElementById("back-popup").style.display = "none";
         	document.getElementById("popup-erro").style.marginLeft = "-600px";
         });
-
+    }
  </script>
  <!-- Código para verificação se a empresa ja foi totalmente cadastrada -->
             <?php 

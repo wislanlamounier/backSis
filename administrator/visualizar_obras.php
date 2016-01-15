@@ -15,6 +15,7 @@ include_once("../includes/functions.php");
 include_once("../includes/util.php");
 include_once("../model/class_regiao_bd.php");
 include_once("../model/class_obra.php");
+include_once("../model/class_cliente.php");
 ?>
 
 <html>
@@ -33,9 +34,9 @@ include_once("../model/class_obra.php");
             <form>
                  <div class="form-input">
                      <div class="form-input">
-                         <span><b>Nome: </b></span><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:50%"> <input type="button" value="Buscar" onclick="buscarClientes('0',this.value)">
+                         <span><b>Nome: </b></span><input type="text" placeholder="Digite para pesquisar..." id="nome" style="width:50%"> <input type="button" value="Buscar" onclick="buscarClientes('0',this.value,'<?php echo (isset($_GET['action'])) ?  $_GET['action'] : ''  ?>' )">
                          <span><b>Agrupar por: </b></span>
-                         <select style="width:100px" onchange="buscarClientes('1',this.value)">
+                         <select style="width:100px" onchange="buscarClientes('1',this.value, '<?php echo (isset($_GET['action'])) ?  $_GET['action'] : '' ?>')">
                             <option value="100">Selecione</option>
                             <option value="0">Orçamento</option>
                             <option value="1">Aprovadas</option>
@@ -89,10 +90,58 @@ include_once("../model/class_obra.php");
                         $patrimoniosGerais_obra = 1;
                         $veiculos_obra = 1;
                         $maquinarios_obra = 1;
-
+                        echo '<table class="table_geral" style="text-align:left" border="0">';
+                        $contColl = 0;
+                        $tableZebrada = 0;
                         foreach ($dados_obra as $key => $value) {
-                            echo "$key : $value<br />";
+                            if($contColl == 0){ 
+                                    if($tableZebrada%2 == 0)
+                                        echo '<tr class="tr-1">';
+                                    else
+                                        echo '<tr class="tr-2">';
+                                    $tableZebrada++;
+                            }
+
+                            if($key == 'id_responsavel_obra'){
+                                $nome_idTurno = Funcionario::get_nome_by_id($value);
+                                echo '<td><b>'.transformaLabel($key).":</b> {$nome_idTurno[0]}</td>";
+                                $contColl++;
+                            }else if($key == 'id_cliente'){
+                                $nome = Cliente::get_name_by_id($value);
+                                echo '<td><b>'.transformaLabel($key).":</b> $nome</td>";
+                                $contColl++;
+                            }else if($key == 'data_inicio_previsto'){
+                                $data = data_padrao_brasileiro($value);
+                                echo '<td><b>'.transformaLabel($key).":</b> $data</td>";
+                                $contColl++;
+                            }else if($key == 'id_regiao_trabalho'){
+                                $nome = Regiao::get_name_regiao_by_id($value);
+                                echo '<td><b>'.transformaLabel($key).":</b> $nome</td>";
+                                $contColl++;
+                            }else if($key == 'descricao'){
+                                echo '<td title="'.$value.'"><b>'.transformaLabel($key).":</b> "; echo  substr($value,0,40); (strlen($value) > 40) ? print '...' : ''; echo "</td>";
+                                $contColl++;
+                            }else if($key == 'status'){
+                                $status = Obra::getStatus($value);
+                                echo '<td><b>'.transformaLabel($key).":</b> $status</td>";
+                                $contColl++;
+                            }else if($key == 'id_empresa'){
+                                $nome = Empresa::get_nome_by_id($value);
+                                echo '<td><b>'.transformaLabel($key).":</b> $nome</td>";
+                                $contColl++;
+                            }else if($key == 'id_endereco'){
+                                $endereco = Endereco::get_endereco_formatado($value);
+                                echo '<td><b>'.transformaLabel($key).":</b> $endereco</td>";
+                                $contColl++;
+                            }else{
+                                echo '<td><b>'.transformaLabel($key).":</b> $value </td>";
+                                $contColl++;
+                            }
+
+                            if($contColl == 2){ echo '</tr>'; $contColl = 0; }
+                            
                         }
+                        echo '</table>';
                     }
                         
                  ?>
