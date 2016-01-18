@@ -338,7 +338,7 @@ h2{
         
 	margin-bottom: 20px;
 	width: 500px;
-    min-width:650px;
+    /*min-width:650px;*/
 	text-align: center;
 	background-color: rgba(240, 245, 230, 0.5);	
 }
