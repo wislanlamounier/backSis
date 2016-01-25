@@ -35,22 +35,22 @@ function validate(){
 
 <script type="text/javascript">
     function expandir_ocultar(id){
-      var id_box = 'id-'+id;
-      var campodateini = 'dateini-'+id;
-      var campodatefim = 'datefim-'+id;
-      var select = 'etapa-'+id;
+        var id_box = 'id-'+id;
+        var campodateini = 'dateini-'+id;
+        var campodatefim = 'datefim-'+id;
+        var select = 'etapa-'+id;
 
-      if(document.getElementById(id_box).style.display == 'none'){
-        document.getElementById(id_box).style.display = '';
-        document.getElementById(campodateini).disabled = true;
-        document.getElementById(campodatefim).disabled = true;
-        document.getElementById(select).disabled = true;
-      }else{
-        document.getElementById(id_box).style.display = 'none';
-        document.getElementById(campodateini).disabled = false;
-        document.getElementById(campodatefim).disabled = false;
-        document.getElementById(select).disabled = false;
-      }
+        if(document.getElementById(id_box).style.display == 'none'){
+          document.getElementById(id_box).style.display = '';
+          document.getElementById(campodateini).disabled = true;
+          document.getElementById(campodatefim).disabled = true;
+          document.getElementById(select).disabled = true;
+        }else{
+          document.getElementById(id_box).style.display = 'none';
+          document.getElementById(campodateini).disabled = false;
+          document.getElementById(campodatefim).disabled = false;
+          document.getElementById(select).disabled = false;
+        }
     }
     function preencheCronograma(id_produto){
         var data_i = document.getElementById("dateini-"+id_produto).value;
@@ -118,33 +118,33 @@ function validate(){
 
     }
      // mascaras
-          function mascara(o,f){
-              v_obj=o
-              v_fun=f
-              setTimeout("execmascara()",1) 
-          }
-          function execmascara(){
-              v_obj.value=v_fun(v_obj.value)
-          }
-          function date(v){
-               if(v.length >=10){      
-                 v = v.substring(0,(v.length - 1));
-                 return v;
-               }
-               v=v.replace(/\D/g,""); 
-               v=v.replace(/^(\d{2})(\d{2})(\d{4})/,"$3-$2-$1");  
-               return v;
-           }
-           
-           function id( el ){
-             return document.getElementById( el );
-           }
-           function exeMasc(){ 
-              id('data_inicio_previsto').onkeypress = function(){ 
-                  mascara( this, date );
-              }
-           }
-          // fim mascaras
+     function mascara(o,f){
+         v_obj=o
+         v_fun=f
+         setTimeout("execmascara()",1) 
+     }
+     function execmascara(){
+         v_obj.value=v_fun(v_obj.value)
+     }
+     function date(v){
+         if(v.length >=10){      
+           v = v.substring(0,(v.length - 1));
+           return v;
+         }
+         v=v.replace(/\D/g,""); 
+         v=v.replace(/^(\d{2})(\d{2})(\d{4})/,"$3-$2-$1");  
+         return v;
+     }
+     
+     function id( el ){
+       return document.getElementById( el );
+     }
+     function exeMasc(){ 
+        id('data_inicio_previsto').onkeypress = function(){ 
+            mascara( this, date );
+        }
+     }
+     // fim mascaras
     function submeter(){
       qtd = document.getElementById('etapas').value;
       window.location = 'edita_obra.php?t=a_cr_o&etapas=' + qtd;
@@ -167,7 +167,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap" async defer></script>
 
-<body onload="initMap(),exeMasc()">	
+<body onload="initMap(), exeMasc()">	
 			<?php include_once("../view/topo.php"); ?>
 
 
@@ -257,7 +257,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
                        
             <?php }else if(isset($_GET['t']) && $_GET['t'] == 'a_d_o'){ //add dados da obra?>
                       <?php
-                        $_SESSION['obra']['situacao_cadastramento'] = 'a_d_o';
+                          $_SESSION['obra']['situacao_cadastramento'] = 'a_d_o';
                       ?>
                       <form  action="edita_obra" onsubmit="return validate(this)">
                                <input type="hidden" id="t" name="t" value="a_pr_o">
