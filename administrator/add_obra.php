@@ -585,7 +585,7 @@ function validate(){
 
                         // echo "<script>ajusta('form_obra','+');</script>";
                       ?>
-                        <form  action="salva_obra" onsubmit="return validate(this)">
+                        <form  action="salva_obra" onsubmit="return validate(this)" method="POST">
                                <input type="hidden" id="t" name="t" value="final">
                               <?php
                                   // $_SESSION['obra']['dados']['nome'] = $_GET['nome'];

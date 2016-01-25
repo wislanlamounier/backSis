@@ -19,7 +19,7 @@
       }else{
             ?>
 
-            <div clas="msg-descricao"><span style="color: #003300;"> <b>Sem informações</b></span><br><a href="http://localhost/viacampos/administrator/add_obra.php?t=a_c_o"><img style="width:25px;"src = "../images/add.png"></a></div>
+            <div clas="msg-descricao"><span style="color: #003300;"> <b>Sem informações</b></span><br><a href="http://localhost/viacampos/administrator/add_obra?t=a_c_o"><img style="width:25px;"src = "../images/add.png"></a></div>
             
             <?php 
       }
@@ -66,7 +66,7 @@
                       
                     $res = Funcionario::get_func_id($funcionario[$aux]);          
                     ?>          
-                            <div class="colum-funcionario"><input readonlytype="text" value="<?php  echo $res->nome; ?>"><a href="pesquisa_func.php?verificador=1&id=<?php echo $res->id ?>">Detalhes</a></div>
+                            <div class="colum-funcionario"><input readonlytype="text" value="<?php  echo $res->nome; ?>"><a href="pesquisa_func?verificador=1&id=<?php echo $res->id ?>">Detalhes</a></div>
                            
                       <?php } ?>
                     <?php } ?>  
@@ -82,13 +82,13 @@
                        $tipo_id_qtd = explode(':', $_SESSION['obra']['patrimonio'][$aux]);                                               
                                                  if($tipo_id_qtd[0] == 0){
                                                   $res = Patrimonio_geral::get_patrimonio_geral_id($tipo_id_qtd[1]);
-                                                  echo '<div class="colum-funcionario"><input style="font-weight:bold" readonly type="text" value="Geral" >  <input readonly type="text" value="'.$res->nome.'"><a id="patrimonio" href="pesquisa_patrimonio.php?verificador=1&id='.$res->id.'&controle=0">detalhes</a>  </div>';                                                  
+                                                  echo '<div class="colum-funcionario"><input style="font-weight:bold" readonly type="text" value="Geral" >  <input readonly type="text" value="'.$res->nome.'"><a id="patrimonio" href="pesquisa_patrimonio?verificador=1&id='.$res->id.'&controle=0">detalhes</a>  </div>';                                                  
                                                  }else if($tipo_id_qtd[0] == 1){
                                                   $res = Maquinario::get_maquinario_id($tipo_id_qtd[1]);
-                                                  echo '<div class="colum-funcionario"> <input style="font-weight:bold" readonly type="text" value="Maquinário" >  <input readonly type="text" value="'.$res->modelo.'"><a id="patrimonio" href="pesquisa_patrimonio.php?verificador=1&id='.$res->id.'&controle=1">detalhes</a>  </div>';
+                                                  echo '<div class="colum-funcionario"> <input style="font-weight:bold" readonly type="text" value="Maquinário" >  <input readonly type="text" value="'.$res->modelo.'"><a id="patrimonio" href="pesquisa_patrimonio?verificador=1&id='.$res->id.'&controle=1">detalhes</a>  </div>';
                                                  }else{
                                                   $res = Veiculo::get_veiculo_id($tipo_id_qtd[1]);
-                                                  echo '<div class="colum-funcionario"><input style="font-weight:bold" readonly type="text" value="Veículo">  <input readonly type="text" value="'.$res->modelo.'"><a id="patrimonio" href="pesquisa_patrimonio.php?verificador=1&id='.$res->id.'&controle=2">detalhes</a>  </div>';
+                                                  echo '<div class="colum-funcionario"><input style="font-weight:bold" readonly type="text" value="Veículo">  <input readonly type="text" value="'.$res->modelo.'"><a id="patrimonio" href="pesquisa_patrimonio?verificador=1&id='.$res->id.'&controle=2">detalhes</a>  </div>';
                                                  }
                                                }
         }      

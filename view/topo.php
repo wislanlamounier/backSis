@@ -53,7 +53,8 @@
  </script>
 
 <div class="topo" style="width:100%; float:left; min-width:600px;">
-        <?php echo '<input type="hidden" value='.$id_empresa = $_SESSION['id_empresa'].'>'?>
+        <?php $id_empresa = $_SESSION['id_empresa']; ?>
+        <?php echo '<input type="hidden" value='.$id_empresa.'>'?>
         <?php 
         require_once("../model/class_config.php");
         $config = new Config();        
@@ -72,7 +73,7 @@
 		<div style="float:left"><img src="../images/user.png" width="40px"></div>
 		<div class="nome-box-login" style=""><span style="">Usuário:<br /></span><?php echo $_SESSION["user"]; ?><br /><span style="">Empresa:<br /></span><?php echo $_SESSION['empresa']."<span> (".$nivel_acesso.")</span>" ?></div>
 		<div style="float:right;"><a title="Clique para sair" href="logout"><img src="../images/fechar.png" width="20px"></a></div>
-                <div style="clear:right;"><a title="Clique para editar a empresa" <?php echo 'href="add_empresa?tipo=editar&id='.$id_empresa.'"' ?>><img src="../images/edit2.png" width="20px"></a></div>
+                <div style="clear:right;"><a title="Clique para editar a empresa" <?php echo 'href="add_empresa?tipo=editar&id='.$id_empresa.'"'; ?> ><img src="../images/edit2.png" width="20px"></a></div>
 	</div>
     <?php include_once("finalizarcadastro.php");?>
 </div>

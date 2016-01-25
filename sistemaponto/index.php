@@ -26,7 +26,7 @@ function sanitizeString($string) {
 <html>
 
 <head>
-	<title>ControlPonto</title>
+	<title>SistemaPonto</title>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" language="javascript" src="../javascript/jquery-2.1.4.min.js"></script>
@@ -138,7 +138,7 @@ function sanitizeString($string) {
 		document.getElementById("pass").disabled = false;
 	}
 	function reload(){
-		location.href = "index.php";
+		location.href = "index";
 
 	}
 	function exibe_error(){
@@ -150,7 +150,7 @@ function sanitizeString($string) {
     function fecha_error(){
         document.getElementById("back-popup").style.display = "none";
         document.getElementById("popup").style.display = "none";
-        // window.location='index.php';
+        // window.location='index';
     }
     // inicio mascaras
     function mascara(o,f){

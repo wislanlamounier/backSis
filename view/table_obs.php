@@ -1,6 +1,6 @@
 <?php
 echo '<div class="observacao">';
-   echo "<form method='post' action='index.php' onsubmit='return validate(this)'>";
+   echo "<form method='post' action='index' onsubmit='return validate(this)'>";
    	echo '<input type="hidden" id="table_obs" name="table_obs" value="1">';
    	echo '<input type="hidden" id="id_func" name="id_func" value="'.$id_funcionario.'">';
       echo '<input type="hidden" id="hora" name="hora" value="'.$hora.'">';
@@ -18,7 +18,7 @@ echo '<div class="observacao">';
    		// echo '<textarea id="obs"></textarea><br />';
    	echo "</table><br />";
       echo '<input type="submit"  id="btn_entrar" style="width:100px; color:#232323; background-color:#5a5; font-size:18px; cursor: pointer; border: 1px solid#343434;" title="Clique para concluir" value="Concluir"><br />';
-      echo '<a href="index.php" style="text-decoration: none; font-size:12px; color:#565656" title="Clique para cancelar">Cancelar</a>';
+      echo '<a href="index" style="text-decoration: none; font-size:12px; color:#565656" title="Clique para cancelar">Cancelar</a>';
    echo "</form>";
 echo '</div>';
 // <input onclick="reload()" type="button" id="n_inf" name="n_inf" value="Não Informar">

@@ -122,10 +122,10 @@
                  echo '<tr><td colspan="4">'.date("d/m/Y").'</td></tr>';
                  echo '<tr><td colspan="4"><b>Atrasos</b></td></tr>';
                  echo '</table>';
-                 if(count($array) > 6){// exibe com scroll
-                    echo '<div  style="height: 165px; overflow-x: hidden; overflow-y: scroll;">';
+                 if(count($array) >= 3){// exibe com scroll
+                    echo '<div  style="height: 188px; overflow-x: hidden; overflow-y: ">';
                  }else{//exibe sem scroll
-                    echo '<div class="table-atrasos"  style="height: 165px;">';
+                    echo '<div class="table-atrasos"  style="height: 188px;">';
                  }
                  
                  echo '<table class="table-atrasos scroll" style="box-shadow:0px 0px 5px #ccc;">';

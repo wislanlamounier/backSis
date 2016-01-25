@@ -36,7 +36,12 @@ include_once("../model/class_obra_funcionarios.php");
      }
      // print_r($lista_funcionarios);
 
-     $obra_dados->printObraSession();
+     foreach ($_POST as $key => $value) {
+          echo "$key: $value 
+          ";
+     }
+
+     // $obra_dados->printObraSession();
 
      // unset($_SESSION['obra']);
 

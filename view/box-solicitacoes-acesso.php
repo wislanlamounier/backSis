@@ -27,7 +27,7 @@
                       }else{
                           echo '<tr style="background-color:#dedede">';
                       }
-                         echo '<td class="rows-content"><a title="'.$title.'" href="permitir_acesso.php?id_sol_acesso='.$array[$aux][0].'"><b>'.$array[$aux][2].'</b></a></td><td class="rows-content"><a title="'.$title.'" href="permitir_acesso.php?id_sol_acesso='.$array[$aux][0].'"><b>'.$array[$aux][5].'</b></a></td><td class="rows-content"><a title="'.$title.'" href="permitir_acesso.php?id_sol_acesso='.$array[$aux][0].'"><b>'.$array[$aux][3] .'</b></a></td><td><img title="Não justificado" width="20px;" src="../images/aviso.png"></td>';
+                         echo '<td class="rows-content"><a title="'.$title.'" href="permitir_acesso?id_sol_acesso='.$array[$aux][0].'"><b>'.$array[$aux][2].'</b></a></td><td class="rows-content"><a title="'.$title.'" href="permitir_acesso?id_sol_acesso='.$array[$aux][0].'"><b>'.$array[$aux][5].'</b></a></td><td class="rows-content"><a title="'.$title.'" href="permitir_acesso?id_sol_acesso='.$array[$aux][0].'"><b>'.$array[$aux][3] .'</b></a></td><td><img title="Não justificado" width="20px;" src="../images/aviso.png"></td>';
                        echo '</tr>';
                     }else{ // se existe observação do supervisor
                        if($aux%2 == 0){
