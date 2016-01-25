@@ -157,11 +157,11 @@ function validate(){
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPnNgPERfFRTJYYW4zt9lZ0njBseIdi1I&callback=initMap" async defer></script>
 
-<body onload="initMap(),exeMasc()">	
+<body onload="exeMasc()">	
 			<?php include_once("../view/topo.php"); ?>
 
 
-            <div style="margin-left: -800px; transition-duration: 0.8s; position: absolute; width:700px; height: 500px; z-index: 2; border: 1px solid#fff"id="map"></div>    
+            <div style="margin-left: -800px; transition-duration: 0.8s; position: absolute; width:700px; height: 500px; z-index: 2; border: 1px solid#fff" id="map"></div>    
   
 
             <div class="formulario" style="width:43%;" id="form_obra">
