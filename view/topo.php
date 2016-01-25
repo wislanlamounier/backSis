@@ -86,7 +86,7 @@
 	    </div>
 	</div>
 </div>
-<div class="back-popup" id="back-popup" style="position:absolute; z-index: 1">
+<div class="back-popup" id="back-popup" style="position:fixed; z-index: 1; margin-top:-10px; margin-left: -10px;">
 </div>
 <div id="popup-erro" class="popup-erro" style=" position: fixed; margin-top:100px; margin-left: -800px; width:500px; z-index: 5">
 	<?php include_once("reportError.php"); ?>

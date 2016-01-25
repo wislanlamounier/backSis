@@ -1,5 +1,4 @@
 <?php 
-
 $url = $_SERVER['PHP_SELF'];
 $exp = explode('/', $url);
 $link = explode('.', $exp[count($exp)-1]) ;
