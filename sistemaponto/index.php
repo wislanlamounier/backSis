@@ -1,12 +1,5 @@
 <?php
 session_start();
-include_once("../model/class_token.php");
-if(!isset($_SESSION['ac_lib_a_cp']) && $_SESSION['ac_lib_a_cp'] != true){
-	if(!Token::validar($_POST['ToSPo'], $_POST['MaSPo'])){
-		header('location:../view/erro.php');
-	}
-}
-Token::invalidar_token($_POST['ToSPo']); // invalida o token usado
 include_once("../model/class_funcionario_bd.php");
 include_once("../model/class_empresa_bd.php");
 include_once("../model/class_filial_bd.php");
@@ -17,7 +10,17 @@ include_once("../model/class_sql.php");
 include_once("../model/class_config.php");
 include_once("../global.php");
 
+function sanitizeString($string) {
 
+    // matriz de entrada
+    $what = array( 'ä','ã','à','á','â','ê','ë','è','é','ï','ì','í','ö','õ','ò','ó','ô','ü','ù','ú','û','À','Á','É','Í','Ó','Ú','ñ','Ñ','ç','Ç',' ','-','(',')',',',';',':','|','!','"','#','$','%','&','/','=','?','~','^','>','<','ª','º' );
+
+    // matriz de saída
+    $by   = array( 'a','a','a','a','a','e','e','e','e','i','i','i','o','o','o','o','o','u','u','u','u','A','A','E','I','O','U','n','n','c','C','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_' );
+
+    // devolver a string
+    return str_replace($what, $by, $string);
+}
 ?>
 
 <html>
@@ -55,18 +58,18 @@ include_once("../global.php");
     }
 	
 	function verificaHora(){
-		var texto;
-		var data = new Date();
-		var hora = data.getHours();
-		var minuto = data.getMinutes();
-		var segundo = data.getSeconds();
-		<?php date_default_timezone_set('America/Sao_Paulo'); ?>
-		var h = <?php echo date('H');?>;
-		var m = <?php echo date('i');?>;
-		var s = <?php echo date('s');?>;
-		if(h != hora || (minuto > m+1 || minuto < m-1) ){
-			alert("O horário deste computador está diferente do horario do servidor, por favor, atualize o horario para um melhor desempenho!\n Hora do servidor: "+h+":"+m);
-		}
+		// var texto;
+		// var data = new Date();
+		// var hora = data.getHours();
+		// var minuto = data.getMinutes();
+		// var segundo = data.getSeconds();
+		// <?php //date_default_timezone_set('America/Sao_Paulo'); ?>
+		// var h = <?php echo date('H');?>;
+		// var m = <?php echo date('i');?>;
+		// var s = <?php echo date('s');?>;
+		// if(h != hora || (minuto > m+10 || minuto < m-10) ){
+		// 	alert("O horário deste computador está diferente do horario do servidor, por favor, atualize o horario para um melhor desempenho!\n Hora do servidor: "+h+":"+m);
+		// }
 	}
 
 	function getHoraServdor(){
@@ -160,6 +163,9 @@ include_once("../global.php");
     }
 
     function mcpf(v){
+       if(v.length >= 11){  
+         document.getElementById('pass').focus();
+       }
        if(v.length >=15){  
          v = v.substring(0,(v.length - 1));
          return v;
@@ -169,20 +175,18 @@ include_once("../global.php");
        return v;
     }
     
-    // window.onload = function(){
-      
-    //   document.getElementById("cpf").onkeypress = function(){ 
-    //       mascara( this, mcpf );
-    //   }
-      
-    // }
-   // fim mascaras
-
-   function maskCPF(){
-   		document.getElementById("cpf").onkeypress = function(){ 
+    window.onload = function(){
+      document.getElementById("cpf").onkeypress = function(){ 
           mascara( this, mcpf );
-        }
+      }
+      
    }
+   function carMask(){
+	document.getElementById("cpf").onkeypress = function(){ 
+          mascara( this, mcpf );
+      }
+   }
+   // fim mascaras
 
 	function desabilita(){
 		
@@ -205,21 +209,61 @@ include_once("../global.php");
 <style type="text/css">
 	
 </style>
-<body onload="moveRelogio(), verificaHora(), maskCPF()">
+<body onload="moveRelogio(), verificaHora(), carMask()">
 	<?php 
 
-		// inicia a tabela de horarios esquecidos, a tabela de horarios esquecidos controla quem registrou ou não registrou o ponto eletronico,
-		// essa tabela mantem os registros sempre 10 dias a mais iniciando na data atual
-		// esse metodo verifica se existe um registro faltando nessa tabela e atualiza
-		Horarios::inicia_horarios_esquecidos();
+		$horarios_esquecidos = new Horarios();
+		//echo '<script> del(); limCamp();</script>';//limpando campos login e senha							
+		$date = strtotime('+30 days');
+		// echo "<script>alert('".date('d/m/Y', $date)."');</script>";
+		$data_30 = date('Y/m/d', $date);
+		$dias = explode('/', $data_30);
+		$funcionarios = new Funcionario();
+		$funcionarios = $funcionarios->get_all_id_func();
 		
+		$data = date('Y-m-d');
+
+		for($dia=0; $dia <= 10; $dia++){// conta 10 dias pra frente, e adiciona os registros na tabela
+			$date_mais_um = strtotime($data.'+'.$dia.' days');
+			
+			$data_atual = date('Y-m-d', $date_mais_um);
+
+			for($aux = 0 ; $aux < count($funcionarios) ; $aux++){
+				if( $horarios_esquecidos->not_exists($data_atual, $funcionarios[$aux][0])){
+					$horarios_esquecidos->cadHorariosEsquecidos($data_atual,  $funcionarios[$aux][0]);
+					$horarios_esquecidos->insertHorariosEsquecidosBd();
+					// echo "<script>alert('Não Existe,\\n****** ATENÇÃO ******\\nAVISAR CASO APAREÇA ESSA MENSAGEM!!!!');</script>";
+				}else{
+					// echo "<script>alert('existe: ".$data_atual."');</script>";
+				}
+			}
+			// echo "<script>alert('".$dia."');</script>";
+			
+		}
+		
+
+
 	 ?>
 
 	<div class="container">
 		
 		<div class="content">
 			<div class="logo">
-				<img src="../images/logo.png" width="400px">
+				<!-- <img src="../images/logo_laboran.png" width="400px"> -->
+				
+					<?php 
+			        require_once("../model/class_config.php");
+			        $config = new Config();        
+			        $logo = $config->get_config("caminho_logo", $_SESSION['id_empresa']);                       
+			        $dir_logo = '../images/'.$_SESSION['id_empresa'].'/'.$logo;
+			        ?> 
+			        <?php if($logo != "" && file_exists($dir_logo)){ ?> 
+			                <img width="400px" src=<?php echo '../images/'.$_SESSION['id_empresa'].'/'.$logo.'' ?>> 
+			        <?php  }else{ ?>
+			                <img width="400px" src=<?php echo '../images/logo-sgo.png' ?>> 
+			        <?php } ?>
+
+			    
 			</div>
 			<div class="date" style="margin-bottom: 5px">
 				<span><?php echo date("d/m/Y"); ?></span>
@@ -247,7 +291,7 @@ include_once("../global.php");
 						$data = $_POST['data'];
 						$tipo = $_POST['tipo'];
 						$id_funcionario = $_POST['id_func'];
-						$observacao = $_POST['observacao'];
+						$observacao = sanitizeString($_POST['observacao']);
 						$situacao_tempo = $_POST['situacao_tempo'];
 						$atrasado_ou_adiantado = $_POST['atrasado_ou_adiantado'];
 						$funcionario = new Funcionario();
@@ -382,7 +426,9 @@ include_once("../global.php");
 
 
 				<?php
+					$config = new Config();
 					
+					// $TEMP_LIMIT_ATRASO = $config->get_config("temp_limit_atraso", $funcAux->id_empresa);// tempo limite de atraso ou adiantamento aceito
 					// $INTERVALO_MIN = 10;// tempo minimo entre um registro e outro
 					
 					if(isset($_POST['cpf']) && isset($_POST['pass'])){
@@ -400,10 +446,9 @@ include_once("../global.php");
 						
 						if( $func->verifica_func($cpf, $pass) ) {  // verificando se senha e usuario correspondem
 							// echo "<script>alert('verificou');</script>";
+							
 							$funcAux = $func->get_func_cpf($cpf);
-							$config = new Config();
 							$TEMP_LIMIT_ATRASO = $config->get_config("temp_limit_atraso", $funcAux->id_empresa);// tempo limite de atraso ou adiantamento aceito
-							echo "<script>alert('$TEMP_LIMIT_ATRASO');</script>";
 							$id = $funcAux->id;
 							//verificar horarios
 							$turno = new Turno();//instanciando um novo turno
@@ -412,7 +457,7 @@ include_once("../global.php");
 							$horarios = new Horarios();
 							
 
-							date_default_timezone_set('America/Sao_Paulo');
+							//date_default_timezone_set('America/Sao_Paulo');
 							$hora = date("H:i:s");
 							$data = date("Y-m-d");
 							/* 
@@ -487,10 +532,10 @@ include_once("../global.php");
 									     		if(strtotime($turno->ini_exp) < strtotime($hora_login)){
 									     			$msg .= "<input type='radio' value='1' id='tipo' name='tipo' checked><span>Iniciando expediente</span>";
 									     		}
-									     		if(strtotime($turno->ini_alm) < strtotime($hora_login)){
+									     		if(strtotime($turno->ini_alm) < strtotime($hora_login) && $turno->sem_hor_almoco != 1){
 									     			$msg .= "<input type='radio' value='2' id='tipo' name='tipo'><span>Saindo para almoço</span>";
 									     		}
-									     		if(strtotime($turno->fim_alm) < strtotime($hora_login)){
+									     		if(strtotime($turno->fim_alm) < strtotime($hora_login) && $turno->sem_hor_almoco != 1){
 									     			$msg .= "<input type='radio' value='3' id='tipo' name='tipo'><span>Encerrando do almoço</span>";
 									     		}
 									     		if(strtotime($turno->fim_exp) < strtotime($hora_login)){
@@ -583,10 +628,10 @@ include_once("../global.php");
 									     		//msg é exibida no view/table_obs.php
 									     		$msg .= "Você está saindo para almoço $atraso atrasado</span><br />";
 									     		$msg .= "<span>Escolha uma das opções abaixo referente a sua ação atual<br /></span>";
-									     		if(strtotime($turno->ini_alm) < strtotime($hora_login)){
+									     		if(strtotime($turno->ini_alm) < strtotime($hora_login) && $turno->sem_hor_almoco != 1){
 										     		$msg .= "<input type='radio' value='2' id='tipo' name='tipo' checked><span>Saindo para almoço</span>";
 										     	}
-										     	if(strtotime($turno->fim_alm) < strtotime($hora_login)){
+										     	if(strtotime($turno->fim_alm) < strtotime($hora_login)  && $turno->sem_hor_almoco != 1){
 										     		$msg .= "<input type='radio' value='3' id='tipo' name='tipo'><span>Encerrando do almoço</span>";
 										     	}
 										     	if(strtotime($turno->fim_exp) < strtotime($hora_login)){
@@ -674,7 +719,7 @@ include_once("../global.php");
 									     		//msg é exibida no view/table_obs.php
 									     		$msg .= "Você está encerrando o almoço $atraso atrasado<br />";
 									     		$msg .= "<span>Escolha uma das opções abaixo referente a sua ação atual<br /></span>";
-									     		if(strtotime($turno->fim_alm) < strtotime($hora_login)){
+									     		if(strtotime($turno->fim_alm) < strtotime($hora_login)  && $turno->sem_hor_almoco != 1){
 										     		$msg .= "<input type='radio' value='3' id='tipo' name='tipo' checked><span>Encerrando do almoço</span>";
 										     	}
 										     	if(strtotime($turno->fim_exp) < strtotime($hora_login)){
@@ -729,7 +774,7 @@ include_once("../global.php");
 									$situacao_tempo = '';
 									$msg_supervisor = '';
 									   if($horarios->verifica_atraso($hora_turno, $hora_login)){// hora de entrada determinada para o funcionario for menor ou igual a hora que ele está entrando
-									  	echo "<script>alert('entrou aqui');</script>";
+									  	
 									     	$atraso = '';
 									     	if($horarios->get_hora_atraso($hora_turno, $hora_login) != null){
 									     		$atraso .= $horarios->get_hora_atraso($hora_turno, $hora_login)."h";
@@ -772,13 +817,13 @@ include_once("../global.php");
 
 									    }else if ( $horarios->verifica_antecedencia($hora_turno, $hora_login) ){ //caso adiantado
 									     	// caso não tenha hora ou minuto não exibe nada
-									     	echo "<script>alert('entrou aqui 2');</script>";
+									     	
 									     	$hora_ant = $horarios->get_hora_ant($hora_turno, $hora_login); // pega hora antecedencia
 									     	$min_ant = $horarios->get_minutos_ant($hora_turno, $hora_login); // pega minuto antecedencia
 
 									     	$hora_adi = '';
 									     	if($hora_ant){
-									     		$hora_adi .= $hora_ant .= "h";
+									     		$hora_adi .= $hora_ant."h";
 									     	}
 									     	if($min_ant){
 									     		$hora_adi .= $min_ant.'m';
@@ -827,9 +872,9 @@ include_once("../global.php");
 							$data = date("Y-m-d");
 							
 							if($atrasado || $adiantado){//caso atrasado ou adiantado
-
+								echo "<script>document.getElementById('btn_entrar').style.display = 'none'</script>"; // linha oculta o botão enviar
 								include_once("../view/table_obs.php");
-
+								echo "<script>document.getElementById('observacao').focus() = 'none'</script>"; // focus no campo observação
 							}else{// caso esteja no horario
 
 								$email_send = new Email();
@@ -972,6 +1017,7 @@ include_once("../global.php");
 					}
 				 ?>
 			</div>
+			<div style="text-align:center; color:#ababab"><span>Atenção! Para um melhor desempenho use o Navegador Google Chrome.</span></div>
 		</div>
 		<!-- <div class="back-popup" id="back-popup" style="position:absolute; z-index: 1">
 		</div>
