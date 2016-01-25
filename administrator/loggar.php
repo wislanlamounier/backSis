@@ -18,14 +18,15 @@ include_once("../global.php");
 
   $query = "SELECT * FROM funcionario WHERE  id='%s' AND is_admin ='1' AND senha = md5('%s') AND oculto = 0";
 
-  $userbusca = $g->tratar_query($query,$_POST["id"], $_POST["pass"]);
+  $userbusca = $g->tratar_query($query, $_POST["id"], $_POST["pass"]);
   $id_funcionario = $_POST["id"];
+  
   // $userbusca vai receber a qt de linhas que tem essa busca 
     if(mysql_num_rows($userbusca) == 1 ){
 
         session_start(); // inicia sessão
         $row = mysql_fetch_array($userbusca);
-        $query = "SELECT * FROM empresa WHERE  id='%s'";
+        $query = "SELECT * FROM empresa WHERE  id = '%s'";
         $result = $g->tratar_query($query, $row['id_empresa']);
         $empresa = mysql_fetch_array($result);
         $_SESSION["id"] = $row['id']; // nomeia id da sessão
