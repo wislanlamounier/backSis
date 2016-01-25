@@ -17,7 +17,7 @@
             $g->tratar_query("UPDATE horarios SET id_obs_supervisor = '%s' WHERE id = '%s'", $id_obs, $id);
 
              echo "<script>window.location='principal';</script>";
-
+  
       }
 
       if(isset($_GET['id_horario']) && $_GET['id_horario'] != ""){
