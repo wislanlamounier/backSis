@@ -51,7 +51,7 @@ function validate(){
                         $altura = $_POST['altura'];
                         $comprimento = $_POST['comprimento'];
                         $largura = $_POST['largura'];
-                        $tempo_estimado_conclusao = $_POST['dias'];
+                        $tempo_estimado_conclusao = $_POST['temp_estim_conclusao'];
 
                         $produto->add_produtos($nome, $id_empresa, $altura, $largura, $comprimento, $tempo_estimado_conclusao);//inserindo dados no objeto
                         $id_produto = $produto->add_produto_bd();
@@ -91,7 +91,7 @@ function validate(){
                         $altura = $_POST['altura'];
                         $comprimento = $_POST['comprimento'];
                         $largura = $_POST['largura'];
-                        $tempo_estimado_conclusao = $_POST['dias'];
+                        $tempo_estimado_conclusao = $_POST['temp_estim_conclusao'];
                         $produto = $produto->atualiza_produto($nome, $id_produto, $altura, $largura, $comprimento, $tempo_estimado_conclusao);
                         
                         if($id_produto){
@@ -182,7 +182,7 @@ function validate(){
                                                       </tr>
                                                       <tr><td colspan="3"><span><b>Tempo estimado de conclusão</b></span></td></tr>
                                                       <tr>
-                                                          <td colspan="3"><input type="text" id="dias" name="dias" style="width:50%" placeholder="Dias" title="Digite o tempo de conclusão estimado para esse produto" value="<?php echo $produto->tempo_estimado_conclusao ?>"><span> dias</span></td>
+                                                          <td colspan="3"><input type="text" id="temp_estim_conclusao" name="temp_estim_conclusao" style="width:50%" placeholder="Horas" title="Digite o tempo de conclusão estimado para esse produto" value="<?php echo $produto->tempo_estimado_conclusao ?>"><span> Horas</span></td>
                                                       </tr>
                                                     
                                                   </table>
@@ -291,7 +291,7 @@ function validate(){
                                                       </tr>
                                                       <tr><td colspan="3"><span><b>Tempo estimado de conclusão</b></span></td></tr>
                                                       <tr>
-                                                          <td colspan="3"><input type="text" id="dias" name="dias" style="width:50%" placeholder="Dias" title="Digite o tempo de conclusão estimado para esse produto"><span> dias</span></td>
+                                                          <td colspan="3"><input type="text" id="temp_estim_conclusao" name="temp_estim_conclusao" style="width:50%" placeholder="Horas" title="Digite o tempo de conclusão estimado para esse produto"><span> Horas</span></td>
                                                       </tr>
                                                     
                                                   </table>
