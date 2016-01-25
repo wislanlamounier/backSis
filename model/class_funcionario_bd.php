@@ -230,7 +230,7 @@ class Funcionario{
 	     	$this->id = $row['id'];
 	     	$this->nome = $row['nome'];
 	     	$this->cpf = $row['cpf'];
-                $func->cnh = $row['cnh'];
+                $this->cnh = $row['cnh'];
 	     	$this->email = $row['email'];
 	     	$this->telefone = $row['telefone'];
 	     	$this->data_nasc = $row['data_nasc'];
@@ -280,7 +280,7 @@ class Funcionario{
 	     	$this->id = $row['id'];
 	     	$this->nome = $row['nome'];
 	     	$this->cpf = $row['cpf'];
-                $func->cnh = $row['cnh'];
+                $this->cnh = $row['cnh'];
 	     	$this->email = $row['email'];
 	     	$this->telefone = $row['telefone'];
 	     	$this->data_nasc = $row['data_nasc'];
